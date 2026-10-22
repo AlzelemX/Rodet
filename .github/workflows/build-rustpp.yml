@@ -34,7 +34,7 @@ jobs:
           df -h /
 
       - name: Checkout Rust++
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -68,10 +68,15 @@ jobs:
       # GITHUB_ACTIONS is unset so bootstrap uses its local-checkout logic
       # (find the latest bors commit) instead of rust-lang's own CI layout.
       - name: Build stage1 compiler + standard library
-        run: env -u GITHUB_ACTIONS python3 x.py build library
+        run: |
+          set -o pipefail
+          env -u GITHUB_ACTIONS python3 x.py build library 2>&1 | tee build.log
 
       - name: Smoke test
         run: |
+          set -o pipefail
+          exec > >(tee smoke.log) 2>&1
+          ls -la build/host/stage1/bin || true
           RUSTC=build/host/stage1/bin/rustc
           $RUSTC -vV
           $RUSTC --version | grep -F "(Rust++)"
@@ -114,4 +119,23 @@ jobs:
             --notes-file notes.md --latest
 
       - name: Run Rust++ UI tests
-        run: env -u GITHUB_ACTIONS python3 x.py test tests/ui/rustpp --stage 1
+        run: |
+          set -o pipefail
+          env -u GITHUB_ACTIONS python3 x.py test tests/ui/rustpp --stage 1 2>&1 | tee test.log
+
+      # Job logs are not always easy to reach, so surface the important
+      # parts as annotations on the run.
+      - name: Report
+        if: always()
+        run: |
+          report() { # title file lines
+            [ -f "$2" ] || return 0
+            msg=$(grep -v '^\s*$' "$2" | tail -n "$3" | cut -c1-300 | sed -e 's/%/%25/g' | sed -e ':a;N;$!ba;s/\n/%0A/g')
+            echo "::notice title=$1::$msg"
+          }
+          grep -nE "^(error|warning: LLVM|Building|Downloading|Build completed)|downloading " build.log 2>/dev/null | head -n 40 > build-key.log || true
+          report "build key lines" build-key.log 40
+          report "build tail" build.log 60
+          report "smoke test" smoke.log 40
+          report "ui test tail" test.log 40
+          echo "::notice title=disk::$(df -h / | tail -1)"
