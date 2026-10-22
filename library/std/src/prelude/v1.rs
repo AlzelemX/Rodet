@@ -60,6 +60,11 @@ pub use crate::{
     dbg, eprint, eprintln, format, is_x86_feature_detected, print, println, thread_local
 };
 
+// Rust++: `out!` is used like `println!`, so it has to be reachable without an import.
+#[stable(feature = "rustpp_out_macro", since = "CURRENT_RUSTC_VERSION")]
+#[doc(no_inline)]
+pub use crate::out;
+
 // These macros need special handling, so that we don't export them *and* the modules of the same
 // name. We only want the macros in the prelude so we shadow the original modules with private
 // modules with the same names.

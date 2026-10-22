@@ -16,7 +16,7 @@ to be contributed to `rust-lang/rust`.
 
 | Change | Where |
 |---|---|
-| New `out!` macro: prints a line, exactly like `println!` | `library/std/src/macros.rs` |
+| New `out!` macro: prints a line, exactly like `println!` | `library/std/src/macros.rs`, `library/std/src/prelude/v1.rs` |
 | `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
 | Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
 | Automatic build + release on every push | `.github/workflows/build-rustpp.yml` |
