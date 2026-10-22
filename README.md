@@ -12,6 +12,57 @@ The Rust++ changes in this repository were written with the help of an AI
 assistant (Claude) for personal use and experimentation. They are not intended
 to be contributed to `rust-lang/rust`.
 
+
+# 🚀 [Project Name] - Roadmap & Progress
+
+<div align="center">
+
+### 📊 Project Status Overview
+
+| 🔴 To Do | 🟡 In Progress | 🟢 Completed | 🟣 Backlog |
+| :--- | :--- | :--- | :--- |
+| ![](https://img.shields.io/badge/Status-Pending-red?style=for-the-badge) | ![](https://img.shields.io/badge/Status-Active-yellow?style=for-the-badge) | ![](https://img.shields.io/badge/Status-Done-brightgreen?style=for-the-badge) | ![](https://img.shields.io/badge/Status-Future-purple?style=for-the-badge) |
+
+</div>
+
+---
+
+### 📋 Main Task Board
+
+| # | Task / Feature | Priority | Status | Assignee |
+| :-: | :--- | :-: | :-: | :-: |
+| 1 | **Design Landing Page UI** | `🔴 Urgent` | ![](https://img.shields.io/badge/Status-In_Progress-yellow) | `@username` |
+| 2 | **Database Schema Setup** | `🔴 High` | ![](https://img.shields.io/badge/Status-To_Do-red) | `@username` |
+| 3 | **Authentication & Login System** | `🟢 Done` | ![](https://img.shields.io/badge/Status-Done-brightgreen) | `@username` |
+| 4 | **Multi-Language Support (i18n)** | `🟡 Medium` | ![](https://img.shields.io/badge/Status-In_Progress-yellow) | `@username` |
+| 5 | **Optimize API Performance** | `🟢 Low` | ![](https://img.shields.io/badge/Status-To_Do-red) | `@username` |
+| 6 | **Dark Mode Toggle** | `🟣 Idea` | ![](https://img.shields.io/badge/Status-Backlog-purple) | `@username` |
+
+---
+
+### 📌 Task Breakdown & Checklists
+
+#### 🔴 Pending (To Do)
+- [ ] Write API documentation
+- [ ] Set up end-to-end integration tests
+
+#### 🟡 In Progress
+- [x] Initial repository configuration
+- [/] Profile page UI implementation
+
+#### 🟢 Completed
+- [x] Repository setup on GitHub
+- [x] Design system and color palette selection
+
+---
+
+<div align="center">
+
+💡 **Note:** This status board is updated regularly to reflect current project progress.
+
+</div>
+
+
 ## What is different from Rust?
 
 | Change | Where |
