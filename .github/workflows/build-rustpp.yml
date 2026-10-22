@@ -64,10 +64,10 @@ jobs:
 
       # GITHUB_ACTIONS is unset so bootstrap behaves like a local build
       # instead of assuming rust-lang's own CI setup.
-      - name: Build stage1 compiler + standard library
+      - name: Build stage1 compiler, standard library and rustdoc
         run: |
           set -o pipefail
-          env -u GITHUB_ACTIONS $PY x.py build library 2>&1 | tee build.log
+          env -u GITHUB_ACTIONS $PY x.py build library src/tools/rustdoc 2>&1 | tee build.log
 
       - name: Smoke test
         run: |
@@ -83,8 +83,9 @@ jobs:
         run: |
           set -o pipefail
           exec > >(tee package.log) 2>&1
-          VERSION=$(cat src/version)
-          NAME="rustpp-${VERSION}-${GITHUB_RUN_NUMBER}-${TARGET}"
+          # Stable asset names, so ".../releases/latest/download/<name>" always
+          # points at the newest build (the Windows installer relies on it).
+          NAME="rustpp-${TARGET}"
           mkdir -p dist out
           # The sysroot links back into the source tree (lib/rustlib/src,
           # lib/rustlib/rustc-src); drop those, they only serve rust-analyzer.
@@ -92,7 +93,11 @@ jobs:
               --exclude=stage1/lib/rustlib/src --exclude=stage1/lib/rustlib/rustc-src \
               -cf - stage1 | tar -C dist -xf -
           mv dist/stage1 dist/rustpp
+          # cargo comes from the stage0 snapshot (deps-snapshot release), so the
+          # package is a complete toolchain: rustc, rustdoc, cargo, std.
+          cp "build/$TARGET/stage0/bin/cargo$EXE" dist/rustpp/bin/
           cp rustpp/examples/hello.rs dist/rustpp/
+          ls dist/rustpp/bin
           du -sh dist/rustpp
           if [ "$RUNNER_OS" = "Windows" ]; then
             (cd dist && 7z a -tzip -mx=7 "../out/${NAME}.zip" rustpp > /dev/null)
@@ -101,6 +106,40 @@ jobs:
           fi
           "build/$TARGET/stage1/bin/rustc$EXE" --version > out/version.txt
           ls -lh out
+
+      - name: Test the packaged toolchain with cargo
+        run: |
+          set -o pipefail
+          exec > >(tee cargo-test.log) 2>&1
+          export PATH="$PWD/dist/rustpp/bin:$PATH"
+          rustc --version
+          cargo --version
+          rustdoc --version
+          cd "$RUNNER_TEMP"
+          cargo new --vcs none rustpp-demo
+          cd rustpp-demo
+          cat > src/main.rs <<'EOF'
+          fn main() {
+              out!("cargo + Rust++ works on {}", std::env::consts::OS);
+          }
+          EOF
+          cat src/main.rs
+          cargo run
+
+      - name: Build and test the Windows installer
+        if: runner.os == 'Windows'
+        run: |
+          set -o pipefail
+          exec > >(tee installer.log) 2>&1
+          dist/rustpp/bin/rustc.exe --edition 2024 -O -C target-feature=+crt-static \
+              rustpp/installer/main.rs -o "out/rustup++_init.exe"
+          ls -l out
+          "out/rustup++_init.exe" -y --from-file "out/rustpp-$TARGET.zip"
+          "$USERPROFILE/.rustpp/bin/rustc.exe" --version
+          "$USERPROFILE/.rustpp/bin/cargo.exe" --version
+          powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','User')" | tr ';' '\n' | head -3
+          "out/rustup++_init.exe" -y --uninstall
+          test ! -e "$USERPROFILE/.rustpp"
 
       - name: Upload build
         uses: actions/upload-artifact@v4
@@ -131,6 +170,8 @@ jobs:
           report "build tail" build.log 60
           report "smoke test" smoke.log 40
           report "package" package.log 30
+          report "cargo test" cargo-test.log 30
+          report "installer" installer.log 40
           report "ui test tail" test.log 30
           echo "::notice title=disk ($TARGET)::$(df -h . | tail -1)"
 
@@ -151,7 +192,7 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          files=(artifacts/*/*.tar.xz artifacts/*/*.zip)
+          files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe)
           if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
           VERSION=$(cat artifacts/*/version.txt | head -1)
           TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${GITHUB_RUN_NUMBER}"
@@ -160,23 +201,26 @@ jobs:
             echo
             echo "\`$VERSION\`"
             echo
-            echo "## Windows (x86_64)"
+            echo "## Windows: easiest way"
             echo
-            echo "Download the \`.zip\`, extract it (you get a \`rustpp\` folder), then in PowerShell:"
+            echo "Download **\`rustup++_init.exe\`** and double-click it. It installs Rust++ (rustc, cargo, rustdoc)"
+            echo "into \`%USERPROFILE%\\.rustpp\` and adds it to your PATH. Then in a new terminal:"
             echo
-            echo '```powershell'
-            echo 'rustup toolchain link rustpp "C:\path\to\rustpp"'
-            echo 'rustc +rustpp --version'
-            echo 'rustc +rustpp C:\path\to\rustpp\hello.rs'
-            echo '.\hello.exe'
             echo '```'
+            echo 'rustc --version'
+            echo 'cargo new hello'
+            echo 'cd hello'
+            echo 'cargo run'
+            echo '```'
+            echo
+            echo "Uninstall: \`rustup++_init.exe --uninstall\`"
             echo
             echo "## Linux (x86_64)"
             echo
             echo '```bash'
-            echo 'tar -xJf rustpp-*-x86_64-unknown-linux-gnu.tar.xz'
-            echo 'rustup toolchain link rustpp "$PWD/rustpp"'
-            echo 'rustc +rustpp rustpp/hello.rs && ./hello'
+            echo 'tar -xJf rustpp-x86_64-unknown-linux-gnu.tar.xz'
+            echo 'export PATH="$PWD/rustpp/bin:$PATH"'
+            echo 'rustc --version && cargo --version'
             echo '```'
           } > notes.md
           gh release create "$TAG" "${files[@]}" -R "$REPO" \

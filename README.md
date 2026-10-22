@@ -20,6 +20,7 @@ to be contributed to `rust-lang/rust`.
 | `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
 | Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
 | Automatic Windows + Linux build and release on every push | `.github/workflows/build-rustpp.yml` |
+| Windows installer `rustup++_init.exe` | `rustpp/installer/main.rs` |
 | Builds without rust-lang servers | `rustpp/setup-deps.py`, `src/ci-llvm-sha`, `src/bootstrap/src/core/download.rs` |
 
 ```rust
@@ -30,33 +31,35 @@ fn main() {
 }
 ```
 
-## Download and use a prebuilt compiler
+## Install
 
-Every push to `main` builds the compiler on GitHub Actions and publishes it on
-the [Releases](../../releases) page, for **Windows** and **Linux** (x86_64).
+### Windows: `rustup++_init.exe`
 
-You need [rustup](https://rustup.rs) installed (it provides `cargo`).
-
-### Windows (PowerShell)
-
-1. Download `rustpp-...-x86_64-pc-windows-msvc.zip` from Releases and extract
-   it, for example to `C:\rustpp`.
-2. Register it with rustup and use it:
+1. Download **`rustup++_init.exe`** from the latest
+   [release](../../releases/latest) and double-click it.
+2. It installs Rust++ (`rustc`, `cargo`, `rustdoc` and the standard library)
+   into `%USERPROFILE%\.rustpp`, puts `%USERPROFILE%\.rustpp\bin` first in your
+   PATH, and offers to install the Visual Studio C++ Build Tools if they are
+   missing (Windows programs are linked with Microsoft's linker).
+3. Open a **new** terminal:
 
 ```powershell
-rustup toolchain link rustpp C:\rustpp
-rustc +rustpp --version          # rustc 1.101.0-dev (Rust++)
-rustc +rustpp C:\rustpp\hello.rs
-.\hello.exe
-cargo +rustpp run                # inside a cargo project
+rustc --version      # rustc 1.101.0-dev (Rust++)
+cargo new hello
+cd hello
+cargo run
 ```
+
+There is no toolchain switching: `rustc` and `cargo` are Rust++. The official
+`rustup` is not needed. Run the installer again to update, or
+`rustup++_init.exe --uninstall` to remove Rust++.
 
 ### Linux
 
 ```bash
-tar -xJf rustpp-*-x86_64-unknown-linux-gnu.tar.xz
-rustup toolchain link rustpp "$PWD/rustpp"
-rustc +rustpp rustpp/hello.rs && ./hello
+tar -xJf rustpp-x86_64-unknown-linux-gnu.tar.xz
+export PATH="$PWD/rustpp/bin:$PATH"     # add this line to ~/.bashrc to keep it
+rustc --version && cargo --version
 ```
 
 ## Independent from Rust's servers
@@ -85,8 +88,8 @@ Needs Python 3, Git, a C/C++ toolchain (Visual Studio Build Tools with
 git clone https://github.com/AlzelemX/Rust- rustpp
 cd rustpp
 python rustpp/setup-deps.py      # python3 on Linux
-python x.py build library
-rustup toolchain link rustpp build/host/stage1
+python x.py build library src/tools/rustdoc
+# the toolchain is now in build/host/stage1 (add cargo from build/host/stage0/bin)
 ```
 
 ## License
