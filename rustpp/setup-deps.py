@@ -168,7 +168,10 @@ def main():
         )
         print("extracting   vendor.tar.xz")
         with tarfile.open(archive, "r:xz") as tar:
-            tar.extractall(ROOT)
+            if hasattr(tarfile, "data_filter"):
+                tar.extractall(ROOT, filter="data")
+            else:
+                tar.extractall(ROOT)
     else:
         print("ok (exists)  vendor/")
 

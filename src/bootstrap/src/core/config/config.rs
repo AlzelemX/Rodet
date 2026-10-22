@@ -1674,7 +1674,14 @@ NOTE: Please add `--stage 2` to your command line, or if you're sure you want to
     /// Bootstrap embeds a version number into the name of shared libraries it uploads in CI.
     /// Return the version it would have used for the given commit.
     pub(crate) fn artifact_version_part(&self, commit: &str) -> String {
-        let (channel, version) = if self.rust_info.is_managed_git_subrepository() {
+        // Rust++: the LLVM commit pinned in `src/ci-llvm-sha` is not part of this
+        // repository's history, so `git show` cannot read files at it. Read the
+        // working tree instead; `src/ci/channel` and `src/version` are kept as
+        // they were at that commit.
+        let llvm_sha_pinned = self.src.join("src/ci-llvm-sha").exists();
+        let (channel, version) = if self.rust_info.is_managed_git_subrepository()
+            && !llvm_sha_pinned
+        {
             let channel =
                 self.read_file_by_commit(Path::new("src/ci/channel"), commit).trim().to_owned();
             let version =
