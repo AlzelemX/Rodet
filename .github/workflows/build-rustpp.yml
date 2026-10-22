@@ -88,8 +88,10 @@ jobs:
           mkdir -p dist out
           # The sysroot links back into the source tree (lib/rustlib/src,
           # lib/rustlib/rustc-src); drop those, they only serve rust-analyzer.
-          cp -a "build/$TARGET/stage1" dist/rustpp
-          rm -rf dist/rustpp/lib/rustlib/src dist/rustpp/lib/rustlib/rustc-src
+          tar -C "build/$TARGET" \
+              --exclude=stage1/lib/rustlib/src --exclude=stage1/lib/rustlib/rustc-src \
+              -cf - stage1 | tar -C dist -xf -
+          mv dist/stage1 dist/rustpp
           cp rustpp/examples/hello.rs dist/rustpp/
           du -sh dist/rustpp
           if [ "$RUNNER_OS" = "Windows" ]; then
