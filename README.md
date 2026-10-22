@@ -13,7 +13,7 @@ assistant (Claude) for personal use and experimentation. They are not intended
 to be contributed to `rust-lang/rust`.
 
 
-# 🚀 [Project Name] - Roadmap & Progress
+# 🚀 [Rust ++ ] - Roadmap & Progress
 
 <div align="center">
 
@@ -25,34 +25,20 @@ to be contributed to `rust-lang/rust`.
 
 </div>
 
----
-
-### 📋 Main Task Board
-
-| # | Task / Feature | Priority | Status | Assignee |
-| :-: | :--- | :-: | :-: | :-: |
-| 1 | **Design Landing Page UI** | `🔴 Urgent` | ![](https://img.shields.io/badge/Status-In_Progress-yellow) | `@username` |
-| 2 | **Database Schema Setup** | `🔴 High` | ![](https://img.shields.io/badge/Status-To_Do-red) | `@username` |
-| 3 | **Authentication & Login System** | `🟢 Done` | ![](https://img.shields.io/badge/Status-Done-brightgreen) | `@username` |
-| 4 | **Multi-Language Support (i18n)** | `🟡 Medium` | ![](https://img.shields.io/badge/Status-In_Progress-yellow) | `@username` |
-| 5 | **Optimize API Performance** | `🟢 Low` | ![](https://img.shields.io/badge/Status-To_Do-red) | `@username` |
-| 6 | **Dark Mode Toggle** | `🟣 Idea` | ![](https://img.shields.io/badge/Status-Backlog-purple) | `@username` |
-
----
 
 ### 📌 Task Breakdown & Checklists
 
 #### 🔴 Pending (To Do)
-- [ ] Write API documentation
+- [ ] on_rady() | Declarative Constructor
 - [ ] Set up end-to-end integration tests
 
 #### 🟡 In Progress
-- [x] Initial repository configuration
-- [/] Profile page UI implementation
+- [x] Platform support | Linux , Mac , ... 
+- [x] Convert 'static to 'global
+- [ ] Edit Style Liftime To [] Style
 
 #### 🟢 Completed
-- [x] Repository setup on GitHub
-- [x] Design system and color palette selection
+
 
 ---
 
