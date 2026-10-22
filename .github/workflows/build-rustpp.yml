@@ -89,7 +89,14 @@ jobs:
           VERSION=$(cat src/version)
           NAME="rustpp-${VERSION}-${GITHUB_RUN_NUMBER}-${TARGET}"
           mkdir -p dist
-          cp -rL build/host/stage1 dist/rustpp
+          exec > >(tee package.log) 2>&1
+          # The sysroot contains symlinks back to the source tree
+          # (lib/rustlib/src, lib/rustlib/rustc-src); keep links as links and
+          # drop those, they only matter for rust-analyzer on this machine.
+          cp -a build/host/stage1 dist/rustpp
+          rm -rf dist/rustpp/lib/rustlib/src dist/rustpp/lib/rustlib/rustc-src
+          find dist/rustpp -type l -printf '%p -> %l\n'
+          du -sh dist/rustpp
           cp rustpp/examples/hello.rs dist/rustpp/
           tar -C dist -cf - rustpp | xz -T0 -6 > "${NAME}.tar.xz"
           ls -lh "${NAME}.tar.xz"
@@ -137,5 +144,6 @@ jobs:
           report "build key lines" build-key.log 40
           report "build tail" build.log 60
           report "smoke test" smoke.log 40
+          report "package" package.log 30
           report "ui test tail" test.log 40
           echo "::notice title=disk::$(df -h / | tail -1)"
