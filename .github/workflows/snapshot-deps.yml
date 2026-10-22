@@ -1,32 +1,67 @@
-name: Snapshot dependencies (run once)
+name: Snapshot dependencies (run once per platform)
 
-# Copies everything the build needs from Rust's servers into this repository's
-# `deps-snapshot` release. After this has run, building Rust++ only downloads
-# from that release (see rustpp/setup-deps.py), never from rust-lang servers.
+# Copies what the build needs from Rust's servers into this repository's
+# `deps-snapshot` release: for each platform, the stage0 compiler (rustc,
+# rust-std, cargo) and the prebuilt LLVM pinned in src/ci-llvm-sha; plus the
+# vendored crates.io dependencies (shared by all platforms).
 #
-# Run it manually from the Actions tab. Re-running replaces the snapshot.
+# Building Rust++ then only downloads from that release (rustpp/setup-deps.py).
+# Run this manually from the Actions tab, only when adding a new platform.
+# Files already in the release are kept; files for the listed platforms are
+# added or replaced (their checksums are fixed by src/stage0, so a refresh
+# gives the same files).
 
 on:
   workflow_dispatch:
+    inputs:
+      targets:
+        description: Platforms (host triples) to add, separated by spaces
+        default: >-
+          x86_64-unknown-linux-gnu x86_64-pc-windows-msvc aarch64-unknown-linux-gnu
+          aarch64-apple-darwin x86_64-apple-darwin
+      refresh_vendor:
+        description: Re-vendor crates even if vendor.tar.xz already exists
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
 jobs:
   snapshot:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGETS: ${{ inputs.targets }}
     steps:
       - uses: actions/checkout@v5
 
-      - name: Download stage0 compilers (Linux + Windows)
+      - name: Make sure the deps-snapshot release exists
+        run: |
+          set -euo pipefail
+          if ! gh release view deps-snapshot > /dev/null 2>&1; then
+            cat > notes.md <<'EOF'
+          Build dependencies of Rust++, copied from Rust's servers so the build
+          no longer needs them: stage0 compilers, prebuilt LLVM and vendored
+          crates, per platform. Used by `rustpp/setup-deps.py`. This is not a
+          compiler release; see the other releases for that.
+          EOF
+            gh release create deps-snapshot --title "Build dependencies snapshot" \
+              --notes-file notes.md --latest=false
+          fi
+          mkdir -p snap old
+          gh release download deps-snapshot -p SHA256SUMS -D old || touch old/SHA256SUMS
+          gh release view deps-snapshot --json assets --jq '.assets[].name' > old/assets.txt
+          cat old/assets.txt
+
+      - name: Download stage0 compilers
         run: |
           set -euo pipefail
           DATE=$(sed -n 's/^compiler_date=//p' src/stage0)
           VER=$(sed -n 's/^compiler_version=//p' src/stage0)
           SERVER=$(sed -n 's/^dist_server=//p' src/stage0)
-          mkdir -p snap
-          for t in x86_64-unknown-linux-gnu x86_64-pc-windows-msvc; do
+          for t in $TARGETS; do
             for c in rustc rust-std cargo; do
               f="$c-$VER-$t.tar.xz"
               curl -fsSL --retry 3 -o "snap/$f" "$SERVER/dist/$DATE/$f"
@@ -35,12 +70,12 @@ jobs:
             done
           done
 
-      - name: Download prebuilt LLVM (Linux + Windows)
+      - name: Download prebuilt LLVM
         run: |
           set -euo pipefail
           SHA=$(cat src/ci-llvm-sha)
           SERVER=$(sed -n 's/^artifacts_server=//p' src/stage0)
-          for t in x86_64-unknown-linux-gnu x86_64-pc-windows-msvc; do
+          for t in $TARGETS; do
             f="rust-dev-nightly-$t.tar.xz"
             curl -fsSL --retry 3 -o "snap/$f" "$SERVER/$SHA/$f"
           done
@@ -48,33 +83,34 @@ jobs:
       - name: Vendor crates.io dependencies
         run: |
           set -euo pipefail
+          if grep -qx vendor.tar.xz old/assets.txt && [ "${{ inputs.refresh_vendor }}" != "true" ]; then
+            echo "vendor.tar.xz already in the release, keeping it"
+            exit 0
+          fi
           VER=$(sed -n 's/^compiler_version=//p' src/stage0)
           T=x86_64-unknown-linux-gnu
-          mkdir -p /tmp/stage0
+          mkdir -p /tmp/stage0 /tmp/s0
           for c in rustc cargo; do
-            tar -xJf "snap/$c-$VER-$T.tar.xz" -C /tmp/stage0 --strip-components=2 "$c-$VER-$T/$c"
+            f="$c-$VER-$T.tar.xz"
+            [ -f "snap/$f" ] || gh release download deps-snapshot -p "$f" -D /tmp/s0
+            src="snap/$f"; [ -f "$src" ] || src="/tmp/s0/$f"
+            tar -xJf "$src" -C /tmp/stage0 --strip-components=2 "$c-$VER-$T/$c"
           done
           export PATH=/tmp/stage0/bin:$PATH RUSTC=/tmp/stage0/bin/rustc RUSTC_BOOTSTRAP=1
-          cargo --version
           cargo vendor --locked --sync library/Cargo.toml --sync src/bootstrap/Cargo.toml vendor > /dev/null
           du -sh vendor
           tar -cf - vendor | xz -T0 -6 > snap/vendor.tar.xz
 
-      - name: Publish deps-snapshot release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Upload to the deps-snapshot release
         run: |
           set -euo pipefail
           cd snap
-          sha256sum * > SHA256SUMS
+          sha256sum * > new.sums
+          # Keep checksums of files we did not touch, replace the rest.
+          awk 'NR==FNR { new[$2]=1; next } !($2 in new)' new.sums ../old/SHA256SUMS > SHA256SUMS
+          cat new.sums >> SHA256SUMS
+          rm new.sums
+          sort -k2 SHA256SUMS -o SHA256SUMS
           cat SHA256SUMS
           ls -lh
-          gh release delete deps-snapshot --yes --cleanup-tag || true
-          cat > ../notes.md <<'EOF'
-          Build dependencies of Rust++, copied once from Rust's servers so the
-          build no longer needs them: stage0 compilers, prebuilt LLVM and
-          vendored crates. Used by `rustpp/setup-deps.py`. Not a compiler
-          release; see the other releases for that.
-          EOF
-          gh release create deps-snapshot * --title "Build dependencies snapshot" \
-            --notes-file ../notes.md --latest=false
+          gh release upload deps-snapshot * --clobber

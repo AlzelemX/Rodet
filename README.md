@@ -19,8 +19,8 @@ to be contributed to `rust-lang/rust`.
 | New `out!` macro: prints a line, exactly like `println!` | `library/std/src/macros.rs`, `library/std/src/prelude/v1.rs` |
 | `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
 | Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
-| Automatic Windows + Linux build and release on every push | `.github/workflows/build-rustpp.yml` |
-| Windows installer `rustup++_init.exe` | `rustpp/installer/main.rs` |
+| Automatic Windows, Linux and macOS builds and release on every push | `.github/workflows/build-rustpp.yml` |
+| Installers `rustup++_init.exe` (Windows) and `rustup++_init.sh` (Linux/macOS) | `rustpp/installer/` |
 | Builds without rust-lang servers | `rustpp/setup-deps.py`, `src/ci-llvm-sha`, `src/bootstrap/src/core/download.rs` |
 
 ```rust
@@ -54,13 +54,35 @@ There is no toolchain switching: `rustc` and `cargo` are Rust++. The official
 `rustup` is not needed. Run the installer again to update, or
 `rustup++_init.exe --uninstall` to remove Rust++.
 
-### Linux
+### Linux and macOS: `rustup++_init.sh`
 
-```bash
-tar -xJf rustpp-x86_64-unknown-linux-gnu.tar.xz
-export PATH="$PWD/rustpp/bin:$PATH"     # add this line to ~/.bashrc to keep it
-rustc --version && cargo --version
+```sh
+curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh
 ```
+
+It detects your system, installs Rust++ into `~/.rustpp`, and adds
+`~/.rustpp/bin` to your PATH (in `~/.profile`, `~/.bashrc`, `~/.zshrc`).
+Open a new terminal and run `rustc --version`. You also need a C linker:
+`xcode-select --install` on macOS, `build-essential` (or `gcc`) on Linux.
+
+Uninstall:
+
+```sh
+curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall
+```
+
+### Supported platforms
+
+| Platform | Package | Installer |
+|---|---|---|
+| Windows x86_64 | `rustpp-x86_64-pc-windows-msvc.zip` | `rustup++_init.exe` |
+| Linux x86_64 (glibc 2.39+) | `rustpp-x86_64-unknown-linux-gnu.tar.xz` | `rustup++_init.sh` |
+| Linux ARM64 (glibc 2.39+) | `rustpp-aarch64-unknown-linux-gnu.tar.xz` | `rustup++_init.sh` |
+| macOS Apple Silicon | `rustpp-aarch64-apple-darwin.tar.xz` | `rustup++_init.sh` |
+| macOS Intel | `rustpp-x86_64-apple-darwin.tar.xz` | `rustup++_init.sh` |
+
+To add another platform, run the *Snapshot dependencies* workflow with its
+host triple, then add it to the matrix in `.github/workflows/build-rustpp.yml`.
 
 ## Independent from Rust's servers
 

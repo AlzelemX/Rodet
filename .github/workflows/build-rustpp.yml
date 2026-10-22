@@ -25,14 +25,28 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          # Linux builds use Ubuntu 24.04 on purpose: the compiler then runs on
+          # any distro with glibc 2.39 or newer (Ubuntu 24.04+, Debian 13+, ...).
+          - os: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
+            exe: ""
+            py: python3
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
             exe: ""
             py: python3
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             exe: ".exe"
             py: python
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            exe: ""
+            py: python3
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            exe: ""
+            py: python3
     runs-on: ${{ matrix.os }}
     timeout-minutes: 300
     defaults:
@@ -50,6 +64,19 @@ jobs:
                       /opt/hostedtoolcache/CodeQL /usr/local/share/boost \
                       /usr/share/swift /usr/local/julia* /opt/microsoft || true
           sudo docker image prune --all --force > /dev/null 2>&1 || true
+          df -h /
+
+      - name: Free disk space (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          df -h /
+          # Keep only the selected Xcode (compare real paths: Xcode.app is often a symlink).
+          KEEP=$(cd "$(xcode-select -p)/../.." && pwd -P)
+          for x in /Applications/Xcode*.app; do
+            [ "$(cd "$x" && pwd -P)" = "$KEEP" ] || sudo rm -rf "$x"
+          done
+          sudo rm -rf ~/Library/Android /usr/local/share/dotnet ~/.dotnet \
+                      ~/Library/Developer/CoreSimulator /Library/Developer/CoreSimulator || true
           df -h /
 
       - name: Allow long paths (Windows)
@@ -102,7 +129,7 @@ jobs:
           if [ "$RUNNER_OS" = "Windows" ]; then
             (cd dist && 7z a -tzip -mx=7 "../out/${NAME}.zip" rustpp > /dev/null)
           else
-            tar -C dist -cf - rustpp | xz -T0 -6 > "out/${NAME}.tar.xz"
+            XZ_OPT="-T0 -6" tar -C dist -cJf "out/${NAME}.tar.xz" rustpp
           fi
           "build/$TARGET/stage1/bin/rustc$EXE" --version > out/version.txt
           ls -lh out
@@ -141,6 +168,23 @@ jobs:
           "out/rustup++_init.exe" -y --uninstall
           test ! -e "$USERPROFILE/.rustpp"
 
+      - name: Test the Linux/macOS installer
+        if: runner.os != 'Windows'
+        run: |
+          set -o pipefail
+          exec > >(tee installer.log) 2>&1
+          sh rustpp/installer/install.sh --from-file "out/rustpp-$TARGET.tar.xz"
+          "$HOME/.rustpp/bin/rustc" --version
+          "$HOME/.rustpp/bin/cargo" --version
+          grep -h "Rust++ installer" ~/.profile
+          sh rustpp/installer/install.sh --uninstall
+          test ! -e "$HOME/.rustpp"
+          ! grep -q "Rust++ installer" ~/.profile
+          # The installer script is published once, next to the Linux x86_64 build.
+          if [ "$TARGET" = x86_64-unknown-linux-gnu ]; then
+            cp rustpp/installer/install.sh "out/rustup++_init.sh"
+          fi
+
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
@@ -149,8 +193,8 @@ jobs:
           retention-days: 3
           compression-level: 0
 
-      - name: Run Rust++ UI tests (Linux)
-        if: runner.os == 'Linux'
+      - name: Run Rust++ UI tests (Linux x86_64)
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
         run: |
           set -o pipefail
           env -u GITHUB_ACTIONS $PY x.py test tests/ui/rustpp --stage 1 2>&1 | tee test.log
@@ -192,7 +236,7 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe)
+          files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe artifacts/*/*.sh)
           if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
           VERSION=$(cat artifacts/*/version.txt | head -1)
           TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${GITHUB_RUN_NUMBER}"
@@ -215,13 +259,17 @@ jobs:
             echo
             echo "Uninstall: \`rustup++_init.exe --uninstall\`"
             echo
-            echo "## Linux (x86_64)"
+            echo "## Linux and macOS"
             echo
-            echo '```bash'
-            echo 'tar -xJf rustpp-x86_64-unknown-linux-gnu.tar.xz'
-            echo 'export PATH="$PWD/rustpp/bin:$PATH"'
-            echo 'rustc --version && cargo --version'
+            echo "In a terminal:"
+            echo
+            echo '```sh'
+            echo "curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh"
             echo '```'
+            echo
+            echo "Then open a new terminal and run \`rustc --version\`."
+            echo "Supported: Linux x86_64 and ARM64 (glibc 2.39+), macOS Apple Silicon and Intel."
+            echo "Uninstall: \`curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall\`"
           } > notes.md
           gh release create "$TAG" "${files[@]}" -R "$REPO" \
             --target "$GITHUB_SHA" --title "Rust++ $TAG" --notes-file notes.md --latest

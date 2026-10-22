@@ -68,13 +68,14 @@ directory = "vendor"
 
 def host_triple():
     machine = platform.machine().lower()
-    if machine not in ("x86_64", "amd64"):
-        sys.exit("error: only x86_64 hosts have a snapshot; pass --target explicitly")
-    if sys.platform.startswith("win"):
+    arch = {"x86_64": "x86_64", "amd64": "x86_64", "aarch64": "aarch64", "arm64": "aarch64"}.get(machine)
+    if sys.platform.startswith("win") and arch == "x86_64":
         return "x86_64-pc-windows-msvc"
-    if sys.platform.startswith("linux"):
-        return "x86_64-unknown-linux-gnu"
-    sys.exit("error: no snapshot for this OS; pass --target explicitly")
+    if sys.platform.startswith("linux") and arch:
+        return arch + "-unknown-linux-gnu"
+    if sys.platform == "darwin" and arch:
+        return arch + "-apple-darwin"
+    sys.exit("error: no snapshot for this OS/CPU; pass --target explicitly")
 
 
 def read_stage0():
