@@ -277,8 +277,19 @@ impl Config {
         }
 
         let llvm_root = self.out.join(target).join("ci-llvm");
-        let llvm_freshness =
-            detect_llvm_freshness(self, self.rust_info.is_managed_git_subrepository());
+
+        // Rust++: this fork does not carry upstream rust-lang/rust history, so
+        // the prebuilt LLVM to use is pinned in `src/ci-llvm-sha`. Its tarball
+        // comes from the fork's own dependency snapshot (see rustpp/setup-deps.py).
+        let pinned_llvm_sha = fs::read_to_string(self.src.join("src/ci-llvm-sha"))
+            .ok()
+            .map(|s| s.trim().to_owned())
+            .filter(|s| !s.is_empty());
+
+        let llvm_freshness = match pinned_llvm_sha {
+            Some(upstream) => PathFreshness::LastModifiedUpstream { upstream },
+            None => detect_llvm_freshness(self, self.rust_info.is_managed_git_subrepository()),
+        };
         self.do_if_verbose(|| {
             eprintln!("LLVM freshness: {llvm_freshness:?}");
         });

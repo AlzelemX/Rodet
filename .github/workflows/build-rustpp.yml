@@ -1,5 +1,12 @@
 name: Build Rust++
 
+# Builds the Rust++ compiler (stage1 rustc + standard library) for Linux and
+# Windows and publishes both as one GitHub release.
+#
+# All build inputs come from this repository: the source, and the
+# `deps-snapshot` release (stage0 compiler, prebuilt LLVM, vendored crates)
+# fetched by rustpp/setup-deps.py. Nothing is downloaded from rust-lang servers.
+
 on:
   push:
     branches: [main]
@@ -12,138 +19,163 @@ concurrency:
   group: build-rustpp
   cancel-in-progress: true
 
-env:
-  # Upstream rust-lang/rust commit this fork is based on. The build grafts the
-  # fork's root commit onto it so bootstrap can find a bors merge commit and
-  # download the matching prebuilt LLVM (building LLVM would take hours).
-  UPSTREAM_SHA: c303e414dd813ab090055754d0be647054fce70a
-  TARGET: x86_64-unknown-linux-gnu
-
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            exe: ""
+            py: python3
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            exe: ".exe"
+            py: python
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 300
+    defaults:
+      run:
+        shell: bash
+    env:
+      TARGET: ${{ matrix.target }}
+      EXE: ${{ matrix.exe }}
+      PY: ${{ matrix.py }}
     steps:
-      - name: Free disk space
+      - name: Free disk space (Linux)
+        if: runner.os == 'Linux'
         run: |
-          df -h /
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
                       /opt/hostedtoolcache/CodeQL /usr/local/share/boost \
                       /usr/share/swift /usr/local/julia* /opt/microsoft || true
           sudo docker image prune --all --force > /dev/null 2>&1 || true
           df -h /
 
+      - name: Allow long paths (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global core.longpaths true
+
       - name: Checkout Rust++
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
-      - name: Link history to upstream rust-lang/rust
-        run: |
-          git fetch --no-tags --depth 1 https://github.com/rust-lang/rust "$UPSTREAM_SHA"
-          ROOT=$(git rev-list --max-parents=0 HEAD)
-          git replace --graft "$ROOT" "$UPSTREAM_SHA"
-          git log --format='%h %an: %s' -4
+      - name: Fetch build dependencies from deps-snapshot
+        run: $PY rustpp/setup-deps.py --target "$TARGET" --ci
 
-      - name: Write bootstrap.toml
-        run: |
-          cat > bootstrap.toml <<'EOF'
-          profile = "compiler"
-          change-id = "ignore"
-
-          [build]
-          compiler-docs = false
-
-          [rust]
-          # Release-like compiler: faster to use, no incremental cache on CI.
-          debug-assertions = false
-          debug-logging = false
-          incremental = false
-
-          [llvm]
-          download-ci-llvm = true
-          EOF
-          cat bootstrap.toml
-
-      # GITHUB_ACTIONS is unset so bootstrap uses its local-checkout logic
-      # (find the latest bors commit) instead of rust-lang's own CI layout.
+      # GITHUB_ACTIONS is unset so bootstrap behaves like a local build
+      # instead of assuming rust-lang's own CI setup.
       - name: Build stage1 compiler + standard library
         run: |
           set -o pipefail
-          env -u GITHUB_ACTIONS python3 x.py build library 2>&1 | tee build.log
+          env -u GITHUB_ACTIONS $PY x.py build library 2>&1 | tee build.log
 
       - name: Smoke test
         run: |
           set -o pipefail
           exec > >(tee smoke.log) 2>&1
-          ls -la build/host/stage1/bin || true
-          RUSTC=build/host/stage1/bin/rustc
-          $RUSTC -vV
-          $RUSTC --version | grep -F "(Rust++)"
-          $RUSTC rustpp/examples/hello.rs -o hello
-          ./hello
+          RUSTC="build/$TARGET/stage1/bin/rustc$EXE"
+          "$RUSTC" -vV
+          "$RUSTC" --version | grep -F "(Rust++)"
+          "$RUSTC" rustpp/examples/hello.rs -o "hello$EXE"
+          "./hello$EXE"
 
       - name: Package
-        id: pkg
-        run: |
-          VERSION=$(cat src/version)
-          NAME="rustpp-${VERSION}-${GITHUB_RUN_NUMBER}-${TARGET}"
-          mkdir -p dist
-          exec > >(tee package.log) 2>&1
-          # The sysroot contains symlinks back to the source tree
-          # (lib/rustlib/src, lib/rustlib/rustc-src); keep links as links and
-          # drop those, they only matter for rust-analyzer on this machine.
-          cp -a build/host/stage1 dist/rustpp
-          rm -rf dist/rustpp/lib/rustlib/src dist/rustpp/lib/rustlib/rustc-src
-          find dist/rustpp -type l -printf '%p -> %l\n'
-          du -sh dist/rustpp
-          cp rustpp/examples/hello.rs dist/rustpp/
-          tar -C dist -cf - rustpp | xz -T0 -6 > "${NAME}.tar.xz"
-          ls -lh "${NAME}.tar.xz"
-          echo "file=${NAME}.tar.xz" >> "$GITHUB_OUTPUT"
-          echo "tag=v${VERSION}-rustpp.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
-          echo "rustc=$(build/host/stage1/bin/rustc --version)" >> "$GITHUB_OUTPUT"
-
-      - name: Publish release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          cat > notes.md <<EOF
-          Rust++ compiler built from ${GITHUB_SHA}.
-
-          \`${{ steps.pkg.outputs.rustc }}\`
-
-          Usage (Linux x86_64):
-
-          \`\`\`bash
-          tar -xJf ${{ steps.pkg.outputs.file }}
-          rustup toolchain link rustpp "\$PWD/rustpp"
-          rustc +rustpp rustpp/hello.rs && ./hello
-          \`\`\`
-          EOF
-          gh release create "${{ steps.pkg.outputs.tag }}" "${{ steps.pkg.outputs.file }}" \
-            --target "$GITHUB_SHA" --title "Rust++ ${{ steps.pkg.outputs.tag }}" \
-            --notes-file notes.md --latest
-
-      - name: Run Rust++ UI tests
         run: |
           set -o pipefail
-          env -u GITHUB_ACTIONS python3 x.py test tests/ui/rustpp --stage 1 2>&1 | tee test.log
+          exec > >(tee package.log) 2>&1
+          VERSION=$(cat src/version)
+          NAME="rustpp-${VERSION}-${GITHUB_RUN_NUMBER}-${TARGET}"
+          mkdir -p dist out
+          # The sysroot links back into the source tree (lib/rustlib/src,
+          # lib/rustlib/rustc-src); drop those, they only serve rust-analyzer.
+          cp -a "build/$TARGET/stage1" dist/rustpp
+          rm -rf dist/rustpp/lib/rustlib/src dist/rustpp/lib/rustlib/rustc-src
+          cp rustpp/examples/hello.rs dist/rustpp/
+          du -sh dist/rustpp
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            (cd dist && 7z a -tzip -mx=7 "../out/${NAME}.zip" rustpp > /dev/null)
+          else
+            tar -C dist -cf - rustpp | xz -T0 -6 > "out/${NAME}.tar.xz"
+          fi
+          "build/$TARGET/stage1/bin/rustc$EXE" --version > out/version.txt
+          ls -lh out
 
-      # Job logs are not always easy to reach, so surface the important
-      # parts as annotations on the run.
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: rustpp-${{ matrix.target }}
+          path: out/
+          retention-days: 3
+          compression-level: 0
+
+      - name: Run Rust++ UI tests (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          set -o pipefail
+          env -u GITHUB_ACTIONS $PY x.py test tests/ui/rustpp --stage 1 2>&1 | tee test.log
+
+      # Job logs are not always reachable, so surface the important parts
+      # as annotations on the run.
       - name: Report
         if: always()
         run: |
           report() { # title file lines
             [ -f "$2" ] || return 0
             msg=$(grep -v '^\s*$' "$2" | tail -n "$3" | cut -c1-300 | sed -e 's/%/%25/g' | sed -e ':a;N;$!ba;s/\n/%0A/g')
-            echo "::notice title=$1::$msg"
+            echo "::notice title=$1 ($TARGET)::$msg"
           }
-          grep -nE "^(error|warning: LLVM|Building|Downloading|Build completed)|downloading " build.log 2>/dev/null | head -n 40 > build-key.log || true
+          grep -nE "^(error|warning|Building|Build completed)|download" build.log 2>/dev/null | head -n 40 > build-key.log || true
           report "build key lines" build-key.log 40
           report "build tail" build.log 60
           report "smoke test" smoke.log 40
           report "package" package.log 30
-          report "ui test tail" test.log 40
-          echo "::notice title=disk::$(df -h / | tail -1)"
+          report "ui test tail" test.log 30
+          echo "::notice title=disk ($TARGET)::$(df -h . | tail -1)"
+
+  release:
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download builds
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(artifacts/*/*.tar.xz artifacts/*/*.zip)
+          if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
+          VERSION=$(cat artifacts/*/version.txt | head -1)
+          TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${GITHUB_RUN_NUMBER}"
+          {
+            echo "Rust++ compiler built from ${GITHUB_SHA}."
+            echo
+            echo "\`$VERSION\`"
+            echo
+            echo "## Windows (x86_64)"
+            echo
+            echo "Download the \`.zip\`, extract it (you get a \`rustpp\` folder), then in PowerShell:"
+            echo
+            echo '```powershell'
+            echo 'rustup toolchain link rustpp "C:\path\to\rustpp"'
+            echo 'rustc +rustpp --version'
+            echo 'rustc +rustpp C:\path\to\rustpp\hello.rs'
+            echo '.\hello.exe'
+            echo '```'
+            echo
+            echo "## Linux (x86_64)"
+            echo
+            echo '```bash'
+            echo 'tar -xJf rustpp-*-x86_64-unknown-linux-gnu.tar.xz'
+            echo 'rustup toolchain link rustpp "$PWD/rustpp"'
+            echo 'rustc +rustpp rustpp/hello.rs && ./hello'
+            echo '```'
+          } > notes.md
+          gh release create "$TAG" "${files[@]}" -R "$REPO" \
+            --target "$GITHUB_SHA" --title "Rust++ $TAG" --notes-file notes.md --latest
