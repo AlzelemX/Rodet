@@ -1,0 +1,372 @@
+error[E0609]: no field `0` on type `&no_constructor::W`
+  --> $DIR/self-mapping-output.rs:107:36
+   |
+LL |         reuse Trait::method { self.0 }
+   |                                    ^ unknown field
+   |
+help: a field with a similar name exists
+   |
+LL -         reuse Trait::method { self.0 }
+LL +         reuse Trait::method { self.s }
+   |
+
+error[E0609]: no field `0` on type `&no_constructor::W`
+  --> $DIR/self-mapping-output.rs:110:35
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                                   ^ unknown field
+   |
+help: a field with a similar name exists
+   |
+LL -         reuse Trait::raw_S { self.0 }
+LL +         reuse Trait::raw_S { self.s }
+   |
+
+error[E0609]: no field `0` on type `&no_constructor::W`
+  --> $DIR/self-mapping-output.rs:115:36
+   |
+LL |         reuse Trait::method { self.0 }
+   |                                    ^ unknown field
+   |
+help: a field with a similar name exists
+   |
+LL -         reuse Trait::method { self.0 }
+LL +         reuse Trait::method { self.s }
+   |
+
+error[E0609]: no field `0` on type `&no_constructor::W`
+  --> $DIR/self-mapping-output.rs:118:35
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                                   ^ unknown field
+   |
+help: a field with a similar name exists
+   |
+LL -         reuse Trait::raw_S { self.0 }
+LL +         reuse Trait::raw_S { self.s }
+   |
+
+error[E0063]: missing fields `0`, `1` and `2` in initializer of `more_than_one_field::W`
+  --> $DIR/self-mapping-output.rs:138:22
+   |
+LL |         reuse Trait::method { self.0 }
+   |                      ^^^^^^ missing `0`, `1` and `2`
+
+error[E0063]: missing fields `0`, `1` and `2` in initializer of `more_than_one_field::W`
+  --> $DIR/self-mapping-output.rs:140:22
+   |
+LL |         reuse Trait::r#static;
+   |                      ^^^^^^^^ missing `0`, `1` and `2`
+
+error[E0063]: missing fields `0`, `1` and `2` in initializer of `more_than_one_field::W`
+  --> $DIR/self-mapping-output.rs:146:22
+   |
+LL |         reuse Trait::method { self.0 }
+   |                      ^^^^^^ missing `0`, `1` and `2`
+
+error[E0063]: missing fields `0`, `1` and `2` in initializer of `more_than_one_field::W`
+  --> $DIR/self-mapping-output.rs:148:22
+   |
+LL |         reuse Trait::r#static;
+   |                      ^^^^^^^^ missing `0`, `1` and `2`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:179:25
+   |
+LL |         pub fn method(_: impl super::Trait) -> impl super::Trait {
+   |                                                ----------------- the found opaque type
+...
+LL |         reuse to_reuse::method { self.0 }
+   |                         ^^^^^^
+   |                         |
+   |                         expected `W`, found opaque type
+   |                         expected `non_trait_path_reuse::W` because of return type
+   |
+   = note:   expected struct `non_trait_path_reuse::W`
+           found opaque type `impl non_trait_path_reuse::Trait`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:181:25
+   |
+LL |         pub fn r#static() -> impl super::Trait {
+   |                              ----------------- the found opaque type
+...
+LL |         reuse to_reuse::r#static;
+   |                         ^^^^^^^^
+   |                         |
+   |                         expected `W`, found opaque type
+   |                         expected `non_trait_path_reuse::W` because of return type
+   |
+   = note:   expected struct `non_trait_path_reuse::W`
+           found opaque type `impl non_trait_path_reuse::Trait`
+
+error[E0609]: no field `0` on type `impl super::Trait`
+  --> $DIR/self-mapping-output.rs:186:39
+   |
+LL |         reuse to_reuse::method { self.0 }
+   |                                       ^ unknown field
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:208:31
+   |
+LL |         reuse Trait::method { self.0 }
+   |                      ------   ^^^^^^ expected `&_`, found `()`
+   |                      |
+   |                      arguments to this function are incorrect
+   |
+   = note: expected reference `&_`
+              found unit type `()`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:194:12
+   |
+LL |         fn method(&self) -> ();
+   |            ^^^^^^  ----
+help: consider borrowing here
+   |
+LL |         reuse Trait::method { &self.0 }
+   |                               +
+
+error[E0283]: type annotations needed
+  --> $DIR/self-mapping-output.rs:211:22
+   |
+LL |         reuse Trait::r#static;
+   |                      ^^^^^^^^ cannot infer type
+   |
+   = note: the type must implement `non_Self_return_type::Trait`
+help: the following types implement trait `non_Self_return_type::Trait`
+  --> $DIR/self-mapping-output.rs:200:5
+   |
+LL |     impl Trait for S {
+   |     ^^^^^^^^^^^^^^^^ `non_Self_return_type::S`
+...
+LL |     impl Trait for W {
+   |     ^^^^^^^^^^^^^^^^ `non_Self_return_type::W`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:214:30
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                      -----   ^^^^^^ expected `&_`, found `()`
+   |                      |
+   |                      arguments to this function are incorrect
+   |
+   = note: expected reference `&_`
+              found unit type `()`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:196:12
+   |
+LL |         fn raw_S(&self) -> S { S }
+   |            ^^^^^ -----
+help: consider borrowing here
+   |
+LL |         reuse Trait::raw_S { &self.0 }
+   |                              +
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:219:31
+   |
+LL |         reuse Trait::method { self.0 }
+   |                      ------   ^^^^^^ expected `&_`, found `()`
+   |                      |
+   |                      arguments to this function are incorrect
+   |
+   = note: expected reference `&_`
+              found unit type `()`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:194:12
+   |
+LL |         fn method(&self) -> ();
+   |            ^^^^^^  ----
+help: consider borrowing here
+   |
+LL |         reuse Trait::method { &self.0 }
+   |                               +
+
+error[E0283]: type annotations needed
+  --> $DIR/self-mapping-output.rs:222:22
+   |
+LL |         reuse Trait::r#static;
+   |                      ^^^^^^^^ cannot infer type
+   |
+   = note: the type must implement `non_Self_return_type::Trait`
+help: the following types implement trait `non_Self_return_type::Trait`
+  --> $DIR/self-mapping-output.rs:200:5
+   |
+LL |     impl Trait for S {
+   |     ^^^^^^^^^^^^^^^^ `non_Self_return_type::S`
+...
+LL |     impl Trait for W {
+   |     ^^^^^^^^^^^^^^^^ `non_Self_return_type::W`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:225:30
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                      -----   ^^^^^^ expected `&_`, found `()`
+   |                      |
+   |                      arguments to this function are incorrect
+   |
+   = note: expected reference `&_`
+              found unit type `()`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:196:12
+   |
+LL |         fn raw_S(&self) -> S { S }
+   |            ^^^^^ -----
+help: consider borrowing here
+   |
+LL |         reuse Trait::raw_S { &self.0 }
+   |                              +
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:251:38
+   |
+LL |         reuse <F as Trait>::method { self.0 }
+   |                             ------   ^^^^^^ expected `&F`, found `&S`
+   |                             |
+   |                             arguments to this function are incorrect
+   |                             this return type influences the call expression's return type
+   |
+   = note: expected reference `&wrong_return_type::F`
+              found reference `&wrong_return_type::S`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:232:12
+   |
+LL |         fn method(&self) -> Self;
+   |            ^^^^^^  ----
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:251:29
+   |
+LL |         reuse <F as Trait>::method { self.0 }
+   |                             ^^^^^^ expected `S`, found `F`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:255:29
+   |
+LL |         reuse <F as Trait>::r#static;
+   |                             ^^^^^^^^ expected `S`, found `F`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:258:37
+   |
+LL |         reuse <F as Trait>::raw_S { self.0 }
+   |                             -----   ^^^^^^ expected `&F`, found `&S`
+   |                             |
+   |                             arguments to this function are incorrect
+   |
+   = note: expected reference `&wrong_return_type::F`
+              found reference `&wrong_return_type::S`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:234:12
+   |
+LL |         fn raw_S(&self) -> S { S }
+   |            ^^^^^ -----
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:263:38
+   |
+LL |         reuse <F as Trait>::method { self.0 }
+   |                             ------   ^^^^^^ expected `&F`, found `&S`
+   |                             |
+   |                             arguments to this function are incorrect
+   |                             this return type influences the call expression's return type
+   |
+   = note: expected reference `&wrong_return_type::F`
+              found reference `&wrong_return_type::S`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:232:12
+   |
+LL |         fn method(&self) -> Self;
+   |            ^^^^^^  ----
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:263:29
+   |
+LL |         reuse <F as Trait>::method { self.0 }
+   |                             ^^^^^^ expected `S`, found `F`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:267:29
+   |
+LL |         reuse <F as Trait>::r#static;
+   |                             ^^^^^^^^ expected `S`, found `F`
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:270:37
+   |
+LL |         reuse <F as Trait>::raw_S { self.0 }
+   |                             -----   ^^^^^^ expected `&F`, found `&S`
+   |                             |
+   |                             arguments to this function are incorrect
+   |
+   = note: expected reference `&wrong_return_type::F`
+              found reference `&wrong_return_type::S`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:234:12
+   |
+LL |         fn raw_S(&self) -> S { S }
+   |            ^^^^^ -----
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:296:31
+   |
+LL |         reuse Trait::method { F }
+   |                      ------   ^ expected `&S`, found `&F`
+   |                      |
+   |                      arguments to this function are incorrect
+   |                      this return type influences the call expression's return type
+   |
+   = note: expected reference `&wrong_target_expression::S`
+              found reference `&wrong_target_expression::F`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:277:12
+   |
+LL |         fn method(&self) -> Self;
+   |            ^^^^^^  ----
+
+error[E0308]: mismatched types
+  --> $DIR/self-mapping-output.rs:304:31
+   |
+LL |         reuse Trait::method { F }
+   |                      ------   ^ expected `&S`, found `&F`
+   |                      |
+   |                      arguments to this function are incorrect
+   |                      this return type influences the call expression's return type
+   |
+   = note: expected reference `&wrong_target_expression::S`
+              found reference `&wrong_target_expression::F`
+note: method defined here
+  --> $DIR/self-mapping-output.rs:277:12
+   |
+LL |         fn method(&self) -> Self;
+   |            ^^^^^^  ----
+
+error[E0616]: field `0` of struct `private::W` is private
+  --> $DIR/self-mapping-output.rs:330:36
+   |
+LL |         reuse Trait::method { self.0 }
+   |                                    ^ private field
+
+error[E0616]: field `0` of struct `private::W` is private
+  --> $DIR/self-mapping-output.rs:335:35
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                                   ^ private field
+
+error[E0616]: field `0` of struct `private::W` is private
+  --> $DIR/self-mapping-output.rs:340:36
+   |
+LL |         reuse Trait::method { self.0 }
+   |                                    ^ private field
+
+error[E0616]: field `0` of struct `private::W` is private
+  --> $DIR/self-mapping-output.rs:345:35
+   |
+LL |         reuse Trait::raw_S { self.0 }
+   |                                   ^ private field
+
+error: aborting due to 31 previous errors
+
+Some errors have detailed explanations: E0063, E0283, E0308, E0609, E0616.
+For more information about an error, try `rustc --explain E0063`.
