@@ -1,79 +1,74 @@
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/rust-lang/www.rust-lang.org/master/static/images/rust-social-wide-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/rust-lang/www.rust-lang.org/master/static/images/rust-social-wide-light.svg">
-    <img alt="The Rust Programming Language: A language empowering everyone to build reliable and efficient software"
-         src="https://raw.githubusercontent.com/rust-lang/www.rust-lang.org/master/static/images/rust-social-wide-light.svg"
-         width="50%">
-  </picture>
+# Rust++
 
-[Website][Rust] | [Getting started] | [Learn] | [Documentation] | [Contributing]
-</div>
+**Rust++** is a personal, experimental fork of the Rust compiler and standard
+library by [AlzelemX](https://github.com/AlzelemX).
 
-This is the main source code repository for [Rust]. It contains the compiler,
-standard library, and documentation.
+> Rust++ is **not** affiliated with, endorsed by, or supported by the Rust
+> Project or the Rust Foundation. "Rust" is a trademark of the Rust
+> Foundation. The original upstream README is kept in
+> [`README.rust-lang.md`](README.rust-lang.md).
 
-[Rust]: https://www.rust-lang.org/
-[Getting Started]: https://www.rust-lang.org/learn/get-started
-[Learn]: https://www.rust-lang.org/learn
-[Documentation]: https://www.rust-lang.org/learn#learn-use
-[Contributing]: CONTRIBUTING.md
+The Rust++ changes in this repository were written with the help of an AI
+assistant (Claude) for personal use and experimentation. They are not intended
+to be contributed to `rust-lang/rust`.
 
-## Why Rust?
+## What is different from Rust?
 
-- **Performance:** Fast and memory-efficient, suitable for critical services, embedded devices, and easily integrated with other languages.
+| Change | Where |
+|---|---|
+| New `out!` macro: prints a line, exactly like `println!` | `library/std/src/macros.rs` |
+| `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
+| Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
+| Automatic build + release on every push | `.github/workflows/build-rustpp.yml` |
 
-- **Reliability:** Our rich type system and ownership model ensure memory and thread safety, reducing bugs at compile-time.
+```rust
+fn main() {
+    let lang = "Rust++";
+    out!("Hello from {lang}!");          // new in Rust++
+    out!("{} + {} = {}", 1, 2, 1 + 2);   // same format syntax as println!
+}
+```
 
-- **Productivity:** Comprehensive documentation, a compiler committed to providing great diagnostics, and advanced tooling including package manager and build tool ([Cargo]), auto-formatter ([rustfmt]), linter ([Clippy]) and editor support ([rust-analyzer]).
+## Download and use a prebuilt compiler
 
-[Cargo]: https://github.com/rust-lang/cargo
-[rustfmt]: https://github.com/rust-lang/rustfmt
-[Clippy]: https://github.com/rust-lang/rust-clippy
-[rust-analyzer]: https://github.com/rust-lang/rust-analyzer
+Every push to `main` builds the compiler on GitHub Actions and publishes it on
+the [Releases](../../releases) page (Linux x86_64).
 
-## Quick Start
+```bash
+# 1. download rustpp-*-x86_64-unknown-linux-gnu.tar.xz from Releases, then:
+tar -xJf rustpp-*-x86_64-unknown-linux-gnu.tar.xz
 
-Read ["Installation"] from [The Book].
+# 2. register it with rustup under the name "rustpp"
+rustup toolchain link rustpp "$PWD/rustpp"
 
-["Installation"]: https://doc.rust-lang.org/book/ch01-01-installation.html
-[The Book]: https://doc.rust-lang.org/book/index.html
+# 3. use it
+rustc +rustpp --version          # rustc 1.101.0-dev (Rust++)
+rustc +rustpp rustpp/examples/hello.rs && ./hello
+cargo +rustpp run                # cargo comes from your normal toolchain
+```
 
-## Installing from Source
+## Build it yourself
 
-If you really want to install from source (though this is not recommended), see
-[INSTALL.md](INSTALL.md).
+```bash
+git clone https://github.com/AlzelemX/Rust- rustpp && cd rustpp
 
-## Getting Help
+# Let bootstrap see the upstream commit, so it can download prebuilt LLVM.
+UPSTREAM_SHA=c303e414dd813ab090055754d0be647054fce70a
+git fetch --depth 1 https://github.com/rust-lang/rust "$UPSTREAM_SHA"
+git replace --graft "$(git rev-list --max-parents=0 HEAD)" "$UPSTREAM_SHA"
 
-See https://www.rust-lang.org/community for a list of chat platforms and forums.
+./x setup compiler
+./x build library
+rustup toolchain link rustpp build/host/stage1
+```
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-For a detailed explanation of the compiler's architecture and how to begin contributing, see the [rustc-dev-guide](https://rustc-dev-guide.rust-lang.org/).
+Rust++ is based on upstream `rust-lang/rust` commit
+`c303e414dd813ab090055754d0be647054fce70a` (2026-10-22). The build workflow
+links this repository's history to that upstream commit so the build can
+download the matching prebuilt LLVM instead of compiling LLVM from source.
 
 ## License
 
-Rust is primarily distributed under the terms of both the MIT license and the
-Apache License (Version 2.0), with portions covered by various BSD-like
-licenses.
-
-See [LICENSE-APACHE](LICENSE-APACHE), [LICENSE-MIT](LICENSE-MIT), and
-[COPYRIGHT](COPYRIGHT) for details.
-
-## Trademark
-
-[The Rust Foundation][rust-foundation] owns and protects the Rust and Cargo
-trademarks and logos (the "Rust Trademarks").
-
-If you want to use these names or brands, please read the
-[Rust language trademark policy][trademark-policy].
-
-Third-party logos may be subject to third-party copyrights and trademarks. See
-[Licenses][policies-licenses] for details.
-
-[rust-foundation]: https://rustfoundation.org/
-[trademark-policy]: https://rustfoundation.org/policy/rust-trademark-policy/
-[policies-licenses]: https://www.rust-lang.org/policies/licenses
+Same as upstream Rust: dual-licensed under MIT and Apache 2.0. See
+[`LICENSE-MIT`](LICENSE-MIT), [`LICENSE-APACHE`](LICENSE-APACHE) and
+[`COPYRIGHT`](COPYRIGHT).

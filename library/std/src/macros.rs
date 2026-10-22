@@ -149,6 +149,45 @@ macro_rules! println {
     }};
 }
 
+/// Prints to the standard output, with a newline. **(Rust++ only)**
+///
+/// `out!` is the Rust++ name for [`println!`]: it takes exactly the same
+/// arguments and uses the same format syntax, so anything you can write with
+/// `println!` you can write with `out!`.
+///
+/// This macro does not exist in upstream Rust; code that uses it only
+/// compiles with the Rust++ compiler.
+///
+/// See the formatting documentation in [`std::fmt`](crate::fmt)
+/// for details of the macro argument syntax.
+///
+/// # Panics
+///
+/// Panics if writing to [`io::stdout`] fails.
+///
+/// [`io::stdout`]: crate::io::stdout
+///
+/// # Examples
+///
+/// ```
+/// out!(); // prints just a newline
+/// out!("hello from Rust++!");
+/// let name = "out!";
+/// out!("{name} works like println!: {} + {} = {}", 1, 2, 1 + 2);
+/// ```
+#[macro_export]
+#[stable(feature = "rustpp_out_macro", since = "CURRENT_RUSTC_VERSION")]
+#[allow_internal_unstable(print_internals, format_args_nl)]
+#[rustc_diagnostic_opaque]
+macro_rules! out {
+    () => {
+        $crate::print!("\n")
+    };
+    ($($arg:tt)*) => {{
+        $crate::io::_print($crate::format_args_nl!($($arg)*));
+    }};
+}
+
 /// Prints to the standard error.
 ///
 /// Equivalent to the [`print!`] macro, except that output goes to
