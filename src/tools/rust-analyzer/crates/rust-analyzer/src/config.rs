@@ -152,6 +152,7 @@ config_data! {
         /// Show documentation on hover.
         hover_documentation_enable: bool = true,
 
+
         /// Show keyword hover popups. Only applies when
         /// `#rust-analyzer.hover.documentation.enable#` is set.
         hover_documentation_keywords_enable: bool = true,
@@ -414,6 +415,11 @@ config_data! {
 
         /// Exclude tests from find-all-references and call-hierarchy.
         references_excludeTests: bool = false,
+
+        /// RUST++: the language of the standard library's documentation in hovers,
+        /// completions and signature help. Documentation without an Arabic part is
+        /// shown in English.
+        rustpp_language: RustppLanguageDef = RustppLanguageDef::English,
 
         /// Use semantic tokens for comments.
         ///
@@ -2042,6 +2048,11 @@ impl Config {
         }
     }
 
+    /// RUST++: whether documentation is shown in Arabic.
+    pub fn docs_in_arabic(&self) -> bool {
+        *self.rustpp_language() == RustppLanguageDef::Arabic
+    }
+
     pub fn hover<'a>(&self, minicore: MiniCore<'a>) -> HoverConfig<'a> {
         let mem_kind = |kind| match kind {
             MemoryLayoutHoverRenderKindDef::Both => MemoryLayoutHoverRenderKind::Both,
@@ -3051,6 +3062,14 @@ where
     se.serialize_str(path.as_str())
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
+enum RustppLanguageDef {
+    #[serde(rename = "en")]
+    English,
+    #[serde(rename = "ar")]
+    Arabic,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "snake_case")]
 enum ExprFillDefaultDef {
@@ -3826,6 +3845,14 @@ fn field_props(field: &str, ty: &str, doc: &[&str], default: &str) -> serde_json
         "Option<Vec<String>>" => set! {
             "type": ["null", "array"],
             "items": { "type": "string" },
+        },
+        "RustppLanguageDef" => set! {
+            "type": "string",
+            "enum": ["en", "ar"],
+            "enumDescriptions": [
+                "English.",
+                "Arabic (العربية), with English where there is no Arabic yet."
+            ],
         },
         "ExprFillDefaultDef" => set! {
             "type": "string",

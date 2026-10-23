@@ -3120,6 +3120,24 @@
                 }
             },
             {
+                "title": "Rustpp",
+                "properties": {
+                    "rust-analyzer.rustpp.language": {
+                        "markdownDescription": "RUST++: the language of the standard library's documentation in hovers,\ncompletions and signature help. Documentation without an Arabic part is\nshown in English.",
+                        "default": "en",
+                        "type": "string",
+                        "enum": [
+                            "en",
+                            "ar"
+                        ],
+                        "enumDescriptions": [
+                            "English.",
+                            "Arabic (العربية), with English where there is no Arabic yet."
+                        ]
+                    }
+                }
+            },
+            {
                 "title": "Semantic Highlighting",
                 "properties": {
                     "rust-analyzer.semanticHighlighting.comments.enable": {

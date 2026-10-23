@@ -12324,3 +12324,35 @@ const FOO$0: () = main();
         "#]],
     );
 }
+
+#[test]
+fn hover_hides_arabic_docs_in_english() {
+    check(
+        r#"
+/// Calls [`bar`] twice.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي `bar` مرتين.
+///
+/// </div>
+pub fn foo$0() {}
+pub fn bar() {}
+"#,
+        expect![[r#"
+            *foo*
+
+            ```rust
+            ra_test_fixture
+            ```
+
+            ```rust
+            pub fn foo()
+            ```
+
+            ---
+
+            Calls [`bar`](https://docs.rs/ra_test_fixture/*/ra_test_fixture/fn.bar.html) twice.
+        "#]],
+    );
+}

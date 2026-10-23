@@ -50,6 +50,15 @@ pub fn rustpp_bin() -> Option<PathBuf> {
     bin.is_dir().then_some(bin)
 }
 
+/// The language for messages of programs DEVR+ starts (`RUSTPP_LANG`): the
+/// compiler, Cargo and rust++-analyzer speak Arabic when the editor does.
+pub fn language() -> &'static str {
+    match crate::settings::load().get("language").and_then(|v| v.as_str()) {
+        Some("ar") => "ar",
+        _ => "en",
+    }
+}
+
 /// The PATH for processes DEVR+ starts: Rust++ first.
 pub fn search_path() -> OsString {
     let mut paths: Vec<PathBuf> = rustpp_bin().into_iter().collect();
@@ -77,7 +86,7 @@ pub fn find_program(name: &str) -> Option<PathBuf> {
 /// A command with the Rust++ PATH, and no console window on Windows.
 pub fn command(program: impl AsRef<Path>) -> Command {
     let mut cmd = Command::new(program.as_ref());
-    cmd.env("PATH", search_path());
+    cmd.env("PATH", search_path()).env("RUSTPP_LANG", language());
     #[cfg(windows)]
     {
         use std::os::windows::process::CommandExt;

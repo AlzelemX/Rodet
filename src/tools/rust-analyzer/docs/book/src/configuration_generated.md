@@ -1565,6 +1565,15 @@ Enables the use of rustfmt's unstable range formatting command for the
 available on a nightly build.
 
 
+## rust-analyzer.rustpp.language {#rustpp.language}
+
+Default: `"en"`
+
+RUST++: the language of the standard library's documentation in hovers,
+completions and signature help. Documentation without an Arabic part is
+shown in English.
+
+
 ## rust-analyzer.semanticHighlighting.comments.enable {#semanticHighlighting.comments.enable}
 
 Default: `true`

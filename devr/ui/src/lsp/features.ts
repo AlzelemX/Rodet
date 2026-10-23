@@ -139,6 +139,8 @@ function analyzerConfig() {
     semanticHighlighting: { strings: { enable: true }, punctuation: { enable: false } },
     completion: { autoimport: { enable: true }, callable: { snippets: 'fill_arguments' } },
     workspace: { symbol: { search: { kind: 'all_symbols', limit: 256 } } },
+    // The standard library's docs carry Arabic next to the English.
+    rustpp: { language: arabic ? 'ar' : 'en' },
   };
 }
 
@@ -582,7 +584,10 @@ function setupProviders() {
       const contents = (Array.isArray(r.contents) ? r.contents : [r.contents])
         .map((c: any) => (typeof c === 'string' ? markdown(c) : c.language ? { value: '```' + c.language + '\n' + rustppText(c.value) + '\n```' } : markdown(c)))
         .filter(Boolean);
-      const arabicDoc = arabic ? arabicDocFor(contents.map((c: monaco.IMarkdownString) => c.value).join('\n')) : null;
+      const text = contents.map((c: monaco.IMarkdownString) => c.value).join('\n');
+      // The standard library's own Arabic (rust++-analyzer shows it when
+      // `rustpp.language` is `ar`) comes first; the editor's list is the fallback.
+      const arabicDoc = arabic && !/[\u0600-\u06FF]/.test(text) ? arabicDocFor(text) : null;
       if (arabicDoc) contents.unshift({ value: arabicDoc });
       return { contents, range: r.range ? toRange(r.range) : undefined };
     },

@@ -1139,7 +1139,7 @@ fn markup(
         format_to!(buf, "\n___\n{subst_types}");
     }
 
-    if let Some(doc) = docs {
+    if let Some(doc) = docs.map(ide_db::documentation::docs_with_rangemap_in_language) {
         format_to!(buf, "\n___\n\n");
         let offset = TextSize::new(buf.len() as u32);
         let docs_str = match &doc {

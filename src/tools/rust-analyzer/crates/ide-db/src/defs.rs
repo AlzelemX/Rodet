@@ -208,10 +208,12 @@ impl<'db> Definition<'db> {
         famous_defs: Option<&FamousDefs<'_, '_>>,
         display_target: DisplayTarget,
     ) -> Option<Documentation<'a>> {
-        self.docs_with_rangemap(db, famous_defs, display_target).map(|docs| match docs {
-            Either::Left(Cow::Borrowed(docs)) => Documentation::new_borrowed(docs.docs()),
-            Either::Left(Cow::Owned(docs)) => Documentation::new_owned(docs.into_docs()),
-            Either::Right(docs) => docs,
+        self.docs_with_rangemap(db, famous_defs, display_target).map(|docs| {
+            match crate::documentation::docs_with_rangemap_in_language(docs) {
+                Either::Left(Cow::Borrowed(docs)) => Documentation::new_borrowed(docs.docs()),
+                Either::Left(Cow::Owned(docs)) => Documentation::new_owned(docs.into_docs()),
+                Either::Right(docs) => docs,
+            }
         })
     }
 

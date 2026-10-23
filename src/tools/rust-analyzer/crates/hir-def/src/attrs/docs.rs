@@ -193,6 +193,51 @@ impl Docs {
         self.docs.push_str(s);
     }
 
+    /// Removes `range` from the docs, keeping the source map of the rest.
+    ///
+    /// `range` must end at a line boundary and start at one (or at the line break
+    /// before it), after the prefix
+    /// (RUST++ uses this to hide one language of documentation written in two).
+    pub fn remove_lines(&mut self, range: Range<usize>) {
+        let (Ok(start), Ok(end)) = (u32::try_from(range.start), u32::try_from(range.end)) else {
+            return;
+        };
+        let (start, end) = (TextSize::new(start), TextSize::new(end));
+        if start < self.prefix_len || end <= start || range.end > self.docs.len() {
+            return;
+        }
+        let len = end - start;
+        // Source map offsets do not count the prefix.
+        let (map_start, map_end) = (start - self.prefix_len, end - self.prefix_len);
+        let mut removed_before_outline_end = 0;
+        let outline_end = self.outline_mod.map(|(_, end)| end);
+        let mut index = 0;
+        self.docs_source_map.retain_mut(|line| {
+            let keep = line.string_offset < map_start || line.string_offset >= map_end;
+            if !keep && outline_end.is_some_and(|outline_end| index < outline_end) {
+                removed_before_outline_end += 1;
+            }
+            if line.string_offset >= map_end {
+                line.string_offset -= len;
+            }
+            index += 1;
+            keep
+        });
+        if let Some((_, outline_end)) = &mut self.outline_mod {
+            *outline_end -= removed_before_outline_end;
+        }
+        let shift = |offset: &mut Option<TextSize>| {
+            if let Some(offset) = offset
+                && *offset > map_start
+            {
+                *offset -= (*offset - map_start).min(len);
+            }
+        };
+        shift(&mut self.inline_inner_docs_start);
+        shift(&mut self.outline_inner_docs_start);
+        self.docs.replace_range(range, "");
+    }
+
     pub fn append(&mut self, other: &Docs) {
         let other_offset = TextSize::of(&self.docs);
 

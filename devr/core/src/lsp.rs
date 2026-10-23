@@ -65,6 +65,9 @@ impl Lsp {
         let mut cmd = tokio::process::Command::new(&server);
         cmd.current_dir(&params.root)
             .env("PATH", search_path())
+            // Checking on save runs the compiler through the analyzer: its
+            // messages come in the editor's language.
+            .env("RUSTPP_LANG", crate::toolchain::language())
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
