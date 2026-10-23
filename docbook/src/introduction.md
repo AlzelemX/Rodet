@@ -1,5 +1,7 @@
 # Introduction
 
+> 🌐 [اقرأ هذا الكتاب بالعربية](https://alzelemx.github.io/Rust-/ar/)
+
 **Rust++** is a programming language built from Rust 1.101. It keeps
 everything that makes Rust good — speed like C, no garbage collector, no
 crashes from bad memory use — and changes the parts that make Rust hard to

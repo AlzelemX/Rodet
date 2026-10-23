@@ -22,7 +22,7 @@ DEVR+
 ├── Errors and warnings as you type, compiler errors on save, quick fixes (Ctrl+.)
 ├── Completion, hover, go to definition (F12), references, rename (F2)
 ├── ↩ marks after returned values
-├── ⚡ Speed score 0–100 in the corner, with tips
+├── ⚡ Speed score 0–100 next to Run, with tips
 ├── Cargo: Run (F5), Build, Test, Run fast, libraries and their new versions
 └── Terminal, with clickable file:line errors
 ```

@@ -1,0 +1,24 @@
+[book]
+title = "كتاب Rust++ (Doc Book)"
+description = "كيف تكتب بلغة Rust++: لغة Rust أسهل في القراءة والتعلم."
+authors = ["AlzelemX"]
+language = "ar"
+text-direction = "rtl"
+src = "src"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/AlzelemX/Rust-/tree/main/docbook/ar"
+edit-url-template = "https://github.com/AlzelemX/Rust-/edit/main/docbook/ar/{path}"
+additional-css = ["theme/rustpp.css"]
+additional-js = ["theme/bidi.js"]
+site-url = "/Rust-/ar/"
+
+# play.rust-lang.org runs normal Rust, not Rust++: no "Run" buttons.
+[output.html.playground]
+runnable = false
+copyable = true
+
+[output.html.search]
+enable = true

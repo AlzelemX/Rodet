@@ -24,6 +24,7 @@ more precise and easier to read and learn.
 | Clean repository + docs system | 🟢 Done | [010](notebook/010-clean-repo.md) |
 | rust++-analyzer (language server) | 🟢 Done | [011](notebook/011-rustpp-analyzer.md) |
 | DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
+| DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
 | DEVR+ extensions | 🔵 Planned | |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
@@ -57,7 +58,7 @@ fn main() {
 
 | | |
 |---|---|
-| 📘 **[Doc Book](https://alzelemx.github.io/Rust-/)** | How to write Rust++, from Hello World to traits. Source in [`docbook/`](docbook/). |
+| 📘 **[Doc Book](https://alzelemx.github.io/Rust-/)** · **[بالعربية](https://alzelemx.github.io/Rust-/ar/)** | How to write Rust++, from Hello World to traits, in English and Arabic. Source in [`docbook/`](docbook/). |
 | 📒 **[NoteBook](notebook/)** | One card for every change: what it is, before and after, and when. |
 | 🧩 **[DEVR+](devr/)** | The editor for Rust++: errors and fixes, completion, search, Cargo, ↩ return marks and a speed score. Download it from the [releases](../../releases) named *DEVR+*. |
 

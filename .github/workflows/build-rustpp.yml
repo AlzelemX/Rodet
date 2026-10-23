@@ -150,6 +150,13 @@ jobs:
           tar -cf - --exclude='library/*/tests' --exclude='library/*/benches' \
               --exclude='library/stdarch/crates/*/tests' library \
             | tar -C dist/rustpp/lib/rustlib/src/rust -xf -
+          # The Doc Book of this version, in English and Arabic: DEVR+ shows it,
+          # so the book always matches the installed language.
+          BOOK=dist/rustpp/share/doc/rustpp/book
+          mkdir -p "$BOOK/en" "$BOOK/ar"
+          cp -R docbook/src/. "$BOOK/en/"
+          cp -R docbook/ar/src/. "$BOOK/ar/"
+          test -f "$BOOK/en/SUMMARY.md" && test -f "$BOOK/ar/SUMMARY.md"
           cp rustpp/examples/hello.rs dist/rustpp/
           ls dist/rustpp/bin
           du -sh dist/rustpp

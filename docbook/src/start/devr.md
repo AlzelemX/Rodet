@@ -20,6 +20,13 @@ the welcome page has an **Install Rust++** button.
 > macOS: the app isn't signed by Apple yet. The first time, right-click it
 > and choose **Open**.
 
+## Arabic
+
+In the settings (`Ctrl+,`) choose **Language: العربية**. The whole editor
+switches to Arabic: menus and commands, the common compiler messages, quick
+fixes, speed tips, the descriptions of the most used standard library items,
+and this book. Code itself stays left to right.
+
 ## A first project
 
 1. **New Rust++ Project…** on the welcome page (or `Ctrl+Shift+P` → *Cargo: New*).
@@ -32,11 +39,14 @@ the welcome page has an **Install Rust++** button.
 ![The DEVR+ editor](devr.png)
 
 - **↩ return marks**: after the value a function gives back.
-- **⚡ Speed score**: in the top right corner, from 0 to 100. Click it to see
+- **⚡ Speed score**: next to the Run button, from 0 to 100. Point at it to see
   each slow spot and how to fix it. Slow spots are underlined with dots.
 - **▶ Run** above `fn main`, and **N implementations** above types.
 - Gray **hints**: the types Rust++ works out (`: u32`), and parameter names
   for calls that don't use [named arguments](../basics/named-arguments.md).
+- **Doc Book** (the book icon on the left): this book inside the editor, in
+  English or Arabic. It comes with the installed Rust++, so it always matches
+  your version of the language.
 
 ## Keys
 
@@ -56,7 +66,7 @@ the welcome page has an **Install Rust++** button.
 | `Ctrl+Shift+B` | build |
 | `` Ctrl+` `` | new terminal |
 | `Ctrl+B` / `Ctrl+J` | show or hide the side bar / the bottom panel |
-| `Ctrl+,` | settings (theme, font, hints, speed score…) |
+| `Ctrl+,` | settings (language, theme, font, hints, speed score…) |
 
 On macOS use `⌘` instead of `Ctrl`.
 

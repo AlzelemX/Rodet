@@ -17,6 +17,7 @@
 | Clean repository + docs system | 🟢 Done | [010](notebook/010-clean-repo.md) |
 | rust++-analyzer (language server) | 🟢 Done | [011](notebook/011-rustpp-analyzer.md) |
 | DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
+| DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
 | DEVR+ extensions | 🔵 Planned | |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
