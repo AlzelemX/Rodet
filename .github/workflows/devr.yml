@@ -125,9 +125,10 @@ jobs:
         if: always()
         run: |
           if [ -f devr/build.log ]; then
-            grep -E "^(error|warning: unused)" -A6 devr/build.log | head -60 | while IFS= read -r line; do echo "::notice title=build::$line"; done
+            { grep -E "^(error|warning: unused)" -A6 devr/build.log || true; } | head -60 | while IFS= read -r line; do echo "::notice title=build::$line"; done
             tail -5 devr/build.log | while IFS= read -r line; do echo "::notice title=build tail::$line"; done
           fi
+          true
 
   release:
     needs: build
