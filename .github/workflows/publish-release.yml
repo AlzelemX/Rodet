@@ -57,13 +57,22 @@ jobs:
             echo "What changed: see the [NoteBook](https://github.com/${REPO}/tree/main/notebook)."
           } > notes.md
 
-          # Create the release as a draft first. On failure GitHub says which
-          # token permission was missing in a response header; show it.
-          gh release delete "$TAG" -R "$REPO" --yes --cleanup-tag 2> /dev/null || true
-          if ! gh api -i "repos/$REPO/releases" -X POST -f tag_name="$TAG" -f target_commitish="$SHA" \
-               -f name="Rust++ $TAG" -F body=@notes.md -F draft=true > create.txt 2>&1; then
-            echo "::error::could not create the release: $(grep -i -E '^(HTTP|x-accepted-github-permissions)|"message"' create.txt | tr '\n' ' ')"
-            exit 1
+          # Create the release as a draft first. The token of a workflow may
+          # not create a tag on a commit whose workflow files differ from the
+          # ones on main (GitHub then asks for `workflows=write`, which this
+          # token can never have); in that case tag the newest commit on main.
+          gh release delete "$TAG" -R "$REPO" --yes 2> /dev/null || true
+          create() {
+            gh api -i "repos/$REPO/releases" -X POST -f tag_name="$TAG" -f target_commitish="$1" \
+              -f name="Rust++ $TAG" -F body=@notes.md -F draft=true > create.txt 2>&1
+          }
+          if ! create "$SHA"; then
+            MAIN=$(gh api "repos/$REPO/commits/main" --jq .sha)
+            echo "::warning::could not tag ${SHA}, tagging main (${MAIN}) instead: $(grep -i -E '^(HTTP|x-accepted-github-permissions)' create.txt | tr '\n' ' ')"
+            if ! create "$MAIN"; then
+              echo "::error::could not create the release: $(grep -i -E '^(HTTP|x-accepted-github-permissions)|"message"' create.txt | tr '\n' ' ')"
+              exit 1
+            fi
           fi
 
           # Uploading ~1 GB occasionally fails on GitHub's side; retry.
