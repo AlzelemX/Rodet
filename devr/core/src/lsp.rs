@@ -27,7 +27,10 @@ pub struct StartParams {
 
 #[derive(Deserialize)]
 pub struct SendParams {
-    pub message: String,
+    /// Messages to write, in this order. One call carries a whole batch:
+    /// separate calls run in parallel and could reach the server out of
+    /// order (an edit after the completion request that needs it).
+    pub messages: Vec<String>,
 }
 
 struct Running {
@@ -104,13 +107,16 @@ impl Lsp {
         Ok(json!({ "server": server, "generation": generation }))
     }
 
-    /// Sends one JSON-RPC message to the language server.
-    pub async fn send(&self, message: &str) -> Result<()> {
+    /// Sends JSON-RPC messages to the language server, in order.
+    pub async fn send(&self, messages: &[String]) -> Result<()> {
         let mut running = self.running.lock().await;
         let Some(running) = running.as_mut() else { bail!("the language server is not running") };
-        let header = format!("Content-Length: {}\r\n\r\n", message.len());
-        running.stdin.write_all(header.as_bytes()).await?;
-        running.stdin.write_all(message.as_bytes()).await?;
+        let mut bytes = Vec::new();
+        for message in messages {
+            bytes.extend_from_slice(format!("Content-Length: {}\r\n\r\n", message.len()).as_bytes());
+            bytes.extend_from_slice(message.as_bytes());
+        }
+        running.stdin.write_all(&bytes).await?;
         running.stdin.flush().await?;
         Ok(())
     }

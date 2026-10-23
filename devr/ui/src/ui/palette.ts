@@ -1,5 +1,6 @@
 // Quick pick at the top of the window: commands (Ctrl+Shift+P), files
 // (Ctrl+P), symbols (Ctrl+T) and lists of locations.
+import { t } from '../i18n';
 import { backend } from '../backend';
 import type { LspLocation } from '../lsp/client';
 import { basename, fileIcon, fuzzy, h, highlighted, icon, keyLabel, relativePath } from '../util';
@@ -47,7 +48,7 @@ export function pick(options: PickOptions) {
   const render = () => {
     list.replaceChildren();
     if (!items.length) {
-      list.appendChild(h('div.empty', {}, input.value ? 'No results' : 'Type to search'));
+      list.appendChild(h('div.empty', {}, input.value ? t('No results') : t('Type to search')));
       return;
     }
     items.slice(0, 200).forEach(({ item, positions }, i) => {
@@ -144,7 +145,7 @@ export function runCommand(id: string) {
 
 export function commandPalette() {
   pick({
-    placeholder: 'Type a command',
+    placeholder: t('Type a command'),
     value: '>',
     items: [...commands.values()].map((c) => ({ label: c.title, key: c.key, icon: c.icon, run: c.run })),
     prefixes: { '#': () => symbolPicker(), '@': () => symbolPicker() },
@@ -169,7 +170,7 @@ export async function quickOpen() {
   }
   const files = fileCache.files;
   pick({
-    placeholder: 'Search files by name (> for commands, # for symbols)',
+    placeholder: t('Search files by name (> for commands, # for symbols)'),
     prefixes: { '>': () => commandPalette(), '#': () => symbolPicker() },
     query: async (text) => {
       const q = text.trim();
@@ -216,7 +217,7 @@ export async function searchSymbols(query: string): Promise<{ name: string; kind
 
 export function symbolPicker() {
   pick({
-    placeholder: 'Go to a struct, enum, trait, function… in the project',
+    placeholder: t('Go to a struct, enum, trait, function… in the project'),
     value: '#',
     prefixes: { '>': () => commandPalette() },
     query: async (text) => {

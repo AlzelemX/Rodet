@@ -1,8 +1,11 @@
 // User settings, saved by the backend in the DEVR+ config folder.
 import { backend } from './backend';
+import { type Language, syncLanguage } from './i18n';
 import { Emitter } from './util';
 
 export interface Settings {
+  /** The interface language (also kept in the window's storage, see i18n). */
+  language?: Language;
   theme: 'dark' | 'light';
   fontSize: number;
   fontFamily: string;
@@ -26,7 +29,7 @@ export const defaults: Settings = {
   tabSize: 4,
   wordWrap: false,
   minimap: true,
-  autoSave: false,
+  autoSave: true,
   returnMarks: true,
   typeHints: true,
   parameterHints: true,
@@ -34,13 +37,18 @@ export const defaults: Settings = {
   checkOnSave: true,
 };
 
+const SETTINGS_VERSION = 2;
+
 export let settings: Settings = { ...defaults };
 export const onSettings = new Emitter<Settings>();
 
 export async function loadSettings() {
   try {
-    const saved = await backend.call<Partial<Settings>>('settings.get');
+    const saved = await backend.call<Partial<Settings> & { version?: number }>('settings.get');
+    // Version 2 turned auto save on by default (DEVR+ 0.1 saved `false`).
+    if ((saved.version ?? 1) < 2) delete saved.autoSave;
     settings = { ...defaults, ...saved };
+    syncLanguage(settings.language);
   } catch {
     settings = { ...defaults };
   }
@@ -50,5 +58,5 @@ export async function loadSettings() {
 export function updateSettings(change: Partial<Settings>) {
   settings = { ...settings, ...change };
   onSettings.fire(settings);
-  backend.call('settings.set', settings).catch(() => {});
+  backend.call('settings.set', { ...settings, version: SETTINGS_VERSION }).catch(() => {});
 }

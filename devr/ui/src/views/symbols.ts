@@ -1,4 +1,5 @@
 // Find a struct, enum, trait, function, impl… by name, with filters.
+import { t } from '../i18n';
 import type { LspLocation } from '../lsp/client';
 import { lsp } from '../lsp/features';
 import { openLocation, searchSymbols, symbolIcon } from '../ui/palette';
@@ -8,19 +9,19 @@ import { pathOfUri, workspace } from '../workspace';
 
 /** Filters, with the LSP symbol kinds they keep. */
 const kinds: { id: string; label: string; icon: string; kinds: number[] }[] = [
-  { id: 'all', label: 'All', icon: 'symbol-misc', kinds: [] },
-  { id: 'struct', label: 'struct', icon: 'symbol-structure', kinds: [23] },
-  { id: 'enum', label: 'enum', icon: 'symbol-enum', kinds: [10, 22] },
-  { id: 'trait', label: 'trait', icon: 'symbol-interface', kinds: [11] },
-  { id: 'impl', label: 'impl', icon: 'symbol-object', kinds: [] },
-  { id: 'fn', label: 'fn', icon: 'symbol-function', kinds: [12, 6] },
-  { id: 'const', label: 'const', icon: 'symbol-constant', kinds: [14] },
-  { id: 'type', label: 'type', icon: 'symbol-type-parameter', kinds: [26] },
-  { id: 'mod', label: 'mod', icon: 'symbol-namespace', kinds: [2] },
+  { id: 'all', label: t('All'), icon: 'symbol-misc', kinds: [] },
+  { id: 'struct', label: t('struct'), icon: 'symbol-structure', kinds: [23] },
+  { id: 'enum', label: t('enum'), icon: 'symbol-enum', kinds: [10, 22] },
+  { id: 'trait', label: t('trait'), icon: 'symbol-interface', kinds: [11] },
+  { id: 'impl', label: t('impl'), icon: 'symbol-object', kinds: [] },
+  { id: 'fn', label: t('fn'), icon: 'symbol-function', kinds: [12, 6] },
+  { id: 'const', label: t('const'), icon: 'symbol-constant', kinds: [14] },
+  { id: 'type', label: t('type'), icon: 'symbol-type-parameter', kinds: [26] },
+  { id: 'mod', label: t('mod'), icon: 'symbol-namespace', kinds: [2] },
 ];
 
 let kind = 'all';
-const input = h('input.input', { placeholder: 'Name (e.g. Parser, new, Display)', spellcheck: false });
+const input = h('input.input', { placeholder: t('Name (e.g. Parser, new, Display)'), spellcheck: false });
 const chips = h('div.chips');
 const status = h('div.muted', { style: { fontSize: '12px' } });
 const list = h('div.tree');
@@ -40,21 +41,21 @@ const run = debounce(async () => {
   const gen = ++generation;
   list.replaceChildren();
   if (!lsp.running) {
-    status.textContent = 'The language server is not running yet.';
+    status.textContent = t('The language server is not running yet.');
     return;
   }
   if (!query) {
     status.textContent = kind === 'impl'
-      ? 'Type a type or trait name to see every `impl` of it.'
-      : 'Type a name. Use the filters to keep only structs, traits, functions…';
+      ? t('Type a type or trait name to see every `impl` of it.')
+      : t('Type a name. Use the filters to keep only structs, traits, functions…');
     return;
   }
-  status.textContent = 'Searching…';
+  status.textContent = t('Searching…');
   if (kind === 'impl') return findImpls(query, gen);
   const filter = kinds.find((k) => k.id === kind)!;
   const symbols = (await searchSymbols(query)).filter((s) => !filter.kinds.length || filter.kinds.includes(s.kind));
   if (gen !== generation) return;
-  status.textContent = symbols.length ? `${symbols.length} found` : 'Nothing found.';
+  status.textContent = symbols.length ? t('{n} found', { n: symbols.length }) : t('Nothing found.');
   for (const s of symbols) list.appendChild(row(s.name, s.kind, s.container, s.location));
 }, 200);
 
@@ -98,7 +99,7 @@ async function findImpls(query: string, gen: number) {
     }
   }
   if (gen !== generation) return;
-  status.textContent = found ? `${found} impl blocks` : 'No impl blocks found.';
+  status.textContent = found ? t('{n} impl blocks', { n: found }) : t('No impl blocks found.');
 }
 
 /** The source line of a location, e.g. `impl Display for Parser {`. */
@@ -118,7 +119,7 @@ input.addEventListener('keydown', (e) => {
 
 export const symbols: SideView = {
   id: 'symbols',
-  title: 'Find Symbols',
+  title: t('Find Symbols'),
   icon: 'symbol-class',
   element,
   onShow: () => setTimeout(() => input.focus()),

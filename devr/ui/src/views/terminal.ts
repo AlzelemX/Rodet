@@ -1,5 +1,6 @@
 // The terminal panel: shells and Cargo tasks (Run, Build, Test…), with
 // clickable `src/main.rs:12:5` links that open the file at that place.
+import { t } from '../i18n';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { WebLinksAddon } from '@xterm/addon-web-links';
@@ -120,7 +121,7 @@ function renderList() {
       icon(term.task ? 'tools' : 'terminal'),
       h('span.label', {}, term.title),
       h('span.end', {}, h('button.icon-button', {
-        title: 'Kill',
+        title: t('Kill'),
         onclick: (e: MouseEvent) => {
           e.stopPropagation();
           kill(term);
@@ -164,7 +165,7 @@ export async function newTerminal() {
   layout.showPanel('terminal');
   opening = false;
   const cwd = workspace.root ?? workspace.info.home ?? '.';
-  await create(`Terminal ${terms.filter((t) => !t.task).length + 1}`, cwd);
+  await create(t('Terminal {n}', { n: terms.filter((x) => !x.task).length + 1 }), cwd);
 }
 
 /** Runs a command (e.g. `cargo run`) in a task terminal. */
@@ -188,7 +189,7 @@ export async function runTask(title: string, command: string[], cwd: string) {
 export function runCargo(args: string[], title?: string) {
   const root = workspace.root;
   if (!root) {
-    toast('Open a Cargo project first.', 'warning');
+    toast(t('Open a Cargo project first.'), 'warning');
     return;
   }
   runTask(title ?? `cargo ${args[0]}`, ['cargo', ...args], root);
@@ -208,7 +209,7 @@ function backendKindIsDesktop() {
 
 export const terminalPanel: PanelView = {
   id: 'terminal',
-  title: 'Terminal',
+  title: t('Terminal'),
   element,
   onShow: () => {
     if (opening) return;
@@ -216,8 +217,8 @@ export const terminalPanel: PanelView = {
     else if (active) show(active);
   },
   actions: [
-    h('button.icon-button', { title: 'New Terminal', onclick: () => newTerminal() }, icon('add')),
-    h('button.icon-button', { title: 'Kill Terminal', onclick: () => active && kill(active) }, icon('trash')),
+    h('button.icon-button', { title: t('New Terminal'), onclick: () => newTerminal() }, icon('add')),
+    h('button.icon-button', { title: t('Kill Terminal'), onclick: () => active && kill(active) }, icon('trash')),
   ],
 };
 
@@ -234,10 +235,10 @@ export function setupTerminal() {
       const ok = code === 0;
       term.xterm.writeln('');
       term.xterm.writeln(ok
-        ? '\x1b[32m✓ Done.\x1b[0m'
-        : `\x1b[31m✗ Exited with code ${code}.\x1b[0m \x1b[2mClick a file:line above to see the problem.\x1b[0m`);
+        ? `\x1b[32m✓ ${t('Done.')}\x1b[0m`
+        : `\x1b[31m✗ ${t('Exited with code {code}.', { code })}\x1b[0m \x1b[2m${t('Click a file:line above to see the problem.')}\x1b[0m`);
     } else {
-      term.xterm.writeln('\r\n\x1b[2m[process exited]\x1b[0m');
+      term.xterm.writeln(`\r\n\x1b[2m[${t('process exited')}]\x1b[0m`);
     }
     renderList();
   });

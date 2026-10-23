@@ -1,16 +1,17 @@
 // The status bar: Rust++ version, language server state, errors and
 // warnings, cursor position.
+import { t } from '../i18n';
 import { diagnosticCounts, lsp, onDiagnostics, onProgress } from '../lsp/features';
 import { layout } from '../ui/layout';
 import { runCommand } from '../ui/palette';
 import { h, icon } from '../util';
 import { workspace } from '../workspace';
 
-const brand = h('button.status-item.brand', { title: 'DEVR+ — show the welcome page', onclick: () => workspace.show(null) }, 'DEVR+');
-const problems = h('button.status-item', { title: 'Problems (Ctrl+Shift+M)', onclick: () => layout.showPanel('problems') });
-const server = h('button.status-item', { title: 'rust++-analyzer', onclick: () => runCommand('analyzer.menu') });
-const toolchain = h('button.status-item', { title: 'Rust++ toolchain', onclick: () => runCommand('rustpp.about') });
-const position = h('button.status-item', { title: 'Go to Line (Ctrl+G)', onclick: () => {
+const brand = h('button.status-item.brand', { title: t('DEVR+ — show the welcome page'), onclick: () => workspace.show(null) }, 'DEVR+');
+const problems = h('button.status-item', { title: t('Problems (Ctrl+Shift+M)'), onclick: () => layout.showPanel('problems') });
+const server = h('button.status-item', { title: t('rust++-analyzer'), onclick: () => runCommand('analyzer.menu') });
+const toolchain = h('button.status-item', { title: t('Rust++ toolchain'), onclick: () => runCommand('rustpp.about') });
+const position = h('button.status-item', { title: t('Go to Line (Ctrl+G)'), onclick: () => {
   workspace.editor.focus();
   workspace.editor.trigger('statusbar', 'editor.action.gotoLine', null);
 } });
@@ -26,19 +27,19 @@ let progressText = '';
 function renderServer() {
   const state = lsp.state;
   const map: Record<string, [string, string, boolean]> = {
-    stopped: ['circle-slash', 'Analyzer off', false],
-    starting: ['loading', 'Starting…', true],
-    indexing: ['loading', progressText || 'Indexing…', true],
+    stopped: ['circle-slash', t('Analyzer off'), false],
+    starting: ['loading', t('Starting…'), true],
+    indexing: ['loading', progressText || t('Indexing…'), true],
     ready: ['check', 'Rust++', false],
-    error: ['error', 'Analyzer stopped', false],
-    missing: ['warning', 'No analyzer', false],
+    error: ['error', t('Analyzer stopped'), false],
+    missing: ['warning', t('No analyzer'), false],
   };
   const [iconName, text, spinning] = map[state] ?? map.stopped;
   server.replaceChildren(icon(iconName, spinning ? 'spin' : ''), text);
   server.title = state === 'missing'
-    ? 'rust++-analyzer was not found: install or update Rust++'
+    ? t('rust++-analyzer was not found: install or update Rust++')
     : state === 'error'
-      ? `The language server stopped${lsp.lastError ? `: ${lsp.lastError}` : ''}. Click to restart.`
+      ? `${t('The language server stopped.')}${lsp.lastError ? ` ${lsp.lastError}` : ''} ${t('Click to restart.')}`
       : `rust++-analyzer${lsp.serverPath ? `: ${lsp.serverPath}` : ''}`;
 }
 
@@ -47,7 +48,7 @@ export function renderToolchain() {
   const version = tc.rustcVersion?.replace(/^rustc\s+/, '') ?? 'not installed';
   // `1.101.0-dev (Rust++ #19)` → `1.101.0-dev #19`
   const short = version.replace(/\s*\(Rust\+\+\s*(#\d+)?\)/, (_m, build) => (build ? ` ${build}` : ''));
-  toolchain.replaceChildren(icon(tc.isRustpp ? 'symbol-namespace' : 'warning'), tc.isRustpp ? short : `Rust++ ${version}`);
+  toolchain.replaceChildren(icon(tc.isRustpp ? 'symbol-namespace' : 'warning'), tc.isRustpp ? short : `Rust++ ${tc.rustcVersion ? version : t('not installed')}`);
 }
 
 function renderPosition() {
@@ -57,10 +58,10 @@ function renderPosition() {
   language.style.display = model ? '' : 'none';
   if (!pos || !model) return;
   const selection = workspace.editor.getSelection();
-  const selected = selection && !selection.isEmpty() ? ` (${model.getValueInRange(selection).length} selected)` : '';
-  position.textContent = `Ln ${pos.lineNumber}, Col ${pos.column}${selected}`;
+  const selected = selection && !selection.isEmpty() ? ` (${t('{n} selected', { n: model.getValueInRange(selection).length })})` : '';
+  position.textContent = `${t('Ln {line}, Col {col}', { line: pos.lineNumber, col: pos.column })}${selected}`;
   const lang = model.getLanguageId();
-  language.textContent = lang === 'rust' ? 'Rust++' : lang === 'toml' ? 'TOML' : lang === 'markdown' ? 'Markdown' : 'Plain Text';
+  language.textContent = lang === 'rust' ? 'Rust++' : lang === 'toml' ? 'TOML' : lang === 'markdown' ? 'Markdown' : t('Plain Text');
 }
 
 export function setupStatusbar() {

@@ -40,6 +40,12 @@ export function append(parent: Node, children: (Child | Child[])[]) {
   }
 }
 
+/** Text with `code` parts shown as code (kept left to right in Arabic). */
+export function richText(text: string): (string | HTMLElement)[] {
+  return text.split(/(`[^`]+`)/).filter(Boolean).map((part) =>
+    part.length > 2 && part.startsWith('`') && part.endsWith('`') ? h('code.inline', { dir: 'ltr' }, part.slice(1, -1)) : part);
+}
+
 /** A VS Code icon (codicon). */
 export function icon(name: string, extra = ''): HTMLElement {
   return h('i', { class: `codicon codicon-${name} ${extra}`.trim(), 'aria-hidden': 'true' });

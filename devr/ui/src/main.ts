@@ -1,4 +1,7 @@
 // DEVR+: the editor for Rust++.
+// First: the interface language, and Monaco's Arabic texts (before Monaco loads).
+import './i18n/monaco-nls';
+import { t } from './i18n';
 import '@vscode/codicons/dist/codicon.css';
 import './styles.css';
 import * as monaco from './editor/monaco';
@@ -28,6 +31,7 @@ import { renderToolchain, setupStatusbar } from './views/statusbar';
 import { setupSymbols, symbols } from './views/symbols';
 import { newTerminal, runCargo, runTask, setupTerminal, terminalPanel } from './views/terminal';
 import { workspace } from './workspace';
+import { openBook, reloadBook } from './views/book';
 
 (self as any).MonacoEnvironment = {
   getWorker: () => new EditorWorker(),
@@ -35,8 +39,6 @@ import { workspace } from './workspace';
 
 function applyTheme() {
   document.documentElement.dataset.theme = settings.theme;
-  // Keep the speed score clear of the minimap and the scroll bar.
-  document.documentElement.style.setProperty('--speed-right', settings.minimap ? '134px' : '24px');
   monaco.editor.setTheme(settings.theme === 'dark' ? 'devr-dark' : 'devr-light');
 }
 
@@ -81,13 +83,14 @@ async function main() {
   try {
     await workspace.init();
   } catch (err) {
-    app.replaceChildren(h('div.empty-state', {}, `DEVR+ couldn’t reach its backend: ${errorText(err)}`));
+    app.replaceChildren(h('div.empty-state', {}, `${t('DEVR+ couldn’t reach its backend:')} ${errorText(err)}`));
     return;
   }
   await loadSettings();
   applyTheme();
 
-  const editorElement = h('div.monaco');
+  // Code is always written left to right, also in Arabic.
+  const editorElement = h('div.monaco', { dir: 'ltr' });
   layout.editorHost.appendChild(editorElement);
   workspace.editor = monaco.editor.create(editorElement, { model: null, ...editorOptions() });
   // For automated UI tests in a browser (devr-server).
@@ -109,7 +112,8 @@ async function main() {
   layout.addSideView(search);
   layout.addSideView(symbols);
   layout.addSideView(cargo);
-  layout.addActivityButton('Settings (Ctrl+,)', 'settings-gear', () => openSettings());
+  layout.addActivityButton(t('Doc Book'), 'book', () => openBook());
+  layout.addActivityButton(t('Settings (Ctrl+,)'), 'settings-gear', () => openSettings());
   layout.addPanelView(problemsPanel);
   layout.addPanelView(outputPanel);
   layout.addPanelView(terminalPanel);
@@ -156,13 +160,13 @@ async function main() {
 
   lsp.onState.on((state) => {
     if (state === 'missing') {
-      toast('rust++-analyzer was not found, so errors, completion and search are off. Install or update Rust++ to turn them on.', 'warning', [
-        { label: 'Install Rust++', primary: true, run: () => runCommand('rustpp.install') },
+      toast(t('rust++-analyzer was not found, so errors, completion and search are off. Install or update Rust++ to turn them on.'), 'warning', [
+        { label: t('Install Rust++'), primary: true, run: () => runCommand('rustpp.install') },
       ]);
     } else if (state === 'error') {
-      toast('The language server stopped.', 'error', [
-        { label: 'Restart', primary: true, run: () => restartLanguageServer() },
-        { label: 'Show Output', run: () => layout.showPanel('output') },
+      toast(t('The language server stopped.'), 'error', [
+        { label: t('Restart'), primary: true, run: () => restartLanguageServer() },
+        { label: t('Show Output'), run: () => layout.showPanel('output') },
       ]);
     }
   });
@@ -186,15 +190,15 @@ export async function openFolderDialog() {
   let path: string | null = null;
   if (backend.kind === 'desktop') {
     const { open } = await import('@tauri-apps/plugin-dialog');
-    const picked = await open({ directory: true, multiple: false, title: 'Open Folder' });
+    const picked = await open({ directory: true, multiple: false, title: t('Open Folder') });
     path = typeof picked === 'string' ? picked : null;
   } else {
-    path = await prompt('Open Folder (full path on the computer running devr-server)', workspace.root ?? workspace.info.home ?? '');
+    path = await prompt(t('Open Folder (full path on the computer running devr-server)'), workspace.root ?? workspace.info.home ?? '');
   }
   if (!path) return;
   const stat = await backend.call<{ exists: boolean; isDir: boolean }>('fs.stat', { path });
   if (!stat.isDir) {
-    toast(`${path} is not a folder.`, 'error');
+    toast(t('{path} is not a folder.', { path }), 'error');
     return;
   }
   await workspace.openFolder(path);
@@ -212,64 +216,66 @@ function installRustpp() {
     await workspace.refreshToolchain();
     renderToolchain();
     renderWelcome();
+    reloadBook();
     if (workspace.root) restartLanguageServer();
   });
 }
 
 function registerCommands() {
   const C = registerCommand;
-  C({ id: 'folder.open', title: 'File: Open Folder…', key: 'Ctrl+O', icon: 'folder-opened', run: () => openFolderDialog() });
-  C({ id: 'folder.close', title: 'File: Close Folder', icon: 'close', run: () => workspace.closeFolder() });
-  C({ id: 'project.new', title: 'Cargo: New Rust++ Project…', icon: 'add', run: () => newProject() });
-  C({ id: 'file.new', title: 'File: New File…', key: 'Ctrl+N', icon: 'new-file', run: () => newFile() });
-  C({ id: 'file.save', title: 'File: Save', key: 'Ctrl+S', icon: 'save', run: () => workspace.save() });
-  C({ id: 'file.saveAll', title: 'File: Save All', key: 'Ctrl+Alt+S', icon: 'save-all', run: () => workspace.saveAll() });
-  C({ id: 'file.close', title: 'View: Close Editor', key: 'Ctrl+W', icon: 'close', run: () => workspace.active && workspace.close(workspace.active) });
-  C({ id: 'file.quickOpen', title: 'Go to File…', key: 'Ctrl+P', icon: 'go-to-file', run: () => quickOpen() });
-  C({ id: 'symbols.find', title: 'Go to Symbol in Project…', key: 'Ctrl+T', icon: 'symbol-class', run: () => symbolPicker() });
-  C({ id: 'symbols.view', title: 'View: Find Symbols (struct, impl, fn…)', key: 'Ctrl+Shift+T', icon: 'symbol-class', run: () => layout.showSide('symbols') });
-  C({ id: 'symbols.file', title: 'Go to Symbol in File…', key: 'Ctrl+Shift+O', icon: 'symbol-method', run: () => editorAction('editor.action.quickOutline') });
-  C({ id: 'palette', title: 'Show All Commands', key: 'Ctrl+Shift+P', icon: 'terminal', run: () => commandPalette() });
-  C({ id: 'view.explorer', title: 'View: Explorer', key: 'Ctrl+Shift+E', icon: 'files', run: () => layout.showSide('explorer') });
-  C({ id: 'view.search', title: 'View: Search in Files', key: 'Ctrl+Shift+F', icon: 'search', run: () => {
+  C({ id: 'folder.open', title: t('File: Open Folder…'), key: 'Ctrl+O', icon: 'folder-opened', run: () => openFolderDialog() });
+  C({ id: 'folder.close', title: t('File: Close Folder'), icon: 'close', run: () => workspace.closeFolder() });
+  C({ id: 'project.new', title: t('Cargo: New Rust++ Project…'), icon: 'add', run: () => newProject() });
+  C({ id: 'file.new', title: t('File: New File…'), key: 'Ctrl+N', icon: 'new-file', run: () => newFile() });
+  C({ id: 'file.save', title: t('File: Save'), key: 'Ctrl+S', icon: 'save', run: () => workspace.save() });
+  C({ id: 'file.saveAll', title: t('File: Save All'), key: 'Ctrl+Alt+S', icon: 'save-all', run: () => workspace.saveAll() });
+  C({ id: 'file.close', title: t('View: Close Editor'), key: 'Ctrl+W', icon: 'close', run: () => workspace.active && workspace.close(workspace.active) });
+  C({ id: 'file.quickOpen', title: t('Go to File…'), key: 'Ctrl+P', icon: 'go-to-file', run: () => quickOpen() });
+  C({ id: 'symbols.find', title: t('Go to Symbol in Project…'), key: 'Ctrl+T', icon: 'symbol-class', run: () => symbolPicker() });
+  C({ id: 'symbols.view', title: t('View: Find Symbols (struct, impl, fn…)'), key: 'Ctrl+Shift+T', icon: 'symbol-class', run: () => layout.showSide('symbols') });
+  C({ id: 'symbols.file', title: t('Go to Symbol in File…'), key: 'Ctrl+Shift+O', icon: 'symbol-method', run: () => editorAction('editor.action.quickOutline') });
+  C({ id: 'palette', title: t('Show All Commands'), key: 'Ctrl+Shift+P', icon: 'terminal', run: () => commandPalette() });
+  C({ id: 'view.explorer', title: t('View: Explorer'), key: 'Ctrl+Shift+E', icon: 'files', run: () => layout.showSide('explorer') });
+  C({ id: 'view.search', title: t('View: Search in Files'), key: 'Ctrl+Shift+F', icon: 'search', run: () => {
     layout.showSide('search');
     const selection = workspace.editor.getSelection();
     const model = workspace.editor.getModel();
     if (selection && model && !selection.isEmpty() && selection.startLineNumber === selection.endLineNumber) searchFor(model.getValueInRange(selection));
   } });
-  C({ id: 'view.cargo', title: 'View: Cargo', icon: 'package', run: () => layout.showSide('cargo') });
-  C({ id: 'view.sidebar', title: 'View: Toggle Side Bar', key: 'Ctrl+B', icon: 'layout-sidebar-left', run: () => layout.toggleSidebar() });
-  C({ id: 'view.panel', title: 'View: Toggle Panel', key: 'Ctrl+J', icon: 'layout-panel', run: () => layout.togglePanel() });
-  C({ id: 'view.problems', title: 'View: Problems', key: 'Ctrl+Shift+M', icon: 'error', run: () => layout.showPanel('problems') });
-  C({ id: 'view.output', title: 'View: Output', icon: 'output', run: () => layout.showPanel('output') });
-  C({ id: 'terminal.new', title: 'Terminal: New Terminal', key: 'Ctrl+`', icon: 'terminal', run: () => newTerminal() });
-  C({ id: 'cargo.run', title: 'Cargo: Run', key: 'F5', icon: 'play', run: () => runCargo(['run'], 'cargo run') });
-  C({ id: 'cargo.runRelease', title: 'Cargo: Run Fast (release)', key: 'Ctrl+F5', icon: 'rocket', run: () => runCargo(['run', '--release'], 'cargo run --release') });
-  C({ id: 'cargo.build', title: 'Cargo: Build', key: 'Ctrl+Shift+B', icon: 'tools', run: () => runCargo(['build']) });
-  C({ id: 'cargo.check', title: 'Cargo: Check', icon: 'check', run: () => runCargo(['check']) });
-  C({ id: 'cargo.test', title: 'Cargo: Test', icon: 'beaker', run: () => runCargo(['test']) });
-  C({ id: 'cargo.clean', title: 'Cargo: Clean', icon: 'trash', run: () => runCargo(['clean']) });
-  C({ id: 'settings', title: 'Preferences: Settings', key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
-  C({ id: 'theme.toggle', title: 'Preferences: Toggle Dark / Light Theme', icon: 'color-mode', run: () => updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' }) });
-  C({ id: 'analyzer.restart', title: 'Rust++: Restart Language Server', icon: 'refresh', run: () => restartLanguageServer() });
-  C({ id: 'analyzer.menu', title: 'Rust++: Language Server Status', icon: 'info', run: () => {
+  C({ id: 'view.cargo', title: t('View: Cargo'), icon: 'package', run: () => layout.showSide('cargo') });
+  C({ id: 'view.sidebar', title: t('View: Toggle Side Bar'), key: 'Ctrl+B', icon: 'layout-sidebar-left', run: () => layout.toggleSidebar() });
+  C({ id: 'view.panel', title: t('View: Toggle Panel'), key: 'Ctrl+J', icon: 'layout-panel', run: () => layout.togglePanel() });
+  C({ id: 'view.problems', title: t('View: Problems'), key: 'Ctrl+Shift+M', icon: 'error', run: () => layout.showPanel('problems') });
+  C({ id: 'view.output', title: t('View: Output'), icon: 'output', run: () => layout.showPanel('output') });
+  C({ id: 'terminal.new', title: t('Terminal: New Terminal'), key: 'Ctrl+`', icon: 'terminal', run: () => newTerminal() });
+  C({ id: 'cargo.run', title: t('Cargo: Run'), key: 'F5', icon: 'play', run: () => runCargo(['run'], 'cargo run') });
+  C({ id: 'cargo.runRelease', title: t('Cargo: Run Fast (release)'), key: 'Ctrl+F5', icon: 'rocket', run: () => runCargo(['run', '--release'], 'cargo run --release') });
+  C({ id: 'cargo.build', title: t('Cargo: Build'), key: 'Ctrl+Shift+B', icon: 'tools', run: () => runCargo(['build']) });
+  C({ id: 'cargo.check', title: t('Cargo: Check'), icon: 'check', run: () => runCargo(['check']) });
+  C({ id: 'cargo.test', title: t('Cargo: Test'), icon: 'beaker', run: () => runCargo(['test']) });
+  C({ id: 'cargo.clean', title: t('Cargo: Clean'), icon: 'trash', run: () => runCargo(['clean']) });
+  C({ id: 'book.open', title: t('Help: Doc Book'), icon: 'book', run: () => openBook() });
+  C({ id: 'settings', title: t('Preferences: Settings'), key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
+  C({ id: 'theme.toggle', title: t('Preferences: Toggle Dark / Light Theme'), icon: 'color-mode', run: () => updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' }) });
+  C({ id: 'analyzer.restart', title: t('Rust++: Restart Language Server'), icon: 'refresh', run: () => restartLanguageServer() });
+  C({ id: 'analyzer.menu', title: t('Rust++: Language Server Status'), icon: 'info', run: () => {
     if (lsp.state === 'error' || lsp.state === 'stopped') restartLanguageServer();
     else layout.showPanel('output');
   } });
-  C({ id: 'rustpp.install', title: 'Rust++: Install or Update Rust++', icon: 'cloud-download', run: () => installRustpp() });
-  C({ id: 'rustpp.about', title: 'Rust++: About This Toolchain', icon: 'info', run: () => {
+  C({ id: 'rustpp.install', title: t('Rust++: Install or Update Rust++'), icon: 'cloud-download', run: () => installRustpp() });
+  C({ id: 'rustpp.about', title: t('Rust++: About This Toolchain'), icon: 'info', run: () => {
     const tc = workspace.info.toolchain;
-    toast(`${tc.rustcVersion ?? 'Rust++ is not installed'}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
-      { label: 'Install / Update', run: () => installRustpp() },
+    toast(`${tc.rustcVersion ?? t('Rust++ is not installed')}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
+      { label: t('Install / Update'), run: () => installRustpp() },
     ]);
   } });
-  C({ id: 'editor.rename', title: 'Rename Symbol', key: 'F2', icon: 'edit', run: () => editorAction('editor.action.rename') });
-  C({ id: 'editor.definition', title: 'Go to Definition', key: 'F12', icon: 'go-to-file', run: () => editorAction('editor.action.revealDefinition') });
-  C({ id: 'editor.references', title: 'Find All References', key: 'Shift+F12', icon: 'references', run: () => editorAction('editor.action.goToReferences') });
-  C({ id: 'editor.implementations', title: 'Go to Implementations', key: 'Ctrl+F12', icon: 'symbol-interface', run: () => editorAction('editor.action.goToImplementation') });
-  C({ id: 'editor.quickFix', title: 'Quick Fix…', key: 'Ctrl+.', icon: 'lightbulb', run: () => editorAction('editor.action.quickFix') });
-  C({ id: 'editor.nextProblem', title: 'Go to Next Problem', key: 'F8', icon: 'arrow-down', run: () => editorAction('editor.action.marker.nextInFiles') });
-  C({ id: 'editor.format', title: 'Format Document', key: 'Shift+Alt+F', icon: 'whole-word', run: () => editorAction('editor.action.formatDocument') });
+  C({ id: 'editor.rename', title: t('Rename Symbol'), key: 'F2', icon: 'edit', run: () => editorAction('editor.action.rename') });
+  C({ id: 'editor.definition', title: t('Go to Definition'), key: 'F12', icon: 'go-to-file', run: () => editorAction('editor.action.revealDefinition') });
+  C({ id: 'editor.references', title: t('Find All References'), key: 'Shift+F12', icon: 'references', run: () => editorAction('editor.action.goToReferences') });
+  C({ id: 'editor.implementations', title: t('Go to Implementations'), key: 'Ctrl+F12', icon: 'symbol-interface', run: () => editorAction('editor.action.goToImplementation') });
+  C({ id: 'editor.quickFix', title: t('Quick Fix…'), key: 'Ctrl+.', icon: 'lightbulb', run: () => editorAction('editor.action.quickFix') });
+  C({ id: 'editor.nextProblem', title: t('Go to Next Problem'), key: 'F8', icon: 'arrow-down', run: () => editorAction('editor.action.marker.nextInFiles') });
+  C({ id: 'editor.format', title: t('Format Document'), key: 'Shift+Alt+F', icon: 'whole-word', run: () => editorAction('editor.action.formatDocument') });
 }
 
 function editorAction(id: string) {
@@ -280,10 +286,10 @@ function editorAction(id: string) {
 async function newFile() {
   const root = workspace.root;
   if (!root) {
-    toast('Open a folder first.', 'warning');
+    toast(t('Open a folder first.'), 'warning');
     return;
   }
-  const name = await prompt('New file (path in the project)', 'src/');
+  const name = await prompt(t('New file (path in the project)'), 'src/');
   if (!name) return;
   const sep = workspace.info.pathSeparator;
   const path = root + sep + name.replace(/[\\/]/g, sep);
@@ -345,7 +351,7 @@ function setupWindowClose() {
           return;
         }
         event.preventDefault();
-        const ok = await confirm(`Quit with ${workspace.dirtyDocs.length} unsaved file(s)?`, 'Unsaved changes will be lost.', 'Quit', true);
+        const ok = await confirm(t('Quit with {n} unsaved file(s)?', { n: workspace.dirtyDocs.length }), t('Unsaved changes will be lost.'), t('Quit'), true);
         if (ok) {
           await lsp.stop();
           await win.destroy();
@@ -356,7 +362,7 @@ function setupWindowClose() {
     window.addEventListener('beforeunload', (e) => {
       if (workspace.dirtyDocs.length) e.preventDefault();
     });
-    backend.on('backend.disconnected', () => toast('Disconnected from devr-server. Reload the page to reconnect.', 'error', [], 0));
+    backend.on('backend.disconnected', () => toast(t('Disconnected from devr-server. Reload the page to reconnect.'), 'error', [], 0));
   }
 }
 
@@ -365,9 +371,9 @@ async function checkUpdates() {
     const updates = await backend.call<{ devrLatest: { tag: string; url: string } | null; devrCurrent: string }>('updates.check');
     const latest = updates.devrLatest?.tag.replace(/^devr-v/, '');
     if (latest && newer(latest, updates.devrCurrent)) {
-      toast(`DEVR+ ${latest} is available (you have ${updates.devrCurrent}).`, 'info', [
-        { label: 'Download', primary: true, run: () => import('@tauri-apps/plugin-opener').then((m) => m.openUrl(updates.devrLatest!.url)).catch(() => window.open(updates.devrLatest!.url, '_blank')) },
-        { label: 'Later', run: () => {} },
+      toast(t('DEVR+ {latest} is available (you have {current}).', { latest, current: updates.devrCurrent }), 'info', [
+        { label: t('Download'), primary: true, run: () => import('@tauri-apps/plugin-opener').then((m) => m.openUrl(updates.devrLatest!.url)).catch(() => window.open(updates.devrLatest!.url, '_blank')) },
+        { label: t('Later'), run: () => {} },
       ]);
     }
   } catch {

@@ -1,5 +1,6 @@
 // The workbench skeleton: activity bar, side bar, editor area, bottom panel
 // and status bar, with draggable borders like VS Code.
+import { t } from '../i18n';
 import { Emitter, clamp, h, icon } from '../util';
 
 export interface SideView {
@@ -59,8 +60,8 @@ class Layout {
     this.editorGroup.append(this.tabsBar, this.breadcrumbs, this.editorHost);
     this.panel.append(
       h('div.panel-header', {}, this.panelTabs, h('div.spacer'), this.panelActions,
-        h('button.icon-button', { title: 'Maximize Panel', onclick: () => this.togglePanelMaximized() }, icon('chevron-up')),
-        h('button.icon-button', { title: 'Close Panel (Ctrl+J)', onclick: () => this.togglePanel(false) }, icon('close'))),
+        h('button.icon-button', { title: t('Maximize Panel'), onclick: () => this.togglePanelMaximized() }, icon('chevron-up')),
+        h('button.icon-button', { title: t('Close Panel (Ctrl+J)'), onclick: () => this.togglePanel(false) }, icon('close'))),
       this.panelBody,
     );
     this.center.append(this.editorGroup, panelSash, this.panel);

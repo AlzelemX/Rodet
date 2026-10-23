@@ -1,5 +1,6 @@
 // The open project: its folder, the open files (Monaco models), the tabs,
 // saving, and reloading files that changed on disk.
+import { t } from './i18n';
 import * as monaco from './editor/monaco';
 import { backend, errorText } from './backend';
 import { languageOf } from './editor/language';
@@ -73,6 +74,23 @@ class Workspace {
   readonly onSaved = new Emitter<Doc>();
 
   private loading = new Map<string, Promise<Doc | null>>();
+  /** Tabs that are not files (the Doc Book): path → title and icon. */
+  readonly pages = new Map<string, { title: string; icon: string }>();
+
+  isPage(path: string | null): boolean {
+    return !!path && this.pages.has(path);
+  }
+
+  /** Opens (or shows) a tab that is not a file, like the Doc Book. */
+  openPage(path: string, title: string, icon: string) {
+    this.pages.set(path, { title, icon });
+    if (!this.tabs.includes(path)) {
+      const at = this.active ? this.tabs.findIndex((t) => pathKey(t) === pathKey(this.active!)) : -1;
+      this.tabs.splice(at + 1, 0, path);
+    }
+    this.onTabs.fire();
+    this.show(path);
+  }
 
   async init() {
     this.info = await backend.call<AppInfo>('app.info');
@@ -121,7 +139,7 @@ class Workspace {
         try {
           const file = await backend.call<{ text: string; binary: boolean }>('fs.readFile', { path });
           if (file.binary) {
-            toast(`${basename(path)} is not a text file.`, 'warning');
+            toast(t('{name} is not a text file.', { name: basename(path) }), 'warning');
             return null;
           }
           const uri = uriOf(path);
@@ -198,13 +216,21 @@ class Workspace {
 
   /** Closes a tab; asks first when it has unsaved changes. Returns false when cancelled. */
   async close(path: string, force = false): Promise<boolean> {
+    if (this.pages.has(path)) {
+      const index = this.tabs.indexOf(path);
+      if (index >= 0) this.tabs.splice(index, 1);
+      this.pages.delete(path);
+      if (this.active === path) this.show(this.tabs[Math.min(index, this.tabs.length - 1)] ?? null);
+      this.onTabs.fire();
+      return true;
+    }
     const doc = this.get(path);
     if (!doc) return true;
     if (!force && this.isDirty(path)) {
       const { confirm } = await import('./ui/notify');
-      const save = await confirm(`Save changes to ${basename(path)}?`, 'Your changes will be lost if you don’t save them.', 'Save');
+      const save = await confirm(t('Save changes to {name}?', { name: basename(path) }), t('Your changes will be lost if you don’t save them.'), t('Save'));
       if (save) await this.save(path);
-      else if (!(await confirm(`Close ${basename(path)} without saving?`, '', 'Don’t Save', true))) return false;
+      else if (!(await confirm(t('Close {name} without saving?', { name: basename(path) }), '', t('Don’t Save'), true))) return false;
     }
     const index = this.tabs.findIndex((t) => pathKey(t) === pathKey(path));
     if (index >= 0) this.tabs.splice(index, 1);
@@ -223,20 +249,20 @@ class Workspace {
     if (!force && this.dirtyDocs.length) {
       const { confirm } = await import('./ui/notify');
       const ok = await confirm(
-        `Save ${this.dirtyDocs.length} changed file(s)?`,
+        t('Save {n} changed file(s)?', { n: this.dirtyDocs.length }),
         this.dirtyDocs.map((d) => basename(d.path)).join(', '),
-        'Save All',
+        t('Save All'),
       );
       if (ok) await this.saveAll();
-      else if (!(await confirm('Close without saving?', '', 'Don’t Save', true))) return false;
+      else if (!(await confirm(t('Close without saving?'), '', t('Don’t Save'), true))) return false;
     }
     for (const doc of [...this.docs.values()]) {
       this.onModelClosed.fire(doc);
       doc.model.dispose();
     }
     this.docs.clear();
-    this.tabs = [];
-    this.show(null);
+    this.tabs = this.tabs.filter((t) => this.pages.has(t));
+    this.show(this.tabs[0] ?? null);
     this.onTabs.fire();
     return true;
   }

@@ -9,6 +9,7 @@
 //! The same core runs inside the desktop app (Tauri) and inside
 //! `devr-server`, which serves the editor over a WebSocket.
 
+mod book;
 mod cargo;
 mod files;
 mod lsp;
@@ -76,7 +77,7 @@ impl Core {
             }
             "lsp.send" => {
                 let p: lsp::SendParams = parse(params)?;
-                self.lsp.send(&p.message).await?;
+                self.lsp.send(&p.messages).await?;
                 Ok(Value::Null)
             }
             "lsp.stop" => {
@@ -128,6 +129,10 @@ impl Core {
                 Value::Null
             }
             "fs.listFiles" => to_json(files::list_files(&parse::<files::PathParam>(params)?.path))?,
+
+            "book.info" => to_json(book::info())?,
+            "book.read" => Value::String(book::read(&parse(params)?)?),
+            "book.asset" => to_json(book::asset(&parse(params)?)?)?,
 
             "search.text" => to_json(search::search(parse(params)?)?)?,
 

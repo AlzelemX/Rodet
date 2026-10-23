@@ -1,4 +1,5 @@
 // The file tree of the project.
+import { t } from '../i18n';
 import { backend, errorText } from '../backend';
 import { diagnostics, onDiagnostics } from '../lsp/features';
 import { invalidateFileCache } from '../ui/palette';
@@ -46,8 +47,8 @@ function render() {
   const root = workspace.root;
   tree.replaceChildren();
   if (!root) {
-    tree.appendChild(h('div.empty-state', {}, 'No folder is open.',
-      h('br'), h('button.btn.primary', { onclick: () => import('../main').then((m) => m.openFolderDialog()) }, icon('folder-opened'), 'Open Folder')));
+    tree.appendChild(h('div.empty-state', {}, t('No folder is open.'),
+      h('br'), h('button.btn.primary', { onclick: () => import('../main').then((m) => m.openFolderDialog()) }, icon('folder-opened'), t('Open Folder'))));
     return;
   }
   const rootRow = h('div.section-title', { onclick: () => toggle(root) },
@@ -62,7 +63,7 @@ function render() {
 }
 
 function action(name: string, title: string, run: () => void) {
-  return h('button.icon-button', { title, onclick: (e: MouseEvent) => { e.stopPropagation(); run(); } }, icon(name));
+  return h('button.icon-button', { title: t(title), onclick: (e: MouseEvent) => { e.stopPropagation(); run(); } }, icon(name));
 }
 
 function renderDir(dir: string, depth: number) {
@@ -181,8 +182,8 @@ async function rename(path: string, name: string) {
 }
 
 async function remove(entry: Entry) {
-  const ok = await confirm(`Delete ${entry.isDir ? 'the folder' : ''} “${entry.name}”?`,
-    entry.isDir ? 'The folder and everything in it will be deleted. This can’t be undone.' : 'This can’t be undone.', 'Delete', true);
+  const ok = await confirm(t(entry.isDir ? 'Delete the folder “{name}”?' : 'Delete “{name}”?', { name: entry.name }),
+    entry.isDir ? t('The folder and everything in it will be deleted. This can’t be undone.') : t('This can’t be undone.'), t('Delete'), true);
   if (!ok) return;
   try {
     await backend.call('fs.delete', { path: entry.path });
@@ -198,15 +199,15 @@ async function remove(entry: Entry) {
 function showMenu(e: MouseEvent, entry: Entry) {
   const dir = entry.isDir ? entry.path : dirname(entry.path);
   contextMenu(e, [
-    ...(entry.isDir ? [] : [{ label: 'Open', icon: 'go-to-file', run: () => workspace.open(entry.path) }, 'sep' as const]),
-    { label: 'New File…', icon: 'new-file', run: () => startCreate(dir, 'file') },
-    { label: 'New Folder…', icon: 'new-folder', run: () => startCreate(dir, 'folder') },
+    ...(entry.isDir ? [] : [{ label: t('Open'), icon: 'go-to-file', run: () => workspace.open(entry.path) }, 'sep' as const]),
+    { label: t('New File…'), icon: 'new-file', run: () => startCreate(dir, 'file') },
+    { label: t('New Folder…'), icon: 'new-folder', run: () => startCreate(dir, 'folder') },
     'sep',
-    { label: 'Rename…', icon: 'edit', key: 'F2', run: () => { editing = { parent: dirname(entry.path), kind: 'rename', path: entry.path }; render(); } },
-    { label: 'Delete', icon: 'trash', key: 'Delete', run: () => remove(entry) },
+    { label: t('Rename…'), icon: 'edit', key: 'F2', run: () => { editing = { parent: dirname(entry.path), kind: 'rename', path: entry.path }; render(); } },
+    { label: t('Delete'), icon: 'trash', key: 'Delete', run: () => remove(entry) },
     'sep',
-    { label: 'Copy Path', icon: 'copy', run: () => navigator.clipboard.writeText(entry.path) },
-    { label: 'Copy Relative Path', icon: 'copy', run: () => navigator.clipboard.writeText(relativePath(workspace.root, entry.path)) },
+    { label: t('Copy Path'), icon: 'copy', run: () => navigator.clipboard.writeText(entry.path) },
+    { label: t('Copy Relative Path'), icon: 'copy', run: () => navigator.clipboard.writeText(relativePath(workspace.root, entry.path)) },
   ]);
 }
 
@@ -269,7 +270,7 @@ tree.addEventListener('keydown', (e) => {
 
 export const explorer: SideView = {
   id: 'explorer',
-  title: 'Explorer',
+  title: t('Explorer'),
   icon: 'files',
   element,
   actions: [

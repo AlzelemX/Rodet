@@ -2,11 +2,14 @@
 // files, and gives Monaco completion, hover, go to definition, errors and
 // fixes, renaming, inlay hints (with the Rust++ ↩ return marks), semantic
 // colors, Run lenses and the speed score.
+import { arabic, isolateLatin, t } from '../i18n';
+import { translateAction, translateDiagnostic, translateLens, translateTip } from '../i18n/messages';
+import { STD_AR } from '../i18n/std-ar';
 import * as monaco from '../editor/monaco';
 import { backend, errorText } from '../backend';
 import { RUSTPP } from '../editor/language';
 import { settings } from '../settings';
-import { Emitter, basename, debounce } from '../util';
+import { Emitter, debounce } from '../util';
 import { toast } from '../ui/notify';
 import { type Doc, pathKey, pathOfUri, uriOf, workspace } from '../workspace';
 import {
@@ -165,9 +168,11 @@ function clearAllDiagnostics() {
 
 const synced = new Map<string, { version: number; pending: boolean }>();
 
+/** Only Rust++ files go to the server: it reads any open file as Rust, so an
+ * open `Cargo.toml` got "Syntax Error" on every line. The server sees saved
+ * `Cargo.toml` changes through its file watcher. */
 function wantsServer(doc: Doc) {
-  const lang = doc.model.getLanguageId();
-  return lang === RUSTPP || (lang === 'toml' && basename(doc.path).toLowerCase() === 'cargo.toml');
+  return doc.model.getLanguageId() === RUSTPP;
 }
 
 function openInServer(doc: Doc) {
@@ -210,7 +215,8 @@ export function setupDocumentSync() {
     applyMarkers(doc.path);
     openInServer(doc);
     const flushSoon = debounce(() => flush(doc), 120);
-    doc.model.onDidChangeContent(() => {
+    doc.model.onDidChangeContent((e) => {
+      followEdits(doc, e.changes);
       const state = synced.get(pathKey(doc.path));
       if (state) {
         state.pending = true;
@@ -262,13 +268,13 @@ function toMarker(d: LspDiagnostic): monaco.editor.IMarkerData {
   return {
     ...range,
     severity,
-    message: rustppText(d.message),
+    message: translateDiagnostic(rustppText(d.message)),
     source: d.source,
     code,
     tags: d.tags?.map((t) => (t === 1 ? monaco.MarkerTag.Unnecessary : monaco.MarkerTag.Deprecated)),
     relatedInformation: d.relatedInformation?.map((r) => ({
       resource: monaco.Uri.parse(r.location.uri),
-      message: r.message,
+      message: translateDiagnostic(r.message),
       ...toRange(r.location.range),
     })),
   };
@@ -283,6 +289,44 @@ function setupDiagnostics() {
     applyMarkers(path);
     onDiagnostics.fire();
   });
+}
+
+/**
+ * Keeps the errors of an edited file in step with the text until the next
+ * check: errors below an edit move with their lines, and errors from
+ * `cargo check` on the lines just edited disappear at once (they describe
+ * code that is no longer there). Without this, a fixed error stayed red
+ * until the file was saved and checked again.
+ */
+function followEdits(doc: Doc, changes: readonly monaco.editor.IModelContentChange[]) {
+  const key = pathKey(doc.path);
+  const entry = diagnostics.get(key);
+  if (!entry || !changes.length) return;
+  let list = entry.diagnostics;
+  // Bottom to top, so each change's range is still in the right coordinates.
+  const sorted = [...changes].sort((a, b) => b.range.startLineNumber - a.range.startLineNumber || b.range.startColumn - a.range.startColumn);
+  for (const change of sorted) {
+    const first = change.range.startLineNumber - 1;
+    const last = change.range.endLineNumber - 1;
+    const delta = change.text.split('\n').length - 1 - (last - first);
+    list = list.flatMap((d) => {
+      const { start, end } = d.range;
+      if (end.line < first) return [d];
+      if (start.line > last) {
+        if (!delta) return [d];
+        return [{ ...d, range: { start: { ...start, line: start.line + delta }, end: { ...end, line: end.line + delta } } }];
+      }
+      // On an edited line: the server's own errors come back by themselves
+      // in a moment; the compiler's only after the next check.
+      if (d.source && d.source !== 'rust-analyzer') return [];
+      return [d];
+    });
+  }
+  if (list.length === entry.diagnostics.length && list.every((d, i) => d === entry.diagnostics[i])) return;
+  if (list.length) diagnostics.set(key, { ...entry, diagnostics: list });
+  else diagnostics.delete(key);
+  applyMarkers(doc.path);
+  onDiagnostics.fire();
 }
 
 export function diagnosticCounts() {
@@ -334,7 +378,7 @@ export async function applyWorkspaceEdit(edit: LspWorkspaceEdit): Promise<boolea
     }
     return true;
   } catch (err) {
-    toast(`Couldn’t apply the change: ${errorText(err)}`, 'error');
+    toast(`${t('Couldn’t apply the change:')} ${errorText(err)}`, 'error');
     return false;
   }
 }
@@ -364,7 +408,7 @@ function runServerCommand(id: string, args: any[]) {
     case 'rust-analyzer.showReferences':
     case 'rust-analyzer.gotoLocation': {
       const locations: LspLocation[] = id === 'rust-analyzer.gotoLocation' ? [args[0]] : args[2] ?? [];
-      showLocations(locations, id === 'rust-analyzer.showReferences' ? 'References' : 'Location');
+      showLocations(locations, id === 'rust-analyzer.showReferences' ? t('References') : t('Location'));
       break;
     }
     default:
@@ -377,7 +421,7 @@ function runServerCommand(id: string, args: any[]) {
 /** Opens one location, or lets the user pick among several. */
 export async function showLocations(locations: LspLocation[], title: string) {
   if (locations.length === 0) {
-    toast(`No ${title.toLowerCase()} found.`, 'info');
+    toast(t('Nothing found: {what}', { what: title }), 'info');
     return;
   }
   if (locations.length === 1) {
@@ -403,6 +447,44 @@ function toLocations(result: any): monaco.languages.Location[] {
       ? { uri: monaco.Uri.parse(l.targetUri), range: toRange(l.targetSelectionRange ?? l.targetRange) }
       : { uri: monaco.Uri.parse(l.uri), range: toRange(l.range) },
   );
+}
+
+// ---------------------------------------------------------------- Arabic docs
+
+/**
+ * The Arabic description (std-ar.ts) of the item a hover shows. The hover
+ * starts with the item's path in a code block (`alloc::vec::Vec`), then its
+ * signature (`impl<T, A> Vec<T, A>` / `pub fn push(&mut self, value: T)`).
+ */
+function arabicDocFor(hover: string): string | null {
+  const blocks = [...hover.matchAll(/```rust\n([\s\S]*?)```/g)].map((m) => m[1].trim());
+  if (blocks.length < 2) return null;
+  const path = blocks[0].split('\n')[0].trim();
+  const signature = blocks[1];
+  const lastSegment = path.split('::').pop() ?? '';
+  const keys: string[] = [];
+  const macro = signature.match(/\bmacro_rules!\s+(\w+)/);
+  const fn = signature.match(/\bfn\s+(\w+)/);
+  const type = signature.match(/\b(?:struct|enum|trait|union|type)\s+(\w+)/);
+  if (macro) keys.push(`${macro[1]}!`);
+  else if (fn) {
+    const impl = signature.match(/^impl(?:<.*?>)?\s+(?:.+?\s+for\s+)?(.+?)\s*$/m);
+    let container = impl ? impl[1].replace(/<.*$/, '').replace(/^&(mut\s+)?/, '').trim() : '';
+    if (container.startsWith('[')) container = 'slice';
+    if (container) keys.push(`${container}::${fn[1]}`);
+    keys.push(`${lastSegment}::${fn[1]}`);
+    if (lastSegment === 'slice' || container === 'Vec') keys.push(`slice::${fn[1]}`, `Vec::${fn[1]}`);
+  } else if (type) keys.push(type[1]);
+  else {
+    // An enum variant like `Some(T)`: the path ends with its enum.
+    const variant = signature.match(/^(?:pub\s+)?(\w+)/);
+    if (variant) keys.push(`${lastSegment}::${variant[1]}`);
+  }
+  for (const key of keys) {
+    const text = STD_AR[key];
+    if (text) return `**${t('In Arabic')}:** ${isolateLatin(text)}\n\n---`;
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------- providers
@@ -443,8 +525,7 @@ function setupProviders() {
         context: { triggerKind: context.triggerKind + 1, triggerCharacter: context.triggerCharacter },
       }, token);
       if (!result) return { suggestions: [] };
-      const items: any[] = Array.isArray(result) ? result : result.items ?? [];
-      const word = model.getWordUntilPosition(position);
+      const items: any[] = Array.isArray(result) ? result : result.items ?? [];      const word = model.getWordUntilPosition(position);
       const defaultRange = new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, position.column);
       return {
         incomplete: !Array.isArray(result) && !!result.isIncomplete,
@@ -471,7 +552,7 @@ function setupProviders() {
             tags: item.deprecated || item.tags?.includes(1) ? [L.CompletionItemTag.Deprecated] : undefined,
             additionalTextEdits: item.additionalTextEdits?.map((e: LspTextEdit) => ({ range: toRange(e.range), text: e.newText })),
             command: item.command?.command === 'rust-analyzer.triggerParameterHints'
-              ? { id: 'editor.action.triggerParameterHints', title: '' }
+              ? { id: 'editor.action.triggerParameterHints', title: t('') }
               : undefined,
             lspItem: item,
           } as monaco.languages.CompletionItem;
@@ -501,6 +582,8 @@ function setupProviders() {
       const contents = (Array.isArray(r.contents) ? r.contents : [r.contents])
         .map((c: any) => (typeof c === 'string' ? markdown(c) : c.language ? { value: '```' + c.language + '\n' + rustppText(c.value) + '\n```' } : markdown(c)))
         .filter(Boolean);
+      const arabicDoc = arabic ? arabicDocFor(contents.map((c: monaco.IMarkdownString) => c.value).join('\n')) : null;
+      if (arabicDoc) contents.unshift({ value: arabicDoc });
       return { contents, range: r.range ? toRange(r.range) : undefined };
     },
   });
@@ -584,7 +667,7 @@ function setupProviders() {
   L.registerRenameProvider(selector, {
     async resolveRenameLocation(model, position, token) {
       const r: any = await ask(model, 'textDocument/prepareRename', { position: toLspPosition(position) }, token);
-      if (!r) return { range: new monaco.Range(1, 1, 1, 1), text: '', rejectReason: 'This can’t be renamed.' };
+      if (!r) return { range: new monaco.Range(1, 1, 1, 1), text: '', rejectReason: t('This can’t be renamed.') };
       const range = toRange(r.range ?? r);
       return { range, text: r.placeholder ?? model.getValueInRange(range) };
     },
@@ -608,10 +691,10 @@ function setupProviders() {
       }, token);
       const actions = (r ?? []).map((a: any) => {
         if (typeof a.command === 'string') {
-          return { title: a.title, command: { id: 'devr.serverCommand', title: a.title, arguments: [a.command, a.arguments] } };
+          return { title: translateAction(a.title), command: { id: 'devr.serverCommand', title: a.title, arguments: [a.command, a.arguments] } };
         }
         return {
-          title: a.title,
+          title: translateAction(a.title),
           kind: a.kind,
           isPreferred: a.isPreferred,
           diagnostics: (a.diagnostics ?? []).map(toMarker),
@@ -638,7 +721,7 @@ function setupProviders() {
         const r = await lsp.request<any>('codeLens/resolve', lens.lspLens, tokenOf(token));
         lens.command = lensCommand(r);
       } catch {
-        lens.command = { id: '', title: '' };
+        lens.command = { id: '', title: t('') };
       }
       return lens;
     },
@@ -677,7 +760,7 @@ function setupProviders() {
                 inlineClassName: 'rpp-return-mark',
                 cursorStops: monaco.editor.InjectedTextCursorStops.None,
               },
-              hoverMessage: { value: '**Returned value** — the last expression of the function, without `;`.' },
+              hoverMessage: { value: t('**Returned value** — the last expression of the function, without `;`.') },
             },
           });
           continue;
@@ -727,7 +810,7 @@ function setupProviders() {
 function lensCommand(lens: any): monaco.languages.Command | undefined {
   const c = lens?.command;
   if (!c) return undefined;
-  return { id: 'devr.serverCommand', title: c.title, arguments: [c.command, c.arguments] };
+  return { id: 'devr.serverCommand', title: translateLens(c.title), arguments: [c.command, c.arguments] };
 }
 
 // ---------------------------------------------------------------- server status
@@ -836,7 +919,7 @@ export function showSpeedMarks(doc: Doc, findings: SpeedFinding[]) {
       range: toRange(f.range),
       options: {
         inlineClassName: 'rpp-speed-mark',
-        hoverMessage: { value: `**⚡ −${f.penalty} speed** · ${f.message}\n\n💡 ${f.fix}` },
+        hoverMessage: { value: `**⚡ −${f.penalty} ${t('speed')}** · ${translateTip(f.message)}\n\n💡 ${translateTip(f.fix)}` },
         overviewRuler: { color: '#e8590c88', position: monaco.editor.OverviewRulerLane.Center },
       },
     })),

@@ -1,5 +1,6 @@
 // The Cargo view: run, build and test the project, its programs and
 // libraries (crates), and which libraries have a newer version.
+import { t } from '../i18n';
 import { backend, errorText } from '../backend';
 import type { SideView } from '../ui/layout';
 import { prompt, toast } from '../ui/notify';
@@ -31,7 +32,7 @@ let project: Project | null = null;
 const latest = new Map<string, string | null>();
 
 function actionButton(label: string, iconName: string, args: string[], title?: string) {
-  return h('button.btn.small', { title: title ?? `cargo ${args.join(' ')}`, onclick: () => runCargo(args, label === 'Run' ? 'cargo run' : undefined) }, icon(iconName), label);
+  return h('button.btn.small', { title: title ?? `cargo ${args.join(' ')}`, onclick: () => runCargo(args, args.length === 1 && args[0] === 'run' ? 'cargo run' : undefined) }, icon(iconName), t(label));
 }
 
 async function load() {
@@ -53,13 +54,13 @@ async function load() {
 function render() {
   body.replaceChildren();
   if (!workspace.root) {
-    body.appendChild(h('div.empty-state', {}, 'Open a Cargo project to run, build and test it.',
-      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), 'New Rust++ Project')));
+    body.appendChild(h('div.empty-state', {}, t('Open a Cargo project to run, build and test it.'),
+      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rust++ Project'))));
     return;
   }
   if (!project?.root) {
-    body.appendChild(h('div.empty-state', {}, 'This folder has no Cargo.toml.',
-      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), 'New Rust++ Project')));
+    body.appendChild(h('div.empty-state', {}, t('This folder has no Cargo.toml.'),
+      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rust++ Project'))));
     return;
   }
   const p = project;
@@ -67,37 +68,37 @@ function render() {
     h('div.pad', {},
       h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
         icon('package'),
-        h('b', { style: { fontSize: '14px', color: 'var(--fg-strong)' } }, p.name ?? (p.members.length ? 'workspace' : 'project')),
-        h('span.faint', {}, [p.version, p.edition ? `edition ${p.edition}` : null].filter(Boolean).join(' · '))),
+        h('b', { style: { fontSize: '14px', color: 'var(--fg-strong)' } }, p.name ?? (p.members.length ? t('workspace') : t('project'))),
+        h('span.faint', {}, [p.version, p.edition ? t('edition {edition}', { edition: p.edition }) : null].filter(Boolean).join(' · '))),
       h('div.cargo-actions', {},
         actionButton('Run', 'play', ['run']),
         actionButton('Build', 'tools', ['build']),
         actionButton('Check', 'check', ['check']),
         actionButton('Test', 'beaker', ['test']),
-        actionButton('Run fast', 'rocket', ['run', '--release'], 'cargo run --release: optimized, measures real speed'),
+        actionButton('Run fast', 'rocket', ['run', '--release'], t('cargo run --release: optimized, measures real speed')),
         actionButton('Clean', 'trash', ['clean'])),
     ),
   );
 
   if (p.bins.length > 1 || p.examples.length) {
-    body.appendChild(h('div.section-title', { style: { paddingLeft: '14px' } }, 'Programs'));
+    body.appendChild(h('div.section-title', { style: { paddingLeft: '14px' } }, t('Programs')));
     for (const bin of p.bins) {
       body.appendChild(h('div.row', { style: { paddingLeft: '20px' }, onclick: () => runCargo(['run', '--bin', bin], `run ${bin}`) },
         icon('play'), h('span.label', {}, bin), h('span.desc', {}, 'bin')));
     }
     for (const example of p.examples) {
       body.appendChild(h('div.row', { style: { paddingLeft: '20px' }, onclick: () => runCargo(['run', '--example', example], `example ${example}`) },
-        icon('play'), h('span.label', {}, example), h('span.desc', {}, 'example')));
+        icon('play'), h('span.label', {}, example), h('span.desc', {}, t('example'))));
     }
   }
 
-  body.appendChild(h('div.section-title', { style: { paddingLeft: '14px', marginTop: '8px' } }, 'Libraries (crates)',
+  body.appendChild(h('div.section-title', { style: { paddingLeft: '14px', marginTop: '8px' } }, t('Libraries (crates)'),
     h('span.actions', { style: { display: 'flex' } },
-      h('button.icon-button', { title: 'Add a library', onclick: (e: MouseEvent) => { e.stopPropagation(); addDependency(); } }, icon('add')),
-      h('button.icon-button', { title: 'Check for newer versions', onclick: (e: MouseEvent) => { e.stopPropagation(); checkVersions(true); } }, icon('refresh')),
-      h('button.icon-button', { title: 'cargo update', onclick: (e: MouseEvent) => { e.stopPropagation(); runCargo(['update']); } }, icon('cloud-download')))));
+      h('button.icon-button', { title: t('Add a library'), onclick: (e: MouseEvent) => { e.stopPropagation(); addDependency(); } }, icon('add')),
+      h('button.icon-button', { title: t('Check for newer versions'), onclick: (e: MouseEvent) => { e.stopPropagation(); checkVersions(true); } }, icon('refresh')),
+      h('button.icon-button', { title: t('cargo update'), onclick: (e: MouseEvent) => { e.stopPropagation(); runCargo(['update']); } }, icon('cloud-download')))));
   if (!p.dependencies.length) {
-    body.appendChild(h('div.pad.muted', {}, 'No libraries yet. Add one with +, for example “rand”.'));
+    body.appendChild(h('div.pad.muted', {}, t('No libraries yet. Add one with +, for example “rand”.')));
   }
   for (const dep of p.dependencies) {
     const newest = latest.get(dep.name);
@@ -109,9 +110,9 @@ function render() {
     },
     icon(dep.source ? 'folder-library' : 'library'),
     h('span.label', {}, dep.name),
-    h(`span.desc.dep-version${outdated ? '.old' : ''}` as 'span', {}, dep.version || (dep.source ? 'local' : '')),
+    h(`span.desc.dep-version${outdated ? '.old' : ''}` as 'span', {}, dep.version || (dep.source ? t('local') : '')),
     dep.kind !== 'dependencies' ? h('span.desc', {}, dep.kind.replace('-dependencies', '')) : null,
-    h('span.end', {}, outdated ? h('span.dep-version.new', { title: `Newest: ${newest}` }, `→ ${newest}`) : null)));
+    h('span.end', {}, outdated ? h('span.dep-version.new', { title: t('Newest: {version}', { version: newest }) }, `→ ${newest}`) : null)));
   }
   checkVersions(false);
 }
@@ -145,9 +146,9 @@ async function checkVersions(force: boolean) {
 }
 
 async function addDependency() {
-  const name = await prompt('Add a library (crate) from crates.io', '', {
-    placeholder: 'e.g. rand, serde --features derive',
-    validate: (v) => (/^[\w-]+(\s+.*)?$/.test(v.trim()) ? null : 'Use the crate name, optionally followed by options'),
+  const name = await prompt(t('Add a library (crate) from crates.io'), '', {
+    placeholder: t('e.g. rand, serde --features derive'),
+    validate: (v) => (/^[\w-]+(\s+.*)?$/.test(v.trim()) ? null : t('Use the crate name, optionally followed by options')),
   });
   if (!name) return;
   runCargo(['add', ...name.trim().split(/\s+/)], 'cargo add');
@@ -155,15 +156,15 @@ async function addDependency() {
 
 export async function newProject() {
   const parent = workspace.root ? workspace.root.replace(/[\\/][^\\/]+$/, '') : workspace.info.home ?? '.';
-  const name = await prompt(`New Rust++ project in ${parent}`, 'hello', {
-    validate: (v) => (/^[A-Za-z][\w-]*$/.test(v) ? null : 'Start with a letter; use letters, numbers, - and _'),
+  const name = await prompt(t('New Rust++ project in {folder}', { folder: parent }), 'hello', {
+    validate: (v) => (/^[A-Za-z][\w-]*$/.test(v) ? null : t('Start with a letter; use letters, numbers, - and _')),
   });
   if (!name) return;
   try {
     const path = await backend.call<string>('cargo.new', { parent, name });
     await workspace.openFolder(path);
     workspace.open(joinPath(joinPath(path, 'src'), 'main.rs'));
-    toast(`Created ${name}. Press F5 to run it.`, 'success');
+    toast(t('Created {name}. Press F5 to run it.', { name }), 'success');
   } catch (err) {
     toast(errorText(err), 'error');
   }
@@ -177,11 +178,11 @@ function openUrl(url: string) {
 
 export const cargo: SideView = {
   id: 'cargo',
-  title: 'Cargo',
+  title: t('Cargo'),
   icon: 'package',
   element,
   onShow: () => load(),
-  actions: [h('button.icon-button', { title: 'Reload Cargo.toml', onclick: () => load() }, icon('refresh'))],
+  actions: [h('button.icon-button', { title: t('Reload Cargo.toml'), onclick: () => load() }, icon('refresh'))],
 };
 
 export function setupCargo() {

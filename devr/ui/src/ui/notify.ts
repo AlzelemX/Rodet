@@ -1,4 +1,5 @@
 // Notifications (bottom right) and small dialogs (input, confirm).
+import { t } from '../i18n';
 import { h, icon } from '../util';
 
 let stack: HTMLElement | null = null;
@@ -30,7 +31,7 @@ export function toast(message: string, level: Level = 'info', actions: Action[] 
         ? h('div.toast-actions', {}, actions.map((a) =>
             h(a.primary ? 'button.btn.primary' : 'button.btn', { onclick: () => { close(); a.run(); } }, a.label)))
         : null),
-    h('button.icon-button.toast-close', { title: 'Close', onclick: close }, icon('close')),
+    h('button.icon-button.toast-close', { title: t('Close'), onclick: close }, icon('close')),
   );
   stack.appendChild(el);
   if (timeout > 0 && actions.length === 0) setTimeout(close, timeout);
@@ -82,8 +83,8 @@ export function prompt(title: string, value = '', options: { placeholder?: strin
     });
     const box = h('div.dialog', {}, h('div.dialog-title', {}, title), input, error,
       h('div.dialog-buttons', {},
-        h('button.btn', { onclick: () => finish(null) }, 'Cancel'),
-        h('button.btn.primary', { onclick: () => check() && finish(input.value) }, 'OK')));
+        h('button.btn', { onclick: () => finish(null) }, t('Cancel')),
+        h('button.btn.primary', { onclick: () => check() && finish(input.value) }, t('OK'))));
     const close = modal(box, () => finish(null));
     setTimeout(() => {
       input.focus();
@@ -93,7 +94,7 @@ export function prompt(title: string, value = '', options: { placeholder?: strin
   });
 }
 
-export function confirm(title: string, detail = '', okLabel = 'OK', danger = false): Promise<boolean> {
+export function confirm(title: string, detail = '', okLabel = t('OK'), danger = false): Promise<boolean> {
   return new Promise((resolve) => {
     let done = false;
     const finish = (result: boolean) => {
@@ -104,7 +105,7 @@ export function confirm(title: string, detail = '', okLabel = 'OK', danger = fal
     };
     const ok = h(danger ? 'button.btn.danger' : 'button.btn.primary', { onclick: () => finish(true) }, okLabel);
     const box = h('div.dialog', {}, h('div.dialog-title', {}, title), detail ? h('div.dialog-detail', {}, detail) : null,
-      h('div.dialog-buttons', {}, h('button.btn', { onclick: () => finish(false) }, 'Cancel'), ok));
+      h('div.dialog-buttons', {}, h('button.btn', { onclick: () => finish(false) }, t('Cancel')), ok));
     const close = modal(box, () => finish(false));
     setTimeout(() => ok.focus());
   });
@@ -115,7 +116,7 @@ export function showDialog(title: string, body: HTMLElement, wide = false): () =
   let close = () => {};
   const box = h(wide ? 'div.dialog.wide' : 'div.dialog', {},
     h('div.dialog-header', {}, h('div.dialog-title', {}, title),
-      h('button.icon-button', { title: 'Close', onclick: () => close() }, icon('close'))),
+      h('button.icon-button', { title: t('Close'), onclick: () => close() }, icon('close'))),
     body);
   close = modal(box, () => {});
   return close;

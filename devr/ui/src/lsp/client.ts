@@ -79,6 +79,8 @@ export class LspClient {
 
   async start(root: string, initializationOptions: unknown, rootUri: string) {
     this.setState('starting');
+    // Nothing meant for the previous server goes to the new one.
+    this.outbox = [];
     try {
       const started = await backend.call<{ generation: number; server: string }>('lsp.start', { root });
       this.generation = started.generation;
@@ -150,10 +152,28 @@ export class LspClient {
     this.requestHandlers.set(method, handler);
   }
 
+  private outbox: string[] = [];
+  private sending = false;
+
+  /** Queues a message. One backend call at a time carries all queued
+   * messages, so the server gets them in the order they were sent: an edit
+   * always arrives before the completion request that follows it. */
   private send(message: unknown) {
-    backend.call('lsp.send', { message: JSON.stringify(message) }).catch((err) => {
-      this.onLog.fire(`DEVR+: can't send to the language server: ${errorText(err)}`);
-    });
+    this.outbox.push(JSON.stringify(message));
+    if (!this.sending) this.drain();
+  }
+
+  private async drain() {
+    this.sending = true;
+    while (this.outbox.length) {
+      const messages = this.outbox.splice(0);
+      try {
+        await backend.call('lsp.send', { messages });
+      } catch (err) {
+        this.onLog.fire(`DEVR+: can't send to the language server: ${errorText(err)}`);
+      }
+    }
+    this.sending = false;
   }
 
   private async receive(message: any) {

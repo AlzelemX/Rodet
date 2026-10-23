@@ -1,12 +1,14 @@
 // The Problems panel (errors and warnings of every file) and the Output
 // panel (language server messages).
+import { arabic, t } from '../i18n';
+import { translateDiagnostic } from '../i18n/messages';
 import { diagnostics, diagnosticCounts, lsp, onDiagnostics, rustppText } from '../lsp/features';
 import type { PanelView } from '../ui/layout';
-import { basename, debounce, fileIcon, h, icon, relativePath } from '../util';
+import { basename, debounce, fileIcon, h, icon, relativePath, richText } from '../util';
 import { workspace } from '../workspace';
 
 const list = h('div.problems');
-const filterInput = h('input.input', { placeholder: 'Filter (e.g. text, **/*.rs)', style: { width: '220px', height: '24px' } });
+const filterInput = h('input.input', { placeholder: t('Filter (e.g. text, **/*.rs)'), style: { width: '220px', height: '24px' } });
 const count = h('span.count', {}, '0');
 const collapsed = new Set<string>();
 /** Problems whose full compiler explanation is shown. */
@@ -21,7 +23,7 @@ const render = debounce(() => {
   const files = [...diagnostics.values()].sort((a, b) => a.path.localeCompare(b.path));
   for (const file of files) {
     const items = file.diagnostics
-      .filter((d) => !filter || d.message.toLowerCase().includes(filter) || file.path.toLowerCase().includes(filter))
+      .filter((d) => !filter || d.message.toLowerCase().includes(filter) || translateDiagnostic(d.message).toLowerCase().includes(filter) || file.path.toLowerCase().includes(filter))
       .sort((a, b) => (a.severity ?? 1) - (b.severity ?? 1) || a.range.start.line - b.range.start.line);
     if (!items.length) continue;
     const open = !collapsed.has(file.path);
@@ -55,7 +57,7 @@ const render = debounce(() => {
         }),
       },
       h('span.twistie', {
-        title: rendered ? 'Show the compiler’s full explanation' : '',
+        title: rendered ? t('Show the compiler’s full explanation') : '',
         onclick: (e: MouseEvent) => {
           if (!rendered) return;
           e.stopPropagation();
@@ -64,19 +66,19 @@ const render = debounce(() => {
           render();
         },
       }, rendered ? icon(open ? 'chevron-down' : 'chevron-right') : null),
-      icon(kind), h('span.msg', {}, rustppText(d.message.split('\n')[0]),
-        h('span.where', {}, `${code} [Ln ${d.range.start.line + 1}, Col ${d.range.start.character + 1}]`))));
+      icon(kind), h('span.msg', { title: arabic ? rustppText(d.message.split('\n')[0]) : '' }, ...richText(translateDiagnostic(rustppText(d.message)).split('\n')[0]),
+        h('span.where', {}, `${code} [${t('Ln {line}, Col {col}', { line: d.range.start.line + 1, col: d.range.start.character + 1 })}]`))));
       if (open && rendered) list.appendChild(h('pre.explain', {}, rustppText(rendered.trimEnd())));
     }
   }
   if (!list.children.length) {
-    list.appendChild(h('div.empty-state', {}, filter ? 'No problems match the filter.' : 'No problems have been found in the project. 🎉'));
+    list.appendChild(h('div.empty-state', {}, filter ? t('No problems match the filter.') : t('No problems have been found in the project. 🎉')));
   }
 }, 120);
 
 export const problemsPanel: PanelView = {
   id: 'problems',
-  title: 'Problems',
+  title: t('Problems'),
   element: h('div', {}, list),
   count,
   actions: [filterInput],
@@ -97,9 +99,9 @@ export function log(line: string) {
 
 export const outputPanel: PanelView = {
   id: 'output',
-  title: 'Output',
+  title: t('Output'),
   element: h('div', {}, output),
-  actions: [h('button.icon-button', { title: 'Clear Output', onclick: () => { output.replaceChildren(); lines = 0; } }, icon('clear-all'))],
+  actions: [h('button.icon-button', { title: t('Clear Output'), onclick: () => { output.replaceChildren(); lines = 0; } }, icon('clear-all'))],
 };
 
 export function setupProblems() {

@@ -2,3 +2,4 @@ node_modules/
 target/
 ui/dist/
 app/gen/
+ui/src/i18n/monaco-ar.gen.json

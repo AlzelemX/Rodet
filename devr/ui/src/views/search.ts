@@ -1,4 +1,5 @@
 // Search in all files of the project (Ctrl+Shift+F).
+import { t } from '../i18n';
 import { backend, errorText } from '../backend';
 import type { SideView } from '../ui/layout';
 import { basename, debounce, fileIcon, h, icon, relativePath } from '../util';
@@ -17,15 +18,15 @@ interface FileMatches {
 }
 
 const options = { regex: false, caseSensitive: false, wholeWord: false };
-const input = h('input.input', { placeholder: 'Search', spellcheck: false });
-const include = h('input.input', { placeholder: 'Files to include (e.g. .rs)', spellcheck: false });
+const input = h('input.input', { placeholder: t('Search'), spellcheck: false });
+const include = h('input.input', { placeholder: t('Files to include (e.g. .rs)'), spellcheck: false });
 const summary = h('div.muted', { style: { fontSize: '12px' } });
 const results = h('div.tree');
 const collapsed = new Set<string>();
 
 function toggleButton(name: string, title: string, key: keyof typeof options) {
   const button = h('button.icon-button', {
-    title,
+    title: t(title),
     onclick: () => {
       options[key] = !options[key];
       button.classList.toggle('on', options[key]);
@@ -52,18 +53,18 @@ const run = debounce(async () => {
   const gen = ++generation;
   if (!query || !root) {
     results.replaceChildren();
-    summary.textContent = root ? '' : 'Open a folder to search in it.';
+    summary.textContent = root ? '' : t('Open a folder to search in it.');
     return;
   }
-  summary.textContent = 'Searching…';
+  summary.textContent = t('Searching…');
   try {
     const result = await backend.call<{ files: FileMatches[]; total: number; truncated: boolean }>('search.text', {
       root, query, include: include.value.trim(), ...options,
     });
     if (gen !== generation) return;
     summary.textContent = result.total
-      ? `${result.total}${result.truncated ? '+' : ''} results in ${result.files.length} files`
-      : 'No results found.';
+      ? t('{n} results in {files} files', { n: `${result.total}${result.truncated ? '+' : ''}`, files: result.files.length })
+      : t('No results found.');
     render(result.files);
   } catch (err) {
     summary.textContent = errorText(err);
@@ -96,7 +97,7 @@ function render(files: FileMatches[]) {
       const after = m.preview.slice(m.previewStart + (m.end - m.start));
       results.appendChild(h('div.row.result-line', {
         style: { paddingLeft: '42px' },
-        title: `Line ${m.line}`,
+        title: t('Line {n}', { n: m.line }),
         onclick: () => workspace.open(file.path, { line: m.line, column: m.start, endLine: m.line, endColumn: m.end }),
       }, h('span.preview', {}, before, h('mark', {}, hit), after)));
     }
@@ -111,14 +112,14 @@ input.addEventListener('keydown', (e) => {
 
 export const search: SideView = {
   id: 'search',
-  title: 'Search',
+  title: t('Search'),
   icon: 'search',
   element,
   onShow: () => setTimeout(() => {
     input.focus();
     input.select();
   }),
-  actions: [h('button.icon-button', { title: 'Clear', onclick: () => { input.value = ''; run(); } }, icon('clear-all'))],
+  actions: [h('button.icon-button', { title: t('Clear'), onclick: () => { input.value = ''; run(); } }, icon('clear-all'))],
 };
 
 /** Starts a search for `text` (e.g. the selected word). */
