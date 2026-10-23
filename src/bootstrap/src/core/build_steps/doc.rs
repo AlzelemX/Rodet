@@ -475,7 +475,8 @@ impl CommandLineStep for Releases {
     }
 
     fn is_default_step(builder: &Builder<'_>) -> bool {
-        builder.config.docs
+        // Rust++ keeps its change log in `notebook/`, not in RELEASES.md.
+        builder.config.docs && builder.src.join("RELEASES.md").exists()
     }
 
     fn make_run(run: RunConfig<'_>) {

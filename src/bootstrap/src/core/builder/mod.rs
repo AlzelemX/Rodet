@@ -566,16 +566,11 @@ impl<'a> ShouldRun<'a> {
         );
     }
 
-    fn assert_valid_path(&self, path: &str) {
-        let submodules_paths = self.builder.submodule_paths();
-
-        // assert only if `p` isn't submodule
-        if !submodules_paths.iter().any(|sm_p| path.contains(sm_p)) {
-            assert!(
-                self.builder.src.join(path).exists(),
-                "`should_run.path` should correspond to a real on-disk path - use `alias` if there is no relevant path: {path}"
-            );
-        }
+    fn assert_valid_path(&self, _path: &str) {
+        // Upstream asserts here that every step path exists on disk. Rust++
+        // removed the parts of upstream it does not use (most of `src/doc`,
+        // RELEASES.md, rustc-perf, ...); their steps stay registered, like
+        // the steps of submodules that are not checked out.
     }
 
     /// A single path

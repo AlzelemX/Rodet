@@ -1356,23 +1356,18 @@ fn prepare_source_tarball<'a>(
     let src_files = [
         // tidy-alphabetical-start
         ".gitmodules",
-        "CONTRIBUTING.md",
         "COPYRIGHT",
         "Cargo.lock",
         "Cargo.toml",
         "LICENSE-APACHE",
         "LICENSE-MIT",
         "README.md",
-        "RELEASES.md",
         "REUSE.toml",
         "bootstrap.example.toml",
-        "configure",
         "license-metadata.json",
-        "package.json",
         "x",
         "x.ps1",
         "x.py",
-        "yarn.lock",
         // tidy-alphabetical-end
     ];
     let src_dirs = ["src", "compiler", "library", "tests", "LICENSES"];
