@@ -36,7 +36,8 @@ jobs:
         run: |
           mdbook build docbook
           # The Arabic book, at /Rust-/ar/
-          mdbook build docbook/ar -d ../book/ar
+          mdbook build docbook/ar -d "$PWD/docbook/book/ar"
+          test -f docbook/book/ar/index.html
 
       - name: Publish to gh-pages
         run: |
