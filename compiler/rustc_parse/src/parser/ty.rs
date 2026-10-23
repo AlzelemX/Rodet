@@ -151,7 +151,9 @@ impl<'a> Parser<'a> {
             RecoverQuestionMark::Yes,
         )?;
 
-        // Recover a trailing `= EXPR` if present.
+        // Recover a trailing `= EXPR` if present (e.g. in `fn(i32 = 0)`).
+        // RUST++: named parameters of functions keep it as a default value, see
+        // `parse_ty_for_named_param`.
         if self.may_recover()
             && self.check_noexpect(&token::Eq)
             && self.look_ahead(1, |tok| tok.can_begin_expr())
@@ -173,6 +175,19 @@ impl<'a> Parser<'a> {
         }
 
         Ok(ty)
+    }
+
+    /// RUST++: like `parse_ty_for_param`, but leaves a trailing `= EXPR` for
+    /// `parse_param_default`.
+    pub(super) fn parse_ty_for_named_param(&mut self) -> PResult<'a, Box<Ty>> {
+        self.parse_ty_common(
+            AllowPlus::Yes,
+            AllowCVariadic::Yes,
+            RecoverQPath::Yes,
+            RecoverReturnSign::Yes,
+            None,
+            RecoverQuestionMark::Yes,
+        )
     }
 
     /// Parses a type in restricted contexts where `+` is not permitted.

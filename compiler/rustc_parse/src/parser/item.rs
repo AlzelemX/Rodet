@@ -71,6 +71,8 @@ impl<'a> Parser<'a> {
                 break;
             };
             items.push(item);
+            // RUST++: hidden constants for parameter default values.
+            items.extend(self.take_generated_items());
         }
 
         if !self.eat(term) {
@@ -777,7 +779,10 @@ impl<'a> Parser<'a> {
         let impl_items = if is_reuse {
             Default::default()
         } else {
-            self.parse_item_list(attrs, |p| p.parse_impl_item(ForceCollect::No))?
+            let mut items = self.parse_item_list(attrs, |p| p.parse_impl_item(ForceCollect::No))?;
+            // RUST++: hidden constants for parameter default values (inherent impls only).
+            items.extend(self.take_generated_assoc_items(ty_second.is_none()));
+            items
         };
 
         let (of_trait, self_ty) = match ty_second {
@@ -1222,6 +1227,8 @@ impl<'a> Parser<'a> {
             // It's a normal trait.
             generics.where_clause = self.parse_where_clause()?;
             let items = self.parse_item_list(attrs, |p| p.parse_trait_item(ForceCollect::No))?;
+            // RUST++: parameter default values are not supported in traits.
+            self.take_generated_assoc_items(false);
             Ok(ItemKind::Trait(Box::new(Trait {
                 impl_restriction,
                 constness,
@@ -1586,12 +1593,10 @@ impl<'a> Parser<'a> {
             safety = Safety::Unsafe(self.token.span);
             let _ = self.eat_keyword(exp!(Unsafe));
         }
-        Ok(ItemKind::ForeignMod(ast::ForeignMod {
-            extern_span,
-            safety,
-            abi,
-            items: self.parse_item_list(attrs, |p| p.parse_foreign_item(ForceCollect::No))?,
-        }))
+        let items = self.parse_item_list(attrs, |p| p.parse_foreign_item(ForceCollect::No))?;
+        // RUST++: parameter default values are not supported in `extern` blocks.
+        self.take_generated_assoc_items(false);
+        Ok(ItemKind::ForeignMod(ast::ForeignMod { extern_span, safety, abi, items }))
     }
 
     /// Parses a foreign item (one in an `extern { ... }` block).

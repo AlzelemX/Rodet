@@ -409,6 +409,7 @@ impl<'tcx> ThirBuildCx<'tcx> {
                     )
                 } else {
                     // Rewrite a.b(c) into UFCS form like Trait::b(a, c)
+                    let call_expr = expr;
                     let expr = self.method_callee(expr, segment.ident.span, None);
                     info!("Using method span: {:?}", expr.span);
 
@@ -428,16 +429,16 @@ impl<'tcx> ThirBuildCx<'tcx> {
                             })
                         };
 
-                        std::iter::once(receiver)
+                        std::iter::once(CallArg::Expr(receiver))
                             .chain(args.iter().copied())
                             .enumerate()
                             .filter(|&(idx, _)| !is_const_arg(idx))
-                            .map(|(_, arg)| self.mirror_expr(arg))
+                            .map(|(_, arg)| self.mirror_call_arg(call_expr, arg))
                             .collect()
                     } else {
-                        std::iter::once(receiver)
+                        std::iter::once(CallArg::Expr(receiver))
                             .chain(args.iter().copied())
-                            .map(|arg| self.mirror_expr(arg))
+                            .map(|arg| self.mirror_call_arg(call_expr, arg))
                             .collect()
                     };
 
@@ -561,10 +562,10 @@ impl<'tcx> ThirBuildCx<'tcx> {
                                 .copied()
                                 .enumerate()
                                 .filter(|&(idx, _)| !is_const_arg(idx))
-                                .map(|(_, arg)| self.mirror_expr(arg))
+                                .map(|(_, arg)| self.mirror_call_arg(expr, arg))
                                 .collect()
                         } else {
-                            args.iter().map(|&arg| self.mirror_expr(arg)).collect()
+                            args.iter().map(|&arg| self.mirror_call_arg(expr, arg)).collect()
                         };
 
                         ExprKind::Call {
@@ -1815,7 +1816,8 @@ fn assign_op(op: hir::AssignOpKind) -> AssignOp {
 
 impl<'tcx> ThirBuildCx<'tcx> {
     /// RUST++: the call arguments in parameter order, with named arguments
-    /// `x = value` replaced by their values (see `rustc_hir::rustpp`).
+    /// `x = value` replaced by their values and left-out parameters filled
+    /// with their default values (see `rustc_hir::rustpp`).
     /// `skip` is the number of leading parameters not in `args` (`self` for
     /// method calls).
     fn order_named_args(
@@ -1823,17 +1825,66 @@ impl<'tcx> ThirBuildCx<'tcx> {
         fn_ty: Ty<'tcx>,
         args: &'tcx [hir::Expr<'tcx>],
         skip: usize,
-    ) -> Vec<&'tcx hir::Expr<'tcx>> {
-        if !hir::rustpp::has_named_args(args) {
-            return args.iter().collect();
-        }
-        let ty::FnDef(def_id, _) = *fn_ty.kind() else {
-            return hir::rustpp::strip_named_args(args);
+    ) -> Vec<CallArg<'tcx>> {
+        let unchanged = |args: Vec<&'tcx hir::Expr<'tcx>>| args.into_iter().map(CallArg::Expr).collect();
+        let ty::FnDef(def_id, fn_args) = *fn_ty.kind() else {
+            return unchanged(hir::rustpp::strip_named_args(args));
         };
+        // Only functions and methods have parameter names (not e.g. tuple
+        // struct constructors used as functions).
+        if !matches!(self.tcx.def_kind(def_id), DefKind::Fn | DefKind::AssocFn) {
+            return unchanged(hir::rustpp::strip_named_args(args));
+        }
         let names = self.tcx.fn_arg_idents(def_id);
         let names = names.get(skip..).unwrap_or_default();
+        if !hir::rustpp::has_named_args(args) && args.len() >= names.len() {
+            return unchanged(args.iter().collect());
+        }
+        let default_of = |index: usize| {
+            names[index].and_then(|name| ty::rustpp::param_default(self.tcx, def_id, name.name))
+        };
         // Type checking already reported any mistake.
-        hir::rustpp::order_named_args(names, args)
-            .unwrap_or_else(|_| hir::rustpp::strip_named_args(args))
+        match hir::rustpp::order_named_args(names, args, |index| default_of(index).is_some()) {
+            Ok(slots) => slots
+                .into_iter()
+                .enumerate()
+                .map(|(index, slot)| match slot {
+                    Some(arg) => CallArg::Expr(arg),
+                    None => {
+                        let const_def = default_of(index).unwrap();
+                        let const_args = fn_args
+                            .skip_binder()
+                            .truncate_to(self.tcx, self.tcx.generics_of(const_def));
+                        CallArg::Default(const_def, const_args)
+                    }
+                })
+                .collect(),
+            Err(_) => unchanged(hir::rustpp::strip_named_args(args)),
+        }
     }
+
+    /// RUST++: builds a call argument: an expression, or a parameter default
+    /// value (a use of its hidden constant).
+    fn mirror_call_arg(&mut self, call: &'tcx hir::Expr<'tcx>, arg: CallArg<'tcx>) -> ExprId {
+        match arg {
+            CallArg::Expr(expr) => self.mirror_expr(expr),
+            CallArg::Default(def_id, args) => {
+                let ty = self.tcx.type_of(def_id).instantiate(self.tcx, args).skip_norm_wip();
+                self.thir.exprs.push(Expr {
+                    temp_scope_id: call.hir_id.local_id,
+                    span: call.span,
+                    ty,
+                    kind: ExprKind::NamedConst { def_id, args, user_ty: None },
+                })
+            }
+        }
+    }
+}
+
+/// RUST++: one argument of a call, see [`ThirBuildCx::order_named_args`].
+#[derive(Clone, Copy)]
+enum CallArg<'tcx> {
+    Expr(&'tcx hir::Expr<'tcx>),
+    /// The default value of a left-out parameter: its hidden constant.
+    Default(rustc_hir::def_id::DefId, ty::GenericArgsRef<'tcx>),
 }

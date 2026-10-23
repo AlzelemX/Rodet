@@ -1,11 +1,15 @@
 //! Rust++: type checking of named arguments, `f(x = 1, y = 2)`.
 //! See `rustc_hir::rustpp` for how they are represented.
 
+use std::iter;
+
 use rustc_errors::ErrorGuaranteed;
 use rustc_hir as hir;
 use rustc_hir::def::DefKind;
 use rustc_hir::rustpp::{NamedArgsError, has_named_args, order_named_args, strip_named_args};
 use rustc_macros::Diagnostic;
+use rustc_middle::ty::Ty;
+use rustc_middle::ty::rustpp::param_default;
 use rustc_span::{Ident, Span};
 
 use crate::FnCtxt;
@@ -61,21 +65,27 @@ struct MissingNamedArg {
 }
 
 impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
-    /// If the call uses named arguments, returns the argument expressions in
-    /// parameter order (the values of named arguments); otherwise returns
-    /// `args` unchanged. On a mistake, reports it, type-checks the values on
-    /// their own, and returns the error: the caller should skip the call.
+    /// Handles named arguments and parameter default values.
+    ///
+    /// Returns the argument expressions in parameter order (the values of
+    /// named arguments) and, when some parameters are left out because they
+    /// have default values, the input types of the parameters that remain.
+    /// Calls without named arguments or left-out parameters are returned
+    /// unchanged. On a mistake, reports it, type-checks the values on their
+    /// own, and returns the error: the caller should skip the call.
     pub(super) fn order_named_args(
         &self,
         call_expr: &'tcx hir::Expr<'tcx>,
         args: &'tcx [hir::Expr<'tcx>],
-        n_inputs: usize,
+        formal_input_tys: &[Ty<'tcx>],
         fn_id: &SplatLoweringInfo<'tcx>,
-    ) -> Result<&'tcx [hir::Expr<'tcx>], ErrorGuaranteed> {
-        if !has_named_args(args) {
-            return Ok(args);
-        }
+    ) -> Result<(&'tcx [hir::Expr<'tcx>], Option<Vec<Ty<'tcx>>>), ErrorGuaranteed> {
         let tcx = self.tcx;
+        let named = has_named_args(args);
+        let too_few = args.len() < formal_input_tys.len();
+        if !named && !too_few {
+            return Ok((args, None));
+        }
 
         // The `x = value` nodes themselves are never evaluated; give them (and
         // the unresolved `x`) a type so later passes see a fully typed body.
@@ -98,7 +108,9 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
             {
                 def_id
             }
-            SplatLoweringInfo::Error(_) => return Ok(alloc(strip_named_args(args))),
+            // Not a call that can use defaults: the usual argument count error.
+            _ if !named => return Ok((args, None)),
+            SplatLoweringInfo::Error(_) => return Ok((alloc(strip_named_args(args)), None)),
             _ => {
                 let guar = self.dcx().emit_err(NamedArgsUnsupported { span: call_expr.span });
                 return Err(self.check_values_after_error(args, guar));
@@ -107,10 +119,25 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
 
         // For method calls the receiver is not in `args`: drop the `self` name.
         let names = tcx.fn_arg_idents(def_id);
-        let names = &names[names.len().saturating_sub(n_inputs)..];
+        let names = &names[names.len().saturating_sub(formal_input_tys.len())..];
+        let has_default = |index: usize| {
+            names[index].is_some_and(|name| param_default(tcx, def_id, name.name).is_some())
+        };
 
-        match order_named_args(names, args) {
-            Ok(ordered) => Ok(alloc(ordered)),
+        match order_named_args(names, args, has_default) {
+            Ok(slots) => {
+                let left_out = slots.iter().any(|slot| slot.is_none());
+                let tys = left_out.then(|| {
+                    iter::zip(&slots, formal_input_tys)
+                        .filter(|(slot, _)| slot.is_some())
+                        .map(|(_, &ty)| ty)
+                        .collect()
+                });
+                Ok((alloc(slots.into_iter().flatten().collect()), tys))
+            }
+            // Without named arguments or default values, keep the usual
+            // argument count error.
+            Err(_) if !named && !(0..names.len()).any(has_default) => Ok((args, None)),
             Err(err) => {
                 let guar = match err {
                     NamedArgsError::PositionalAfterNamed { span } => {

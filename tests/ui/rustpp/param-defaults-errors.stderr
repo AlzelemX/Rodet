@@ -1,0 +1,35 @@
+error: default parameter values are only supported on functions in a module or an inherent `impl`
+  --> $DIR/param-defaults-errors.rs:13:29
+   |
+LL |     fn scale(&self, by: f64 = 1.0);
+   |                             ^^^^^
+
+error: default parameter values are only supported on functions in a module or an inherent `impl`
+  --> $DIR/param-defaults-errors.rs:24:24
+   |
+LL |     fn nested(x: i32 = 1) -> i32 { x }
+   |                        ^
+
+error[E0015]: cannot call non-const associated function `<String as From<&str>>::from` in constants
+  --> $DIR/param-defaults-errors.rs:7:26
+   |
+LL | fn not_const(s: String = String::from("x")) -> String {
+   |                          ^^^^^^^^^^^^^^^^^
+   |
+   = note: calls in constants are limited to constant functions, tuple structs and tuple variants
+
+error: missing argument for parameter `width`
+  --> $DIR/param-defaults-errors.rs:18:10
+   |
+LL |     area();
+   |          ^ add `width = ...`
+
+error: missing argument for parameter `width`
+  --> $DIR/param-defaults-errors.rs:21:20
+   |
+LL |     area(height = 2);
+   |                    ^ add `width = ...`
+
+error: aborting due to 5 previous errors
+
+For more information about this error, try `rustc --explain E0015`.

@@ -57,6 +57,7 @@ to be contributed to `rust-lang/rust`.
 | Borrow sources instead of lifetimes in return types: `fn longest(x: &str, y: &str) -> &{x, y} str` | `compiler/rustc_parse/src/parser/rustpp.rs` |
 | Named lifetimes written `_a` / `_static`: `struct Parser<_a> { input: &_a str }` | `compiler/rustc_parse/src/parser/rustpp.rs` |
 | Named arguments: `area(width = 3, height = 4)`, any order after positional ones | `compiler/rustc_hir/src/rustpp.rs`, `compiler/rustc_hir_typeck/src/fn_ctxt/rustpp.rs` |
+| Parameter default values: `fn open(path: &str, write: bool = false)`, then `open("a")` | `compiler/rustc_parse/src/parser/rustpp.rs`, `compiler/rustc_middle/src/ty/rustpp.rs` |
 | `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
 | Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
 | Automatic Windows, Linux and macOS builds and release on every push | `.github/workflows/build-rustpp.yml` |

@@ -10,7 +10,7 @@
 //!
 //! Rules: positional arguments come first; after the first named argument all
 //! arguments must be named; each parameter can be given once; every parameter
-//! must be given.
+//! must be given, unless it has a default value (`fn f(x: i32 = 0)`).
 
 use rustc_span::{Ident, Span};
 
@@ -54,12 +54,14 @@ pub enum NamedArgsError {
 }
 
 /// Puts `args` in the order of `params` (the callee's parameter names).
-/// Returns the argument expressions (the values of named arguments), one per
-/// parameter.
+/// Returns one entry per parameter: the argument expression (the value of a
+/// named argument), or `None` for a left-out parameter that has a default
+/// value (`has_default(index)`).
 pub fn order_named_args<'hir>(
     params: &[Option<Ident>],
     args: &'hir [Expr<'hir>],
-) -> Result<Vec<&'hir Expr<'hir>>, NamedArgsError> {
+    has_default: impl Fn(usize) -> bool,
+) -> Result<Vec<Option<&'hir Expr<'hir>>>, NamedArgsError> {
     let mut slots: Vec<Option<&'hir Expr<'hir>>> = vec![None; params.len()];
     let mut seen_named = false;
     let mut next_positional = 0;
@@ -93,6 +95,10 @@ pub fn order_named_args<'hir>(
     slots
         .into_iter()
         .enumerate()
-        .map(|(index, slot)| slot.ok_or(NamedArgsError::Missing { name: params[index], index }))
+        .map(|(index, slot)| match slot {
+            Some(arg) => Ok(Some(arg)),
+            None if has_default(index) => Ok(None),
+            None => Err(NamedArgsError::Missing { name: params[index], index }),
+        })
         .collect()
 }

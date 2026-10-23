@@ -94,6 +94,21 @@ pub(crate) struct WrapType {
     pub hi: Span,
 }
 
+// RUST++: parameter default values, `fn f(x: i32 = 0)`.
+#[derive(Diagnostic)]
+#[diag("default parameter values are only supported on functions in a module or an inherent `impl`")]
+pub(crate) struct ParamDefaultNotAllowed {
+    #[primary_span]
+    pub span: Span,
+}
+
+#[derive(Diagnostic)]
+#[diag("a parameter with a default value must be a simple name")]
+pub(crate) struct ParamDefaultNeedsName {
+    #[primary_span]
+    pub span: Span,
+}
+
 // RUST++: borrow sources, `&{x, y} T`.
 #[derive(Diagnostic)]
 #[diag("cannot borrow from `{$name}`: this function has no parameter with that name")]

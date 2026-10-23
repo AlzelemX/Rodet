@@ -1495,6 +1495,7 @@ symbols! {
         non_lifetime_binders,
         non_modrs_mods,
         non_null,
+        non_upper_case_globals,
         nonblocking,
         none,
         nontemporal_store,

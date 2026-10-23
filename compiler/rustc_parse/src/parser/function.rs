@@ -145,6 +145,9 @@ impl<'a> Parser<'a> {
 
         let mut decl = Box::new(decl);
 
+        // RUST++: turn parameter default values into hidden constants.
+        self.generate_param_defaults(ident, vis, &fn_parse_mode);
+
         // Store the end of function parameters to give better diagnostics
         // inside `parse_fn_body()`.
         let fn_params_end = self.prev_token.span.shrink_to_hi();
@@ -806,9 +809,14 @@ impl<'a> Parser<'a> {
                         Err(err)
                     };
                 }
-                let ty = if is_const { this.parse_ty() } else { this.parse_ty_for_param() };
+                let ty = if is_const { this.parse_ty() } else { this.parse_ty_for_named_param() }?;
 
-                (pat, ty?)
+                // RUST++: `name: Type = default`
+                if this.token == token::Eq {
+                    this.parse_param_default(&pat, &ty, fn_parse_mode)?;
+                }
+
+                (pat, ty)
             } else {
                 debug!("parse_param_general ident_to_pat");
                 let parser_snapshot_before_ty = this.create_snapshot_for_diagnostic();

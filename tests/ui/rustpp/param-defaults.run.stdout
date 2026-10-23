@@ -1,0 +1,13 @@
+a.txt r=true w=false mode=644
+b.txt r=true w=true mode=644
+c.txt r=false w=false mode=644
+d.txt r=false w=false mode=600
+hello world!
+hello Ali!
+hello world?
+12
+5
+1, 2, 3, 4
+1, 2
+1 | 2 | 3 | 4
+30

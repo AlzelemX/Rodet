@@ -35,16 +35,31 @@
 //!
 //! `_a` is the lifetime `'_a` and `_static` is `'static`. In expressions
 //! (`let _a = 1;`) such names are still ordinary variables.
+//!
+//! # Parameter default values: `fn open(path: &str, write: bool = false)`
+//!
+//! Each default value becomes a hidden constant next to the function (a
+//! module item for free functions, an associated constant for methods in an
+//! inherent `impl`):
+//!
+//! ```text
+//! const __rustpp_default__open__write: bool = false;
+//! ```
+//!
+//! Calls that leave the parameter out use that constant (see
+//! `rustc_middle::ty::rustpp::param_default`). Default values must therefore
+//! be constant expressions.
 
 use rustc_ast::mut_visit::{self, MutVisitor};
 use rustc_ast::token::{IdentKind, Token};
 use rustc_ast::visit::LifetimeCtxt;
+use rustc_ast::attr;
 use rustc_ast::*;
 use rustc_errors::PResult;
-use rustc_span::{Ident, Span, Symbol, kw};
+use rustc_span::{Ident, Span, Symbol, kw, sym};
 use thin_vec::ThinVec;
 
-use super::Parser;
+use super::{FnContext, FnParseMode, Parser};
 use crate::{diagnostics, exp};
 
 /// While parsing, `&{x, y}` is stored as a placeholder lifetime named
@@ -234,4 +249,120 @@ pub(super) fn named_lifetime(token: &Token) -> Option<Lifetime> {
     let lifetime =
         if name == "_static" { kw::StaticLifetime } else { Symbol::intern(&format!("'{name}")) };
     Some(Lifetime { id: DUMMY_NODE_ID, ident: Ident::new(lifetime, ident.span) })
+}
+
+/// RUST++: a parameter default value, `name: Type = value`.
+#[derive(Clone)]
+pub(super) struct ParamDefault {
+    name: Ident,
+    ty: Box<Ty>,
+    value: Box<Expr>,
+}
+
+/// RUST++: the name of the hidden constant holding the default value of
+/// parameter `param` of function `func`. Keep in sync with
+/// `rustc_middle::ty::rustpp::param_default`.
+fn param_default_name(func: Symbol, param: Symbol) -> Symbol {
+    Symbol::intern(&format!("__rustpp_default__{func}__{param}"))
+}
+
+impl<'a> Parser<'a> {
+    /// Parses the `= value` of a parameter `name: Type = value`.
+    pub(super) fn parse_param_default(
+        &mut self,
+        pat: &Pat,
+        ty: &Ty,
+        fn_parse_mode: &FnParseMode,
+    ) -> PResult<'a, ()> {
+        let eq_span = self.token.span;
+        self.bump(); // `=`
+        let value = self.parse_expr()?;
+        let span = eq_span.to(value.span);
+
+        if !matches!(fn_parse_mode.context, FnContext::Free | FnContext::Impl) {
+            self.dcx().emit_err(diagnostics::ParamDefaultNotAllowed { span });
+            return Ok(());
+        }
+        let PatKind::Ident(BindingMode::NONE | BindingMode::MUT, name, None) = pat.kind else {
+            self.dcx().emit_err(diagnostics::ParamDefaultNeedsName { span: pat.span });
+            return Ok(());
+        };
+        self.rustpp_param_defaults.push(ParamDefault { name, ty: Box::new(ty.clone()), value });
+        Ok(())
+    }
+
+    /// Turns the default values collected while parsing a function's
+    /// parameters into hidden constants, waiting in `rustpp_generated_items`
+    /// to be added next to the function.
+    pub(super) fn generate_param_defaults(
+        &mut self,
+        func: Ident,
+        vis: &Visibility,
+        fn_parse_mode: &FnParseMode,
+    ) {
+        let defaults = std::mem::take(&mut self.rustpp_param_defaults);
+        if defaults.is_empty() {
+            return;
+        }
+        if self.in_fn_body || fn_parse_mode.context == FnContext::Trait {
+            for default in &defaults {
+                self.dcx().emit_err(diagnostics::ParamDefaultNotAllowed { span: default.value.span });
+            }
+            return;
+        }
+        let g = &self.psess.attr_id_generator;
+        for ParamDefault { name, ty, value } in defaults {
+            let span = value.span;
+            let attrs = [
+                attr::mk_attr_nested_word(g, AttrStyle::Outer, sym::allow, sym::dead_code, span),
+                attr::mk_attr_nested_word(
+                    g,
+                    AttrStyle::Outer,
+                    sym::allow,
+                    sym::non_upper_case_globals,
+                    span,
+                ),
+                attr::mk_attr_nested_word(g, AttrStyle::Outer, sym::doc, sym::hidden, span),
+            ];
+            let kind = ItemKind::Const(Box::new(ConstItem {
+                defaultness: Defaultness::Implicit,
+                ident: Ident::new(param_default_name(func.name, name.name), name.span),
+                generics: Generics::default(),
+                ty,
+                body: Some(value),
+                define_opaque: None,
+            }));
+            self.rustpp_generated_items.push(Box::new(Item {
+                attrs: attrs.into_iter().collect(),
+                id: DUMMY_NODE_ID,
+                span,
+                vis: vis.clone(),
+                kind,
+                tokens: None,
+            }));
+        }
+    }
+
+    /// Takes the generated items, to add them to a module.
+    pub(super) fn take_generated_items(&mut self) -> ThinVec<Box<Item>> {
+        std::mem::take(&mut self.rustpp_generated_items)
+    }
+
+    /// Takes the generated items as associated items, to add them to an
+    /// inherent `impl`. In a trait or trait `impl` they are not allowed.
+    pub(super) fn take_generated_assoc_items(&mut self, allowed: bool) -> ThinVec<Box<AssocItem>> {
+        let mut assoc = ThinVec::new();
+        for item in self.take_generated_items() {
+            let Item { attrs, id, span, vis, kind, tokens } = *item;
+            match AssocItemKind::try_from(kind) {
+                Ok(kind) if allowed => {
+                    assoc.push(Box::new(Item { attrs, id, span, vis, kind, tokens }))
+                }
+                _ => {
+                    self.dcx().emit_err(diagnostics::ParamDefaultNotAllowed { span });
+                }
+            }
+        }
+        assoc
+    }
 }

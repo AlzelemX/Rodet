@@ -245,13 +245,18 @@ pub struct Parser<'a> {
     in_fn_body: bool = false,
     /// Whether we have detected a missing semicolon in function body.
     pub fn_body_missing_semi_guar: Option<ErrorGuaranteed> = None,
+    /// RUST++: default values of the parameters of the function being parsed.
+    rustpp_param_defaults: ThinVec<rustpp::ParamDefault> = ThinVec::new(),
+    /// RUST++: items generated while parsing an item (the constants holding
+    /// parameter default values), to be added next to it.
+    rustpp_generated_items: ThinVec<Box<ast::Item>> = ThinVec::new(),
 }
 
 // This type is used a lot, e.g. it's cloned when matching many declarative macro rules with
 // nonterminals. Make sure it doesn't unintentionally get bigger. We only check a few arches
 // though, because `TokenTypeSet(u128)` alignment varies on others, changing the total size.
 #[cfg(all(target_pointer_width = "64", any(target_arch = "aarch64", target_arch = "x86_64")))]
-rustc_data_structures::static_assert_size!(Parser<'_>, 288);
+rustc_data_structures::static_assert_size!(Parser<'_>, 304);
 
 /// Stores span information about a closure.
 #[derive(Clone, Debug)]

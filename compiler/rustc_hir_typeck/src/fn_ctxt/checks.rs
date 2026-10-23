@@ -213,12 +213,14 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
     ) {
         let tcx = self.tcx;
 
-        // RUST++: put named arguments `f(x = 1)` in parameter order.
-        let Ok(provided_args) =
-            self.order_named_args(call_expr, provided_args, formal_input_tys.len(), &fn_id)
+        // RUST++: put named arguments `f(x = 1)` in parameter order, and leave
+        // out parameters with default values (`fn f(x: i32 = 0)`).
+        let Ok((provided_args, remaining_input_tys)) =
+            self.order_named_args(call_expr, provided_args, formal_input_tys, &fn_id)
         else {
             return;
         };
+        let formal_input_tys = remaining_input_tys.as_deref().unwrap_or(formal_input_tys);
 
         // Conceptually, we've got some number of expected inputs, and some number of provided arguments
         // and we can form a grid of whether each argument could satisfy a given input:
