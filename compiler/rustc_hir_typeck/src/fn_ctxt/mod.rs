@@ -3,6 +3,7 @@ mod adjust_fulfillment_errors;
 mod arg_matrix;
 mod checks;
 mod inspect_obligations;
+mod rustpp;
 mod suggestions;
 
 use std::cell::{Cell, RefCell};

@@ -412,6 +412,9 @@ impl<'tcx> ThirBuildCx<'tcx> {
                     let expr = self.method_callee(expr, segment.ident.span, None);
                     info!("Using method span: {:?}", expr.span);
 
+                    // RUST++: named arguments are passed in parameter order.
+                    let args = self.order_named_args(expr.ty, args, 1);
+
                     // Arg position const args are already part of the callee's generic args,
                     // so we skip them when building runtime arguments.
                     let generics = match *expr.ty.kind() {
@@ -426,14 +429,14 @@ impl<'tcx> ThirBuildCx<'tcx> {
                         };
 
                         std::iter::once(receiver)
-                            .chain(args.iter())
+                            .chain(args.iter().copied())
                             .enumerate()
                             .filter(|&(idx, _)| !is_const_arg(idx))
                             .map(|(_, arg)| self.mirror_expr(arg))
                             .collect()
                     } else {
                         std::iter::once(receiver)
-                            .chain(args.iter())
+                            .chain(args.iter().copied())
                             .map(|arg| self.mirror_expr(arg))
                             .collect()
                     };
@@ -542,6 +545,8 @@ impl<'tcx> ThirBuildCx<'tcx> {
                         // Arg position const args are already part of the callee's generic args,
                         // so we skip them when building runtime arguments.
                         let fn_ty = self.typeck_results.node_type(fun.hir_id);
+                        // RUST++: named arguments are passed in parameter order.
+                        let args = self.order_named_args(fn_ty, args, 0);
                         let generics = match *fn_ty.kind() {
                             ty::FnDef(def_id, _) => Some(tcx.generics_of(def_id)),
                             _ => None,
@@ -553,12 +558,13 @@ impl<'tcx> ThirBuildCx<'tcx> {
                                 })
                             };
                             args.iter()
+                                .copied()
                                 .enumerate()
                                 .filter(|&(idx, _)| !is_const_arg(idx))
                                 .map(|(_, arg)| self.mirror_expr(arg))
                                 .collect()
                         } else {
-                            args.iter().map(|arg| self.mirror_expr(arg)).collect()
+                            args.iter().map(|&arg| self.mirror_expr(arg)).collect()
                         };
 
                         ExprKind::Call {
@@ -1804,5 +1810,30 @@ fn assign_op(op: hir::AssignOpKind) -> AssignOp {
         hir::AssignOpKind::BitOrAssign => AssignOp::BitOrAssign,
         hir::AssignOpKind::ShlAssign => AssignOp::ShlAssign,
         hir::AssignOpKind::ShrAssign => AssignOp::ShrAssign,
+    }
+}
+
+impl<'tcx> ThirBuildCx<'tcx> {
+    /// RUST++: the call arguments in parameter order, with named arguments
+    /// `x = value` replaced by their values (see `rustc_hir::rustpp`).
+    /// `skip` is the number of leading parameters not in `args` (`self` for
+    /// method calls).
+    fn order_named_args(
+        &self,
+        fn_ty: Ty<'tcx>,
+        args: &'tcx [hir::Expr<'tcx>],
+        skip: usize,
+    ) -> Vec<&'tcx hir::Expr<'tcx>> {
+        if !hir::rustpp::has_named_args(args) {
+            return args.iter().collect();
+        }
+        let ty::FnDef(def_id, _) = *fn_ty.kind() else {
+            return hir::rustpp::strip_named_args(args);
+        };
+        let names = self.tcx.fn_arg_idents(def_id);
+        let names = names.get(skip..).unwrap_or_default();
+        // Type checking already reported any mistake.
+        hir::rustpp::order_named_args(names, args)
+            .unwrap_or_else(|_| hir::rustpp::strip_named_args(args))
     }
 }

@@ -208,6 +208,25 @@ impl<'hir> LoweringContext<'_, 'hir> {
         self.expr(whole_span, hir::ExprKind::Block(block, None))
     }
 
+    /// RUST++: lowers call arguments. A named argument `x = value` stays an
+    /// `Assign(x, value)` with an unresolved `x` (instead of being treated as
+    /// a destructuring assignment); see `rustc_hir::rustpp`.
+    fn lower_call_args(&mut self, args: &[Box<Expr>]) -> &'hir [hir::Expr<'hir>] {
+        self.arena.alloc_from_iter(args.iter().map(|arg| match arg.rustpp_named_arg() {
+            Some((name, value)) => {
+                let hir_id = self.lower_node_id(arg.id);
+                let ExprKind::Assign(_, _, eq_span) = &arg.kind else { unreachable!() };
+                let kind = hir::ExprKind::Assign(
+                    self.lower_expr(name),
+                    self.lower_expr(value),
+                    self.lower_span(*eq_span),
+                );
+                hir::Expr { hir_id, kind, span: self.lower_span(arg.span) }
+            }
+            None => self.lower_expr_mut(arg),
+        }))
+    }
+
     fn lower_exprs(&mut self, exprs: &[Box<Expr>]) -> &'hir [hir::Expr<'hir>] {
         self.arena.alloc_from_iter(exprs.iter().map(|x| self.lower_expr_mut(x)))
     }
@@ -271,7 +290,7 @@ impl<'hir> LoweringContext<'_, 'hir> {
                     self.lower_legacy_const_generics((**f).clone(), args.clone(), &legacy_args)
                 } else {
                     let f = self.lower_expr(f);
-                    hir::ExprKind::Call(f, self.lower_exprs(args))
+                    hir::ExprKind::Call(f, self.lower_call_args(args))
                 }
             }
             ExprKind::MethodCall(MethodCall { seg, receiver, args, span }) => {
@@ -285,7 +304,7 @@ impl<'hir> LoweringContext<'_, 'hir> {
                     None,
                 ));
                 let receiver = self.lower_expr(receiver);
-                let args = self.arena.alloc_from_iter(args.iter().map(|x| self.lower_expr_mut(x)));
+                let args = self.lower_call_args(args);
                 hir::ExprKind::MethodCall(hir_seg, receiver, args, self.lower_span(*span))
             }
             ExprKind::Binary(binop, lhs, rhs) => {

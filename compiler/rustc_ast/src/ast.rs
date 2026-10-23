@@ -1411,6 +1411,15 @@ pub struct Expr {
 }
 
 impl Expr {
+    /// RUST++: if this call argument is a named argument `name = value`,
+    /// returns `(name, value)`. See `rustc_hir::rustpp`.
+    pub fn rustpp_named_arg(&self) -> Option<(&Expr, &Expr)> {
+        let ExprKind::Assign(name, value, _) = &self.kind else { return None };
+        let ExprKind::Path(None, path) = &name.kind else { return None };
+        let simple = matches!(path.segments.as_slice(), [segment] if segment.args.is_none());
+        simple.then_some((&**name, &**value))
+    }
+
     /// Check if this expression is potentially a trivial const arg, i.e., one that can _potentially_
     /// be represented without an anon const in the HIR.
     ///

@@ -22,6 +22,7 @@ mod hir;
 pub mod intravisit;
 pub mod lints;
 pub mod pat_util;
+pub mod rustpp;
 mod stable_hash_impls;
 mod target_impls;
 

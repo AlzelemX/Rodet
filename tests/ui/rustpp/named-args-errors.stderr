@@ -1,0 +1,49 @@
+error: this function has no parameter named `depth`
+  --> $DIR/named-args-errors.rs:8:21
+   |
+LL |     area(width = 1, depth = 2);
+   |                     ^^^^^ unknown parameter
+
+error: positional argument after a named argument
+  --> $DIR/named-args-errors.rs:11:21
+   |
+LL |     area(width = 1, 2);
+   |                     ^
+   |
+   = help: put positional arguments first, or name this one too
+
+error: parameter `width` is given more than once
+  --> $DIR/named-args-errors.rs:14:13
+   |
+LL |     area(3, width = 1);
+   |             ^^^^^
+
+error: missing argument for parameter `height`
+  --> $DIR/named-args-errors.rs:17:19
+   |
+LL |     area(width = 1);
+   |                   ^ add `height = ...`
+
+error[E0308]: mismatched types
+  --> $DIR/named-args-errors.rs:20:18
+   |
+LL |     area(width = "wide", height = 2);
+   |     ----         ^^^^^^ expected `u32`, found `&str`
+   |     |
+   |     arguments to this function are incorrect
+   |
+note: function defined here
+  --> $DIR/named-args-errors.rs:3:4
+   |
+LL | fn area(width: u32, height: u32) -> u32 {
+   |    ^^^^ ----------
+
+error: named arguments can only be used when calling a function or method directly
+  --> $DIR/named-args-errors.rs:24:5
+   |
+LL |     f(a = 1);
+   |     ^^^^^^^^
+
+error: aborting due to 6 previous errors
+
+For more information about this error, try `rustc --explain E0308`.
