@@ -1423,6 +1423,12 @@ impl Builder<'_> {
         }
         if self.config.vendor || self.is_sudo {
             cargo.arg("--frozen");
+            // RUST++: build from `vendor/` without a `.cargo/config.toml` at
+            // the top of the repository (it would also apply to other
+            // projects in it, like the DEVR+ editor).
+            let vendor = self.src.join("vendor");
+            cargo.arg("--config").arg(r#"source.crates-io.replace-with="vendored-sources""#);
+            cargo.arg("--config").arg(format!("source.vendored-sources.directory='{}'", vendor.display()));
         }
 
         // Try to use a sysroot-relative bindir, in case it was configured absolutely.

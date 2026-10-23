@@ -1194,6 +1194,7 @@ class RustBuild(object):
             args.append("--locked")
         if self.use_vendored_sources:
             args.append("--frozen")
+            args.extend(vendored_sources_config(self.rust_root))
         if self.get_toml("metrics", "build"):
             args.append("--features")
             args.append("build-metrics")
@@ -1285,9 +1286,22 @@ class RustBuild(object):
                 eprint("       from the archive in the root of the rust project.")
                 raise Exception("{} not found".format(vendor_dir))
 
-            if not os.path.exists(cargo_dir):
-                eprint("ERROR: vendoring required, but .cargo/config does not exist.")
-                raise Exception("{} not found".format(cargo_dir))
+            # RUST++: the vendored sources are passed to cargo with `--config`
+            # (see `vendored_sources_config`), so no `.cargo/config.toml` is
+            # needed: it would also apply to other projects in the repository,
+            # like the DEVR+ editor.
+            _ = cargo_dir
+
+
+def vendored_sources_config(rust_root):
+    """RUST++: cargo arguments to build from the `vendor` directory only."""
+    vendor = os.path.join(rust_root, "vendor")
+    return [
+        "--config",
+        'source.crates-io.replace-with="vendored-sources"',
+        "--config",
+        "source.vendored-sources.directory='{}'".format(vendor),
+    ]
 
 
 def parse_args(args):
