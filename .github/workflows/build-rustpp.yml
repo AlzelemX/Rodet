@@ -238,7 +238,8 @@ jobs:
           shopt -s nullglob
           files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe artifacts/*/*.sh)
           if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
-          VERSION=$(cat artifacts/*/version.txt | head -1)
+          # No pipe here: with pipefail, `cat | head` can fail when head exits early.
+          VERSION=$(sed -n 1p artifacts/*/version.txt)
           TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${GITHUB_RUN_NUMBER}"
           {
             echo "Rust++ compiler built from ${GITHUB_SHA}."
