@@ -1,0 +1,33 @@
+name: README status
+
+# Copies STATUS.md into the status board at the top of README.md.
+
+on:
+  push:
+    branches: [main]
+    paths: [STATUS.md, rustpp/sync-status.py]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            README.md
+            STATUS.md
+            rustpp/sync-status.py
+          sparse-checkout-cone-mode: false
+
+      - name: Update README.md
+        run: |
+          python3 rustpp/sync-status.py
+          if git diff --quiet README.md; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "README: update status from STATUS.md [skip ci]" README.md
+          git push

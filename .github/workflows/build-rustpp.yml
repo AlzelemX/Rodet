@@ -15,6 +15,7 @@ on:
       - '**.md'
       - 'docbook/**'
       - 'notebook/**'
+      - 'rustpp/sync-status.py'
       - '.github/workflows/readme-status.yml'
       - '.github/workflows/docbook.yml'
       - '.github/workflows/publish-release.yml'

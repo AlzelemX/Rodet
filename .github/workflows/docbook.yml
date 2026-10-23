@@ -1,0 +1,45 @@
+name: Doc Book
+
+# Builds the Doc Book (docbook/) with mdBook and publishes it to the
+# gh-pages branch, served at https://alzelemx.github.io/Rust-/
+
+on:
+  push:
+    branches: [main]
+    paths: [docbook/**]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docbook
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: docbook
+
+      - name: Install mdBook
+        run: |
+          mkdir -p "$HOME/bin"
+          curl -fsSL https://github.com/rust-lang/mdBook/releases/download/v0.5.4/mdbook-v0.5.4-x86_64-unknown-linux-gnu.tar.gz \
+            | tar -xz -C "$HOME/bin"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+
+      - name: Build
+        run: mdbook build docbook
+
+      - name: Publish to gh-pages
+        run: |
+          cd docbook/book
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Doc Book from ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
