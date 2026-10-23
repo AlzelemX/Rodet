@@ -237,6 +237,20 @@ pub(super) fn is_named_lifetime(token: &Token) -> bool {
     named_lifetime(token).is_some()
 }
 
+impl<'a> Parser<'a> {
+    /// RUST++: whether the token `n` tokens ahead is a lifetime written `_a`.
+    ///
+    /// `_a` followed by `::`, `!` or `<` is a path, a macro or a generic type
+    /// (crates use names like `_serde::Deserialize` in generated code), not
+    /// a lifetime.
+    pub(super) fn is_named_lifetime_ahead(&self, n: usize) -> bool {
+        self.look_ahead(n, is_named_lifetime)
+            && !self.look_ahead(n + 1, |t| {
+                matches!(t.kind, token::PathSep | token::Bang | token::Lt | token::Shl)
+            })
+    }
+}
+
 /// RUST++: the lifetime written as `_name`, if `token` is one:
 /// `_a` is `'_a`, `_static` is `'static`.
 pub(super) fn named_lifetime(token: &Token) -> Option<Lifetime> {

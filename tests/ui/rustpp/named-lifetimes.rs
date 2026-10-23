@@ -32,7 +32,16 @@ fn longest<_x>(a: &_x str, b: &_x str) -> &_x str where _x: _x {
     if a.len() > b.len() { a } else { b }
 }
 
+// `_name::...` is a path, not a lifetime (crates generate such paths).
+mod _paths {
+    pub struct Thing(pub u8);
+}
+fn by_path(t: &_paths::Thing) -> Option<_paths::Thing> {
+    Some(_paths::Thing(t.0))
+}
+
 fn main() {
+    let _ = by_path(&_paths::Thing(1));
     let text = String::from("hello rust plus plus");
     let mut p = Parser { input: &text, pos: 0 };
     let w = first_word(&mut p);

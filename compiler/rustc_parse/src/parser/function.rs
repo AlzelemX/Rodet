@@ -897,7 +897,7 @@ impl<'a> Parser<'a> {
         };
         // is lifetime `n` tokens ahead?
         let is_lifetime = |this: &Self, n| {
-            this.look_ahead(n, |t| t.is_lifetime() || super::rustpp::is_named_lifetime(t))
+            this.look_ahead(n, |t| t.is_lifetime()) || this.is_named_lifetime_ahead(n)
         };
         // Is `self` `n` tokens ahead?
         let is_isolated_self = |this: &Self, n| {
