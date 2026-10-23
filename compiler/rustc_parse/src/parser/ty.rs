@@ -1139,7 +1139,7 @@ impl<'a> Parser<'a> {
         // introduce "`GenericBound::Paren(Box<GenericBound>)`".
         let parens = if self.eat(exp!(OpenParen)) { ast::Parens::Yes } else { ast::Parens::No };
 
-        if self.token.is_lifetime() {
+        if self.token.is_lifetime() || super::rustpp::is_named_lifetime(&self.token) {
             self.parse_lifetime_bound(lo, parens)
         } else if self.eat_keyword(exp!(Use)) {
             self.parse_use_bound(lo, parens)
@@ -1648,11 +1648,16 @@ impl<'a> Parser<'a> {
 
     pub(super) fn check_lifetime(&mut self) -> bool {
         self.expected_token_types.insert(TokenType::Lifetime);
-        self.token.is_lifetime()
+        // RUST++: `_a` is a lifetime too.
+        self.token.is_lifetime() || super::rustpp::is_named_lifetime(&self.token)
     }
 
-    /// Parses a single lifetime `'a` or panics.
+    /// Parses a single lifetime `'a` (or Rust++ `_a`) or panics.
     pub(super) fn expect_lifetime(&mut self) -> Lifetime {
+        if let Some(lifetime) = super::rustpp::named_lifetime(&self.token) {
+            self.bump();
+            return lifetime;
+        }
         if let Some((ident, kind)) = self.token.lifetime() {
             if kind == IdentKind::Normal && ident.without_first_quote().is_reserved_lifetime() {
                 self.dcx().emit_err(diagnostics::KeywordLifetime { span: ident.span });

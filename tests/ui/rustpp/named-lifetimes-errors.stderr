@@ -1,0 +1,24 @@
+error: lifetime may not live long enough
+  --> $DIR/named-lifetimes-errors.rs:4:5
+   |
+LL | fn mix<_a, _b>(x: &_a str, _y: &_b str) -> &_b str {
+   |        --  -- lifetime `'_b` defined here
+   |        |
+   |        lifetime `'_a` defined here
+LL |     x
+   |     ^ function was supposed to return data with lifetime `'_b` but it is returning data with lifetime `'_a`
+   |
+   = help: consider adding the following bound: `'_a: '_b`
+
+error[E0515]: cannot return value referencing local variable `local`
+  --> $DIR/named-lifetimes-errors.rs:14:5
+   |
+LL |     Holder { s: &local }
+   |     ^^^^^^^^^^^^------^^
+   |     |           |
+   |     |           `local` is borrowed here
+   |     returns a value referencing data owned by the current function
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0515`.

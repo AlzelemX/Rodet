@@ -2698,7 +2698,7 @@ impl<'a> Parser<'a> {
         loop_header: Option<Span>,
     ) -> bool {
         // Check for `'a : {`
-        if !(self.check_lifetime()
+        if !(self.token.is_lifetime()
             && self.look_ahead(1, |t| *t == token::Colon)
             && self.look_ahead(2, |t| *t == token::OpenBrace))
         {

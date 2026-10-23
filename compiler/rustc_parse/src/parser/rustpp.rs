@@ -19,8 +19,25 @@
 //! ```
 //!
 //! With a single source, `&{x} T` simply becomes `&'x T`.
+//!
+//! # Named lifetimes: `_a`
+//!
+//! For the cases that need a named lifetime (for example a struct that holds a
+//! reference to data outside of it), Rust++ writes lifetimes as identifiers that
+//! start with `_` and a lowercase letter, in positions where a lifetime can
+//! appear (generic parameters and arguments, references, bounds, `where`):
+//!
+//! ```text
+//! struct Parser<_a> { input: &_a str }
+//! impl<_a> Parser<_a> { fn rest(&self) -> &_a str { self.input } }
+//! fn keep<T: _static>(t: T) {}
+//! ```
+//!
+//! `_a` is the lifetime `'_a` and `_static` is `'static`. In expressions
+//! (`let _a = 1;`) such names are still ordinary variables.
 
 use rustc_ast::mut_visit::{self, MutVisitor};
+use rustc_ast::token::{IdentKind, Token};
 use rustc_ast::visit::LifetimeCtxt;
 use rustc_ast::*;
 use rustc_errors::PResult;
@@ -198,4 +215,23 @@ impl MutVisitor for Placeholders {
         let _ = ctxt;
         mut_visit::walk_lifetime(self, lt);
     }
+}
+
+/// RUST++: is `token` a lifetime written as `_name` (see the module docs)?
+pub(super) fn is_named_lifetime(token: &Token) -> bool {
+    named_lifetime(token).is_some()
+}
+
+/// RUST++: the lifetime written as `_name`, if `token` is one:
+/// `_a` is `'_a`, `_static` is `'static`.
+pub(super) fn named_lifetime(token: &Token) -> Option<Lifetime> {
+    let (ident, IdentKind::Normal) = token.ident()? else { return None };
+    let name = ident.name.as_str();
+    let mut chars = name.chars();
+    if chars.next() != Some('_') || !chars.next().is_some_and(|c| c.is_ascii_lowercase()) {
+        return None;
+    }
+    let lifetime =
+        if name == "_static" { kw::StaticLifetime } else { Symbol::intern(&format!("'{name}")) };
+    Some(Lifetime { id: DUMMY_NODE_ID, ident: Ident::new(lifetime, ident.span) })
 }

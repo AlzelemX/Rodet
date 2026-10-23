@@ -888,7 +888,9 @@ impl<'a> Parser<'a> {
             ident
         };
         // is lifetime `n` tokens ahead?
-        let is_lifetime = |this: &Self, n| this.look_ahead(n, |t| t.is_lifetime());
+        let is_lifetime = |this: &Self, n| {
+            this.look_ahead(n, |t| t.is_lifetime() || super::rustpp::is_named_lifetime(t))
+        };
         // Is `self` `n` tokens ahead?
         let is_isolated_self = |this: &Self, n| {
             this.is_keyword_ahead(n, &[kw::SelfLower])
