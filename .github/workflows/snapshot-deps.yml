@@ -97,7 +97,8 @@ jobs:
             tar -xJf "$src" -C /tmp/stage0 --strip-components=2 "$c-$VER-$T/$c"
           done
           export PATH=/tmp/stage0/bin:$PATH RUSTC=/tmp/stage0/bin/rustc RUSTC_BOOTSTRAP=1
-          cargo vendor --locked --sync library/Cargo.toml --sync src/bootstrap/Cargo.toml vendor > /dev/null
+          cargo vendor --locked --sync library/Cargo.toml --sync src/bootstrap/Cargo.toml \
+              --sync src/tools/rust-analyzer/Cargo.toml vendor > /dev/null
           du -sh vendor
           tar -cf - vendor | xz -T0 -6 > snap/vendor.tar.xz
 
