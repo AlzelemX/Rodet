@@ -157,6 +157,9 @@ jobs:
           cp -R docbook/src/. "$BOOK/en/"
           cp -R docbook/ar/src/. "$BOOK/ar/"
           test -f "$BOOK/en/SUMMARY.md" && test -f "$BOOK/ar/SUMMARY.md"
+          # The compiler's messages in other languages (RUSTPP_LANG=ar).
+          mkdir -p dist/rustpp/share/rustpp/i18n
+          cp compiler/rustc_errors/src/i18n/*.txt dist/rustpp/share/rustpp/i18n/
           cp rustpp/examples/hello.rs dist/rustpp/
           ls dist/rustpp/bin
           du -sh dist/rustpp

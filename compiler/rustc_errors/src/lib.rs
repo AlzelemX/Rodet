@@ -74,6 +74,7 @@ mod diagnostic;
 mod diagnostic_impls;
 pub mod emitter;
 pub mod formatting;
+mod i18n;
 pub mod json;
 mod lock;
 pub mod markdown;
