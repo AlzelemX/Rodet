@@ -42,7 +42,10 @@ If `(Rust++ #…)` is there, you’re ready. The number is the build: a newer re
 
 ## Editor
 
-Any editor works. [VS Code](https://code.visualstudio.com/) with the
-*rust-analyzer* extension gives colors and errors as you type. It doesn't
-know Rust++'s new syntax yet, so it may underline `out!`, named arguments or
-`&{x}` in red: trust `cargo build`, not the red lines.
+Use **[DEVR+](devr.md)**, the editor made for Rust++: it knows all the new
+syntax, shows errors as you type and runs your project with `F5`.
+
+Rust++ also comes with **`rust++-analyzer`**, the language server DEVR+ uses.
+Other editors can use it too: in VS Code, install the *rust-analyzer*
+extension and set `rust-analyzer.server.path` to the `rust++-analyzer` in
+`~/.rustpp/bin` (`%USERPROFILE%\.rustpp\bin` on Windows).
