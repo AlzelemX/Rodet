@@ -733,7 +733,11 @@ impl<'a> Parser<'a> {
 
     fn parse_borrowed_pointee(&mut self) -> PResult<'a, TyKind> {
         let and_span = self.prev_token.span;
-        let mut opt_lifetime = self.check_lifetime().then(|| self.expect_lifetime());
+        // RUST++: `&{x, y} T` borrows from the parameters `x` and `y`.
+        let mut opt_lifetime = match self.parse_borrow_sources()? {
+            Some(sources) => Some(sources),
+            None => self.check_lifetime().then(|| self.expect_lifetime()),
+        };
         let (pinned, mut mutbl) = self.parse_pin_and_mut();
         if self.token.is_lifetime() && mutbl == Mutability::Mut && opt_lifetime.is_none() {
             // A lifetime is invalid here: it would be part of a bare trait bound, which requires

@@ -94,6 +94,34 @@ pub(crate) struct WrapType {
     pub hi: Span,
 }
 
+// RUST++: borrow sources, `&{x, y} T`.
+#[derive(Diagnostic)]
+#[diag("cannot borrow from `{$name}`: this function has no parameter with that name")]
+pub(crate) struct BorrowSourceNotAParam {
+    #[primary_span]
+    #[label("listed as a borrow source here")]
+    pub span: Span,
+    pub name: String,
+}
+
+#[derive(Diagnostic)]
+#[diag("cannot borrow from `{$name}` because it is not a reference")]
+#[help("give `{$name}` a reference type such as `&T` or `&mut T`")]
+pub(crate) struct BorrowSourceNotARef {
+    #[primary_span]
+    #[label("this type is not a reference")]
+    pub span: Span,
+    pub name: String,
+}
+
+#[derive(Diagnostic)]
+#[diag("borrow source list is empty")]
+#[help("name the parameters the reference borrows from")]
+pub(crate) struct EmptyBorrowSources {
+    #[primary_span]
+    pub span: Span,
+}
+
 #[derive(Diagnostic)]
 #[diag("expected item, found `;`")]
 pub(crate) struct IncorrectSemicolon<'a> {

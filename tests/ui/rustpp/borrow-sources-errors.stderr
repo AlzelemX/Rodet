@@ -1,0 +1,28 @@
+error: cannot borrow from `y`: this function has no parameter with that name
+  --> $DIR/borrow-sources-errors.rs:3:29
+   |
+LL | fn not_a_param(x: &str) -> &{y} str {
+   |                             ^^^ listed as a borrow source here
+
+error: cannot borrow from `x` because it is not a reference
+  --> $DIR/borrow-sources-errors.rs:8:17
+   |
+LL | fn not_a_ref(x: String, y: &str) -> &{x} str {
+   |                 ^^^^^^ this type is not a reference
+   |
+   = help: give `x` a reference type such as `&T` or `&mut T`
+
+error[E0621]: explicit lifetime required in the type of `y`
+  --> $DIR/borrow-sources-errors.rs:16:5
+   |
+LL |     y
+   |     ^ lifetime `'x` required
+   |
+help: add explicit lifetime `'x` to the type of `y`
+   |
+LL | fn wrong_source(x: &str, y: &'x str) -> &{x} str {
+   |                              ++
+
+error: aborting due to 3 previous errors
+
+For more information about this error, try `rustc --explain E0621`.

@@ -54,6 +54,7 @@ to be contributed to `rust-lang/rust`.
 | Change | Where |
 |---|---|
 | New `out!` macro: prints a line, exactly like `println!` | `library/std/src/macros.rs`, `library/std/src/prelude/v1.rs` |
+| Borrow sources instead of lifetimes in return types: `fn longest(x: &str, y: &str) -> &{x, y} str` | `compiler/rustc_parse/src/parser/rustpp.rs` |
 | `rustc --version` reports `(Rust++)` | `src/bootstrap/src/core/session.rs` |
 | Test for `out!` | `tests/ui/rustpp/out-macro.rs` |
 | Automatic Windows, Linux and macOS builds and release on every push | `.github/workflows/build-rustpp.yml` |

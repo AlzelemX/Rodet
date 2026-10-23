@@ -8,6 +8,7 @@ mod item;
 mod nonterminal;
 mod pat;
 mod path;
+mod rustpp;
 mod stmt;
 pub mod token_type;
 mod ty;

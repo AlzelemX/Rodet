@@ -143,7 +143,7 @@ impl<'a> Parser<'a> {
             }
         };
 
-        let decl = Box::new(decl);
+        let mut decl = Box::new(decl);
 
         // Store the end of function parameters to give better diagnostics
         // inside `parse_fn_body()`.
@@ -152,6 +152,9 @@ impl<'a> Parser<'a> {
         let contract = self.parse_contract()?;
 
         generics.where_clause = self.parse_where_clause()?; // `where T: Ord`
+
+        // RUST++: turn `-> &{x, y} T` into ordinary lifetimes.
+        self.desugar_borrow_sources(&mut generics, &mut decl);
 
         // `fn_params_end` is needed only when it's followed by a where clause.
         let fn_params_end =
