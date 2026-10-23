@@ -16,6 +16,14 @@ use syntax::ast::{self, AstNode, HasArgList, HasName, UnaryOp};
 
 use crate::{InlayHint, InlayHintLabel, InlayHintPosition, InlayHintsConfig, InlayKind};
 
+/// Rust++: whether `arg` is a named argument, `name = value`.
+fn is_named_argument(arg: &ast::Expr) -> bool {
+    let ast::Expr::BinExpr(bin) = arg else { return false };
+    matches!(bin.op_kind(), Some(ast::BinaryOp::Assignment { op: None }))
+        && matches!(bin.lhs(), Some(ast::Expr::PathExpr(lhs))
+            if lhs.path().and_then(|p| p.as_single_name_ref()).is_some())
+}
+
 pub(super) fn hints(
     acc: &mut Vec<InlayHint>,
     FamousDefs(sema, krate): &FamousDefs<'_, '_>,
@@ -40,6 +48,10 @@ pub(super) fn hints(
         .zip(arg_list.args_maybe_empty())
         .filter_map(|(p, arg)| {
             let arg = arg?;
+            // Rust++: a named argument (`width = 3`) already says its name.
+            if is_named_argument(&arg) {
+                return None;
+            }
             // Only annotate hints for expressions that exist in the original file
             let range = sema.original_range_opt(arg.syntax())?;
             if range.file_id != file_id {
@@ -406,6 +418,22 @@ mod tests {
         check_with_config(
             InlayHintsConfig { parameter_hints: true, ..DISABLED_CONFIG },
             ra_fixture,
+        );
+    }
+
+    #[test]
+    fn rustpp_named_arguments_have_no_hints() {
+        check_params(
+            r#"
+fn area(width: i32, height: i32) -> i32 { width * height }
+fn main() {
+    let _x = area(
+        3,
+      //^ width
+        height = 4,
+    );
+    let _y = area(height = 4, width = 3);
+}"#,
         );
     }
 

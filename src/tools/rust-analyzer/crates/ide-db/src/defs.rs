@@ -739,6 +739,40 @@ pub enum NameRefClass<'db> {
     },
 }
 
+/// Rust++: if `name_ref` is the name of a named argument, `f(name = value)`,
+/// the parameter `name` of the called function.
+fn named_argument_param<'db>(
+    sema: &Semantics<'db, RootDatabase>,
+    name_ref: &ast::NameRef,
+) -> Option<Local<'db>> {
+    let segment = ast::PathSegment::cast(name_ref.syntax().parent()?)?;
+    let path = segment.parent_path();
+    if path.qualifier().is_some() || ast::HasGenericArgs::generic_arg_list(&segment).is_some() {
+        return None;
+    }
+    let path_expr = ast::PathExpr::cast(path.syntax().parent()?)?;
+    let bin = ast::BinExpr::cast(path_expr.syntax().parent()?)?;
+    if !matches!(bin.op_kind()?, ast::BinaryOp::Assignment { op: None })
+        || bin.lhs()?.syntax() != path_expr.syntax()
+    {
+        return None;
+    }
+    let call = ast::ArgList::cast(bin.syntax().parent()?)?.syntax().parent()?;
+    let callable = match_ast! {
+        match call {
+            ast::CallExpr(call) => sema.resolve_expr_as_callable(&call.expr()?)?,
+            ast::MethodCallExpr(call) => sema.resolve_method_call_as_callable(&call)?,
+            _ => return None,
+        }
+    };
+    let hir::CallableKind::Function(func) = callable.kind() else { return None };
+    let name = name_ref.text();
+    func.params_without_self(sema.db)
+        .into_iter()
+        .find(|param| param.name(sema.db).is_some_and(|n| n.as_str() == &*name))?
+        .as_local(sema.db)
+}
+
 impl<'db> NameRefClass<'db> {
     // Note: we don't have unit-tests for this rather important function.
     // It is primarily exercised via goto definition tests in `ide`.
@@ -761,6 +795,11 @@ impl<'db> NameRefClass<'db> {
                 }
             };
             return Some(res);
+        }
+
+        // Rust++: the name of a named argument (`area(width = 3)`) is the parameter.
+        if let Some(param) = named_argument_param(sema, name_ref) {
+            return Some(NameRefClass::Definition(Definition::Local(param), None));
         }
 
         if let Some(path) = ast::PathSegment::cast(parent.clone()).map(|it| it.parent_path()) {

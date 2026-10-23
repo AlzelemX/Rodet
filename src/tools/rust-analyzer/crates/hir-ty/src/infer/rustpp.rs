@@ -62,7 +62,7 @@ impl<'db> InferenceContext<'db> {
             // Variadic functions and other unusual signatures.
             return if names.is_none() { None } else { Some(self.rustpp_give_up(args)) };
         }
-        if names.is_none() && !defaults.iter().any(|&has_default| has_default) {
+        if names.is_none() && !defaults.iter().any(Option::is_some) {
             // Too few arguments and nothing to fill them: the usual error.
             return None;
         }
@@ -94,7 +94,7 @@ impl<'db> InferenceContext<'db> {
 /// left-out parameter with a default value. `None` if the arguments don't fit.
 fn order_args(
     params: &[Option<Name>],
-    defaults: &[bool],
+    defaults: &[Option<Box<str>>],
     args: &[ExprId],
     names: Option<&[Option<Name>]>,
 ) -> Option<Vec<Option<ExprId>>> {
@@ -119,8 +119,8 @@ fn order_args(
             }
         }
     }
-    for (slot, &has_default) in slots.iter().zip(defaults) {
-        if slot.is_none() && !has_default {
+    for (slot, default) in slots.iter().zip(defaults) {
+        if slot.is_none() && default.is_none() {
             return None;
         }
     }

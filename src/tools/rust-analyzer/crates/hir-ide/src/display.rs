@@ -2507,7 +2507,17 @@ impl<'db> HirDisplayWithExpressionStore<'db> for TypeRefId {
                     hir_def::type_ref::Mutability::Mut => "mut ",
                 };
                 write!(f, "&")?;
-                if let Some(lifetime) = &ref_.lifetime {
+                if let Some(sources) = &ref_.borrow_sources {
+                    // Rust++: `&{x, y} T`
+                    write!(f, "{{")?;
+                    for (i, name) in sources.iter().enumerate() {
+                        if i > 0 {
+                            write!(f, ", ")?;
+                        }
+                        write!(f, "{}", name.display(f.db, f.edition()))?;
+                    }
+                    write!(f, "}} ")?;
+                } else if let Some(lifetime) = &ref_.lifetime {
                     lifetime.hir_fmt(f, owner, store)?;
                     write!(f, " ")?;
                 }

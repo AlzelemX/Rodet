@@ -377,6 +377,13 @@ impl Sysroot {
         let (mut res, err) =
             FetchMetadata::new(library_manifest, current_dir, &cargo_config, self, no_deps)
                 .exec(locked, progress)?;
+        // Rust++: when the full metadata fails (e.g. offline, so the standard
+        // library's crates.io dependencies can't be fetched), the `--no-deps`
+        // fallback has no dependency edges at all, and macros like `println!`
+        // and `out!` stop resolving. A stitched sysroot works better.
+        if let Some(err) = err {
+            return Err(err.context("the standard library's dependencies are unavailable"));
+        }
 
         // Patch out `rustc-std-workspace-*` crates to point to the real crates.
         // This is done prior to `CrateGraph` construction to prevent de-duplication logic from failing.
@@ -431,7 +438,7 @@ impl Sysroot {
             CargoWorkspace::new(res, library_manifest.clone(), Default::default(), true);
         Ok(RustLibSrcWorkspace::Workspace {
             ws: cargo_workspace,
-            metadata_err: err.map(|e| format!("{e:#}")),
+            metadata_err: None,
         })
     }
 }

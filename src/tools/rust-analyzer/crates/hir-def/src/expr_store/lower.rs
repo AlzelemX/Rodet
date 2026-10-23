@@ -387,7 +387,7 @@ pub(crate) fn lower_function(
     Option<TypeRefId>,
     bool,
     bool,
-    Box<[bool]>,
+    Box<[Option<Box<str>>]>,
     Box<[Option<Name>]>,
 ) {
     let mut expr_collector = ExprCollector::new(db, module, fn_.file_id, LoweringMode::Analysis);
@@ -407,7 +407,7 @@ pub(crate) fn lower_function(
                     let enabled = collector.check_cfg(&param);
                     if enabled {
                         has_self_param = true;
-                        param_defaults.push(false);
+                        param_defaults.push(None);
                         param_names.push(Some(Name::new_symbol_root(sym::self_)));
                         params.push(match param.ty() {
                             Some(ty) => collector.lower_type_ref(ty, &mut impl_trait_lower_fn),
@@ -425,6 +425,7 @@ pub(crate) fn lower_function(
                                             ty: self_type,
                                             lifetime,
                                             mutability: Mutability::Shared,
+                                            borrow_sources: None,
                                         })),
                                     ),
                                     ast::SelfParamKind::MutRef => collector
@@ -433,6 +434,7 @@ pub(crate) fn lower_function(
                                                 ty: self_type,
                                                 lifetime,
                                                 mutability: Mutability::Mut,
+                                                borrow_sources: None,
                                             },
                                         ))),
                                 }
@@ -453,7 +455,8 @@ pub(crate) fn lower_function(
                             Some(ast::Pat::IdentPat(pat)) => pat.name().map(|name| name.as_name()),
                             _ => None,
                         };
-                        (param.ty(), param.default_val().is_some(), name)
+                        let default = param.default_val().map(|value| value.syntax().text().to_string().into_boxed_str());
+                        (param.ty(), default, name)
                     })
                     // FIXME
                     .collect::<Vec<_>>();
@@ -836,7 +839,10 @@ impl<'db> ExprCollector<'db> {
                 let inner_ty = self.lower_type_ref_opt(inner.ty(), impl_trait_lower_fn);
                 let lifetime = inner.lifetime().map(|lt| self.lower_lifetime_ref(lt));
                 let mutability = Mutability::from_mutable(inner.mut_token().is_some());
-                TypeRef::Reference(Box::new(RefType { ty: inner_ty, lifetime, mutability }))
+                let borrow_sources = inner
+                    .borrow_sources()
+                    .map(|sources| sources.name_refs().map(|n| n.as_name()).collect());
+                TypeRef::Reference(Box::new(RefType { ty: inner_ty, lifetime, mutability, borrow_sources }))
             }
             ast::Type::InferType(_inner) => TypeRef::Placeholder,
             ast::Type::FnPtrType(inner) => {

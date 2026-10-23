@@ -213,7 +213,9 @@ fn write_function<'db>(f: &mut HirFormatter<'_, 'db>, func_id: FunctionId) -> Re
     // FIXME: Use resolved `param.ty` once we no longer discard lifetimes
     let body = Body::of(db, func_id.into());
     let owner = DefWithBodyId::FunctionId(func_id).into();
-    for (type_ref, param) in data.params.iter().zip(func.assoc_fn_params(db)).skip(skip_self) {
+    for (index, (type_ref, param)) in
+        data.params.iter().zip(func.assoc_fn_params(db)).enumerate().skip(skip_self)
+    {
         if !first {
             f.write_str(comma)?;
         } else {
@@ -226,6 +228,10 @@ fn write_function<'db>(f: &mut HirFormatter<'_, 'db>, func_id: FunctionId) -> Re
 
         f.write_str(": ")?;
         type_ref.hir_fmt(f, owner, &data.store)?;
+        // Rust++: the default value, `x: T = value`.
+        if let Some(Some(default)) = data.param_defaults.get(index) {
+            write!(f, " = {default}")?;
+        }
     }
 
     if data.is_varargs() {

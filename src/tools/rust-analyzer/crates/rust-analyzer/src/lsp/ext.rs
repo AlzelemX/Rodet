@@ -165,10 +165,16 @@ impl Request for InterpretFunctionRequest {
 pub enum SpeedScoreRequest {}
 
 impl Request for SpeedScoreRequest {
-    type Params = lsp_types::TextDocumentIdentifier;
+    type Params = SpeedScoreParams;
     type Result = SpeedScore;
     const METHOD: LspRequestMethod<'_> = LspRequestMethod::new("rustpp/speedScore");
     const MESSAGE_DIRECTION: MessageDirection = MessageDirection::ClientToServer;
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeedScoreParams {
+    pub text_document: lsp_types::TextDocumentIdentifier,
 }
 
 #[derive(Deserialize, Serialize, Debug, Default)]

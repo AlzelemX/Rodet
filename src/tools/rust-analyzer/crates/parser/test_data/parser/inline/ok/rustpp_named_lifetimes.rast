@@ -210,3 +210,58 @@ SOURCE_FILE
         WHITESPACE " "
         R_CURLY "}"
   WHITESPACE "\n"
+  FN
+    FN_KW "fn"
+    WHITESPACE " "
+    NAME
+      IDENT "g"
+    PARAM_LIST
+      L_PAREN "("
+      PARAM
+        IDENT_PAT
+          NAME
+            IDENT "t"
+        COLON ":"
+        WHITESPACE " "
+        REF_TYPE
+          AMP "&"
+          PATH_TYPE
+            PATH
+              PATH
+                PATH_SEGMENT
+                  NAME_REF
+                    IDENT "_paths"
+              COLON2 "::"
+              PATH_SEGMENT
+                NAME_REF
+                  IDENT "Thing"
+      R_PAREN ")"
+    WHITESPACE " "
+    RET_TYPE
+      THIN_ARROW "->"
+      WHITESPACE " "
+      PATH_TYPE
+        PATH
+          PATH_SEGMENT
+            NAME_REF
+              IDENT "Option"
+            GENERIC_ARG_LIST
+              L_ANGLE "<"
+              TYPE_ARG
+                PATH_TYPE
+                  PATH
+                    PATH
+                      PATH_SEGMENT
+                        NAME_REF
+                          IDENT "_paths"
+                    COLON2 "::"
+                    PATH_SEGMENT
+                      NAME_REF
+                        IDENT "Thing"
+              R_ANGLE ">"
+    WHITESPACE " "
+    BLOCK_EXPR
+      STMT_LIST
+        L_CURLY "{"
+        R_CURLY "}"
+  WHITESPACE "\n"

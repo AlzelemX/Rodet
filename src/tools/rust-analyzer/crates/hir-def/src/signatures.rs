@@ -615,9 +615,9 @@ pub struct FunctionSignature {
     pub generic_params: GenericParams,
     pub store: ExpressionStore,
     pub params: Box<[TypeRefId]>,
-    /// Rust++: for each of `params`, whether it has a default value
-    /// (`x: T = value`) and can be left out when calling.
-    pub param_defaults: Box<[bool]>,
+    /// Rust++: for each of `params`, its default value as written
+    /// (`x: T = value`), if it has one and can be left out when calling.
+    pub param_defaults: Box<[Option<Box<str>>]>,
     /// Rust++: the name of each of `params` (`None` for patterns), used by
     /// named arguments.
     pub param_names: Box<[Option<Name>]>,

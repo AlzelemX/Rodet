@@ -862,7 +862,7 @@ impl ExpressionStore {
             TypeRef::Path(path) => visitor.on_path(path),
             TypeRef::RawPtr(inner, _) | TypeRef::Slice(inner) => visitor.on_type(*inner),
             TypeRef::Reference(ref_type) => {
-                let RefType { ty, lifetime, mutability: _ } = &**ref_type;
+                let RefType { ty, lifetime, mutability: _, borrow_sources: _ } = &**ref_type;
                 visitor.on_type(*ty);
                 visitor.on_lifetime_opt(*lifetime);
             }

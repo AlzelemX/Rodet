@@ -197,7 +197,11 @@ impl<'t> Parser<'t> {
     /// contextual kind `LIFETIME_IDENT`.
     pub(crate) fn nth_at_lifetime(&self, n: usize) -> bool {
         self.nth(n) == SyntaxKind::LIFETIME_IDENT
-            || self.nth_at_contextual_kw(n, SyntaxKind::LIFETIME_IDENT)
+            || (self.nth_at_contextual_kw(n, SyntaxKind::LIFETIME_IDENT)
+                // `_serde::Deserialize`, `_m!()`, `_t<T>`: a path, a macro, a type.
+                && !self.nth_at(n + 1, T![::])
+                && !self.nth_at(n + 1, T![!])
+                && !self.nth_at(n + 1, T![<]))
     }
 
     /// Rust++: checks if the current token is a lifetime, `'a` or `_a`.

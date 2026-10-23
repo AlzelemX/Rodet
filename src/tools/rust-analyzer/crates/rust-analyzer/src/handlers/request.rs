@@ -199,10 +199,10 @@ pub(crate) fn handle_interpret_function(
 
 pub(crate) fn handle_speed_score(
     snap: GlobalStateSnapshot,
-    params: lsp_types::TextDocumentIdentifier,
+    params: lsp_ext::SpeedScoreParams,
 ) -> anyhow::Result<lsp_ext::SpeedScore> {
     let _p = tracing::info_span!("handle_speed_score").entered();
-    let file_id = try_default!(from_proto::file_id(&snap, &params.uri)?);
+    let file_id = try_default!(from_proto::file_id(&snap, &params.text_document.uri)?);
     let line_index = snap.file_line_index(file_id)?;
     let result = snap.analysis.speed_score(file_id)?;
     Ok(lsp_ext::SpeedScore {

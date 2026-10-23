@@ -120,6 +120,8 @@ pub struct RefType {
     pub ty: TypeRefId,
     pub lifetime: Option<LifetimeRefId>,
     pub mutability: Mutability,
+    /// Rust++: the parameters of `&{x, y} T`, kept for display.
+    pub borrow_sources: Option<ThinVec<Name>>,
 }
 
 /// Compare ty::Ty
