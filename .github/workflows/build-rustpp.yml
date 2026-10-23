@@ -15,6 +15,8 @@ on:
       - '**.md'
       - 'docbook/**'
       - 'notebook/**'
+      - 'devr/**'
+      - '.github/workflows/devr.yml'
       - 'rustpp/sync-status.py'
       - '.github/workflows/readme-status.yml'
       - '.github/workflows/docbook.yml'
@@ -101,10 +103,14 @@ jobs:
 
       # GITHUB_ACTIONS is unset so bootstrap behaves like a local build
       # instead of assuming rust-lang's own CI setup.
-      - name: Build stage1 compiler, standard library and rustdoc
+      - name: Build stage1 compiler, standard library, rustdoc and rust++-analyzer
         run: |
           set -o pipefail
-          env -u GITHUB_ACTIONS $PY x.py build library src/tools/rustdoc 2>&1 | tee build.log
+          # The build number in `rustc --version` ("Rust++ #19") makes every
+          # release a different compiler for Cargo, so it never reuses files
+          # built by an older Rust++.
+          env -u GITHUB_ACTIONS $PY x.py build library src/tools/rustdoc src/tools/rust-analyzer \
+            --set "build.description=Rust++ #${GITHUB_RUN_NUMBER}" 2>&1 | tee build.log
 
       - name: Smoke test
         run: |
@@ -112,7 +118,7 @@ jobs:
           exec > >(tee smoke.log) 2>&1
           RUSTC="build/$TARGET/stage1/bin/rustc$EXE"
           "$RUSTC" -vV
-          "$RUSTC" --version | grep -F "(Rust++)"
+          "$RUSTC" --version | grep -F "(Rust++ #"
           "$RUSTC" rustpp/examples/hello.rs -o "hello$EXE"
           "./hello$EXE"
 
@@ -133,6 +139,17 @@ jobs:
           # cargo comes from the stage0 snapshot (deps-snapshot release), so the
           # package is a complete toolchain: rustc, rustdoc, cargo, std.
           cp "build/$TARGET/stage0/bin/cargo$EXE" dist/rustpp/bin/
+          # rust++-analyzer: the language server of DEVR+ (and of any editor).
+          # Its proc-macro server is already in stage1/libexec.
+          RA=$(ls build/$TARGET/stage*-tools-bin/rust-analyzer$EXE | tail -1)
+          echo "rust-analyzer: $RA"
+          cp "$RA" "dist/rustpp/bin/rust++-analyzer$EXE"
+          ls dist/rustpp/libexec || echo "::warning::no proc-macro server in libexec"
+          # The standard library's source, so the analyzer understands std.
+          mkdir -p dist/rustpp/lib/rustlib/src/rust
+          tar -cf - --exclude='library/*/tests' --exclude='library/*/benches' \
+              --exclude='library/stdarch/crates/*/tests' library \
+            | tar -C dist/rustpp/lib/rustlib/src/rust -xf -
           cp rustpp/examples/hello.rs dist/rustpp/
           ls dist/rustpp/bin
           du -sh dist/rustpp
@@ -162,6 +179,24 @@ jobs:
           EOF
           cat src/main.rs
           cargo run
+          # rust++-analyzer must understand Rust++ code without false errors.
+          cat > src/main.rs <<'EOF'
+          struct Parser<_a> { input: &_a str }
+          impl<_a> Parser<_a> {
+              fn rest(&self) -> &_a str { self.input }
+          }
+          fn longest(x: &str, y: &str) -> &{x, y} str { if x.len() >= y.len() { x } else { y } }
+          fn area(width: u32, height: u32) -> u32 { width * height }
+          fn open(path: &str, write: bool = false) -> String { format!("{path} {write}") }
+          fn main() {
+              let p = Parser { input: "hello" };
+              let a: u32 = area(height = 4, width = 3);
+              out!("{} {} {a} {}", p.rest(), longest("a", "bc"), open("x", write = true));
+          }
+          EOF
+          cargo run
+          rust++-analyzer --version
+          rust++-analyzer diagnostics .
 
       - name: Build and test the Windows installer
         if: runner.os == 'Windows'
