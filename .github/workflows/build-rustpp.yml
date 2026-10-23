@@ -271,5 +271,15 @@ jobs:
             echo "Supported: Linux x86_64 and ARM64 (glibc 2.39+), macOS Apple Silicon and Intel."
             echo "Uninstall: \`curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall\`"
           } > notes.md
-          gh release create "$TAG" "${files[@]}" -R "$REPO" \
-            --target "$GITHUB_SHA" --title "Rust++ $TAG" --notes-file notes.md --latest
+          # Uploading ~1 GB of assets occasionally fails on GitHub's side; retry.
+          for attempt in 1 2 3; do
+            if gh release create "$TAG" "${files[@]}" -R "$REPO" \
+                 --target "$GITHUB_SHA" --title "Rust++ $TAG" --notes-file notes.md --latest 2> err.txt; then
+              exit 0
+            fi
+            echo "::warning::release attempt $attempt failed: $(tr '\n' ' ' < err.txt)"
+            gh release delete "$TAG" -R "$REPO" --yes --cleanup-tag 2> /dev/null || true
+            sleep 30
+          done
+          echo "::error::could not publish the release: $(tr '\n' ' ' < err.txt)"
+          exit 1
