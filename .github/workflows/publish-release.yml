@@ -1,0 +1,80 @@
+name: Publish release
+
+# Publishes the builds of one "Build Rust++" run as a GitHub release.
+# Called by build-rustpp.yml after every build. Can also be run by hand with
+# the id of an earlier run, to publish it again without rebuilding.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Id of the "Build Rust++" run to publish (from its URL)'
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      RUN_ID: ${{ inputs.run_id || github.run_id }}
+    steps:
+      - name: Download builds
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          run-id: ${{ inputs.run_id || github.run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Publish release
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe artifacts/*/*.sh)
+          if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
+
+          RUN_NUMBER=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq .run_number)
+          SHA=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq .head_sha)
+          VERSION=$(sed -n 1p artifacts/*/version.txt)
+          TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${RUN_NUMBER}"
+
+          {
+            echo "\`$VERSION\`, built from ${SHA}."
+            echo
+            echo "**Windows:** download \`rustup++_init.exe\` and double-click it."
+            echo
+            echo "**Linux / macOS:**"
+            echo
+            echo '```sh'
+            echo "curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh"
+            echo '```'
+            echo
+            echo "What changed: see the [NoteBook](https://github.com/${REPO}/tree/main/notebook)."
+          } > notes.md
+
+          # Create the release as a draft first. On failure GitHub says which
+          # token permission was missing in a response header; show it.
+          gh release delete "$TAG" -R "$REPO" --yes --cleanup-tag 2> /dev/null || true
+          if ! gh api -i "repos/$REPO/releases" -X POST -f tag_name="$TAG" -f target_commitish="$SHA" \
+               -f name="Rust++ $TAG" -F body=@notes.md -F draft=true > create.txt 2>&1; then
+            echo "::error::could not create the release: $(grep -i -E '^(HTTP|x-accepted-github-permissions)|"message"' create.txt | tr '\n' ' ')"
+            exit 1
+          fi
+
+          # Uploading ~1 GB occasionally fails on GitHub's side; retry.
+          for attempt in 1 2 3; do
+            if gh release upload "$TAG" "${files[@]}" -R "$REPO" --clobber 2> err.txt; then
+              gh release edit "$TAG" -R "$REPO" --draft=false --latest
+              echo "::notice::published $TAG"
+              exit 0
+            fi
+            echo "::warning::upload attempt $attempt failed: $(tr '\n' ' ' < err.txt)"
+            sleep 30
+          done
+          echo "::error::could not upload the builds: $(tr '\n' ' ' < err.txt)"
+          exit 1

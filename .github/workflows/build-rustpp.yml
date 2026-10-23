@@ -1,7 +1,7 @@
 name: Build Rust++
 
-# Builds the Rust++ compiler (stage1 rustc + standard library) for Linux and
-# Windows and publishes both as one GitHub release.
+# Builds the Rust++ compiler (stage1 rustc + standard library) for Windows,
+# Linux and macOS and publishes them as one GitHub release.
 #
 # All build inputs come from this repository: the source, and the
 # `deps-snapshot` release (stage0 compiler, prebuilt LLVM, vendored crates)
@@ -10,10 +10,19 @@ name: Build Rust++
 on:
   push:
     branches: [main]
+    # Editing only the docs does not rebuild the compiler.
+    paths-ignore:
+      - '**.md'
+      - 'docbook/**'
+      - 'notebook/**'
+      - '.github/workflows/readme-status.yml'
+      - '.github/workflows/docbook.yml'
+      - '.github/workflows/publish-release.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: build-rustpp
@@ -222,65 +231,4 @@ jobs:
   release:
     needs: build
     if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download builds
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Publish release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          shopt -s nullglob
-          files=(artifacts/*/*.tar.xz artifacts/*/*.zip artifacts/*/*.exe artifacts/*/*.sh)
-          if [ ${#files[@]} -eq 0 ]; then echo "::error::no builds to publish"; exit 1; fi
-          # No pipe here: with pipefail, `cat | head` can fail when head exits early.
-          VERSION=$(sed -n 1p artifacts/*/version.txt)
-          TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${GITHUB_RUN_NUMBER}"
-          {
-            echo "Rust++ compiler built from ${GITHUB_SHA}."
-            echo
-            echo "\`$VERSION\`"
-            echo
-            echo "## Windows: easiest way"
-            echo
-            echo "Download **\`rustup++_init.exe\`** and double-click it. It installs Rust++ (rustc, cargo, rustdoc)"
-            echo "into \`%USERPROFILE%\\.rustpp\` and adds it to your PATH. Then in a new terminal:"
-            echo
-            echo '```'
-            echo 'rustc --version'
-            echo 'cargo new hello'
-            echo 'cd hello'
-            echo 'cargo run'
-            echo '```'
-            echo
-            echo "Uninstall: \`rustup++_init.exe --uninstall\`"
-            echo
-            echo "## Linux and macOS"
-            echo
-            echo "In a terminal:"
-            echo
-            echo '```sh'
-            echo "curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh"
-            echo '```'
-            echo
-            echo "Then open a new terminal and run \`rustc --version\`."
-            echo "Supported: Linux x86_64 and ARM64 (glibc 2.39+), macOS Apple Silicon and Intel."
-            echo "Uninstall: \`curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall\`"
-          } > notes.md
-          # Uploading ~1 GB of assets occasionally fails on GitHub's side; retry.
-          for attempt in 1 2 3; do
-            if gh release create "$TAG" "${files[@]}" -R "$REPO" \
-                 --target "$GITHUB_SHA" --title "Rust++ $TAG" --notes-file notes.md --latest 2> err.txt; then
-              exit 0
-            fi
-            echo "::warning::release attempt $attempt failed: $(tr '\n' ' ' < err.txt)"
-            gh release delete "$TAG" -R "$REPO" --yes --cleanup-tag 2> /dev/null || true
-            sleep 30
-          done
-          echo "::error::could not publish the release: $(tr '\n' ' ' < err.txt)"
-          exit 1
+    uses: ./.github/workflows/publish-release.yml
