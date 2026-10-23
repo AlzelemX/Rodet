@@ -19,8 +19,13 @@ rustc 1.101.0-dev
 rustc 1.101.0-dev (Rust++)
 ```
 
+**Update 2026-10-23:** releases add their build number, `rustc 1.101.0-dev
+(Rust++ #19)`, so Cargo knows a new Rust++ is a different compiler and never
+reuses files built by an older one.
+
 <details><summary>Where in the compiler</summary>
 
 - `src/bootstrap/src/core/session.rs`: sets the description to `Rust++`
+- `.github/workflows/build-rustpp.yml`: adds the build number (`build.description`)
 
 </details>

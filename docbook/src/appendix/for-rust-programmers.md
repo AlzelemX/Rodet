@@ -13,7 +13,7 @@ as in Rust.
 | `fn f(&self) -> &str` | the same, or `-> &{self} str` |
 | `struct P<'a> { s: &'a str }` | `struct P<_a> { s: &_a str }` |
 | `&'static str`, `T: 'static` | `&_static str`, `T: _static` |
-| `rustup`, `rustc --version` → `rustc 1.101.0-dev` | `rustup++_init`, `rustc 1.101.0-dev (Rust++)` |
+| `rustup`, `rustc --version` → `rustc 1.101.0-dev` | `rustup++_init`, `rustc 1.101.0-dev (Rust++ #19)` |
 
 ## How the new syntax is compiled
 

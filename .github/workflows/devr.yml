@@ -1,0 +1,181 @@
+name: DEVR+
+
+# Builds the DEVR+ editor (devr/) for Windows, Linux and macOS with the
+# Rust++ compiler itself, and publishes the installers as a `devr-v0.1.N`
+# release (never marked "latest": that stays the Rust++ toolchain).
+
+on:
+  push:
+    branches: [main]
+    paths: [devr/**, .github/workflows/devr.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: devr
+  cancel-in-progress: true
+
+env:
+  DEVR_VERSION: 0.1.${{ github.run_number }}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            bundles: nsis
+          # Same glibc as the Rust++ Linux build (2.39+: Ubuntu 24.04, Debian 13…).
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            bundles: deb,appimage
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            bundles: dmg
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            bundles: dmg
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            devr
+            rustpp
+
+      - name: Install Linux libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+
+      # DEVR+ is built by Rust++: the newest release of the toolchain.
+      - name: Install Rust++
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          base=https://github.com/${{ github.repository }}/releases/latest/download
+          mkdir -p "$RUNNER_TEMP/rustpp"
+          if [ "$RUNNER_OS" = Windows ]; then
+            curl -fsSL --retry 3 -o rustpp.zip "$base/rustpp-$TARGET.zip"
+            7z x -o"$RUNNER_TEMP" rustpp.zip > /dev/null
+          else
+            curl -fsSL --retry 3 "$base/rustpp-$TARGET.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
+          fi
+          echo "$RUNNER_TEMP/rustpp/bin" >> "$GITHUB_PATH"
+
+      - name: Check the toolchain
+        run: |
+          rustc --version
+          rustc --version | grep -F "(Rust++"
+          cargo --version
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: devr/package-lock.json
+
+      - name: Build the editor UI
+        working-directory: devr
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build DEVR+
+        working-directory: devr
+        run: |
+          set -o pipefail
+          npx tauri build --bundles ${{ matrix.bundles }} \
+            --config "{\"version\":\"$DEVR_VERSION\",\"build\":{\"beforeBuildCommand\":\"\"}}" 2>&1 | tee build.log
+
+      - name: Test the backend
+        if: runner.os == 'Linux'
+        working-directory: devr
+        run: cargo test -p devr-core
+
+      - name: Collect installers
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          shopt -s nullglob
+          for f in devr/target/release/bundle/nsis/*.exe devr/target/release/bundle/deb/*.deb \
+                   devr/target/release/bundle/appimage/*.AppImage devr/target/release/bundle/dmg/*.dmg; do
+            cp "$f" out/
+          done
+          ls -lh out
+          test -n "$(ls out)"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: devr-${{ matrix.target }}
+          path: out/
+          retention-days: 3
+          compression-level: 0
+
+      - name: Report
+        if: always()
+        run: |
+          if [ -f devr/build.log ]; then
+            grep -E "^(error|warning: unused)" -A6 devr/build.log | head -60 | while IFS= read -r line; do echo "::notice title=build::$line"; done
+            tail -5 devr/build.log | while IFS= read -r line; do echo "::notice title=build tail::$line"; done
+          fi
+
+  release:
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish the DEVR+ release
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(artifacts/*/*)
+          if [ ${#files[@]} -eq 0 ]; then echo "::error::no installers to publish"; exit 1; fi
+          TAG="devr-v$DEVR_VERSION"
+          {
+            echo "**DEVR+ $DEVR_VERSION** — the editor for Rust++, built from ${GITHUB_SHA}."
+            echo
+            echo "| System | Download |"
+            echo "|---|---|"
+            echo "| Windows | \`DEVR+_${DEVR_VERSION}_x64-setup.exe\` |"
+            echo "| Linux (Ubuntu 24.04+, Debian 13+) | \`.deb\` or \`.AppImage\` |"
+            echo "| macOS Apple Silicon | \`DEVR+_${DEVR_VERSION}_aarch64.dmg\` |"
+            echo "| macOS Intel | \`DEVR+_${DEVR_VERSION}_x64.dmg\` |"
+            echo
+            echo "DEVR+ uses the Rust++ installed on the computer (\`rustup++_init\`). Without it, the editor offers to install it."
+            echo
+            echo "macOS: the app is not signed by Apple. The first time, right-click it → Open."
+          } > notes.md
+          gh release delete "$TAG" -R "$REPO" --yes 2> /dev/null || true
+          create() {
+            gh api "repos/$REPO/releases" -X POST -f tag_name="$TAG" -f target_commitish="$1" \
+              -f name="DEVR+ $DEVR_VERSION" -F body=@notes.md -F draft=true -f make_latest=false > /dev/null
+          }
+          # The workflow token can't tag a commit whose workflow files differ
+          # from main's; tag main then.
+          create "$GITHUB_SHA" || create "$(gh api "repos/$REPO/commits/main" --jq .sha)"
+          for attempt in 1 2 3; do
+            if gh release upload "$TAG" "${files[@]}" -R "$REPO" --clobber; then
+              gh release edit "$TAG" -R "$REPO" --draft=false --latest=false
+              echo "::notice::published $TAG"
+              exit 0
+            fi
+            sleep 30
+          done
+          exit 1

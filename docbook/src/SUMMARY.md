@@ -7,6 +7,7 @@
 - [Install Rust++](start/install.md)
 - [Hello, World!](start/hello.md)
 - [Projects with Cargo](start/cargo.md)
+- [The DEVR+ Editor](start/devr.md)
 
 # The Basics
 

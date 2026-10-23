@@ -24,12 +24,12 @@ Open a **new** terminal:
 
 ```text
 > rustc --version
-rustc 1.101.0-dev (Rust++)
+rustc 1.101.0-dev (Rust++ #19)
 > cargo --version
 cargo 1.100.0-beta.1 (3d7cf6e93 2026-09-25)
 ```
 
-If `(Rust++)` is there, you're ready.
+If `(Rust++ #…)` is there, you’re ready. The number is the build: a newer release has a bigger number.
 
 ## Update and uninstall
 

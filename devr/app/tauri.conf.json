@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "DEVR+",
+  "mainBinaryName": "devr",
+  "version": "0.1.0",
+  "identifier": "dev.alzelemx.devr",
+  "build": {
+    "frontendDist": "../ui/dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "DEVR+",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 640,
+        "minHeight": 420,
+        "center": true,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "deb", "appimage", "dmg", "app"],
+    "category": "DeveloperTool",
+    "shortDescription": "The editor for Rust++",
+    "longDescription": "DEVR+ is a fast, light editor made for the Rust++ language: errors and fixes, completion, search, Cargo, terminals, return marks and a speed score.",
+    "copyright": "AlzelemX",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    },
+    "macOS": {
+      "signingIdentity": "-",
+      "minimumSystemVersion": "11.0"
+    },
+    "linux": {
+      "deb": {
+        "depends": []
+      }
+    }
+  }
+}

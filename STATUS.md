@@ -15,10 +15,14 @@
 | Named arguments `f(x = 1)` | 🟢 Done | [008](notebook/008-named-arguments.md) |
 | Default values `fn f(x: T = 1)` | 🟢 Done | [009](notebook/009-default-values.md) |
 | Clean repository + docs system | 🟢 Done | [010](notebook/010-clean-repo.md) |
+| rust++-analyzer (language server) | 🟢 Done | [011](notebook/011-rustpp-analyzer.md) |
+| DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
+| DEVR+ extensions | 🔵 Planned | |
+| DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |
 | Remove `'a` completely | 🔵 Planned | |
-| Error messages in Rust++ style | 🔵 Planned | |
+| Messages and hints in Rust++ style (`_static`, `_`) | 🔵 Planned | |
 | `on_ready()` declarative constructor | 🔵 Planned | |
 | End-to-end integration tests | 🔵 Planned | |
 | Android and iOS | 🟣 Idea | |

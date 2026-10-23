@@ -1,0 +1,387 @@
+// DEVR+: the editor for Rust++.
+import '@vscode/codicons/dist/codicon.css';
+import './styles.css';
+import * as monaco from './editor/monaco';
+import EditorWorker from 'monaco-esm/editor/editor.worker.js?worker';
+import { backend, errorText } from './backend';
+import { registerLanguages, registerThemes } from './editor/language';
+import {
+  configurationChanged,
+  lsp,
+  refreshEditorFeatures,
+  restartLanguageServer,
+  setupLanguageFeatures,
+  startLanguageServer,
+} from './lsp/features';
+import { loadSettings, onSettings, settings, updateSettings } from './settings';
+import { layout } from './ui/layout';
+import { confirm, prompt, toast } from './ui/notify';
+import { commandPalette, quickOpen, registerCommand, runCommand, symbolPicker } from './ui/palette';
+import { basename, debounce, h, isMac } from './util';
+import { cargo, newProject, setupCargo } from './views/cargo';
+import { renderWelcome, setupEditorArea } from './views/editor-area';
+import { explorer, setupExplorer } from './views/explorer';
+import { outputPanel, problemsPanel, setupProblems } from './views/problems';
+import { search, searchFor, setupSearch } from './views/search';
+import { openSettings } from './views/settings-dialog';
+import { renderToolchain, setupStatusbar } from './views/statusbar';
+import { setupSymbols, symbols } from './views/symbols';
+import { newTerminal, runCargo, runTask, setupTerminal, terminalPanel } from './views/terminal';
+import { workspace } from './workspace';
+
+(self as any).MonacoEnvironment = {
+  getWorker: () => new EditorWorker(),
+};
+
+function applyTheme() {
+  document.documentElement.dataset.theme = settings.theme;
+  // Keep the speed score clear of the minimap and the scroll bar.
+  document.documentElement.style.setProperty('--speed-right', settings.minimap ? '134px' : '24px');
+  monaco.editor.setTheme(settings.theme === 'dark' ? 'devr-dark' : 'devr-light');
+}
+
+function editorOptions(): monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions {
+  return {
+    fontFamily: settings.fontFamily,
+    fontSize: settings.fontSize,
+    fontLigatures: true,
+    tabSize: settings.tabSize,
+    insertSpaces: true,
+    wordWrap: settings.wordWrap ? 'on' : 'off',
+    minimap: { enabled: settings.minimap, renderCharacters: false, scale: 1 },
+    'semanticHighlighting.enabled': true,
+    bracketPairColorization: { enabled: true },
+    guides: { bracketPairs: 'active', indentation: true },
+    smoothScrolling: true,
+    cursorBlinking: 'smooth',
+    cursorSmoothCaretAnimation: 'on',
+    renderLineHighlight: 'all',
+    stickyScroll: { enabled: true },
+    inlayHints: { enabled: 'on', padding: true },
+    fixedOverflowWidgets: true,
+    automaticLayout: true,
+    padding: { top: 8 },
+    scrollBeyondLastLine: true,
+    suggest: { showStatusBar: true, preview: true },
+    quickSuggestions: { other: true, comments: false, strings: false },
+    lightbulb: { enabled: monaco.editor.ShowLightbulbIconMode.OnCode },
+    renderWhitespace: 'selection',
+    mouseWheelZoom: true,
+    codeLens: true,
+    links: true,
+  };
+}
+
+async function main() {
+  const app = document.getElementById('app')!;
+  registerLanguages();
+  registerThemes();
+  layout.mount(app);
+
+  try {
+    await workspace.init();
+  } catch (err) {
+    app.replaceChildren(h('div.empty-state', {}, `DEVR+ couldn’t reach its backend: ${errorText(err)}`));
+    return;
+  }
+  await loadSettings();
+  applyTheme();
+
+  const editorElement = h('div.monaco');
+  layout.editorHost.appendChild(editorElement);
+  workspace.editor = monaco.editor.create(editorElement, { model: null, ...editorOptions() });
+  // For automated UI tests in a browser (devr-server).
+  if (backend.kind === 'web') (window as any).__devr = { monaco, workspace };
+
+  // Go to definition / peek into other files opens them in a tab.
+  monaco.editor.registerEditorOpener({
+    openCodeEditor(_source, resource, selectionOrPosition) {
+      const sel = selectionOrPosition as any;
+      const reveal = !sel ? undefined : 'startLineNumber' in sel
+        ? { line: sel.startLineNumber, column: sel.startColumn, endLine: sel.endLineNumber, endColumn: sel.endColumn }
+        : { line: sel.lineNumber, column: sel.column };
+      workspace.open(resource.fsPath, reveal);
+      return true;
+    },
+  });
+
+  layout.addSideView(explorer);
+  layout.addSideView(search);
+  layout.addSideView(symbols);
+  layout.addSideView(cargo);
+  layout.addActivityButton('Settings (Ctrl+,)', 'settings-gear', () => openSettings());
+  layout.addPanelView(problemsPanel);
+  layout.addPanelView(outputPanel);
+  layout.addPanelView(terminalPanel);
+
+  setupLanguageFeatures();
+  setupEditorArea();
+  setupExplorer();
+  setupSearch();
+  setupSymbols();
+  setupCargo();
+  setupProblems();
+  setupTerminal();
+  setupStatusbar();
+  registerCommands();
+  setupKeys();
+
+  layout.showSide('explorer');
+  layout.togglePanel(false);
+  layout.showPanel('problems');
+  layout.togglePanel(false);
+
+  onSettings.on(() => {
+    applyTheme();
+    workspace.editor.updateOptions(editorOptions());
+    configurationChanged();
+    refreshEditorFeatures();
+  });
+
+  const autoSave = debounce(() => {
+    if (settings.autoSave) workspace.saveAll();
+  }, 1000);
+  workspace.onDirty.on(() => autoSave());
+
+  workspace.onRoot.on(async (root) => {
+    document.title = root ? `${basename(root)} — DEVR+` : 'DEVR+';
+    try {
+      localStorage.setItem('devr.lastFolder', root ?? '');
+    } catch {
+      // No storage.
+    }
+    if (root) await startLanguageServer(root);
+    else await lsp.stop();
+  });
+
+  lsp.onState.on((state) => {
+    if (state === 'missing') {
+      toast('rust++-analyzer was not found, so errors, completion and search are off. Install or update Rust++ to turn them on.', 'warning', [
+        { label: 'Install Rust++', primary: true, run: () => runCommand('rustpp.install') },
+      ]);
+    } else if (state === 'error') {
+      toast('The language server stopped.', 'error', [
+        { label: 'Restart', primary: true, run: () => restartLanguageServer() },
+        { label: 'Show Output', run: () => layout.showPanel('output') },
+      ]);
+    }
+  });
+
+  setupWindowClose();
+  checkUpdates();
+
+  let last = '';
+  try {
+    last = localStorage.getItem('devr.lastFolder') ?? '';
+  } catch {
+    // No storage.
+  }
+  if (last) {
+    const stat = await backend.call<{ exists: boolean; isDir: boolean }>('fs.stat', { path: last }).catch(() => null);
+    if (stat?.isDir) await workspace.openFolder(last);
+  }
+}
+
+export async function openFolderDialog() {
+  let path: string | null = null;
+  if (backend.kind === 'desktop') {
+    const { open } = await import('@tauri-apps/plugin-dialog');
+    const picked = await open({ directory: true, multiple: false, title: 'Open Folder' });
+    path = typeof picked === 'string' ? picked : null;
+  } else {
+    path = await prompt('Open Folder (full path on the computer running devr-server)', workspace.root ?? workspace.info.home ?? '');
+  }
+  if (!path) return;
+  const stat = await backend.call<{ exists: boolean; isDir: boolean }>('fs.stat', { path });
+  if (!stat.isDir) {
+    toast(`${path} is not a folder.`, 'error');
+    return;
+  }
+  await workspace.openFolder(path);
+}
+
+function installRustpp() {
+  const windows = workspace.info.os === 'windows';
+  const command = windows
+    ? ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command',
+        "$f = \"$env:TEMP\\rustup++_init.exe\"; Invoke-WebRequest https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.exe -OutFile $f; & $f -y"]
+    : ['sh', '-c', 'curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh'];
+  runTask('Install Rust++', command, workspace.info.home ?? '.');
+  const off = backend.on('term.exit', async () => {
+    off();
+    await workspace.refreshToolchain();
+    renderToolchain();
+    renderWelcome();
+    if (workspace.root) restartLanguageServer();
+  });
+}
+
+function registerCommands() {
+  const C = registerCommand;
+  C({ id: 'folder.open', title: 'File: Open Folder…', key: 'Ctrl+O', icon: 'folder-opened', run: () => openFolderDialog() });
+  C({ id: 'folder.close', title: 'File: Close Folder', icon: 'close', run: () => workspace.closeFolder() });
+  C({ id: 'project.new', title: 'Cargo: New Rust++ Project…', icon: 'add', run: () => newProject() });
+  C({ id: 'file.new', title: 'File: New File…', key: 'Ctrl+N', icon: 'new-file', run: () => newFile() });
+  C({ id: 'file.save', title: 'File: Save', key: 'Ctrl+S', icon: 'save', run: () => workspace.save() });
+  C({ id: 'file.saveAll', title: 'File: Save All', key: 'Ctrl+Alt+S', icon: 'save-all', run: () => workspace.saveAll() });
+  C({ id: 'file.close', title: 'View: Close Editor', key: 'Ctrl+W', icon: 'close', run: () => workspace.active && workspace.close(workspace.active) });
+  C({ id: 'file.quickOpen', title: 'Go to File…', key: 'Ctrl+P', icon: 'go-to-file', run: () => quickOpen() });
+  C({ id: 'symbols.find', title: 'Go to Symbol in Project…', key: 'Ctrl+T', icon: 'symbol-class', run: () => symbolPicker() });
+  C({ id: 'symbols.view', title: 'View: Find Symbols (struct, impl, fn…)', key: 'Ctrl+Shift+T', icon: 'symbol-class', run: () => layout.showSide('symbols') });
+  C({ id: 'symbols.file', title: 'Go to Symbol in File…', key: 'Ctrl+Shift+O', icon: 'symbol-method', run: () => editorAction('editor.action.quickOutline') });
+  C({ id: 'palette', title: 'Show All Commands', key: 'Ctrl+Shift+P', icon: 'terminal', run: () => commandPalette() });
+  C({ id: 'view.explorer', title: 'View: Explorer', key: 'Ctrl+Shift+E', icon: 'files', run: () => layout.showSide('explorer') });
+  C({ id: 'view.search', title: 'View: Search in Files', key: 'Ctrl+Shift+F', icon: 'search', run: () => {
+    layout.showSide('search');
+    const selection = workspace.editor.getSelection();
+    const model = workspace.editor.getModel();
+    if (selection && model && !selection.isEmpty() && selection.startLineNumber === selection.endLineNumber) searchFor(model.getValueInRange(selection));
+  } });
+  C({ id: 'view.cargo', title: 'View: Cargo', icon: 'package', run: () => layout.showSide('cargo') });
+  C({ id: 'view.sidebar', title: 'View: Toggle Side Bar', key: 'Ctrl+B', icon: 'layout-sidebar-left', run: () => layout.toggleSidebar() });
+  C({ id: 'view.panel', title: 'View: Toggle Panel', key: 'Ctrl+J', icon: 'layout-panel', run: () => layout.togglePanel() });
+  C({ id: 'view.problems', title: 'View: Problems', key: 'Ctrl+Shift+M', icon: 'error', run: () => layout.showPanel('problems') });
+  C({ id: 'view.output', title: 'View: Output', icon: 'output', run: () => layout.showPanel('output') });
+  C({ id: 'terminal.new', title: 'Terminal: New Terminal', key: 'Ctrl+`', icon: 'terminal', run: () => newTerminal() });
+  C({ id: 'cargo.run', title: 'Cargo: Run', key: 'F5', icon: 'play', run: () => runCargo(['run'], 'cargo run') });
+  C({ id: 'cargo.runRelease', title: 'Cargo: Run Fast (release)', key: 'Ctrl+F5', icon: 'rocket', run: () => runCargo(['run', '--release'], 'cargo run --release') });
+  C({ id: 'cargo.build', title: 'Cargo: Build', key: 'Ctrl+Shift+B', icon: 'tools', run: () => runCargo(['build']) });
+  C({ id: 'cargo.check', title: 'Cargo: Check', icon: 'check', run: () => runCargo(['check']) });
+  C({ id: 'cargo.test', title: 'Cargo: Test', icon: 'beaker', run: () => runCargo(['test']) });
+  C({ id: 'cargo.clean', title: 'Cargo: Clean', icon: 'trash', run: () => runCargo(['clean']) });
+  C({ id: 'settings', title: 'Preferences: Settings', key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
+  C({ id: 'theme.toggle', title: 'Preferences: Toggle Dark / Light Theme', icon: 'color-mode', run: () => updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' }) });
+  C({ id: 'analyzer.restart', title: 'Rust++: Restart Language Server', icon: 'refresh', run: () => restartLanguageServer() });
+  C({ id: 'analyzer.menu', title: 'Rust++: Language Server Status', icon: 'info', run: () => {
+    if (lsp.state === 'error' || lsp.state === 'stopped') restartLanguageServer();
+    else layout.showPanel('output');
+  } });
+  C({ id: 'rustpp.install', title: 'Rust++: Install or Update Rust++', icon: 'cloud-download', run: () => installRustpp() });
+  C({ id: 'rustpp.about', title: 'Rust++: About This Toolchain', icon: 'info', run: () => {
+    const tc = workspace.info.toolchain;
+    toast(`${tc.rustcVersion ?? 'Rust++ is not installed'}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
+      { label: 'Install / Update', run: () => installRustpp() },
+    ]);
+  } });
+  C({ id: 'editor.rename', title: 'Rename Symbol', key: 'F2', icon: 'edit', run: () => editorAction('editor.action.rename') });
+  C({ id: 'editor.definition', title: 'Go to Definition', key: 'F12', icon: 'go-to-file', run: () => editorAction('editor.action.revealDefinition') });
+  C({ id: 'editor.references', title: 'Find All References', key: 'Shift+F12', icon: 'references', run: () => editorAction('editor.action.goToReferences') });
+  C({ id: 'editor.implementations', title: 'Go to Implementations', key: 'Ctrl+F12', icon: 'symbol-interface', run: () => editorAction('editor.action.goToImplementation') });
+  C({ id: 'editor.quickFix', title: 'Quick Fix…', key: 'Ctrl+.', icon: 'lightbulb', run: () => editorAction('editor.action.quickFix') });
+  C({ id: 'editor.nextProblem', title: 'Go to Next Problem', key: 'F8', icon: 'arrow-down', run: () => editorAction('editor.action.marker.nextInFiles') });
+  C({ id: 'editor.format', title: 'Format Document', key: 'Shift+Alt+F', icon: 'whole-word', run: () => editorAction('editor.action.formatDocument') });
+}
+
+function editorAction(id: string) {
+  workspace.editor.focus();
+  workspace.editor.getAction(id)?.run();
+}
+
+async function newFile() {
+  const root = workspace.root;
+  if (!root) {
+    toast('Open a folder first.', 'warning');
+    return;
+  }
+  const name = await prompt('New file (path in the project)', 'src/');
+  if (!name) return;
+  const sep = workspace.info.pathSeparator;
+  const path = root + sep + name.replace(/[\\/]/g, sep);
+  try {
+    await backend.call('fs.createFile', { path });
+    workspace.open(path);
+  } catch (err) {
+    toast(errorText(err), 'error');
+  }
+}
+
+/** Keyboard shortcuts of the workbench (the editor's own keys stay in Monaco). */
+function setupKeys() {
+  const bindings: Record<string, string> = {
+    'Ctrl+O': 'folder.open',
+    'Ctrl+N': 'file.new',
+    'Ctrl+S': 'file.save',
+    'Ctrl+Alt+S': 'file.saveAll',
+    'Ctrl+W': 'file.close',
+    'Ctrl+P': 'file.quickOpen',
+    'Ctrl+T': 'symbols.find',
+    'Ctrl+Shift+T': 'symbols.view',
+    'Ctrl+Shift+O': 'symbols.file',
+    'Ctrl+Shift+P': 'palette',
+    'F1': 'palette',
+    'Ctrl+Shift+E': 'view.explorer',
+    'Ctrl+Shift+F': 'view.search',
+    'Ctrl+B': 'view.sidebar',
+    'Ctrl+J': 'view.panel',
+    'Ctrl+Shift+M': 'view.problems',
+    'Ctrl+`': 'terminal.new',
+    'F5': 'cargo.run',
+    'Ctrl+F5': 'cargo.runRelease',
+    'Ctrl+Shift+B': 'cargo.build',
+    'Ctrl+,': 'settings',
+  };
+  window.addEventListener('keydown', (e) => {
+    const ctrl = isMac ? e.metaKey : e.ctrlKey;
+    const key = e.key.length === 1 ? e.key.toUpperCase() : e.key;
+    const combo = `${ctrl ? 'Ctrl+' : ''}${e.altKey ? 'Alt+' : ''}${e.shiftKey ? 'Shift+' : ''}${key === 'Dead' ? '`' : key}`;
+    const id = bindings[combo] ?? (e.code === 'Backquote' && ctrl ? bindings['Ctrl+`'] : undefined);
+    if (!id) return;
+    // Inside a terminal, keep Ctrl+letters for the shell (Ctrl+C, Ctrl+W…), except ours that matter.
+    const inTerminal = (e.target as HTMLElement | null)?.closest?.('.xterm');
+    if (inTerminal && !['Ctrl+`', 'Ctrl+J', 'Ctrl+P', 'Ctrl+Shift+P', 'F5', 'Ctrl+B'].includes(combo)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    runCommand(id);
+  }, true);
+}
+
+function setupWindowClose() {
+  if (backend.kind === 'desktop') {
+    import('@tauri-apps/api/window').then(({ getCurrentWindow }) => {
+      const win = getCurrentWindow();
+      win.onCloseRequested(async (event) => {
+        if (!workspace.dirtyDocs.length) {
+          await lsp.stop();
+          return;
+        }
+        event.preventDefault();
+        const ok = await confirm(`Quit with ${workspace.dirtyDocs.length} unsaved file(s)?`, 'Unsaved changes will be lost.', 'Quit', true);
+        if (ok) {
+          await lsp.stop();
+          await win.destroy();
+        }
+      });
+    });
+  } else {
+    window.addEventListener('beforeunload', (e) => {
+      if (workspace.dirtyDocs.length) e.preventDefault();
+    });
+    backend.on('backend.disconnected', () => toast('Disconnected from devr-server. Reload the page to reconnect.', 'error', [], 0));
+  }
+}
+
+async function checkUpdates() {
+  try {
+    const updates = await backend.call<{ devrLatest: { tag: string; url: string } | null; devrCurrent: string }>('updates.check');
+    const latest = updates.devrLatest?.tag.replace(/^devr-v/, '');
+    if (latest && newer(latest, updates.devrCurrent)) {
+      toast(`DEVR+ ${latest} is available (you have ${updates.devrCurrent}).`, 'info', [
+        { label: 'Download', primary: true, run: () => import('@tauri-apps/plugin-opener').then((m) => m.openUrl(updates.devrLatest!.url)).catch(() => window.open(updates.devrLatest!.url, '_blank')) },
+        { label: 'Later', run: () => {} },
+      ]);
+    }
+  } catch {
+    // Offline.
+  }
+}
+
+function newer(a: string, b: string) {
+  const pa = a.split('.').map(Number);
+  const pb = b.split('.').map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    if ((pa[i] ?? 0) !== (pb[i] ?? 0)) return (pa[i] ?? 0) > (pb[i] ?? 0);
+  }
+  return false;
+}
+
+main();

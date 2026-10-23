@@ -22,10 +22,14 @@ more precise and easier to read and learn.
 | Named arguments `f(x = 1)` | 🟢 Done | [008](notebook/008-named-arguments.md) |
 | Default values `fn f(x: T = 1)` | 🟢 Done | [009](notebook/009-default-values.md) |
 | Clean repository + docs system | 🟢 Done | [010](notebook/010-clean-repo.md) |
+| rust++-analyzer (language server) | 🟢 Done | [011](notebook/011-rustpp-analyzer.md) |
+| DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
+| DEVR+ extensions | 🔵 Planned | |
+| DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |
 | Remove `'a` completely | 🔵 Planned | |
-| Error messages in Rust++ style | 🔵 Planned | |
+| Messages and hints in Rust++ style (`_static`, `_`) | 🔵 Planned | |
 | `on_ready()` declarative constructor | 🔵 Planned | |
 | End-to-end integration tests | 🔵 Planned | |
 | Android and iOS | 🟣 Idea | |
@@ -55,6 +59,7 @@ fn main() {
 |---|---|
 | 📘 **[Doc Book](https://alzelemx.github.io/Rust-/)** | How to write Rust++, from Hello World to traits. Source in [`docbook/`](docbook/). |
 | 📒 **[NoteBook](notebook/)** | One card for every change: what it is, before and after, and when. |
+| 🧩 **[DEVR+](devr/)** | The editor for Rust++: errors and fixes, completion, search, Cargo, ↩ return marks and a speed score. Download it from the [releases](../../releases) named *DEVR+*. |
 
 ## Install
 
@@ -66,7 +71,7 @@ fn main() {
 curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh
 ```
 
-Then, in a new terminal: `rustc --version` → `rustc 1.101.0-dev (Rust++)`.
+Then, in a new terminal: `rustc --version` → `rustc 1.101.0-dev (Rust++ #19)` (the number is the build).
 
 ## Build it yourself
 

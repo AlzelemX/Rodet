@@ -5,6 +5,8 @@ and after, and the date. Newest first.
 
 | # | Card | Date |
 |---|---|---|
+| 012 | [`DEVR+` \| The Editor For Rust++](012-devr-editor.md) | 2026-10-23 |
+| 011 | [`rust++-analyzer` \| A Language Server That Speaks Rust++](011-rustpp-analyzer.md) | 2026-10-23 |
 | 010 | [`cleanup` \| Clean Repository And Own Docs](010-clean-repo.md) | 2026-10-23 |
 | 009 | [`x: T = v` \| Default Parameter Values](009-default-values.md) | 2026-10-23 |
 | 008 | [`x = 1` \| Named Arguments](008-named-arguments.md) | 2026-10-23 |
