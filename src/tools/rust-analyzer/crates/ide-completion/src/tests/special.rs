@@ -1655,7 +1655,10 @@ fn foo<T>() {
 }
 "#,
         Some('_'),
-        expect![[r#""#]],
+        // Rust++: `_x` in generic arguments is a lifetime.
+        expect![[r#"
+            lt _static
+        "#]],
     );
     // underscore expressions are fine, they are invalid so the user definitely meant to type an
     // underscored name here

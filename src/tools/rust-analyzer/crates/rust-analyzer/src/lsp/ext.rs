@@ -161,6 +161,32 @@ impl Request for InterpretFunctionRequest {
     const MESSAGE_DIRECTION: MessageDirection = MessageDirection::ClientToServer;
 }
 
+/// Rust++: the speed score of a file, from 0 to 100, with its findings.
+pub enum SpeedScoreRequest {}
+
+impl Request for SpeedScoreRequest {
+    type Params = lsp_types::TextDocumentIdentifier;
+    type Result = SpeedScore;
+    const METHOD: LspRequestMethod<'_> = LspRequestMethod::new("rustpp/speedScore");
+    const MESSAGE_DIRECTION: MessageDirection = MessageDirection::ClientToServer;
+}
+
+#[derive(Deserialize, Serialize, Debug, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeedScore {
+    pub score: u32,
+    pub findings: Vec<SpeedFinding>,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct SpeedFinding {
+    pub range: lsp_types::Range,
+    pub penalty: u32,
+    pub message: String,
+    pub fix: String,
+}
+
 pub enum ViewFileTextRequest {}
 
 impl Request for ViewFileTextRequest {

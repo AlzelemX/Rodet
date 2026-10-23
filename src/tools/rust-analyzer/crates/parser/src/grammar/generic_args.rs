@@ -49,6 +49,8 @@ const GENERIC_ARG_RECOVERY_SET: TokenSet = TokenSet::new(&[T![>], T![,]]);
 pub(crate) fn generic_arg(p: &mut Parser<'_>) -> bool {
     match p.current() {
         LIFETIME_IDENT if !p.nth_at(1, T![+]) => lifetime_arg(p),
+        // Rust++: `Parser<_a>`
+        IDENT if p.at_lifetime() && !p.nth_at(1, T![+]) => lifetime_arg(p),
         T!['{'] | T![true] | T![false] | T![-] => const_arg(p),
         k if k.is_literal() => const_arg(p),
         // test generic_arg_bounds

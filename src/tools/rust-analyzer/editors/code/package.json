@@ -2533,6 +2533,16 @@
             {
                 "title": "Inlay Hints",
                 "properties": {
+                    "rust-analyzer.inlayHints.returnValueHints.enable": {
+                        "markdownDescription": "Rust++: show a mark after the value a function gives back without `return`.",
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            },
+            {
+                "title": "Inlay Hints",
+                "properties": {
                     "rust-analyzer.inlayHints.typeHints.enable": {
                         "markdownDescription": "Show inlay type hints for variables.",
                         "default": true,

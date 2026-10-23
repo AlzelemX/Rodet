@@ -615,6 +615,12 @@ pub struct FunctionSignature {
     pub generic_params: GenericParams,
     pub store: ExpressionStore,
     pub params: Box<[TypeRefId]>,
+    /// Rust++: for each of `params`, whether it has a default value
+    /// (`x: T = value`) and can be left out when calling.
+    pub param_defaults: Box<[bool]>,
+    /// Rust++: the name of each of `params` (`None` for patterns), used by
+    /// named arguments.
+    pub param_names: Box<[Option<Name>]>,
     pub ret_type: Option<TypeRefId>,
     pub abi: ExternAbi,
     pub flags: FnFlags,
@@ -698,7 +704,7 @@ impl FunctionSignature {
                 | ItemContainerId::TraitId(_) => None,
             })
             .unwrap_or(ExternAbi::Rust);
-        let (store, source_map, generic_params, params, ret_type, self_param, variadic) =
+        let (store, source_map, generic_params, params, ret_type, self_param, variadic, param_defaults, param_names) =
             lower_function(db, module, source, id);
         if self_param {
             flags.insert(FnFlags::HAS_SELF_PARAM);
@@ -711,6 +717,8 @@ impl FunctionSignature {
                 generic_params,
                 store,
                 params,
+                param_defaults,
+                param_names,
                 ret_type,
                 abi,
                 flags,

@@ -270,6 +270,8 @@ pub fn print_function(
         generic_params,
         store,
         params,
+        param_defaults: _,
+        param_names: _,
         ret_type,
         abi,
         flags,

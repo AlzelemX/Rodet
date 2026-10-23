@@ -209,12 +209,38 @@ fn ref_type(p: &mut Parser<'_>) {
     assert!(p.at(T![&]));
     let m = p.start();
     p.bump(T![&]);
-    if p.at(LIFETIME_IDENT) {
+    if p.at(T!['{']) {
+        borrow_sources(p);
+    } else if p.at_lifetime() {
         lifetime(p);
     }
     p.eat(T![mut]);
     type_no_bounds(p);
     m.complete(p, REF_TYPE);
+}
+
+// Rust++: the `{x, y}` of `&{x, y} T`, the parameters a reference borrows from.
+
+// test borrow_sources
+// fn longest(x: &str, y: &str) -> &{x, y} str {}
+// fn first(&self) -> Option<&{self} mut T> {}
+fn borrow_sources(p: &mut Parser<'_>) {
+    assert!(p.at(T!['{']));
+    let m = p.start();
+    p.bump(T!['{']);
+    while !p.at(EOF) && !p.at(T!['}']) {
+        if p.at(IDENT) || p.at(T![self]) {
+            name_ref_or_self(p);
+        } else {
+            p.err_and_bump("expected a parameter name");
+            continue;
+        }
+        if !p.at(T!['}']) {
+            p.expect(T![,]);
+        }
+    }
+    p.expect(T!['}']);
+    m.complete(p, BORROW_SOURCES);
 }
 
 // test placeholder_type

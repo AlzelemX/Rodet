@@ -69,8 +69,7 @@ pub fn to_parser_input(
                                 Some(kind) => res.push(kind, edition),
                                 None => {
                                     let contextual_keyword =
-                                        SyntaxKind::from_contextual_keyword(text, edition)
-                                            .unwrap_or(SyntaxKind::IDENT);
+                                        parser::ident_contextual_kind(text, edition);
                                     res.push_ident(contextual_keyword, edition);
                                 }
                             },

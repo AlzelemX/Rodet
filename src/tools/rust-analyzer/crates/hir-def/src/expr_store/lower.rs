@@ -387,11 +387,17 @@ pub(crate) fn lower_function(
     Option<TypeRefId>,
     bool,
     bool,
+    Box<[bool]>,
+    Box<[Option<Name>]>,
 ) {
     let mut expr_collector = ExprCollector::new(db, module, fn_.file_id, LoweringMode::Analysis);
     let mut collector = generics::GenericParamsCollector::new(function_id.into());
     collector.lower(&mut expr_collector, fn_.value.generic_param_list(), fn_.value.where_clause());
     let mut params = vec![];
+    // Rust++: which parameters have a default value (`x: T = value`), and
+    // their names, for named arguments.
+    let mut param_defaults = vec![];
+    let mut param_names = vec![];
     let mut has_self_param = false;
     let mut has_variadic = false;
     collector.collect_impl_trait(&mut expr_collector, |collector, mut impl_trait_lower_fn| {
@@ -401,6 +407,8 @@ pub(crate) fn lower_function(
                     let enabled = collector.check_cfg(&param);
                     if enabled {
                         has_self_param = true;
+                        param_defaults.push(false);
+                        param_names.push(Some(Name::new_symbol_root(sym::self_)));
                         params.push(match param.ty() {
                             Some(ty) => collector.lower_type_ref(ty, &mut impl_trait_lower_fn),
                             None => {
@@ -440,11 +448,19 @@ pub(crate) fn lower_function(
                         has_variadic |= is_variadic;
                         !is_variadic
                     })
-                    .map(|param| param.ty())
+                    .map(|param| {
+                        let name = match param.pat() {
+                            Some(ast::Pat::IdentPat(pat)) => pat.name().map(|name| name.as_name()),
+                            _ => None,
+                        };
+                        (param.ty(), param.default_val().is_some(), name)
+                    })
                     // FIXME
                     .collect::<Vec<_>>();
-                for p in p {
+                for (p, has_default, name) in p {
                     params.push(collector.lower_type_ref_opt(p, &mut impl_trait_lower_fn));
+                    param_defaults.push(has_default);
+                    param_names.push(name);
                 }
             }
         })
@@ -502,6 +518,8 @@ pub(crate) fn lower_function(
         return_type,
         has_self_param,
         has_variadic,
+        param_defaults.into_boxed_slice(),
+        param_names.into_boxed_slice(),
     )
 }
 
@@ -718,6 +736,43 @@ impl<'db> ExprCollector<'db> {
         self.expander.span_map()
     }
 
+    /// Rust++: lowers the arguments of a call. A named argument `x = value`
+    /// is lowered to its value; its name is returned in the second vector
+    /// (`None` for positional arguments, and the vector is empty when the call
+    /// has no named arguments).
+    fn collect_call_args(
+        &mut self,
+        arg_list: Option<ast::ArgList>,
+    ) -> (Box<[ExprId]>, Vec<Option<Name>>) {
+        let Some(arg_list) = arg_list else { return (Box::default(), Vec::new()) };
+        let mut args = Vec::new();
+        let mut names = Vec::new();
+        for arg in arg_list.args() {
+            let (name, arg) = match rustpp_named_arg(&arg) {
+                Some((name, value)) => (Some(name), value),
+                None => (None, Some(arg)),
+            };
+            let value = match arg {
+                Some(arg) => self.maybe_collect_expr(arg),
+                None => Some(self.missing_expr()),
+            };
+            if let Some(value) = value {
+                args.push(value);
+                names.push(name);
+            }
+        }
+        if names.iter().all(Option::is_none) {
+            names.clear();
+        }
+        (args.into_boxed_slice(), names)
+    }
+
+    fn record_named_args(&mut self, call: ExprId, names: Vec<Option<Name>>) {
+        if !names.is_empty() {
+            self.store.rustpp_named_args.insert(call, names.into_boxed_slice());
+        }
+    }
+
     pub(in crate::expr_store) fn lower_lifetime_ref(
         &mut self,
         lifetime: ast::Lifetime,
@@ -725,7 +780,8 @@ impl<'db> ExprCollector<'db> {
         // FIXME: Keyword check?
         let lifetime_ref = match lifetime.text() {
             "" | "'" => LifetimeRef::Error,
-            "'static" => LifetimeRef::Static,
+            // Rust++: `_static` is `'static`.
+            "'static" | "_static" => LifetimeRef::Static,
             "'_" => LifetimeRef::Placeholder,
             text => LifetimeRef::Named(Name::new_lifetime(text)),
         };
@@ -1551,20 +1607,14 @@ impl<'db> ExprCollector<'db> {
             ast::Expr::ForExpr(e) => self.collect_for_loop(syntax_ptr, e),
             ast::Expr::CallExpr(e) => {
                 let callee = self.collect_expr_opt(e.expr());
-                let args = if let Some(arg_list) = e.arg_list() {
-                    arg_list.args().filter_map(|e| self.maybe_collect_expr(e)).collect()
-                } else {
-                    Box::default()
-                };
-                self.alloc_expr(Expr::Call { callee, args }, syntax_ptr)
+                let (args, names) = self.collect_call_args(e.arg_list());
+                let call = self.alloc_expr(Expr::Call { callee, args }, syntax_ptr);
+                self.record_named_args(call, names);
+                call
             }
             ast::Expr::MethodCallExpr(e) => {
                 let receiver = self.collect_expr_opt(e.receiver());
-                let args = if let Some(arg_list) = e.arg_list() {
-                    arg_list.args().filter_map(|e| self.maybe_collect_expr(e)).collect()
-                } else {
-                    Box::default()
-                };
+                let (args, names) = self.collect_call_args(e.arg_list());
                 let method_name = e.name_ref().map(|nr| nr.as_name()).unwrap_or_else(Name::missing);
                 let generic_args = e
                     .generic_arg_list()
@@ -1572,10 +1622,12 @@ impl<'db> ExprCollector<'db> {
                         self.lower_generic_args(it, &mut Self::impl_trait_error_allocator)
                     })
                     .map(Box::new);
-                self.alloc_expr(
+                let call = self.alloc_expr(
                     Expr::MethodCall { receiver, method_name, args, generic_args },
                     syntax_ptr,
-                )
+                );
+                self.record_named_args(call, names);
+                call
             }
             ast::Expr::MatchExpr(e) => {
                 let expr = self.collect_expr_opt(e.expr());
@@ -3792,4 +3844,25 @@ pub fn hir_generic_arg_to_ast(
             ast::GenericArg::ConstArg(_) | ast::GenericArg::TypeArg(_) => true,
         })
         .nth(arg_idx as usize - has_self_arg as usize)
+}
+
+/// Rust++: if `arg` (a call argument) is a named argument `name = value`,
+/// returns its name and value.
+fn rustpp_named_arg(arg: &ast::Expr) -> Option<(Name, Option<ast::Expr>)> {
+    let ast::Expr::BinExpr(bin) = arg else { return None };
+    if !matches!(bin.op_kind()?, ast::BinaryOp::Assignment { op: None }) {
+        return None;
+    }
+    let ast::Expr::PathExpr(lhs) = bin.lhs()? else { return None };
+    let path = lhs.path()?;
+    if path.qualifier().is_some() || path.coloncolon_token().is_some() {
+        return None;
+    }
+    let segment = path.segment()?;
+    if segment.generic_arg_list().is_some() {
+        return None;
+    }
+    let name_ref = segment.name_ref()?;
+    name_ref.ident_token()?;
+    Some((name_ref.as_name(), bin.rhs()))
 }

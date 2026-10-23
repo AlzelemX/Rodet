@@ -81,6 +81,10 @@ mod ok {
     #[test]
     fn block_items() { run_and_expect_no_errors("test_data/parser/inline/ok/block_items.rs"); }
     #[test]
+    fn borrow_sources() {
+        run_and_expect_no_errors("test_data/parser/inline/ok/borrow_sources.rs");
+    }
+    #[test]
     fn box_pat() { run_and_expect_no_errors("test_data/parser/inline/ok/box_pat.rs"); }
     #[test]
     fn break_ambiguity() {
@@ -270,6 +274,10 @@ mod ok {
     fn fn_decl() { run_and_expect_no_errors("test_data/parser/inline/ok/fn_decl.rs"); }
     #[test]
     fn fn_def_param() { run_and_expect_no_errors("test_data/parser/inline/ok/fn_def_param.rs"); }
+    #[test]
+    fn fn_def_param_default() {
+        run_and_expect_no_errors("test_data/parser/inline/ok/fn_def_param_default.rs");
+    }
     #[test]
     fn fn_pointer_param_ident_path() {
         run_and_expect_no_errors("test_data/parser/inline/ok/fn_pointer_param_ident_path.rs");
@@ -620,6 +628,10 @@ mod ok {
     #[test]
     fn return_type_syntax_in_path() {
         run_and_expect_no_errors("test_data/parser/inline/ok/return_type_syntax_in_path.rs");
+    }
+    #[test]
+    fn rustpp_named_lifetimes() {
+        run_and_expect_no_errors("test_data/parser/inline/ok/rustpp_named_lifetimes.rs");
     }
     #[test]
     fn safe_outside_of_extern() {

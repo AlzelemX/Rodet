@@ -46,6 +46,7 @@ mod references;
 mod rename;
 mod runnables;
 mod signature_help;
+mod speed_score;
 mod ssr;
 mod static_index;
 mod status;
@@ -115,6 +116,7 @@ pub use crate::{
     rename::{RenameConfig, RenameError},
     runnables::{Runnable, RunnableKind, TestId, UpdateTest},
     signature_help::SignatureHelp,
+    speed_score::{SpeedFinding, SpeedScore},
     static_index::{
         StaticIndex, StaticIndexedFile, TokenId, TokenStaticData, VendoredLibrariesConfig,
     },
@@ -393,6 +395,11 @@ impl Analysis {
             let file = parse.tree();
             matching_brace::matching_brace(&file, position.offset)
         })
+    }
+
+    /// Rust++: the speed score of a file, see [`SpeedScore`].
+    pub fn speed_score(&self, file_id: FileId) -> Cancellable<SpeedScore> {
+        self.with_db(|db| speed_score::speed_score(db, file_id))
     }
 
     pub fn view_syntax_tree(&self, file_id: FileId) -> Cancellable<String> {

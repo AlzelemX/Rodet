@@ -338,6 +338,17 @@ impl BlockExpr {
     #[inline]
     pub fn unsafe_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T![unsafe]) }
 }
+pub struct BorrowSources {
+    pub(crate) syntax: SyntaxNode,
+}
+impl BorrowSources {
+    #[inline]
+    pub fn name_refs(&self) -> AstChildren<NameRef> { support::children(&self.syntax) }
+    #[inline]
+    pub fn l_curly_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T!['{']) }
+    #[inline]
+    pub fn r_curly_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T!['}']) }
+}
 pub struct BoxPat {
     pub(crate) syntax: SyntaxNode,
 }
@@ -1285,6 +1296,8 @@ pub struct Param {
 impl ast::HasAttrs for Param {}
 impl Param {
     #[inline]
+    pub fn default_val(&self) -> Option<Expr> { support::child(&self.syntax) }
+    #[inline]
     pub fn pat(&self) -> Option<Pat> { support::child(&self.syntax) }
     #[inline]
     pub fn ty(&self) -> Option<Type> { support::child(&self.syntax) }
@@ -1292,6 +1305,8 @@ impl Param {
     pub fn dotdotdot_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T![...]) }
     #[inline]
     pub fn colon_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T![:]) }
+    #[inline]
+    pub fn eq_token(&self) -> Option<SyntaxToken> { support::token(&self.syntax, T![=]) }
 }
 pub struct ParamList {
     pub(crate) syntax: SyntaxNode,
@@ -1607,6 +1622,8 @@ pub struct RefType {
     pub(crate) syntax: SyntaxNode,
 }
 impl RefType {
+    #[inline]
+    pub fn borrow_sources(&self) -> Option<BorrowSources> { support::child(&self.syntax) }
     #[inline]
     pub fn lifetime(&self) -> Option<Lifetime> { support::child(&self.syntax) }
     #[inline]
@@ -3227,6 +3244,38 @@ impl Clone for BlockExpr {
 impl fmt::Debug for BlockExpr {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("BlockExpr").field("syntax", &self.syntax).finish()
+    }
+}
+impl AstNode for BorrowSources {
+    #[inline]
+    fn kind() -> SyntaxKind
+    where
+        Self: Sized,
+    {
+        BORROW_SOURCES
+    }
+    #[inline]
+    fn can_cast(kind: SyntaxKind) -> bool { kind == BORROW_SOURCES }
+    #[inline]
+    fn cast(syntax: SyntaxNode) -> Option<Self> {
+        if Self::can_cast(syntax.kind()) { Some(Self { syntax }) } else { None }
+    }
+    #[inline]
+    fn syntax(&self) -> &SyntaxNode { &self.syntax }
+}
+impl hash::Hash for BorrowSources {
+    fn hash<H: hash::Hasher>(&self, state: &mut H) { self.syntax.hash(state); }
+}
+impl Eq for BorrowSources {}
+impl PartialEq for BorrowSources {
+    fn eq(&self, other: &Self) -> bool { self.syntax == other.syntax }
+}
+impl Clone for BorrowSources {
+    fn clone(&self) -> Self { Self { syntax: self.syntax.clone() } }
+}
+impl fmt::Debug for BorrowSources {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("BorrowSources").field("syntax", &self.syntax).finish()
     }
 }
 impl AstNode for BoxPat {
@@ -10296,6 +10345,11 @@ impl std::fmt::Display for BinExpr {
     }
 }
 impl std::fmt::Display for BlockExpr {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        std::fmt::Display::fmt(self.syntax(), f)
+    }
+}
+impl std::fmt::Display for BorrowSources {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         std::fmt::Display::fmt(self.syntax(), f)
     }

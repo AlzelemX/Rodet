@@ -31,6 +31,11 @@ pub(crate) fn complete_lifetime(
             acc.add_lifetime(ctx, name);
         }
     });
+    // Rust++: a lifetime written `_a` gets `_static`, not `'static`.
+    if ctx.original_token.text().starts_with('_') {
+        acc.add_lifetime(ctx, Name::new_root("_static"));
+        return;
+    }
     acc.add_lifetime(ctx, Name::new_symbol_root(sym::tick_static));
     if !in_lifetime_param_bound
         && def.is_some_and(|def| {

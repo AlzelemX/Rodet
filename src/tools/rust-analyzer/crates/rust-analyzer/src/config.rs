@@ -296,6 +296,9 @@ config_data! {
         /// Whether to render leading colons for type hints, and trailing colons for parameter hints.
         inlayHints_renderColons: bool = true,
 
+        /// Rust++: show a mark after the value a function gives back without `return`.
+        inlayHints_returnValueHints_enable: bool = true,
+
         /// Show inlay type hints for variables.
         inlayHints_typeHints_enable: bool = true,
 
@@ -2171,6 +2174,7 @@ impl Config {
             implicit_drop_hints: self.inlayHints_implicitDrops_enable().to_owned(),
             implied_dyn_trait_hints: self.inlayHints_impliedDynTraitHints_enable().to_owned(),
             range_exclusive_hints: self.inlayHints_rangeExclusiveHints_enable().to_owned(),
+            return_value_hints: self.inlayHints_returnValueHints_enable().to_owned(),
             ra_fixture: self.ra_fixture(minicore),
         }
     }

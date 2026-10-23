@@ -35,11 +35,7 @@ impl LexedStr<'_> {
                 was_joint = false
             } else if kind == SyntaxKind::IDENT {
                 let token_text = self.text(i);
-                res.push_ident(
-                    SyntaxKind::from_contextual_keyword(token_text, edition)
-                        .unwrap_or(SyntaxKind::IDENT),
-                    edition,
-                )
+                res.push_ident(crate::ident_contextual_kind(token_text, edition), edition)
             } else {
                 if was_joint {
                     res.was_joint();

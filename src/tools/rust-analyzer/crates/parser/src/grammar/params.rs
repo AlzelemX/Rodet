@@ -105,6 +105,13 @@ fn param(p: &mut Parser<'_>, m: Marker, flavor: Flavor) {
             if !variadic_param(p) {
                 if p.at(T![:]) {
                     types::ascription(p);
+                    // Rust++: a default value.
+
+                    // test fn_def_param_default
+                    // fn open(path: &str, write: bool = false, mode: u32 = 0o644) {}
+                    if p.eat(T![=]) {
+                        expressions::expr(p);
+                    }
                 } else {
                     // test_err missing_fn_param_type
                     // fn f(x y: i32, z, t: i32) {}
@@ -197,7 +204,7 @@ fn opt_self_param(p: &mut Parser<'_>, m: Marker) -> Result<(), Marker> {
             return Err(m);
         }
         let mut self_pos = 1;
-        if p.nth_at(self_pos, LIFETIME_IDENT) {
+        if p.nth_at_lifetime(self_pos) {
             self_pos += 1;
         }
         if p.nth_at(self_pos, T![mut]) {
@@ -208,7 +215,7 @@ fn opt_self_param(p: &mut Parser<'_>, m: Marker) -> Result<(), Marker> {
         }
 
         p.bump(T![&]);
-        if p.at(LIFETIME_IDENT) {
+        if p.at_lifetime() {
             lifetime(p);
         }
         p.eat(T![mut]);

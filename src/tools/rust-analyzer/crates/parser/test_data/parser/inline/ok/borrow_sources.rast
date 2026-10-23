@@ -1,0 +1,110 @@
+SOURCE_FILE
+  FN
+    FN_KW "fn"
+    WHITESPACE " "
+    NAME
+      IDENT "longest"
+    PARAM_LIST
+      L_PAREN "("
+      PARAM
+        IDENT_PAT
+          NAME
+            IDENT "x"
+        COLON ":"
+        WHITESPACE " "
+        REF_TYPE
+          AMP "&"
+          PATH_TYPE
+            PATH
+              PATH_SEGMENT
+                NAME_REF
+                  IDENT "str"
+      COMMA ","
+      WHITESPACE " "
+      PARAM
+        IDENT_PAT
+          NAME
+            IDENT "y"
+        COLON ":"
+        WHITESPACE " "
+        REF_TYPE
+          AMP "&"
+          PATH_TYPE
+            PATH
+              PATH_SEGMENT
+                NAME_REF
+                  IDENT "str"
+      R_PAREN ")"
+    WHITESPACE " "
+    RET_TYPE
+      THIN_ARROW "->"
+      WHITESPACE " "
+      REF_TYPE
+        AMP "&"
+        BORROW_SOURCES
+          L_CURLY "{"
+          NAME_REF
+            IDENT "x"
+          COMMA ","
+          WHITESPACE " "
+          NAME_REF
+            IDENT "y"
+          R_CURLY "}"
+        WHITESPACE " "
+        PATH_TYPE
+          PATH
+            PATH_SEGMENT
+              NAME_REF
+                IDENT "str"
+    WHITESPACE " "
+    BLOCK_EXPR
+      STMT_LIST
+        L_CURLY "{"
+        R_CURLY "}"
+  WHITESPACE "\n"
+  FN
+    FN_KW "fn"
+    WHITESPACE " "
+    NAME
+      IDENT "first"
+    PARAM_LIST
+      L_PAREN "("
+      SELF_PARAM
+        AMP "&"
+        NAME
+          SELF_KW "self"
+      R_PAREN ")"
+    WHITESPACE " "
+    RET_TYPE
+      THIN_ARROW "->"
+      WHITESPACE " "
+      PATH_TYPE
+        PATH
+          PATH_SEGMENT
+            NAME_REF
+              IDENT "Option"
+            GENERIC_ARG_LIST
+              L_ANGLE "<"
+              TYPE_ARG
+                REF_TYPE
+                  AMP "&"
+                  BORROW_SOURCES
+                    L_CURLY "{"
+                    NAME_REF
+                      SELF_KW "self"
+                    R_CURLY "}"
+                  WHITESPACE " "
+                  MUT_KW "mut"
+                  WHITESPACE " "
+                  PATH_TYPE
+                    PATH
+                      PATH_SEGMENT
+                        NAME_REF
+                          IDENT "T"
+              R_ANGLE ">"
+    WHITESPACE " "
+    BLOCK_EXPR
+      STMT_LIST
+        L_CURLY "{"
+        R_CURLY "}"
+  WHITESPACE "\n"

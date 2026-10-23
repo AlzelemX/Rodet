@@ -255,9 +255,10 @@ SelfParam =
   | 'mut'? Name ':' Type
   )
 
+// Rust++: `x: T = value` gives the parameter a default value.
 Param =
   AnyAttr* (
-    Pat (':' Type)?
+    Pat (':' Type ('=' default_val:Expr)?)?
   | Type
   | '...'
   )
@@ -703,7 +704,11 @@ PtrType =
   '*' ('const' | 'mut') Type
 
 RefType =
-  '&' Lifetime? 'mut'? Type
+  '&' (Lifetime | BorrowSources)? 'mut'? Type
+
+// Rust++: `&{x, y} T`, a reference borrowed from the parameters `x` and `y`.
+BorrowSources =
+  '{' (NameRef (',' NameRef)* ','?)? '}'
 
 ArrayType =
   '[' Type ';' ConstArg ']'

@@ -129,6 +129,11 @@ struct ExpressionOnlyStore {
     /// to variables and have hygiene (some refer to items, we don't know at this stage).
     ident_hygiene: FxHashMap<ExprOrPatIdPacked, HygieneId>,
 
+    /// Rust++: the names of the arguments of calls that use named arguments,
+    /// `f(x = 1, y = 2)`, one entry per argument (`None` for positional ones).
+    /// The call's `args` hold only the values.
+    rustpp_named_args: FxHashMap<ExprId, Box<[Option<Name>]>>,
+
     /// Maps expression roots to their origin.
     ///
     /// Note: while every root expr is an inference root (aka. an `AnonConst`), there could be other roots that do not appear here.
@@ -269,6 +274,7 @@ pub struct ExpressionStoreBuilder {
     block_scopes: Vec<BlockId>,
     ident_hygiene: FxHashMap<ExprOrPatIdPacked, HygieneId>,
     inference_roots: Option<SmallVec<[ExprRoot; 1]>>,
+    pub(crate) rustpp_named_args: FxHashMap<ExprId, Box<[Option<Name>]>>,
 
     // AST expressions can create patterns in destructuring assignments. Therefore, `ExprSource` can also map
     // to `PatId`, and `PatId` can also map to `ExprSource` (the other way around is unaffected).
@@ -353,6 +359,7 @@ impl ExpressionStoreBuilder {
             mut binding_owners,
             mut ident_hygiene,
             inference_roots: mut expr_roots,
+            mut rustpp_named_args,
             mut types,
             mut lifetimes,
 
@@ -379,6 +386,7 @@ impl ExpressionStoreBuilder {
         bindings.shrink_to_fit();
         binding_owners.shrink_to_fit();
         ident_hygiene.shrink_to_fit();
+        rustpp_named_args.shrink_to_fit();
         types.shrink_to_fit();
         lifetimes.shrink_to_fit();
 
@@ -423,6 +431,7 @@ impl ExpressionStoreBuilder {
                     binding_owners,
                     block_scopes: block_scopes.into_boxed_slice(),
                     ident_hygiene,
+                    rustpp_named_args,
                     expr_roots: expr_roots
                         .expect("should always finish with a `Some(_)` expr_roots"),
                 }))
@@ -879,6 +888,12 @@ impl ExpressionStore {
 
     fn binding_hygiene(&self, binding: BindingId) -> HygieneId {
         self.assert_expr_only().bindings[binding].hygiene
+    }
+
+    /// Rust++: if `call` (a call or method call) uses named arguments, the
+    /// name of each argument (`None` for positional ones).
+    pub fn rustpp_named_args(&self, call: ExprId) -> Option<&[Option<Name>]> {
+        self.expr_only.as_ref()?.rustpp_named_args.get(&call).map(|names| &**names)
     }
 
     pub fn expr_path_hygiene(&self, expr: ExprId) -> HygieneId {

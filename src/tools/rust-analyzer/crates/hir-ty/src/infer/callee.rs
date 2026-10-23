@@ -458,6 +458,27 @@ impl<'db> InferenceContext<'db> {
             fn_sig,
         );
 
+        // Rust++: named arguments and default values.
+        let callee = match def_id {
+            Some(CallableDefId::FunctionId(func)) => Some(func),
+            _ => None,
+        };
+        if let Some(ordered) =
+            self.rustpp_order_args(call_expr, callee, arg_exprs, fn_sig.inputs(), false)
+        {
+            self.check_call_arguments(
+                call_expr,
+                &ordered.input_tys,
+                fn_sig.output(),
+                expected,
+                &ordered.args,
+                &[],
+                fn_sig.c_variadic(),
+                TupleArgumentsFlag::DontTupleArguments,
+            );
+            return fn_sig.output();
+        }
+
         let indices_to_skip = self.check_legacy_const_generics(def_id, callee_ty, arg_exprs);
         self.check_call_arguments(
             call_expr,

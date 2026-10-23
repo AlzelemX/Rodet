@@ -1712,7 +1712,7 @@ impl<'db> InferenceContext<'db> {
                 });
                 match resolved {
                     Ok((func, _is_visible)) => {
-                        self.check_method_call(tgt_expr, &[], func.sig, expected)
+                        self.check_method_call(tgt_expr, &[], func.sig, expected, Some(func.def_id))
                     }
                     Err(_) => self.err_ty(),
                 }
@@ -1797,7 +1797,7 @@ impl<'db> InferenceContext<'db> {
                         item: func.def_id.into(),
                     })
                 }
-                self.check_method_call(tgt_expr, args, func.sig, expected)
+                self.check_method_call(tgt_expr, args, func.sig, expected, Some(func.def_id))
             }
             // Failed to resolve, report diagnostic and try to resolve as call to field access or
             // assoc function
@@ -1894,6 +1894,7 @@ impl<'db> InferenceContext<'db> {
         args: &[ExprId],
         sig: FnSig<'db>,
         expected: &Expectation<'db>,
+        callee: Option<FunctionId>,
     ) -> Ty<'db> {
         let param_tys = if !sig.inputs_and_output.inputs().is_empty() {
             &sig.inputs_and_output.inputs()[1..]
@@ -1901,6 +1902,21 @@ impl<'db> InferenceContext<'db> {
             &[]
         };
         let ret_ty = sig.output();
+
+        // Rust++: named arguments and default values.
+        if let Some(ordered) = self.rustpp_order_args(tgt_expr, callee, args, param_tys, true) {
+            self.check_call_arguments(
+                tgt_expr,
+                &ordered.input_tys,
+                ret_ty,
+                expected,
+                &ordered.args,
+                &[],
+                sig.c_variadic(),
+                TupleArgumentsFlag::DontTupleArguments,
+            );
+            return ret_ty;
+        }
 
         self.check_call_arguments(
             tgt_expr,

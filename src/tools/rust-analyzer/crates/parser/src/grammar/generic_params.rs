@@ -40,6 +40,8 @@ const GENERIC_PARAM_FIRST: TokenSet = TokenSet::new(&[IDENT, LIFETIME_IDENT, T![
 fn generic_param(p: &mut Parser<'_>, m: Marker) -> bool {
     match p.current() {
         LIFETIME_IDENT => lifetime_param(p, m),
+        // Rust++: `<_a>`
+        IDENT if p.at_lifetime() => lifetime_param(p, m),
         IDENT => type_param(p, m),
         T![const] => const_param(p, m),
         _ => {
@@ -51,10 +53,16 @@ fn generic_param(p: &mut Parser<'_>, m: Marker) -> bool {
     true
 }
 
+// test rustpp_named_lifetimes
+// struct Parser<_a> { input: &_a str }
+// impl<_a> Parser<_a> { fn rest(&_a self) -> &_a mut str {} }
+// fn keep<T: _static>(t: T) -> Box<dyn Debug + _static> where _x: _y {}
+// fn f() { let _a = 5; _a; }
+
 // test lifetime_param
 // fn f<'a: 'b>() {}
 fn lifetime_param(p: &mut Parser<'_>, m: Marker) {
-    assert!(p.at(LIFETIME_IDENT));
+    assert!(p.at_lifetime());
     lifetime(p);
     if p.eat(T![:]) {
         lifetime_bounds(p);
@@ -108,7 +116,7 @@ fn const_param(p: &mut Parser<'_>, m: Marker) {
 fn lifetime_bounds(p: &mut Parser<'_>) {
     let marker = p.start();
     while {
-        if !matches!(p.current(), LIFETIME_IDENT | T![>] | T![,]) {
+        if !p.at_lifetime() && !matches!(p.current(), T![>] | T![,]) {
             p.error("expected lifetime");
         }
 
@@ -147,6 +155,8 @@ fn type_bound(p: &mut Parser<'_>) -> bool {
     let has_paren = p.eat(T!['(']);
     match p.current() {
         LIFETIME_IDENT => lifetime(p),
+        // Rust++: `T: _static`
+        IDENT if p.at_lifetime() => lifetime(p),
         // test for_binder_bound
         // fn foo<T: for<'a> [const] async Trait>() {}
         T![for] => {
@@ -172,7 +182,7 @@ fn type_bound(p: &mut Parser<'_>) -> bool {
                 || "expected identifier or lifetime".into(),
                 TokenSet::new(&[T![Self], IDENT, LIFETIME_IDENT]),
                 |p| {
-                    if p.at(LIFETIME_IDENT) {
+                    if p.at_lifetime() {
                         lifetime(p);
                     } else {
                         name_ref_or_upper_self(p);
@@ -274,6 +284,7 @@ pub(super) fn opt_where_clause(p: &mut Parser<'_>) {
     fn is_where_predicate(p: &mut Parser<'_>) -> bool {
         match p.current() {
             LIFETIME_IDENT => true,
+            IDENT if p.at_lifetime() => true,
             T![impl] => false,
             token => types::TYPE_FIRST.contains(token),
         }
@@ -283,7 +294,8 @@ pub(super) fn opt_where_clause(p: &mut Parser<'_>) {
 fn where_predicate(p: &mut Parser<'_>) {
     let m = p.start();
     match p.current() {
-        LIFETIME_IDENT => {
+        // Rust++: `where _a: _b`
+        _ if p.at_lifetime() => {
             lifetime(p);
             if p.at(T![:]) {
                 bounds(p);

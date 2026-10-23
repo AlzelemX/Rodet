@@ -44,6 +44,7 @@ mod param_name;
 mod placeholders;
 mod ra_fixture;
 mod range_exclusive;
+mod return_value;
 
 // Feature: Inlay Hints
 //
@@ -272,6 +273,7 @@ fn hints(
             ast::Item(it) => match it {
                 ast::Item::Fn(it) => {
                     implicit_drop::hints(hints, famous_defs, config, display_target, &it);
+                    return_value::hints(hints, config, &it);
                     if let Some(extern_block) = &ctx.extern_block_parent {
                         extern_block::fn_hints(hints, famous_defs, config, &it, extern_block);
                     }
@@ -339,6 +341,8 @@ pub struct InlayHintsConfig<'a> {
     pub hide_closure_initialization_hints: bool,
     pub hide_closure_parameter_hints: bool,
     pub range_exclusive_hints: bool,
+    /// Rust++: mark the value a function gives back without `return`.
+    pub return_value_hints: bool,
     pub closure_style: ClosureStyle,
     pub max_length: Option<usize>,
     pub closing_brace_hints_min_lines: Option<usize>,
@@ -487,6 +491,8 @@ pub enum InlayKind {
     Drop,
     RangeExclusive,
     ExternUnsafety,
+    /// Rust++: the value a function gives back.
+    ReturnValue,
 }
 
 #[derive(Debug, Hash)]
@@ -966,6 +972,7 @@ mod tests {
         implicit_drop_hints: false,
         implied_dyn_trait_hints: false,
         range_exclusive_hints: false,
+        return_value_hints: false,
         ra_fixture: RaFixtureConfig::default(),
     };
     pub(super) const TEST_CONFIG: InlayHintsConfig<'_> = InlayHintsConfig {

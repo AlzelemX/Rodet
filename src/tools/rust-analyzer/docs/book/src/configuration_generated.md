@@ -1149,6 +1149,13 @@ Default: `true`
 Whether to render leading colons for type hints, and trailing colons for parameter hints.
 
 
+## rust-analyzer.inlayHints.returnValueHints.enable {#inlayHints.returnValueHints.enable}
+
+Default: `true`
+
+Rust++: show a mark after the value a function gives back without `return`.
+
+
 ## rust-analyzer.inlayHints.typeHints.enable {#inlayHints.typeHints.enable}
 
 Default: `true`

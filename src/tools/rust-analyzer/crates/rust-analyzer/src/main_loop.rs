@@ -1413,6 +1413,7 @@ impl GlobalState {
             .on::<RETRY, lsp_ext::FetchDependencyListRequest>(handlers::fetch_dependency_list)
             .on::<RETRY, lsp_ext::AnalyzerStatusRequest>(handlers::handle_analyzer_status)
             .on::<RETRY, lsp_ext::ViewFileTextRequest>(handlers::handle_view_file_text)
+            .on::<RETRY, lsp_ext::SpeedScoreRequest>(handlers::handle_speed_score)
             .on::<RETRY, lsp_ext::ViewCrateGraphRequest>(handlers::handle_view_crate_graph)
             .on::<RETRY, lsp_ext::ViewItemTreeRequest>(handlers::handle_view_item_tree)
             .on::<RETRY, lsp_ext::DiscoverTestRequest>(handlers::handle_discover_test)

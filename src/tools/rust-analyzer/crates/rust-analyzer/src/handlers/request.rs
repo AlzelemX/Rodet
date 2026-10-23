@@ -197,6 +197,29 @@ pub(crate) fn handle_interpret_function(
     Ok(res)
 }
 
+pub(crate) fn handle_speed_score(
+    snap: GlobalStateSnapshot,
+    params: lsp_types::TextDocumentIdentifier,
+) -> anyhow::Result<lsp_ext::SpeedScore> {
+    let _p = tracing::info_span!("handle_speed_score").entered();
+    let file_id = try_default!(from_proto::file_id(&snap, &params.uri)?);
+    let line_index = snap.file_line_index(file_id)?;
+    let result = snap.analysis.speed_score(file_id)?;
+    Ok(lsp_ext::SpeedScore {
+        score: result.score,
+        findings: result
+            .findings
+            .into_iter()
+            .map(|finding| lsp_ext::SpeedFinding {
+                range: to_proto::range(&line_index, finding.range),
+                penalty: finding.penalty,
+                message: finding.message,
+                fix: finding.fix,
+            })
+            .collect(),
+    })
+}
+
 pub(crate) fn handle_view_file_text(
     snap: GlobalStateSnapshot,
     params: lsp_types::TextDocumentIdentifier,

@@ -29,6 +29,7 @@ mod opaques;
 mod pat;
 mod path;
 mod place_op;
+mod rustpp;
 pub(crate) mod unify;
 
 use std::{

@@ -191,6 +191,7 @@ pub enum SyntaxKind {
     BECOME_EXPR,
     BIN_EXPR,
     BLOCK_EXPR,
+    BORROW_SOURCES,
     BOX_PAT,
     BREAK_EXPR,
     CALL_EXPR,
@@ -381,6 +382,7 @@ impl SyntaxKind {
             | BECOME_EXPR
             | BIN_EXPR
             | BLOCK_EXPR
+            | BORROW_SOURCES
             | BOX_PAT
             | BREAK_EXPR
             | CALL_EXPR
