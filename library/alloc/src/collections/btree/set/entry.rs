@@ -38,6 +38,12 @@ use crate::alloc::{AllocatorClone, Global};
 /// println!("Our BTreeSet: {:?}", set);
 /// assert!(set.iter().eq(&["a", "b", "c", "d", "e"]));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل واحد في مجموعة، قد يكون فارغًا أو مشغولًا.
+///
+/// </div>
 #[unstable(feature = "btree_set_entry", issue = "133549")]
 pub enum Entry<
     'a,
@@ -202,6 +208,12 @@ impl<'a, T: Ord, A: AllocatorClone> Entry<'a, T, A> {
     ///
     /// assert_eq!(entry.get(), &"horseyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn insert(self) -> OccupiedEntry<'a, T, A> {
@@ -231,6 +243,12 @@ impl<'a, T: Ord, A: AllocatorClone> Entry<'a, T, A> {
     /// assert!(set.contains("poneyland"));
     /// assert_eq!(set.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافتها إذا كان فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn or_insert(self) {
@@ -256,6 +274,12 @@ impl<'a, T: Ord, A: AllocatorClone> Entry<'a, T, A> {
     /// // nonexistent key
     /// assert_eq!(set.entry("horseland").get(), &"horseland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى قيمة هذا المدخل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn get(&self) -> &T {
@@ -284,6 +308,12 @@ impl<'a, T: Ord, A: AllocatorClone> OccupiedEntry<'a, T, A> {
     ///     Entry::Occupied(entry) => assert_eq!(entry.get(), &"poneyland"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn get(&self) -> &T {
@@ -309,6 +339,12 @@ impl<'a, T: Ord, A: AllocatorClone> OccupiedEntry<'a, T, A> {
     ///
     /// assert_eq!(set.contains("poneyland"), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من المدخل ويرجعها.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn remove(self) -> T {
@@ -330,6 +366,12 @@ impl<'a, T: Ord, A: AllocatorClone> VacantEntry<'a, T, A> {
     /// let mut set = BTreeSet::new();
     /// assert_eq!(set.entry("poneyland").get(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة التي ستُستخدم عند الإضافة عبر `VacantEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn get(&self) -> &T {
@@ -352,6 +394,12 @@ impl<'a, T: Ord, A: AllocatorClone> VacantEntry<'a, T, A> {
     ///     Entry::Vacant(v) => assert_eq!(v.into_value(), "poneyland"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية القيمة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn into_value(self) -> T {
@@ -375,6 +423,12 @@ impl<'a, T: Ord, A: AllocatorClone> VacantEntry<'a, T, A> {
     /// }
     /// assert!(set.contains("poneyland"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بقيمة `VacantEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn insert(self) {

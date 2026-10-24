@@ -78,6 +78,12 @@ use crate::sys::{FromInner, IntoInner, pipe as imp};
 /// ```
 /// [changes]: io#platform-specific-behavior
 /// [man page]: https://man7.org/linux/man-pages/man7/pipe.7.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ أنبوبًا (pipe) بدون اسم.
+///
+/// </div>
 #[stable(feature = "anonymous_pipe", since = "1.87.0")]
 #[inline]
 pub fn pipe() -> io::Result<(PipeReader, PipeWriter)> {
@@ -85,11 +91,23 @@ pub fn pipe() -> io::Result<(PipeReader, PipeWriter)> {
 }
 
 /// Read end of an anonymous pipe.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف القراءة من أنبوب بدون اسم.
+///
+/// </div>
 #[stable(feature = "anonymous_pipe", since = "1.87.0")]
 #[derive(Debug)]
 pub struct PipeReader(pub(crate) imp::Pipe);
 
 /// Write end of an anonymous pipe.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الكتابة في أنبوب بدون اسم.
+///
+/// </div>
 #[stable(feature = "anonymous_pipe", since = "1.87.0")]
 #[derive(Debug)]
 pub struct PipeWriter(pub(crate) imp::Pipe);
@@ -169,6 +187,12 @@ impl PipeReader {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PipeReader` جديدًا يشترك في نفس وصف الملف الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "anonymous_pipe", since = "1.87.0")]
     pub fn try_clone(&self) -> io::Result<Self> {
         self.0.try_clone().map(Self)
@@ -206,6 +230,12 @@ impl PipeWriter {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PipeWriter` جديدًا يشترك في نفس وصف الملف الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "anonymous_pipe", since = "1.87.0")]
     pub fn try_clone(&self) -> io::Result<Self> {
         self.0.try_clone().map(Self)

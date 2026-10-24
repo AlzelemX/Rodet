@@ -239,6 +239,12 @@ use crate::ops::Index;
 /// static RANDOM_MAP: LazyLock<Mutex<HashMap<String, Vec<i32>>>> =
 ///     LazyLock::new(|| Mutex::new(HashMap::new()));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// جدول تجزئة (hash map) يربط مفاتيح بقيم.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "HashMap")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_insignificant_dtor]
@@ -263,6 +269,12 @@ impl<K, V> HashMap<K, V, RandomState> {
     /// use std::collections::HashMap;
     /// let mut map: HashMap<&str, i32> = HashMap::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -282,6 +294,12 @@ impl<K, V> HashMap<K, V, RandomState> {
     /// use std::collections::HashMap;
     /// let mut map: HashMap<&str, i32> = HashMap::with_capacity(10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -305,6 +323,12 @@ impl<K, V, A: Allocator> HashMap<K, V, RandomState, A> {
     ///
     /// let map: HashMap<i32, i32> = HashMap::new_in(Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا باستخدام المخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -328,6 +352,12 @@ impl<K, V, A: Allocator> HashMap<K, V, RandomState, A> {
     ///
     /// let map: HashMap<i32, i32> = HashMap::with_capacity_in(10, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا بسعة لا تقل عن السعة المحددة باستخدام المخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -360,6 +390,12 @@ impl<K, V, S> HashMap<K, V, S> {
     /// let mut map = HashMap::with_hasher(s);
     /// map.insert(1, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا يستخدم منشئ التجزئة المعطى لتجزئة المفاتيح.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
@@ -393,6 +429,12 @@ impl<K, V, S> HashMap<K, V, S> {
     /// let mut map = HashMap::with_capacity_and_hasher(10, s);
     /// map.insert(1, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا بسعة لا تقل عن السعة المحددة، ويستخدم `hasher` لتجزئة المفاتيح.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
@@ -426,6 +468,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// let s = RandomState::new();
     /// let map: HashMap<i32, i32> = HashMap::with_hasher_in(s, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا يستخدم منشئ التجزئة والمخصص المعطيين.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -459,6 +507,13 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// let s = RandomState::new();
     /// let map: HashMap<i32, i32> = HashMap::with_capacity_and_hasher_in(10, s, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashMap` فارغًا بسعة لا تقل عن السعة المحددة، ويستخدم `hasher` لتجزئة المفاتيح
+    /// و`alloc` لحجز الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -478,6 +533,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// let map: HashMap<i32, i32> = HashMap::with_capacity(100);
     /// assert!(map.capacity() >= 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر التي يتسع لها الجدول بدون إعادة حجز الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn capacity(&self) -> usize {
@@ -508,6 +569,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over keys takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل المفاتيح بترتيب عشوائي. نوع العنصر `&'a K`.
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn keys(&self) -> Keys<'_, K, V> {
@@ -540,6 +607,13 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over keys takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا يمر على كل المفاتيح بترتيب عشوائي. لا يمكن استخدام الجدول بعد ذلك. نوع
+    /// العنصر `K`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "map_into_keys_values", since = "1.54.0")]
@@ -571,6 +645,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over values takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل القيم بترتيب عشوائي. نوع العنصر `&'a V`.
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn values(&self) -> Values<'_, K, V> {
@@ -604,6 +684,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over values takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل القيم بترتيب عشوائي ويسمح بتعديلها. نوع العنصر `&'a mut V`.
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "map_values_mut", since = "1.10.0")]
     pub fn values_mut(&mut self) -> ValuesMut<'_, K, V> {
@@ -636,6 +722,13 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over values takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا يمر على كل القيم بترتيب عشوائي. لا يمكن استخدام الجدول بعد ذلك. نوع
+    /// العنصر `V`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "map_into_keys_values", since = "1.54.0")]
@@ -670,6 +763,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over map takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل أزواج المفتاح والقيمة بترتيب عشوائي. نوع العنصر `(&'a K, &'a V)`.
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter(&self) -> Iter<'_, K, V> {
@@ -705,6 +804,13 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, iterating over map takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل أزواج المفتاح والقيمة بترتيب عشوائي، مع مراجع قابلة للتعديل إلى القيم. نوع
+    /// العنصر `(&'a K, &'a mut V)`.
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter_mut(&mut self) -> IterMut<'_, K, V> {
@@ -723,6 +829,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// a.insert(1, "a");
     /// assert_eq!(a.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في الجدول.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn len(&self) -> usize {
         self.base.len()
@@ -740,6 +852,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// a.insert(1, "a");
     /// assert!(!a.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الجدول لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_empty(&self) -> bool {
@@ -769,6 +887,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// assert!(a.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الجدول ويرجع كل أزواج المفتاح والقيمة كمكرر. يحتفظ بالذاكرة المحجوزة لإعادة استخدامها.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "drain", since = "1.6.0")]
@@ -809,6 +933,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// assert_eq!(evens, vec![0, 2, 4, 6]);
     /// assert_eq!(odds, vec![1, 3, 5, 7]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر (زوج مفتاح وقيمة).
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "hash_extract_if", since = "1.88.0")]
@@ -838,6 +968,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     ///
     /// In the current implementation, this operation takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "retain_hash_collection", since = "1.18.0")]
@@ -861,6 +997,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// a.clear();
     /// assert!(a.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الجدول بحذف كل أزواج المفتاح والقيمة. يحتفظ بالذاكرة المحجوزة لإعادة استخدامها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
@@ -879,6 +1021,12 @@ impl<K, V, S, A: Allocator> HashMap<K, V, S, A> {
     /// let map: HashMap<i32, i32> = HashMap::with_hasher(hasher);
     /// let hasher: &RandomState = map.hasher();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى `BuildHasher` الخاص بالجدول.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hashmap_public_hasher", since = "1.9.0")]
     pub fn hasher(&self) -> &S {
@@ -909,6 +1057,13 @@ where
     /// let mut map: HashMap<&str, i32> = HashMap::new();
     /// map.reserve(10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `HashMap`. قد يحجز أكثر لتجنب
+    /// إعادة الحجز المتكرر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve(&mut self, additional: usize) {
@@ -935,6 +1090,13 @@ where
     /// let mut map: HashMap<&str, isize> = HashMap::new();
     /// map.try_reserve(10).expect("why is the test harness OOMing on a handful of bytes?");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `HashMap`، ويرجع خطأً بدل
+    /// التوقف إذا فشل الحجز.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -957,6 +1119,13 @@ where
     /// map.shrink_to_fit();
     /// assert!(map.capacity() >= 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة الجدول قدر الإمكان، مع الحفاظ على قواعده الداخلية وربما ترك بعض المساحة حسب سياسة
+    /// تغيير الحجم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn shrink_to_fit(&mut self) {
@@ -983,6 +1152,12 @@ where
     /// map.shrink_to(0);
     /// assert!(map.capacity() >= 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة الجدول مع حد أدنى لا تقل عنه، مع الحفاظ على قواعده الداخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -1007,6 +1182,12 @@ where
     /// assert_eq!(letters[&'u'], 1);
     /// assert_eq!(letters.get(&'y'), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدخل (entry) المقابل للمفتاح المعطى في الجدول لتعديله في مكانه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn entry(&mut self, key: K) -> Entry<'_, K, V, A> {
@@ -1029,6 +1210,12 @@ where
     /// assert_eq!(map.get(&1), Some(&"a"));
     /// assert_eq!(map.get(&2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة المقابلة للمفتاح.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn get<Q: ?Sized>(&self, k: &Q) -> Option<&V>
@@ -1087,6 +1274,13 @@ where
     /// assert_eq!(map.get_key_value(&j_b), Some((&j_a, &"Paris"))); // the notable case
     /// assert_eq!(map.get_key_value(&p), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع زوج المفتاح والقيمة المقابل للمفتاح المعطى. مفيد مثلًا عندما يمكن اعتبار مفاتيح غير
+    /// متطابقة متساوية، أو للحصول على المفتاح المخزن `&K` من بحث بـ `&Q`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_get_key_value", since = "1.40.0")]
     pub fn get_key_value<Q: ?Sized>(&self, k: &Q) -> Option<(&K, &V)>
@@ -1165,6 +1359,12 @@ where
     ///     "Athenæum",
     /// ]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول الحصول على مراجع قابلة للتعديل إلى `N` قيمة في الجدول دفعة واحدة.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "get_many_mut")]
     #[stable(feature = "map_many_mut", since = "1.86.0")]
@@ -1232,6 +1432,13 @@ where
     /// // Missing keys result in None
     /// assert_eq!(got, [Some(&mut 1807), None]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول الحصول على مراجع قابلة للتعديل إلى `N` قيمة في الجدول دفعة واحدة، بدون التحقق من أنها
+    /// مختلفة (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "get_many_unchecked_mut")]
     #[stable(feature = "map_many_mut", since = "1.86.0")]
@@ -1262,6 +1469,12 @@ where
     /// assert_eq!(map.contains_key(&1), true);
     /// assert_eq!(map.contains_key(&2), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان في الجدول قيمة للمفتاح المحدد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_contains_key")]
@@ -1291,6 +1504,12 @@ where
     /// }
     /// assert_eq!(map[&1], "b");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة المقابلة للمفتاح.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut<Q: ?Sized>(&mut self, k: &Q) -> Option<&mut V>
@@ -1325,6 +1544,12 @@ where
     /// assert_eq!(map.insert(37, "c"), Some("b"));
     /// assert_eq!(map[&37], "c");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف زوج مفتاح وقيمة إلى الجدول.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "append", "put")]
@@ -1357,6 +1582,12 @@ where
     /// assert_eq!(err.key, 37);
     /// assert_eq!(err.value, "b");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إضافة زوج مفتاح وقيمة إلى الجدول، ويرجع مرجعًا قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[unstable(feature = "map_try_insert", issue = "82766")]
     pub fn try_insert(&mut self, key: K, value: V) -> Result<&mut V, OccupiedError<'_, K, V, A>> {
         match self.base.rustc_try_insert(key, value) {
@@ -1384,6 +1615,12 @@ where
     /// assert_eq!(map.remove(&1), Some("a"));
     /// assert_eq!(map.remove(&1), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف مفتاحًا من الجدول، ويرجع قيمته إذا كان المفتاح موجودًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("delete", "take")]
@@ -1414,6 +1651,12 @@ where
     /// assert_eq!(map.remove(&1), None);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف مفتاحًا من الجدول، ويرجع المفتاح المخزن وقيمته إذا كان موجودًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hash_map_remove_entry", since = "1.27.0")]
     pub fn remove_entry<Q: ?Sized>(&mut self, k: &Q) -> Option<(K, V)>
@@ -1570,6 +1813,12 @@ where
 /// ]);
 /// let iter = map.iter();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مدخلات `HashMap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_iter_ty")]
 pub struct Iter<'a, K: 'a, V: 'a> {
@@ -1617,6 +1866,12 @@ impl<K: Debug, V: Debug> fmt::Debug for Iter<'_, K, V> {
 /// ]);
 /// let iter = map.iter_mut();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على مدخلات `HashMap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_iter_mut_ty")]
 pub struct IterMut<'a, K: 'a, V: 'a> {
@@ -1656,6 +1911,12 @@ impl<K, V> Default for IterMut<'_, K, V> {
 /// ]);
 /// let iter = map.into_iter();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على مدخلات `HashMap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<
     K,
@@ -1698,6 +1959,12 @@ impl<K, V> Default for IntoIter<K, V> {
 /// ]);
 /// let iter_keys = map.keys();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مفاتيح `HashMap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_keys_ty")]
 pub struct Keys<'a, K: 'a, V: 'a> {
@@ -1745,6 +2012,12 @@ impl<K: Debug, V> fmt::Debug for Keys<'_, K, V> {
 /// ]);
 /// let iter_values = map.values();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على قيم `HashMap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_values_ty")]
 pub struct Values<'a, K: 'a, V: 'a> {
@@ -1792,6 +2065,12 @@ impl<K, V: Debug> fmt::Debug for Values<'_, K, V> {
 /// ]);
 /// let iter = map.drain();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) مدخلات `HashMap`.
+///
+/// </div>
 #[stable(feature = "drain", since = "1.6.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_drain_ty")]
 pub struct Drain<
@@ -1827,6 +2106,12 @@ impl<'a, K, V, A: Allocator> Drain<'a, K, V, A> {
 /// ]);
 /// let iter = map.extract_if(|_k, v| *v % 2 == 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يسحب ويفلتر مدخلات `HashMap`.
+///
+/// </div>
 #[stable(feature = "hash_extract_if", since = "1.88.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `retain` to remove and discard elements"]
@@ -1857,6 +2142,12 @@ pub struct ExtractIf<
 /// ]);
 /// let iter_values = map.values_mut();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على قيم `HashMap`.
+///
+/// </div>
 #[stable(feature = "map_values_mut", since = "1.10.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashmap_values_mut_ty")]
 pub struct ValuesMut<'a, K: 'a, V: 'a> {
@@ -1888,6 +2179,12 @@ impl<K, V> Default for ValuesMut<'_, K, V> {
 /// ]);
 /// let iter_keys = map.into_keys();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على مفاتيح `HashMap`.
+///
+/// </div>
 #[stable(feature = "map_into_keys_values", since = "1.54.0")]
 pub struct IntoKeys<
     K,
@@ -1922,6 +2219,12 @@ impl<K, V> Default for IntoKeys<K, V> {
 /// ]);
 /// let iter_keys = map.into_values();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على قيم `HashMap`.
+///
+/// </div>
 #[stable(feature = "map_into_keys_values", since = "1.54.0")]
 pub struct IntoValues<
     K,
@@ -1944,6 +2247,12 @@ impl<K, V> Default for IntoValues<K, V> {
 /// This `enum` is constructed from the [`entry`] method on [`HashMap`].
 ///
 /// [`entry`]: HashMap::entry
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل واحد في جدول، قد يكون فارغًا (vacant) أو مشغولًا (occupied).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "HashMapEntry")]
 pub enum Entry<
@@ -1973,6 +2282,12 @@ impl<K: Debug, V: Debug> Debug for Entry<'_, K, V> {
 
 /// A view into an occupied entry in a `HashMap`.
 /// It is part of the [`Entry`] enum.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل مشغول في `HashMap`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct OccupiedEntry<
     'a,
@@ -1995,6 +2310,12 @@ impl<K: Debug, V: Debug, A: Allocator> Debug for OccupiedEntry<'_, K, V, A> {
 
 /// A view into a vacant entry in a `HashMap`.
 /// It is part of the [`Entry`] enum.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل فارغ في `HashMap`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct VacantEntry<
     'a,
@@ -2015,6 +2336,12 @@ impl<K: Debug, V, A: Allocator> Debug for VacantEntry<'_, K, V, A> {
 /// The error returned by [`try_insert`](HashMap::try_insert) when the key already exists.
 ///
 /// Contains the occupied entry, key, and the value that was not inserted.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الخطأ الذي ترجعه `try_insert` عندما يكون المفتاح موجودًا.
+///
+/// </div>
 #[unstable(feature = "map_try_insert", issue = "82766")]
 #[non_exhaustive]
 pub struct OccupiedError<
@@ -2024,10 +2351,28 @@ pub struct OccupiedError<
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")] A: Allocator = Global,
 > {
     /// The entry in the map that was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المدخل في الجدول الذي كان مشغولًا.
+    ///
+    /// </div>
     pub entry: OccupiedEntry<'a, K, V, A>,
     /// The key which was not inserted, because the entry was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المفتاح الذي لم يُضف لأن المدخل كان مشغولًا.
+    ///
+    /// </div>
     pub key: K,
     /// The value which was not inserted, because the entry was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القيمة التي لم تُضف لأن المدخل كان مشغولًا.
+    ///
+    /// </div>
     pub value: V,
 }
 
@@ -2090,6 +2435,13 @@ impl<K, V, S, A: Allocator> IntoIterator for HashMap<K, V, S, A> {
     /// // Not possible with .iter()
     /// let vec: Vec<(&str, i32)> = map.into_iter().collect();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا ينقل كل زوج مفتاح وقيمة خارج الجدول بترتيب عشوائي. لا يمكن استخدام
+    /// الجدول بعد ذلك.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     fn into_iter(self) -> IntoIter<K, V, A> {
@@ -2510,6 +2862,13 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     /// *map.entry("poneyland").or_insert(10) *= 2;
     /// assert_eq!(map["poneyland"], 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة القيمة الافتراضية المعطاة إذا كان فارغًا، ويرجع مرجعًا
+    /// قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn or_insert(self, default: V) -> &'a mut V {
@@ -2534,6 +2893,13 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], "hoho");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج الدالة الافتراضية إذا كان فارغًا، ويرجع مرجعًا قابلًا
+    /// للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn or_insert_with<F: FnOnce() -> V>(self, default: F) -> &'a mut V {
@@ -2564,6 +2930,13 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج دالة افتراضية قد تفشل إذا كان فارغًا، ويرجع مرجعًا
+    /// قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_entry", issue = "157354")]
     pub fn or_try_insert_with<F: FnOnce() -> Result<V, E>, E>(
@@ -2594,6 +2967,13 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], 9);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج الدالة الافتراضية إذا كان فارغًا؛ وتأخذ الدالة مرجعًا
+    /// إلى المفتاح لتحسب القيمة منه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "or_insert_with_key", since = "1.50.0")]
     pub fn or_insert_with_key<F: FnOnce(&K) -> V>(self, default: F) -> &'a mut V {
@@ -2624,6 +3004,13 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج دالة افتراضية قد تفشل إذا كان فارغًا؛ وتأخذ الدالة
+    /// مرجعًا إلى المفتاح.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_entry", issue = "157354")]
     pub fn or_try_insert_with_key<F: FnOnce(&K) -> Result<V, E>, E>(
@@ -2649,6 +3036,12 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     /// let mut map: HashMap<&str, u32> = HashMap::new();
     /// assert_eq!(map.entry("poneyland").key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح هذا المدخل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_entry_keys", since = "1.10.0")]
     pub fn key(&self) -> &K {
@@ -2678,6 +3071,12 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     ///    .or_insert(42);
     /// assert_eq!(map["poneyland"], 43);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا قابلًا للتعديل إلى مدخل مشغول قبل أي إضافة محتملة إلى الجدول.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "entry_and_modify", since = "1.26.0")]
     pub fn and_modify<F>(self, f: F) -> Self
@@ -2705,6 +3104,12 @@ impl<'a, K, V, A: Allocator> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(entry.key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "entry_insert", since = "1.83.0")]
     pub fn insert_entry(self, value: V) -> OccupiedEntry<'a, K, V, A> {
@@ -2734,6 +3139,13 @@ impl<'a, K, V: Default> Entry<'a, K, V> {
     /// assert_eq!(map["poneyland"], None);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة القيمة الافتراضية للنوع إذا كان فارغًا، ويرجع مرجعًا قابلًا
+    /// للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "entry_or_default", since = "1.28.0")]
     pub fn or_default(self) -> &'a mut V {
@@ -2756,6 +3168,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     /// map.entry("poneyland").or_insert(12);
     /// assert_eq!(map.entry("poneyland").key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى المفتاح في المدخل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_entry_keys", since = "1.10.0")]
     pub fn key(&self) -> &K {
@@ -2780,6 +3198,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///
     /// assert_eq!(map.contains_key("poneyland"), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية المفتاح والقيمة من الجدول.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_entry_recover_keys2", since = "1.12.0")]
     pub fn remove_entry(self) -> (K, V) {
@@ -2801,6 +3225,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///     assert_eq!(o.get(), &12);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get(&self) -> &V {
@@ -2834,6 +3264,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], 24);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self) -> &mut V {
@@ -2863,6 +3299,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], 22);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OccupiedEntry` إلى مرجع قابل للتعديل إلى القيمة بعمر مرتبط بالجدول نفسه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_mut(self) -> &'a mut V {
@@ -2886,6 +3328,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], 15);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn insert(&mut self, value: V) -> V {
@@ -2909,6 +3357,12 @@ impl<'a, K, V, A: Allocator> OccupiedEntry<'a, K, V, A> {
     ///
     /// assert_eq!(map.contains_key("poneyland"), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من المدخل ويرجعها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn remove(self) -> V {
@@ -2928,6 +3382,12 @@ impl<'a, K: 'a, V: 'a, A: Allocator> VacantEntry<'a, K, V, A> {
     /// let mut map: HashMap<&str, u32> = HashMap::new();
     /// assert_eq!(map.entry("poneyland").key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى المفتاح الذي سيُستخدم عند إضافة قيمة عبر `VacantEntry`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_entry_keys", since = "1.10.0")]
     pub fn key(&self) -> &K {
@@ -2948,6 +3408,12 @@ impl<'a, K: 'a, V: 'a, A: Allocator> VacantEntry<'a, K, V, A> {
     ///     v.into_key();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية المفتاح.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_entry_recover_keys2", since = "1.12.0")]
     pub fn into_key(self) -> K {
@@ -2970,6 +3436,12 @@ impl<'a, K: 'a, V: 'a, A: Allocator> VacantEntry<'a, K, V, A> {
     /// }
     /// assert_eq!(map["poneyland"], 37);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بمفتاح `VacantEntry`، ويرجع مرجعًا قابلًا للتعديل إليها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn insert(self, value: V) -> &'a mut V {
@@ -2992,6 +3464,12 @@ impl<'a, K: 'a, V: 'a, A: Allocator> VacantEntry<'a, K, V, A> {
     /// }
     /// assert_eq!(map["poneyland"], 37);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بمفتاح `VacantEntry`، ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "entry_insert", since = "1.83.0")]
     pub fn insert_entry(self, value: V) -> OccupiedEntry<'a, K, V, A> {
@@ -3019,6 +3497,12 @@ where
 
 /// Inserts all new key-values from the iterator and replaces values with existing
 /// keys with new values returned from the iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضيف كل المفاتيح والقيم الجديدة من المكرر، ويستبدل قيم المفاتيح الموجودة بالقيم الجديدة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<K, V, S, A> Extend<(K, V)> for HashMap<K, V, S, A>
 where

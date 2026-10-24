@@ -95,6 +95,12 @@
 //! [`ptr::NonNull::dangling`]: NonNull::dangling
 //! [`Layout`]: crate::alloc::Layout
 //! [`Layout::array::<T>(cap)`]: crate::alloc::Layout::array
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نوع مصفوفة متصلة قابلة للنمو محتوياتها في الـ heap، ويُكتب `Vec<T>`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -434,6 +440,12 @@ mod sve_retain;
 /// [`MaybeUninit`]: core::mem::MaybeUninit
 /// [owned slice]: Box
 /// [`into_boxed_slice`]: Vec::into_boxed_slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مصفوفة متصلة قابلة للنمو، يُكتب `Vec<T>`، اختصار لـ "vector" (متجه).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Vec"]
 #[rustc_insignificant_dtor]
@@ -459,6 +471,12 @@ impl<T> Vec<T> {
     /// # #![allow(unused_mut)]
     /// let mut vec: Vec<i32> = Vec::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` جديدًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_vec_new", since = "1.39.0")]
     #[rustc_diagnostic_item = "vec_new"]
@@ -519,6 +537,12 @@ impl<T> Vec<T> {
     /// let vec_units = Vec::<()>::with_capacity(10);
     /// assert_eq!(vec_units.capacity(), usize::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` جديدًا فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -541,6 +565,12 @@ impl<T> Vec<T> {
     /// or if the allocator reports allocation failure.
     ///
     /// [will not allocate]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` جديدًا فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_with_capacity", issue = "91913")]
     pub fn try_with_capacity(capacity: usize) -> Result<Self, TryReserveError> {
@@ -620,6 +650,12 @@ impl<T> Vec<T> {
     ///     assert_eq!(vec.capacity(), 16);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` مباشرة من مؤشر وطول وسعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -700,6 +736,12 @@ impl<T> Vec<T> {
     ///     assert_eq!(vec.capacity(), 16);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` مباشرة من مؤشر `NonNull` وطول وسعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "box_vec_non_null", since = "1.99.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -747,6 +789,12 @@ impl<T> Vec<T> {
     ///
     /// assert_eq!(a, [1, 2, 4, 8, 16, 32]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T>` يُنتج كل عنصر فيه باستدعاء `f` مع رقم ذلك العنصر، من الأول إلى الأخير.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "vec_from_fn", since = "1.100.0")]
@@ -792,6 +840,12 @@ impl<T> Vec<T> {
     /// };
     /// assert_eq!(rebuilt, [4294967295, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `Vec<T>` إلى مكوناته الخام: `(pointer, length, capacity)`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "vec_into_raw_parts", since = "1.93.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -832,6 +886,12 @@ impl<T> Vec<T> {
     /// };
     /// assert_eq!(rebuilt, [4294967295, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `Vec<T>` إلى مكوناته الخام: `(NonNull pointer, length, capacity)`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "box_vec_non_null", since = "1.99.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -846,6 +906,13 @@ impl<T> Vec<T> {
     ///
     /// This method must be called if the memory used by `Vec` needs to appear in the final
     /// values of constants.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يثبّت الـ `Vec<T>` ويجعل ذاكرته للقراءة فقط. يُستدعى وقت الترجمة (ولا يفعل شيئًا وقت
+    /// التشغيل).
+    ///
+    /// </div>
     #[unstable(feature = "const_heap", issue = "79597")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
     pub const fn const_make_global(mut self) -> &'static [T]
@@ -927,6 +994,12 @@ const impl<T, A: [const] Allocator + [const] Destruct> Vec<T, A> {
     /// let vec_units = Vec::<(), System>::with_capacity_in(10, System);
     /// assert_eq!(vec_units.capacity(), usize::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T, A>` جديدًا فارغًا بسعة لا تقل عن السعة المحددة، باستخدام المخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     pub fn with_capacity_in(capacity: usize, alloc: A) -> Self {
@@ -953,6 +1026,12 @@ const impl<T, A: [const] Allocator + [const] Destruct> Vec<T, A> {
     /// capacity after the push, *O*(*capacity*) time is taken to copy the
     /// vector's elements to a larger allocation. This expensive operation is
     /// offset by the *capacity* *O*(1) insertions it allows.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push_back", "put", "append")]
@@ -985,6 +1064,12 @@ const impl<T, A: [const] Allocator + [const] Destruct> Vec<T, A> {
     /// capacity after the push, *O*(*capacity*) time is taken to copy the
     /// vector's elements to a larger allocation. This expensive operation is
     /// offset by the *capacity* *O*(1) insertions it allows.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية المجموعة، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `Vec::push` instead"]
@@ -1019,6 +1104,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// let vec: Vec<i32, System> = Vec::new_in(System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T, A>` جديدًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "allocator_ext", issue = "163177")]
@@ -1039,6 +1130,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// or if the allocator reports allocation failure.
     ///
     /// [will not allocate]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T, A>` جديدًا فارغًا بسعة لا تقل عن السعة المحددة، باستخدام المخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     // #[unstable(feature = "try_with_capacity", issue = "91913")]
@@ -1121,6 +1218,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///     assert_eq!(vec.capacity(), 16);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T, A>` مباشرة من مؤشر وطول وسعة ومخصص.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -1213,6 +1316,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///     assert_eq!(vec.capacity(), 16);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec<T, A>` مباشرة من مؤشر `NonNull` وطول وسعة ومخصص.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -1266,6 +1375,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// };
     /// assert_eq!(rebuilt, [4294967295, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `Vec<T>` إلى مكوناته الخام: `(pointer, length, capacity, allocator)`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -1315,6 +1430,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// };
     /// assert_eq!(rebuilt, [4294967295, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `Vec<T>` إلى مكوناته الخام: `(NonNull pointer, length, capacity, allocator)`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -1347,6 +1468,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///     assert_eq!(v.capacity(), usize::MAX);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر الكلي الذي يتسع له المتجه بدون إعادة حجز الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
@@ -1371,6 +1498,14 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.reserve(10);
     /// assert!(vec.capacity() >= 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `Vec<T>`. قد يحجز أكثر لتجنب
+    /// إعادة الحجز المتكرر. بعد الاستدعاء تصبح السعة أكبر من أو تساوي `self.len() + additional`. لا
+    /// يفعل شيئًا إذا كانت السعة كافية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "vec_reserve"]
@@ -1402,6 +1537,14 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.reserve_exact(10);
     /// assert!(vec.capacity() >= 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز أقل سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `Vec<T>`. على عكس `reserve`،
+    /// لا يحجز أكثر من المطلوب عمدًا. بعد الاستدعاء تصبح السعة أكبر من أو تساوي
+    /// `self.len() + additional`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve_exact(&mut self, additional: usize) {
@@ -1440,6 +1583,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// }
     /// # process_data(&[1, 2, 3]).expect("this test needs 12 bytes, so it shouldn't fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `Vec<T>`، ويرجع خطأً بدل
+    /// التوقف إذا فشل الحجز. قد يحجز أكثر لتجنب إعادة الحجز المتكرر.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.buf.try_reserve(self.len, additional)
@@ -1483,6 +1633,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// }
     /// # process_data(&[1, 2, 3]).expect("this test needs 12 bytes, so it shouldn't fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة تكفي `additional` عنصرًا إضافيًا في الـ `Vec<T>`، ويرجع خطأً بدل التوقف
+    /// إذا فشل الحجز. على عكس `try_reserve`، لا يحجز أكثر من المطلوب عمدًا.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.buf.try_reserve_exact(self.len, additional)
@@ -1505,6 +1662,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.shrink_to_fit();
     /// assert!(vec.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة المتجه قدر الإمكان.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -1535,6 +1698,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.shrink_to(0);
     /// assert!(vec.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة المتجه مع حد أدنى لا تقل عنه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -1568,6 +1737,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.try_shrink_to_fit().expect("for this test, shrink shouldn't fail");
     /// assert!(vec.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تقليص سعة المتجه قدر الإمكان.
+    ///
+    /// </div>
     #[unstable(feature = "vec_fallible_shrink", issue = "152350")]
     #[inline]
     pub fn try_shrink_to_fit(&mut self) -> Result<(), TryReserveError> {
@@ -1600,6 +1775,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.try_shrink_to(0).expect("this is a no-op and thus the allocator isn't involved.");
     /// assert!(vec.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة المتجه مع حد أدنى لا تقل عنه.
+    ///
+    /// </div>
     #[unstable(feature = "vec_fallible_shrink", issue = "152350")]
     #[inline]
     pub fn try_shrink_to(&mut self, min_capacity: usize) -> Result<(), TryReserveError> {
@@ -1635,6 +1816,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let slice = vec.into_boxed_slice();
     /// assert_eq!(slice.into_vec().capacity(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل المتجه إلى `Box<[T]>` (شريحة مملوكة).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_boxed_slice(mut self) -> Box<[T], A> {
@@ -1665,6 +1852,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let not_enough_elements: Result<Box<[i32; 4]>, Vec<i32>> = vec.into_array::<4>();
     /// assert_eq!(not_enough_elements, Err(vec![1, 2, 3]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `Vec` إلى مصفوفة داخل `Box`. تُهمل أي سعة زائدة. إذا كنت تريد مرجعًا إلى مصفوفة
+    /// فقط، استخدم `as_array`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "alloc_slice_into_array", issue = "148082")]
     pub fn into_array<const N: usize>(self) -> Result<Box<[T; N], A>, Self> {
@@ -1721,6 +1915,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// [`clear`]: Vec::clear
     /// [`drain`]: Vec::drain
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر المتجه، فيُبقي أول `len` عنصر ويحذف الباقي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn truncate(&mut self, len: usize) {
         // SAFETY: `BufWriter::flush_buf` assumes that this will not
@@ -1758,6 +1958,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let buffer = vec![1, 2, 3, 5, 8];
     /// io::sink().write(buffer.as_slice()).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة تحتوي المتجه كاملًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "vec_as_slice", since = "1.7.0")]
     #[rustc_diagnostic_item = "vec_as_slice"]
@@ -1794,6 +2000,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let mut buffer = vec![0; 3];
     /// io::repeat(0b101).read_exact(buffer.as_mut_slice()).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل تحتوي المتجه كاملًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "vec_as_slice", since = "1.7.0")]
     #[rustc_diagnostic_item = "vec_as_mut_slice"]
@@ -1876,6 +2088,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// [`as_ptr`]: Vec::as_ptr
     /// [`as_non_null`]: Vec::as_non_null
     /// [didn't allocate]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى ذاكرة المتجه، أو مؤشرًا معلقًا صالحًا لقراءات بحجم صفر إذا لم يحجز
+    /// المتجه ذاكرة.
+    ///
+    /// </div>
     #[stable(feature = "vec_as_ptr", since = "1.37.0")]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
     #[rustc_never_returns_null_ptr]
@@ -1961,6 +2180,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// [`dealloc`]: crate::alloc::GlobalAlloc::dealloc
     /// [`ManuallyDrop`]: core::mem::ManuallyDrop
     /// [didn't allocate]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا قابلًا للتعديل إلى ذاكرة المتجه، أو مؤشرًا معلقًا صالحًا لقراءات بحجم صفر
+    /// إذا لم يحجز المتجه ذاكرة.
+    ///
+    /// </div>
     #[stable(feature = "vec_as_ptr", since = "1.37.0")]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
     #[rustc_never_returns_null_ptr]
@@ -2029,6 +2255,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// [`as_ptr`]: Vec::as_ptr
     /// [`as_non_null`]: Vec::as_non_null
     /// [didn't allocate]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر `NonNull` إلى ذاكرة المتجه، أو مؤشر `NonNull` معلقًا صالحًا لقراءات بحجم صفر إذا
+    /// لم يحجز المتجه ذاكرة.
+    ///
+    /// </div>
     #[unstable(feature = "vec_as_non_null", issue = "157843")]
     #[rustc_const_unstable(feature = "vec_as_non_null", issue = "157843")]
     #[rustc_as_ptr]
@@ -2038,6 +2271,12 @@ impl<T, A: Allocator> Vec<T, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
     #[inline]
@@ -2131,6 +2370,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// the contents and thus not leak memory.
     ///
     /// [`spare_capacity_mut()`]: Vec::spare_capacity_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرض طول المتجه ليصبح `new_len` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -2168,6 +2413,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(v.swap_remove(0), "foo");
     /// assert_eq!(v, ["baz", "qux"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف عنصرًا من المتجه ويرجعه، ويضع آخر عنصر مكانه (سريع لكن يغيّر الترتيب).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn swap_remove(&mut self, index: usize) -> T {
@@ -2217,6 +2468,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// Takes *O*([`Vec::len`]) time. All items after the insertion index must be
     /// shifted to the right. In the worst case, all elements are shifted when
     /// the insertion index is 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا في الموضع `index` داخل المتجه، ويزيح كل العناصر بعده إلى اليمين.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[track_caller]
@@ -2246,6 +2503,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// Takes *O*([`Vec::len`]) time. All items after the insertion index must be
     /// shifted to the right. In the worst case, all elements are shifted when
     /// the insertion index is 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا في الموضع `index` داخل المتجه، ويزيح كل العناصر بعده إلى اليمين، ويرجع مرجعًا
+    /// إلى العنصر الجديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "push_mut", since = "1.95.0")]
@@ -2313,6 +2577,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(v.remove(1), 'b');
     /// assert_eq!(v, ['a', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر في الموضع `index` ويرجعه، ويزيح كل العناصر بعده إلى اليسار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[track_caller]
     #[rustc_confusables("delete", "take")]
@@ -2349,6 +2619,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(v.try_remove(0), Some(1));
     /// assert_eq!(v.try_remove(2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر في الموضع `index` ويرجعه، ويزيح كل العناصر بعده إلى اليسار، أو يرجع `None` إذا
+    /// لم يكن موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "vec_try_remove", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_confusables("delete", "take", "remove")]
     pub fn try_remove(&mut self, index: usize) -> Option<T> {
@@ -2399,6 +2676,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.retain(|_| *iter.next().unwrap());
     /// assert_eq!(vec, [2, 3, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn retain<F>(&mut self, mut f: F)
     where
@@ -2425,6 +2708,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// });
     /// assert_eq!(vec, [2, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط، ويعطي الشرط مرجعًا قابلًا للتعديل لكل عنصر.
+    ///
+    /// </div>
     #[stable(feature = "vec_retain_mut", since = "1.61.0")]
     pub fn retain_mut<F>(&mut self, mut f: F)
     where
@@ -2550,6 +2839,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// assert_eq!(vec, [10, 20, 30, 20]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العناصر المتتالية التي تعطي نفس المفتاح، ويُبقي أولها فقط.
+    ///
+    /// </div>
     #[stable(feature = "dedup_by", since = "1.16.0")]
     #[inline]
     pub fn dedup_by_key<F, K>(&mut self, mut key: F)
@@ -2604,6 +2899,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// assert_eq!(ranges, [1..5, 8..9]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العناصر المتتالية "المتساوية" حسب دالة الشرط المعطاة، ويُبقي أولها فقط.
+    ///
+    /// </div>
     #[stable(feature = "dedup_by", since = "1.16.0")]
     pub fn dedup_by<F>(&mut self, mut same_bucket: F)
     where
@@ -2791,6 +3092,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// # Time complexity
     ///
     /// Takes *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا ويرجع مرجعًا إليه إذا كانت السعة الزائدة كافية، وإلا يرجع خطأً مع العنصر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "vec_push_within_capacity", issue = "100486")]
     pub fn push_within_capacity(&mut self, value: T) -> Result<&mut T, T> {
@@ -2827,6 +3134,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// # Time complexity
     ///
     /// Takes *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من المتجه ويرجعه، أو يرجع `None` إذا كان فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "vec_pop"]
@@ -2857,6 +3170,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(vec, [1, 2, 3]);
     /// assert_eq!(vec.pop_if(pred), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من المتجه ويرجعه إذا أرجع الشرط `true`، أو يرجع `None` إذا أرجع الشرط false أو
+    /// كان المتجه فارغًا (لا يُستدعى الشرط عندها).
+    ///
+    /// </div>
     #[stable(feature = "vec_pop_if", since = "1.86.0")]
     pub fn pop_if(&mut self, predicate: impl FnOnce(&mut T) -> bool) -> Option<T> {
         let last = self.last_mut()?;
@@ -2884,6 +3204,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// }
     /// assert_eq!(vec.last(), Some(&0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى آخر عنصر في المتجه، أو `None` إذا كان فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "vec_peek_mut", issue = "122742")]
     pub fn peek_mut(&mut self) -> Option<PeekMut<'_, T, A>>
@@ -2908,6 +3234,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(vec, [1, 2, 3, 4, 5, 6]);
     /// assert_eq!(vec2, []);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل عناصر `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "append", since = "1.4.0")]
@@ -2987,6 +3319,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// v.drain(..);
     /// assert_eq!(v, &[]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الجزء المحدد بالمدى المعطى من المتجه، ويرجع مكررًا من الطرفين على العناصر المحذوفة.
+    ///
+    /// </div>
     #[stable(feature = "drain", since = "1.6.0")]
     pub fn drain<R>(&mut self, range: R) -> Drain<'_, T, A>
     where
@@ -3034,6 +3372,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// assert!(v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ المتجه، فيحذف كل القيم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
@@ -3064,6 +3408,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let a = vec![1, 2, 3];
     /// assert_eq!(a.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في المتجه، ويُسمى أيضًا "الطول".
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
@@ -3090,6 +3440,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// v.push(1);
     /// assert!(!v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المتجه لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "vec_is_empty"]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
@@ -3121,6 +3477,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(vec, ['a']);
     /// assert_eq!(vec2, ['b', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم المجموعة إلى جزأين عند الموضع المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[must_use = "use `.truncate()` if you don't need the other half"]
@@ -3186,6 +3548,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// vec.resize_with(4, || { p *= 2; p });
     /// assert_eq!(vec, [2, 4, 8, 16]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر حجم الـ `Vec` في مكانه ليصبح `len` مساويًا لـ `new_len`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "vec_resize_with", since = "1.33.0")]
     pub fn resize_with<F>(&mut self, new_len: usize, f: F)
@@ -3228,6 +3596,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// # // use -Zmiri-disable-leak-check instead of unleaking in tests meant to leak.
     /// # drop(unsafe { Box::from_raw(static_ref) });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Vec` ويتركه بدون تحرير، ويرجع مرجعًا قابلًا للتعديل إلى المحتويات،
+    /// `&'a mut [T]`.
+    ///
+    /// </div>
     #[stable(feature = "vec_leak", since = "1.47.0")]
     #[inline]
     pub fn leak<'a>(self) -> &'a mut [T]
@@ -3267,6 +3642,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// assert_eq!(&v, &[0, 1, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع السعة الزائدة الباقية في المتجه كشريحة من `MaybeUninit<T>`.
+    ///
+    /// </div>
     #[stable(feature = "vec_spare_capacity", since = "1.60.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
     #[inline]
@@ -3334,6 +3715,12 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// assert_eq!(&v, &[1, 1, 2, 4, 8, 12, 16]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى المتجه كشريحة من `T`، ومعها السعة الزائدة الباقية كشريحة من `MaybeUninit<T>`.
+    ///
+    /// </div>
     #[unstable(feature = "vec_split_at_spare", issue = "81944")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
     #[inline]
@@ -3394,6 +3781,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// let reshaped: Vec<[[[u8; 8]; 8]; 8]> = flat.into_chunks().into_chunks().into_chunks();
     /// assert_eq!(reshaped.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجمع كل `N` عناصر من الـ `Vec<T>` في قطعة ليُنتج `Vec<[T; N]>`، ويحذف العناصر الباقية. يجب
+    /// أن يكون `N` أكبر من صفر.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "vec_into_chunks", issue = "142137")]
     pub fn into_chunks<const N: usize>(mut self) -> Vec<[T; N], A> {
@@ -3474,6 +3868,13 @@ impl<T, A: Allocator> Vec<T, A> {
     ///     storage = buffer.recycle();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ هذا الـ `Vec` ويعيد استخدام ذاكرته لـ `Vec` جديد. نوع عناصر الـ `Vec` الجديد يجب أن
+    /// يكون له نفس الحجم والمحاذاة.
+    ///
+    /// </div>
     #[unstable(feature = "vec_recycle", issue = "148227")]
     #[expect(private_bounds)]
     pub fn recycle<U>(mut self) -> Vec<U, A>
@@ -3540,6 +3941,12 @@ impl<T: Clone, A: Allocator> Vec<T, A> {
     /// vec.resize(2, '_');
     /// assert_eq!(vec, ['a', 'b']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر حجم الـ `Vec` في مكانه ليصبح `len` مساويًا لـ `new_len`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "vec_resize", since = "1.5.0")]
     pub fn resize(&mut self, new_len: usize, value: T) {
@@ -3574,6 +3981,12 @@ impl<T: Clone, A: Allocator> Vec<T, A> {
     /// ```
     ///
     /// [`extend`]: Vec::extend
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ كل عناصر شريحة ويضيفها إلى نهاية الـ `Vec`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "vec_extend_from_slice", since = "1.6.0")]
     pub fn extend_from_slice(&mut self, other: &[T]) {
@@ -3605,6 +4018,12 @@ impl<T: Clone, A: Allocator> Vec<T, A> {
     /// strings.extend_from_within(1..=2);
     /// assert_eq!(strings, ["hello", "world", "!", "world", "!"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ العناصر في المدى `src` من نفس المتجه ويضيفها إلى نهايته.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "vec_extend_from_within", since = "1.53.0")]
     pub fn extend_from_within<R>(&mut self, src: R)
@@ -3659,6 +4078,12 @@ impl<T, A: Allocator, const N: usize> Vec<[T; N], A> {
     /// let mut flattened = vec.into_flattened();
     /// assert_eq!(flattened.pop(), Some(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ `Vec<[T; N]>` ويسطّحه إلى `Vec<T>`.
+    ///
+    /// </div>
     #[stable(feature = "slice_flatten", since = "1.80.0")]
     pub fn into_flattened(self) -> Vec<T, A> {
         let (ptr, len, cap, alloc) = self.into_raw_parts_with_allocator();
@@ -3733,6 +4158,12 @@ impl<T: PartialEq, A: Allocator> Vec<T, A> {
     ///
     /// assert_eq!(vec, [1, 2, 3, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العناصر المتكررة المتتالية في المتجه حسب تطبيق `PartialEq`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn dedup(&mut self) {
@@ -3986,6 +4417,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Vec<T, A> {
     /// This method will allocate a new `Vec` and `clone` all of `self`'s contents
     /// into it. The capacity of the duplicate `Vec` is not forced to match the
     /// capacity of the original.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Vec` جديدًا بنسخ عميق لمحتويات `Vec` موجود.
+    ///
+    /// </div>
     fn clone(&self) -> Self {
         let alloc = self.allocator().clone();
         <[T]>::to_vec_in(self, alloc)
@@ -4013,6 +4450,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Vec<T, A> {
     /// // And no reallocation occurred
     /// assert_eq!(yp, y.as_ptr());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل محتويات `self` بنسخة من محتويات `source`.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         crate::slice::SpecCloneIntoVec::clone_into(source.as_slice(), self);
     }
@@ -4029,6 +4472,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Vec<T, A> {
 /// let s: &[u8] = &[0xa8, 0x3c, 0x09];
 /// assert_eq!(b.hash_one(v), b.hash_one(s));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بصمة (hash) المتجه هي نفس بصمة الشريحة المقابلة، كما يتطلب تطبيق `core::borrow::Borrow`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: Hash, A: Allocator> Hash for Vec<T, A> {
     #[inline]
@@ -4101,6 +4550,12 @@ const impl<T, I: [const] SliceIndex<[T]>, A: Allocator> IndexMut<I> for Vec<T, A
 ///     LONG_LIVED.lock().unwrap().push(result);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع مكررًا في `Vec`، ويُستدعى عادةً عبر `Iterator::collect()`.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> FromIterator<T> for Vec<T> {
@@ -4131,6 +4586,13 @@ impl<T, A: Allocator> IntoIterator for Vec<T, A> {
     /// assert_eq!(v_iter.next(), Some("b".to_string()));
     /// assert_eq!(v_iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا ينقل كل قيمة خارج المتجه (من البداية إلى النهاية). لا يمكن استخدام
+    /// المتجه بعد ذلك.
+    ///
+    /// </div>
     #[inline]
     fn into_iter(self) -> Self::IntoIter {
         let me = ManuallyDrop::new(self);
@@ -4306,6 +4768,13 @@ impl<T, A: Allocator> Vec<T, A> {
     /// v.splice(1..1, new);
     /// assert_eq!(v, [1, 2, 3, 4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستبدل المدى المحدد في المتجه بعناصر المكرر `replace_with` ويعطي العناصر
+    /// المحذوفة. لا يلزم أن يكون `replace_with` بنفس طول المدى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "vec_splice", since = "1.21.0")]
@@ -4392,6 +4861,12 @@ impl<T, A: Allocator> Vec<T, A> {
     /// assert_eq!(items, vec![0, 0, 0, 0, 0, 0, 0, 2, 2, 2]);
     /// assert_eq!(ones.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر في المدى.
+    ///
+    /// </div>
     #[stable(feature = "extract_if", since = "1.87.0")]
     pub fn extract_if<F, R>(&mut self, range: R, filter: F) -> ExtractIf<'_, T, F, A>
     where
@@ -4409,6 +4884,12 @@ impl<T, A: Allocator> Vec<T, A> {
 /// append the entire slice at once.
 ///
 /// [`copy_from_slice`]: slice::copy_from_slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق Extend ينسخ العناصر من المراجع قبل إضافتها إلى الـ Vec.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "extend_ref", since = "1.2.0")]
 impl<'a, T: Copy + 'a, A: Allocator> Extend<&'a T> for Vec<T, A> {
@@ -4438,6 +4919,12 @@ impl<'a, T: Copy + 'a, A: Allocator> Extend<&'a T> for Vec<T, A> {
 }
 
 /// Implements comparison of vectors, [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق المقارنة بين المتجهات، بالترتيب المعجمي (lexicographic).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T, A1, A2> PartialOrd<Vec<T, A2>> for Vec<T, A1>
 where
@@ -4455,6 +4942,12 @@ where
 impl<T: Eq, A: Allocator> Eq for Vec<T, A> {}
 
 /// Implements ordering of vectors, [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق ترتيب المتجهات، بالترتيب المعجمي (lexicographic).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: Ord, A: Allocator> Ord for Vec<T, A> {
     #[inline]
@@ -4536,6 +5029,12 @@ impl<T: Clone> From<&[T]> for Vec<T> {
     /// ```
     /// assert_eq!(Vec::from(&[1, 2, 3][..]), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<T>` ويملؤه بنسخ عناصر `s`.
+    ///
+    /// </div>
     fn from(s: &[T]) -> Vec<T> {
         s.to_vec()
     }
@@ -4551,6 +5050,12 @@ impl<T: Clone> From<&mut [T]> for Vec<T> {
     /// ```
     /// assert_eq!(Vec::from(&mut [1, 2, 3][..]), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<T>` ويملؤه بنسخ عناصر `s`.
+    ///
+    /// </div>
     fn from(s: &mut [T]) -> Vec<T> {
         s.to_vec()
     }
@@ -4566,6 +5071,12 @@ impl<T: Clone, const N: usize> From<&[T; N]> for Vec<T> {
     /// ```
     /// assert_eq!(Vec::from(&[1, 2, 3]), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<T>` ويملؤه بنسخ عناصر `s`.
+    ///
+    /// </div>
     fn from(s: &[T; N]) -> Vec<T> {
         Self::from(s.as_slice())
     }
@@ -4581,6 +5092,12 @@ impl<T: Clone, const N: usize> From<&mut [T; N]> for Vec<T> {
     /// ```
     /// assert_eq!(Vec::from(&mut [1, 2, 3]), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<T>` ويملؤه بنسخ عناصر `s`.
+    ///
+    /// </div>
     fn from(s: &mut [T; N]) -> Vec<T> {
         Self::from(s.as_mut_slice())
     }
@@ -4596,6 +5113,12 @@ impl<T, const N: usize> From<[T; N]> for Vec<T> {
     /// ```
     /// assert_eq!(Vec::from([1, 2, 3]), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<T>` وينقل إليه عناصر `s`.
+    ///
+    /// </div>
     fn from(s: [T; N]) -> Vec<T> {
         <[T]>::into_vec(Box::new(s))
     }
@@ -4637,6 +5160,12 @@ impl<T, A: Allocator> From<Box<[T], A>> for Vec<T, A> {
     /// let b: Box<[i32]> = vec![1, 2, 3].into_boxed_slice();
     /// assert_eq!(Vec::from(b), vec![1, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة داخل `Box` إلى متجه بنقل ملكية ذاكرة الـ heap الموجودة.
+    ///
+    /// </div>
     fn from(s: Box<[T], A>) -> Self {
         s.into_vec()
     }
@@ -4666,6 +5195,12 @@ impl<T, A: Allocator> From<Vec<T, A>> for Box<[T], A> {
     ///
     /// assert_eq!(Box::from(vec), vec![1, 2, 3].into_boxed_slice());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل متجهًا إلى شريحة داخل `Box`.
+    ///
+    /// </div>
     fn from(v: Vec<T, A>) -> Self {
         v.into_boxed_slice()
     }
@@ -4681,6 +5216,12 @@ impl From<&str> for Vec<u8> {
     /// ```
     /// assert_eq!(Vec::from("123"), vec![b'1', b'2', b'3']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `Vec<u8>` ويملؤه بنص UTF-8.
+    ///
+    /// </div>
     fn from(s: &str) -> Vec<u8> {
         From::from(s.as_bytes())
     }

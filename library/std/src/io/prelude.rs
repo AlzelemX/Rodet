@@ -7,6 +7,12 @@
 //! # #![allow(unused_imports)]
 //! use std::io::prelude::*;
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مقدمة الإدخال والإخراج (I/O Prelude): ما يُستورد عادةً للعمل مع I/O.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

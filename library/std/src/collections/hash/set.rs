@@ -121,6 +121,12 @@ use crate::ops::{BitAnd, BitOr, BitXor, Sub};
 /// static SET: Mutex<HashSet<String, BuildHasherDefault<DefaultHasher>>> =
 ///     Mutex::new(HashSet::with_hasher(BuildHasherDefault::new()));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مجموعة تجزئة (hash set) مبنية كـ `HashMap` قيمته `()`.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "HashSet")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct HashSet<
@@ -143,6 +149,12 @@ impl<T> HashSet<T, RandomState> {
     /// use std::collections::HashSet;
     /// let set: HashSet<i32> = HashSet::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -163,6 +175,12 @@ impl<T> HashSet<T, RandomState> {
     /// let set: HashSet<i32> = HashSet::with_capacity(10);
     /// assert!(set.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -185,6 +203,12 @@ impl<T, A: Allocator> HashSet<T, RandomState, A> {
     ///
     /// let set: HashSet<i32> = HashSet::new_in(Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا في المخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -207,6 +231,12 @@ impl<T, A: Allocator> HashSet<T, RandomState, A> {
     ///
     /// let set: HashSet<i32> = HashSet::with_capacity_in(10, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -239,6 +269,12 @@ impl<T, S> HashSet<T, S> {
     /// let mut set = HashSet::with_hasher(s);
     /// set.insert(2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة تجزئة فارغة تستخدم دالة التجزئة المعطاة لتجزئة المفاتيح.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
@@ -272,6 +308,12 @@ impl<T, S> HashSet<T, S> {
     /// let mut set = HashSet::with_capacity_and_hasher(10, s);
     /// set.insert(1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا بسعة لا تقل عن السعة المحددة، ويستخدم `hasher` لتجزئة المفاتيح.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
@@ -305,6 +347,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// let s = RandomState::new();
     /// let set: HashSet<i32> = HashSet::with_hasher_in(s, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة تجزئة فارغة تستخدم دالة التجزئة المعطاة، وتحجز الذاكرة بالمخصص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -338,6 +386,13 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// let s = RandomState::new();
     /// let set: HashSet<i32> = HashSet::with_capacity_and_hasher_in(10, s, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `HashSet` فارغًا بسعة لا تقل عن السعة المحددة، ويستخدم `hasher` للتجزئة و`alloc` لحجز
+    /// الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -354,6 +409,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// let set: HashSet<i32> = HashSet::with_capacity(100);
     /// assert!(set.capacity() >= 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر التي تتسع لها المجموعة بدون إعادة حجز الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn capacity(&self) -> usize {
@@ -381,6 +442,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     ///
     /// In the current implementation, iterating over set takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مكرر يمر على كل العناصر بترتيب عشوائي. نوع العنصر `&'a T`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -401,6 +468,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// v.insert(1);
     /// assert_eq!(v.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn len(&self) -> usize {
@@ -419,6 +492,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// v.insert(1);
     /// assert!(!v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة لا تحتوي أي عنصر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_empty(&self) -> bool {
@@ -447,6 +526,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     ///
     /// assert!(set.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ المجموعة ويرجع كل العناصر كمكرر. يحتفظ بالذاكرة المحجوزة لإعادة استخدامها.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "drain", since = "1.6.0")]
@@ -484,6 +569,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// assert_eq!(evens, vec![0, 2, 4, 6]);
     /// assert_eq!(odds, vec![1, 3, 5, 7]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "hash_extract_if", since = "1.88.0")]
@@ -513,6 +604,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     ///
     /// In the current implementation, this operation takes O(capacity) time
     /// instead of O(len) because it internally visits empty buckets too.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[rustc_lint_query_instability]
     #[stable(feature = "retain_hash_collection", since = "1.18.0")]
     pub fn retain<F>(&mut self, f: F)
@@ -534,6 +631,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// v.clear();
     /// assert!(v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ المجموعة بحذف كل القيم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
@@ -552,6 +655,12 @@ impl<T, S, A: Allocator> HashSet<T, S, A> {
     /// let set: HashSet<i32> = HashSet::with_hasher(hasher);
     /// let hasher: &RandomState = set.hasher();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى `BuildHasher` الخاص بالمجموعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hashmap_public_hasher", since = "1.9.0")]
     pub fn hasher(&self) -> &S {
@@ -583,6 +692,13 @@ where
     /// set.reserve(10);
     /// assert!(set.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `HashSet`. قد يحجز أكثر لتجنب
+    /// إعادة الحجز المتكرر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve(&mut self, additional: usize) {
@@ -608,6 +724,13 @@ where
     /// let mut set: HashSet<i32> = HashSet::new();
     /// set.try_reserve(10).expect("why is the test harness OOMing on a handful of bytes?");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الـ `HashSet`، ويرجع خطأً بدل
+    /// التوقف إذا فشل الحجز.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -630,6 +753,12 @@ where
     /// set.shrink_to_fit();
     /// assert!(set.capacity() >= 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة المجموعة قدر الإمكان، مع الحفاظ على قواعدها الداخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn shrink_to_fit(&mut self) {
@@ -655,6 +784,12 @@ where
     /// set.shrink_to(0);
     /// assert!(set.capacity() >= 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة المجموعة مع حد أدنى لا تقل عنه، مع الحفاظ على قواعدها الداخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -684,6 +819,12 @@ where
     /// let diff: HashSet<_> = b.difference(&a).collect();
     /// assert_eq!(diff, [4].iter().collect());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على قيم الفرق، أي القيم الموجودة في `self` وليست في `other`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -712,6 +853,12 @@ where
     /// assert_eq!(diff1, diff2);
     /// assert_eq!(diff1, [1, 4].iter().collect());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على قيم الفرق المتماثل، أي القيم الموجودة في `self` أو في `other` لكن ليس في كليهما.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -746,6 +893,12 @@ where
     /// let intersection: HashSet<_> = a.intersection(&b).collect();
     /// assert_eq!(intersection, [2, 3].iter().collect());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على قيم التقاطع، أي القيم الموجودة في `self` و`other` معًا.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -775,6 +928,12 @@ where
     /// let union: HashSet<_> = a.union(&b).collect();
     /// assert_eq!(union, [1, 2, 3, 4].iter().collect());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على قيم الاتحاد، أي كل القيم في `self` أو `other` بدون تكرار.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -801,6 +960,12 @@ where
     /// assert_eq!(set.contains(&1), true);
     /// assert_eq!(set.contains(&4), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة تحتوي القيمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn contains<Q: ?Sized>(&self, value: &Q) -> bool
@@ -826,6 +991,12 @@ where
     /// assert_eq!(set.get(&2), Some(&2));
     /// assert_eq!(set.get(&4), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة في المجموعة التي تساوي القيمة المعطاة، إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "set_recovery", since = "1.9.0")]
     pub fn get<Q: ?Sized>(&self, value: &Q) -> Option<&T>
@@ -852,6 +1023,12 @@ where
     /// assert_eq!(set.get_or_insert(100), &100);
     /// assert_eq!(set.len(), 4); // 100 was inserted
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف `value` إلى المجموعة إذا لم تكن موجودة، ثم يرجع مرجعًا إلى القيمة في المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn get_or_insert(&mut self, value: T) -> &T {
@@ -880,6 +1057,13 @@ where
     /// }
     /// assert_eq!(set.len(), 4); // a new "fish" was inserted
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة يحسبها `f` إلى المجموعة إذا لم تكن `value` موجودة، ثم يرجع مرجعًا إلى القيمة في
+    /// المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn get_or_insert_with<Q: ?Sized, F>(&mut self, value: &Q, f: F) -> &T
@@ -928,6 +1112,12 @@ where
     /// assert!(singles.contains(&'u') && !dupes.contains(&'u'));
     /// assert!(!singles.contains(&'v') && !dupes.contains(&'v'));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدخل المقابل للقيمة المعطاة في المجموعة لتعديله في مكانه.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn entry(&mut self, value: T) -> Entry<'_, T, S, A> {
@@ -951,6 +1141,12 @@ where
     /// b.insert(1);
     /// assert_eq!(a.is_disjoint(&b), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن بين `self` و`other` أي عنصر مشترك (أي تقاطعهما فارغ).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_disjoint(&self, other: &HashSet<T, S, A>) -> bool {
         if self.len() <= other.len() {
@@ -977,6 +1173,12 @@ where
     /// set.insert(4);
     /// assert_eq!(set.is_subset(&sup), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة جزءًا من الأخرى، أي أن `other` يحتوي كل قيم `self` على الأقل.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_subset(&self, other: &HashSet<T, S, A>) -> bool {
         if self.len() <= other.len() { self.iter().all(|v| other.contains(v)) } else { false }
@@ -1002,6 +1204,12 @@ where
     /// set.insert(2);
     /// assert_eq!(set.is_superset(&sub), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة تحتوي الأخرى، أي أن `self` يحتوي كل قيم `other` على الأقل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_superset(&self, other: &HashSet<T, S, A>) -> bool {
@@ -1028,6 +1236,12 @@ where
     /// assert_eq!(set.insert(2), false);
     /// assert_eq!(set.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة إلى المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "append", "put")]
@@ -1050,6 +1264,12 @@ where
     /// set.replace(Vec::with_capacity(10));
     /// assert_eq!(set.get(&[][..]).unwrap().capacity(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة إلى المجموعة ويستبدل القيمة المساوية لها إن وُجدت، ويرجع القيمة المستبدلة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "set_recovery", since = "1.9.0")]
     #[rustc_confusables("swap")]
@@ -1075,6 +1295,12 @@ where
     /// assert_eq!(set.remove(&2), true);
     /// assert_eq!(set.remove(&2), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف قيمة من المجموعة، ويرجع هل كانت موجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("delete", "take")]
@@ -1101,6 +1327,12 @@ where
     /// assert_eq!(set.take(&2), Some(2));
     /// assert_eq!(set.take(&2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيمة المساوية للقيمة المعطاة من المجموعة ويرجعها، إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "set_recovery", since = "1.9.0")]
     pub fn take<Q: ?Sized>(&mut self, value: &Q) -> Option<T>
@@ -1136,6 +1368,12 @@ where
     ///
     /// This method is preferred over simply assigning `source.clone()` to `self`,
     /// as it avoids reallocation if possible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل محتويات `self` بنسخة من محتويات `source`.
+    ///
+    /// </div>
     #[inline]
     fn clone_from(&mut self, other: &Self) {
         self.base.clone_from(&other.base);
@@ -1435,6 +1673,12 @@ where
 ///
 /// let mut iter = a.iter();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على عناصر `HashSet`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashset_iter_ty")]
 pub struct Iter<'a, K: 'a> {
@@ -1465,6 +1709,12 @@ impl<K> Default for Iter<'_, K> {
 ///
 /// let mut iter = a.into_iter();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على عناصر `HashSet`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<
     K,
@@ -1497,6 +1747,12 @@ impl<K> Default for IntoIter<K> {
 ///
 /// let mut drain = a.drain();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) عناصر `HashSet`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "hashset_drain_ty")]
 pub struct Drain<
@@ -1522,6 +1778,12 @@ pub struct Drain<
 ///
 /// let mut extract_ifed = a.extract_if(|v| v % 2 == 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يسحب ويفلتر عناصر `HashSet`.
+///
+/// </div>
 #[stable(feature = "hash_extract_if", since = "1.88.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `retain` to remove and discard elements"]
@@ -1551,6 +1813,12 @@ pub struct ExtractIf<
 ///
 /// let mut intersection = a.intersection(&b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر تقاطع مجموعات `HashSet`.
+///
+/// </div>
 #[must_use = "this returns the intersection as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1583,6 +1851,12 @@ pub struct Intersection<
 ///
 /// let mut difference = a.difference(&b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر فرق مجموعات `HashSet`.
+///
+/// </div>
 #[must_use = "this returns the difference as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1615,6 +1889,12 @@ pub struct Difference<
 ///
 /// let mut intersection = a.symmetric_difference(&b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر الفرق المتماثل لمجموعات `HashSet`.
+///
+/// </div>
 #[must_use = "this returns the difference as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1644,6 +1924,12 @@ pub struct SymmetricDifference<
 ///
 /// let mut union_iter = a.union(&b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر اتحاد مجموعات `HashSet`.
+///
+/// </div>
 #[must_use = "this returns the union as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1693,6 +1979,13 @@ impl<T, S, A: Allocator> IntoIterator for HashSet<T, S, A> {
     ///     println!("{x}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا ينقل كل قيمة خارج المجموعة بترتيب عشوائي. لا يمكن استخدام المجموعة بعد
+    /// ذلك.
+    ///
+    /// </div>
     #[inline]
     #[rustc_lint_query_instability]
     fn into_iter(self) -> IntoIter<T, A> {
@@ -2140,6 +2433,12 @@ where
 /// vec.sort_unstable();
 /// assert_eq!(vec, ["a", "b", "c", "d", "e"]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل واحد في مجموعة، قد يكون فارغًا أو مشغولًا.
+///
+/// </div>
 #[unstable(feature = "hash_set_entry", issue = "60896")]
 pub enum Entry<
     'a,
@@ -2232,6 +2531,12 @@ impl<T: fmt::Debug, S, A: Allocator> fmt::Debug for Entry<'_, T, S, A> {
 /// assert_eq!(set.get(&"c"), None);
 /// assert_eq!(set.len(), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل مشغول في `HashSet`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[unstable(feature = "hash_set_entry", issue = "60896")]
 pub struct OccupiedEntry<
     'a,
@@ -2277,6 +2582,12 @@ impl<T: fmt::Debug, S, A: Allocator> fmt::Debug for OccupiedEntry<'_, T, S, A> {
 /// }
 /// assert!(set.contains("b") && set.len() == 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل فارغ في `HashSet`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[unstable(feature = "hash_set_entry", issue = "60896")]
 pub struct VacantEntry<
     'a,
@@ -2309,6 +2620,12 @@ impl<'a, T, S, A: Allocator> Entry<'a, T, S, A> {
     ///
     /// assert_eq!(entry.get(), &"horseyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn insert(self) -> OccupiedEntry<'a, T, S, A>
@@ -2342,6 +2659,12 @@ impl<'a, T, S, A: Allocator> Entry<'a, T, S, A> {
     /// assert!(set.contains("poneyland"));
     /// assert_eq!(set.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافتها إذا كان فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn or_insert(self)
@@ -2371,6 +2694,12 @@ impl<'a, T, S, A: Allocator> Entry<'a, T, S, A> {
     /// // nonexistent key
     /// assert_eq!(set.entry("horseland").get(), &"horseland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى قيمة هذا المدخل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn get(&self) -> &T {
@@ -2399,6 +2728,12 @@ impl<T, S, A: Allocator> OccupiedEntry<'_, T, S, A> {
     ///     Entry::Occupied(entry) => assert_eq!(entry.get(), &"poneyland"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn get(&self) -> &T {
@@ -2431,6 +2766,12 @@ impl<T, S, A: Allocator> OccupiedEntry<'_, T, S, A> {
     /// // Now set hold none elements but capacity is equal to the old one
     /// assert!(set.len() == 0 && set.capacity() == capacity_before_remove);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من المدخل ويرجعها. يحتفظ بالذاكرة المحجوزة لإعادة استخدامها.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn remove(self) -> T {
@@ -2452,6 +2793,12 @@ impl<'a, T, S, A: Allocator> VacantEntry<'a, T, S, A> {
     /// let mut set = HashSet::new();
     /// assert_eq!(set.entry("poneyland").get(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة التي ستُستخدم عند الإضافة عبر `VacantEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn get(&self) -> &T {
@@ -2474,6 +2821,12 @@ impl<'a, T, S, A: Allocator> VacantEntry<'a, T, S, A> {
     ///     Entry::Vacant(v) => assert_eq!(v.into_value(), "poneyland"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية القيمة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn into_value(self) -> T {
@@ -2497,6 +2850,12 @@ impl<'a, T, S, A: Allocator> VacantEntry<'a, T, S, A> {
     /// }
     /// assert!(set.contains("poneyland"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بقيمة `VacantEntry`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hash_set_entry", issue = "60896")]
     pub fn insert(self)

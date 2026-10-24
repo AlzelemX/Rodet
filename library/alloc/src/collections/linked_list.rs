@@ -1132,6 +1132,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(d.pop_front(), Some(2));
     /// assert_eq!(d.pop_front(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_retain", issue = "114135")]
     pub fn retain<F>(&mut self, mut f: F)
     where
@@ -1176,6 +1182,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(evens.into_iter().collect::<Vec<_>>(), vec![2, 4, 6, 8, 14]);
     /// assert_eq!(odds.into_iter().collect::<Vec<_>>(), vec![1, 3, 5, 9, 11, 13, 15]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر.
+    ///
+    /// </div>
     #[stable(feature = "extract_if", since = "1.87.0")]
     pub fn extract_if<F>(&mut self, filter: F) -> ExtractIf<'_, T, F, A>
     where
@@ -2218,6 +2230,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for LinkedList<T, A> {
     /// as it avoids reallocation of the nodes of the linked list. Additionally,
     /// if the element type `T` overrides `clone_from()`, this will reuse the
     /// resources of `self`'s elements as well.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل محتويات `self` بنسخة من محتويات `source`.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         let mut source_iter = source.iter();
         for elem in self.iter_mut() {

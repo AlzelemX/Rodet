@@ -9,6 +9,12 @@ impl<'a, T: Clone> From<&'a [T]> for Cow<'a, [T]> {
     /// This conversion does not allocate or clone the data.
     ///
     /// [`Borrowed`]: crate::borrow::Cow::Borrowed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حالة `Borrowed` من `Cow` من شريحة.
+    ///
+    /// </div>
     fn from(s: &'a [T]) -> Cow<'a, [T]> {
         Cow::Borrowed(s)
     }
@@ -22,6 +28,12 @@ impl<'a, T: Clone, const N: usize> From<&'a [T; N]> for Cow<'a, [T]> {
     /// This conversion does not allocate or clone the data.
     ///
     /// [`Borrowed`]: crate::borrow::Cow::Borrowed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حالة `Borrowed` من `Cow` من مرجع إلى مصفوفة.
+    ///
+    /// </div>
     fn from(s: &'a [T; N]) -> Cow<'a, [T]> {
         Cow::Borrowed(s as &[_])
     }
@@ -35,6 +47,12 @@ impl<'a, T: Clone> From<Vec<T>> for Cow<'a, [T]> {
     /// This conversion does not allocate or clone the data.
     ///
     /// [`Owned`]: crate::borrow::Cow::Owned
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حالة `Owned` من `Cow` من `Vec` مملوك.
+    ///
+    /// </div>
     fn from(v: Vec<T>) -> Cow<'a, [T]> {
         Cow::Owned(v)
     }
@@ -48,6 +66,12 @@ impl<'a, T: Clone> From<&'a Vec<T>> for Cow<'a, [T]> {
     /// This conversion does not allocate or clone the data.
     ///
     /// [`Borrowed`]: crate::borrow::Cow::Borrowed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حالة `Borrowed` من `Cow` من مرجع إلى `Vec`.
+    ///
+    /// </div>
     fn from(v: &'a Vec<T>) -> Cow<'a, [T]> {
         Cow::Borrowed(v.as_slice())
     }

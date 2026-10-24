@@ -11,6 +11,12 @@ use crate::fmt;
 /// its documentation for more.
 ///
 /// [`peek_mut`]: Vec::peek_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تغلّف مرجعًا قابلًا للتعديل إلى آخر عنصر في `Vec`.
+///
+/// </div>
 #[unstable(feature = "vec_peek_mut", issue = "122742")]
 pub struct PeekMut<
     'a,
@@ -33,6 +39,12 @@ impl<'a, T, A: Allocator> PeekMut<'a, T, A> {
     }
 
     /// Removes the peeked value from the vector and returns it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيمة المنظور إليها من المتجه ويرجعها.
+    ///
+    /// </div>
     #[unstable(feature = "vec_peek_mut", issue = "122742")]
     pub fn pop(this: Self) -> T {
         // SAFETY: PeekMut is only constructed if the vec is non-empty

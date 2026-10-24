@@ -183,6 +183,12 @@ pub(super) const MIN_LEN: usize = node::MIN_LEN_AFTER_SPLIT;
 /// [total order]: https://en.wikipedia.org/wiki/Total_order
 /// [`Cell`]: core::cell::Cell
 /// [`RefCell`]: core::cell::RefCell
+///
+/// <div lang="ar" dir="rtl">
+///
+/// جدول مرتب حسب المفاتيح، مبني على شجرة B (B-Tree).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "BTreeMap")]
 #[rustc_insignificant_dtor]
@@ -375,6 +381,12 @@ impl<K, A: AllocatorClone> BTreeMap<K, SetValZST, A> {
 /// documentation for more.
 ///
 /// [`iter`]: BTreeMap::iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مدخلات `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, K: 'a, V: 'a> {
@@ -398,6 +410,12 @@ impl<'a, K: 'a, V: 'a> Default for Iter<'a, K, V> {
     /// let iter: btree_map::Iter<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::Iter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Iter { range: Default::default(), length: 0 }
     }
@@ -409,6 +427,12 @@ impl<'a, K: 'a, V: 'a> Default for Iter<'a, K, V> {
 /// documentation for more.
 ///
 /// [`iter_mut`]: BTreeMap::iter_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على مدخلات `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IterMut<'a, K: 'a, V: 'a> {
@@ -436,6 +460,12 @@ impl<'a, K: 'a, V: 'a> Default for IterMut<'a, K, V> {
     /// let iter: btree_map::IterMut<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::IterMut` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         IterMut { range: Default::default(), length: 0, _marker: PhantomData {} }
     }
@@ -447,6 +477,12 @@ impl<'a, K: 'a, V: 'a> Default for IterMut<'a, K, V> {
 /// (provided by the [`IntoIterator`] trait). See its documentation for more.
 ///
 /// [`into_iter`]: IntoIterator::into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على مدخلات `BTreeMap`، مرتبة حسب المفتاح.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_insignificant_dtor]
 pub struct IntoIter<
@@ -498,6 +534,12 @@ where
 /// documentation for more.
 ///
 /// [`keys`]: BTreeMap::keys
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مفاتيح `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Keys<'a, K, V> {
@@ -517,6 +559,12 @@ impl<K: fmt::Debug, V> fmt::Debug for Keys<'_, K, V> {
 /// documentation for more.
 ///
 /// [`values`]: BTreeMap::values
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على قيم `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Values<'a, K, V> {
@@ -536,6 +584,12 @@ impl<K, V: fmt::Debug> fmt::Debug for Values<'_, K, V> {
 /// documentation for more.
 ///
 /// [`values_mut`]: BTreeMap::values_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على قيم `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "map_values_mut", since = "1.10.0")]
 pub struct ValuesMut<'a, K, V> {
@@ -555,6 +609,12 @@ impl<K, V: fmt::Debug> fmt::Debug for ValuesMut<'_, K, V> {
 /// See its documentation for more.
 ///
 /// [`into_keys`]: BTreeMap::into_keys
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على مفاتيح `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "map_into_keys_values", since = "1.54.0")]
 pub struct IntoKeys<
@@ -578,6 +638,12 @@ impl<K: fmt::Debug, V, A: AllocatorClone> fmt::Debug for IntoKeys<K, V, A> {
 /// See its documentation for more.
 ///
 /// [`into_values`]: BTreeMap::into_values
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على قيم `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "map_into_keys_values", since = "1.54.0")]
 pub struct IntoValues<
@@ -601,6 +667,12 @@ impl<K, V: fmt::Debug, A: AllocatorClone> fmt::Debug for IntoValues<K, V, A> {
 /// documentation for more.
 ///
 /// [`range`]: BTreeMap::range
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على جزء (مدى) من مدخلات `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "btree_range", since = "1.17.0")]
 pub struct Range<'a, K: 'a, V: 'a> {
@@ -620,6 +692,12 @@ impl<K: fmt::Debug, V: fmt::Debug> fmt::Debug for Range<'_, K, V> {
 /// documentation for more.
 ///
 /// [`range_mut`]: BTreeMap::range_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على جزء (مدى) من مدخلات `BTreeMap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "btree_range", since = "1.17.0")]
 pub struct RangeMut<'a, K: 'a, V: 'a> {
@@ -652,6 +730,12 @@ impl<K, V> BTreeMap<K, V> {
     /// // entries can now be inserted into the empty map
     /// map.insert(1, "a");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeMap` جديدًا فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_btree_new", since = "1.66.0")]
     #[inline]
@@ -674,6 +758,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// a.clear();
     /// assert!(a.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الجدول بحذف كل العناصر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
         // avoid moving the allocator
@@ -697,6 +787,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     ///
     /// let map: BTreeMap<i32, i32> = BTreeMap::new_in(Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeMap` جديدًا فارغًا باختيار مناسب لـ B.
+    ///
+    /// </div>
     #[unstable(feature = "btreemap_alloc", issue = "163177")]
     #[must_use]
     pub const fn new_in(alloc: A) -> BTreeMap<K, V, A> {
@@ -720,6 +816,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.get(&1), Some(&"a"));
     /// assert_eq!(map.get(&2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة المقابلة للمفتاح.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get<Q: ?Sized>(&self, key: &Q) -> Option<&V>
     where
@@ -786,6 +888,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.get_key_value(&j_b), Some((&j_a, &"Paris"))); // the notable case
     /// assert_eq!(map.get_key_value(&p), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع زوج المفتاح والقيمة المقابل للمفتاح المعطى. مفيد مثلًا عندما يمكن اعتبار مفاتيح غير
+    /// متطابقة متساوية، أو للحصول على المفتاح المخزن `&K` من بحث بـ `&Q`.
+    ///
+    /// </div>
     #[stable(feature = "map_get_key_value", since = "1.40.0")]
     pub fn get_key_value<Q: ?Sized>(&self, k: &Q) -> Option<(&K, &V)>
     where
@@ -813,6 +922,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// map.insert(2, "a");
     /// assert_eq!(map.first_key_value(), Some((&1, &"b")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أول زوج مفتاح وقيمة في الجدول، أي صاحب أصغر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn first_key_value(&self) -> Option<(&K, &V)>
     where
@@ -841,6 +956,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(*map.get(&1).unwrap(), "first");
     /// assert_eq!(*map.get(&2).unwrap(), "b");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أول مدخل في الجدول لتعديله في مكانه، أي صاحب أصغر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn first_entry(&mut self) -> Option<OccupiedEntry<'_, K, V, A>>
     where
@@ -875,6 +996,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// }
     /// assert!(map.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أول عنصر في الجدول ويرجعه، أي صاحب أصغر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn pop_first(&mut self) -> Option<(K, V)>
     where
@@ -896,6 +1023,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// map.insert(2, "a");
     /// assert_eq!(map.last_key_value(), Some((&2, &"a")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر زوج مفتاح وقيمة في الجدول، أي صاحب أكبر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn last_key_value(&self) -> Option<(&K, &V)>
     where
@@ -924,6 +1057,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(*map.get(&1).unwrap(), "a");
     /// assert_eq!(*map.get(&2).unwrap(), "last");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر مدخل في الجدول لتعديله في مكانه، أي صاحب أكبر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn last_entry(&mut self) -> Option<OccupiedEntry<'_, K, V, A>>
     where
@@ -958,6 +1097,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// }
     /// assert!(map.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر في الجدول ويرجعه، أي صاحب أكبر مفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn pop_last(&mut self) -> Option<(K, V)>
     where
@@ -981,6 +1126,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.contains_key(&1), true);
     /// assert_eq!(map.contains_key(&2), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان في الجدول قيمة للمفتاح المحدد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "btreemap_contains_key")]
     pub fn contains_key<Q: ?Sized>(&self, key: &Q) -> bool
@@ -1008,6 +1159,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// }
     /// assert_eq!(map[&1], "b");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة المقابلة للمفتاح.
+    ///
+    /// </div>
     // See `get` for implementation notes, this is basically a copy-paste with mut's added
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut<Q: ?Sized>(&mut self, key: &Q) -> Option<&mut V>
@@ -1046,6 +1203,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.insert(37, "c"), Some("b"));
     /// assert_eq!(map[&37], "c");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف زوج مفتاح وقيمة إلى الجدول.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "put", "set")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "btreemap_insert")]
@@ -1084,6 +1247,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(err.key, 37);
     /// assert_eq!(err.value, "b");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إضافة زوج مفتاح وقيمة إلى الجدول، ويرجع مرجعًا قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[unstable(feature = "map_try_insert", issue = "82766")]
     pub fn try_insert(&mut self, key: K, value: V) -> Result<&mut V, OccupiedError<'_, K, V, A>>
     where
@@ -1131,6 +1300,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.remove(&1), Some("a"));
     /// assert_eq!(map.remove(&1), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف مفتاحًا من الجدول، ويرجع قيمته إذا كان المفتاح موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("delete", "take")]
     pub fn remove<Q: ?Sized>(&mut self, key: &Q) -> Option<V>
@@ -1157,6 +1332,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(map.remove_entry(&1), Some((1, "a")));
     /// assert_eq!(map.remove_entry(&1), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف مفتاحًا من الجدول، ويرجع المفتاح المخزن وقيمته إذا كان موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "btreemap_remove_entry", since = "1.45.0")]
     pub fn remove_entry<Q: ?Sized>(&mut self, key: &Q) -> Option<(K, V)>
     where
@@ -1194,6 +1375,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// map.retain(|&k, _| k % 2 == 0);
     /// assert!(map.into_iter().eq(vec![(0, 0), (2, 20), (4, 40), (6, 60)]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "btree_retain", since = "1.53.0")]
     pub fn retain<F>(&mut self, mut f: F)
@@ -1239,6 +1426,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(a[&4], "e");
     /// assert_eq!(a[&5], "f");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل العناصر من `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "btree_append", since = "1.11.0")]
     pub fn append(&mut self, other: &mut Self)
     where
@@ -1294,6 +1487,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(a[&4], "e");
     /// assert_eq!(a[&5], "f");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل العناصر من `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[unstable(feature = "btree_merge", issue = "152152")]
     pub fn merge(&mut self, mut other: Self, mut conflict: impl FnMut(&K, V, V) -> V)
     where
@@ -1432,6 +1631,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// }
     /// assert_eq!(Some((&5, &"b")), map.range(4..).next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا من الطرفين على جزء من عناصر الجدول. أبسط طريقة هي صيغة المدى: `range(min..max)`
+    /// يعطي العناصر من min (شاملًا) إلى max (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "btree_range", since = "1.17.0")]
     pub fn range<T: ?Sized, R>(&self, range: R) -> Range<'_, K, V>
     where
@@ -1472,6 +1678,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     ///     println!("{name} => {balance}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا قابلًا للتعديل من الطرفين على جزء من عناصر الجدول. مثلًا `range_mut(min..max)`
+    /// يعطي العناصر من min (شاملًا) إلى max (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "btree_range", since = "1.17.0")]
     pub fn range_mut<T: ?Sized, R>(&mut self, range: R) -> RangeMut<'_, K, V>
     where
@@ -1504,6 +1717,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(count["b"], 2);
     /// assert_eq!(count["c"], 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدخل (entry) المقابل للمفتاح المعطى في الجدول لتعديله في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn entry(&mut self, key: K) -> Entry<'_, K, V, A>
     where
@@ -1564,6 +1783,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(b[&17], "d");
     /// assert_eq!(b[&41], "e");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم المجموعة إلى جزأين عند المفتاح المعطى، ويرجع كل ما بعده بما فيه المفتاح نفسه. إذا لم
+    /// يوجد المفتاح يكون القسم عند أقرب مفتاح أكبر.
+    ///
+    /// </div>
     #[stable(feature = "btree_split_off", since = "1.11.0")]
     pub fn split_off<Q: ?Sized + Ord>(&mut self, key: &Q) -> Self
     where
@@ -1627,6 +1853,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(low.keys().copied().collect::<Vec<_>>(), [0, 1, 2, 3]);
     /// assert_eq!(high.keys().copied().collect::<Vec<_>>(), [4, 5, 6, 7]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يمر على العناصر في المدى المحدد بترتيب المفاتيح التصاعدي، ويستخدم إغلاقًا ليقرر
+    /// هل يُحذف كل عنصر.
+    ///
+    /// </div>
     #[stable(feature = "btree_extract_if", since = "1.91.0")]
     pub fn extract_if<F, R>(&mut self, range: R, pred: F) -> ExtractIf<'_, K, V, R, F, A>
     where
@@ -1684,6 +1917,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// let keys: Vec<i32> = a.into_keys().collect();
     /// assert_eq!(keys, [1, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا يمر على كل المفاتيح بترتيب مرتب. لا يمكن استخدام الجدول بعد ذلك. نوع
+    /// العنصر `K`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_into_keys_values", since = "1.54.0")]
     pub fn into_keys(self) -> IntoKeys<K, V, A> {
@@ -1706,6 +1946,13 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// let values: Vec<&str> = a.into_values().collect();
     /// assert_eq!(values, ["hello", "goodbye"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا يمر على كل القيم بترتيب مفاتيحها. لا يمكن استخدام الجدول بعد ذلك. نوع
+    /// العنصر `V`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "map_into_keys_values", since = "1.54.0")]
     pub fn into_values(self) -> IntoValues<K, V, A> {
@@ -1892,6 +2139,12 @@ impl<K, V, A: AllocatorClone> IntoIterator for BTreeMap<K, V, A> {
     type IntoIter = IntoIter<K, V, A>;
 
     /// Gets an owning iterator over the entries of the map, sorted by key.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا مالكًا على مدخلات الجدول، مرتبة حسب المفتاح.
+    ///
+    /// </div>
     fn into_iter(self) -> IntoIter<K, V, A> {
         let mut me = ManuallyDrop::new(self);
         if let Some(root) = me.root.take() {
@@ -2073,6 +2326,12 @@ impl<K, V> Default for Keys<'_, K, V> {
     /// let iter: btree_map::Keys<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::Keys` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Keys { inner: Default::default() }
     }
@@ -2131,6 +2390,12 @@ impl<K, V> Default for Values<'_, K, V> {
     /// let iter: btree_map::Values<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::Values` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Values { inner: Default::default() }
     }
@@ -2139,6 +2404,12 @@ impl<K, V> Default for Values<'_, K, V> {
 /// This `struct` is created by the [`extract_if`] method on [`BTreeMap`].
 ///
 /// [`extract_if`]: BTreeMap::extract_if
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الـ `struct` تنشئه الدالة `extract_if` على `BTreeMap`.
+///
+/// </div>
 #[stable(feature = "btree_extract_if", since = "1.91.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `retain` or `extract_if().for_each(drop)` to remove and discard elements"]
@@ -2304,6 +2575,12 @@ impl<K, V> Default for Range<'_, K, V> {
     /// let iter: btree_map::Range<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.count(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::Range` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Range { inner: Default::default() }
     }
@@ -2318,6 +2595,12 @@ impl<K, V> Default for RangeMut<'_, K, V> {
     /// let iter: btree_map::RangeMut<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.count(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::RangeMut` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         RangeMut { inner: Default::default(), _marker: PhantomData }
     }
@@ -2369,6 +2652,12 @@ impl<K, V> Default for ValuesMut<'_, K, V> {
     /// let iter: btree_map::ValuesMut<'_, u8, u8> = Default::default();
     /// assert_eq!(iter.count(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_map::ValuesMut` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         ValuesMut { inner: Default::default() }
     }
@@ -2556,6 +2845,12 @@ impl<K: Ord, V> FromIterator<(K, V)> for BTreeMap<K, V> {
     ///
     /// If the iterator produces any pairs with equal keys,
     /// all but one of the corresponding values will be dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeMap<K, V>` من مكرر أزواج مفتاح وقيمة.
+    ///
+    /// </div>
     fn from_iter<I: IntoIterator<Item = (K, V)>>(iter: I) -> BTreeMap<K, V> {
         let mut inputs: Vec<_> = iter.into_iter().collect();
 
@@ -2681,6 +2976,12 @@ impl<K: Ord, V, const N: usize> From<[(K, V); N]> for BTreeMap<K, V> {
     /// let map2: BTreeMap<_, _> = [(1, 2), (3, 4)].into();
     /// assert_eq!(map1, map2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `[(K, V); N]` إلى `BTreeMap<K, V>`.
+    ///
+    /// </div>
     fn from(mut arr: [(K, V); N]) -> Self {
         if N == 0 {
             return BTreeMap::new();
@@ -2712,6 +3013,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// let (first_key, first_value) = map.iter().next().unwrap();
     /// assert_eq!((*first_key, *first_value), (1, "a"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على مدخلات الجدول، مرتبة حسب المفتاح.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter(&self) -> Iter<'_, K, V> {
         if let Some(root) = &self.root {
@@ -2743,6 +3050,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا قابلًا للتعديل على مدخلات الجدول، مرتبة حسب المفتاح.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter_mut(&mut self) -> IterMut<'_, K, V> {
         if let Some(root) = &mut self.root {
@@ -2768,6 +3081,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// let keys: Vec<_> = a.keys().cloned().collect();
     /// assert_eq!(keys, [1, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على مفاتيح الجدول، بترتيب مرتب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn keys(&self) -> Keys<'_, K, V> {
         Keys { inner: self.iter() }
@@ -2787,6 +3106,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// let values: Vec<&str> = a.values().cloned().collect();
     /// assert_eq!(values, ["hello", "goodbye"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على قيم الجدول، بترتيب مفاتيحها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn values(&self) -> Values<'_, K, V> {
         Values { inner: self.iter() }
@@ -2811,6 +3136,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(values, [String::from("hello!"),
     ///                     String::from("goodbye!")]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا قابلًا للتعديل على قيم الجدول، بترتيب مفاتيحها.
+    ///
+    /// </div>
     #[stable(feature = "map_values_mut", since = "1.10.0")]
     pub fn values_mut(&mut self) -> ValuesMut<'_, K, V> {
         ValuesMut { inner: self.iter_mut() }
@@ -2828,6 +3159,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// a.insert(1, "a");
     /// assert_eq!(a.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في الجدول.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(
@@ -2852,6 +3189,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// a.insert(1, "a");
     /// assert!(!a.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الجدول لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(
@@ -2902,6 +3245,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(cursor.peek_prev(), None);
     /// assert_eq!(cursor.peek_next(), Some((&1, &"a")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Cursor` يشير إلى الفجوة قبل أصغر مفتاح أكبر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn lower_bound<Q: ?Sized>(&self, bound: Bound<&Q>) -> Cursor<'_, K, V>
     where
@@ -2955,6 +3304,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(cursor.peek_prev(), None);
     /// assert_eq!(cursor.peek_next(), Some((&1, &mut "a")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `CursorMut` يشير إلى الفجوة قبل أصغر مفتاح أكبر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn lower_bound_mut<Q: ?Sized>(&mut self, bound: Bound<&Q>) -> CursorMut<'_, K, V, A>
     where
@@ -3025,6 +3380,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(cursor.peek_prev(), Some((&4, &"d")));
     /// assert_eq!(cursor.peek_next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Cursor` يشير إلى الفجوة بعد أكبر مفتاح أصغر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn upper_bound<Q: ?Sized>(&self, bound: Bound<&Q>) -> Cursor<'_, K, V>
     where
@@ -3078,6 +3439,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
     /// assert_eq!(cursor.peek_prev(), Some((&4, &mut "d")));
     /// assert_eq!(cursor.peek_next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `CursorMut` يشير إلى الفجوة بعد أكبر مفتاح أصغر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn upper_bound_mut<Q: ?Sized>(&mut self, bound: Bound<&Q>) -> CursorMut<'_, K, V, A>
     where

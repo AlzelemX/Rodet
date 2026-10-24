@@ -104,6 +104,12 @@ impl<I: Iterator, A: Allocator> Drop for Splice<'_, I, A> {
 }
 
 /// Private helper methods for `Splice::drop`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال مساعدة خاصة لـ `Splice::drop`.
+///
+/// </div>
 impl<T, A: Allocator> Drain<'_, T, A> {
     /// The range from `self.deque.len` to `self.deque.len + self.drain_len` contains elements that
     /// have been moved out.

@@ -1,4 +1,10 @@
 //! Traits, helpers, and type definitions for core I/O functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits ودوال مساعدة وتعريفات أنواع لعمليات الإدخال والإخراج (I/O) الأساسية.
+//!
+//! </div>
 
 mod borrowed_buf;
 mod cursor;

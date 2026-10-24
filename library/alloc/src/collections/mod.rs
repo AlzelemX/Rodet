@@ -1,4 +1,10 @@
 //! Collection types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع المجموعات (collections): `Vec` و`HashMap` و`BTreeMap` وغيرها.
+//!
+//! </div>
 
 // Note: This module is also included in the alloctests crate using #[path] to
 // run the tests. See the comment there for an explanation why this is the case.

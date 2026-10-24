@@ -652,6 +652,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// b.insert(1);
     /// assert_eq!(a.is_disjoint(&b), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن بين `self` و`other` أي عنصر مشترك (أي تقاطعهما فارغ).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_disjoint(&self, other: &BTreeSet<T, A>) -> bool
@@ -894,6 +900,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.insert(2), false);
     /// assert_eq!(set.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة إلى المجموعة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "put")]
     pub fn insert(&mut self, value: T) -> bool
@@ -943,6 +955,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.get_or_insert(100), &100);
     /// assert_eq!(set.len(), 4); // 100 was inserted
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف `value` إلى المجموعة إذا لم تكن موجودة، ثم يرجع مرجعًا إلى القيمة في المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn get_or_insert(&mut self, value: T) -> &T
@@ -972,6 +990,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// }
     /// assert_eq!(set.len(), 4); // a new "fish" was inserted
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة يحسبها `f` إلى المجموعة إذا لم تكن `value` موجودة، ثم يرجع مرجعًا إلى القيمة في
+    /// المجموعة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn get_or_insert_with<Q: ?Sized, F>(&mut self, value: &Q, f: F) -> &T
@@ -1018,6 +1043,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert!(singles.contains(&'u') && !dupes.contains(&'u'));
     /// assert!(!singles.contains(&'v') && !dupes.contains(&'v'));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدخل المقابل للقيمة المعطاة في المجموعة لتعديله في مكانه.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "btree_set_entry", issue = "133549")]
     pub fn entry(&mut self, value: T) -> Entry<'_, T, A>
@@ -1097,6 +1128,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.retain(|&k| k % 2 == 0);
     /// assert!(set.iter().eq([2, 4, 6].iter()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[stable(feature = "btree_retain", since = "1.53.0")]
     pub fn retain<F>(&mut self, mut f: F)
     where
@@ -1134,6 +1171,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert!(a.contains(&4));
     /// assert!(a.contains(&5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل العناصر من `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "btree_append", since = "1.11.0")]
     pub fn append(&mut self, other: &mut Self)
     where
@@ -1257,6 +1300,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// v.insert(1);
     /// assert_eq!(v.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في المجموعة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(
@@ -1281,6 +1330,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// v.insert(1);
     /// assert!(!v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة لا تحتوي أي عنصر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(

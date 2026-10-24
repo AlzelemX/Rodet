@@ -1,6 +1,12 @@
 //! Utilities for the `str` primitive type.
 //!
 //! *[See also the `str` primitive type](str).*
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للنوع الأساسي `str` (شرائح النص).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 // Many of the usings in this module are only used in the test configuration.
@@ -57,6 +63,12 @@ use crate::vec::Vec;
 
 /// Note: `str` in `Concat<str>` is not meaningful here.
 /// This type parameter of the trait only exists to enable another impl.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ملاحظة: `str` في `Concat<str>` لا معنى له هنا؛ معامل النوع هذا موجود فقط لتمكين تطبيق آخر.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[unstable(feature = "slice_concat_ext", issue = "27747")]
 impl<S: Borrow<str>> Concat<str> for [S] {
@@ -270,6 +282,12 @@ impl ToOwned for str {
 }
 
 /// Methods for string slices.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال شرائح النص (`str`).
+///
+/// </div>
 impl str {
     /// Converts a `Box<str>` into a `Box<[u8]>` without copying or allocating.
     ///
@@ -281,6 +299,12 @@ impl str {
     /// let boxed_bytes = boxed_str.into_boxed_bytes();
     /// assert_eq!(*boxed_bytes, *s.as_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<str>` إلى `Box<[u8]>` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "str_box_extras", since = "1.20.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
@@ -310,6 +334,12 @@ impl str {
     /// let s = "this is old";
     /// assert_eq!(s, s.replace("cookie monster", "little lamb"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل كل تطابقات النمط بنص آخر.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the replaced string as a new allocation, \
@@ -375,6 +405,12 @@ impl str {
     /// let s = "this is old";
     /// assert_eq!(s, s.replacen("cookie monster", "little lamb", 10));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل أول N تطابق للنمط بنص آخر.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[doc(alias = "replace_first")]
@@ -449,6 +485,12 @@ impl str {
     ///
     /// assert_eq!(new_year, new_year.to_lowercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من شريحة النص بأحرف صغيرة، كـ `String` جديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the lowercase string as a new String, \
@@ -570,6 +612,12 @@ impl str {
     ///
     /// assert_eq!("Ο οδυσσέας βασιλιάς της ιθάκης", odysseus_king_of_ithaca.word_to_titlecase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من شريحة النص (التي تمثل كلمة واحدة) بحرف أول كبير، كـ `String` جديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the titlecase word as a new String, \
@@ -664,6 +712,12 @@ impl str {
     ///
     /// assert_eq!("TSCHÜSS", s.to_uppercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من شريحة النص بأحرف كبيرة، كـ `String` جديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the uppercase string as a new String, \
@@ -766,6 +820,12 @@ impl str {
     /// ```
     ///
     /// [normalization]: https://www.unicode.org/faq/normalization.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من شريحة النص بعد طي حالة الأحرف (case folding)، كـ `String` جديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the case-folded string as a new String, \
@@ -803,6 +863,12 @@ impl str {
     ///
     /// assert_eq!(boxed_str.into_string(), string);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<str>` إلى `String` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[stable(feature = "box_str", since = "1.4.0")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "`self` will be dropped if the result is not used"]
@@ -833,6 +899,12 @@ impl str {
     /// // this will panic at runtime
     /// let huge = "0123456789abcdef".repeat(usize::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `String` جديدًا بتكرار النص `n` مرة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use]
@@ -864,6 +936,12 @@ impl str {
     ///
     /// [`make_ascii_uppercase`]: str::make_ascii_uppercase
     /// [`to_uppercase`]: #method.to_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من النص كل حرف فيها محوَّل إلى حرف ASCII كبير.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "to uppercase the value in-place, use `make_ascii_uppercase()`"]
@@ -897,6 +975,12 @@ impl str {
     ///
     /// [`make_ascii_lowercase`]: str::make_ascii_lowercase
     /// [`to_lowercase`]: #method.to_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من النص كل حرف فيها محوَّل إلى حرف ASCII صغير.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "to lowercase the value in-place, use `make_ascii_lowercase()`"]
@@ -925,6 +1009,12 @@ impl str {
 ///
 /// assert_eq!("☺", &*smile);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شريحة بايتات داخل `Box` إلى شريحة نص داخل `Box` بدون التحقق من أن النص UTF-8 صالح.
+///
+/// </div>
 #[stable(feature = "str_box_extras", since = "1.20.0")]
 #[must_use]
 #[inline]

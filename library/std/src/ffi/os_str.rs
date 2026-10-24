@@ -703,6 +703,12 @@ impl Clone for OsString {
     ///
     /// This method is preferred over simply assigning `source.clone()` to `self`,
     /// as it avoids reallocation if possible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ محتويات `source` إلى `self`.
+    ///
+    /// </div>
     #[inline]
     fn clone_from(&mut self, source: &Self) {
         self.inner.clone_from(&source.inner)
@@ -1239,6 +1245,12 @@ impl OsStr {
     ///
     /// assert_eq!("grüße, jürgen ❤", s.to_ascii_lowercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من النص كل حرف فيها محوَّل إلى حرف ASCII صغير.
+    ///
+    /// </div>
     #[must_use = "to lowercase the value in-place, use `make_ascii_lowercase`"]
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     pub fn to_ascii_lowercase(&self) -> OsString {
@@ -1261,6 +1273,12 @@ impl OsStr {
     ///
     /// assert_eq!("GRüßE, JüRGEN ❤", s.to_ascii_uppercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من النص كل حرف فيها محوَّل إلى حرف ASCII كبير.
+    ///
+    /// </div>
     #[must_use = "to uppercase the value in-place, use `make_ascii_uppercase`"]
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     pub fn to_ascii_uppercase(&self) -> OsString {

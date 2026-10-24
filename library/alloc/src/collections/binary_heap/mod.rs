@@ -139,6 +139,12 @@
 //!     assert_eq!(shortest_path(&graph, 4, 0), None);
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! طابور أولويات (priority queue) مبني على كومة ثنائية (binary heap).
+//!
+//! </div>
 
 #![allow(missing_docs)]
 #![stable(feature = "rust1", since = "1.0.0")]
@@ -269,6 +275,12 @@ use crate::vec::{self, Vec};
 /// [pop]: BinaryHeap::pop
 /// [peek]: BinaryHeap::peek
 /// [peek\_mut]: BinaryHeap::peek_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طابور أولويات (priority queue) مبني على كومة ثنائية (binary heap).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "BinaryHeap")]
 pub struct BinaryHeap<
@@ -285,6 +297,12 @@ pub struct BinaryHeap<
 /// its documentation for more.
 ///
 /// [`peek_mut`]: BinaryHeap::peek_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تغلّف مرجعًا قابلًا للتعديل إلى أكبر عنصر في `BinaryHeap`.
+///
+/// </div>
 #[stable(feature = "binary_heap_peek_mut", since = "1.12.0")]
 pub struct PeekMut<
     'a,
@@ -404,6 +422,12 @@ impl<'a, T: Ord, A: Allocator> PeekMut<'a, T, A> {
     /// assert!(!peek.refresh(), "42 is even larger than 3");
     /// assert_eq!(*peek, 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل العنصر الحالي إلى موضعه الجديد.
+    ///
+    /// </div>
     #[unstable(feature = "binary_heap_peek_mut_refresh", issue = "138355")]
     #[must_use = "is equivalent to dropping and getting a new PeekMut except for return information"]
     pub fn refresh(&mut self) -> bool {
@@ -428,6 +452,12 @@ impl<'a, T: Ord, A: Allocator> PeekMut<'a, T, A> {
     }
 
     /// Removes the peeked value from the heap and returns it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيمة المنظور إليها من الكومة ويرجعها.
+    ///
+    /// </div>
     #[stable(feature = "binary_heap_peek_mut_pop", since = "1.18.0")]
     pub fn pop(mut this: PeekMut<'a, T, A>) -> T {
         if let Some(original_len) = this.original_len.take() {
@@ -458,6 +488,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for BinaryHeap<T, A> {
     /// as it avoids reallocation if possible.
     ///
     /// See [`Vec::clone_from()`] for more details.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل محتويات `self` بنسخة من محتويات `source`.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         self.data.clone_from(&source.data);
     }
@@ -466,6 +502,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for BinaryHeap<T, A> {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for BinaryHeap<T> {
     /// Creates an empty `BinaryHeap<T>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap<T>` فارغًا.
+    ///
+    /// </div>
     #[inline]
     fn default() -> BinaryHeap<T> {
         BinaryHeap::new()
@@ -506,6 +548,12 @@ impl<T> BinaryHeap<T> {
     /// let mut heap = BinaryHeap::new();
     /// heap.push(4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap` فارغًا (كومة عظمى: الأكبر أولًا).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_binary_heap_constructor", since = "1.80.0")]
     #[must_use]
@@ -528,6 +576,12 @@ impl<T> BinaryHeap<T> {
     /// let mut heap = BinaryHeap::with_capacity(10);
     /// heap.push(4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap` فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn with_capacity(capacity: usize) -> BinaryHeap<T> {
@@ -550,6 +604,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// let heap : BinaryHeap<i32, System> = BinaryHeap::new_in(System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap` فارغًا (كومة عظمى)، باستخدام `A` كمخصص.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[rustc_const_unstable(feature = "allocator_ext", issue = "163177")]
     #[must_use]
@@ -575,6 +635,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// let heap: BinaryHeap<i32, System> = BinaryHeap::with_capacity_in(10, System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap` فارغًا بسعة لا تقل عن السعة المحددة، باستخدام `A` كمخصص.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[must_use]
     pub fn with_capacity_in(capacity: usize, alloc: A) -> BinaryHeap<T, A> {
@@ -609,6 +675,13 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// assert_eq!(new_heap.pop(), Some(1));
     /// assert_eq!(new_heap.pop(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BinaryHeap` من `vec` المعطى بدون إعادة بناء الكومة، لذلك يجب أن يكون `vec` كومة عظمى
+    /// أصلًا.
+    ///
+    /// </div>
     #[unstable(feature = "binary_heap_from_raw_vec", issue = "152500")]
     #[must_use]
     pub unsafe fn from_raw_vec(vec: Vec<T, A>) -> BinaryHeap<T, A> {
@@ -646,6 +719,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     ///
     /// If the item is modified then the worst case time complexity is *O*(log(*n*)),
     /// otherwise it's *O*(1).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى أكبر عنصر في الكومة، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "binary_heap_peek_mut", since = "1.12.0")]
     pub fn peek_mut(&mut self) -> Option<PeekMut<'_, T, A>> {
         if self.is_empty() { None } else { Some(PeekMut { heap: self, original_len: None }) }
@@ -670,6 +749,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// # Time complexity
     ///
     /// The worst case cost of `pop` on a heap containing *n* elements is *O*(log(*n*)).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أكبر عنصر من الكومة ويرجعه، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop(&mut self) -> Option<T> {
         self.data.pop().map(|mut item| {
@@ -703,6 +788,13 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// # Time complexity
     ///
     /// The worst case cost of `pop_if` on a heap containing *n* elements is *O*(log(*n*)).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أكبر عنصر من الكومة ويرجعه إذا أرجع الشرط `true`، أو يرجع `None` إذا أرجع الشرط false
+    /// أو كانت الكومة فارغة.
+    ///
+    /// </div>
     #[unstable(feature = "binary_heap_pop_if", issue = "151828")]
     pub fn pop_if(&mut self, predicate: impl FnOnce(&T) -> bool) -> Option<T> {
         let first = self.peek()?;
@@ -741,6 +833,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// The worst case cost of a *single* call to `push` is *O*(*n*). The worst case
     /// occurs when capacity is exhausted and needs a resize. The resize cost
     /// has been amortized in the previous figures.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى الكومة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("append", "put")]
     pub fn push(&mut self, item: T) {
@@ -768,6 +866,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// let vec = heap.into_sorted_vec();
     /// assert_eq!(vec, [1, 2, 3, 4, 5, 6, 7]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `BinaryHeap` ويرجع متجهًا مرتبًا تصاعديًا.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "binary_heap_extras_15", since = "1.5.0")]
     pub fn into_sorted_vec(mut self) -> Vec<T, A> {
@@ -994,6 +1098,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// assert_eq!(a.into_sorted_vec(), [-20, -10, 1, 2, 3, 3, 5, 43]);
     /// assert!(b.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل عناصر `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "binary_heap_append", since = "1.11.0")]
     pub fn append(&mut self, other: &mut Self) {
         if self.len() < other.len() {
@@ -1032,6 +1142,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     /// drop(heap.drain_sorted()); // removes all elements in heap order
     /// assert_eq!(heap.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الكومة ويرجع مكررًا على العناصر المحذوفة بترتيب الكومة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "binary_heap_drain_sorted", issue = "59278")]
     pub fn drain_sorted(&mut self) -> DrainSorted<'_, T, A> {
@@ -1056,6 +1172,12 @@ impl<T: Ord, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert_eq!(heap.into_sorted_vec(), [-10, 2, 4])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[stable(feature = "binary_heap_retain", since = "1.70.0")]
     pub fn retain<F>(&mut self, mut f: F)
     where
@@ -1094,6 +1216,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///     println!("{x}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يمر على كل القيم في المتجه الداخلي بترتيب عشوائي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "binaryheap_iter")]
     pub fn iter(&self) -> Iter<'_, T> {
@@ -1115,6 +1243,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert_eq!(heap.into_iter_sorted().take(2).collect::<Vec<_>>(), [5, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يأخذ العناصر بترتيب الكومة.
+    ///
+    /// </div>
     #[unstable(feature = "binary_heap_into_iter_sorted", issue = "59278")]
     pub fn into_iter_sorted(self) -> IntoIterSorted<T, A> {
         IntoIterSorted { inner: self }
@@ -1141,6 +1275,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// # Time complexity
     ///
     /// Cost is *O*(1) in the worst case.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أكبر عنصر في الكومة، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn peek(&self) -> Option<&T> {
@@ -1159,6 +1299,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// assert!(heap.capacity() >= 100);
     /// heap.push(4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر التي تتسع لها الكومة بدون إعادة حجز الذاكرة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn capacity(&self) -> usize {
@@ -1191,6 +1337,13 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// ```
     ///
     /// [`reserve`]: BinaryHeap::reserve
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز أقل سعة تكفي `additional` عنصرًا إضافيًا فوق الطول الحالي. على عكس `reserve`، لا يحجز
+    /// أكثر من المطلوب عمدًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve_exact(&mut self, additional: usize) {
         self.data.reserve_exact(additional);
@@ -1217,6 +1370,13 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// assert!(heap.capacity() >= 100);
     /// heap.push(4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل فوق الطول الحالي. قد يحجز أكثر لتجنب
+    /// إعادة الحجز المتكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve(&mut self, additional: usize) {
         self.data.reserve(additional);
@@ -1259,6 +1419,13 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// }
     /// # find_max_slow(&[1, 2, 3]).expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة تكفي `additional` عنصرًا إضافيًا فوق الطول الحالي، ويرجع خطأً بدل التوقف
+    /// إذا فشل الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.data.try_reserve_exact(additional)
@@ -1295,6 +1462,13 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// }
     /// # find_max_slow(&[1, 2, 3]).expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل فوق الطول الحالي، ويرجع خطأً بدل
+    /// التوقف إذا فشل الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.data.try_reserve(additional)
@@ -1314,6 +1488,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// heap.shrink_to_fit();
     /// assert!(heap.capacity() == 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من أكبر قدر ممكن من السعة الزائدة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn shrink_to_fit(&mut self) {
         self.data.shrink_to_fit();
@@ -1336,6 +1516,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     /// heap.shrink_to(10);
     /// assert!(heap.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من السعة الزائدة مع حد أدنى لا تقل عنه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -1357,6 +1543,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// io::sink().write(heap.as_slice()).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة فيها كل القيم في المتجه الداخلي، بترتيب عشوائي.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "binary_heap_as_slice", since = "1.80.0")]
     pub fn as_slice(&self) -> &[T] {
@@ -1388,6 +1580,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل فيها كل القيم في المتجه الداخلي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "binary_heap_as_mut_slice", issue = "154009")]
     pub unsafe fn as_mut_slice(&mut self) -> &mut [T] {
@@ -1411,6 +1609,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///     println!("{x}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `BinaryHeap` ويرجع المتجه الداخلي بترتيب عشوائي.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "binary_heap_extras_15", since = "1.5.0")]
     pub fn into_vec(self) -> Vec<T, A> {
@@ -1418,6 +1622,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn allocator(&self) -> &A {
@@ -1436,6 +1646,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert_eq!(heap.len(), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول الكومة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("length", "size")]
@@ -1461,6 +1677,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert!(!heap.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل الكومة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_empty(&self) -> bool {
@@ -1490,6 +1712,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert!(heap.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الكومة ويرجع مكررًا على العناصر المحذوفة بترتيب عشوائي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "drain", since = "1.6.0")]
     pub fn drain(&mut self) -> Drain<'_, T, A>
@@ -1515,6 +1743,12 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// assert!(heap.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف كل العناصر من الكومة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self)
     where
@@ -1610,6 +1844,12 @@ impl<T> Drop for Hole<'_, T> {
 /// documentation for more.
 ///
 /// [`iter`]: BinaryHeap::iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على عناصر `BinaryHeap`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, T: 'a> {
@@ -1625,6 +1865,12 @@ impl<T> Default for Iter<'_, T> {
     /// let iter: binary_heap::Iter<'_, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `binary_heap::Iter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Iter { iter: Default::default() }
     }
@@ -1689,6 +1935,12 @@ impl<T> FusedIterator for Iter<'_, T> {}
 /// (provided by the [`IntoIterator`] trait). See its documentation for more.
 ///
 /// [`into_iter`]: BinaryHeap::into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على عناصر `BinaryHeap`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]
 pub struct IntoIter<
@@ -1700,6 +1952,12 @@ pub struct IntoIter<
 
 impl<T, A: Allocator> IntoIter<T, A> {
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(&self) -> &A {
         self.iter.allocator()
@@ -1759,6 +2017,12 @@ impl<T> Default for IntoIter<T> {
     /// let iter: binary_heap::IntoIter<u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `binary_heap::IntoIter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         IntoIter { iter: Default::default() }
     }
@@ -1805,6 +2069,12 @@ pub struct IntoIterSorted<
 
 impl<T, A: Allocator> IntoIterSorted<T, A> {
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(&self) -> &A {
         self.inner.allocator()
@@ -1842,6 +2112,12 @@ unsafe impl<T: Ord, A: Allocator> TrustedLen for IntoIterSorted<T, A> {}
 /// documentation for more.
 ///
 /// [`drain`]: BinaryHeap::drain
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) عناصر `BinaryHeap`.
+///
+/// </div>
 #[stable(feature = "drain", since = "1.6.0")]
 #[derive(Debug)]
 pub struct Drain<
@@ -1854,6 +2130,12 @@ pub struct Drain<
 
 impl<T, A: Allocator> Drain<'_, T, A> {
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(&self) -> &A {
         self.iter.allocator()
@@ -1899,6 +2181,12 @@ impl<T, A: Allocator> FusedIterator for Drain<'_, T, A> {}
 /// documentation for more.
 ///
 /// [`drain_sorted`]: BinaryHeap::drain_sorted
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) عناصر `BinaryHeap`.
+///
+/// </div>
 #[unstable(feature = "binary_heap_drain_sorted", issue = "59278")]
 #[derive(Debug)]
 pub struct DrainSorted<
@@ -1911,6 +2199,12 @@ pub struct DrainSorted<
 
 impl<'a, T: Ord, A: Allocator> DrainSorted<'a, T, A> {
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(&self) -> &A {
         self.inner.allocator()
@@ -1920,6 +2214,12 @@ impl<'a, T: Ord, A: Allocator> DrainSorted<'a, T, A> {
 #[unstable(feature = "binary_heap_drain_sorted", issue = "59278")]
 impl<'a, T: Ord, A: Allocator> Drop for DrainSorted<'a, T, A> {
     /// Removes heap elements in heap order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف عناصر الكومة بترتيب الكومة.
+    ///
+    /// </div>
     fn drop(&mut self) {
         struct DropGuard<'r, 'a, T: Ord, A: Allocator>(&'r mut DrainSorted<'a, T, A>);
 
@@ -1967,6 +2267,12 @@ impl<T: Ord, A: AllocatorNightly> From<Vec<T, A>> for BinaryHeap<T, A> {
     /// Converts a `Vec<T>` into a `BinaryHeap<T>`.
     ///
     /// This conversion happens in-place, and has *O*(*n*) time complexity.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<T>` إلى `BinaryHeap<T>`.
+    ///
+    /// </div>
     fn from(vec: Vec<T, A>) -> BinaryHeap<T, A> {
         let mut heap = BinaryHeap { data: vec };
         heap.rebuild();
@@ -1996,6 +2302,12 @@ impl<T, A: Allocator> From<BinaryHeap<T, A>> for Vec<T, A> {
     ///
     /// This conversion requires no data movement or allocation, and has
     /// constant time complexity.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `BinaryHeap<T>` إلى `Vec<T>`.
+    ///
+    /// </div>
     fn from(heap: BinaryHeap<T, A>) -> Vec<T, A> {
         heap.data
     }
@@ -2031,6 +2343,13 @@ impl<T, A: Allocator> IntoIterator for BinaryHeap<T, A> {
     ///     println!("{x}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلِكًا ينقل كل قيمة خارج الكومة بترتيب عشوائي. لا يمكن استخدام الكومة بعد
+    /// ذلك.
+    ///
+    /// </div>
     fn into_iter(self) -> IntoIter<T, A> {
         IntoIter { iter: self.data.into_iter() }
     }

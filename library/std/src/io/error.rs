@@ -34,6 +34,12 @@ impl Error {
     /// let os_error = Error::last_os_error();
     /// println!("last OS error: {os_error:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع خطأً يمثل آخر خطأ حدث في نظام التشغيل.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[doc(alias = "GetLastError")]
@@ -69,6 +75,12 @@ impl Error {
     /// assert_eq!(error.kind(), io::ErrorKind::InvalidInput);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Error` جديدًا من رمز خطأ معيّن من نظام التشغيل.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]

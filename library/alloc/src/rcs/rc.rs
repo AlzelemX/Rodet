@@ -1699,6 +1699,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// Note: this is an associated function, which means that you have
     /// to call it as `Rc::allocator(&r)` instead of `r.allocator()`. This
     /// is so that there is no conflict with a method on the inner type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(this: &Self) -> &A {
@@ -3523,6 +3529,12 @@ impl<T: ?Sized> Weak<T> {
 
 impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn allocator(&self) -> &A {

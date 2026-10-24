@@ -174,6 +174,12 @@
 //! [`Vec<T>`]: crate::vec::Vec
 //! [`io::Result`]: self::Result
 //! [`?` operator]: ../../book/appendix-02-operators.html
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits ودوال مساعدة وتعريفات أنواع لعمليات الإدخال والإخراج (I/O) الأساسية.
+//!
+//! </div>
 
 mod buf_read;
 mod buffered;

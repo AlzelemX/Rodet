@@ -406,6 +406,12 @@
 //! // ...but the key hasn't changed. b is still "baz", not "xyz".
 //! assert_eq!(map.keys().next().unwrap().b, "baz");
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع المجموعات (collections): `Vec` و`HashMap` و`BTreeMap` وغيرها.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -443,6 +449,12 @@ mod hash;
 #[stable(feature = "rust1", since = "1.0.0")]
 pub mod hash_map {
     //! A hash map implemented with quadratic probing and SIMD lookup.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! جدول تجزئة (hash map).
+    //!
+    //! </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub use super::hash::map::*;
     #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
@@ -454,6 +466,12 @@ pub mod hash_map {
 #[stable(feature = "rust1", since = "1.0.0")]
 pub mod hash_set {
     //! A hash set implemented as a `HashMap` where the value is `()`.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! مجموعة تجزئة مبنية كـ `HashMap` قيمته `()`.
+    //!
+    //! </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub use super::hash::set::*;
 }

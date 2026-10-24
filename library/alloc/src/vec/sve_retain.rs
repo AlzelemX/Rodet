@@ -3,6 +3,12 @@
 //! Two-phase algorithm per 64-element chunk:
 //! - Phase A (scalar): evaluates predicate exactly once, in order, into a bool mask.
 //! - Phase B (SVE): uses `COMPACT` instruction to compress retained elements.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق `Vec::retain_mut` مسرَّع بتعليمات SVE.
+//!
+//! </div>
 
 use core::{cmp, mem, ptr};
 

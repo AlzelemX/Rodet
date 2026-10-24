@@ -150,6 +150,12 @@ impl<'a> Chars<'a> {
     /// chars.next();
     /// assert_eq!(chars.as_str(), "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[stable(feature = "iter_to_slice", since = "1.4.0")]
     #[must_use]
     #[inline]
@@ -228,6 +234,12 @@ impl<'a> CharIndices<'a> {
     ///
     /// This has the same lifetime as the original slice, and so the
     /// iterator can continue to be used while this exists.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[stable(feature = "iter_to_slice", since = "1.4.0")]
     #[must_use]
     #[inline]

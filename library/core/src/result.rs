@@ -340,6 +340,12 @@
 //! * [`transpose`] transposes a [`Result`] of an [`Option`] into an
 //!   [`Option`] of a [`Result`]
 //!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! معالجة الأخطاء بالنوع `Result`.
+//!
+//! </div>
 // Do NOT add link reference definitions for `err` or `ok`, because they
 // will generate numerous incorrect URLs for `Err` and `Ok` elsewhere, due
 // to case folding.
@@ -549,6 +555,12 @@ use crate::{fmt, hint};
 /// `Result` is a type that represents either success ([`Ok`]) or failure ([`Err`]).
 ///
 /// See the [module documentation](self) for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Result` نوع يمثل إما نجاحًا (`Ok`) أو فشلًا (`Err`).
+///
+/// </div>
 #[doc(search_unbox)]
 #[derive(Copy, Debug, Hash)]
 #[derive_const(PartialEq, PartialOrd, Eq, Ord)]
@@ -557,11 +569,23 @@ use crate::{fmt, hint};
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum Result<T, E> {
     /// Contains the success value
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحتوي قيمة النجاح.
+    ///
+    /// </div>
     #[lang = "Ok"]
     #[stable(feature = "rust1", since = "1.0.0")]
     Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
 
     /// Contains the error value
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحتوي قيمة الخطأ.
+    ///
+    /// </div>
     #[lang = "Err"]
     #[stable(feature = "rust1", since = "1.0.0")]
     Err(#[stable(feature = "rust1", since = "1.0.0")] E),
@@ -587,6 +611,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<i32, &str> = Err("Some error message");
     /// assert_eq!(x.is_ok(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت النتيجة `Ok`.
+    ///
+    /// </div>
     #[must_use = "if you intended to assert that this is ok, consider `.unwrap()` instead"]
     #[rustc_const_stable(feature = "const_result_basics", since = "1.48.0")]
     #[inline]
@@ -613,6 +643,12 @@ impl<T, E> Result<T, E> {
     /// assert_eq!(x.as_ref().is_ok_and(|x| x.len() > 1), true);
     /// println!("still alive {:?}", x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت النتيجة `Ok` والقيمة التي بداخلها تحقق الشرط.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "is_some_and", since = "1.70.0")]
@@ -640,6 +676,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<i32, &str> = Err("Some error message");
     /// assert_eq!(x.is_err(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت النتيجة `Err`.
+    ///
+    /// </div>
     #[must_use = "if you intended to assert that this is err, consider `.unwrap_err()` instead"]
     #[rustc_const_stable(feature = "const_result_basics", since = "1.48.0")]
     #[inline]
@@ -668,6 +710,12 @@ impl<T, E> Result<T, E> {
     /// assert_eq!(x.as_ref().is_err_and(|x| x.len() > 1), true);
     /// println!("still alive {:?}", x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت النتيجة `Err` والقيمة التي بداخلها تحقق الشرط.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "is_some_and", since = "1.70.0")]
@@ -702,6 +750,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("Nothing here");
     /// assert_eq!(x.ok(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Result<T, E>` إلى `Option<T>` (ويتجاهل الخطأ).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -731,6 +785,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("Nothing here");
     /// assert_eq!(x.err(), Some("Nothing here"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Result<T, E>` إلى `Option<E>` (ويتجاهل قيمة النجاح).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -763,6 +823,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("Error");
     /// assert_eq!(x.as_ref(), Err(&"Error"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&Result<T, E>` إلى `Result<&T, &E>`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_result_basics", since = "1.48.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -793,6 +859,12 @@ impl<T, E> Result<T, E> {
     /// mutate(&mut x);
     /// assert_eq!(x.unwrap_err(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&mut Result<T, E>` إلى `Result<&mut T, &mut E>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_result", since = "1.83.0")]
@@ -826,6 +898,12 @@ impl<T, E> Result<T, E> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<T, E>` إلى `Result<U, E>` بتطبيق دالة على قيمة `Ok`، ويترك قيمة `Err` كما هي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -857,6 +935,13 @@ impl<T, E> Result<T, E> {
     /// let x: Result<&str, _> = Err("bar");
     /// assert_eq!(x.map_or(42, |v| v.len()), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الافتراضية المعطاة (إذا كانت `Err`)، أو يطبّق دالة على القيمة الموجودة (إذا كانت
+    /// `Ok`).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_map_or", since = "1.41.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -892,6 +977,13 @@ impl<T, E> Result<T, E> {
     /// let x : Result<&str, _> = Err("bar");
     /// assert_eq!(x.map_or_else(|e| k * 2, |v| v.len()), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<T, E>` إلى `U` بتطبيق الدالة البديلة `default` على قيمة `Err`، أو الدالة `f`
+    /// على قيمة `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_map_or_else", since = "1.41.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -921,6 +1013,13 @@ impl<T, E> Result<T, E> {
     /// ```
     ///
     /// [default value]: Default::default
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<T, E>` إلى `U` بتطبيق الدالة `f` على القيمة إذا كانت `Ok`، وإلا (إذا كانت
+    /// `Err`) يرجع القيمة الافتراضية للنوع `U`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_option_map_or_default", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -955,6 +1054,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, u32> = Err(13);
     /// assert_eq!(x.map_err(stringify), Err("error code: 13".to_string()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<T, E>` إلى `Result<T, F>` بتطبيق دالة على قيمة `Err`، ويترك قيمة `Ok` كما هي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -981,6 +1086,12 @@ impl<T, E> Result<T, E> {
     ///     .map(|x| x.pow(3))
     ///     .expect("literal `4` should parse as a `u8`");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي دالة مع مرجع إلى القيمة الموجودة إذا كانت `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_option_inspect", since = "1.76.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1009,6 +1120,12 @@ impl<T, E> Result<T, E> {
     ///         .inspect_err(|e| eprintln!("failed to read file: {e}"))
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي دالة مع مرجع إلى القيمة الموجودة إذا كانت `Err`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_option_inspect", since = "1.76.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1039,6 +1156,12 @@ impl<T, E> Result<T, E> {
     /// let y: Result<&str, &u32> = Err(&42);
     /// assert_eq!(x.as_deref(), y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Result<T, E>` (أو `&Result<T, E>`) إلى `Result<&<T as Deref>::Target, &E>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "inner_deref", since = "1.47.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1067,6 +1190,13 @@ impl<T, E> Result<T, E> {
     /// let y: Result<&mut str, &mut u32> = Err(&mut i);
     /// assert_eq!(x.as_deref_mut().map(|x| { x.make_ascii_uppercase(); x }), y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Result<T, E>` (أو `&mut Result<T, E>`) إلى
+    /// `Result<&mut <T as DerefMut>::Target, &mut E>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "inner_deref", since = "1.47.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1094,6 +1224,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("nothing!");
     /// assert_eq!(x.iter().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1118,6 +1254,12 @@ impl<T, E> Result<T, E> {
     /// let mut x: Result<u32, &str> = Err("nothing!");
     /// assert_eq!(x.iter_mut().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا قابلًا للتعديل على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1172,6 +1314,13 @@ impl<T, E> Result<T, E> {
     /// refer to the section on ["Common Message
     /// Styles"](../../std/error/index.html#common-message-styles) in the
     /// [`std::error`](../../std/error/index.html) module docs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` ويستهلك `self`؛ وإذا كانت `Err` يتوقف البرنامج (panic) بالرسالة
+    /// المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "result_expect", since = "1.4.0")]
@@ -1220,6 +1369,13 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("emergency failure");
     /// x.unwrap(); // panics with `emergency failure`
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` ويستهلك `self`؛ وإذا كانت `Err` يتوقف البرنامج (panic) بالرسالة
+    /// المعطاة.
+    ///
+    /// </div>
     #[inline(always)]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1258,6 +1414,12 @@ impl<T, E> Result<T, E> {
     ///
     /// [`parse`]: str::parse
     /// [`FromStr`]: crate::str::FromStr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` أو القيمة الافتراضية للنوع.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_unwrap_or_default", since = "1.16.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1286,6 +1448,13 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Ok(10);
     /// x.expect_err("Testing expect_err"); // panics with `Testing expect_err: 10`
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Err` ويستهلك `self`؛ وإذا كانت `Ok` يتوقف البرنامج (panic) بالرسالة
+    /// المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "result_expect_err", since = "1.17.0")]
@@ -1317,6 +1486,13 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("emergency failure");
     /// assert_eq!(x.unwrap_err(), "emergency failure");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Err` ويستهلك `self`؛ وإذا كانت `Ok` يتوقف البرنامج (panic) بالرسالة
+    /// المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1350,6 +1526,12 @@ impl<T, E> Result<T, E> {
     /// let s: String = only_good_news().into_ok();
     /// println!("{s}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok`، ولا يتوقف أبدًا (الخطأ مستحيل بالنوع).
+    ///
+    /// </div>
     #[stable(feature = "unwrap_infallible", since = "CURRENT_RUSTC_VERSION")]
     #[inline]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -1384,6 +1566,12 @@ impl<T, E> Result<T, E> {
     /// let error: String = only_bad_news().into_err();
     /// println!("{error}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Err`، ولا يتوقف أبدًا (النجاح مستحيل بالنوع).
+    ///
+    /// </div>
     #[stable(feature = "unwrap_infallible", since = "CURRENT_RUSTC_VERSION")]
     #[inline]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -1429,6 +1617,12 @@ impl<T, E> Result<T, E> {
     /// let y: Result<&str, &str> = Ok("different result type");
     /// assert_eq!(x.and(y), Ok("different result type"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `res` إذا كانت النتيجة `Ok`، وإلا يرجع قيمة `Err` من `self`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1474,6 +1668,12 @@ impl<T, E> Result<T, E> {
     /// assert!(should_fail.is_err());
     /// assert_eq!(should_fail.unwrap_err().kind(), ErrorKind::NotFound);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `op` إذا كانت النتيجة `Ok`، وإلا يرجع قيمة `Err` من `self`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1515,6 +1715,12 @@ impl<T, E> Result<T, E> {
     /// let y: Result<u32, &str> = Ok(100);
     /// assert_eq!(x.or(y), Ok(2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `res` إذا كانت النتيجة `Err`، وإلا يرجع قيمة `Ok` من `self`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1546,6 +1752,12 @@ impl<T, E> Result<T, E> {
     /// assert_eq!(Err(3).or_else(sq).or_else(err), Ok(9));
     /// assert_eq!(Err(3).or_else(err).or_else(err), Err(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `op` إذا كانت النتيجة `Err`، وإلا يرجع قيمة `Ok` من `self`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1577,6 +1789,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("error");
     /// assert_eq!(x.unwrap_or(default), default);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` أو القيمة الافتراضية المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_result_trait_fn", issue = "144211")]
@@ -1602,6 +1820,12 @@ impl<T, E> Result<T, E> {
     /// assert_eq!(Ok(2).unwrap_or_else(count), 2);
     /// assert_eq!(Err("foo").unwrap_or_else(count), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` أو يحسبها من إغلاق.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1636,6 +1860,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("emergency failure");
     /// unsafe { x.unwrap_unchecked() }; // Undefined behavior!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Ok` ويستهلك `self`، بدون التحقق من أنها ليست `Err` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "option_result_unwrap_unchecked", since = "1.58.0")]
@@ -1672,6 +1902,12 @@ impl<T, E> Result<T, E> {
     /// let x: Result<u32, &str> = Err("emergency failure");
     /// assert_eq!(unsafe { x.unwrap_err_unchecked() }, "emergency failure");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Err` ويستهلك `self`، بدون التحقق من أنها ليست `Ok` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "option_result_unwrap_unchecked", since = "1.58.0")]
@@ -1702,6 +1938,12 @@ impl<T, E> Result<&T, E> {
     /// let copied = x.copied();
     /// assert_eq!(copied, Ok(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<&T, E>` إلى `Result<T, E>` بنسخ (copy) محتوى `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_copied", since = "1.59.0")]
     #[rustc_const_stable(feature = "const_result", since = "1.83.0")]
@@ -1730,6 +1972,12 @@ impl<T, E> Result<&T, E> {
     /// let cloned = x.cloned();
     /// assert_eq!(cloned, Ok(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<&T, E>` إلى `Result<T, E>` باستنساخ (clone) محتوى `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_cloned", since = "1.59.0")]
     #[expect(clippy::map_clone, reason = "implements Result::cloned")]
@@ -1754,6 +2002,12 @@ impl<T, E> Result<&mut T, E> {
     /// let copied = x.copied();
     /// assert_eq!(copied, Ok(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<&mut T, E>` إلى `Result<T, E>` بنسخ (copy) محتوى `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_copied", since = "1.59.0")]
     #[rustc_const_stable(feature = "const_result", since = "1.83.0")]
@@ -1782,6 +2036,12 @@ impl<T, E> Result<&mut T, E> {
     /// let cloned = x.cloned();
     /// assert_eq!(cloned, Ok(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Result<&mut T, E>` إلى `Result<T, E>` باستنساخ (clone) محتوى `Ok`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_cloned", since = "1.59.0")]
     pub fn cloned(self) -> Result<T, E>
@@ -1808,6 +2068,12 @@ impl<T, E> Result<Option<T>, E> {
     /// let y: Option<Result<i32, SomeErr>> = Some(Ok(5));
     /// assert_eq!(x.transpose(), y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب `Result` يحتوي `Option` إلى `Option` يحتوي `Result`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "transpose_result", since = "1.33.0")]
     #[rustc_const_stable(feature = "const_result", since = "1.83.0")]
@@ -1844,6 +2110,12 @@ impl<T, E> Result<Result<T, E>, E> {
     /// assert_eq!(Ok(Ok("hello")), x.flatten());
     /// assert_eq!(Ok("hello"), x.flatten().flatten());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Result<Result<T, E>, E>` إلى `Result<T, E>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_flattening", since = "1.89.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -1944,6 +2216,12 @@ impl<T, E> IntoIterator for Result<T, E> {
     /// let v: Vec<u32> = x.into_iter().collect();
     /// assert_eq!(v, []);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا مستهلِكًا على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     fn into_iter(self) -> IntoIter<T> {
         IntoIter { inner: self.ok() }
@@ -1979,6 +2257,12 @@ impl<'a, T, E> IntoIterator for &'a mut Result<T, E> {
 /// The iterator yields one value if the result is [`Ok`], otherwise none.
 ///
 /// Created by [`Result::iter`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مرجع إلى القيمة داخل حالة `Ok` من `Result`.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, T: 'a> {
@@ -2028,6 +2312,12 @@ impl<T> Clone for Iter<'_, T> {
 /// An iterator over a mutable reference to the [`Ok`] variant of a [`Result`].
 ///
 /// Created by [`Result::iter_mut`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مرجع قابل للتعديل إلى القيمة داخل حالة `Ok` من `Result`.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IterMut<'a, T: 'a> {
@@ -2074,6 +2364,12 @@ unsafe impl<A> TrustedLen for IterMut<'_, A> {}
 /// [`Result`] (provided by the [`IntoIterator`] trait).
 ///
 /// [`into_iter`]: IntoIterator::into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على القيمة داخل حالة `Ok` من `Result`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<T> {
@@ -2160,6 +2456,13 @@ impl<T, E, V: FromIterator<T>> FromIterator<Result<T, E>> for Result<V, E> {
     ///
     /// Since the third element caused an underflow, no further elements were taken,
     /// so the final value of `shared` is 6 (= `3 + 2 + 1`), not 16.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ كل عنصر من المكرر: إذا كان `Err` يتوقف ويرجع الـ `Err`. وإذا لم يظهر أي `Err` يرجع
+    /// مجموعة فيها قيم كل `Result`.
+    ///
+    /// </div>
     #[inline]
     fn from_iter<I: IntoIterator<Item = Result<T, E>>>(iter: I) -> Result<V, E> {
         iter::try_process(iter.into_iter(), |i| i.collect())

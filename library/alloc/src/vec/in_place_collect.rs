@@ -154,6 +154,12 @@
 //! }
 //! vec.truncate(write_idx);
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تخصيص التكرار والجمع في نفس المكان لـ `Vec`.
+//!
+//! </div>
 
 use core::alloc::{Allocator, Layout};
 use core::iter::{InPlaceIterable, SourceIter, TrustedRandomAccessNoCoerce};

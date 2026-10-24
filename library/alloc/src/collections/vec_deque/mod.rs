@@ -127,6 +127,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for VecDeque<T, A> {
     ///
     /// This method is preferred over simply assigning `source.clone()` to `self`,
     /// as it avoids reallocation if possible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل محتويات `self` بنسخة من محتويات `source`.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         self.clear();
         self.extend(source.iter().cloned());
@@ -824,6 +830,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(items, VecDeque::from([0, 0, 0, 0, 0, 0, 0, 2, 2, 2]));
     /// assert_eq!(ones.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر في المدى.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_extract_if", issue = "147750")]
     pub fn extract_if<F, R>(&mut self, range: R, filter: F) -> ExtractIf<'_, T, F, A>
     where
@@ -1648,6 +1660,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn allocator(&self) -> &A {
@@ -2781,6 +2799,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(buf, [1, 2, 3, 4]);
     /// assert_eq!(buf2, []);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل عناصر `other` إلى `self`، ويترك `other` فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "append", since = "1.4.0")]
     pub fn append(&mut self, other: &mut Self) {
@@ -2838,6 +2862,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.retain(|_| *iter.next().unwrap());
     /// assert_eq!(buf, [2, 3, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[stable(feature = "vec_deque_retain", since = "1.4.0")]
     pub fn retain<F>(&mut self, mut f: F)
     where
@@ -2867,6 +2897,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// });
     /// assert_eq!(buf, [3, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط العناصر التي يقبلها الشرط (predicate).
+    ///
+    /// </div>
     #[stable(feature = "vec_retain_mut", since = "1.61.0")]
     pub fn retain_mut<F>(&mut self, mut f: F)
     where

@@ -291,6 +291,12 @@
 //! [`OwnedFd`]: ../os/fd/struct.OwnedFd.html
 //! [`BorrowedFd<'a>`]: ../os/fd/struct.BorrowedFd.html
 //! [`Arc`]: crate::sync::Arc
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits ودوال مساعدة وتعريفات أنواع لعمليات الإدخال والإخراج (I/O) الأساسية.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

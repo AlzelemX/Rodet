@@ -14,6 +14,12 @@ use crate::alloc::{AllocatorClone, Global};
 /// This `enum` is constructed from the [`entry`] method on [`BTreeMap`].
 ///
 /// [`entry`]: BTreeMap::entry
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل واحد في جدول، قد يكون فارغًا (vacant) أو مشغولًا (occupied).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "BTreeEntry")]
 pub enum Entry<
@@ -107,10 +113,28 @@ pub struct OccupiedError<
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")] A: AllocatorClone = Global,
 > {
     /// The entry in the map that was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المدخل في الجدول الذي كان مشغولًا.
+    ///
+    /// </div>
     pub entry: OccupiedEntry<'a, K, V, A>,
     /// The key which was not inserted, because the entry was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المفتاح الذي لم يُضف لأن المدخل كان مشغولًا.
+    ///
+    /// </div>
     pub key: K,
     /// The value which was not inserted, because the entry was already occupied.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القيمة التي لم تُضف لأن المدخل كان مشغولًا.
+    ///
+    /// </div>
     pub value: V,
 }
 
@@ -140,6 +164,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], 12);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة القيمة الافتراضية المعطاة إذا كان فارغًا، ويرجع مرجعًا
+    /// قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn or_insert(self, default: V) -> &'a mut V {
         match self {
@@ -163,6 +194,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], "hoho".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج الدالة الافتراضية إذا كان فارغًا، ويرجع مرجعًا قابلًا
+    /// للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn or_insert_with<F: FnOnce() -> V>(self, default: F) -> &'a mut V {
         self.or_try_insert_with(|| Result::<_, !>::Ok(default())).unwrap()
@@ -192,6 +230,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج دالة افتراضية قد تفشل إذا كان فارغًا، ويرجع مرجعًا
+    /// قابلًا للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_entry", issue = "157354")]
     pub fn or_try_insert_with<F: FnOnce() -> Result<V, E>, E>(
@@ -253,6 +298,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة ناتج دالة افتراضية قد تفشل إذا كان فارغًا؛ وتأخذ الدالة
+    /// مرجعًا إلى المفتاح.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_entry", issue = "157354")]
     pub fn or_try_insert_with_key<F: FnOnce(&K) -> Result<V, E>, E>(
@@ -278,6 +330,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     /// let mut map: BTreeMap<&str, usize> = BTreeMap::new();
     /// assert_eq!(map.entry("poneyland").key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح هذا المدخل.
+    ///
+    /// </div>
     #[stable(feature = "map_entry_keys", since = "1.10.0")]
     pub fn key(&self) -> &K {
         match *self {
@@ -306,6 +364,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     ///    .or_insert(42);
     /// assert_eq!(map["poneyland"], 43);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا قابلًا للتعديل إلى مدخل مشغول قبل أي إضافة محتملة إلى الجدول.
+    ///
+    /// </div>
     #[stable(feature = "entry_and_modify", since = "1.26.0")]
     pub fn and_modify<F>(self, f: F) -> Self
     where
@@ -332,6 +396,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(entry.key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "btree_entry_insert", since = "1.92.0")]
     pub fn insert_entry(self, value: V) -> OccupiedEntry<'a, K, V, A> {
@@ -360,6 +430,13 @@ impl<'a, K: Ord, V: Default, A: AllocatorClone> Entry<'a, K, V, A> {
     ///
     /// assert_eq!(map["poneyland"], None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن وجود قيمة في المدخل بإضافة القيمة الافتراضية للنوع إذا كان فارغًا، ويرجع مرجعًا قابلًا
+    /// للتعديل إلى القيمة.
+    ///
+    /// </div>
     pub fn or_default(self) -> &'a mut V {
         match self {
             Occupied(entry) => entry.into_mut(),
@@ -399,6 +476,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> VacantEntry<'a, K, V, A> {
     ///     v.into_key();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية المفتاح.
+    ///
+    /// </div>
     #[stable(feature = "map_entry_recover_keys2", since = "1.12.0")]
     pub fn into_key(self) -> K {
         self.key
@@ -420,6 +503,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> VacantEntry<'a, K, V, A> {
     /// }
     /// assert_eq!(map["poneyland"], 37);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بمفتاح `VacantEntry`، ويرجع مرجعًا قابلًا للتعديل إليها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "put")]
     pub fn insert(self, value: V) -> &'a mut V {
@@ -443,6 +532,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> VacantEntry<'a, K, V, A> {
     /// }
     /// assert_eq!(map["poneyland"], 37);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة المدخل بمفتاح `VacantEntry`، ويرجع `OccupiedEntry`.
+    ///
+    /// </div>
     #[stable(feature = "btree_entry_insert", since = "1.92.0")]
     pub fn insert_entry(mut self, value: V) -> OccupiedEntry<'a, K, V, A> {
         let handle = match self.handle {
@@ -491,6 +586,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> OccupiedEntry<'a, K, V, A> {
     /// map.entry("poneyland").or_insert(12);
     /// assert_eq!(map.entry("poneyland").key(), &"poneyland");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى المفتاح في المدخل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "map_entry_keys", since = "1.10.0")]
     pub fn key(&self) -> &K {
@@ -541,6 +642,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> OccupiedEntry<'a, K, V, A> {
     ///     assert_eq!(o.get(), &12);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get(&self) -> &V {
@@ -573,6 +680,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> OccupiedEntry<'a, K, V, A> {
     /// }
     /// assert_eq!(map["poneyland"], 24);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة في المدخل.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self) -> &mut V {
         self.handle.kv_mut().1

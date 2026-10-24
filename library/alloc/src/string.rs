@@ -39,6 +39,12 @@
 //!
 //! assert_eq!(bytes, [240, 159, 146, 150]);
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نص قابل للنمو بترميز UTF-8.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -347,6 +353,12 @@ use crate::vec::{self, Vec};
 /// [Deref]: core::ops::Deref "ops::Deref"
 /// [`Deref`]: core::ops::Deref "ops::Deref"
 /// [`as_str()`]: String::as_str
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نص قابل للنمو بترميز UTF-8.
+///
+/// </div>
 #[derive(PartialEq, PartialOrd, Eq, Ord)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[lang = "String"]
@@ -385,6 +397,12 @@ pub struct String {
 /// assert!(value.is_err());
 /// assert_eq!(vec![0, 159], value.unwrap_err().into_bytes());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة خطأ ممكنة عند تحويل `String` من متجه بايتات UTF-8.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(no_global_oom_handling), derive(Clone))]
 #[derive(Debug, PartialEq, Eq)]
@@ -408,6 +426,12 @@ pub struct FromUtf8Error {
 ///
 /// assert!(String::from_utf16(v).is_err());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة خطأ ممكنة عند تحويل `String` من شريحة بايتات UTF-16.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct FromUtf16Error {
@@ -438,6 +462,12 @@ impl String {
     /// ```
     /// let s = String::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `String` جديدًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_string_new", since = "1.39.0")]
     #[rustc_diagnostic_item = "string_new"]
@@ -486,6 +516,12 @@ impl String {
     /// // ...but this may make the string reallocate
     /// s.push('a');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `String` جديدًا فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -501,6 +537,12 @@ impl String {
     /// Returns [`Err`] if the capacity exceeds `isize::MAX` bytes,
     /// or if the memory allocator reports failure.
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `String` جديدًا فارغًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_with_capacity", issue = "91913")]
     pub fn try_with_capacity(capacity: usize) -> Result<String, TryReserveError> {
@@ -563,6 +605,12 @@ impl String {
     /// [`Vec<u8>`]: crate::vec::Vec "Vec"
     /// [`&str`]: prim@str "&str"
     /// [`into_bytes`]: String::into_bytes
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل متجه بايتات إلى `String`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "string_from_utf8"]
@@ -622,6 +670,12 @@ impl String {
     ///
     /// assert_eq!("Hello �World", output);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات إلى نص، مع الأحرف غير الصالحة (تُستبدل بحرف الاستبدال).
+    ///
+    /// </div>
     #[must_use]
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -685,6 +739,12 @@ impl String {
     ///
     /// assert_eq!(String::from("Hello �World"), output);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<u8>` إلى `String`، ويستبدل تسلسلات UTF-8 غير الصالحة بحرف الاستبدال.
+    ///
+    /// </div>
     #[must_use]
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "string_from_utf8_lossy_owned", since = "1.99.0")]
@@ -718,6 +778,13 @@ impl String {
     ///           0xD800, 0x0069, 0x0063];
     /// assert!(String::from_utf16(v).is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز متجه `v` بترميز UTF-16 (بترتيب بايتات الجهاز) إلى `String`، ويرجع `Err` إذا كان في
+    /// `v` بيانات غير صالحة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn from_utf16(v: &[u16]) -> Result<String, FromUtf16Error> {
@@ -767,6 +834,13 @@ impl String {
     /// assert_eq!(String::from("𝄞mus\u{FFFD}ic\u{FFFD}"),
     ///            String::from_utf16_lossy(v));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز شريحة `v` بترميز UTF-16 (بترتيب بايتات الجهاز) إلى `String`، ويستبدل البيانات غير
+    /// الصالحة بحرف الاستبدال (`U+FFFD`).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[must_use]
     #[inline]
@@ -796,6 +870,13 @@ impl String {
     ///           0x00, 0xD8, 0x69, 0x00, 0x63, 0x00];
     /// assert!(String::from_utf16le(v).is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز متجه `v` بترميز UTF-16LE إلى `String`، ويرجع `Err` إذا كان في `v` بيانات غير
+    /// صالحة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "str_from_utf16_endian", since = "1.98.0")]
     pub fn from_utf16le(v: &[u8]) -> Result<String, FromUtf16Error> {
@@ -835,6 +916,13 @@ impl String {
     /// assert_eq!(String::from("𝄞mus\u{FFFD}ic\u{FFFD}"),
     ///            String::from_utf16le_lossy(v));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز شريحة `v` بترميز UTF-16LE إلى `String`، ويستبدل البيانات غير الصالحة بحرف
+    /// الاستبدال (`U+FFFD`).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "str_from_utf16_endian", since = "1.98.0")]
     pub fn from_utf16le_lossy(v: &[u8]) -> String {
@@ -871,6 +959,13 @@ impl String {
     ///           0xD8, 0x00, 0x00, 0x69, 0x00, 0x63];
     /// assert!(String::from_utf16be(v).is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز متجه `v` بترميز UTF-16BE إلى `String`، ويرجع `Err` إذا كان في `v` بيانات غير
+    /// صالحة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "str_from_utf16_endian", since = "1.98.0")]
     pub fn from_utf16be(v: &[u8]) -> Result<String, FromUtf16Error> {
@@ -910,6 +1005,13 @@ impl String {
     /// assert_eq!(String::from("𝄞mus\u{FFFD}ic\u{FFFD}"),
     ///            String::from_utf16be_lossy(v));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك ترميز شريحة `v` بترميز UTF-16BE إلى `String`، ويستبدل البيانات غير الصالحة بحرف
+    /// الاستبدال (`U+FFFD`).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "str_from_utf16_endian", since = "1.98.0")]
     pub fn from_utf16be_lossy(v: &[u8]) -> String {
@@ -956,6 +1058,12 @@ impl String {
     /// let rebuilt = unsafe { String::from_raw_parts(ptr, len, cap) };
     /// assert_eq!(rebuilt, "hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `String` إلى مكوناته الخام: `(pointer, length, capacity)`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "vec_into_raw_parts", since = "1.93.0")]
     #[inline]
@@ -999,6 +1107,12 @@ impl String {
     ///     assert_eq!(String::from("hello"), s);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `String` جديدًا من مؤشر وطول وسعة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub unsafe fn from_raw_parts(buf: *mut u8, length: usize, capacity: usize) -> String {
@@ -1032,6 +1146,12 @@ impl String {
     ///
     /// assert_eq!("💖", sparkle_heart);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل متجه بايتات إلى `String` بدون التحقق من أن النص UTF-8 صالح.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1051,6 +1171,12 @@ impl String {
     ///
     /// assert_eq!(&[104, 101, 108, 108, 111][..], &bytes[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى متجه بايتات.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1069,6 +1195,12 @@ impl String {
     ///
     /// assert_eq!("foo", s.as_str());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة نص (`&str`) تحتوي الـ `String` كاملًا.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "string_as_str", since = "1.7.0")]
@@ -1092,6 +1224,12 @@ impl String {
     ///
     /// assert_eq!("FOOBAR", s_mut_str);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى شريحة نص قابلة للتعديل.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "string_as_str", since = "1.7.0")]
@@ -1118,6 +1256,12 @@ impl String {
     ///
     /// assert_eq!("foobar", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف شريحة نص إلى نهاية هذا الـ `String`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1181,6 +1325,12 @@ impl String {
     /// string.extend_from_within(4..8);
     /// assert_eq!(string, "abcdecdeabecde");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ الأحرف في المدى `src` من نفس النص ويضيفها إلى نهايته.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "string_extend_from_within", since = "1.87.0")]
     #[track_caller]
@@ -1205,6 +1355,12 @@ impl String {
     ///
     /// assert!(s.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع سعة هذا الـ `String` بالبايتات.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1253,6 +1409,13 @@ impl String {
     /// // ... doesn't actually increase.
     /// assert_eq!(capacity, s.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` بايت إضافيًا على الأقل فوق الطول الحالي. قد يحجز أكثر لتجنب إعادة
+    /// الحجز المتكرر. لا يفعل شيئًا إذا كانت السعة كافية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1303,6 +1466,13 @@ impl String {
     /// // ... doesn't actually increase.
     /// assert_eq!(capacity, s.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز أقل سعة تكفي `additional` بايت إضافيًا فوق الطول الحالي. على عكس `reserve`، لا يحجز
+    /// أكثر من المطلوب عمدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1340,6 +1510,13 @@ impl String {
     /// }
     /// # process_data("rust").expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` بايت إضافيًا على الأقل فوق الطول الحالي، ويرجع خطأً بدل
+    /// التوقف إذا فشل الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.vec.try_reserve(additional)
@@ -1381,6 +1558,13 @@ impl String {
     /// }
     /// # process_data("rust").expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة تكفي `additional` بايت إضافيًا فوق الطول الحالي، ويرجع خطأً بدل التوقف إذا
+    /// فشل الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.vec.try_reserve_exact(additional)
@@ -1399,6 +1583,12 @@ impl String {
     /// s.shrink_to_fit();
     /// assert_eq!(3, s.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة هذا الـ `String` لتساوي طوله.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1426,6 +1616,12 @@ impl String {
     /// s.shrink_to(0);
     /// assert!(s.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة هذا الـ `String` مع حد أدنى لا تقل عنه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "shrink_to", since = "1.56.0")]
@@ -1450,6 +1646,12 @@ impl String {
     ///
     /// assert_eq!("abc123", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف الحرف (`char`) المعطى إلى نهاية هذا الـ `String`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1478,6 +1680,12 @@ impl String {
     ///
     /// assert_eq!(&[104, 101, 108, 108, 111], s.as_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة بايتات لمحتويات هذا الـ `String`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1507,6 +1715,12 @@ impl String {
     ///
     /// assert_eq!("he", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر هذا الـ `String` إلى الطول المحدد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[track_caller]
@@ -1532,6 +1746,12 @@ impl String {
     ///
     /// assert_eq!(s.pop(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر حرف من النص ويرجعه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop(&mut self) -> Option<char> {
@@ -1564,6 +1784,12 @@ impl String {
     /// assert_eq!(s.remove(1), 'ç');
     /// assert_eq!(s.remove(0), 'b');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف حرفًا (`char`) من هذا الـ `String` في موضع البايت `idx` ويرجعه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[track_caller]
@@ -1608,6 +1834,12 @@ impl String {
     /// s.remove_matches("ana");
     /// assert_eq!("bna", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف كل تطابقات النمط `pat` في الـ `String`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "string_remove_matches", issue = "72826")]
     pub fn remove_matches<P: Pattern>(&mut self, pat: P) {
@@ -1686,6 +1918,12 @@ impl String {
     /// s.retain(|_| *iter.next().unwrap());
     /// assert_eq!(s, "bce");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي فقط الأحرف التي يقبلها الشرط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "string_retain", since = "1.26.0")]
     pub fn retain<F>(&mut self, mut f: F)
@@ -1769,6 +2007,12 @@ impl String {
     ///
     /// assert_eq!("foo", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج حرفًا في هذا الـ `String` في موضع البايت `idx`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[track_caller]
@@ -1826,6 +2070,12 @@ impl String {
     ///
     /// assert_eq!("foobar", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج شريحة نص في هذا الـ `String` في موضع البايت `idx`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[track_caller]
@@ -1881,6 +2131,12 @@ impl String {
     /// }
     /// assert_eq!(s, "olleh");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى محتويات هذا الـ `String` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_vec_string_slice", since = "1.87.0")]
@@ -1902,6 +2158,13 @@ impl String {
     /// assert_eq!(fancy_f.len(), 4);
     /// assert_eq!(fancy_f.chars().count(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول هذا الـ `String` بالبايتات، وليس بعدد الأحرف (`char`) أو الحروف المرئية. أي قد لا
+    /// يكون ما يعتبره الإنسان طول النص.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1923,6 +2186,12 @@ impl String {
     /// v.push('a');
     /// assert!(!v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول هذا الـ `String` صفرًا، و`false` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1955,6 +2224,12 @@ impl String {
     /// assert_eq!(world, "World!");
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم النص إلى جزأين عند موضع البايت المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[track_caller]
@@ -1983,6 +2258,12 @@ impl String {
     /// assert_eq!(0, s.len());
     /// assert_eq!(3, s.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ هذا الـ `String` بحذف كل محتوياته.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
@@ -2022,6 +2303,12 @@ impl String {
     /// s.drain(..);
     /// assert_eq!(s, "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف المدى المحدد من النص دفعة واحدة، ويرجع كل الأحرف المحذوفة كمكرر.
+    ///
+    /// </div>
     #[stable(feature = "drain", since = "1.6.0")]
     #[track_caller]
     pub fn drain<R>(&mut self, range: R) -> Drain<'_>
@@ -2095,6 +2382,12 @@ impl String {
     /// ```
     ///
     /// [`char`]: prim@char
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى مكرر على أحرف (`char`) النص.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[unstable(feature = "string_into_chars", issue = "133125")]
@@ -2121,6 +2414,12 @@ impl String {
     /// s.replace_range(..beta_offset, "Α is capital alpha; ");
     /// assert_eq!(s, "Α is capital alpha; β is beta");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف المدى المحدد من النص ويستبدله بالنص المعطى. لا يلزم أن يكون النص المعطى بنفس طول المدى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "splice", since = "1.27.0")]
     #[track_caller]
@@ -2172,6 +2471,12 @@ impl String {
     /// ```
     ///
     /// [replacen]: ../../std/primitive.str.html#method.replacen
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل أول تطابق للنمط بنص آخر، في نفس المكان.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "string_replace_in_place", issue = "147949")]
     pub fn replace_first<P: Pattern>(&mut self, from: P, to: &str) {
@@ -2198,6 +2503,12 @@ impl String {
     /// s.replace_last('❌', "✅");
     /// assert_eq!(s, "Test Results: ❌❌✅");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل آخر تطابق للنمط بنص آخر، في نفس المكان.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "string_replace_in_place", issue = "147949")]
     pub fn replace_last<P: Pattern>(&mut self, from: P, to: &str)
@@ -2227,6 +2538,12 @@ impl String {
     ///
     /// let b = s.into_boxed_str();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `String` إلى `Box<str>`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "box_str", since = "1.4.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
@@ -2261,6 +2578,13 @@ impl String {
     /// # // use -Zmiri-disable-leak-check instead of unleaking in tests meant to leak.
     /// # drop(unsafe { Box::from_raw(static_ref) });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `String` ويتركه بدون تحرير، ويرجع مرجعًا قابلًا للتعديل إلى المحتويات،
+    /// `&'a mut str`.
+    ///
+    /// </div>
     #[stable(feature = "string_leak", since = "1.72.0")]
     #[inline]
     pub fn leak<'a>(self) -> &'a mut str {
@@ -2283,6 +2607,12 @@ impl FromUtf8Error {
     ///
     /// assert_eq!(&[0, 159], value.unwrap_err().as_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة البايتات (`u8`) التي حاولنا تحويلها إلى `String`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "from_utf8_error_as_bytes", since = "1.26.0")]
     pub fn as_bytes(&self) -> &[u8] {
@@ -2323,6 +2653,12 @@ impl FromUtf8Error {
     /// assert_eq!(String::from("Hello �World"), output);
     /// assert!(had_invalid_utf8);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل البايتات إلى `String` مع استبدال تسلسلات UTF-8 غير الصالحة بحرف الاستبدال.
+    ///
+    /// </div>
     #[must_use]
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "string_from_utf8_lossy_owned", since = "1.99.0")]
@@ -2370,6 +2706,12 @@ impl FromUtf8Error {
     ///
     /// assert_eq!(vec![0, 159], value.unwrap_err().into_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البايتات التي حاولنا تحويلها إلى `String`.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_bytes(self) -> Vec<u8> {
@@ -2397,6 +2739,12 @@ impl FromUtf8Error {
     /// // the first byte is invalid here
     /// assert_eq!(1, error.valid_up_to());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Utf8Error` لمعرفة تفاصيل أكثر عن فشل التحويل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn utf8_error(&self) -> Utf8Error {
@@ -2439,6 +2787,12 @@ impl Clone for String {
     ///
     /// This method is preferred over simply assigning `source.clone()` to `self`,
     /// as it avoids reallocation if possible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ محتويات `source` إلى `self`.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         self.vec.clone_from(&source.vec);
     }
@@ -2692,6 +3046,12 @@ impl<'a> Extend<&'a core::ascii::Char> for String {
 /// ```
 /// assert_eq!(String::from("Hello world").find("world"), Some(6));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق مساعد يحيل إلى التطبيق الخاص بـ `&str`.
+///
+/// </div>
 #[unstable(
     feature = "pattern",
     reason = "API not fully fleshed out and ready to be stabilized",
@@ -2849,6 +3209,12 @@ impl hash::Hash for String {
 /// let b = " world";
 /// let c = a.to_string() + b;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق المعامل `+` لدمج نصين.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "rust1", since = "1.0.0")]
 impl Add<&str> for String {
@@ -2864,6 +3230,12 @@ impl Add<&str> for String {
 /// Implements the `+=` operator for appending to a `String`.
 ///
 /// This has the same behavior as the [`push_str`][String::push_str] method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق المعامل `+=` للإضافة إلى نهاية `String`.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "stringaddassign", since = "1.12.0")]
 impl AddAssign<&str> for String {
@@ -2921,6 +3293,12 @@ impl ops::DerefMut for String {
 /// A type alias for [`!`].
 ///
 /// This alias exists for backwards compatibility, and may be eventually deprecated.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اسم مستعار للنوع `!`.
+///
+/// </div>
 #[stable(feature = "str_parse_error", since = "1.5.0")]
 pub type ParseError = !;
 
@@ -2942,6 +3320,12 @@ impl FromStr for String {
 /// implementation for free.
 ///
 /// [`Display`]: fmt::Display
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لتحويل قيمة إلى `String`.
+///
+/// </div>
 #[rustc_diagnostic_item = "ToString"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait ToString {
@@ -2955,6 +3339,12 @@ pub trait ToString {
     ///
     /// assert_eq!(five, i.to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة المعطاة إلى `String`.
+    ///
+    /// </div>
     #[rustc_conversion_suggestion]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "to_string_method"]
@@ -3190,6 +3580,12 @@ impl From<&str> for String {
     /// Converts a `&str` into a [`String`].
     ///
     /// The result is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&str` إلى `String`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &str) -> String {
         s.to_owned()
@@ -3202,6 +3598,12 @@ impl From<&mut str> for String {
     /// Converts a `&mut str` into a [`String`].
     ///
     /// The result is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut str` إلى `String`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut str) -> String {
         s.to_owned()
@@ -3214,6 +3616,12 @@ impl From<&String> for String {
     /// Converts a `&String` into a [`String`].
     ///
     /// This clones `s` and returns the clone.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&String` إلى `String`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &String) -> String {
         s.clone()
@@ -3235,6 +3643,12 @@ impl From<Box<str>> for String {
     ///
     /// assert_eq!("hello world", s3)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة `str` داخل `Box` إلى `String`. لاحظ أن شريحة `str` مملوكة.
+    ///
+    /// </div>
     fn from(s: Box<str>) -> String {
         s.into_string()
     }
@@ -3254,6 +3668,12 @@ impl From<String> for Box<str> {
     ///
     /// assert_eq!("hello world", s3)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` المعطى إلى شريحة `str` مملوكة داخل `Box`.
+    ///
+    /// </div>
     fn from(s: String) -> Box<str> {
         s.into_boxed_str()
     }
@@ -3278,6 +3698,12 @@ impl<'a> From<Cow<'a, str>> for String {
     /// let owned: String = String::from(cow);
     /// assert_eq!(&owned[..], "eggplant");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نص نسخ عند الكتابة (`Cow`) إلى `String` مملوك.
+    ///
+    /// </div>
     fn from(s: Cow<'a, str>) -> String {
         s.into_owned()
     }
@@ -3298,6 +3724,12 @@ impl<'a> From<&'a str> for Cow<'a, str> {
     /// ```
     ///
     /// [`Borrowed`]: crate::borrow::Cow::Borrowed "borrow::Cow::Borrowed"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص إلى حالة `Borrowed`. بدون حجز ذاكرة وبدون نسخ النص.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a str) -> Cow<'a, str> {
         Cow::Borrowed(s)
@@ -3321,6 +3753,12 @@ impl<'a> From<String> for Cow<'a, str> {
     /// ```
     ///
     /// [`Owned`]: crate::borrow::Cow::Owned "borrow::Cow::Owned"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى حالة `Owned`. بدون حجز ذاكرة وبدون نسخ النص.
+    ///
+    /// </div>
     #[inline]
     fn from(s: String) -> Cow<'a, str> {
         Cow::Owned(s)
@@ -3343,6 +3781,12 @@ impl<'a> From<&'a String> for Cow<'a, str> {
     /// ```
     ///
     /// [`Borrowed`]: crate::borrow::Cow::Borrowed "borrow::Cow::Borrowed"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجع `String` إلى حالة `Borrowed`. بدون حجز ذاكرة وبدون نسخ النص.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a String) -> Cow<'a, str> {
         Cow::Borrowed(s.as_str())
@@ -3395,6 +3839,12 @@ impl From<String> for Vec<u8> {
     ///     println!("{b}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `String` المعطى إلى متجه `Vec` من القيم `u8`.
+    ///
+    /// </div>
     fn from(string: String) -> Vec<u8> {
         string.into_bytes()
     }
@@ -3413,6 +3863,12 @@ impl TryFrom<Vec<u8>> for String {
     /// assert_eq!(v1, "hello world");
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<u8>` المعطى إلى `String` إذا كان يحتوي بيانات UTF-8 صالحة.
+    ///
+    /// </div>
     fn try_from(bytes: Vec<u8>) -> Result<Self, Self::Error> {
         Self::from_utf8(bytes)
     }
@@ -3422,6 +3878,13 @@ impl TryFrom<Vec<u8>> for String {
 /// contents; they never truncate or replace what is already there. In
 /// particular, [`fmt::Write::write_str`] uses [`push_str`][String::push_str]
 /// and [`fmt::Write::write_char`] uses [`push`][String::push].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// لاحظ أن كل دوال هذا الـ trait تضيف إلى نهاية محتويات الـ `String` الموجودة؛ ولا تقصّر ولا تستبدل
+/// ما فيه.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "rust1", since = "1.0.0")]
 impl fmt::Write for String {
@@ -3445,6 +3908,12 @@ impl fmt::Write for String {
 ///
 /// [`char`]: prim@char
 /// [`into_chars`]: String::into_chars
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أحرف (`char`) نص.
+///
+/// </div>
 #[cfg_attr(not(no_global_oom_handling), derive(Clone))]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "string_into_chars", issue = "133125")]
@@ -3476,6 +3945,12 @@ impl IntoChars {
     /// chars.next();
     /// assert_eq!(chars.as_str(), "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[unstable(feature = "string_into_chars", issue = "133125")]
     #[must_use]
     #[inline]
@@ -3498,6 +3973,12 @@ impl IntoChars {
     /// chars.next();
     /// assert_eq!(chars.into_string(), "ef");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك `IntoChars` ويرجع النص الباقي.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "string_into_chars", issue = "133125")]
     #[inline]
@@ -3572,6 +4053,12 @@ impl FusedIterator for IntoChars {}
 /// documentation for more.
 ///
 /// [`drain`]: String::drain
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) الأحرف من `String`.
+///
+/// </div>
 #[stable(feature = "drain", since = "1.6.0")]
 pub struct Drain<'a> {
     /// Will be used as &'a mut String in the destructor
@@ -3621,6 +4108,12 @@ impl<'a> Drain<'a> {
     /// let _ = drain.next().unwrap();
     /// assert_eq!(drain.as_str(), "bc");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع النص الباقي في هذا المكرر كشريحة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "string_drain_as_str", since = "1.55.0")]
     pub fn as_str(&self) -> &str {
@@ -3683,6 +4176,12 @@ impl From<char> for String {
     /// let s: String = String::from(c);
     /// assert_eq!("a", &s[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `String` مملوكًا من حرف واحد.
+    ///
+    /// </div>
     #[inline]
     fn from(c: char) -> Self {
         c.to_string()

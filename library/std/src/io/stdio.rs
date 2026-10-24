@@ -245,6 +245,12 @@ fn handle_ebadf<T>(r: io::Result<T>, default: impl FnOnce() -> io::Result<T>) ->
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض لمجرى الإدخال القياسي (stdin) للعملية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Stdin")]
 pub struct Stdin {
@@ -283,6 +289,12 @@ pub struct Stdin {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مرجع مقفول إلى مقبض `Stdin`.
+///
+/// </div>
 #[must_use = "if unused stdin will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "StdinLock")]
@@ -336,6 +348,12 @@ pub struct StdinLock<'a> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مقبضًا جديدًا للإدخال القياسي للعملية الحالية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn stdin() -> Stdin {
@@ -369,6 +387,12 @@ impl Stdin {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا المقبض على مجرى الإدخال القياسي، ويرجع حارسًا يمكن القراءة منه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn lock(&self) -> StdinLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
@@ -407,6 +431,12 @@ impl Stdin {
     /// - Give it text interactively by running the executable directly,
     ///   in which case it will wait for the Enter key to be pressed before
     ///   continuing
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا المقبض ويقرأ سطرًا من الإدخال، ويضيفه إلى نهاية النص المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("get_line")]
     pub fn read_line(&self, buf: &mut String) -> io::Result<usize> {
@@ -428,6 +458,12 @@ impl Stdin {
     ///     println!("got a line: {}", line.unwrap());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا المقبض ويرجع مكررًا على أسطر الإدخال.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "stdin_forwarders", since = "1.62.0")]
     pub fn lines(self) -> Lines<StdinLock<'static>> {
@@ -606,6 +642,12 @@ impl fmt::Debug for StdinLock<'_> {
 /// [`lock`]: Stdout::lock
 /// [`flush`]: Write::flush
 /// [`io::stdout`]: stdout
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض لمجرى الإخراج القياسي (stdout) العام للعملية الحالية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Stdout {
     // FIXME: this should be LineWriter or BufWriter depending on the state of
@@ -636,6 +678,12 @@ pub struct Stdout {
 /// standard library or via raw Windows API calls, will fail.
 ///
 /// [`flush`]: Write::flush
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مرجع مقفول إلى مقبض `Stdout`.
+///
+/// </div>
 #[must_use = "if unused stdout will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct StdoutLock<'a> {
@@ -710,6 +758,12 @@ static STDOUT: OnceLock<ReentrantLock<RefCell<LineWriter<StdoutRaw>>>> = OnceLoc
 /// ```
 ///
 /// [`flush`]: Write::flush
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مقبضًا جديدًا للإخراج القياسي للعملية الحالية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "io_stdout")]
@@ -761,6 +815,12 @@ impl Stdout {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا المقبض على مجرى الإخراج القياسي، ويرجع حارسًا يمكن الكتابة فيه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn lock(&self) -> StdoutLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
@@ -887,6 +947,12 @@ impl fmt::Debug for StdoutLock<'_> {
 /// the contained handle will be null. In such cases, the standard library's `Read` and
 /// `Write` will do nothing and silently succeed. All other I/O operations, via the
 /// standard library or via raw Windows API calls, will fail.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض لمجرى الأخطاء القياسي (stderr) للعملية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Stderr {
     inner: &'static ReentrantLock<RefCell<StderrRaw>>,
@@ -907,6 +973,12 @@ pub struct Stderr {
 /// the contained handle will be null. In such cases, the standard library's `Read` and
 /// `Write` will do nothing and silently succeed. All other I/O operations, via the
 /// standard library or via raw Windows API calls, will fail.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مرجع مقفول إلى مقبض `Stderr`.
+///
+/// </div>
 #[must_use = "if unused stderr will immediately unlock"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct StderrLock<'a> {
@@ -956,6 +1028,12 @@ pub struct StderrLock<'a> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مقبضًا جديدًا لمجرى الأخطاء القياسي للعملية الحالية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "io_stderr")]
@@ -990,6 +1068,12 @@ impl Stderr {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا المقبض على مجرى الأخطاء القياسي، ويرجع حارسًا يمكن الكتابة فيه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn lock(&self) -> StderrLock<'static> {
         // Locks this handle with 'static lifetime. This depends on the
@@ -1190,6 +1274,12 @@ pub(crate) fn attempt_print_to_stderr(args: fmt::Arguments<'_>) {
 }
 
 /// Trait to determine if a descriptor/handle refers to a terminal/tty.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لمعرفة هل يشير الوصف أو المقبض إلى طرفية (terminal/tty).
+///
+/// </div>
 #[stable(feature = "is_terminal", since = "1.70.0")]
 pub impl(crate) trait IsTerminal {
     /// Returns `true` if the descriptor/handle refers to a terminal/tty.

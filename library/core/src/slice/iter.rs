@@ -129,6 +129,12 @@ impl<'a, T> Iter<'a, T> {
     /// // so this prints "[1, 2, 3]":
     /// println!("{:?}", slice);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "iter_to_slice", since = "1.4.0")]
     #[inline]
@@ -269,6 +275,12 @@ impl<'a, T> IterMut<'a, T> {
     /// // was increased by 1, so this prints "[2, 2, 3]":
     /// println!("{:?}", slice);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "iter_to_slice", since = "1.4.0")]
     pub fn into_slice(self) -> &'a mut [T] {
@@ -305,6 +317,12 @@ impl<'a, T> IterMut<'a, T> {
     /// // was increased by 1, so this prints "[2, 2, 3]":
     /// println!("{:?}", slice);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "slice_iter_mut_as_slice", since = "1.53.0")]
     #[inline]

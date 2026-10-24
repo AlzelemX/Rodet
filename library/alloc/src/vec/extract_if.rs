@@ -15,6 +15,12 @@ use crate::alloc::{Allocator, Global};
 /// let mut v = vec![0, 1, 2];
 /// let iter: std::vec::ExtractIf<'_, _, _> = v.extract_if(.., |x| *x % 2 == 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يستخدم إغلاقًا ليقرر هل يُحذف كل عنصر.
+///
+/// </div>
 #[stable(feature = "extract_if", since = "1.87.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `retain_mut` or `extract_if().for_each(drop)` to remove and discard elements"]
@@ -51,6 +57,12 @@ impl<'a, T, F, A: Allocator> ExtractIf<'a, T, F, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn allocator(&self) -> &A {

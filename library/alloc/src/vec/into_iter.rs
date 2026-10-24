@@ -42,6 +42,12 @@ macro non_null {
 /// let v = vec![0, 1, 2];
 /// let iter: std::vec::IntoIter<_> = v.into_iter();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر ينقل العناصر خارج المتجه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_insignificant_dtor]
 pub struct IntoIter<
@@ -86,6 +92,12 @@ impl<T, A: Allocator> IntoIter<T, A> {
     /// let _ = into_iter.next().unwrap();
     /// assert_eq!(into_iter.as_slice(), &['b', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العناصر الباقية في هذا المكرر كشريحة.
+    ///
+    /// </div>
     #[stable(feature = "vec_into_iter_as_slice", since = "1.15.0")]
     pub fn as_slice(&self) -> &[T] {
         // ignore-tidy-undocumented-unsafe
@@ -105,6 +117,12 @@ impl<T, A: Allocator> IntoIter<T, A> {
     /// assert_eq!(into_iter.next().unwrap(), 'b');
     /// assert_eq!(into_iter.next().unwrap(), 'z');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العناصر الباقية في هذا المكرر كشريحة قابلة للتعديل.
+    ///
+    /// </div>
     #[stable(feature = "vec_into_iter_as_slice", since = "1.15.0")]
     pub fn as_mut_slice(&mut self) -> &mut [T] {
         // ignore-tidy-undocumented-unsafe
@@ -112,6 +130,12 @@ impl<T, A: Allocator> IntoIter<T, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn allocator(&self) -> &A {

@@ -575,6 +575,12 @@
 //!     None => println!("there are no animals :("),
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! القيم الاختيارية: قيمة قد تكون موجودة (`Some`) أو غير موجودة (`None`).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -588,6 +594,12 @@ use crate::pin::Pin;
 use crate::{cmp, hint, mem, slice};
 
 /// The `Option` type. See [the module level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع `Option`: إما `Some(قيمة)` أو `None`. انظر توثيق الوحدة لمزيد من التفاصيل.
+///
+/// </div>
 #[doc(search_unbox)]
 #[derive(Copy, Debug, Hash)]
 #[derive_const(Eq)]
@@ -597,10 +609,22 @@ use crate::{cmp, hint, mem, slice};
 #[allow(clippy::derived_hash_with_manual_eq)] // PartialEq is manually implemented equivalently
 pub enum Option<T> {
     /// No value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا توجد قيمة.
+    ///
+    /// </div>
     #[lang = "None"]
     #[stable(feature = "rust1", since = "1.0.0")]
     None,
     /// Some value of type `T`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// توجد قيمة من النوع `T`.
+    ///
+    /// </div>
     #[lang = "Some"]
     #[stable(feature = "rust1", since = "1.0.0")]
     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
@@ -626,6 +650,12 @@ impl<T> Option<T> {
     /// let x: Option<u32> = None;
     /// assert_eq!(x.is_some(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الخيار قيمة `Some`.
+    ///
+    /// </div>
     #[must_use = "if you intended to assert that this has a value, consider `.unwrap()` instead"]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -652,6 +682,12 @@ impl<T> Option<T> {
     /// assert_eq!(x.as_ref().is_some_and(|x| x.len() > 1), true);
     /// println!("still alive {:?}", x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الخيار `Some` والقيمة التي بداخله تحقق الشرط.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "is_some_and", since = "1.70.0")]
@@ -674,6 +710,12 @@ impl<T> Option<T> {
     /// let x: Option<u32> = None;
     /// assert_eq!(x.is_none(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الخيار قيمة `None`.
+    ///
+    /// </div>
     #[must_use = "if you intended to assert that this doesn't have a value, consider \
                   wrapping this in an `assert!()` instead"]
     #[inline]
@@ -701,6 +743,12 @@ impl<T> Option<T> {
     /// assert_eq!(x.as_ref().is_none_or(|x| x.len() > 1), true);
     /// println!("still alive {:?}", x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الخيار `None` أو كانت القيمة التي بداخله تحقق الشرط.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "is_none_or", since = "1.82.0")]
@@ -736,6 +784,12 @@ impl<T> Option<T> {
     /// let text_length: Option<usize> = text.as_ref().map(|s| s.len());
     /// println!("still can print text: {text:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&Option<T>` إلى `Option<&T>`.
+    ///
+    /// </div>
     #[inline]
     #[expect(clippy::match_as_ref, reason = "implements as_ref")]
     #[rustc_const_stable(feature = "const_option_basics", since = "1.48.0")]
@@ -759,6 +813,12 @@ impl<T> Option<T> {
     /// }
     /// assert_eq!(x, Some(42));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&mut Option<T>` إلى `Option<&mut T>`.
+    ///
+    /// </div>
     #[inline]
     #[expect(clippy::match_as_ref, reason = "implements as_mut")]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -773,6 +833,12 @@ impl<T> Option<T> {
     /// Converts from <code>[Pin]<[&]Option\<T>></code> to <code>Option<[Pin]<[&]T>></code>.
     ///
     /// [&]: reference "shared reference"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Pin<&Option<T>>` إلى `Option<Pin<&T>>`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "pin", since = "1.33.0")]
@@ -790,6 +856,12 @@ impl<T> Option<T> {
     /// Converts from <code>[Pin]<[&mut] Option\<T>></code> to <code>Option<[Pin]<[&mut] T>></code>.
     ///
     /// [&mut]: reference "mutable reference"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Pin<&mut Option<T>>` إلى `Option<Pin<&mut T>>`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "pin", since = "1.33.0")]
@@ -837,6 +909,13 @@ impl<T> Option<T> {
     ///     assert_eq!(i.as_ref(), i.as_slice().first());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة فيها القيمة الموجودة إن وُجدت، أو شريحة فارغة إذا كان `None`. مفيد لاستخدام نوع
+    /// مكرر واحد مع `Option` أو شريحة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "option_as_slice", since = "1.75.0")]
@@ -892,6 +971,12 @@ impl<T> Option<T> {
     /// ```rust
     /// assert_eq!(Some(123).as_mut_slice().first_mut(), Some(&mut 123))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل فيها القيمة الموجودة إن وُجدت، أو شريحة فارغة إذا كان `None`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "option_as_slice", since = "1.75.0")]
@@ -959,6 +1044,13 @@ impl<T> Option<T> {
     /// For more detail on expect message styles and the reasoning behind our
     /// recommendation please refer to the section on ["Common Message
     /// Styles"](../../std/error/index.html#common-message-styles) in the [`std::error`](../../std/error/index.html) module docs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` ويستهلك `self`؛ وإذا كانت `None` يتوقف البرنامج (panic)
+    /// بالرسالة المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1004,6 +1096,13 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(x.unwrap(), "air"); // fails
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` ويستهلك `self`؛ وإذا كانت `None` يتوقف البرنامج (panic)
+    /// بالرسالة المعطاة.
+    ///
+    /// </div>
     #[inline(always)]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1031,6 +1130,12 @@ impl<T> Option<T> {
     /// assert_eq!(Some("car").unwrap_or("bike"), "car");
     /// assert_eq!(None.unwrap_or("bike"), "bike");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` أو القيمة الافتراضية المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -1054,6 +1159,12 @@ impl<T> Option<T> {
     /// assert_eq!(Some(4).unwrap_or_else(|| 2 * k), 4);
     /// assert_eq!(None.unwrap_or_else(|| 2 * k), 20);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` أو يحسبها من إغلاق.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1087,6 +1198,12 @@ impl<T> Option<T> {
     /// [default value]: Default::default
     /// [`parse`]: str::parse
     /// [`FromStr`]: crate::str::FromStr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` أو القيمة الافتراضية للنوع (`Default`).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1120,6 +1237,12 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(unsafe { x.unwrap_unchecked() }, "air"); // Undefined behavior!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة في `Some` ويستهلك `self`، بدون التحقق من أنها ليست `None` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[stable(feature = "option_result_unwrap_unchecked", since = "1.58.0")]
@@ -1154,6 +1277,13 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(x.map(|s| s.len()), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<T>` إلى `Option<U>` بتطبيق دالة على القيمة الموجودة (إن كانت `Some`) أو يرجع
+    /// `None` (إن كانت `None`).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1185,6 +1315,12 @@ impl<T> Option<T> {
     /// // prints nothing
     /// list.get(5).inspect(|x| println!("got: {x}"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي دالة مع مرجع إلى القيمة الموجودة إذا كانت `Some`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_option_inspect", since = "1.76.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1217,6 +1353,13 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(x.map_or(42, |v| v.len()), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع النتيجة الافتراضية المعطاة (إن لم توجد قيمة)، أو يطبّق دالة على القيمة الموجودة (إن
+    /// وُجدت).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "if you don't need the returned value, use `if let` instead"]
@@ -1265,6 +1408,13 @@ impl<T> Option<T> {
     /// #   Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب نتيجة دالة افتراضية (إن لم توجد قيمة)، أو يطبّق دالة أخرى على القيمة الموجودة (إن
+    /// وُجدت).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1294,6 +1444,13 @@ impl<T> Option<T> {
     /// ```
     ///
     /// [default value]: Default::default
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<T>` إلى `U` بتطبيق الدالة `f` على القيمة إذا كانت `Some`، وإلا (إذا كانت
+    /// `None`) يرجع القيمة الافتراضية للنوع `U`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "result_option_map_or_default", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1329,6 +1486,12 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(x.ok_or(0), Err(0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<T>` إلى `Result<T, E>`: `Some(v)` يصبح `Ok(v)` و`None` يصبح `Err(err)`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1355,6 +1518,12 @@ impl<T> Option<T> {
     /// let x: Option<&str> = None;
     /// assert_eq!(x.ok_or_else(|| 0), Err(0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<T>` إلى `Result<T, E>`: `Some(v)` يصبح `Ok(v)` و`None` يصبح `Err(err())`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1382,6 +1551,12 @@ impl<T> Option<T> {
     /// let x: Option<String> = None;
     /// assert_eq!(x.as_deref(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<T>` (أو `&Option<T>`) إلى `Option<&T::Target>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_deref", since = "1.40.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1406,6 +1581,12 @@ impl<T> Option<T> {
     ///     x
     /// }), Some("HEY".to_owned().as_mut_str()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<T>` (أو `&mut Option<T>`) إلى `Option<&mut T::Target>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_deref", since = "1.40.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1431,6 +1612,12 @@ impl<T> Option<T> {
     /// let x: Option<u32> = None;
     /// assert_eq!(x.iter().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter(&self) -> Iter<'_, T> {
@@ -1452,6 +1639,12 @@ impl<T> Option<T> {
     /// let mut x: Option<u32> = None;
     /// assert_eq!(x.iter_mut().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا قابلًا للتعديل على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
@@ -1489,6 +1682,12 @@ impl<T> Option<T> {
     /// let y: Option<&str> = None;
     /// assert_eq!(x.and(y), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان الخيار `None`، وإلا يرجع `optb`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1531,6 +1730,12 @@ impl<T> Option<T> {
     /// let item_2_0 = arr_2d.get(2).and_then(|row| row.get(0));
     /// assert_eq!(item_2_0, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان الخيار `None`، وإلا يستدعي `f` بالقيمة الموجودة ويرجع النتيجة.
+    ///
+    /// </div>
     #[doc(alias = "flatmap")]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1570,6 +1775,13 @@ impl<T> Option<T> {
     /// ```
     ///
     /// [`Some(t)`]: Some
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان الخيار `None`، وإلا يستدعي `predicate` بالقيمة الموجودة ويرجع حسب
+    /// النتيجة:
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_filter", since = "1.27.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1613,6 +1825,12 @@ impl<T> Option<T> {
     /// let y = None;
     /// assert_eq!(x.or(y), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الخيار إذا كان فيه قيمة، وإلا يرجع `optb`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1639,6 +1857,12 @@ impl<T> Option<T> {
     /// assert_eq!(None.or_else(vikings), Some("vikings"));
     /// assert_eq!(None.or_else(nobody), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الخيار إذا كان فيه قيمة، وإلا يستدعي `f` ويرجع النتيجة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1676,6 +1900,12 @@ impl<T> Option<T> {
     /// let y: Option<u32> = None;
     /// assert_eq!(x.xor(y), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some` إذا كان واحد فقط من `self` و`optb` هو `Some`، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_xor", since = "1.37.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1713,6 +1943,12 @@ impl<T> Option<T> {
     /// *val = 3;
     /// assert_eq!(opt.unwrap(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع `value` في الخيار، ثم يرجع مرجعًا قابلًا للتعديل إليها.
+    ///
+    /// </div>
     #[must_use = "if you intended to set a value, consider assignment instead"]
     #[inline]
     #[stable(feature = "option_insert", since = "1.53.0")]
@@ -1747,6 +1983,12 @@ impl<T> Option<T> {
     ///
     /// assert_eq!(x, Some(7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع `value` في الخيار إذا كان `None`، ثم يرجع مرجعًا قابلًا للتعديل إلى القيمة الموجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_entry", since = "1.20.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1774,6 +2016,13 @@ impl<T> Option<T> {
     ///
     /// assert_eq!(x, Some(7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع القيمة الافتراضية في الخيار إذا كان `None`، ثم يرجع مرجعًا قابلًا للتعديل إلى القيمة
+    /// الموجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_get_or_insert_default", since = "1.83.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1801,6 +2050,13 @@ impl<T> Option<T> {
     ///
     /// assert_eq!(x, Some(7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة يحسبها `f` في الخيار إذا كان `None`، ثم يرجع مرجعًا قابلًا للتعديل إلى القيمة
+    /// الموجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_entry", since = "1.20.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1857,6 +2113,12 @@ impl<T> Option<T> {
     /// assert_eq!(o1, Some(12345));
     /// assert_eq!(o2, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كان الخيار `None`، يستدعي الإغلاق ويضع ناتجه إذا نجح.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "option_get_or_try_insert_with", issue = "143648")]
     pub fn get_or_try_insert_with<'a, R, F>(
@@ -1895,6 +2157,12 @@ impl<T> Option<T> {
     /// assert_eq!(x, None);
     /// assert_eq!(y, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من الخيار، ويترك `None` مكانها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_option", since = "1.83.0")]
@@ -1928,6 +2196,12 @@ impl<T> Option<T> {
     /// assert_eq!(x, None);
     /// assert_eq!(prev, Some(43));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من الخيار، لكن فقط إذا أرجع الشرط `true` على مرجع قابل للتعديل إلى القيمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_take_if", since = "1.80.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
@@ -1955,6 +2229,13 @@ impl<T> Option<T> {
     /// assert_eq!(x, Some(3));
     /// assert_eq!(old, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة في الخيار بالقيمة المعطاة، ويرجع القيمة القديمة إن وُجدت، ويترك
+    /// `Some` مكانها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_replace", since = "1.31.0")]
     #[rustc_const_stable(feature = "const_option", since = "1.83.0")]
@@ -1978,6 +2259,12 @@ impl<T> Option<T> {
     /// assert_eq!(x.zip(y), Some((1, "hi")));
     /// assert_eq!(x.zip(z), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ صفًا (tuple) من القيمة في `self` والقيمة في `Option` آخر.
+    ///
+    /// </div>
     #[stable(feature = "option_zip_option", since = "1.46.0")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
     pub const fn zip<U>(self, other: Option<U>) -> Option<(T, U)>
@@ -2019,6 +2306,12 @@ impl<T> Option<T> {
     /// assert_eq!(x.zip_with(y, Point::new), Some(Point { x: 17.5, y: 42.7 }));
     /// assert_eq!(x.zip_with(None, Point::new), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج القيمة في `self` مع القيمة في `Option` آخر، باستخدام الدالة `f`.
+    ///
+    /// </div>
     #[unstable(feature = "option_zip", issue = "70086")]
     #[rustc_const_unstable(feature = "const_option_ops", issue = "143956")]
     pub const fn zip_with<U, F, R>(self, other: Option<U>, f: F) -> Option<R>
@@ -2054,6 +2347,12 @@ impl<T> Option<T> {
     /// assert_eq!(n.reduce(s17, f), Some(17));
     /// assert_eq!(n.reduce(n, f), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يختصر خيارين إلى خيار واحد، باستخدام الدالة المعطاة إذا كان كلاهما `Some`.
+    ///
+    /// </div>
     #[unstable(feature = "option_reduce", issue = "144273")]
     pub fn reduce<U, R, F>(self, other: Option<U>, f: F) -> Option<R>
     where
@@ -2085,6 +2384,12 @@ impl<T: IntoIterator> Option<T> {
     /// assert_eq!(o1.into_flat_iter().collect::<Vec<_>>(), [1, 2]);
     /// assert_eq!(o2.into_flat_iter().collect::<Vec<_>>(), Vec::<&usize>::new());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مكررًا اختياريًا إلى مكرر.
+    ///
+    /// </div>
     #[unstable(feature = "option_into_flat_iter", issue = "148441")]
     pub fn into_flat_iter(self) -> OptionFlatten<T::IntoIter> {
         OptionFlatten { iter: self.map(IntoIterator::into_iter) }
@@ -2106,6 +2411,12 @@ impl<T, U> Option<(T, U)> {
     /// assert_eq!(x.unzip(), (Some(1), Some("hi")));
     /// assert_eq!(y.unzip(), (None, None));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك خيارًا يحتوي صفًا من قيمتين إلى صف من خيارين.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "unzip_option", since = "1.66.0")]
     pub fn unzip(self) -> (Option<T>, Option<U>) {
@@ -2129,6 +2440,12 @@ impl<T> Option<&T> {
     /// let copied = opt_x.copied();
     /// assert_eq!(copied, Some(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<&T>` إلى `Option<T>` بنسخ (copy) محتوى الخيار.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "copied", since = "1.35.0")]
     #[rustc_const_stable(feature = "const_option", since = "1.83.0")]
@@ -2156,6 +2473,12 @@ impl<T> Option<&T> {
     /// let cloned = opt_x.cloned();
     /// assert_eq!(cloned, Some(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<&T>` إلى `Option<T>` باستنساخ (clone) محتوى الخيار.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[expect(clippy::map_clone, reason = "implements Option::cloned")]
@@ -2180,6 +2503,12 @@ impl<T> Option<&mut T> {
     /// let copied = opt_x.copied();
     /// assert_eq!(copied, Some(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<&mut T>` إلى `Option<T>` بنسخ (copy) محتوى الخيار.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "copied", since = "1.35.0")]
     #[rustc_const_stable(feature = "const_option", since = "1.83.0")]
@@ -2205,6 +2534,12 @@ impl<T> Option<&mut T> {
     /// let cloned = opt_x.cloned();
     /// assert_eq!(cloned, Some(12));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Option<&mut T>` إلى `Option<T>` باستنساخ (clone) محتوى الخيار.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(since = "1.26.0", feature = "option_ref_mut_cloned")]
     pub fn cloned(self) -> Option<T>
@@ -2232,6 +2567,12 @@ impl<T, E> Option<Result<T, E>> {
     /// let y: Result<Option<i32>, SomeErr> = Ok(Some(5));
     /// assert_eq!(x.transpose(), y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب `Option` يحتوي `Result` إلى `Result` يحتوي `Option`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "transpose_result", since = "1.33.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -2335,6 +2676,12 @@ const impl<T> IntoIterator for Option<T> {
     /// let v: Vec<&str> = x.into_iter().collect();
     /// assert!(v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا مستهلِكًا على القيمة الموجودة إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     fn into_iter(self) -> IntoIter<T> {
         IntoIter { inner: Item { opt: self } }
@@ -2401,6 +2748,12 @@ const impl<'a, T> From<&'a Option<T>> for Option<&'a T> {
     ///
     /// assert_eq!(o, Some(18));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&Option<T>` إلى `Option<&T>`.
+    ///
+    /// </div>
     fn from(o: &'a Option<T>) -> Option<&'a T> {
         o.as_ref()
     }
@@ -2529,6 +2882,12 @@ unsafe impl<A> TrustedLen for Item<A> {}
 /// The iterator yields one value if the [`Option`] is a [`Some`], otherwise none.
 ///
 /// This `struct` is created by the [`Option::iter`] function.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مرجع إلى القيمة داخل حالة `Some` من `Option`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct Iter<'a, A: 'a> {
@@ -2579,6 +2938,12 @@ impl<A> Clone for Iter<'_, A> {
 /// The iterator yields one value if the [`Option`] is a [`Some`], otherwise none.
 ///
 /// This `struct` is created by the [`Option::iter_mut`] function.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مرجع قابل للتعديل إلى القيمة داخل حالة `Some` من `Option`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct IterMut<'a, A: 'a> {
@@ -2620,6 +2985,12 @@ unsafe impl<A> TrustedLen for IterMut<'_, A> {}
 /// The iterator yields one value if the [`Option`] is a [`Some`], otherwise none.
 ///
 /// This `struct` is created by the [`Option::into_iter`] function.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على القيمة داخل حالة `Some` من `Option`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<A> {
@@ -2660,6 +3031,12 @@ impl<A> FusedIterator for IntoIter<A> {}
 const unsafe impl<A> TrustedLen for IntoIter<A> {}
 
 /// The iterator produced by [`Option::into_flat_iter`]. See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المكرر الذي ينتجه `Option::into_flat_iter`. انظر توثيقها لمزيد من التفاصيل.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[unstable(feature = "option_into_flat_iter", issue = "148441")]
 pub struct OptionFlatten<A> {
@@ -2854,6 +3231,13 @@ impl<T, V: FromIterator<T>> FromIterator<Option<T>> for Option<V> {
     ///
     /// Since the third element caused an underflow, no further elements were taken,
     /// so the final value of `shared` is 6 (= `3 + 2 + 1`), not 16.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ كل عنصر من المكرر: إذا كان `None` يتوقف ويرجع `None`. وإذا لم يظهر أي `None` يرجع
+    /// مجموعة من النوع `V` فيها قيم كل `Option`.
+    ///
+    /// </div>
     #[inline]
     fn from_iter<I: IntoIterator<Item = Option<T>>>(iter: I) -> Option<V> {
         iter::try_process(iter.into_iter(), |i| i.collect())
@@ -2934,6 +3318,12 @@ impl<T> Option<Option<T>> {
     /// assert_eq!(Some(Some(6)), x.flatten());
     /// assert_eq!(Some(6), x.flatten().flatten());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<Option<T>>` إلى `Option<T>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "option_flattening", since = "1.40.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -2966,6 +3356,12 @@ impl<'a, T> Option<&'a Option<T>> {
     /// let x: Option<&Option<u32>> = None;
     /// assert_eq!(None, x.flatten_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<&Option<T>>` إلى `Option<&T>`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "option_reference_flattening", issue = "149221")]
     pub const fn flatten_ref(self) -> Option<&'a T> {
@@ -2997,6 +3393,12 @@ impl<'a, T> Option<&'a mut Option<T>> {
     /// let x: Option<&mut Option<u32>> = None;
     /// assert_eq!(None, x.flatten_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<&mut Option<T>>` إلى `&Option<T>`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "option_reference_flattening", issue = "149221")]
     pub const fn flatten_ref(self) -> Option<&'a T> {
@@ -3026,6 +3428,12 @@ impl<'a, T> Option<&'a mut Option<T>> {
     /// let x: Option<&mut Option<u32>> = None;
     /// assert_eq!(None, x.flatten_mut());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `Option<&mut Option<T>>` إلى `Option<&mut T>`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "option_reference_flattening", issue = "149221")]
     pub const fn flatten_mut(self) -> Option<&'a mut T> {
@@ -3053,6 +3461,12 @@ impl<T, const N: usize> [Option<T>; N] {
     /// let data: Option<[u8; 2]> = data.transpose();
     /// assert_eq!(data, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب `[Option<T>; N]` إلى `Option<[T; N]>`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "option_array_transpose", issue = "130828")]
     pub fn transpose(self) -> Option<[T; N]> {

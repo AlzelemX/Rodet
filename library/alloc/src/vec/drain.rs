@@ -17,6 +17,12 @@ use crate::alloc::{Allocator, Global};
 /// let mut v = vec![0, 1, 2];
 /// let iter: std::vec::Drain<'_, _> = v.drain(..);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) العناصر من `Vec<T>`.
+///
+/// </div>
 #[stable(feature = "drain", since = "1.6.0")]
 pub struct Drain<
     'a,
@@ -51,6 +57,12 @@ impl<'a, T, A: Allocator> Drain<'a, T, A> {
     /// let _ = drain.next().unwrap();
     /// assert_eq!(drain.as_slice(), &['b', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العناصر الباقية في هذا المكرر كشريحة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "vec_drain_as_slice", since = "1.46.0")]
     pub fn as_slice(&self) -> &[T] {
@@ -58,6 +70,12 @@ impl<'a, T, A: Allocator> Drain<'a, T, A> {
     }
 
     /// Returns a reference to the underlying allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[must_use]
     #[inline]
@@ -85,6 +103,12 @@ impl<'a, T, A: Allocator> Drain<'a, T, A> {
     /// // `vec` would be empty.
     /// assert_eq!(vec, ['b', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي العناصر التي لم تُسحب في الـ `Vec` الأصلي.
+    ///
+    /// </div>
     #[unstable(feature = "drain_keep_rest", issue = "101122")]
     pub fn keep_rest(self) {
         // At this moment layout looks like this:

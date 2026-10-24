@@ -144,34 +144,72 @@ def summary(text_lines):
                 break
             continue
         if t.lstrip().startswith("#") and not out:
-            # A heading first (module docs): use it.
-            out.append(t.lstrip("# ").strip())
+            # A heading first (module docs): use it, unless it is a section
+            # like "Panics" that only makes sense with what follows.
+            heading = t.lstrip("# ").strip()
+            if heading in ("Panics", "Safety", "Examples", "Errors", "Example", "Notes", "Note"):
+                return ""
+            out.append(heading)
             break
         out.append(t.strip())
     return " ".join(out)
 
 
 def item_after(lines, end):
-    """What the doc comment documents: (kind, name)."""
+    """What the doc comment documents: (kind, name, line index, hidden)."""
     k = end
     depth = 0
+    hidden = False
     while k < len(lines) and k < end + 40:
         s = lines[k].strip()
         if not s or s.startswith("//"):
             k += 1
             continue
         if s.startswith("#[") or s.startswith("#!") or depth:
+            hidden |= "doc(hidden)" in s
             depth += s.count("[") - s.count("]")
             k += 1
             continue
         m = ITEM.match(lines[k])
         if m:
-            return m.group(1).rstrip("!"), m.group(2) or ""
+            return m.group(1).rstrip("!"), m.group(2) or "", k, hidden
         m = FIELD.match(lines[k])
         if m:
-            return "field", m.group(1)
-        return "other", ""
-    return "other", ""
+            return "field", m.group(1), k, hidden
+        return "other", "", k, hidden
+    return "other", "", end, hidden
+
+
+def is_public(lines, kind, at, hidden):
+    """Whether users of the standard library can see the item."""
+    if hidden:
+        return False
+    line = lines[at] if at < len(lines) else ""
+    if re.match(r"^\s*pub\s", line) or re.match(r"^\s*(#\[[^\]]*\]\s*)*macro_rules!", line):
+        return True
+    if re.match(r"^\s*pub\(", line):
+        return False
+    if kind in ("impl", "macro"):
+        return True
+    # Items of a trait, or of a trait impl, are as public as the trait.
+    indent = len(line) - len(line.lstrip())
+    if indent == 0:
+        return False
+    for k in range(at - 1, max(-1, at - 3000), -1):
+        prev = lines[k]
+        if not prev.strip() or prev.lstrip().startswith(("//", "#")):
+            continue
+        pi = len(prev) - len(prev.lstrip())
+        if pi < indent:
+            ps = prev.strip()
+            if re.match(r"^(pub\s+)?(unsafe\s+)?(auto\s+)?trait\s", ps):
+                return ps.startswith("pub")
+            if re.match(r"^(unsafe\s+)?impl\b", ps) or (ps.startswith("impl") and " for " in ps):
+                return " for " in ps or kind == "variant"
+            if re.match(r"^(pub\s+)?enum\s", ps):
+                return ps.startswith("pub")
+            return False
+    return False
 
 
 def scan():
@@ -181,7 +219,11 @@ def scan():
             lines = f.read().split("\n")
         for start, end, marker, indent in doc_blocks(lines):
             text = block_text(lines, start, end, marker)
-            kind, name = ("module", "") if marker == "//!" else item_after(lines, end)
+            if marker == "//!":
+                kind, name, public = "module", "", True
+            else:
+                kind, name, at, hidden = item_after(lines, end)
+                public = is_public(lines, kind, at, hidden)
             eng = english_part(text)
             if not any(t.strip() for t in eng):
                 continue
@@ -195,6 +237,7 @@ def scan():
                 "arabic": has_arabic(text),
                 "kind": kind,
                 "name": name,
+                "public": public,
             }
 
 
@@ -248,13 +291,15 @@ def main():
     if cmd == "coverage":
         per = defaultdict(Counter)
         for d in scan():
+            if not d["public"]:
+                continue
             parts = rel(d["path"]).split(os.sep)
             key = "/".join(parts[:3]) if len(parts) > 3 else "/".join(parts[:2])
             per[key]["all"] += 1
             per[key]["ar"] += d["arabic"]
         total = sum(c["all"] for c in per.values())
         done = sum(c["ar"] for c in per.values())
-        print(f"documented items: {done}/{total} have Arabic ({100 * done // max(total, 1)}%)")
+        print(f"documented public items: {done}/{total} have Arabic ({100 * done // max(total, 1)}%)")
         for crate in CRATES:
             t = sum(c["all"] for k, c in per.items() if k.startswith(crate + "/"))
             d = sum(c["ar"] for k, c in per.items() if k.startswith(crate + "/"))
@@ -270,7 +315,7 @@ def main():
             limit = int(args[args.index("--limit") + 1])
         whole = "--all" in args
         where = [a for a in args if not a.startswith("--") and not a.isdigit()]
-        items = [d for d in scan() if not d["arabic"]]
+        items = [d for d in scan() if not d["arabic"] and (d["public"] or "--private" in args)]
         if where:
             items = [d for d in items if rel(d["path"]).startswith(where[0])]
         items.sort(key=lambda d: (priority(d["path"]), rel(d["path"]), d["start"]))

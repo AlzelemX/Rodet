@@ -15,6 +15,12 @@ use crate::alloc::{Allocator, Global};
 /// let new = [7, 8];
 /// let iter: std::vec::Splice<'_, _> = v.splice(1.., new);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر استبدال (splice) لـ `Vec`.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "vec_splice", since = "1.21.0")]
 pub struct Splice<
@@ -99,6 +105,12 @@ impl<I: Iterator, A: Allocator> Drop for Splice<'_, I, A> {
 }
 
 /// Private helper methods for `Splice::drop`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال مساعدة خاصة لـ `Splice::drop`.
+///
+/// </div>
 impl<T, A: Allocator> Drain<'_, T, A> {
     /// The range from `self.vec.len` to `self.tail_start` contains elements
     /// that have been moved out.
