@@ -94,6 +94,12 @@ use super::TrustedLen;
 ///
 /// assert_eq!(c.0, vec![0, 1, 2, 3, 4]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل من مكرر (`Iterator`) — هذا ما يجعل `collect()` يعمل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_on_unimplemented(
     on(
@@ -147,6 +153,12 @@ pub trait FromIterator<T>: Sized {
     ///
     /// assert_eq!(v, vec![5, 5, 5, 5, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ قيمة من مكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "from_iter_fn"]
     fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self;
@@ -393,6 +405,12 @@ const impl<I: [const] Iterator> IntoIterator for I {
 /// // we've added these elements onto the end
 /// assert_eq!("MyCollection([5, 6, 7, 1, 2, 3])", format!("{c:?}"));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يوسّع مجموعة بمحتويات مكرر.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait Extend<T> {
     /// Extends a collection with the contents of an iterator.
@@ -412,10 +430,22 @@ pub trait Extend<T> {
     ///
     /// assert_eq!("abcdef", &message);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوسّع مجموعة بمحتويات مكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn extend<I: IntoIterator<Item = T>>(&mut self, iter: I);
 
     /// Extends a collection with exactly one element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوسّع مجموعة بعنصر واحد بالضبط.
+    ///
+    /// </div>
     #[unstable(feature = "extend_one", issue = "72631")]
     fn extend_one(&mut self, item: T) {
         self.extend(Some(item));
@@ -424,6 +454,12 @@ pub trait Extend<T> {
     /// Reserves capacity in a collection for the given number of additional elements.
     ///
     /// The default implementation does nothing.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة في المجموعة لعدد العناصر الإضافية المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "extend_one", issue = "72631")]
     fn extend_reserve(&mut self, additional: usize) {
         let _ = additional;
@@ -460,6 +496,12 @@ impl Extend<()> for () {
 
 /// This trait is implemented for tuples up to twelve items long. The `impl`s for
 /// 1- and 3- through 12-ary tuples were stabilized after 2-tuples, in 1.85.0.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الـ trait مطبَّق على الصفوف حتى 12 عنصرًا.
+///
+/// </div>
 #[doc(fake_variadic)] // the other implementations are below.
 #[stable(feature = "extend_for_tuple", since = "1.56.0")]
 impl<T, ExtendT> Extend<(T,)> for (ExtendT,)
@@ -525,6 +567,12 @@ where
 /// assert_eq!(lengths, [1, 1, 3, 1]);
 /// # Ok(()) }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق يحوّل مكررًا من الصفوف إلى صف من أنواع تطبّق `Default` و`Extend`.
+///
+/// </div>
 #[doc(fake_variadic)] // the other implementations are below.
 #[stable(feature = "from_iterator_for_tuple", since = "1.79.0")]
 impl<T, ExtendT> FromIterator<(T,)> for (ExtendT,)

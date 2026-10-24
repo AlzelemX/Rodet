@@ -151,6 +151,12 @@
 //! [`RefCell`]: crate::cell::RefCell
 //! [`with`]: LocalKey::with
 //! [`thread_local!`]: crate::thread_local
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الـ threads الأصلية في نظام التشغيل.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![deny(unsafe_op_in_unsafe_fn)]
@@ -258,6 +264,12 @@ pub mod local_impl {
 ///
 /// [`Result`]: crate::result::Result
 /// [`std::panic::resume_unwind`]: crate::panic::resume_unwind
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع `Result` مخصص للـ threads.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(search_unbox)]
 pub type Result<T> = crate::result::Result<T, Box<dyn Any + Send + 'static>>;

@@ -1908,6 +1908,12 @@ pub(super) mod marker {
         /// happens using the result of `borrow_mut`.
         /// By disabling traversal, and only creating new references to roots,
         /// we know that every reference of the `Owned` type is to a root node.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرفض التنقل لأنه غير مطلوب؛ التنقل يتم بنتيجة `borrow_mut`.
+        ///
+        /// </div>
         const TRAVERSAL_PERMIT: bool = false;
     }
     impl BorrowType for Dying {}

@@ -73,6 +73,12 @@ pub use self::entry::{Entry, OccupiedEntry, VacantEntry};
 ///
 /// let set = BTreeSet::from([1, 2, 3]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مجموعة مرتبة مبنية على شجرة B (B-Tree).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "BTreeSet")]
 pub struct BTreeSet<
@@ -130,6 +136,12 @@ impl<T: Clone, A: AllocatorClone> Clone for BTreeSet<T, A> {
 /// See its documentation for more.
 ///
 /// [`iter`]: BTreeSet::iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على عناصر `BTreeSet`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, T: 'a> {
@@ -149,6 +161,12 @@ impl<T: fmt::Debug> fmt::Debug for Iter<'_, T> {
 /// (provided by the [`IntoIterator`] trait). See its documentation for more.
 ///
 /// [`into_iter`]: BTreeSet#method.into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على عناصر `BTreeSet` بترتيب تصاعدي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct IntoIter<
@@ -164,6 +182,12 @@ pub struct IntoIter<
 /// See its documentation for more.
 ///
 /// [`range`]: BTreeSet::range
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على جزء (مدى) من عناصر `BTreeSet`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[derive(Debug)]
 #[stable(feature = "btree_range", since = "1.17.0")]
@@ -177,6 +201,12 @@ pub struct Range<'a, T: 'a> {
 /// See its documentation for more.
 ///
 /// [`difference`]: BTreeSet::difference
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر فرق مجموعات `BTreeSet`.
+///
+/// </div>
 #[must_use = "this returns the difference as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -233,6 +263,12 @@ impl<T: fmt::Debug, A: AllocatorClone> fmt::Debug for Difference<'_, T, A> {
 /// [`BTreeSet`]. See its documentation for more.
 ///
 /// [`symmetric_difference`]: BTreeSet::symmetric_difference
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر الفرق المتماثل لمجموعات `BTreeSet`.
+///
+/// </div>
 #[must_use = "this returns the difference as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -251,6 +287,12 @@ impl<T: fmt::Debug> fmt::Debug for SymmetricDifference<'_, T> {
 /// See its documentation for more.
 ///
 /// [`intersection`]: BTreeSet::intersection
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر تقاطع مجموعات `BTreeSet`.
+///
+/// </div>
 #[must_use = "this returns the intersection as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -305,6 +347,12 @@ impl<T: Debug, A: AllocatorClone> Debug for Intersection<'_, T, A> {
 /// See its documentation for more.
 ///
 /// [`union`]: BTreeSet::union
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كسول ينتج عناصر اتحاد مجموعات `BTreeSet`.
+///
+/// </div>
 #[must_use = "this returns the union as an iterator, \
               without modifying either input set"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -338,6 +386,12 @@ impl<T> BTreeSet<T> {
     ///
     /// let mut set: BTreeSet<i32> = BTreeSet::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeSet` جديدًا فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_btree_new", since = "1.66.0")]
     #[must_use]
@@ -360,6 +414,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     ///
     /// let set: BTreeSet<i32> = BTreeSet::new_in(Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeSet` جديدًا باختيار مناسب لـ B.
+    ///
+    /// </div>
     #[unstable(feature = "btreemap_alloc", issue = "163177")]
     #[must_use]
     pub const fn new_in(alloc: A) -> BTreeSet<T, A> {
@@ -393,6 +453,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// }
     /// assert_eq!(Some(&5), set.range(4..).next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا من الطرفين على جزء من عناصر المجموعة. مثلًا `range(min..max)` يعطي العناصر من
+    /// min (شاملًا) إلى max (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "btree_range", since = "1.17.0")]
     pub fn range<K: ?Sized, R>(&self, range: R) -> Range<'_, T>
     where
@@ -423,6 +490,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// let diff: Vec<_> = a.difference(&b).cloned().collect();
     /// assert_eq!(diff, [1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على عناصر الفرق، أي العناصر الموجودة في `self` وليست في `other`، بترتيب تصاعدي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn difference<'a>(&'a self, other: &'a BTreeSet<T, A>) -> Difference<'a, T, A>
     where
@@ -480,6 +553,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// let sym_diff: Vec<_> = a.symmetric_difference(&b).cloned().collect();
     /// assert_eq!(sym_diff, [1, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على عناصر الفرق المتماثل، أي العناصر الموجودة في `self` أو `other` لكن ليس في كليهما،
+    /// بترتيب تصاعدي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn symmetric_difference<'a>(
         &'a self,
@@ -511,6 +591,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// let intersection: Vec<_> = a.intersection(&b).cloned().collect();
     /// assert_eq!(intersection, [2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على عناصر التقاطع، أي العناصر الموجودة في `self` و`other` معًا، بترتيب تصاعدي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn intersection<'a>(&'a self, other: &'a BTreeSet<T, A>) -> Intersection<'a, T, A>
     where
@@ -558,6 +644,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// let union: Vec<_> = a.union(&b).cloned().collect();
     /// assert_eq!(union, [1, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمر على عناصر الاتحاد، أي كل العناصر في `self` أو `other` بدون تكرار، بترتيب تصاعدي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn union<'a>(&'a self, other: &'a BTreeSet<T, A>) -> Union<'a, T>
     where
@@ -578,6 +670,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// v.clear();
     /// assert!(v.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ المجموعة بحذف كل العناصر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self)
     where
@@ -601,6 +699,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.contains(&1), true);
     /// assert_eq!(set.contains(&4), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة تحتوي عنصرًا يساوي القيمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn contains<Q: ?Sized>(&self, value: &Q) -> bool
     where
@@ -626,6 +730,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.get(&2), Some(&2));
     /// assert_eq!(set.get(&4), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر في المجموعة الذي يساوي القيمة، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "set_recovery", since = "1.9.0")]
     pub fn get<Q: ?Sized>(&self, value: &Q) -> Option<&T>
     where
@@ -684,6 +794,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.insert(4);
     /// assert_eq!(set.is_subset(&sup), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة جزءًا من الأخرى، أي أن `other` يحتوي كل عناصر `self` على
+    /// الأقل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_subset(&self, other: &BTreeSet<T, A>) -> bool
@@ -765,6 +882,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.insert(2);
     /// assert_eq!(set.is_superset(&sub), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت المجموعة تحتوي الأخرى، أي أن `self` يحتوي كل عناصر `other` على الأقل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_superset(&self, other: &BTreeSet<T, A>) -> bool
@@ -791,6 +914,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.insert(2);
     /// assert_eq!(set.first(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى أول عنصر في المجموعة إن وُجد، وهو دائمًا أصغر عنصر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "map_first_last", since = "1.66.0")]
     #[rustc_confusables("front")]
@@ -818,6 +947,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.insert(2);
     /// assert_eq!(set.last(), Some(&2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى آخر عنصر في المجموعة إن وُجد، وهو دائمًا أكبر عنصر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "map_first_last", since = "1.66.0")]
     #[rustc_confusables("back")]
@@ -844,6 +979,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// }
     /// assert!(set.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أول عنصر (الأصغر) من المجموعة ويرجعه، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn pop_first(&mut self) -> Option<T>
     where
@@ -868,6 +1009,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// }
     /// assert!(set.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر (الأكبر) من المجموعة ويرجعه، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "map_first_last", since = "1.66.0")]
     pub fn pop_last(&mut self) -> Option<T>
     where
@@ -930,6 +1077,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// set.replace(Vec::with_capacity(10));
     /// assert_eq!(set.get(&[][..]).unwrap().capacity(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة إلى المجموعة ويستبدل العنصر المساوي لها إن وُجد، ويرجع العنصر المستبدل.
+    ///
+    /// </div>
     #[stable(feature = "set_recovery", since = "1.9.0")]
     #[rustc_confusables("swap")]
     pub fn replace(&mut self, value: T) -> Option<T>
@@ -1079,6 +1232,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.remove(&2), true);
     /// assert_eq!(set.remove(&2), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت المجموعة تحتوي عنصرًا يساوي القيمة يحذفه، ويرجع هل كان موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn remove<Q: ?Sized>(&mut self, value: &Q) -> bool
     where
@@ -1104,6 +1263,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set.take(&2), Some(2));
     /// assert_eq!(set.take(&2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر المساوي للقيمة من المجموعة ويرجعه، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "set_recovery", since = "1.9.0")]
     pub fn take<Q: ?Sized>(&mut self, value: &Q) -> Option<T>
     where
@@ -1215,6 +1380,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert!(b.contains(&17));
     /// assert!(b.contains(&41));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم المجموعة إلى جزأين عند القيمة، ويرجع مجموعة جديدة فيها كل العناصر الأكبر من القيمة أو
+    /// المساوية لها.
+    ///
+    /// </div>
     #[stable(feature = "btree_split_off", since = "1.11.0")]
     pub fn split_off<Q: ?Sized + Ord>(&mut self, value: &Q) -> Self
     where
@@ -1256,6 +1428,13 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(low.into_iter().collect::<Vec<_>>(), [0, 1, 2, 3]);
     /// assert_eq!(high.into_iter().collect::<Vec<_>>(), [4, 5, 6, 7]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يمر على العناصر في المدى المحدد بترتيب تصاعدي، ويستخدم إغلاقًا ليقرر هل يُحذف كل
+    /// عنصر.
+    ///
+    /// </div>
     #[stable(feature = "btree_extract_if", since = "1.91.0")]
     pub fn extract_if<F, R>(&mut self, range: R, pred: F) -> ExtractIf<'_, T, R, F, A>
     where
@@ -1282,6 +1461,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(set_iter.next(), Some(&3));
     /// assert_eq!(set_iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يمر على عناصر الـ `BTreeSet` بترتيب تصاعدي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "btreeset_iter")]
     pub fn iter(&self) -> Iter<'_, T> {
@@ -1381,6 +1566,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(cursor.peek_prev(), None);
     /// assert_eq!(cursor.peek_next(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Cursor` يشير إلى الفجوة قبل أصغر عنصر أكبر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn lower_bound<Q: ?Sized>(&self, bound: Bound<&Q>) -> Cursor<'_, T>
     where
@@ -1424,6 +1615,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(cursor.peek_prev(), None);
     /// assert_eq!(cursor.peek_next(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `CursorMut` يشير إلى الفجوة قبل أصغر عنصر أكبر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn lower_bound_mut<Q: ?Sized>(&mut self, bound: Bound<&Q>) -> CursorMut<'_, T, A>
     where
@@ -1467,6 +1664,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(cursor.peek_prev(), Some(&4));
     /// assert_eq!(cursor.peek_next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Cursor` يشير إلى الفجوة بعد أكبر عنصر أصغر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn upper_bound<Q: ?Sized>(&self, bound: Bound<&Q>) -> Cursor<'_, T>
     where
@@ -1510,6 +1713,12 @@ impl<T, A: AllocatorClone> BTreeSet<T, A> {
     /// assert_eq!(cursor.peek_prev(), Some(&4));
     /// assert_eq!(cursor.peek_next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `CursorMut` يشير إلى الفجوة بعد أكبر عنصر أصغر من الحد المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn upper_bound_mut<Q: ?Sized>(&mut self, bound: Bound<&Q>) -> CursorMut<'_, T, A>
     where
@@ -1559,6 +1768,12 @@ impl<T: Ord, const N: usize> From<[T; N]> for BTreeSet<T> {
     /// let set2: BTreeSet<_> = [1, 2, 3, 4].into();
     /// assert_eq!(set1, set2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `[T; N]` إلى `BTreeSet<T>`.
+    ///
+    /// </div>
     fn from(mut arr: [T; N]) -> Self {
         if N == 0 {
             return BTreeSet::new();
@@ -1587,6 +1802,12 @@ impl<T, A: AllocatorClone> IntoIterator for BTreeSet<T, A> {
     /// let v: Vec<_> = set.into_iter().collect();
     /// assert_eq!(v, [1, 2, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينقل محتويات الـ `BTreeSet` بترتيب تصاعدي.
+    ///
+    /// </div>
     fn into_iter(self) -> IntoIter<T, A> {
         IntoIter { iter: self.map.into_iter() }
     }
@@ -1605,6 +1826,12 @@ impl<'a, T, A: AllocatorClone> IntoIterator for &'a BTreeSet<T, A> {
 /// This `struct` is created by the [`extract_if`] method on [`BTreeSet`].
 ///
 /// [`extract_if`]: BTreeSet::extract_if
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الـ `struct` تنشئه الدالة `extract_if` على `BTreeSet`.
+///
+/// </div>
 #[stable(feature = "btree_extract_if", since = "1.91.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `retain` or `extract_if().for_each(drop)` to remove and discard elements"]
@@ -1693,6 +1920,12 @@ impl<'a, T: 'a + Ord + Copy, A: AllocatorClone> Extend<&'a T> for BTreeSet<T, A>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for BTreeSet<T> {
     /// Creates an empty `BTreeSet`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BTreeSet` فارغًا.
+    ///
+    /// </div>
     fn default() -> BTreeSet<T> {
         BTreeSet::new()
     }
@@ -1715,6 +1948,12 @@ impl<T: Ord + Clone, A: AllocatorClone> Sub<&BTreeSet<T, A>> for &BTreeSet<T, A>
     /// let result = &a - &b;
     /// assert_eq!(result, BTreeSet::from([1, 2]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع فرق `self` و`rhs` كـ `BTreeSet<T>` جديد.
+    ///
+    /// </div>
     fn sub(self, rhs: &BTreeSet<T, A>) -> BTreeSet<T, A> {
         BTreeSet::from_sorted_iter(
             self.difference(rhs).cloned(),
@@ -1740,6 +1979,12 @@ impl<T: Ord + Clone, A: AllocatorClone> BitXor<&BTreeSet<T, A>> for &BTreeSet<T,
     /// let result = &a ^ &b;
     /// assert_eq!(result, BTreeSet::from([1, 4]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الفرق المتماثل لـ `self` و`rhs` كـ `BTreeSet<T>` جديد.
+    ///
+    /// </div>
     fn bitxor(self, rhs: &BTreeSet<T, A>) -> BTreeSet<T, A> {
         BTreeSet::from_sorted_iter(
             self.symmetric_difference(rhs).cloned(),
@@ -1765,6 +2010,12 @@ impl<T: Ord + Clone, A: AllocatorClone> BitAnd<&BTreeSet<T, A>> for &BTreeSet<T,
     /// let result = &a & &b;
     /// assert_eq!(result, BTreeSet::from([2, 3]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تقاطع `self` و`rhs` كـ `BTreeSet<T>` جديد.
+    ///
+    /// </div>
     fn bitand(self, rhs: &BTreeSet<T, A>) -> BTreeSet<T, A> {
         BTreeSet::from_sorted_iter(
             self.intersection(rhs).cloned(),
@@ -1790,6 +2041,12 @@ impl<T: Ord + Clone, A: AllocatorClone> BitOr<&BTreeSet<T, A>> for &BTreeSet<T, 
     /// let result = &a | &b;
     /// assert_eq!(result, BTreeSet::from([1, 2, 3, 4, 5]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اتحاد `self` و`rhs` كـ `BTreeSet<T>` جديد.
+    ///
+    /// </div>
     fn bitor(self, rhs: &BTreeSet<T, A>) -> BTreeSet<T, A> {
         BTreeSet::from_sorted_iter(
             self.union(rhs).cloned(),
@@ -1885,6 +2142,12 @@ impl<T> Default for Iter<'_, T> {
     /// let iter: btree_set::Iter<'_, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_set::Iter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Iter { iter: Default::default() }
     }
@@ -1980,6 +2243,12 @@ impl<T> Default for Range<'_, T> {
     /// let iter: btree_set::Range<'_, u8> = Default::default();
     /// assert_eq!(iter.count(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `btree_set::Range` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Range { iter: Default::default() }
     }
@@ -2184,6 +2453,12 @@ impl<T: Ord> FusedIterator for Union<'_, T> {}
 /// operate on the two immediately adjacent elements.
 ///
 /// A `Cursor` is created with the [`BTreeSet::lower_bound`] and [`BTreeSet::upper_bound`] methods.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `BTreeSet`.
+///
+/// </div>
 #[derive(Clone)]
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct Cursor<'a, K: 'a> {
@@ -2209,6 +2484,12 @@ impl<K: Debug> Debug for Cursor<'_, K> {
 ///
 /// A `CursorMut` is created with the [`BTreeSet::lower_bound_mut`] and [`BTreeSet::upper_bound_mut`]
 /// methods.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `BTreeSet` مع عمليات تعديل.
+///
+/// </div>
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct CursorMut<
     'a,
@@ -2246,6 +2527,12 @@ impl<K: Debug, A> Debug for CursorMut<'_, K, A> {
 ///
 /// * The newly inserted element must be unique in the tree.
 /// * All elements in the tree must remain in sorted order.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `BTreeSet` مع عمليات تعديل، ويسمح بتعديل العناصر.
+///
+/// </div>
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct CursorMutKey<
     'a,
@@ -2268,6 +2555,12 @@ impl<'a, K> Cursor<'a, K> {
     ///
     /// If the cursor is already at the end of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<&'a K> {
         self.inner.next().map(|(k, _)| k)
@@ -2278,6 +2571,12 @@ impl<'a, K> Cursor<'a, K> {
     ///
     /// If the cursor is already at the start of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<&'a K> {
         self.inner.prev().map(|(k, _)| k)
@@ -2286,6 +2585,12 @@ impl<'a, K> Cursor<'a, K> {
     /// Returns a reference to next element without moving the cursor.
     ///
     /// If the cursor is at the end of the set then `None` is returned
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&self) -> Option<&'a K> {
         self.inner.peek_next().map(|(k, _)| k)
@@ -2294,6 +2599,12 @@ impl<'a, K> Cursor<'a, K> {
     /// Returns a reference to the previous element without moving the cursor.
     ///
     /// If the cursor is at the start of the set then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&self) -> Option<&'a K> {
         self.inner.peek_prev().map(|(k, _)| k)
@@ -2306,6 +2617,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     ///
     /// If the cursor is already at the end of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<&T> {
         self.inner.next().map(|(k, _)| k)
@@ -2316,6 +2633,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     ///
     /// If the cursor is already at the start of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<&T> {
         self.inner.prev().map(|(k, _)| k)
@@ -2324,6 +2647,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     /// Returns a reference to the next element without moving the cursor.
     ///
     /// If the cursor is at the end of the set then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&mut self) -> Option<&T> {
         self.inner.peek_next().map(|(k, _)| k)
@@ -2332,6 +2661,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     /// Returns a reference to the previous element without moving the cursor.
     ///
     /// If the cursor is at the start of the set then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&mut self) -> Option<&T> {
         self.inner.peek_prev().map(|(k, _)| k)
@@ -2343,6 +2678,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     /// The lifetime of the returned `Cursor` is bound to that of the
     /// `CursorMut`, which means it cannot outlive the `CursorMut` and that the
     /// `CursorMut` is frozen for the lifetime of the `Cursor`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر قراءة فقط يشير إلى نفس موضع `CursorMut`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn as_cursor(&self) -> Cursor<'_, T> {
         Cursor { inner: self.inner.as_cursor() }
@@ -2358,6 +2699,12 @@ impl<'a, T, A> CursorMut<'a, T, A> {
     ///
     /// * The newly inserted element must be unique in the tree.
     /// * All elements in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل المؤشر إلى `CursorMutKey` الذي يسمح بتعديل العناصر في الشجرة.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn with_mutable_key(self) -> CursorMutKey<'a, T, A> {
         // ignore-tidy-undocumented-unsafe
@@ -2371,6 +2718,12 @@ impl<'a, T, A> CursorMutKey<'a, T, A> {
     ///
     /// If the cursor is already at the end of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<&mut T> {
         self.inner.next().map(|(k, _)| k)
@@ -2381,6 +2734,12 @@ impl<'a, T, A> CursorMutKey<'a, T, A> {
     ///
     /// If the cursor is already at the start of the set then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<&mut T> {
         self.inner.prev().map(|(k, _)| k)
@@ -2389,6 +2748,12 @@ impl<'a, T, A> CursorMutKey<'a, T, A> {
     /// Returns a reference to the next element without moving the cursor.
     ///
     /// If the cursor is at the end of the set then `None` is returned
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&mut self) -> Option<&mut T> {
         self.inner.peek_next().map(|(k, _)| k)
@@ -2397,6 +2762,12 @@ impl<'a, T, A> CursorMutKey<'a, T, A> {
     /// Returns a reference to the previous element without moving the cursor.
     ///
     /// If the cursor is at the start of the set then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&mut self) -> Option<&mut T> {
         self.inner.peek_prev().map(|(k, _)| k)
@@ -2408,6 +2779,12 @@ impl<'a, T, A> CursorMutKey<'a, T, A> {
     /// The lifetime of the returned `Cursor` is bound to that of the
     /// `CursorMutKey`, which means it cannot outlive the `CursorMutKey` and that the
     /// `CursorMutKey` is frozen for the lifetime of the `Cursor`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر قراءة فقط يشير إلى نفس موضع `CursorMutKey`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn as_cursor(&self) -> Cursor<'_, T> {
         Cursor { inner: self.inner.as_cursor() }
@@ -2428,6 +2805,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     ///
     /// * The newly inserted element must be unique in the tree.
     /// * All elements in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_after_unchecked(&mut self, value: T) {
         // SAFETY: Upheld by caller.
@@ -2447,6 +2831,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     ///
     /// * The newly inserted element must be unique in the tree.
     /// * All elements in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_before_unchecked(&mut self, value: T) {
         // SAFETY: Upheld by caller.
@@ -2463,6 +2854,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     /// cursor (if any), or if it not less than the element after the cursor (if
     /// any), then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the elements of the set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_after(&mut self, value: T) -> Result<(), UnorderedKeyError> {
         self.inner.insert_after(value, SetValZST)
@@ -2478,6 +2876,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     /// cursor (if any), or if it not less than the element after the cursor (if
     /// any), then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the elements of the set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_before(&mut self, value: T) -> Result<(), UnorderedKeyError> {
         self.inner.insert_before(value, SetValZST)
@@ -2487,6 +2892,12 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (before the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر التالي من الـ `BTreeSet`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_next(&mut self) -> Option<T> {
         self.inner.remove_next().map(|(k, _)| k)
@@ -2496,6 +2907,12 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMut<'a, T, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (after the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر السابق من الـ `BTreeSet`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_prev(&mut self) -> Option<T> {
         self.inner.remove_prev().map(|(k, _)| k)
@@ -2516,6 +2933,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All elements in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_after_unchecked(&mut self, value: T) {
         // SAFETY: Upheld by caller.
@@ -2535,6 +2959,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     ///
     /// * The newly inserted element must be unique in the tree.
     /// * All elements in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_before_unchecked(&mut self, value: T) {
         // SAFETY: Upheld by caller.
@@ -2551,6 +2982,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     /// cursor (if any), or if it not less than the element after the cursor (if
     /// any), then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the elements of the set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_after(&mut self, value: T) -> Result<(), UnorderedKeyError> {
         self.inner.insert_after(value, SetValZST)
@@ -2566,6 +3004,13 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     /// cursor (if any), or if it not less than the element after the cursor (if
     /// any), then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the elements of the set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في المجموعة في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_before(&mut self, value: T) -> Result<(), UnorderedKeyError> {
         self.inner.insert_before(value, SetValZST)
@@ -2575,6 +3020,12 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (before the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر التالي من الـ `BTreeSet`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_next(&mut self) -> Option<T> {
         self.inner.remove_next().map(|(k, _)| k)
@@ -2584,6 +3035,12 @@ impl<'a, T: Ord, A: AllocatorClone> CursorMutKey<'a, T, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (after the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر السابق من الـ `BTreeSet`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_prev(&mut self) -> Option<T> {
         self.inner.remove_prev().map(|(k, _)| k)

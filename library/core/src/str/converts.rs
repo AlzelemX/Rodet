@@ -1,4 +1,10 @@
 //! Ways to create a `str` from bytes slice.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! طرق إنشاء `str` من شريحة بايتات.
+//!
+//! </div>
 
 use super::Utf8Error;
 use super::validations::run_utf8_validation;
@@ -83,6 +89,12 @@ use crate::{mem, ptr};
 ///
 /// assert_eq!("💖", sparkle_heart);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شريحة بايتات إلى شريحة نص (ويتحقق أنها UTF-8 صالح).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_str_from_utf8_shared", since = "1.63.0")]
 #[rustc_diagnostic_item = "str_from_utf8"]
@@ -129,6 +141,12 @@ pub const fn from_utf8(v: &[u8]) -> Result<&str, Utf8Error> {
 /// ```
 /// See the docs for [`Utf8Error`] for more details on the kinds of
 /// errors that can be returned.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شريحة بايتات قابلة للتعديل إلى شريحة نص قابلة للتعديل.
+///
+/// </div>
 #[stable(feature = "str_mut_extras", since = "1.20.0")]
 #[rustc_const_stable(feature = "const_str_from_utf8", since = "1.87.0")]
 #[rustc_diagnostic_item = "str_from_utf8_mut"]
@@ -170,6 +188,12 @@ pub const fn from_utf8_mut(v: &mut [u8]) -> Result<&mut str, Utf8Error> {
 ///
 /// assert_eq!("💖", sparkle_heart);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شريحة بايتات إلى شريحة نص بدون التحقق من أن النص UTF-8 صالح (غير آمن).
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -200,6 +224,12 @@ pub const unsafe fn from_utf8_unchecked(v: &[u8]) -> &str {
 ///
 /// assert_eq!("💖", heart);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شريحة بايتات قابلة للتعديل إلى شريحة نص بدون التحقق من أن النص UTF-8 صالح (غير آمن).
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "str_mut_extras", since = "1.20.0")]
@@ -223,6 +253,12 @@ pub const unsafe fn from_utf8_unchecked_mut(v: &mut [u8]) -> &mut str {
 /// See that function's documentation for safety concerns and examples.
 ///
 /// The mutable version of this function is [`from_raw_parts_mut`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `&str` من مؤشر وطول.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "str_from_raw_parts", issue = "119206")]
@@ -241,6 +277,12 @@ pub const unsafe fn from_raw_parts<'a>(ptr: *const u8, len: usize) -> &'a str {
 /// See that function's documentation for safety concerns and examples.
 ///
 /// The immutable version of this function is [`from_raw_parts`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `&mut str` من مؤشر وطول.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "str_from_raw_parts", issue = "119206")]

@@ -82,6 +82,12 @@
 /// let _ = counter.next();
 /// assert_eq!(4, counter.len());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعرف طوله بالضبط.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait ExactSizeIterator: Iterator {
     /// Returns the exact remaining length of the iterator.
@@ -111,6 +117,12 @@ pub trait ExactSizeIterator: Iterator {
     /// let _ = range.next();
     /// assert_eq!(4, range.len());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الطول الباقي للمكرر بالضبط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     fn len(&self) -> usize {
@@ -143,6 +155,12 @@ pub trait ExactSizeIterator: Iterator {
     ///
     /// assert_eq!(one_element.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المكرر فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "exact_size_is_empty", issue = "35428")]
     fn is_empty(&self) -> bool {

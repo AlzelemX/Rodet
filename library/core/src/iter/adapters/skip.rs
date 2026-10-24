@@ -15,6 +15,12 @@ use crate::ops::{ControlFlow, Try};
 ///
 /// [`skip`]: Iterator::skip
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يتخطى `n` عنصرًا من `iter`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]

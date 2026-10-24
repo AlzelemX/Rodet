@@ -21,6 +21,12 @@ fn _assert_is_dyn_compatible(_: &dyn Iterator<Item = ()>) {}
 ///
 /// [module-level documentation]: crate::iter
 /// [impl]: crate::iter#implementing-iterator
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للتعامل مع المكررات: أي شيء يعطي عناصر واحدًا تلو الآخر عبر `next()`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_on_unimplemented(
     on(
@@ -4256,6 +4262,12 @@ where
 /// Implements `Iterator` for mutable references to iterators, such as those produced by [`Iterator::by_ref`].
 ///
 /// This implementation passes all method calls on to the original iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `Iterator` للمراجع القابلة للتعديل إلى المكررات، مثل التي ينتجها `Iterator::by_ref`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<I: Iterator + ?Sized> Iterator for &mut I {
     type Item = I::Item;

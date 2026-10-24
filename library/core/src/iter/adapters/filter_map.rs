@@ -12,6 +12,12 @@ use crate::{array, fmt};
 ///
 /// [`filter_map`]: Iterator::filter_map
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يستخدم `f` للفلترة والتحويل معًا لعناصر `iter`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

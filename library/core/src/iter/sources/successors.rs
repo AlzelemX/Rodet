@@ -18,6 +18,12 @@ use crate::iter::FusedIterator;
 /// let powers_of_10 = successors(Some(1_u16), |n| n.checked_mul(10));
 /// assert_eq!(powers_of_10.collect::<Vec<_>>(), &[1, 10, 100, 1_000, 10_000]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا يبدأ من عنصر أول، ويحسب كل عنصر تالٍ من الذي قبله.
+///
+/// </div>
 #[stable(feature = "iter_successors", since = "1.34.0")]
 #[rustc_diagnostic_item = "iter_successors"]
 pub fn successors<T, F>(first: Option<T>, succ: F) -> Successors<T, F>
@@ -37,6 +43,12 @@ where
 /// See its documentation for more.
 ///
 /// [`iter::successors()`]: successors
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يبدأ من عنصر أول، ويحسب كل عنصر تالٍ من الذي قبله.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "iter_successors", since = "1.34.0")]
 pub struct Successors<T, F> {

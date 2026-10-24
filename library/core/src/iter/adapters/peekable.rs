@@ -10,6 +10,12 @@ use crate::ops::{ControlFlow, Try};
 ///
 /// [`peekable`]: Iterator::peekable
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر فيه `peek()` الذي يرجع مرجعًا اختياريًا إلى العنصر التالي.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -211,6 +217,12 @@ impl<I: Iterator> Peekable<I> {
     /// assert_eq!(iter.peek(), None);
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى قيمة next() القادمة بدون تقديم المكرر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn peek(&mut self) -> Option<&I::Item> {
@@ -251,6 +263,12 @@ impl<I: Iterator> Peekable<I> {
     /// // The value we put in reappears as the iterator continues.
     /// assert_eq!(iter.collect::<Vec<_>>(), vec![&5, &3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى قيمة next() القادمة بدون تقديم المكرر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "peekable_peek_mut", since = "1.53.0")]
     pub fn peek_mut(&mut self) -> Option<&mut I::Item> {
@@ -283,6 +301,12 @@ impl<I: Iterator> Peekable<I> {
     /// // The next value returned will be 10
     /// assert_eq!(iter.next(), Some(10));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك القيمة التالية ويرجعها إذا تحقق شرط.
+    ///
+    /// </div>
     #[stable(feature = "peekable_next_if", since = "1.51.0")]
     pub fn next_if(&mut self, func: impl FnOnce(&I::Item) -> bool) -> Option<I::Item> {
         match self.next() {
@@ -309,6 +333,12 @@ impl<I: Iterator> Peekable<I> {
     /// // `next_if_eq` retains the next item if it was not equal to `expected`.
     /// assert_eq!(iter.next(), Some(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك العنصر التالي ويرجعه إذا كان يساوي `expected`.
+    ///
+    /// </div>
     #[stable(feature = "peekable_next_if", since = "1.51.0")]
     pub fn next_if_eq<T>(&mut self, expected: &T) -> Option<I::Item>
     where
@@ -406,6 +436,12 @@ impl<I: Iterator> Peekable<I> {
     ///#     ],
     ///# )
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك القيمة التالية ويطبّق عليها الدالة `f`، ويرجع النتيجة إذا أرجع الإغلاق `Ok`.
+    ///
+    /// </div>
     #[stable(feature = "peekable_next_if_map", since = "1.94.0")]
     pub fn next_if_map<R>(&mut self, f: impl FnOnce(I::Item) -> Result<R, I::Item>) -> Option<R> {
         let unpeek = if let Some(item) = self.next() {
@@ -443,6 +479,13 @@ impl<I: Iterator> Peekable<I> {
     /// assert_eq!(line_num, 125);
     /// assert_eq!(iter.collect::<String>(), " GOTO 10");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى القيمة التالية ويطبّق عليها `f`، ويرجع النتيجة ويقدّم المكرر
+    /// إذا أرجعت `f` القيمة `Some`.
+    ///
+    /// </div>
     #[stable(feature = "peekable_next_if_map", since = "1.94.0")]
     pub fn next_if_map_mut<R>(&mut self, f: impl FnOnce(&mut I::Item) -> Option<R>) -> Option<R> {
         let unpeek = if let Some(mut item) = self.next() {

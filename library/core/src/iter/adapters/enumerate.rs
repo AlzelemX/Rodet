@@ -11,6 +11,12 @@ use crate::ops::Try;
 ///
 /// [`enumerate`]: Iterator::enumerate
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي العدّاد الحالي مع العنصر أثناء التكرار.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -51,6 +57,12 @@ impl<I> Enumerate<I> {
     /// assert_eq!(iter.next(), None);
     /// assert_eq!(iter.next_index(), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع الحالي للمكرر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "next_index", issue = "130711")]
     pub fn next_index(&self) -> usize {
@@ -311,6 +323,12 @@ impl<I: Default> Default for Enumerate<I> {
     /// let iter: Enumerate<slice::Iter<'_, u8>> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكرر `Enumerate` من القيمة الافتراضية لـ `I`.
+    ///
+    /// </div>
     fn default() -> Self {
         Enumerate::new(Default::default())
     }

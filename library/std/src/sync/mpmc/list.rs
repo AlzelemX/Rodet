@@ -1,4 +1,10 @@
 //! Unbounded channel implemented as a linked list.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قناة غير محدودة السعة مبنية كقائمة مترابطة.
+//!
+//! </div>
 
 use super::context::Context;
 use super::error::*;
@@ -140,6 +146,12 @@ impl Default for ListToken {
 ///
 /// Consecutive messages are grouped into blocks in order to put less pressure on the allocator and
 /// improve cache efficiency.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قناة غير محدودة السعة مبنية كقائمة مترابطة.
+///
+/// </div>
 pub(crate) struct Channel<T> {
     /// The head of the channel.
     head: CachePadded<Position<T>>,
@@ -617,6 +629,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة فارغة.
+    ///
+    /// </div>
     pub(crate) fn is_empty(&self) -> bool {
         let head = self.head.index.load(Ordering::SeqCst);
         let tail = self.tail.index.load(Ordering::SeqCst);
@@ -624,6 +642,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is full.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة ممتلئة.
+    ///
+    /// </div>
     pub(crate) fn is_full(&self) -> bool {
         false
     }

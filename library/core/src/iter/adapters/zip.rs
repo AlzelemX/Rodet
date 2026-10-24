@@ -7,6 +7,12 @@ use crate::num::NonZero;
 ///
 /// This `struct` is created by [`zip`] or [`Iterator::zip`].
 /// See their documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يمر على مكررين آخرين معًا في نفس الوقت.
+///
+/// </div>
 #[derive(Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -61,6 +67,12 @@ impl<A: Iterator, B: Iterator> Zip<A, B> {
 /// assert_eq!(iter.next().unwrap(), ((3, 6), 9));
 /// assert!(iter.next().is_none());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل الوسائط إلى مكررات ويدمجها في أزواج.
+///
+/// </div>
 #[stable(feature = "iter_zip", since = "1.59.0")]
 pub fn zip<A, B>(a: A, b: B) -> Zip<A::IntoIter, B::IntoIter>
 where
@@ -579,6 +591,12 @@ pub unsafe trait TrustedRandomAccessNoCoerce: Sized {
     }
     /// `true` if getting an iterator element may have side effects.
     /// Remember to take inner iterators into account.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// `true` إذا كان الحصول على عنصر من المكرر قد يكون له آثار جانبية.
+    ///
+    /// </div>
     const MAY_HAVE_SIDE_EFFECT: bool;
 }
 

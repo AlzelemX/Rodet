@@ -11,6 +11,12 @@ use crate::range::RangeIter;
 ///
 /// [`step_by`]: Iterator::step_by
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقفز على العناصر بخطوة محددة.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "iterator_step_by", since = "1.28.0")]
 #[derive(Clone, Debug)]

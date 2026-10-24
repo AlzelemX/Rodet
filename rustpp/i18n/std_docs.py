@@ -152,7 +152,11 @@ def summary(text_lines):
             out.append(heading)
             break
         out.append(t.strip())
-    return " ".join(out)
+    text = " ".join(out)
+    # A paragraph of link definitions only (`[a]: b [c]: d`) says nothing.
+    if re.fullmatch(r"(\s*\[[^\]]+\]:\s*\S+)+\s*", text):
+        return ""
+    return text
 
 
 def item_after(lines, end):

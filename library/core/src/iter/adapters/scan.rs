@@ -11,6 +11,12 @@ use crate::ops::{ControlFlow, Try};
 ///
 /// [`scan`]: Iterator::scan
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يحتفظ بحالة أثناء التكرار على مكرر آخر.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

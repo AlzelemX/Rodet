@@ -1,4 +1,10 @@
 //! The inner logic for thread spawning and joining.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! المنطق الداخلي لتشغيل الـ threads وانتظارها.
+//!
+//! </div>
 
 use super::current::set_current;
 use super::id::ThreadId;

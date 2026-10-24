@@ -1,4 +1,10 @@
 //! Trait implementations for `str`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيقات الـ traits للنوع `str`.
+//!
+//! </div>
 
 use super::ParseBoolError;
 use crate::cmp::Ordering;
@@ -14,6 +20,12 @@ use crate::{ops, range};
 /// "alphabetical" order, which varies by language and locale. Sorting strings according to
 /// culturally-accepted standards requires locale-specific data that is outside the scope of
 /// the `str` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق ترتيب النصوص.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl Ord for str {
@@ -43,6 +55,12 @@ const impl Eq for str {}
 /// "alphabetical" order, which varies by language and locale. Comparing strings according to
 /// culturally-accepted standards requires locale-specific data that is outside the scope of
 /// the `str` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق عمليات المقارنة على النصوص.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl PartialOrd for str {
@@ -90,6 +108,12 @@ where
 /// direct implementation of `Index` and `IndexMut`.
 ///
 /// Equivalent to `&self[0 .. len]` or `&mut self[0 .. len]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[..]` أو `&mut self[..]`.
+///
+/// </div>
 #[stable(feature = "str_checked_slicing", since = "1.20.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::RangeFull {
@@ -184,6 +208,12 @@ const fn check_range(slice: &str, range: crate::range::Range<usize>) -> bool {
 /// // byte 100 is outside the string
 /// // &s[3 .. 100];
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[begin .. end]` أو `&mut self[begin .. end]`.
+///
+/// </div>
 #[stable(feature = "str_checked_slicing", since = "1.20.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::Range<usize> {
@@ -363,6 +393,12 @@ const unsafe impl SliceIndex<str> for range::Range<usize> {
 /// inclusion/exclusion) does not point to the starting byte offset of
 /// a character (as defined by `is_char_boundary`), if `begin > end`, or if
 /// `end > len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بحدود عشوائية.
+///
+/// </div>
 #[stable(feature = "slice_index_str_with_ops_bound_pair", since = "1.73.0")]
 unsafe impl SliceIndex<str> for (ops::Bound<usize>, ops::Bound<usize>) {
     type Output = str;
@@ -417,6 +453,12 @@ unsafe impl SliceIndex<str> for (ops::Bound<usize>, ops::Bound<usize>) {
 ///
 /// Panics if `end` does not point to the starting byte offset of a
 /// character (as defined by `is_char_boundary`), or if `end > len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[.. end]` أو `&mut self[.. end]`.
+///
+/// </div>
 #[stable(feature = "str_checked_slicing", since = "1.20.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::RangeTo<usize> {
@@ -486,6 +528,12 @@ const unsafe impl SliceIndex<str> for ops::RangeTo<usize> {
 ///
 /// Panics if `begin` does not point to the starting byte offset of
 /// a character (as defined by `is_char_boundary`), or if `begin > len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[begin ..]` أو `&mut self[begin ..]`.
+///
+/// </div>
 #[stable(feature = "str_checked_slicing", since = "1.20.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::RangeFrom<usize> {
@@ -614,6 +662,12 @@ const unsafe impl SliceIndex<str> for range::RangeFrom<usize> {
 /// a character (as defined by `is_char_boundary`), if `end` does not point
 /// to the ending byte offset of a character (`end + 1` is either a starting
 /// byte offset or equal to `len`), if `begin > end`, or if `end >= len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[begin ..= end]` أو `&mut self[begin ..= end]`.
+///
+/// </div>
 #[stable(feature = "inclusive_range", since = "1.26.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::RangeInclusive<usize> {
@@ -718,6 +772,12 @@ const unsafe impl SliceIndex<str> for range::RangeInclusive<usize> {
 /// Panics if `end` does not point to the ending byte offset of a character
 /// (`end + 1` is either a starting byte offset as defined by
 /// `is_char_boundary`, or equal to `len`), or if `end >= len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[..= end]` أو `&mut self[..= end]`.
+///
+/// </div>
 #[stable(feature = "inclusive_range", since = "1.26.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for ops::RangeToInclusive<usize> {
@@ -764,6 +824,12 @@ const unsafe impl SliceIndex<str> for ops::RangeToInclusive<usize> {
 /// Panics if `last` does not point to the ending byte offset of a character
 /// (`last + 1` is either a starting byte offset as defined by
 /// `is_char_boundary`, or equal to `len`), or if `last >= len`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق أخذ جزء من النص بالصيغة `&self[..= last]` أو `&mut self[..= last]`.
+///
+/// </div>
 #[stable(feature = "new_range_to_inclusive_api", since = "1.96.0")]
 #[rustc_const_unstable(feature = "const_index", issue = "143775")]
 const unsafe impl SliceIndex<str> for range::RangeToInclusive<usize> {
@@ -865,6 +931,12 @@ const unsafe impl SliceIndex<str> for range::RangeToInclusive<usize> {
 /// // Invalid input string
 /// assert!(Point::from_str("(1 2)").is_err());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قراءة قيمة من نص (هذا ما تستخدمه `str::parse`).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 pub const trait FromStr: Sized {
@@ -921,6 +993,12 @@ impl FromStr for bool {
     /// assert_eq!("false".parse(), Ok(false));
     /// assert!("not even a boolean".parse::<bool>().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ `bool` من نص.
+    ///
+    /// </div>
     #[inline]
     fn from_str(s: &str) -> Result<bool, ParseBoolError> {
         match s {

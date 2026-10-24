@@ -9,6 +9,12 @@ use crate::ops::Try;
 ///
 /// [`cycle`]: Iterator::cycle
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يكرر نفسه بلا نهاية.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]

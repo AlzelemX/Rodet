@@ -7,6 +7,12 @@
 //! There are several functions and structs in this module that have a
 //! counterpart ending in `os`. Those ending in `os` will return an [`OsString`]
 //! and those without will return a [`String`].
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! فحص وتعديل بيئة العملية (متغيرات البيئة، وسائط البرنامج، المجلد الحالي).
+//!
+//! </div>
 
 #![stable(feature = "env", since = "1.0.0")]
 
@@ -46,6 +52,12 @@ use crate::{array, fmt, io, sys};
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مجلد العمل الحالي كـ `PathBuf`.
+///
+/// </div>
 #[doc(alias = "pwd")]
 #[doc(alias = "getcwd")]
 #[doc(alias = "GetCurrentDirectory")]
@@ -75,6 +87,12 @@ pub fn current_dir() -> io::Result<PathBuf> {
 /// assert!(env::set_current_dir(&root).is_ok());
 /// println!("Successfully changed working directory to {}!", root.display());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر مجلد العمل الحالي إلى المسار المحدد.
+///
+/// </div>
 #[doc(alias = "chdir", alias = "SetCurrentDirectory", alias = "SetCurrentDirectoryW")]
 #[stable(feature = "env", since = "1.0.0")]
 pub fn set_current_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
@@ -86,6 +104,12 @@ pub fn set_current_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
 /// This structure is created by [`env::vars()`]. See its documentation for more.
 ///
 /// [`env::vars()`]: vars
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على نسخة من متغيرات البيئة لهذه العملية.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub struct Vars {
     inner: VarsOs,
@@ -96,6 +120,12 @@ pub struct Vars {
 /// This structure is created by [`env::vars_os()`]. See its documentation for more.
 ///
 /// [`env::vars_os()`]: vars_os
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على نسخة من متغيرات البيئة لهذه العملية.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub struct VarsOs {
     inner: env_imp::Env,
@@ -130,6 +160,12 @@ impl !Sync for VarsOs {}
 /// ```
 ///
 /// [`env::vars_os()`]: vars_os
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مكررًا على أزواج (متغير، قيمة) كنصوص لكل متغيرات البيئة في العملية الحالية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "env", since = "1.0.0")]
 pub fn vars() -> Vars {
@@ -155,6 +191,12 @@ pub fn vars() -> Vars {
 ///     println!("{key:?}: {value:?}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مكررًا على أزواج (متغير، قيمة) كنصوص نظام تشغيل لكل متغيرات البيئة في العملية الحالية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "env", since = "1.0.0")]
 pub fn vars_os() -> VarsOs {
@@ -224,6 +266,12 @@ impl fmt::Debug for VarsOs {
 ///     Err(e) => println!("couldn't interpret {key}: {e}"),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ متغير البيئة `key` من العملية الحالية.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn var<K: AsRef<OsStr>>(key: K) -> Result<String, VarError> {
     fn inner(key: &OsStr) -> Result<String, VarError> {
@@ -259,6 +307,12 @@ pub fn var<K: AsRef<OsStr>>(key: K) -> Result<String, VarError> {
 ///
 /// If expecting a delimited variable (such as `PATH`), [`split_paths`]
 /// can be used to separate items.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ متغير البيئة `key` من العملية الحالية، ويرجع `None` إذا لم يكن مضبوطًا.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "env", since = "1.0.0")]
 pub fn var_os<K: AsRef<OsStr>>(key: K) -> Option<OsString> {
@@ -269,17 +323,35 @@ pub fn var_os<K: AsRef<OsStr>>(key: K) -> Option<OsString> {
 /// Possibly returned from [`env::var()`].
 ///
 /// [`env::var()`]: var
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ لعمليات متغيرات البيئة. قد ترجعه `env::var()`.
+///
+/// </div>
 #[derive(Debug, PartialEq, Eq, Clone)]
 #[stable(feature = "env", since = "1.0.0")]
 pub enum VarError {
     /// The specified environment variable was not present in the current
     /// process's environment.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// متغير البيئة المحدد غير موجود في بيئة العملية الحالية.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     NotPresent,
 
     /// The specified environment variable was found, but it did not contain
     /// valid unicode data. The found data is returned as a payload of this
     /// variant.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// متغير البيئة المحدد موجود، لكن قيمته ليست يونيكود صالحًا. القيمة الموجودة مرفقة بهذه الحالة.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     NotUnicode(#[stable(feature = "env", since = "1.0.0")] OsString),
 }
@@ -352,6 +424,12 @@ impl Error for VarError {}
 /// }
 /// assert_eq!(env::var(key), Ok("VALUE".to_string()));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضع متغير البيئة `key` بالقيمة `value` للعملية الحالية.
+///
+/// </div>
 #[rustc_deprecated_safe_2024(
     audit_that = "the environment access only happens in single-threaded code"
 )]
@@ -423,6 +501,12 @@ pub unsafe fn set_var<K: AsRef<OsStr>, V: AsRef<OsStr>>(key: K, value: V) {
 /// }
 /// assert!(env::var(key).is_err());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحذف متغير بيئة من بيئة العملية الحالية.
+///
+/// </div>
 #[rustc_deprecated_safe_2024(
     audit_that = "the environment access only happens in single-threaded code"
 )]
@@ -442,6 +526,12 @@ pub unsafe fn remove_var<K: AsRef<OsStr>>(key: K) {
 /// documentation for more.
 ///
 /// [`env::split_paths()`]: split_paths
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقسم متغير بيئة إلى مسارات حسب قواعد النظام.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "env", since = "1.0.0")]
 pub struct SplitPaths<'a> {
@@ -479,6 +569,12 @@ pub struct SplitPaths<'a> {
 ///     None => println!("{key} is not defined in the environment.")
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ المدخلات حسب قواعد النظام لمتغير البيئة `PATH`.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn split_paths<T: AsRef<OsStr> + ?Sized>(unparsed: &T) -> SplitPaths<'_> {
     SplitPaths { inner: paths_imp::split_paths(unparsed.as_ref()) }
@@ -511,6 +607,12 @@ impl fmt::Debug for SplitPaths<'_> {
 /// documentation for more.
 ///
 /// [`env::split_paths_ref()`]: split_paths_ref
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقسم متغير بيئة إلى مسارات حسب قواعد النظام.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "env_split_paths_ref", issue = "none")]
 pub struct SplitPathsRef<'a> {
@@ -530,6 +632,12 @@ pub struct SplitPathsRef<'a> {
 /// Note that this [may change in the future][changes].
 ///
 /// [changes]: io#platform-specific-behavior
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ المدخلات حسب قواعد النظام لمتغير البيئة `PATH`.
+///
+/// </div>
 #[unstable(feature = "env_split_paths_ref", issue = "none")]
 pub fn split_paths_ref<T: AsRef<OsStr> + ?Sized>(unparsed: &T) -> Option<SplitPathsRef<'_>> {
     Some(SplitPathsRef { inner: paths_imp::split_paths_ref(unparsed.as_ref())? })
@@ -557,6 +665,12 @@ impl fmt::Debug for SplitPathsRef<'_> {
 /// [`env::join_paths()`].
 ///
 /// [`env::join_paths()`]: join_paths
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ لعمليات المتغير `PATH`. قد ترجعه `env::join_paths()`.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "env", since = "1.0.0")]
 pub struct JoinPathsError {
@@ -625,6 +739,12 @@ pub struct JoinPathsError {
 /// ```
 ///
 /// [`env::split_paths()`]: split_paths
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع مجموعة مسارات (`Path`) بالشكل المناسب لمتغير البيئة `PATH`.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn join_paths<I, T>(paths: I) -> Result<OsString, JoinPathsError>
 where
@@ -690,6 +810,12 @@ impl Error for JoinPathsError {
 ///     None => println!("Impossible to get your home dir!"),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مسار مجلد المستخدم الحالي (home) إن كان معروفًا.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "env", since = "1.0.0")]
 #[doc(alias = "home")]
@@ -750,6 +876,12 @@ pub fn home_dir() -> Option<PathBuf> {
 ///     println!("Temporary directory: {}", dir.display());
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مسار مجلد مؤقت.
+///
+/// </div>
 #[must_use]
 #[doc(alias = "GetTempPath", alias = "GetTempPath2")]
 #[stable(feature = "env", since = "1.0.0")]
@@ -810,6 +942,12 @@ pub fn temp_dir() -> PathBuf {
 /// ```
 ///
 /// [changes]: crate::io#platform-specific-behavior
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع المسار الكامل للبرنامج الذي يعمل حاليًا.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn current_exe() -> io::Result<PathBuf> {
     paths_imp::current_exe()
@@ -826,6 +964,12 @@ pub fn current_exe() -> io::Result<PathBuf> {
 /// should not be relied upon for security purposes.
 ///
 /// [`env::args()`]: args
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على وسائط العملية، يعطي `String` لكل وسيط.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "env", since = "1.0.0")]
 pub struct Args {
@@ -843,6 +987,12 @@ pub struct Args {
 /// should not be relied upon for security purposes.
 ///
 /// [`env::args_os()`]: args_os
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على وسائط العملية، يعطي `OsString` لكل وسيط.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "env", since = "1.0.0")]
 pub struct ArgsOs {
@@ -881,6 +1031,12 @@ pub struct ArgsOs {
 ///     println!("{argument}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الوسائط التي بدأ بها البرنامج (تُعطى عادةً من سطر الأوامر).
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn args() -> Args {
     Args { inner: args_os() }
@@ -916,6 +1072,12 @@ pub fn args() -> Args {
 ///     println!("{argument:?}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الوسائط التي بدأ بها البرنامج (تُعطى عادةً من سطر الأوامر).
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub fn args_os() -> ArgsOs {
     ArgsOs { inner: sys::args::args() }
@@ -1075,6 +1237,12 @@ impl fmt::Debug for ArgsOs {
 }
 
 /// Constants associated with the current target
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ثوابت متعلقة بالنظام المستهدف الحالي.
+///
+/// </div>
 #[stable(feature = "env", since = "1.0.0")]
 pub mod consts {
     use crate::sys::env_consts::os;
@@ -1106,6 +1274,12 @@ pub mod consts {
     /// * `"loongarch64"`
     ///
     /// </details>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نص يصف معمارية المعالج المستخدم. مثلًا: `"x86"` أو `"arm"` أو `"riscv64"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const ARCH: &str = env!("STD_ENV_ARCH");
 
@@ -1123,6 +1297,12 @@ pub mod consts {
     /// * `""`
     ///
     /// </details>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نص يصف عائلة نظام التشغيل. مثلًا: `"unix"` أو `"windows"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const FAMILY: &str = os::FAMILY;
 
@@ -1175,6 +1355,12 @@ pub mod consts {
 
     /// Specifies the filename prefix, if any, used for shared libraries on this platform.
     /// This is either `"lib"` or an empty string. (`""`).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة اسم ملف المكتبات المشتركة على هذا النظام، إن وُجدت: `"lib"` أو نص فارغ.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const DLL_PREFIX: &str = os::DLL_PREFIX;
 
@@ -1182,6 +1368,12 @@ pub mod consts {
     /// An example value may be: `".so"`, `".elf"`, or `".dll"`.
     ///
     /// The possible values are identical to those of [`DLL_EXTENSION`], but with the leading period included.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لاحقة اسم ملف المكتبات المشتركة على هذا النظام. مثلًا: `".so"` أو `".elf"` أو `".dll"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const DLL_SUFFIX: &str = os::DLL_SUFFIX;
 
@@ -1200,6 +1392,13 @@ pub mod consts {
     /// * `""` (an empty string)
     ///
     /// </details>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// امتداد ملف المكتبات المشتركة على هذا النظام (بعد النقطة). مثلًا: `"so"` أو `"elf"` أو
+    /// `"dll"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const DLL_EXTENSION: &str = os::DLL_EXTENSION;
 
@@ -1207,6 +1406,12 @@ pub mod consts {
     /// An example value may be: `".exe"`, or `".efi"`.
     ///
     /// The possible values are identical to those of [`EXE_EXTENSION`], but with the leading period included.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لاحقة اسم ملف البرامج التنفيذية على هذا النظام، إن وُجدت. مثلًا: `".exe"` أو `".efi"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const EXE_SUFFIX: &str = os::EXE_SUFFIX;
 
@@ -1225,6 +1430,12 @@ pub mod consts {
     /// * `""` (an empty string)
     ///
     /// </details>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// امتداد ملف البرامج التنفيذية على هذا النظام. مثلًا: `"exe"` أو نص فارغ.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const EXE_EXTENSION: &str = os::EXE_EXTENSION;
 }

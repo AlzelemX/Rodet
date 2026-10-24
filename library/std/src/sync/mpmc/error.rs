@@ -6,6 +6,12 @@ use crate::{error, fmt};
 /// The error contains the message being sent so it can be recovered.
 ///
 /// [`send_timeout`]: super::Sender::send_timeout
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه الدالة `send_timeout`.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy)]
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 pub enum SendTimeoutError<T> {
@@ -13,9 +19,21 @@ pub enum SendTimeoutError<T> {
     ///
     /// If this is a zero-capacity channel, then the error indicates that there was no receiver
     /// available to receive the message and the operation timed out.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر إرسال الرسالة لأن القناة ممتلئة وانتهت المهلة.
+    ///
+    /// </div>
     Timeout(T),
 
     /// The message could not be sent because the channel is disconnected.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر إرسال الرسالة لأن القناة مقطوعة.
+    ///
+    /// </div>
     Disconnected(T),
 }
 

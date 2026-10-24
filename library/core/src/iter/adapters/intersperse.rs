@@ -4,6 +4,12 @@ use crate::fmt;
 ///
 /// This `struct` is created by [`Iterator::intersperse`]. See its documentation
 /// for more information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// محوّل مكرر يضع فاصلًا بين كل العناصر.
+///
+/// </div>
 #[unstable(feature = "iter_intersperse", issue = "79524")]
 #[derive(Debug, Clone)]
 pub struct Intersperse<I: Iterator>
@@ -79,6 +85,12 @@ where
 ///
 /// This `struct` is created by [`Iterator::intersperse_with`]. See its
 /// documentation for more information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// محوّل مكرر يضع فاصلًا بين كل العناصر.
+///
+/// </div>
 #[unstable(feature = "iter_intersperse", issue = "79524")]
 pub struct IntersperseWith<I, G>
 where

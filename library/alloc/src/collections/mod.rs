@@ -24,6 +24,12 @@ pub mod vec_deque;
 #[stable(feature = "rust1", since = "1.0.0")]
 pub mod btree_map {
     //! An ordered map based on a B-Tree.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! جدول مرتب مبني على شجرة B (B-Tree).
+    //!
+    //! </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg(not(test))]
     pub use super::btree::map::*;
@@ -33,6 +39,12 @@ pub mod btree_map {
 #[stable(feature = "rust1", since = "1.0.0")]
 pub mod btree_set {
     //! An ordered set based on a B-Tree.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! مجموعة مرتبة مبنية على شجرة B (B-Tree).
+    //!
+    //! </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg(not(test))]
     pub use super::btree::set::*;
@@ -71,6 +83,12 @@ pub use vec_deque::VecDeque;
 use crate::alloc::{Layout, LayoutError};
 
 /// The error type for `try_reserve` methods.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ لدوال `try_reserve`.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "try_reserve", since = "1.57.0")]
 #[cfg(not(test))]
@@ -84,6 +102,12 @@ pub use realalloc::collections::TryReserveError;
 #[cfg(not(test))]
 impl TryReserveError {
     /// Details about the allocation that caused the error
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تفاصيل عن عملية الحجز التي سببت الخطأ.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(
@@ -98,6 +122,12 @@ impl TryReserveError {
 }
 
 /// Details of the allocation that caused a `TryReserveError`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تفاصيل عملية الحجز التي سببت `TryReserveError`.
+///
+/// </div>
 #[derive(PartialEq, Eq, Debug)]
 #[unstable(
     feature = "try_reserve_kind",
@@ -108,9 +138,21 @@ impl TryReserveError {
 pub enum TryReserveErrorKind {
     /// Error due to the computed capacity exceeding the collection's maximum
     /// (usually `isize::MAX` bytes).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// خطأ لأن السعة المحسوبة تجاوزت الحد الأقصى للمجموعة (عادةً `isize::MAX` بايت).
+    ///
+    /// </div>
     CapacityOverflow,
 
     /// The memory allocator returned an error
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مخصص الذاكرة أرجع خطأً.
+    ///
+    /// </div>
     AllocError {
         /// The layout of allocation request that failed
         layout: Layout,

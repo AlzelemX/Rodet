@@ -17,6 +17,12 @@ use crate::ops::Try;
 /// let a2 = [4, 5, 6];
 /// let iter: Chain<Iter<'_, _>, Iter<'_, _>> = a1.iter().chain(a2.iter());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يربط مكررين معًا في سلسلة.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -60,6 +66,12 @@ impl<A, B> Chain<A, B> {
 /// assert_eq!(iter.next(), Some(6));
 /// assert_eq!(iter.next(), None);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل الوسائط إلى مكررات ويربطها معًا في سلسلة.
+///
+/// </div>
 #[stable(feature = "iter_chain", since = "1.91.0")]
 pub fn chain<A, B>(a: A, b: B) -> Chain<A::IntoIter, B::IntoIter>
 where
@@ -322,6 +334,12 @@ impl<A: Default, B: Default> Default for Chain<A, B> {
     /// // take requires `Default`
     /// let _: Chain<_, _> = mem::take(&mut foo.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Chain` من القيم الافتراضية لـ `A` و`B`.
+    ///
+    /// </div>
     fn default() -> Self {
         Chain::new(Default::default(), Default::default())
     }

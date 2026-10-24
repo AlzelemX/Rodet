@@ -9,6 +9,12 @@ use crate::num::{Saturating, Wrapping};
 ///
 /// [`sum()`]: Iterator::sum
 /// [`FromIterator`]: iter::FromIterator
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي يمكن إنشاؤها بجمع عناصر مكرر.
+///
+/// </div>
 #[stable(feature = "iter_arith_traits", since = "1.12.0")]
 #[rustc_const_unstable(feature = "const_iter", issue = "92476")]
 #[diagnostic::on_unimplemented(
@@ -31,6 +37,12 @@ pub const trait Sum<A = Self>: Sized {
 ///
 /// [`product()`]: Iterator::product
 /// [`FromIterator`]: iter::FromIterator
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي يمكن إنشاؤها بضرب عناصر مكرر.
+///
+/// </div>
 #[stable(feature = "iter_arith_traits", since = "1.12.0")]
 #[rustc_const_unstable(feature = "const_iter", issue = "92476")]
 #[diagnostic::on_unimplemented(

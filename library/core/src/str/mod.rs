@@ -3,6 +3,12 @@
 //! For more details, see the [`std::str`] module.
 //!
 //! [`std::str`]: ../../std/str/index.html
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! معالجة النصوص.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -145,6 +151,12 @@ impl str {
     /// assert_eq!("ƒoo".len(), 4); // fancy f!
     /// assert_eq!("ƒoo".chars().count(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول `self` بالبايتات.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_str_len", since = "1.39.0")]
     #[rustc_diagnostic_item = "str_len"]
@@ -167,6 +179,12 @@ impl str {
     /// let s = "not empty";
     /// assert!(!s.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول `self` صفر بايت.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_str_is_empty", since = "1.39.0")]
     #[rustc_no_implicit_autorefs]
@@ -247,6 +265,12 @@ impl str {
     ///
     /// assert_eq!("💖", sparkle_heart);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات إلى شريحة نص (ويتحقق أنها UTF-8 صالح).
+    ///
+    /// </div>
     #[stable(feature = "inherent_str_constructors", since = "1.87.0")]
     #[rustc_const_stable(feature = "inherent_str_constructors", since = "1.87.0")]
     #[rustc_diagnostic_item = "str_inherent_from_utf8"]
@@ -280,6 +304,12 @@ impl str {
     /// ```
     /// See the docs for [`Utf8Error`] for more details on the kinds of
     /// errors that can be returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات قابلة للتعديل إلى شريحة نص قابلة للتعديل.
+    ///
+    /// </div>
     #[stable(feature = "inherent_str_constructors", since = "1.87.0")]
     #[rustc_const_stable(feature = "const_str_from_utf8", since = "1.87.0")]
     #[rustc_diagnostic_item = "str_inherent_from_utf8_mut"]
@@ -310,6 +340,12 @@ impl str {
     ///
     /// assert_eq!("💖", sparkle_heart);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات إلى شريحة نص بدون التحقق من أن النص UTF-8 صالح (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "inherent_str_constructors", since = "1.87.0")]
@@ -335,6 +371,12 @@ impl str {
     ///
     /// assert_eq!("💖", heart);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات قابلة للتعديل إلى شريحة نص بدون التحقق من أن النص UTF-8 صالح (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "inherent_str_constructors", since = "1.87.0")]
@@ -368,6 +410,12 @@ impl str {
     /// // third byte of `老`
     /// assert!(!s.is_char_boundary(8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل البايت رقم `index` هو أول بايت في حرف UTF-8 أو نهاية النص.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "is_char_boundary", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_is_char_boundary", since = "1.86.0")]
@@ -418,6 +466,12 @@ impl str {
     /// assert_eq!(closest, 10);
     /// assert_eq!(&s[..closest], "❤️🧡");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد أقرب `x` لا يتجاوز `index` يكون فيه `is_char_boundary(x)` صحيحًا.
+    ///
+    /// </div>
     #[stable(feature = "round_char_boundary", since = "1.91.0")]
     #[rustc_const_stable(feature = "round_char_boundary", since = "1.91.0")]
     #[inline]
@@ -475,6 +529,12 @@ impl str {
     /// assert_eq!(closest, 14);
     /// assert_eq!(&s[..closest], "❤️🧡💛");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد أقرب `x` لا يقل عن `index` يكون فيه `is_char_boundary(x)` صحيحًا.
+    ///
+    /// </div>
     #[stable(feature = "round_char_boundary", since = "1.91.0")]
     #[rustc_const_stable(feature = "round_char_boundary", since = "1.91.0")]
     #[inline]
@@ -506,6 +566,12 @@ impl str {
     /// let bytes = "bors".as_bytes();
     /// assert_eq!(b"bors", bytes);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص إلى شريحة بايتات. للتحويل العكسي استخدم `from_utf8`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "str_as_bytes", since = "1.39.0")]
     #[must_use]
@@ -551,6 +617,12 @@ impl str {
     ///
     /// assert_eq!("🍔∈🌏", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص قابلة للتعديل إلى شريحة بايتات قابلة للتعديل (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "str_mut_extras", since = "1.20.0")]
     #[rustc_const_stable(feature = "const_str_as_mut", since = "1.83.0")]
     #[must_use]
@@ -580,6 +652,12 @@ impl str {
     /// let s = "Hello";
     /// let ptr = s.as_ptr();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص إلى مؤشر خام.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "rustc_str_as_ptr", since = "1.32.0")]
     #[rustc_never_returns_null_ptr]
@@ -598,6 +676,12 @@ impl str {
     ///
     /// It is your responsibility to make sure that the string slice only gets
     /// modified in a way that it remains valid UTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص قابلة للتعديل إلى مؤشر خام.
+    ///
+    /// </div>
     #[stable(feature = "str_as_mut_ptr", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_str_as_mut", since = "1.83.0")]
     #[rustc_never_returns_null_ptr]
@@ -628,6 +712,12 @@ impl str {
     /// // out of bounds
     /// assert!(v.get(..42).is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزءًا من `str`، أو `None` إذا كان المدى غير صالح.
+    ///
+    /// </div>
     #[stable(feature = "str_checked_slicing", since = "1.20.0")]
     #[rustc_const_unstable(feature = "const_index", issue = "143775")]
     #[inline]
@@ -661,6 +751,12 @@ impl str {
     /// }
     /// assert_eq!("HEllo", v);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزءًا قابلًا للتعديل من `str`، أو `None` إذا كان المدى غير صالح.
+    ///
+    /// </div>
     #[stable(feature = "str_checked_slicing", since = "1.20.0")]
     #[rustc_const_unstable(feature = "const_index", issue = "143775")]
     #[inline]
@@ -694,6 +790,12 @@ impl str {
     ///     assert_eq!("🌏", v.get_unchecked(7..11));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزءًا من `str` بدون تحقق (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "str_checked_slicing", since = "1.20.0")]
     #[inline]
     pub unsafe fn get_unchecked<I: SliceIndex<str>>(&self, i: I) -> &I::Output {
@@ -729,6 +831,12 @@ impl str {
     ///     assert_eq!("🌏", v.get_unchecked_mut(7..11));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزءًا قابلًا للتعديل من `str` بدون تحقق (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "str_checked_slicing", since = "1.20.0")]
     #[inline]
     pub unsafe fn get_unchecked_mut<I: SliceIndex<str>>(&mut self, i: I) -> &mut I::Output {
@@ -778,6 +886,12 @@ impl str {
     ///     assert_eq!("world", s.slice_unchecked(7, 12));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة نص من شريحة نص أخرى متجاوزًا فحوص الأمان.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(since = "1.29.0", note = "use `get_unchecked(begin..end)` instead")]
     #[must_use]
@@ -813,6 +927,12 @@ impl str {
     /// * `begin` must not exceed `end`.
     /// * `begin` and `end` must be byte positions within the string slice.
     /// * `begin` and `end` must lie on UTF-8 sequence boundaries.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة نص من شريحة نص أخرى متجاوزًا فحوص الأمان.
+    ///
+    /// </div>
     #[stable(feature = "str_slice_mut", since = "1.5.0")]
     #[deprecated(since = "1.29.0", note = "use `get_unchecked_mut(begin..end)` instead")]
     #[inline]
@@ -852,6 +972,12 @@ impl str {
     /// assert_eq!("Per", first);
     /// assert_eq!(" Martin-Löf", last);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "str_split_at", since = "1.4.0")]
@@ -893,6 +1019,12 @@ impl str {
     /// }
     /// assert_eq!("PER Martin-Löf", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص قابلة للتعديل إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "str_split_at", since = "1.4.0")]
@@ -933,6 +1065,12 @@ impl str {
     /// assert_eq!(None, s.split_at_checked(13));  // Inside “ö”
     /// assert_eq!(None, s.split_at_checked(16));  // Beyond the string length
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "split_at_checked", since = "1.80.0")]
@@ -974,6 +1112,12 @@ impl str {
     /// assert_eq!(None, s.split_at_mut_checked(13));  // Inside “ö”
     /// assert_eq!(None, s.split_at_mut_checked(16));  // Beyond the string length
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص قابلة للتعديل إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "split_at_checked", since = "1.80.0")]
@@ -994,6 +1138,12 @@ impl str {
     ///
     /// The caller must ensure that `mid` is a valid byte offset from the start
     /// of the string and falls on the boundary of a UTF-8 code point.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     #[inline]
     const unsafe fn split_at_unchecked(&self, mid: usize) -> (&str, &str) {
         let len = self.len();
@@ -1013,6 +1163,12 @@ impl str {
     ///
     /// The caller must ensure that `mid` is a valid byte offset from the start
     /// of the string and falls on the boundary of a UTF-8 code point.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص قابلة للتعديل إلى جزأين عند موضع بايت.
+    ///
+    /// </div>
     const unsafe fn split_at_mut_unchecked(&mut self, mid: usize) -> (&mut str, &mut str) {
         let len = self.len();
         let ptr = self.as_mut_ptr();
@@ -1072,6 +1228,12 @@ impl str {
     ///
     /// assert_eq!(None, chars.next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أحرف (`char`) شريحة النص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[rustc_diagnostic_item = "str_chars"]
@@ -1130,6 +1292,12 @@ impl str {
     ///
     /// assert_eq!(None, char_indices.next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أحرف (`char`) شريحة النص مع مواضعها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn char_indices(&self) -> CharIndices<'_> {
@@ -1153,6 +1321,12 @@ impl str {
     ///
     /// assert_eq!(None, bytes.next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على بايتات شريحة النص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn bytes(&self) -> Bytes<'_> {
@@ -1202,6 +1376,12 @@ impl str {
     /// assert_eq!("".split_whitespace().next(), None);
     /// assert_eq!("   ".split_whitespace().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة النص عند المسافات البيضاء.
+    ///
+    /// </div>
     #[must_use = "this returns the split string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "split_whitespace", since = "1.1.0")]
@@ -1257,6 +1437,12 @@ impl str {
     /// assert_eq!("".split_ascii_whitespace().next(), None);
     /// assert_eq!("   ".split_ascii_whitespace().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة النص عند مسافات ASCII البيضاء.
+    ///
+    /// </div>
     #[must_use = "this returns the split string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "split_ascii_whitespace", since = "1.34.0")]
@@ -1322,6 +1508,12 @@ impl str {
     ///
     /// assert_eq!(lines.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أسطر النص، كشرائح نص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn lines(&self) -> Lines<'_> {
@@ -1329,6 +1521,12 @@ impl str {
     }
 
     /// Returns an iterator over the lines of a string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أسطر النص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(since = "1.4.0", note = "use lines() instead now", suggestion = "lines")]
     #[inline]
@@ -1350,6 +1548,12 @@ impl str {
     ///
     /// assert!(utf16_len <= utf8_len);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا من `u16` على النص بترميز UTF-16 (بترتيب بايتات الجهاز، بدون علامة ترتيب البايت).
+    ///
+    /// </div>
     #[must_use = "this returns the encoded string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "encode_utf16", since = "1.8.0")]
@@ -1376,6 +1580,12 @@ impl str {
     /// assert!(bananas.contains("nana"));
     /// assert!(!bananas.contains("apples"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النمط المعطى يطابق جزءًا من هذه الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn contains<P: Pattern>(&self, pat: P) -> bool {
@@ -1414,6 +1624,12 @@ impl str {
     /// assert!(bananas.starts_with(&['b', 'a', 'n', 'a']));
     /// assert!(bananas.starts_with(&['a', 'b', 'c', 'd']));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النمط المعطى يطابق بداية هذه الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "str_starts_with"]
     pub fn starts_with<P: Pattern>(&self, pat: P) -> bool {
@@ -1439,6 +1655,12 @@ impl str {
     /// assert!(bananas.ends_with("anas"));
     /// assert!(!bananas.ends_with("nana"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النمط المعطى يطابق نهاية هذه الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "str_ends_with"]
     pub fn ends_with<P: Pattern>(&self, pat: P) -> bool
@@ -1490,6 +1712,12 @@ impl str {
     ///
     /// assert_eq!(s.find(x), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع البايت لأول حرف يطابق النمط في هذه الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn find<P: Pattern>(&self, pat: P) -> Option<usize> {
@@ -1536,6 +1764,12 @@ impl str {
     ///
     /// assert_eq!(s.rfind(x), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع البايت لأول حرف من آخر تطابق للنمط في هذه الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rfind<P: Pattern>(&self, pat: P) -> Option<usize>
@@ -1664,6 +1898,12 @@ impl str {
     /// Use [`split_whitespace`] for this behavior.
     ///
     /// [`split_whitespace`]: str::split_whitespace
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء هذه الشريحة، مفصولة بالأحرف التي يطابقها النمط.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn split<P: Pattern>(&self, pat: P) -> Split<'_, P> {
@@ -1705,6 +1945,12 @@ impl str {
     ///     .split_inclusive('\n').collect();
     /// assert_eq!(v, ["Mary had a little lamb\n", "little lamb\n", "little lamb.\n"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء هذه الشريحة، مفصولة بالأحرف التي يطابقها النمط.
+    ///
+    /// </div>
     #[stable(feature = "split_inclusive", since = "1.51.0")]
     #[inline]
     pub fn split_inclusive<P: Pattern>(&self, pat: P) -> SplitInclusive<'_, P> {
@@ -1760,6 +2006,12 @@ impl str {
     /// let v: Vec<&str> = "abc1defXghi".rsplit(|c| c == '1' || c == 'X').collect();
     /// assert_eq!(v, ["ghi", "def", "abc"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء الشريحة، مفصولة بالأحرف التي يطابقها النمط، بترتيب عكسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rsplit<P: Pattern>(&self, pat: P) -> RSplit<'_, P>
@@ -1809,6 +2061,12 @@ impl str {
     /// let v: Vec<&str> = "A.B:C.D".split_terminator(&['.', ':'][..]).collect();
     /// assert_eq!(v, ["A", "B", "C", "D"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء الشريحة مفصولة بالنمط (ولا يعطي جزءًا فارغًا في النهاية).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn split_terminator<P: Pattern>(&self, pat: P) -> SplitTerminator<'_, P> {
@@ -1855,6 +2113,12 @@ impl str {
     /// let v: Vec<&str> = "A.B:C.D".rsplit_terminator(&['.', ':'][..]).collect();
     /// assert_eq!(v, ["D", "C", "B", "A"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء `self` مفصولة بالنمط بترتيب عكسي (ولا يعطي جزءًا فارغًا في النهاية).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rsplit_terminator<P: Pattern>(&self, pat: P) -> RSplitTerminator<'_, P>
@@ -1910,6 +2174,12 @@ impl str {
     /// let v: Vec<&str> = "abc1defXghi".splitn(2, |c| c == '1' || c == 'X').collect();
     /// assert_eq!(v, ["abc", "defXghi"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء الشريحة مفصولة بالنمط، ويعطي `n` جزءًا على الأكثر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn splitn<P: Pattern>(&self, n: usize, pat: P) -> SplitN<'_, P> {
@@ -1959,6 +2229,12 @@ impl str {
     /// let v: Vec<&str> = "abc1defXghi".rsplitn(2, |c| c == '1' || c == 'X').collect();
     /// assert_eq!(v, ["ghi", "abc1def"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء الشريحة مفصولة بالنمط من نهاية النص، ويعطي `n` جزءًا على الأكثر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rsplitn<P: Pattern>(&self, n: usize, pat: P) -> RSplitN<'_, P>
@@ -1979,6 +2255,12 @@ impl str {
     /// assert_eq!("cfg=foo".split_once('='), Some(("cfg", "foo")));
     /// assert_eq!("cfg=foo=bar".split_once('='), Some(("cfg", "foo=bar")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم النص عند أول ظهور للفاصل، ويرجع ما قبله وما بعده.
+    ///
+    /// </div>
     #[stable(feature = "str_split_once", since = "1.52.0")]
     #[inline]
     pub fn split_once<P: Pattern>(&self, delimiter: P) -> Option<(&'_ str, &'_ str)> {
@@ -1998,6 +2280,12 @@ impl str {
     /// assert_eq!("cfg=foo".rsplit_once('='), Some(("cfg", "foo")));
     /// assert_eq!("cfg=foo=bar".rsplit_once('='), Some(("cfg=foo", "bar")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم النص عند آخر ظهور للفاصل، ويرجع ما قبله وما بعده.
+    ///
+    /// </div>
     #[stable(feature = "str_split_once", since = "1.52.0")]
     #[inline]
     pub fn rsplit_once<P: Pattern>(&self, delimiter: P) -> Option<(&'_ str, &'_ str)>
@@ -2038,6 +2326,12 @@ impl str {
     /// let v: Vec<&str> = "1abc2abc3".matches(char::is_numeric).collect();
     /// assert_eq!(v, ["1", "2", "3"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على التطابقات غير المتداخلة للنمط في الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "str_matches", since = "1.2.0")]
     #[inline]
     pub fn matches<P: Pattern>(&self, pat: P) -> Matches<'_, P> {
@@ -2072,6 +2366,12 @@ impl str {
     /// let v: Vec<&str> = "1abc2abc3".rmatches(char::is_numeric).collect();
     /// assert_eq!(v, ["3", "2", "1"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على التطابقات غير المتداخلة للنمط في الشريحة، بترتيب عكسي.
+    ///
+    /// </div>
     #[stable(feature = "str_matches", since = "1.2.0")]
     #[inline]
     pub fn rmatches<P: Pattern>(&self, pat: P) -> RMatches<'_, P>
@@ -2116,6 +2416,12 @@ impl str {
     /// let v: Vec<_> = "ababa".match_indices("aba").collect();
     /// assert_eq!(v, [(0, "aba")]); // only the first `aba`
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على التطابقات غير المتداخلة للنمط مع موضع بداية كل تطابق.
+    ///
+    /// </div>
     #[stable(feature = "str_match_indices", since = "1.5.0")]
     #[inline]
     pub fn match_indices<P: Pattern>(&self, pat: P) -> MatchIndices<'_, P> {
@@ -2156,6 +2462,12 @@ impl str {
     /// let v: Vec<_> = "ababa".rmatch_indices("aba").collect();
     /// assert_eq!(v, [(2, "aba")]); // only the last `aba`
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على التطابقات غير المتداخلة للنمط في `self` بترتيب عكسي مع موضع كل تطابق.
+    ///
+    /// </div>
     #[stable(feature = "str_match_indices", since = "1.5.0")]
     #[inline]
     pub fn rmatch_indices<P: Pattern>(&self, pat: P) -> RMatchIndices<'_, P>
@@ -2177,6 +2489,12 @@ impl str {
     ///
     /// assert_eq!("Hello\tworld", s.trim());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف المسافات البيضاء من البداية والنهاية.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the trimmed string as a slice, \
                   without modifying the original"]
@@ -2216,6 +2534,12 @@ impl str {
     /// let s = "  עברית  ";
     /// assert!(Some('ע') == s.trim_start().chars().next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف المسافات البيضاء من البداية.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
@@ -2255,6 +2579,12 @@ impl str {
     /// let s = "  עברית  ";
     /// assert!(Some('ת') == s.trim_end().chars().rev().next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف المسافات البيضاء من النهاية.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
@@ -2295,6 +2625,12 @@ impl str {
     /// let s = "  עברית";
     /// assert!(Some('ע') == s.trim_left().chars().next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف المسافات البيضاء من البداية.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[inline]
@@ -2335,6 +2671,12 @@ impl str {
     /// let s = "עברית  ";
     /// assert!(Some('ת') == s.trim_right().chars().rev().next());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف المسافات البيضاء من النهاية.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[inline]
@@ -2370,6 +2712,12 @@ impl str {
     /// ```
     /// assert_eq!("1foo1barXX".trim_matches(|c| c == '1' || c == 'X'), "foo1bar");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف كل البدايات والنهايات التي تطابق النمط بشكل متكرر.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -2417,6 +2765,12 @@ impl str {
     /// let x: &[_] = &['1', '2'];
     /// assert_eq!("12foo1bar12".trim_start_matches(x), "foo1bar12");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف كل البدايات التي تطابق النمط بشكل متكرر.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "trim_direction", since = "1.30.0")]
@@ -2451,6 +2805,12 @@ impl str {
     /// assert_eq!("foo:bar".strip_prefix("bar"), None);
     /// assert_eq!("foofoo".strip_prefix("foo"), Some("foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف البادئة، أو `None` إذا لم يبدأ بها.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining substring as a new slice, \
                   without modifying the original"]
     #[stable(feature = "str_strip", since = "1.45.0")]
@@ -2479,6 +2839,12 @@ impl str {
     /// assert_eq!("bar:foo".strip_suffix("bar"), None);
     /// assert_eq!("foofoo".strip_suffix("foo"), Some("foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف اللاحقة، أو `None` إذا لم ينتهِ بها.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining substring as a new slice, \
                   without modifying the original"]
     #[stable(feature = "str_strip", since = "1.45.0")]
@@ -2516,6 +2882,12 @@ impl str {
     /// assert_eq!("foo:bar;".strip_circumfix("foo:", ';'), Some("bar"));
     /// assert_eq!("foo:bar:baz".strip_circumfix("foo:bar:", ":bar:baz"), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف البادئة واللاحقة.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining substring as a new slice, \
                   without modifying the original"]
     #[stable(feature = "strip_circumfix", since = "1.98.0")]
@@ -2554,6 +2926,12 @@ impl str {
     /// // Method chaining example
     /// assert_eq!("<https://example.com/>".trim_prefix('<').trim_suffix('>'), "https://example.com/");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف البادئة إن وُجدت.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining substring as a new slice, \
                   without modifying the original"]
     #[stable(feature = "trim_prefix_suffix", since = "1.100.0")]
@@ -2589,6 +2967,12 @@ impl str {
     /// // Method chaining example
     /// assert_eq!("<https://example.com/>".trim_prefix('<').trim_suffix('>'), "https://example.com/");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف اللاحقة إن وُجدت.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining substring as a new slice, \
                   without modifying the original"]
     #[stable(feature = "trim_prefix_suffix", since = "1.100.0")]
@@ -2632,6 +3016,12 @@ impl str {
     /// ```
     /// assert_eq!("1fooX".trim_end_matches(|c| c == '1' || c == 'X'), "1foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف كل النهايات التي تطابق النمط بشكل متكرر.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "trim_direction", since = "1.30.0")]
@@ -2673,6 +3063,12 @@ impl str {
     /// let x: &[_] = &['1', '2'];
     /// assert_eq!("12foo1bar12".trim_left_matches(x), "foo1bar12");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف كل البدايات التي تطابق النمط بشكل متكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(
         since = "1.33.0",
@@ -2716,6 +3112,12 @@ impl str {
     /// ```
     /// assert_eq!("1fooX".trim_right_matches(|c| c == '1' || c == 'X'), "1foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف كل النهايات التي تطابق النمط بشكل متكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(
         since = "1.33.0",
@@ -2771,6 +3173,12 @@ impl str {
     ///
     /// assert!(nope.is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل (يقرأ) شريحة النص إلى نوع آخر، مثل `"5".parse::<i32>()`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn parse<F: FromStr>(&self) -> Result<F, F::Err> {
@@ -2790,6 +3198,12 @@ impl str {
     /// assert!(ascii.is_ascii());
     /// assert!(!non_ascii.is_ascii());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل كل أحرف هذا النص ضمن مدى ASCII.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_slice_is_ascii", since = "1.74.0")]
     #[must_use]
@@ -2803,6 +3217,12 @@ impl str {
 
     /// If this string slice [`is_ascii`](Self::is_ascii), returns it as a slice
     /// of [ASCII characters](`ascii::Char`), otherwise returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت شريحة النص ASCII، يرجعها كشريحة أحرف ASCII، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]
@@ -2817,6 +3237,12 @@ impl str {
     /// # Safety
     ///
     /// Every character in this string must be ASCII, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة النص إلى شريحة أحرف ASCII بدون التحقق من صحتها (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]
@@ -2847,6 +3273,12 @@ impl str {
     /// assert!("Ferrös".eq_ignore_ascii_case("FERRöS"));
     /// assert!(!"Ferrös".eq_ignore_ascii_case("FERRÖS"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النصان متساويان بتجاهل حالة أحرف ASCII.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_eq_ignore_ascii_case", since = "1.89.0")]
     #[must_use]
@@ -2899,6 +3331,12 @@ impl str {
     /// ```
     ///
     /// [normalization]: https://www.unicode.org/faq/normalization.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النصان متساويان بتجاهل حالة الأحرف، حسب معيار يونيكود.
+    ///
+    /// </div>
     #[unstable(feature = "casefold", issue = "157000")]
     #[must_use]
     #[inline]
@@ -2927,6 +3365,12 @@ impl str {
     ///
     /// assert_eq!("GRüßE, JüRGEN ❤", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا النص إلى أحرف ASCII كبيرة في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -2955,6 +3399,12 @@ impl str {
     ///
     /// assert_eq!("grÜße, jÜrgen ❤", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا النص إلى أحرف ASCII صغيرة في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -3016,6 +3466,12 @@ impl str {
     /// ```
     ///
     /// [`split_at_mut`]: str::split_at_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص من `src` إلى `self`.
+    ///
+    /// </div>
     #[doc(alias = "memcpy")]
     #[inline]
     #[unstable(feature = "str_copy_from_str", issue = "159841")]
@@ -3044,6 +3500,12 @@ impl str {
     /// assert_eq!("  ".trim_ascii_start(), "");
     /// assert_eq!("".trim_ascii_start(), "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف مسافات ASCII البيضاء من البداية.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
@@ -3072,6 +3534,12 @@ impl str {
     /// assert_eq!("  ".trim_ascii_end(), "");
     /// assert_eq!("".trim_ascii_end(), "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف مسافات ASCII البيضاء من النهاية.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
@@ -3101,6 +3569,12 @@ impl str {
     /// assert_eq!("  ".trim_ascii(), "");
     /// assert_eq!("".trim_ascii(), "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة النص بعد حذف مسافات ASCII البيضاء من البداية والنهاية.
+    ///
+    /// </div>
     #[must_use = "this returns the trimmed string as a new slice, \
                   without modifying the original"]
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
@@ -3143,6 +3617,12 @@ impl str {
     /// ```
     /// assert_eq!("❤\n!".escape_debug().to_string(), "❤\\n!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يهرّب كل حرف في `self` باستخدام `char::escape_debug`.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "str_escape", since = "1.34.0")]
@@ -3181,6 +3661,12 @@ impl str {
     /// ```
     /// assert_eq!("❤\n!".escape_default().to_string(), "\\u{2764}\\n!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يهرّب كل حرف في `self` باستخدام `char::escape_default`.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "str_escape", since = "1.34.0")]
@@ -3219,6 +3705,12 @@ impl str {
     /// ```
     /// assert_eq!("❤\n!".escape_unicode().to_string(), "\\u{2764}\\u{a}\\u{21}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يهرّب كل حرف في `self` باستخدام `char::escape_unicode`.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped string as an iterator, \
                   without modifying the original"]
     #[stable(feature = "str_escape", since = "1.34.0")]
@@ -3253,6 +3745,12 @@ impl str {
     /// assert_eq!(iter.next(), Some(Range { start: 6, end: 7 }));
     /// assert_eq!(iter.next(), Some(Range { start: 9, end: 10 }));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدى الذي يشير إليه جزء من النص.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "substr_range", since = "1.98.0")]
     pub fn substr_range(&self, substr: &str) -> Option<Range<usize>> {
@@ -3264,6 +3762,12 @@ impl str {
     /// This method is redundant when used directly on `&str`, but
     /// it helps dereferencing other string-like types to string slices,
     /// for example references to `Box<str>` or `Arc<str>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس النص كشريحة نص `&str`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_str(&self) -> &str {

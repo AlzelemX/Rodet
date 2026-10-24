@@ -352,6 +352,12 @@
 //!
 //! [`take`]: Iterator::take
 //! [`min`]: Iterator::min
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! التكرار الخارجي القابل للتركيب: الـ trait `Iterator` وأدواته.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

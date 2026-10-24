@@ -54,6 +54,12 @@ use crate::ops::Try;
 /// // ... and now we're done
 /// assert_eq!(None, it.next());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا جديدًا يكرر عنصرًا واحدًا عددًا محددًا من المرات.
+///
+/// </div>
 #[inline]
 #[stable(feature = "iter_repeat_n", since = "1.82.0")]
 pub fn repeat_n<T: Clone>(element: T, count: usize) -> RepeatN<T> {
@@ -77,6 +83,12 @@ impl<T> RepeatNInner<T> {
 ///
 /// This `struct` is created by the [`repeat_n()`] function.
 /// See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يكرر عنصرًا عددًا محددًا من المرات بالضبط.
+///
+/// </div>
 #[stable(feature = "iter_repeat_n", since = "1.82.0")]
 #[derive(Clone)]
 pub struct RepeatN<A> {
@@ -104,6 +116,12 @@ impl<A: fmt::Debug> fmt::Debug for RepeatN<A> {
 
 /// Creates an empty iterator, like [`repeat_n(value, 0)`][`repeat_n`]
 /// but without needing any such value at hand.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا فارغًا، مثل `repeat_n(value, 0)` لكن بدون الحاجة إلى قيمة.
+///
+/// </div>
 #[stable(feature = "iter_repeat_n_default", since = "1.97.0")]
 impl<A> Default for RepeatN<A> {
     fn default() -> Self {

@@ -5,6 +5,12 @@
 //! the expansion/lowering of format_args!().
 //!
 //! Do not modify them without understanding the consequences for the format_args!() macro.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! كل الأنواع والدوال في هذا الملف يستخدمها المترجم عند توسيع format_args!().
+//!
+//! </div>
 
 use super::*;
 use crate::hint::unreachable_unchecked;
@@ -32,6 +38,12 @@ enum ArgumentType<'a> {
 ///   function, equivalent to `exists T.(&T, fn(&T, &mut Formatter<'_>) -> Result`.
 /// * A count argument contains a count for dynamic formatting parameters like
 ///   precision and width.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يمثل "وسيطًا" عامًا تأخذه format_args!().
+///
+/// </div>
 #[lang = "format_argument"]
 #[derive(Copy, Clone)]
 #[repr(align(2))] // To ensure pointers to this struct always have their lowest bit cleared.

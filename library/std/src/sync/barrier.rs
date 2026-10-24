@@ -25,6 +25,12 @@ use crate::sync::nonpoison::{Condvar, Mutex};
 ///     }
 /// });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاجز يسمح لعدة threads بمزامنة بداية عملية حسابية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Barrier {
     lock: Mutex<BarrierState>,
@@ -52,6 +58,12 @@ struct BarrierState {
 /// let barrier = Barrier::new(1);
 /// let barrier_wait_result = barrier.wait();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجعه `Barrier::wait()` عندما تصل كل الـ threads إلى الحاجز.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct BarrierWaitResult(bool);
 
@@ -77,6 +89,12 @@ impl Barrier {
     ///
     /// let barrier = Barrier::new(10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حاجزًا جديدًا يوقف عددًا محددًا من الـ threads.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_barrier", since = "1.78.0")]
     #[must_use]
@@ -119,6 +137,12 @@ impl Barrier {
     ///     }
     /// });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى تصل كل الـ threads إلى هنا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn wait(&self) -> BarrierWaitResult {
         let mut lock = self.lock.lock();
@@ -159,6 +183,12 @@ impl BarrierWaitResult {
     /// let barrier_wait_result = barrier.wait();
     /// println!("{:?}", barrier_wait_result.is_leader());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الـ thread هو "القائد" في استدعاء `Barrier::wait()`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn is_leader(&self) -> bool {

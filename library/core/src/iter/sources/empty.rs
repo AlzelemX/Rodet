@@ -15,6 +15,12 @@ use crate::{fmt, marker};
 ///
 /// assert_eq!(None, nope.next());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا لا يعطي أي شيء.
+///
+/// </div>
 #[stable(feature = "iter_empty", since = "1.2.0")]
 #[rustc_const_stable(feature = "const_iter_empty", since = "1.32.0")]
 pub const fn empty<T>() -> Empty<T> {
@@ -24,6 +30,12 @@ pub const fn empty<T>() -> Empty<T> {
 /// An iterator that yields nothing.
 ///
 /// This `struct` is created by the [`empty()`] function. See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر لا يعطي أي شيء.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "iter_empty", since = "1.2.0")]
 #[rustc_diagnostic_item = "IterEmpty"]

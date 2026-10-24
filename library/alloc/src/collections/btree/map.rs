@@ -3485,6 +3485,12 @@ impl<K, V, A: AllocatorClone> BTreeMap<K, V, A> {
 /// operate on the two immediately adjacent elements.
 ///
 /// A `Cursor` is created with the [`BTreeMap::lower_bound`] and [`BTreeMap::upper_bound`] methods.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل (cursor) على `BTreeMap`.
+///
+/// </div>
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct Cursor<'a, K: 'a, V: 'a> {
     // If current is None then it means the tree has not been allocated yet.
@@ -3519,6 +3525,12 @@ impl<K: Debug, V: Debug> Debug for Cursor<'_, K, V> {
 ///
 /// A `CursorMut` is created with the [`BTreeMap::lower_bound_mut`] and [`BTreeMap::upper_bound_mut`]
 /// methods.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `BTreeMap` مع عمليات تعديل.
+///
+/// </div>
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct CursorMut<
     'a,
@@ -3557,6 +3569,12 @@ impl<K: Debug, V: Debug, A> Debug for CursorMut<'_, K, V, A> {
 ///
 /// * The key of the newly inserted element must be unique in the tree.
 /// * All keys in the tree must remain in sorted order.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `BTreeMap` مع عمليات تعديل، ويسمح بتعديل مفاتيح العناصر.
+///
+/// </div>
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct CursorMutKey<
     'a,
@@ -3584,6 +3602,12 @@ impl<'a, K, V> Cursor<'a, K, V> {
     ///
     /// If the cursor is already at the end of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<(&'a K, &'a V)> {
         let current = self.current.take()?;
@@ -3605,6 +3629,12 @@ impl<'a, K, V> Cursor<'a, K, V> {
     ///
     /// If the cursor is already at the start of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<(&'a K, &'a V)> {
         let current = self.current.take()?;
@@ -3625,6 +3655,12 @@ impl<'a, K, V> Cursor<'a, K, V> {
     /// moving the cursor.
     ///
     /// If the cursor is at the end of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&self) -> Option<(&'a K, &'a V)> {
         self.clone().next()
@@ -3634,6 +3670,12 @@ impl<'a, K, V> Cursor<'a, K, V> {
     /// without moving the cursor.
     ///
     /// If the cursor is at the start of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&self) -> Option<(&'a K, &'a V)> {
         self.clone().prev()
@@ -3646,6 +3688,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     ///
     /// If the cursor is already at the end of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<(&K, &mut V)> {
         let (k, v) = self.inner.next()?;
@@ -3657,6 +3705,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     ///
     /// If the cursor is already at the start of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<(&K, &mut V)> {
         let (k, v) = self.inner.prev()?;
@@ -3667,6 +3721,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     /// moving the cursor.
     ///
     /// If the cursor is at the end of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&mut self) -> Option<(&K, &mut V)> {
         let (k, v) = self.inner.peek_next()?;
@@ -3677,6 +3737,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     /// without moving the cursor.
     ///
     /// If the cursor is at the start of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&mut self) -> Option<(&K, &mut V)> {
         let (k, v) = self.inner.peek_prev()?;
@@ -3689,6 +3755,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     /// The lifetime of the returned `Cursor` is bound to that of the
     /// `CursorMut`, which means it cannot outlive the `CursorMut` and that the
     /// `CursorMut` is frozen for the lifetime of the `Cursor`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر قراءة فقط يشير إلى نفس موضع `CursorMut`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn as_cursor(&self) -> Cursor<'_, K, V> {
         self.inner.as_cursor()
@@ -3704,6 +3776,12 @@ impl<'a, K, V, A> CursorMut<'a, K, V, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All keys in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل المؤشر إلى `CursorMutKey` الذي يسمح بتعديل مفاتيح العناصر في الشجرة.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn with_mutable_key(self) -> CursorMutKey<'a, K, V, A> {
         self.inner
@@ -3716,6 +3794,12 @@ impl<'a, K, V, A> CursorMutKey<'a, K, V, A> {
     ///
     /// If the cursor is already at the end of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة التالية، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn next(&mut self) -> Option<(&mut K, &mut V)> {
         let current = self.current.take()?;
@@ -3742,6 +3826,12 @@ impl<'a, K, V, A> CursorMutKey<'a, K, V, A> {
     ///
     /// If the cursor is already at the start of the map then `None` is returned
     /// and the cursor is not moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى الفجوة السابقة، ويرجع مفتاح وقيمة العنصر الذي مرّ عليه.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn prev(&mut self) -> Option<(&mut K, &mut V)> {
         let current = self.current.take()?;
@@ -3767,6 +3857,12 @@ impl<'a, K, V, A> CursorMutKey<'a, K, V, A> {
     /// moving the cursor.
     ///
     /// If the cursor is at the end of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر التالي بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_next(&mut self) -> Option<(&mut K, &mut V)> {
         let current = self.current.as_mut()?;
@@ -3779,6 +3875,12 @@ impl<'a, K, V, A> CursorMutKey<'a, K, V, A> {
     /// without moving the cursor.
     ///
     /// If the cursor is at the start of the map then `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى مفتاح وقيمة العنصر السابق بدون تحريك المؤشر.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn peek_prev(&mut self) -> Option<(&mut K, &mut V)> {
         let current = self.current.as_mut()?;
@@ -3793,6 +3895,12 @@ impl<'a, K, V, A> CursorMutKey<'a, K, V, A> {
     /// The lifetime of the returned `Cursor` is bound to that of the
     /// `CursorMutKey`, which means it cannot outlive the `CursorMutKey` and that the
     /// `CursorMutKey` is frozen for the lifetime of the `Cursor`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر قراءة فقط يشير إلى نفس موضع `CursorMutKey`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn as_cursor(&self) -> Cursor<'_, K, V> {
         Cursor {
@@ -3818,6 +3926,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All keys in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_after_unchecked(&mut self, key: K, value: V) {
         let edge = match self.current.take() {
@@ -3861,6 +3976,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All keys in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_before_unchecked(&mut self, key: K, value: V) {
         let edge = match self.current.take() {
@@ -3904,6 +4026,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     /// (if any), or if it not less than the key after the cursor (if any),
     /// then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the keys of the map.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_after(&mut self, key: K, value: V) -> Result<(), UnorderedKeyError> {
         if let Some((prev, _)) = self.peek_prev() {
@@ -3933,6 +4062,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     /// (if any), or if it not less than the key after the cursor (if any),
     /// then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the keys of the map.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_before(&mut self, key: K, value: V) -> Result<(), UnorderedKeyError> {
         if let Some((prev, _)) = self.peek_prev() {
@@ -3956,6 +4092,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (before the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر التالي من الـ `BTreeMap`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_next(&mut self) -> Option<(K, V)> {
         let current = self.current.take()?;
@@ -3985,6 +4127,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMutKey<'a, K, V, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (after the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر السابق من الـ `BTreeMap`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_prev(&mut self) -> Option<(K, V)> {
         let current = self.current.take()?;
@@ -4025,6 +4173,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All keys in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_after_unchecked(&mut self, key: K, value: V) {
         // SAFETY: Upheld by caller.
@@ -4044,6 +4199,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     ///
     /// * The key of the newly inserted element must be unique in the tree.
     /// * All keys in the tree must remain in sorted order.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub unsafe fn insert_before_unchecked(&mut self, key: K, value: V) {
         // SAFETY: Upheld by caller.
@@ -4060,6 +4222,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     /// (if any), or if it not less than the key after the cursor (if any),
     /// then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the keys of the map.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_after(&mut self, key: K, value: V) -> Result<(), UnorderedKeyError> {
         self.inner.insert_after(key, value)
@@ -4075,6 +4244,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     /// (if any), or if it not less than the key after the cursor (if any),
     /// then an [`UnorderedKeyError`] is returned since this would
     /// invalidate the [`Ord`] invariant between the keys of the map.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج زوج مفتاح وقيمة جديدًا في الفجوة التي يشير إليها المؤشر حاليًا (بدون التحقق من
+    /// الترتيب).
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn insert_before(&mut self, key: K, value: V) -> Result<(), UnorderedKeyError> {
         self.inner.insert_before(key, value)
@@ -4084,6 +4260,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (before the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر التالي من الـ `BTreeMap`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_next(&mut self) -> Option<(K, V)> {
         self.inner.remove_next()
@@ -4093,6 +4275,12 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
     ///
     /// The element that was removed is returned. The cursor position is
     /// unchanged (after the removed element).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر السابق من الـ `BTreeMap`.
+    ///
+    /// </div>
     #[unstable(feature = "btree_cursors", issue = "107540")]
     pub fn remove_prev(&mut self) -> Option<(K, V)> {
         self.inner.remove_prev()
@@ -4102,6 +4290,13 @@ impl<'a, K: Ord, V, A: AllocatorClone> CursorMut<'a, K, V, A> {
 /// Error type returned by [`CursorMut::insert_before`] and
 /// [`CursorMut::insert_after`] if the key being inserted is not properly
 /// ordered with regards to adjacent keys.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي ترجعه `CursorMut::insert_before` و`CursorMut::insert_after` إذا لم يكن المفتاح
+/// المُدرج مرتبًا بالنسبة للمفاتيح المجاورة.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[unstable(feature = "btree_cursors", issue = "107540")]
 pub struct UnorderedKeyError {}

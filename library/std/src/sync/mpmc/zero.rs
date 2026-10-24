@@ -308,11 +308,23 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة فارغة.
+    ///
+    /// </div>
     pub(crate) fn is_empty(&self) -> bool {
         true
     }
 
     /// Returns `true` if the channel is full.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة ممتلئة.
+    ///
+    /// </div>
     pub(crate) fn is_full(&self) -> bool {
         true
     }

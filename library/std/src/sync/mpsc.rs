@@ -521,6 +521,12 @@ pub enum TrySendError<T> {
 /// // Let's see what that answer was
 /// println!("{:?}", receiver.recv().unwrap());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قناة غير متزامنة جديدة، ويرجع طرفي الإرسال والاستقبال.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
@@ -571,6 +577,12 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
 /// assert_eq!(receiver.recv().unwrap(), 1);
 /// assert_eq!(receiver.recv().unwrap(), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قناة متزامنة محدودة السعة جديدة.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn sync_channel<T>(bound: usize) -> (SyncSender<T>, Receiver<T>) {
@@ -613,6 +625,12 @@ impl<T> Sender<T> {
     /// drop(rx);
     /// assert_eq!(tx.send(1).unwrap_err().0, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرسال قيمة في هذه القناة، ويرجعها إذا تعذّر إرسالها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn send(&self, t: T) -> Result<(), SendError<T>> {
         self.inner.send(t)

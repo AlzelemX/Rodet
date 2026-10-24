@@ -60,6 +60,12 @@ use crate::ops::Try;
 /// // ... and now we're done
 /// assert_eq!(None, pow2.next());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا جديدًا يكرر عناصر من النوع `A` بلا نهاية باستدعاء الإغلاق المعطى `F: FnMut() -> A`.
+///
+/// </div>
 #[inline]
 #[stable(feature = "iterator_repeat_with", since = "1.28.0")]
 #[rustc_diagnostic_item = "iter_repeat_with"]
@@ -72,6 +78,12 @@ pub fn repeat_with<A, F: FnMut() -> A>(repeater: F) -> RepeatWith<F> {
 ///
 /// This `struct` is created by the [`repeat_with()`] function.
 /// See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يكرر عناصر من النوع `A` بلا نهاية باستدعاء الإغلاق المعطى `F: FnMut() -> A`.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[stable(feature = "iterator_repeat_with", since = "1.28.0")]
 pub struct RepeatWith<F> {

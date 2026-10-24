@@ -31,6 +31,12 @@
 //! ```
 //!
 //! [pattern-impls]: Pattern#implementors
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهة الأنماط النصية (Pattern API).
+//!
+//! </div>
 
 #![unstable(
     feature = "pattern",
@@ -96,27 +102,63 @@ use crate::{cmp, fmt};
 /// assert_eq!("abcdef_z".find(|ch| ch > 'd' && ch < 'y'), Some(4));
 /// assert_eq!("abcddd_z".find(|ch| ch > 'd' && ch < 'y'), None);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نمط نصي (حرف أو نص أو إغلاق أو مجموعة أحرف).
+///
+/// </div>
 pub trait Pattern: Sized {
     /// Associated searcher for this pattern
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الباحث المرتبط بهذا النمط.
+    ///
+    /// </div>
     type Searcher<'a>: Searcher<'a>;
 
     /// Constructs the associated searcher from
     /// `self` and the `haystack` to search in.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ الباحث المرتبط من `self` والنص `haystack` الذي يُبحث فيه.
+    ///
+    /// </div>
     fn into_searcher(self, haystack: &str) -> Self::Searcher<'_>;
 
     /// Checks whether the pattern matches anywhere in the haystack
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق أي مكان في النص.
+    ///
+    /// </div>
     #[inline]
     fn is_contained_in(self, haystack: &str) -> bool {
         self.into_searcher(haystack).next_match().is_some()
     }
 
     /// Checks whether the pattern matches at the front of the haystack
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق بداية النص.
+    ///
+    /// </div>
     #[inline]
     fn is_prefix_of(self, haystack: &str) -> bool {
         matches!(self.into_searcher(haystack).next(), SearchStep::Match(0, _))
     }
 
     /// Checks whether the pattern matches at the back of the haystack
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق نهاية النص.
+    ///
+    /// </div>
     #[inline]
     fn is_suffix_of<'a>(self, haystack: &'a str) -> bool
     where
@@ -126,6 +168,12 @@ pub trait Pattern: Sized {
     }
 
     /// Removes the pattern from the front of haystack, if it matches.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف النمط من بداية النص إذا طابقه.
+    ///
+    /// </div>
     #[inline]
     fn strip_prefix_of(self, haystack: &str) -> Option<&str> {
         if let SearchStep::Match(start, len) = self.into_searcher(haystack).next() {
@@ -142,6 +190,12 @@ pub trait Pattern: Sized {
     }
 
     /// Removes the pattern from the back of haystack, if it matches.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف النمط من نهاية النص إذا طابقه.
+    ///
+    /// </div>
     #[inline]
     fn strip_suffix_of<'a>(self, haystack: &'a str) -> Option<&'a str>
     where
@@ -162,6 +216,12 @@ pub trait Pattern: Sized {
     }
 
     /// Returns the pattern as UTF-8 if possible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع النمط كـ UTF-8 إن أمكن.
+    ///
+    /// </div>
     fn as_utf8_pattern(&self) -> Option<Utf8Pattern<'_>> {
         None
     }
@@ -169,32 +229,74 @@ pub trait Pattern: Sized {
 /// Result of calling [`Pattern::as_utf8_pattern()`].
 /// Can be used for inspecting the contents of a [`Pattern`] in cases
 /// where the underlying representation can be represented as UTF-8.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نتيجة استدعاء `Pattern::as_utf8_pattern()`، لفحص محتوى النمط عندما يمكن تمثيله كـ UTF-8.
+///
+/// </div>
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 pub enum Utf8Pattern<'a> {
     /// Type returned by String and str types.
     /// This stores `str` rather than bytes so callers cannot describe
     /// non-UTF-8 string patterns through this API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الذي يرجعه String وstr. يخزن `str` وليس بايتات.
+    ///
+    /// </div>
     StringPattern(&'a str),
     /// Type returned by char types.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الذي يرجعه char.
+    ///
+    /// </div>
     CharPattern(char),
 }
 
 // Searcher
 
 /// Result of calling [`Searcher::next()`] or [`ReverseSearcher::next_back()`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نتيجة استدعاء `Searcher::next()` أو `ReverseSearcher::next_back()`.
+///
+/// </div>
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 pub enum SearchStep {
     /// Expresses that a match of the pattern has been found at
     /// `haystack[a..b]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أنه وُجد تطابق للنمط في `haystack[a..b]`.
+    ///
+    /// </div>
     Match(usize, usize),
     /// Expresses that `haystack[a..b]` has been rejected as a possible match
     /// of the pattern.
     ///
     /// Note that there might be more than one `Reject` between two `Match`es,
     /// there is no requirement for them to be combined into one.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أن `haystack[a..b]` رُفض كتطابق محتمل للنمط.
+    ///
+    /// </div>
     Reject(usize, usize),
     /// Expresses that every byte of the haystack has been visited, ending
     /// the iteration.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أن كل بايتات النص تمت زيارتها، وانتهى التكرار.
+    ///
+    /// </div>
     Done,
 }
 
@@ -210,10 +312,22 @@ pub enum SearchStep {
 /// [`next()`][Searcher::next] methods are required to lie on valid utf8
 /// boundaries in the haystack. This enables consumers of this trait to
 /// slice the haystack without additional runtime checks.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// باحث عن نمط نصي.
+///
+/// </div>
 pub unsafe trait Searcher<'a> {
     /// Getter for the underlying string to be searched in
     ///
     /// Will always return the same [`&str`][str].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع النص الأساسي الذي يُبحث فيه.
+    ///
+    /// </div>
     fn haystack(&self) -> &'a str;
 
     /// Performs the next search step starting from the front.
@@ -237,6 +351,12 @@ pub unsafe trait Searcher<'a> {
     /// As an example, the pattern `"aaa"` and the haystack `"cbaaaaab"`
     /// might produce the stream
     /// `[Reject(0, 1), Reject(1, 2), Match(2, 5), Reject(5, 8)]`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ خطوة البحث التالية بدءًا من البداية.
+    ///
+    /// </div>
     fn next(&mut self) -> SearchStep;
 
     /// Finds the next [`Match`][SearchStep::Match] result. See [`next()`][Searcher::next].
@@ -245,6 +365,12 @@ pub unsafe trait Searcher<'a> {
     /// of this and [`next_reject`][Searcher::next_reject] will overlap. This will return
     /// `(start_match, end_match)`, where start_match is the index of where
     /// the match begins, and end_match is the index after the end of the match.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد نتيجة `Match` التالية.
+    ///
+    /// </div>
     #[inline]
     fn next_match(&mut self) -> Option<(usize, usize)> {
         loop {
@@ -261,6 +387,12 @@ pub unsafe trait Searcher<'a> {
     ///
     /// Unlike [`next()`][Searcher::next], there is no guarantee that the returned ranges
     /// of this and [`next_match`][Searcher::next_match] will overlap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد نتيجة `Reject` التالية.
+    ///
+    /// </div>
     #[inline]
     fn next_reject(&mut self) -> Option<(usize, usize)> {
         loop {
@@ -287,6 +419,12 @@ pub unsafe trait Searcher<'a> {
 ///
 /// For the reason why this trait is marked unsafe, see the
 /// parent trait [`Searcher`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// باحث عكسي عن نمط نصي.
+///
+/// </div>
 pub unsafe trait ReverseSearcher<'a>: Searcher<'a> {
     /// Performs the next search step starting from the back.
     ///
@@ -309,10 +447,22 @@ pub unsafe trait ReverseSearcher<'a>: Searcher<'a> {
     /// As an example, the pattern `"aaa"` and the haystack `"cbaaaaab"`
     /// might produce the stream
     /// `[Reject(7, 8), Match(4, 7), Reject(1, 4), Reject(0, 1)]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ خطوة البحث التالية بدءًا من النهاية.
+    ///
+    /// </div>
     fn next_back(&mut self) -> SearchStep;
 
     /// Finds the next [`Match`][SearchStep::Match] result.
     /// See [`next_back()`][ReverseSearcher::next_back].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد نتيجة `Match` التالية من النهاية.
+    ///
+    /// </div>
     #[inline]
     fn next_match_back(&mut self) -> Option<(usize, usize)> {
         loop {
@@ -326,6 +476,12 @@ pub unsafe trait ReverseSearcher<'a>: Searcher<'a> {
 
     /// Finds the next [`Reject`][SearchStep::Reject] result.
     /// See [`next_back()`][ReverseSearcher::next_back].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد نتيجة `Reject` التالية من النهاية.
+    ///
+    /// </div>
     #[inline]
     fn next_reject_back(&mut self) -> Option<(usize, usize)> {
         loop {
@@ -359,6 +515,12 @@ pub unsafe trait ReverseSearcher<'a>: Searcher<'a> {
 /// `(&str)::Searcher` is not a `DoubleEndedSearcher` because
 /// the pattern `"aa"` in the haystack `"aaa"` matches as either
 /// `"[aa]a"` or `"a[aa]"`, depending on which side it is searched.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة يعني أن `ReverseSearcher` يمكن استخدامه لتطبيق `DoubleEndedIterator`.
+///
+/// </div>
 pub trait DoubleEndedSearcher<'a>: ReverseSearcher<'a> {}
 
 /////////////////////////////////////////////////////////////////////////////
@@ -366,6 +528,12 @@ pub trait DoubleEndedSearcher<'a>: ReverseSearcher<'a> {}
 /////////////////////////////////////////////////////////////////////////////
 
 /// Associated type for `<char as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<char as Pattern>::Searcher<'a>`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 pub struct CharSearcher<'a> {
     haystack: &'a str,
@@ -559,6 +727,12 @@ impl<'a> DoubleEndedSearcher<'a> for CharSearcher<'a> {}
 /// ```
 /// assert_eq!("Hello world".find('o'), Some(4));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبحث عن الأحرف التي تساوي `char` معيّنًا.
+///
+/// </div>
 impl Pattern for char {
     type Searcher<'a> = CharSearcher<'a>;
 
@@ -808,12 +982,24 @@ macro_rules! searcher_methods {
 }
 
 /// Associated type for `<[char; N] as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<[char; N] as Pattern>::Searcher<'a>`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 pub struct CharArraySearcher<'a, const N: usize>(
     <MultiCharEqPattern<[char; N]> as Pattern>::Searcher<'a>,
 );
 
 /// Associated type for `<&[char; N] as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<&[char; N] as Pattern>::Searcher<'a>`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 pub struct CharArrayRefSearcher<'a, 'b, const N: usize>(
     <MultiCharEqPattern<&'b [char; N]> as Pattern>::Searcher<'a>,
@@ -827,6 +1013,12 @@ pub struct CharArrayRefSearcher<'a, 'b, const N: usize>(
 /// assert_eq!("Hello world".find(['o', 'l']), Some(2));
 /// assert_eq!("Hello world".find(['h', 'w']), Some(6));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبحث عن الأحرف التي تساوي أيًا من أحرف المصفوفة.
+///
+/// </div>
 impl<const N: usize> Pattern for [char; N] {
     pattern_methods!('a, CharArraySearcher<'a, N>, MultiCharEqPattern, CharArraySearcher);
 }
@@ -849,6 +1041,12 @@ impl<'a, const N: usize> DoubleEndedSearcher<'a> for CharArraySearcher<'a, N> {}
 /// assert_eq!("Hello world".find(&['o', 'l']), Some(2));
 /// assert_eq!("Hello world".find(&['h', 'w']), Some(6));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبحث عن الأحرف التي تساوي أيًا من أحرف المصفوفة.
+///
+/// </div>
 impl<'b, const N: usize> Pattern for &'b [char; N] {
     pattern_methods!('a, CharArrayRefSearcher<'a, 'b, N>, MultiCharEqPattern, CharArrayRefSearcher);
 }
@@ -870,6 +1068,12 @@ impl<'a, 'b, const N: usize> DoubleEndedSearcher<'a> for CharArrayRefSearcher<'a
 // Todo: Change / Remove due to ambiguity in meaning.
 
 /// Associated type for `<&[char] as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<&[char] as Pattern>::Searcher<'a>`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 pub struct CharSliceSearcher<'a, 'b>(<MultiCharEqPattern<&'b [char]> as Pattern>::Searcher<'a>);
 
@@ -891,6 +1095,12 @@ impl<'a, 'b> DoubleEndedSearcher<'a> for CharSliceSearcher<'a, 'b> {}
 /// assert_eq!("Hello world".find(&['o', 'l'][..]), Some(2));
 /// assert_eq!("Hello world".find(&['h', 'w'][..]), Some(6));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبحث عن الأحرف التي تساوي أيًا من أحرف الشريحة.
+///
+/// </div>
 impl<'b> Pattern for &'b [char] {
     pattern_methods!('a, CharSliceSearcher<'a, 'b>, MultiCharEqPattern, CharSliceSearcher);
 }
@@ -900,6 +1110,12 @@ impl<'b> Pattern for &'b [char] {
 /////////////////////////////////////////////////////////////////////////////
 
 /// Associated type for `<F as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<F as Pattern>::Searcher<'a>`.
+///
+/// </div>
 #[derive(Clone)]
 pub struct CharPredicateSearcher<'a, F>(<MultiCharEqPattern<F> as Pattern>::Searcher<'a>)
 where
@@ -940,6 +1156,12 @@ impl<'a, F> DoubleEndedSearcher<'a> for CharPredicateSearcher<'a, F> where F: Fn
 /// assert_eq!("Hello world".find(char::is_uppercase), Some(0));
 /// assert_eq!("Hello world".find(|c| "aeiou".contains(c)), Some(1));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبحث عن الأحرف التي تحقق الشرط المعطى.
+///
+/// </div>
 impl<F> Pattern for F
 where
     F: FnMut(char) -> bool,
@@ -952,6 +1174,12 @@ where
 /////////////////////////////////////////////////////////////////////////////
 
 /// Delegates to the `&str` impl.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحيل إلى تطبيق `&str`.
+///
+/// </div>
 impl<'b, 'c> Pattern for &'c &'b str {
     pattern_methods!('a, StrSearcher<'a, 'b>, |&s| s, |s| s);
 }
@@ -970,6 +1198,12 @@ impl<'b, 'c> Pattern for &'c &'b str {
 /// ```
 /// assert_eq!("Hello world".find("world"), Some(6));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بحث عن جزء نص بدون حجز ذاكرة.
+///
+/// </div>
 impl<'b> Pattern for &'b str {
     type Searcher<'a> = StrSearcher<'a, 'b>;
 
@@ -979,12 +1213,24 @@ impl<'b> Pattern for &'b str {
     }
 
     /// Checks whether the pattern matches at the front of the haystack.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق بداية النص.
+    ///
+    /// </div>
     #[inline]
     fn is_prefix_of(self, haystack: &str) -> bool {
         haystack.as_bytes().starts_with(self.as_bytes())
     }
 
     /// Checks whether the pattern matches anywhere in the haystack
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق أي مكان في النص.
+    ///
+    /// </div>
     #[inline]
     fn is_contained_in(self, haystack: &str) -> bool {
         if self.is_empty() {
@@ -1015,6 +1261,12 @@ impl<'b> Pattern for &'b str {
     }
 
     /// Removes the pattern from the front of haystack, if it matches.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف النمط من بداية النص إذا طابقه.
+    ///
+    /// </div>
     #[inline]
     fn strip_prefix_of(self, haystack: &str) -> Option<&str> {
         if self.is_prefix_of(haystack) {
@@ -1026,6 +1278,12 @@ impl<'b> Pattern for &'b str {
     }
 
     /// Checks whether the pattern matches at the back of the haystack.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النمط يطابق نهاية النص.
+    ///
+    /// </div>
     #[inline]
     fn is_suffix_of<'a>(self, haystack: &'a str) -> bool
     where
@@ -1035,6 +1293,12 @@ impl<'b> Pattern for &'b str {
     }
 
     /// Removes the pattern from the back of haystack, if it matches.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف النمط من نهاية النص إذا طابقه.
+    ///
+    /// </div>
     #[inline]
     fn strip_suffix_of<'a>(self, haystack: &'a str) -> Option<&'a str>
     where
@@ -1061,6 +1325,12 @@ impl<'b> Pattern for &'b str {
 
 #[derive(Clone, Debug)]
 /// Associated type for `<&str as Pattern>::Searcher<'a>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع المرتبط لـ `<&str as Pattern>::Searcher<'a>`.
+///
+/// </div>
 pub struct StrSearcher<'a, 'b> {
     haystack: &'a str,
     needle: &'b str,

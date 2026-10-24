@@ -12,6 +12,12 @@ use crate::ops::Try;
 ///
 /// [`inspect`]: Iterator::inspect
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يستدعي دالة مع مرجع إلى كل عنصر قبل إعطائه.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

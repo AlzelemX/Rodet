@@ -9,6 +9,12 @@
 //!
 //! [`Vec`]: crate::vec::Vec
 //! [`VecDeque`]: super::vec_deque::VecDeque
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قائمة مترابطة مزدوجة (doubly-linked list) عقدها مملوكة.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -45,6 +51,12 @@ mod tests;
 ///
 /// [`Vec`]: crate::vec::Vec
 /// [`VecDeque`]: super::vec_deque::VecDeque
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قائمة مترابطة مزدوجة (doubly-linked list) عقدها مملوكة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "LinkedList")]
 #[rustc_insignificant_dtor]
@@ -69,6 +81,12 @@ struct Node<T> {
 ///
 /// This `struct` is created by [`LinkedList::iter()`]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على عناصر `LinkedList`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, T: 'a> {
@@ -106,6 +124,12 @@ impl<T> Clone for Iter<'_, T> {
 ///
 /// This `struct` is created by [`LinkedList::iter_mut()`]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على عناصر `LinkedList`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IterMut<'a, T: 'a> {
@@ -137,6 +161,12 @@ impl<T: fmt::Debug> fmt::Debug for IterMut<'_, T> {
 /// (provided by the [`IntoIterator`] trait). See its documentation for more.
 ///
 /// [`into_iter`]: LinkedList::into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على عناصر `LinkedList`.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<
@@ -435,6 +465,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for LinkedList<T> {
     /// Creates an empty `LinkedList<T>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LinkedList<T>` فارغة.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         Self::new()
@@ -451,6 +487,12 @@ impl<T> LinkedList<T> {
     ///
     /// let list: LinkedList<u32> = LinkedList::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LinkedList` فارغة.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_linked_list_new", since = "1.39.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -488,6 +530,12 @@ impl<T> LinkedList<T> {
     ///
     /// assert!(list2.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل العناصر من `other` إلى نهاية القائمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn append(&mut self, other: &mut Self) {
         match self.tail {
@@ -522,6 +570,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     ///
     /// let list: LinkedList<i32, System> = LinkedList::new_in(System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LinkedList<T, A>` فارغة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub const fn new_in(alloc: A) -> Self {
@@ -546,6 +600,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(iter.next(), Some(&2));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مكررًا من البداية إلى النهاية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter(&self) -> Iter<'_, T> {
@@ -575,6 +635,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(iter.next(), Some(&12));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مكررًا من البداية إلى النهاية بمراجع قابلة للتعديل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
@@ -584,6 +650,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// Provides a cursor at the front element.
     ///
     /// The cursor is pointing to the "ghost" non-element if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشر تنقّل عند العنصر الأول.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -594,6 +666,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// Provides a cursor with editing operations at the front element.
     ///
     /// The cursor is pointing to the "ghost" non-element if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشر تنقّل مع عمليات تعديل عند العنصر الأول.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -604,6 +682,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// Provides a cursor at the back element.
     ///
     /// The cursor is pointing to the "ghost" non-element if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشر تنقّل عند العنصر الأخير.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -614,6 +698,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// Provides a cursor with editing operations at the back element.
     ///
     /// The cursor is pointing to the "ghost" non-element if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشر تنقّل مع عمليات تعديل عند العنصر الأخير.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -636,6 +726,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// dl.push_front("foo");
     /// assert!(!dl.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت الـ `LinkedList` فارغة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -663,6 +759,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// dl.push_back(3);
     /// assert_eq!(dl.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول الـ `LinkedList`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -691,6 +793,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(dl.len(), 0);
     /// assert_eq!(dl.front(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف كل العناصر من الـ `LinkedList`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn clear(&mut self) {
@@ -724,6 +832,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(list.contains(&0), true);
     /// assert_eq!(list.contains(&10), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت الـ `LinkedList` تحتوي عنصرًا يساوي القيمة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "linked_list_contains", since = "1.12.0")]
     pub fn contains(&self, x: &T) -> bool
     where
@@ -748,6 +862,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// dl.push_front(1);
     /// assert_eq!(dl.front(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأول، أو `None` إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -779,6 +899,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// }
     /// assert_eq!(dl.front(), Some(&5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأول، أو `None` إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -803,6 +929,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// dl.push_back(1);
     /// assert_eq!(dl.back(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأخير، أو `None` إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -833,6 +965,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// }
     /// assert_eq!(dl.back(), Some(&5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأخير، أو `None` إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn back_mut(&mut self) -> Option<&mut T> {
@@ -857,6 +995,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// dl.push_front(1);
     /// assert_eq!(dl.front().unwrap(), &1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى بداية القائمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn push_front(&mut self, elt: T) {
         let _ = self.push_front_mut(elt);
@@ -877,6 +1021,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// *ptr += 4;
     /// assert_eq!(dl.front().unwrap(), &6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى بداية القائمة، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `LinkedList::push_front` instead"]
     pub fn push_front_mut(&mut self, elt: T) -> &mut T {
@@ -908,6 +1058,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(d.pop_front(), Some(1));
     /// assert_eq!(d.pop_front(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الأول ويرجعه، أو `None` إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop_front(&mut self) -> Option<T> {
         self.pop_front_node().map(Node::into_element)
@@ -927,6 +1083,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// d.push_back(3);
     /// assert_eq!(3, *d.back().unwrap());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية القائمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "append")]
     pub fn push_back(&mut self, elt: T) {
@@ -948,6 +1110,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// *ptr += 4;
     /// assert_eq!(dl.back().unwrap(), &6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية القائمة، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `LinkedList::push_back` instead"]
     pub fn push_back_mut(&mut self, elt: T) -> &mut T {
@@ -976,6 +1144,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// d.push_back(3);
     /// assert_eq!(d.pop_back(), Some(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من القائمة ويرجعه، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop_back(&mut self) -> Option<T> {
         self.pop_back_node().map(Node::into_element)
@@ -1006,6 +1180,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(split.pop_front(), Some(1));
     /// assert_eq!(split.pop_front(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم القائمة إلى جزأين عند الموضع المعطى، ويرجع كل ما بعده بما فيه الموضع نفسه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn split_off(&mut self, at: usize) -> LinkedList<T, A>
     where
@@ -1065,6 +1245,12 @@ impl<T, A: Allocator> LinkedList<T, A> {
     /// assert_eq!(d.remove(0), 3);
     /// assert_eq!(d.remove(0), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر في الموضع المعطى ويرجعه.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_remove", issue = "69210")]
     #[rustc_confusables("delete", "take")]
     pub fn remove(&mut self, at: usize) -> T {
@@ -1291,6 +1477,12 @@ impl<T> Default for Iter<'_, T> {
     /// let iter: linked_list::Iter<'_, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `linked_list::Iter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Iter { head: None, tail: None, len: 0, marker: Default::default() }
     }
@@ -1373,6 +1565,12 @@ impl<T> Default for IterMut<'_, T> {
 /// tail of the list.
 ///
 /// When created, cursors start at the front of the list, or the "ghost" non-element if the list is empty.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `LinkedList`.
+///
+/// </div>
 #[unstable(feature = "linked_list_cursors", issue = "58533")]
 pub struct Cursor<
     'a,
@@ -1409,6 +1607,12 @@ impl<T: fmt::Debug, A: Allocator> fmt::Debug for Cursor<'_, T, A> {
 /// Cursors always rest between two elements in the list, and index in a logically circular way.
 /// To accommodate this, there is a "ghost" non-element that yields `None` between the head and
 /// tail of the list.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر تنقّل على `LinkedList` مع عمليات تعديل.
+///
+/// </div>
 #[unstable(feature = "linked_list_cursors", issue = "58533")]
 pub struct CursorMut<
     'a,
@@ -1432,6 +1636,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     ///
     /// This returns `None` if the cursor is currently pointing to the
     /// "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع المؤشر داخل الـ `LinkedList`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn index(&self) -> Option<usize> {
@@ -1444,6 +1654,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this will move it to
     /// the first element of the `LinkedList`. If it is pointing to the last
     /// element of the `LinkedList` then this will move it to the "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى العنصر التالي في الـ `LinkedList`.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn move_next(&mut self) {
         match self.current.take() {
@@ -1467,6 +1683,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this will move it to
     /// the last element of the `LinkedList`. If it is pointing to the first
     /// element of the `LinkedList` then this will move it to the "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى العنصر السابق في الـ `LinkedList`.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn move_prev(&mut self) {
         match self.current.take() {
@@ -1489,6 +1711,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     ///
     /// This returns `None` if the cursor is currently pointing to the
     /// "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر الذي يشير إليه المؤشر حاليًا.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn current(&self) -> Option<&'a T> {
@@ -1501,6 +1729,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this returns
     /// the first element of the `LinkedList`. If it is pointing to the last
     /// element of the `LinkedList` then this returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر التالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn peek_next(&self) -> Option<&'a T> {
@@ -1519,6 +1753,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this returns
     /// the last element of the `LinkedList`. If it is pointing to the first
     /// element of the `LinkedList` then this returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر السابق.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn peek_prev(&self) -> Option<&'a T> {
@@ -1534,6 +1774,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
 
     /// Provides a reference to the front element of the cursor's parent list,
     /// or None if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأول في قائمة المؤشر، أو None إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("first")]
@@ -1543,6 +1789,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
 
     /// Provides a reference to the back element of the cursor's parent list,
     /// or None if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأخير في قائمة المؤشر، أو None إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("last")]
@@ -1551,6 +1803,12 @@ impl<'a, T, A: Allocator> Cursor<'a, T, A> {
     }
 
     /// Provides a reference to the cursor's parent list.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى القائمة التي يتبعها المؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -1564,6 +1822,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// This returns `None` if the cursor is currently pointing to the
     /// "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع المؤشر داخل الـ `LinkedList`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn index(&self) -> Option<usize> {
@@ -1576,6 +1840,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this will move it to
     /// the first element of the `LinkedList`. If it is pointing to the last
     /// element of the `LinkedList` then this will move it to the "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى العنصر التالي في الـ `LinkedList`.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn move_next(&mut self) {
         match self.current.take() {
@@ -1599,6 +1869,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this will move it to
     /// the last element of the `LinkedList`. If it is pointing to the first
     /// element of the `LinkedList` then this will move it to the "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل المؤشر إلى العنصر السابق في الـ `LinkedList`.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn move_prev(&mut self) {
         match self.current.take() {
@@ -1621,6 +1897,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// This returns `None` if the cursor is currently pointing to the
     /// "ghost" non-element.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر الذي يشير إليه المؤشر حاليًا.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn current(&mut self) -> Option<&mut T> {
@@ -1633,6 +1915,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this returns
     /// the first element of the `LinkedList`. If it is pointing to the last
     /// element of the `LinkedList` then this returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر التالي.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn peek_next(&mut self) -> Option<&mut T> {
         // ignore-tidy-undocumented-unsafe
@@ -1650,6 +1938,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// If the cursor is pointing to the "ghost" non-element then this returns
     /// the last element of the `LinkedList`. If it is pointing to the first
     /// element of the `LinkedList` then this returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى العنصر السابق.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn peek_prev(&mut self) -> Option<&mut T> {
         // ignore-tidy-undocumented-unsafe
@@ -1667,6 +1961,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// The lifetime of the returned `Cursor` is bound to that of the
     /// `CursorMut`, which means it cannot outlive the `CursorMut` and that the
     /// `CursorMut` is frozen for the lifetime of the `Cursor`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر قراءة فقط يشير إلى العنصر الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn as_cursor(&self) -> Cursor<'_, T, A> {
@@ -1678,6 +1978,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// The lifetime of the returned reference is bound to that of the
     /// `CursorMut`, which means it cannot outlive the `CursorMut` and that the
     /// `CursorMut` is frozen for the lifetime of the reference.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا للقراءة فقط إلى القائمة التي يتبعها المؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -1693,6 +1999,12 @@ impl<'a, T> CursorMut<'a, T> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the new elements are
     /// inserted at the start of the `LinkedList`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عناصر الـ `LinkedList` المعطاة بعد العنصر الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn splice_after(&mut self, list: LinkedList<T>) {
         let Some((splice_head, splice_tail, splice_len)) = list.detach_all_nodes() else {
@@ -1716,6 +2028,12 @@ impl<'a, T> CursorMut<'a, T> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the new elements are
     /// inserted at the end of the `LinkedList`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عناصر الـ `LinkedList` المعطاة قبل العنصر الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn splice_before(&mut self, list: LinkedList<T>) {
         let (splice_head, splice_tail, splice_len) = match list.detach_all_nodes() {
@@ -1739,6 +2057,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the new element is
     /// inserted at the front of the `LinkedList`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في الـ `LinkedList` بعد العنصر الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn insert_after(&mut self, item: T) {
         let spliced_node =
@@ -1761,6 +2085,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the new element is
     /// inserted at the end of the `LinkedList`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا جديدًا في الـ `LinkedList` قبل العنصر الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn insert_before(&mut self, item: T) {
         let spliced_node =
@@ -1783,6 +2113,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is currently pointing to the "ghost" non-element then no element
     /// is removed and `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الحالي من الـ `LinkedList`.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn remove_current(&mut self) -> Option<T> {
         let unlinked_node = self.current?;
@@ -1802,6 +2138,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is currently pointing to the "ghost" non-element then no element
     /// is removed and `None` is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الحالي من الـ `LinkedList` بدون تحرير عقدة القائمة.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn remove_current_as_list(&mut self) -> Option<LinkedList<T, A>>
     where
@@ -1831,6 +2173,13 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the entire contents
     /// of the `LinkedList` are moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم القائمة إلى جزأين بعد العنصر الحالي، ويرجع قائمة جديدة فيها كل ما بعد المؤشر، وتبقى
+    /// القائمة الأصلية بما قبله.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn split_after(&mut self) -> LinkedList<T, A>
     where
@@ -1851,6 +2200,13 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     ///
     /// If the cursor is pointing at the "ghost" non-element then the entire contents
     /// of the `LinkedList` are moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم القائمة إلى جزأين قبل العنصر الحالي، ويرجع قائمة جديدة فيها كل ما قبل المؤشر، وتبقى
+    /// القائمة الأصلية بما بعده.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn split_before(&mut self) -> LinkedList<T, A>
     where
@@ -1866,6 +2222,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// that the cursor points to is unchanged, even if it is the "ghost" node.
     ///
     /// This operation should compute in *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى بداية قائمة المؤشر. العقدة التي يشير إليها المؤشر لا تتغير.
+    ///
+    /// </div>
     // `push_front` continues to point to "ghost" when it adds a node to mimic
     // the behavior of `insert_before` on an empty list.
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
@@ -1881,6 +2243,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// that the cursor points to is unchanged, even if it is the "ghost" node.
     ///
     /// This operation should compute in *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية قائمة المؤشر. العقدة التي يشير إليها المؤشر لا تتغير.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("push", "append")]
     pub fn push_back(&mut self, elt: T) {
@@ -1901,6 +2269,13 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// points to the new front element.
     ///
     /// This operation should compute in *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أول عنصر من قائمة المؤشر ويرجعه، أو None إذا كانت فارغة. لا يتغير موضع المؤشر إلا إذا
+    /// كان يشير إلى العنصر الأول.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn pop_front(&mut self) -> Option<T> {
         // We can't check if current is empty, we must check the list directly.
@@ -1930,6 +2305,13 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// points to the "ghost" element.
     ///
     /// This operation should compute in *O*(1) time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من قائمة المؤشر ويرجعه، أو None إذا كانت فارغة. لا يتغير موضع المؤشر إلا إذا
+    /// كان يشير إلى العنصر الأخير.
+    ///
+    /// </div>
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("pop")]
     pub fn pop_back(&mut self) -> Option<T> {
@@ -1950,6 +2332,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
 
     /// Provides a reference to the front element of the cursor's parent list,
     /// or None if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأول في قائمة المؤشر، أو None إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("first")]
@@ -1959,6 +2347,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
 
     /// Provides a mutable reference to the front element of the cursor's
     /// parent list, or None if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأول في قائمة المؤشر، أو None إذا كانت فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn front_mut(&mut self) -> Option<&mut T> {
@@ -1967,6 +2361,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
 
     /// Provides a reference to the back element of the cursor's parent list,
     /// or None if the list is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأخير في قائمة المؤشر، أو None إذا كانت القائمة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     #[rustc_confusables("last")]
@@ -1995,6 +2395,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
     /// assert_eq!(contents.next(), Some(0));
     /// assert_eq!(contents.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأخير في قائمة المؤشر، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "linked_list_cursors", issue = "58533")]
     pub fn back_mut(&mut self) -> Option<&mut T> {
@@ -2005,6 +2411,12 @@ impl<'a, T, A: Allocator> CursorMut<'a, T, A> {
 /// This `struct` is created by the [`extract_if`] method on [`LinkedList`].
 ///
 /// [`extract_if`]: LinkedList::extract_if
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الـ `struct` تنشئه الدالة `extract_if` على `LinkedList`.
+///
+/// </div>
 #[stable(feature = "extract_if", since = "1.87.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed; \
     use `extract_if().for_each(drop)` to remove and discard elements"]
@@ -2105,6 +2517,12 @@ impl<T> Default for IntoIter<T> {
     /// let iter: linked_list::IntoIter<u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `linked_list::IntoIter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         LinkedList::new().into_iter()
     }
@@ -2125,6 +2543,12 @@ impl<T, A: Allocator> IntoIterator for LinkedList<T, A> {
     type IntoIter = IntoIter<T, A>;
 
     /// Consumes the list into an iterator yielding elements by value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك القائمة ويحوّلها إلى مكرر يعطي العناصر بالقيمة.
+    ///
+    /// </div>
     #[inline]
     fn into_iter(self) -> IntoIter<T, A> {
         IntoIter { list: self }
@@ -2281,6 +2705,12 @@ impl<T, const N: usize> From<[T; N]> for LinkedList<T> {
     /// let list2: LinkedList<_> = [1, 2, 3, 4].into();
     /// assert_eq!(list1, list2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `[T; N]` إلى `LinkedList<T>`.
+    ///
+    /// </div>
     fn from(arr: [T; N]) -> Self {
         Self::from_iter(arr)
     }

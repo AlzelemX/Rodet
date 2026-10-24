@@ -178,6 +178,12 @@ pub trait Read {
     ///
     /// The default implementation calls `read` with either the first nonempty
     /// buffer provided, or an empty one if none exists.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `read`، لكنه يقرأ في شريحة من المخازن.
+    ///
+    /// </div>
     #[stable(feature = "iovec", since = "1.36.0")]
     fn read_vectored(&mut self, bufs: &mut [IoSliceMut<'_>]) -> Result<usize> {
         default_read_vectored(|b| self.read(b), bufs)

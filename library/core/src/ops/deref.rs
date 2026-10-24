@@ -144,6 +144,12 @@ pub const trait Deref: PointeeSized {
     type Target: ?Sized;
 
     /// Dereferences the value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيل المرجع عن القيمة (ويحسبها إن لزم).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "deref_method"]

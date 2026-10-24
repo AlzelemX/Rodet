@@ -25,6 +25,12 @@
 //! changes made by other processes.
 //! - Use atomic operations when possible (like [`File::create_new`] instead of checking existence then creating).
 //! - Keep file open for the duration of operations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! عمليات التعامل مع نظام الملفات: قراءة وكتابة الملفات والمجلدات.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![deny(unsafe_op_in_unsafe_fn)]
@@ -136,6 +142,12 @@ pub use self::dirs::MediaDirs;
 /// [`sync_all`]: File::sync_all
 /// [`write`]: File::write
 /// [`read`]: File::read
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كائن يعطي وصولًا إلى ملف مفتوح في نظام الملفات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "File")]
 #[diagnostic::on_move(note = "you can use `File::try_clone` to duplicate a `File` instance")]
@@ -148,14 +160,32 @@ pub struct File {
 ///
 /// [`try_lock`]: File::try_lock
 /// [`try_lock_shared`]: File::try_lock_shared
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأخطاء الممكنة عند محاولة أخذ قفل بالدالتين `try_lock` و`try_lock_shared` على `File`.
+///
+/// </div>
 #[stable(feature = "file_lock", since = "1.89.0")]
 pub enum TryLockError {
     /// The lock could not be acquired due to an I/O error on the file. The standard library will
     /// not return an [`ErrorKind::WouldBlock`] error inside [`TryLockError::Error`]
     ///
     /// [`ErrorKind::WouldBlock`]: io::ErrorKind::WouldBlock
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر أخذ القفل بسبب خطأ إدخال وإخراج في الملف.
+    ///
+    /// </div>
     Error(io::Error),
     /// The lock could not be acquired at this time because it is held by another handle/process.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر أخذ القفل الآن لأن مقبضًا أو عملية أخرى تمسكه.
+    ///
+    /// </div>
     WouldBlock,
 }
 
@@ -191,6 +221,12 @@ pub enum TryLockError {
 /// ```
 ///
 /// [TOCTOU]: self#time-of-check-to-time-of-use-toctou
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كائن يعطي وصولًا إلى مجلد في نظام الملفات.
+///
+/// </div>
 #[unstable(feature = "dirfd", issue = "120426")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsDir")]
 pub struct Dir {
@@ -203,6 +239,12 @@ pub struct Dir {
 /// [`symlink_metadata`] function or method and represents known
 /// metadata about a file such as its permissions, size, modification
 /// times, etc.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وصفية عن ملف (الحجم، النوع، الأوقات، الصلاحيات).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsMetadata")]
@@ -221,6 +263,12 @@ pub struct Metadata(fs_imp::FileAttr);
 /// # Errors
 /// This [`io::Result`] will be an [`Err`] if an error occurred while fetching
 /// the next entry from the OS.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على مدخلات مجلد.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsReadDir")]
@@ -241,6 +289,12 @@ pub struct ReadDir(fs_imp::ReadDir);
 /// Note that this [may change in the future][changes].
 ///
 /// [changes]: io#platform-specific-behavior
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المدخلات التي يعطيها المكرر `ReadDir`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsDirEntry")]
 pub struct DirEntry(fs_imp::DirEntry);
@@ -280,12 +334,24 @@ pub struct DirEntry(fs_imp::DirEntry);
 ///             .create(true)
 ///             .open("foo.txt");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خيارات وعلامات لتحديد طريقة فتح ملف.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsOpenOptions")]
 pub struct OpenOptions(fs_imp::OpenOptions);
 
 /// Representation of the various timestamps on a file.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تمثيل للأوقات المختلفة في ملف.
+///
+/// </div>
 #[derive(Copy, Clone, Debug, Default)]
 #[stable(feature = "file_set_times", since = "1.75.0")]
 #[must_use = "must be applied to a file via `File::set_times` to have any effect"]
@@ -299,6 +365,12 @@ pub struct FileTimes(fs_imp::FileTimes);
 /// through the [`PermissionsExt`] trait.
 ///
 /// [`PermissionsExt`]: crate::os::unix::fs::PermissionsExt
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تمثيل لصلاحيات ملف.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FsPermissions")]
@@ -306,6 +378,12 @@ pub struct Permissions(fs_imp::FilePermissions);
 
 /// A structure representing a type of file with accessors for each file type.
 /// It is returned by [`Metadata::file_type`] method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تمثل نوع ملف، مع دوال لكل نوع. ترجعها `Metadata::file_type`.
+///
+/// </div>
 #[stable(feature = "file_type", since = "1.1.0")]
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "FileType")]
@@ -314,6 +392,12 @@ pub struct FileType(fs_imp::FileType);
 /// A builder used to create directories in various manners.
 ///
 /// This builder also supports platform-specific options.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة لإنشاء المجلدات بطرق مختلفة.
+///
+/// </div>
 #[stable(feature = "dir_builder", since = "1.6.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "DirBuilder")]
 #[derive(Debug)]
@@ -348,6 +432,12 @@ pub struct DirBuilder {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ محتويات الملف كاملة في متجه بايتات.
+///
+/// </div>
 #[stable(feature = "fs_read_write_bytes", since = "1.26.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_read")]
 pub fn read<P: AsRef<Path>>(path: P) -> io::Result<Vec<u8>> {
@@ -391,6 +481,12 @@ pub fn read<P: AsRef<Path>>(path: P) -> io::Result<Vec<u8>> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ محتويات الملف كاملة في نص (`String`).
+///
+/// </div>
 #[stable(feature = "fs_read_write", since = "1.26.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_read_to_string")]
 pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
@@ -429,6 +525,12 @@ pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب شريحة كمحتويات الملف كاملة (ينشئ الملف أو يستبدل محتواه).
+///
+/// </div>
 #[stable(feature = "fs_read_write_bytes", since = "1.26.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_write")]
 pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> io::Result<()> {
@@ -469,6 +571,12 @@ pub fn write<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> io::Result
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر أوقات الملف أو المجلد في المسار المحدد.
+///
+/// </div>
 #[stable(feature = "fs_set_times", since = "1.99.0")]
 #[doc(alias = "utimens")]
 #[doc(alias = "utimes")]
@@ -510,6 +618,12 @@ pub fn set_times<P: AsRef<Path>>(path: P, times: FileTimes) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر أوقات الملف أو الرابط الرمزي في المسار المحدد (بدون اتباع الرابط).
+///
+/// </div>
 #[stable(feature = "fs_set_times", since = "1.99.0")]
 #[doc(alias = "utimensat")]
 #[doc(alias = "lutimens")]
@@ -580,6 +694,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح ملف للقراءة فقط.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn open<P: AsRef<Path>>(path: P) -> io::Result<File> {
         OpenOptions::new().read(true).open(path.as_ref())
@@ -616,6 +736,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح ملف للقراءة فقط مع مخزن مؤقت (buffering).
+    ///
+    /// </div>
     #[unstable(feature = "file_buffered", issue = "130804")]
     pub fn open_buffered<P: AsRef<Path>>(path: P) -> io::Result<io::BufReader<File>> {
         // Allocate the buffer *first* so we don't affect the filesystem otherwise.
@@ -646,6 +772,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفتح ملفًا للكتابة فقط (ينشئه إن لم يوجد، ويفرّغه إن وُجد).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn create<P: AsRef<Path>>(path: P) -> io::Result<File> {
         OpenOptions::new().write(true).create(true).truncate(true).open(path.as_ref())
@@ -682,6 +814,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفتح ملفًا للكتابة فقط مع مخزن مؤقت (buffering).
+    ///
+    /// </div>
     #[unstable(feature = "file_buffered", issue = "130804")]
     pub fn create_buffered<P: AsRef<Path>>(path: P) -> io::Result<io::BufWriter<File>> {
         // Allocate the buffer *first* so we don't affect the filesystem otherwise.
@@ -718,6 +856,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ ملفًا جديدًا للقراءة والكتابة؛ ويرجع خطأً إذا كان الملف موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "file_create_new", since = "1.77.0")]
     pub fn create_new<P: AsRef<Path>>(path: P) -> io::Result<File> {
         OpenOptions::new().read(true).write(true).create_new(true).open(path.as_ref())
@@ -749,6 +893,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع كائن `OpenOptions` جديدًا لتحديد طريقة الفتح.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "with_options", since = "1.58.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "file_options")]
@@ -785,6 +935,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول مزامنة كل محتوى الملف وبياناته الوصفية المخزنة في نظام التشغيل مع القرص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[doc(alias = "fsync")]
     pub fn sync_all(&self) -> io::Result<()> {
@@ -817,6 +973,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `sync_all`، لكنه قد لا يزامن البيانات الوصفية للملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[doc(alias = "fdatasync")]
     pub fn sync_data(&self) -> io::Result<()> {
@@ -871,6 +1033,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ قفلًا حصريًا على الملف، وينتظر حتى يمكن أخذه.
+    ///
+    /// </div>
     #[stable(feature = "file_lock", since = "1.89.0")]
     pub fn lock(&self) -> io::Result<()> {
         self.inner.lock()
@@ -923,6 +1091,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ قفلًا مشتركًا (غير حصري) على الملف، وينتظر حتى يمكن أخذه.
+    ///
+    /// </div>
     #[stable(feature = "file_lock", since = "1.89.0")]
     pub fn lock_shared(&self) -> io::Result<()> {
         self.inner.lock_shared()
@@ -988,6 +1162,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول أخذ قفل حصري على الملف (بدون انتظار).
+    ///
+    /// </div>
     #[stable(feature = "file_lock", since = "1.89.0")]
     pub fn try_lock(&self) -> Result<(), TryLockError> {
         self.inner.try_lock()
@@ -1052,6 +1232,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول أخذ قفل مشترك (غير حصري) على الملف (بدون انتظار).
+    ///
+    /// </div>
     #[stable(feature = "file_lock", since = "1.89.0")]
     pub fn try_lock_shared(&self) -> Result<(), TryLockError> {
         self.inner.try_lock_shared()
@@ -1089,6 +1275,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحرر كل الأقفال على الملف.
+    ///
+    /// </div>
     #[stable(feature = "file_lock", since = "1.89.0")]
     pub fn unlock(&self) -> io::Result<()> {
         self.inner.unlock()
@@ -1127,6 +1319,12 @@ impl File {
     ///
     /// Note that this method alters the content of the underlying file, even
     /// though it takes `&self` rather than `&mut self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الملف أو يمدّده ليصبح حجمه `size`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn set_len(&self, size: u64) -> io::Result<()> {
         self.inner.truncate(size)
@@ -1145,6 +1343,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم عن البيانات الوصفية للملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn metadata(&self) -> io::Result<Metadata> {
         self.inner.file_attr().map(Metadata)
@@ -1189,6 +1393,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `File` جديدًا يشترك في نفس مقبض الملف. القراءة والكتابة والتنقل تؤثر على الاثنين معًا.
+    ///
+    /// </div>
     #[stable(feature = "file_try_clone", since = "1.9.0")]
     pub fn try_clone(&self) -> io::Result<File> {
         Ok(File { inner: self.inner.duplicate()? })
@@ -1226,6 +1436,12 @@ impl File {
     ///
     /// Note that this method alters the permissions of the underlying file,
     /// even though it takes `&self` rather than `&mut self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر صلاحيات الملف.
+    ///
+    /// </div>
     #[doc(alias = "fchmod", alias = "SetFileInformationByHandle")]
     #[stable(feature = "set_permissions_atomic", since = "1.16.0")]
     pub fn set_permissions(&self, perm: Permissions) -> io::Result<()> {
@@ -1270,6 +1486,12 @@ impl File {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر أوقات الملف.
+    ///
+    /// </div>
     #[stable(feature = "file_set_times", since = "1.75.0")]
     #[doc(alias = "futimens")]
     #[doc(alias = "futimes")]
@@ -1282,6 +1504,12 @@ impl File {
     /// Changes the modification time of the underlying file.
     ///
     /// This is an alias for `set_times(FileTimes::new().set_modified(time))`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر وقت آخر تعديل للملف.
+    ///
+    /// </div>
     #[stable(feature = "file_set_times", since = "1.75.0")]
     #[inline]
     pub fn set_modified(&self, time: SystemTime) -> io::Result<()> {
@@ -1341,6 +1569,12 @@ impl Read for &File {
     /// the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ بعض البايتات من الملف.
+    ///
+    /// </div>
     #[inline]
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         self.inner.read(buf)
@@ -1357,6 +1591,12 @@ impl Read for &File {
     /// [may change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `read`، لكنه يقرأ في شريحة من المخازن.
+    ///
+    /// </div>
     #[inline]
     fn read_vectored(&mut self, bufs: &mut [IoSliceMut<'_>]) -> io::Result<usize> {
         self.inner.read_vectored(bufs)
@@ -1377,6 +1617,12 @@ impl Read for &File {
     /// Note that this [may change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل لـ `File` تطبيق فعّال لـ `read_vectored`.
+    ///
+    /// </div>
     #[inline]
     fn is_read_vectored(&self) -> bool {
         self.inner.is_read_vectored()
@@ -1409,6 +1655,12 @@ impl Write for &File {
     /// the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بعض البايتات في الملف.
+    ///
+    /// </div>
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         self.inner.write(buf)
     }
@@ -1424,6 +1676,12 @@ impl Write for &File {
     /// [may change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `write`، لكنه يكتب من شريحة من المخازن.
+    ///
+    /// </div>
     fn write_vectored(&mut self, bufs: &[IoSlice<'_>]) -> io::Result<usize> {
         self.inner.write_vectored(bufs)
     }
@@ -1438,6 +1696,12 @@ impl Write for &File {
     /// Note that this [may change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل لـ `File` تطبيق فعّال لـ `write_vectored`.
+    ///
+    /// </div>
     #[inline]
     fn is_write_vectored(&self) -> bool {
         self.inner.is_write_vectored()
@@ -1455,6 +1719,12 @@ impl Write for &File {
     /// the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ (flush) الملف، ويضمن وصول كل المحتوى المخزن مؤقتًا إلى وجهته.
+    ///
+    /// </div>
     #[inline]
     fn flush(&mut self) -> io::Result<()> {
         self.inner.flush()
@@ -1473,6 +1743,12 @@ impl Seek for &File {
     /// change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع (بالبايتات) في الملف.
+    ///
+    /// </div>
     fn seek(&mut self, pos: SeekFrom) -> io::Result<u64> {
         self.inner.seek(pos)
     }
@@ -1488,6 +1764,12 @@ impl Seek for &File {
     /// this [may change in the future][changes].
     ///
     /// [changes]: io#platform-specific-behavior
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول هذا الملف (بالبايتات).
+    ///
+    /// </div>
     fn stream_len(&mut self) -> io::Result<u64> {
         if let Some(result) = self.inner.size() {
             return result;
@@ -1579,6 +1861,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح مجلد في `path` للقراءة فقط.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open<P: AsRef<Path>>(path: P) -> io::Result<Self> {
         fs_imp::Dir::open(path.as_ref(), &OpenOptions::new().read(true).0)
@@ -1608,6 +1896,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح مجلد في `path` حسب الخيارات `opts`.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_with<P: AsRef<Path>>(path: P, opts: &OpenOptions) -> io::Result<Self> {
         fs_imp::Dir::open(path.as_ref(), &opts.0).map(|inner| Self { inner })
@@ -1637,6 +1931,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح مجلد في `path` بأقل الصلاحيات اللازمة للتنقل فيه.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_for_traversal<P: AsRef<Path>>(path: P) -> io::Result<Self> {
         fs_imp::Dir::open_for_traversal(path.as_ref()).map(|inner| Self { inner })
@@ -1658,6 +1958,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم عن البيانات الوصفية للمجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn self_metadata(&self) -> io::Result<Metadata> {
         self.inner.self_metadata().map(Metadata)
@@ -1687,6 +1993,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح ملف للقراءة فقط بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_file<P: AsRef<Path>>(&self, path: P) -> io::Result<File> {
         self.inner
@@ -1721,6 +2033,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح ملف حسب `opts` بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_file_with<P: AsRef<Path>>(&self, path: P, opts: &OpenOptions) -> io::Result<File> {
         self.inner.open_file(path.as_ref(), &opts.0).map(|f| File { inner: f })
@@ -1748,6 +2066,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حذف ملف بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn remove_file<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
         self.inner.remove_file(path.as_ref())
@@ -1776,6 +2100,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إعادة تسمية ملف أو مجلد بالنسبة لهذا المجلد، ويستبدل الوجهة إن وُجدت.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn rename<P: AsRef<Path>, Q: AsRef<Path>>(
         &self,
@@ -1791,6 +2121,12 @@ impl Dir {
     /// This function interprets `path` relative to the directory provided by `self`. To create a directory
     /// relative to the current working directory, or at an absolute path, see
     /// [`fs::create_dir`][crate::fs::create_dir].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إنشاء مجلد بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn create_dir<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
         self.inner.create_dir(path.as_ref())
@@ -1818,6 +2154,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح مجلد للقراءة فقط بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_dir<P: AsRef<Path>>(&self, path: P) -> io::Result<Self> {
         self.inner
@@ -1846,6 +2188,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول فتح مجلد حسب `opts` بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn open_dir_with<P: AsRef<Path>>(&self, path: P, opts: &OpenOptions) -> io::Result<Self> {
         self.inner.open_dir(path.as_ref(), &opts.0).map(|inner| Self { inner })
@@ -1874,6 +2222,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حذف مجلد بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn remove_dir<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
         self.inner.remove_dir(path.as_ref())
@@ -1896,6 +2250,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Dir` جديدًا يشترك في نفس مقبض المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn try_clone(&self) -> io::Result<Self> {
         Ok(Dir { inner: self.inner.duplicate()? })
@@ -1920,6 +2280,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم من نظام الملفات عن معلومات ملف أو مجلد بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn metadata<P: AsRef<Path>>(&self, path: P) -> io::Result<Metadata> {
         self.inner.metadata(path.as_ref()).map(Metadata)
@@ -1944,6 +2310,12 @@ impl Dir {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم من نظام الملفات عن معلومات ملف أو مجلد بالنسبة لهذا المجلد.
+    ///
+    /// </div>
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn symlink_metadata<P: AsRef<Path>>(&self, path: P) -> io::Result<Metadata> {
         self.inner.symlink_metadata(path.as_ref()).map(Metadata)
@@ -1987,6 +2359,12 @@ impl OpenOptions {
     /// let mut options = OpenOptions::new();
     /// let file = options.read(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة خيارات جديدة فارغة جاهزة للضبط.
+    ///
+    /// </div>
     #[cfg_attr(not(test), rustc_diagnostic_item = "open_options_new")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -2006,6 +2384,12 @@ impl OpenOptions {
     ///
     /// let file = OpenOptions::new().read(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار القراءة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn read(&mut self, read: bool) -> &mut Self {
         self.0.read(read);
@@ -2027,6 +2411,12 @@ impl OpenOptions {
     ///
     /// let file = OpenOptions::new().write(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار الكتابة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn write(&mut self, write: bool) -> &mut Self {
         self.0.write(write);
@@ -2080,6 +2470,12 @@ impl OpenOptions {
     ///
     /// let file = OpenOptions::new().append(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار الإضافة إلى النهاية (append).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn append(&mut self, append: bool) -> &mut Self {
         self.0.append(append);
@@ -2100,6 +2496,12 @@ impl OpenOptions {
     ///
     /// let file = OpenOptions::new().write(true).truncate(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار تفريغ الملف الموجود.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn truncate(&mut self, truncate: bool) -> &mut Self {
         self.0.truncate(truncate);
@@ -2125,6 +2527,12 @@ impl OpenOptions {
     ///
     /// let file = OpenOptions::new().write(true).create(true).open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار إنشاء ملف جديد، أو فتحه إن كان موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn create(&mut self, create: bool) -> &mut Self {
         self.0.create(create);
@@ -2163,6 +2571,12 @@ impl OpenOptions {
     ///                              .create_new(true)
     ///                              .open("foo.txt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خيار إنشاء ملف جديد، والفشل إن كان موجودًا.
+    ///
+    /// </div>
     #[stable(feature = "expand_open_options2", since = "1.9.0")]
     pub fn create_new(&mut self, create_new: bool) -> &mut Self {
         self.0.create_new(create_new);
@@ -2212,6 +2626,12 @@ impl OpenOptions {
     /// [`InvalidInput`]: io::ErrorKind::InvalidInput
     /// [`NotFound`]: io::ErrorKind::NotFound
     /// [`PermissionDenied`]: io::ErrorKind::PermissionDenied
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفتح ملفًا في `path` بالخيارات المحددة في `self`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn open<P: AsRef<Path>>(&self, path: P) -> io::Result<File> {
         self._open(path.as_ref())
@@ -2251,6 +2671,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع الملف لهذه البيانات الوصفية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "file_type", since = "1.1.0")]
     pub fn file_type(&self) -> FileType {
@@ -2273,6 +2699,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه البيانات الوصفية لمجلد.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_dir(&self) -> bool {
@@ -2301,6 +2733,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه البيانات الوصفية لملف عادي.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_file(&self) -> bool {
@@ -2311,6 +2749,12 @@ impl Metadata {
     ///
     /// # Examples
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه البيانات الوصفية لرابط رمزي.
+    ///
+    /// </div>
     #[cfg_attr(unix, doc = "```no_run")]
     #[cfg_attr(not(unix), doc = "```ignore")]
     /// use std::fs;
@@ -2347,6 +2791,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الملف بالبايتات.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn len(&self) -> u64 {
@@ -2367,6 +2817,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع صلاحيات الملف.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn permissions(&self) -> Permissions {
@@ -2399,6 +2855,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع وقت آخر تعديل.
+    ///
+    /// </div>
     #[doc(alias = "mtime", alias = "ftLastWriteTime")]
     #[stable(feature = "fs_time", since = "1.10.0")]
     pub fn modified(&self) -> io::Result<SystemTime> {
@@ -2435,6 +2897,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع وقت آخر وصول.
+    ///
+    /// </div>
     #[doc(alias = "atime", alias = "ftLastAccessTime")]
     #[stable(feature = "fs_time", since = "1.10.0")]
     pub fn accessed(&self) -> io::Result<SystemTime> {
@@ -2468,6 +2936,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع وقت الإنشاء.
+    ///
+    /// </div>
     #[doc(alias = "btime", alias = "birthtime", alias = "ftCreationTime")]
     #[stable(feature = "fs_time", since = "1.10.0")]
     pub fn created(&self) -> io::Result<SystemTime> {
@@ -2518,12 +2992,24 @@ impl FileTimes {
     /// Creates a new `FileTimes` with no times set.
     ///
     /// Using the resulting `FileTimes` in [`File::set_times`] will not modify any timestamps.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `FileTimes` جديدًا بدون أوقات.
+    ///
+    /// </div>
     #[stable(feature = "file_set_times", since = "1.75.0")]
     pub fn new() -> Self {
         Self::default()
     }
 
     /// Set the last access time of a file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع وقت آخر وصول للملف.
+    ///
+    /// </div>
     #[stable(feature = "file_set_times", since = "1.75.0")]
     pub fn set_accessed(mut self, t: SystemTime) -> Self {
         self.0.set_accessed(t.into_inner());
@@ -2531,6 +3017,12 @@ impl FileTimes {
     }
 
     /// Set the last modified time of a file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع وقت آخر تعديل للملف.
+    ///
+    /// </div>
     #[stable(feature = "file_set_times", since = "1.75.0")]
     pub fn set_modified(mut self, t: SystemTime) -> Self {
         self.0.set_modified(t.into_inner());
@@ -2592,6 +3084,12 @@ impl Permissions {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه الصلاحيات لملف للقراءة فقط.
+    ///
+    /// </div>
     #[must_use = "call `set_readonly` to modify the readonly flag"]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn readonly(&self) -> bool {
@@ -2660,6 +3158,13 @@ impl Permissions {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر علامة القراءة فقط في هذه الصلاحيات. إذا كانت `true` ستمنع الكتابة على الملف عند
+    /// تطبيقها، وإذا كانت `false` ستسمح بها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn set_readonly(&mut self, readonly: bool) {
         self.0.set_readonly(readonly)
@@ -2688,6 +3193,12 @@ impl FileType {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يختبر هل هذا النوع مجلد. واحد على الأكثر من `is_dir` و`is_file` و`is_symlink` يكون صحيحًا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "file_type", since = "1.1.0")]
     pub fn is_dir(&self) -> bool {
@@ -2721,6 +3232,13 @@ impl FileType {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يختبر هل هذا النوع ملف عادي. واحد على الأكثر من `is_dir` و`is_file` و`is_symlink` يكون
+    /// صحيحًا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "file_type", since = "1.1.0")]
     pub fn is_file(&self) -> bool {
@@ -2757,6 +3275,13 @@ impl FileType {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يختبر هل هذا النوع رابط رمزي. واحد على الأكثر من `is_dir` و`is_file` و`is_symlink` يكون
+    /// صحيحًا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "file_type", since = "1.1.0")]
     pub fn is_symlink(&self) -> bool {
@@ -2802,6 +3327,12 @@ impl ReadDir {
     /// handle used by `ReadDir`. However, this may fall back to opening a new handle based on the
     /// path, which is subject to race conditions if the file system has changed since the `ReadDir`
     /// was created.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مقبضًا للمجلد الذي يقرأه هذا الـ `ReadDir`.
+    ///
+    /// </div>
     // FIXME: before stabilization, ensure that we have a race-free implementation on Windows!
     #[unstable(feature = "dirfd", issue = "120426")]
     pub fn dir(&self) -> io::Result<Dir> {
@@ -2847,6 +3378,12 @@ impl DirEntry {
     /// ```
     ///
     /// The exact text, of course, depends on what files you have in `.`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المسار الكامل للملف الذي يمثله هذا المدخل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn path(&self) -> PathBuf {
@@ -2888,6 +3425,12 @@ impl DirEntry {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البيانات الوصفية للملف الذي يشير إليه هذا المدخل.
+    ///
+    /// </div>
     #[stable(feature = "dir_entry_ext", since = "1.1.0")]
     pub fn metadata(&self) -> io::Result<Metadata> {
         self.0.metadata().map(Metadata)
@@ -2925,6 +3468,12 @@ impl DirEntry {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع الملف الذي يشير إليه هذا المدخل.
+    ///
+    /// </div>
     #[stable(feature = "dir_entry_ext", since = "1.1.0")]
     pub fn file_type(&self) -> io::Result<FileType> {
         self.0.file_type().map(FileType)
@@ -2953,6 +3502,12 @@ impl DirEntry {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الملف لهذا المدخل بدون أي جزء من المسار قبله.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "dir_entry_ext", since = "1.1.0")]
     pub fn file_name(&self) -> OsString {
@@ -3015,6 +3570,12 @@ impl AsInner<fs_imp::DirEntry> for DirEntry {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحذف ملفًا من نظام الملفات.
+///
+/// </div>
 #[doc(alias = "rm", alias = "unlink", alias = "DeleteFile")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_remove_file")]
@@ -3057,6 +3618,12 @@ pub fn remove_file<P: AsRef<Path>>(path: P) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستعلم من نظام الملفات عن معلومات ملف أو مجلد في المسار المعطى.
+///
+/// </div>
 #[doc(alias = "stat", alias = "GetFileAttributes", alias = "GetFileAttributesEx")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_metadata")]
@@ -3098,6 +3665,12 @@ pub fn metadata<P: AsRef<Path>>(path: P) -> io::Result<Metadata> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستعلم عن البيانات الوصفية لملف بدون اتباع الروابط الرمزية.
+///
+/// </div>
 #[doc(alias = "lstat", alias = "GetFileAttributes", alias = "GetFileAttributesEx")]
 #[stable(feature = "symlink_metadata", since = "1.1.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_symlink_metadata")]
@@ -3147,6 +3720,12 @@ pub fn symlink_metadata<P: AsRef<Path>>(path: P) -> io::Result<Metadata> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعيد تسمية ملف أو مجلد، ويستبدل الملف الأصلي إذا كان `to` موجودًا.
+///
+/// </div>
 #[doc(alias = "mv", alias = "MoveFile", alias = "MoveFileEx")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_rename")]
@@ -3217,6 +3796,12 @@ pub fn rename<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> io::Result<()> 
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعيد تسمية ملف أو مجلد، ويرجع `AlreadyExists` إذا كان `to` موجودًا.
+///
+/// </div>
 #[doc(alias = "renameat2", alias = "renamex_np", alias = "MoveFileEx", alias = "RENAME_NOREPLACE")]
 #[unstable(feature = "rename_noreplace", issue = "161427")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_rename_noreplace")]
@@ -3279,6 +3864,12 @@ pub fn rename_noreplace<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> io::R
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسخ محتويات ملف إلى ملف آخر، وينسخ معها صلاحيات الملف الأصلي.
+///
+/// </div>
 #[doc(alias = "cp")]
 #[doc(alias = "copy_file_range")]
 #[doc(alias = "CopyFile", alias = "CopyFileEx")]
@@ -3329,6 +3920,12 @@ pub fn copy<P: AsRef<Path>, Q: AsRef<Path>>(from: P, to: Q) -> io::Result<u64> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا صلبًا (hard link) جديدًا.
+///
+/// </div>
 #[doc(alias = "CreateHardLink", alias = "linkat")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_hard_link")]
@@ -3358,6 +3955,12 @@ pub fn hard_link<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::Re
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا (symbolic link) جديدًا.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
     since = "1.1.0",
@@ -3397,6 +4000,12 @@ pub fn soft_link<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::Re
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ رابطًا رمزيًا ويرجع الملف الذي يشير إليه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_read_link")]
 pub fn read_link<P: AsRef<Path>>(path: P) -> io::Result<PathBuf> {
@@ -3439,6 +4048,12 @@ pub fn read_link<P: AsRef<Path>>(path: P) -> io::Result<PathBuf> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الشكل الكامل المطلق للمسار بعد توحيد كل أجزائه وحل الروابط الرمزية.
+///
+/// </div>
 #[doc(alias = "realpath")]
 #[doc(alias = "GetFinalPathNameByHandle")]
 #[stable(feature = "fs_canonicalize", since = "1.5.0")]
@@ -3482,6 +4097,12 @@ pub fn canonicalize<P: AsRef<Path>>(path: P) -> io::Result<PathBuf> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مجلدًا جديدًا فارغًا في المسار المعطى.
+///
+/// </div>
 #[doc(alias = "mkdir", alias = "CreateDirectory")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_create_dir")]
@@ -3530,6 +4151,12 @@ pub fn create_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مجلدًا وكل المجلدات الأب الناقصة.
+///
+/// </div>
 #[doc(alias = "mkdir", alias = "CreateDirectory")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_create_dir_all")]
@@ -3579,6 +4206,12 @@ pub fn create_dir_all<P: AsRef<Path>>(path: P) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحذف مجلدًا فارغًا.
+///
+/// </div>
 #[doc(alias = "rmdir", alias = "RemoveDirectory")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_remove_dir")]
@@ -3648,6 +4281,12 @@ pub fn remove_dir<P: AsRef<Path>>(path: P) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحذف مجلدًا بعد حذف كل محتوياته. استخدمه بحذر!
+///
+/// </div>
 #[doc(alias = "rm")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_remove_dir_all")]
@@ -3728,6 +4367,12 @@ pub fn remove_dir_all<P: AsRef<Path>>(path: P) -> io::Result<()> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مكررًا على مدخلات مجلد.
+///
+/// </div>
 #[doc(alias = "ls", alias = "opendir", alias = "FindFirstFile", alias = "FindNextFile")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_read_dir")]
@@ -3780,6 +4425,12 @@ pub fn read_dir<P: AsRef<Path>>(path: P) -> io::Result<ReadDir> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر صلاحيات ملف أو مجلد.
+///
+/// </div>
 #[doc(alias = "chmod", alias = "SetFileAttributes")]
 #[stable(feature = "set_permissions", since = "1.1.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_set_permissions")]
@@ -3840,6 +4491,13 @@ pub fn set_permissions<P: AsRef<Path>>(path: P, perm: Permissions) -> io::Result
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر صلاحيات ملف أو مجلد؛ وعلى بعض الأنظمة إذا كان رابطًا رمزيًا يغيّر صلاحيات الرابط نفسه وليس
+/// هدفه.
+///
+/// </div>
 #[doc(alias = "fchmodat", alias = "SetFileInformationByHandle")]
 #[unstable(feature = "set_permissions_nofollow", issue = "141607")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_set_permissions_nofollow")]
@@ -3858,6 +4516,12 @@ impl DirBuilder {
     ///
     /// let builder = DirBuilder::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة خيارات جديدة بالإعدادات الافتراضية لكل الأنظمة وبدون إنشاء متداخل.
+    ///
+    /// </div>
     #[stable(feature = "dir_builder", since = "1.6.0")]
     #[must_use]
     pub fn new() -> DirBuilder {
@@ -3878,6 +4542,12 @@ impl DirBuilder {
     /// let mut builder = DirBuilder::new();
     /// builder.recursive(true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد أن المجلدات تُنشأ بشكل متداخل، مع كل المجلدات الأب الناقصة.
+    ///
+    /// </div>
     #[stable(feature = "dir_builder", since = "1.6.0")]
     pub fn recursive(&mut self, recursive: bool) -> &mut Self {
         self.recursive = recursive;
@@ -3902,6 +4572,12 @@ impl DirBuilder {
     ///
     /// assert!(fs::metadata(path).unwrap().is_dir());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ المجلد المحدد بالخيارات المضبوطة في هذه الأداة.
+    ///
+    /// </div>
     #[stable(feature = "dir_builder", since = "1.6.0")]
     pub fn create<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
         self._create(path.as_ref())
@@ -3989,6 +4665,12 @@ impl AsInnerMut<fs_imp::DirBuilder> for DirBuilder {
 ///
 /// [`Path::exists`]: crate::path::Path::exists
 /// [TOCTOU]: self#time-of-check-to-time-of-use-toctou
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `Ok(true)` إذا كان المسار يشير إلى شيء موجود.
+///
+/// </div>
 #[stable(feature = "fs_try_exists", since = "1.81.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_exists")]
 #[inline]

@@ -11,6 +11,12 @@ use crate::ops::{ControlFlow, Try};
 ///
 /// [`map_while`]: Iterator::map_while
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقبل العناصر فقط طالما أرجع `predicate` القيمة `Some(_)`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "iter_map_while", since = "1.57.0")]
 #[derive(Clone)]

@@ -26,6 +26,12 @@ use crate::sync::atomic::{Atomic, Ordering};
 ///
 /// [`Thread`]: super::Thread
 /// [`id`]: super::Thread::id
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معرّف فريد لـ thread يعمل.
+///
+/// </div>
 #[stable(feature = "thread_id", since = "1.19.0")]
 #[derive(Eq, PartialEq, Clone, Copy, Hash, Debug)]
 pub struct ThreadId(NonZero<u64>);
@@ -117,6 +123,12 @@ impl ThreadId {
     /// value is entirely opaque -- only equality testing is stable. Note that
     /// it is not guaranteed which values new threads will return, and this may
     /// change across Rust versions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّفًا رقميًا للـ thread المحدد بهذا `ThreadId`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "thread_id_value", issue = "67939")]
     pub fn as_u64(&self) -> NonZero<u64> {

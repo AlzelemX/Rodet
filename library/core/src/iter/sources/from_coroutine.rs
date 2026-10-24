@@ -22,6 +22,12 @@ use crate::pin::Pin;
 /// let v: Vec<_> = it.collect();
 /// assert_eq!(v, [1, 2, 3]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا جديدًا كل خطوة فيه تستدعي الـ coroutine المعطى.
+///
+/// </div>
 #[inline]
 #[unstable(feature = "iter_from_coroutine", issue = "43122", reason = "coroutines are unstable")]
 pub fn from_coroutine<G: Coroutine<Return = ()> + Unpin>(coroutine: G) -> FromCoroutine<G> {
@@ -34,6 +40,12 @@ pub fn from_coroutine<G: Coroutine<Return = ()> + Unpin>(coroutine: G) -> FromCo
 /// more.
 ///
 /// [`iter::from_coroutine()`]: from_coroutine
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على القيم التي يعطيها coroutine أساسي.
+///
+/// </div>
 #[unstable(feature = "iter_from_coroutine", issue = "43122", reason = "coroutines are unstable")]
 #[derive(Clone)]
 pub struct FromCoroutine<G>(G);

@@ -84,6 +84,12 @@ impl PidFd {
     /// to reap a child will return an ExitStatus, further attempts will return an Error.
     ///
     /// [`Child::try_wait`]: process::Child::try_wait
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول جمع حالة خروج العملية الفرعية إذا كانت قد خرجت (بدون انتظار).
+    ///
+    /// </div>
     pub fn try_wait(&self) -> Result<Option<ExitStatus>> {
         Ok(self.inner.try_wait()?.map(FromInner::from_inner))
     }

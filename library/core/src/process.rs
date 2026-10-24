@@ -2,6 +2,12 @@
 //!
 //! Most process-related functionality requires std, but [`abort_immediate`]
 //! is available on all targets.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة للتعامل مع العمليات (تشغيل برامج أخرى).
+//!
+//! </div>
 
 /// Terminates the process in a violent fashion.
 ///

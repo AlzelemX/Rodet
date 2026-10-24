@@ -1,4 +1,10 @@
 //! Utilities for formatting and printing strings.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات تنسيق وطباعة النصوص (`format!` و`{}` و`{:?}`).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -23,16 +29,40 @@ mod rt;
 #[stable(feature = "fmt_flags_align", since = "1.28.0")]
 #[rustc_diagnostic_item = "Alignment"]
 /// Possible alignments returned by `Formatter::align`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المحاذاة الممكنة التي ترجعها `Formatter::align`.
+///
+/// </div>
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Alignment {
     #[stable(feature = "fmt_flags_align", since = "1.28.0")]
     /// Indication that contents should be left-aligned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أن المحتوى يُحاذى إلى اليسار.
+    ///
+    /// </div>
     Left,
     #[stable(feature = "fmt_flags_align", since = "1.28.0")]
     /// Indication that contents should be right-aligned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أن المحتوى يُحاذى إلى اليمين.
+    ///
+    /// </div>
     Right,
     #[stable(feature = "fmt_flags_align", since = "1.28.0")]
     /// Indication that contents should be center-aligned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعني أن المحتوى يُحاذى إلى الوسط.
+    ///
+    /// </div>
     Center,
 }
 
@@ -70,6 +100,12 @@ pub use self::builders::{FromFn, from_fn};
 ///
 /// assert_eq!(format!("{pythagorean_triple}"), "(3, 4, 5)");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع الذي ترجعه دوال المنسِّق.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type Result = result::Result<(), Error>;
 
@@ -106,6 +142,12 @@ pub type Result = result::Result<(), Error>;
 ///     panic!("An error occurred");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي يرجع عند تنسيق رسالة إلى مجرى.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Error;
@@ -118,6 +160,12 @@ pub struct Error;
 ///
 /// [`std::io::Write`]: ../../std/io/trait.Write.html
 /// [flushable]: ../../std/io/trait.Write.html#tymethod.flush
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للكتابة أو التنسيق في مخازن أو مجاري تقبل يونيكود.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "FmtWrite"]
 pub trait Write {
@@ -152,6 +200,12 @@ pub trait Write {
     /// assert_eq!(&buf, "hola");
     /// # std::fmt::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب شريحة نص في هذا الكاتب، ويرجع هل نجحت الكتابة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write_str(&mut self, s: &str) -> Result;
 
@@ -181,6 +235,12 @@ pub trait Write {
     /// assert_eq!(&buf, "ab");
     /// # std::fmt::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب حرفًا (`char`) في هذا الكاتب، ويرجع هل نجحت الكتابة.
+    ///
+    /// </div>
     #[stable(feature = "fmt_write_char", since = "1.1.0")]
     fn write_char(&mut self, c: char) -> Result {
         self.write_str(c.encode_utf8(&mut [0; char::MAX_LEN_UTF8]))
@@ -210,6 +270,12 @@ pub trait Write {
     /// assert_eq!(&buf, "world");
     /// # std::fmt::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يربط استخدام الماكرو `write!` مع الأنواع التي تطبّق هذا الـ trait.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write_fmt(&mut self, args: Arguments<'_>) -> Result {
         // We use a specialization for `Sized` types to avoid an indirection
@@ -260,23 +326,59 @@ impl<W: Write + ?Sized> Write for &mut W {
 }
 
 /// The signedness of a [`Formatter`] (or of a [`FormattingOptions`]).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إشارة `Formatter` (أو `FormattingOptions`).
+///
+/// </div>
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 #[unstable(feature = "formatting_options", issue = "118117")]
 pub enum Sign {
     /// Represents the `+` flag.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تمثل العلامة `+`.
+    ///
+    /// </div>
     Plus,
     /// Represents the `-` flag.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تمثل العلامة `-`.
+    ///
+    /// </div>
     Minus,
 }
 
 /// Specifies whether the [`Debug`] trait should use lower-/upper-case
 /// hexadecimal or normal integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد هل يستخدم الـ trait `Debug` أرقامًا ست عشرية بأحرف صغيرة أو كبيرة أو أرقامًا عادية.
+///
+/// </div>
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 #[unstable(feature = "formatting_options", issue = "118117")]
 pub enum DebugAsHex {
     /// Use lower-case hexadecimal integers for the `Debug` trait (like [the `x?` type](../../std/fmt/index.html#formatting-traits)).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// استخدم أرقامًا ست عشرية بأحرف صغيرة لـ `Debug` (مثل `x?`).
+    ///
+    /// </div>
     Lower,
     /// Use upper-case hexadecimal integers for the `Debug` trait (like [the `X?` type](../../std/fmt/index.html#formatting-traits)).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// استخدم أرقامًا ست عشرية بأحرف كبيرة لـ `Debug` (مثل `X?`).
+    ///
+    /// </div>
     Upper,
 }
 
@@ -284,6 +386,12 @@ pub enum DebugAsHex {
 ///
 /// `FormattingOptions` is a [`Formatter`] without an attached [`Write`] trait.
 /// It is mainly used to construct `Formatter` instances.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خيارات التنسيق.
+///
+/// </div>
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 #[unstable(feature = "formatting_options", issue = "118117")]
 pub struct FormattingOptions {
@@ -340,6 +448,12 @@ impl FormattingOptions {
     /// - no width,
     /// - no precision, and
     /// - no [`DebugAsHex`] output mode.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `FormattingOptions` جديدًا يمثل محدد التنسيق البسيط `{}`:
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn new() -> Self {
         Self { flags: ' ' as u32 | flags::ALIGN_UNKNOWN, width: 0, precision: 0 }
@@ -353,6 +467,12 @@ impl FormattingOptions {
     ///   omitted. This flag indicates that the correct sign (+ or -) should
     ///   always be printed.
     /// - `-`: Currently not used
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل الإشارة (العلامة `+` أو `-`).
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn sign(&mut self, sign: Option<Sign>) -> &mut Self {
         let sign = match sign {
@@ -366,6 +486,12 @@ impl FormattingOptions {
     /// Sets or unsets the `0` flag.
     ///
     /// This is used to indicate for integer formats that the padding to width should both be done with a 0 character as well as be sign-aware
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل العلامة `0`.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn sign_aware_zero_pad(&mut self, sign_aware_zero_pad: bool) -> &mut Self {
         if sign_aware_zero_pad {
@@ -383,6 +509,12 @@ impl FormattingOptions {
     /// - [`LowerHex`] as well as [`UpperHex`] - precedes the argument with a `0x`
     /// - [`Octal`] - precedes the argument with a `0o`
     /// - [`Binary`] - precedes the argument with a `0b`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل العلامة `#`.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn alternate(&mut self, alternate: bool) -> &mut Self {
         if alternate {
@@ -398,6 +530,12 @@ impl FormattingOptions {
     /// conjunction with the width parameter. This indicates that if the value
     /// being formatted is smaller than width some extra characters will be
     /// printed around it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع حرف التعبئة.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn fill(&mut self, fill: char) -> &mut Self {
         self.flags = self.flags & (u32::MAX << 21) | fill as u32;
@@ -407,6 +545,12 @@ impl FormattingOptions {
     ///
     /// The alignment specifies how the value being formatted should be
     /// positioned if it is smaller than the width of the formatter.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل المحاذاة.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn align(&mut self, align: Option<Alignment>) -> &mut Self {
         let align: u32 = match align {
@@ -424,6 +568,12 @@ impl FormattingOptions {
     /// up. If the value’s string does not fill up this many characters, then
     /// the padding specified by [`FormattingOptions::fill`]/[`FormattingOptions::align`]
     /// will be used to take up the required space.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل العرض.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn width(&mut self, width: Option<u16>) -> &mut Self {
         if let Some(width) = width {
@@ -444,6 +594,12 @@ impl FormattingOptions {
     /// - For integral types, this is ignored.
     /// - For floating-point types, this indicates how many digits after the
     /// decimal point should be printed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يزيل الدقة.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn precision(&mut self, precision: Option<u16>) -> &mut Self {
         if let Some(precision) = precision {
@@ -457,6 +613,12 @@ impl FormattingOptions {
     }
     /// Specifies whether the [`Debug`] trait should use lower-/upper-case
     /// hexadecimal or normal integers
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل يستخدم `Debug` أرقامًا ست عشرية بأحرف صغيرة أو كبيرة أو أرقامًا عادية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn debug_as_hex(&mut self, debug_as_hex: Option<DebugAsHex>) -> &mut Self {
         let debug_as_hex = match debug_as_hex {
@@ -470,6 +632,12 @@ impl FormattingOptions {
     }
 
     /// Returns the current sign (the `+` or the `-` flag).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الإشارة الحالية (العلامة `+` أو `-`).
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_sign(&self) -> Option<Sign> {
         if self.flags & flags::SIGN_PLUS_FLAG != 0 {
@@ -481,22 +649,46 @@ impl FormattingOptions {
         }
     }
     /// Returns the current `0` flag.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العلامة `0` الحالية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_sign_aware_zero_pad(&self) -> bool {
         self.flags & flags::SIGN_AWARE_ZERO_PAD_FLAG != 0
     }
     /// Returns the current `#` flag.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العلامة `#` الحالية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_alternate(&self) -> bool {
         self.flags & flags::ALTERNATE_FLAG != 0
     }
     /// Returns the current fill character.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حرف التعبئة الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_fill(&self) -> char {
         // SAFETY: We only ever put a valid `char` in the lower 21 bits of the flags field.
         unsafe { char::from_u32_unchecked(self.flags & 0x1FFFFF) }
     }
     /// Returns the current alignment.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المحاذاة الحالية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_align(&self) -> Option<Alignment> {
         match self.flags & flags::ALIGN_BITS {
@@ -507,16 +699,34 @@ impl FormattingOptions {
         }
     }
     /// Returns the current width.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العرض الحالي.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_width(&self) -> Option<u16> {
         if self.flags & flags::WIDTH_FLAG != 0 { Some(self.width) } else { None }
     }
     /// Returns the current precision.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الدقة الحالية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_precision(&self) -> Option<u16> {
         if self.flags & flags::PRECISION_FLAG != 0 { Some(self.precision) } else { None }
     }
     /// Returns the current `x?` or `X?` flag.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العلامة `x?` أو `X?` الحالية.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn get_debug_as_hex(&self) -> Option<DebugAsHex> {
         if self.flags & flags::DEBUG_LOWER_HEX_FLAG != 0 {
@@ -531,6 +741,12 @@ impl FormattingOptions {
     /// Creates a [`Formatter`] that writes its output to the given [`Write`] trait.
     ///
     /// You may alternatively use [`Formatter::new()`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Formatter` يكتب مخرجاته في الكاتب (`Write`) المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn create_formatter<'a>(self, write: &'a mut (dyn Write + 'a)) -> Formatter<'a> {
         Formatter { options: self, buf: write }
@@ -540,6 +756,12 @@ impl FormattingOptions {
 #[unstable(feature = "formatting_options", issue = "118117")]
 impl Default for FormattingOptions {
     /// Same as [`FormattingOptions::new()`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نفس `FormattingOptions::new()`.
+    ///
+    /// </div>
     fn default() -> Self {
         // The `#[derive(Default)]` implementation would set `fill` to `\0` instead of space.
         Self::new()
@@ -555,6 +777,12 @@ impl Default for FormattingOptions {
 /// To interact with a `Formatter`, you'll call various methods to change the
 /// various options related to formatting. For examples, please see the
 /// documentation of the methods defined on `Formatter` below.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إعدادات التنسيق: يُعطى لدوال `fmt` لتكتب فيه.
+///
+/// </div>
 #[allow(missing_debug_implementations)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Formatter"]
@@ -572,12 +800,24 @@ impl<'a> Formatter<'a> {
     /// `write`, thereby bypassing one layer of indirection.
     ///
     /// You may alternatively use [`FormattingOptions::create_formatter()`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ منسِّقًا جديدًا بخيارات `FormattingOptions` المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn new(write: &'a mut (dyn Write + 'a), options: FormattingOptions) -> Self {
         Formatter { options, buf: write }
     }
 
     /// Creates a new formatter based on this one with given [`FormattingOptions`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ منسِّقًا جديدًا مبنيًا على هذا بخيارات `FormattingOptions` المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn with_options<'b>(&'b mut self, options: FormattingOptions) -> Formatter<'b> {
         Formatter { options, buf: self.buf }
@@ -750,6 +990,12 @@ impl<'a> Arguments<'a> {
     ///
     /// This is intended to be used for setting initial `String` capacity
     /// when using `format!`. Note: this is neither the lower nor upper bound.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّر طول النص المنسَّق.
+    ///
+    /// </div>
     #[inline]
     pub fn estimated_capacity(&self) -> usize {
         if let Some(s) = self.as_str() {
@@ -810,6 +1056,12 @@ impl<'a> Arguments<'a> {
     /// Create a `fmt::Arguments` object for a single static string.
     ///
     /// Formatting this `fmt::Arguments` will just produce the string as-is.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `fmt::Arguments` لنص ثابت واحد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "fmt_arguments_from_str", issue = "148905")]
     pub const fn from_str(s: &'static str) -> Arguments<'a> {
@@ -864,6 +1116,12 @@ impl<'a> Arguments<'a> {
     /// assert_eq!(format_args!("").as_str(), Some(""));
     /// assert_eq!(format_args!("{:?}", std::env::current_dir()).as_str(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع النص المنسَّق إذا لم يكن فيه وسائط تُنسَّق وقت التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "fmt_as_str", since = "1.52.0")]
     #[rustc_const_stable(feature = "const_arguments_as_str", since = "1.84.0")]
     #[must_use]
@@ -1034,6 +1292,12 @@ impl Display for Arguments<'_> {
 /// }";
 /// assert_eq!(format!("The origin is: {origin:#?}"), expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `?`: تمثيل للمبرمج يُستخدم في التنقيح (`{:?}`).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_on_unimplemented(
     on(
@@ -1087,6 +1351,12 @@ pub trait Debug: PointeeSized {
 // Separate module to reexport the macro `Debug` from prelude without the trait `Debug`.
 pub(crate) mod macros {
     /// Derive macro generating an impl of the trait `Debug`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو derive يولّد تطبيقًا للـ trait `Debug`.
+    ///
+    /// </div>
     #[rustc_builtin_macro]
     #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
     #[allow_internal_unstable(core_intrinsics, fmt_helpers_for_derive)]
@@ -1167,6 +1437,12 @@ pub use macros::Debug;
 ///
 /// assert_eq!(format!("The origin is: {origin}"), "The origin is: (0, 0)");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait التنسيق الفارغ `{}`: تمثيل للمستخدم.
+///
+/// </div>
 #[rustc_on_unimplemented(
     on(
         any(Self = "std::path::Path", Self = "std::path::PathBuf"),
@@ -1259,6 +1535,12 @@ pub trait Display: PointeeSized {
 ///
 /// assert_eq!(format!("l as octal is: {l:#06o}"), "l as octal is: 0o0011");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `o` (ثماني).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait Octal: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1318,6 +1600,12 @@ pub trait Octal: PointeeSized {
 ///     "l as binary is: 0b00000000000000000000000001101011"
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `b` (ثنائي).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait Binary: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1373,6 +1661,12 @@ pub trait Binary: PointeeSized {
 ///
 /// assert_eq!(format!("l as hex is: {l:#010x}"), "l as hex is: 0x00000009");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `x` (ست عشري بأحرف صغيرة).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait LowerHex: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1428,6 +1722,12 @@ pub trait LowerHex: PointeeSized {
 ///
 /// assert_eq!(format!("l as hex is: {l:#010X}"), "l as hex is: 0x7FFFFFFF");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `X` (ست عشري بأحرف كبيرة).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait UpperHex: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1486,6 +1786,12 @@ pub trait UpperHex: PointeeSized {
 /// assert_eq!(l_ptr.len(), 18);
 /// assert_eq!(&l_ptr[..2], "0x");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `p` (عنوان المؤشر).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Pointer"]
 pub trait Pointer: PointeeSized {
@@ -1538,6 +1844,12 @@ pub trait Pointer: PointeeSized {
 ///     "l in scientific notation is: 001e2"
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `e` (أسّي بحرف صغير).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait LowerExp: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1589,6 +1901,12 @@ pub trait LowerExp: PointeeSized {
 ///     "l in scientific notation is: 001E2"
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق `E` (أسّي بحرف كبير).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait UpperExp: PointeeSized {
     #[doc = include_str!("fmt_trait_method_doc.md")]
@@ -1627,6 +1945,12 @@ pub trait UpperExp: PointeeSized {
 /// ```
 ///
 /// [`write!`]: crate::write!
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يأخذ مجرى إخراج و`Arguments` (التي يمكن تحضيرها بالماكرو `format_args!`) ويكتبها.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn write(output: &mut dyn Write, fmt: Arguments<'_>) -> Result {
     if let Some(s) = fmt.as_str() {
@@ -1822,6 +2146,13 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:#}", Foo::new(-1)), "-Foo 1");
     /// assert_eq!(format!("{:0>#8}", Foo::new(-1)), "00-Foo 1");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف الحشو الصحيح لعدد صحيح مكتوب بالفعل في نص. يجب ألا يحتوي النص الإشارة، فهذه الدالة
+    /// تضيفها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pad_integral(&mut self, is_nonnegative: bool, prefix: &str, buf: &str) -> Result {
         let mut width = buf.len();
@@ -1906,6 +2237,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{Foo:<4}"), "Foo ");
     /// assert_eq!(format!("{Foo:0>4}"), "0Foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ شريحة نص ويكتبها في المخزن الداخلي بعد تطبيق علامات التنسيق المحددة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pad(&mut self, s: &str) -> Result {
         // Make sure there's a fast path up front.
@@ -2095,6 +2432,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{Foo}"), "Foo");
     /// assert_eq!(format!("{Foo:0>8}"), "Foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بيانات في المخزن الأساسي داخل هذا المنسِّق.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn write_str(&mut self, data: &str) -> Result {
         self.buf.write_str(data)
@@ -2165,6 +2508,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(w.0, " world");
     /// # Ok::<(), fmt::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يربط استخدام الماكرو `write!` مع الأنواع التي تطبّق هذا الـ trait.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn write_fmt(&mut self, fmt: Arguments<'_>) -> Result {
@@ -2176,6 +2525,12 @@ impl<'a> Formatter<'a> {
     }
 
     /// Returns flags for formatting.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع علامات التنسيق.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(
@@ -2216,6 +2571,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{Foo:G>3}"), "GGG");
     /// assert_eq!(format!("{Foo:t>6}"), "tttttt");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحرف المستخدم للتعبئة عند وجود محاذاة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn fill(&self) -> char {
@@ -2251,6 +2612,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{Foo:^}"), "center");
     /// assert_eq!(format!("{Foo}"), "into the void");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع المحاذاة المطلوب.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags_align", since = "1.28.0")]
     pub fn align(&self) -> Option<Alignment> {
@@ -2281,6 +2648,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:10}", Foo(23)), "Foo(23)   ");
     /// assert_eq!(format!("{}", Foo(23)), "Foo(23)");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العرض المحدد للمخرجات إن وُجد.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn width(&self) -> Option<usize> {
@@ -2316,6 +2689,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:.4}", Foo(23.2)), "Foo(23.2000)");
     /// assert_eq!(format!("{}", Foo(23.2)), "Foo(23.20)");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الدقة المحددة للأنواع الرقمية إن وُجدت، أو أقصى عرض لأنواع النصوص.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn precision(&self) -> Option<usize> {
@@ -2352,6 +2731,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:+}", Foo(-23)), "Foo(-23)");
     /// assert_eq!(format!("{}", Foo(23)), "Foo(23)");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل أُعطيت العلامة `+`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn sign_plus(&self) -> bool {
@@ -2381,6 +2766,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:-}", Foo(23)), "-Foo(23)");
     /// assert_eq!(format!("{}", Foo(23)), "Foo(23)");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل أُعطيت العلامة `-`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn sign_minus(&self) -> bool {
@@ -2409,6 +2800,12 @@ impl<'a> Formatter<'a> {
     /// assert_eq!(format!("{:#}", Foo(23)), "Foo(23)");
     /// assert_eq!(format!("{}", Foo(23)), "23");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل أُعطيت العلامة `#`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn alternate(&self) -> bool {
@@ -2435,6 +2832,12 @@ impl<'a> Formatter<'a> {
     ///
     /// assert_eq!(format!("{:04}", Foo(23)), "23");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل أُعطيت العلامة `0`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "fmt_flags", since = "1.5.0")]
     pub fn sign_aware_zero_pad(&self) -> bool {
@@ -2486,6 +2889,12 @@ impl<'a> Formatter<'a> {
     ///     })
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ أداة بناء `DebugStruct` للمساعدة في تطبيقات `fmt::Debug` للـ structs.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn debug_struct<'b>(&'b mut self, name: &str) -> DebugStruct<'b, 'a> {
         builders::debug_struct_new(self, name)
@@ -2658,6 +3067,12 @@ impl<'a> Formatter<'a> {
     ///     format!("{:?}", Foo(10, "Hello".to_string(), PhantomData::<u8>))
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ أداة بناء `DebugTuple` للمساعدة في تطبيقات `fmt::Debug` للـ structs التي على شكل صف.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn debug_tuple<'b>(&'b mut self, name: &str) -> DebugTuple<'b, 'a> {
         builders::debug_tuple_new(self, name)
@@ -2788,6 +3203,12 @@ impl<'a> Formatter<'a> {
     ///
     /// assert_eq!(format!("{:?}", Foo(vec![10, 11])), "[10, 11]");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ أداة بناء `DebugList` للمساعدة في تطبيقات `fmt::Debug` للبنى الشبيهة بالقوائم.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn debug_list<'b>(&'b mut self) -> DebugList<'b, 'a> {
         builders::debug_list_new(self)
@@ -2846,6 +3267,12 @@ impl<'a> Formatter<'a> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ أداة بناء `DebugSet` للمساعدة في تطبيقات `fmt::Debug` للبنى الشبيهة بالمجموعات.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn debug_set<'b>(&'b mut self) -> DebugSet<'b, 'a> {
         builders::debug_set_new(self)
@@ -2872,18 +3299,36 @@ impl<'a> Formatter<'a> {
     ///     r#"{"A": 10, "B": 11}"#
     ///  );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ أداة بناء `DebugMap` للمساعدة في تطبيقات `fmt::Debug` للبنى الشبيهة بالجداول.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn debug_map<'b>(&'b mut self) -> DebugMap<'b, 'a> {
         builders::debug_map_new(self)
     }
 
     /// Returns the sign of this formatter (`+` or `-`).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع إشارة هذا المنسِّق (`+` أو `-`).
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn sign(&self) -> Option<Sign> {
         self.options.get_sign()
     }
 
     /// Returns the formatting options this formatter corresponds to.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع خيارات التنسيق التي يمثلها هذا المنسِّق.
+    ///
+    /// </div>
     #[unstable(feature = "formatting_options", issue = "118117")]
     pub const fn options(&self) -> FormattingOptions {
         self.options

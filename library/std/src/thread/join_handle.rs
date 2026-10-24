@@ -66,6 +66,12 @@ use crate::sys::{AsInner, IntoInner, thread as imp};
 ///
 /// [`thread::Builder::spawn`]: super::Builder::spawn
 /// [`thread::spawn`]: super::spawn
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذن مملوك لانتظار انتهاء thread (join).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(target_os = "teeos", must_use)]
 pub struct JoinHandle<T>(pub(super) JoinInner<'static, T>);
@@ -92,6 +98,12 @@ impl<T> JoinHandle<T> {
     /// let thread = join_handle.thread();
     /// println!("thread id: {:?}", thread.id());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مقبضًا للـ thread الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn thread(&self) -> &Thread {
@@ -145,6 +157,12 @@ impl<T> JoinHandle<T> {
     ///
     /// [`catch_unwind`]: ../../std/panic/fn.catch_unwind.html
     /// [`thread::spawn`]: super::spawn
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر حتى ينتهي الـ thread المرتبط.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn join(self) -> Result<T> {
         self.0.join()
@@ -160,6 +178,12 @@ impl<T> JoinHandle<T> {
     /// function has returned, but before the thread itself has stopped running.
     /// However, once this returns `true`, [`join`][Self::join] can be expected
     /// to return quickly, without blocking for any significant amount of time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل انتهى الـ thread المرتبط من تنفيذ دالته الرئيسية.
+    ///
+    /// </div>
     #[stable(feature = "thread_is_running", since = "1.61.0")]
     pub fn is_finished(&self) -> bool {
         self.0.is_finished()

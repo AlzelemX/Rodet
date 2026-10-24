@@ -135,6 +135,12 @@ impl<T: Debug + Ord, A: AllocatorClone> Debug for Entry<'_, T, A> {
 /// assert_eq!(set.get(&"c"), None);
 /// assert_eq!(set.len(), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل مشغول في `BTreeSet`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[unstable(feature = "btree_set_entry", issue = "133549")]
 pub struct OccupiedEntry<
     'a,
@@ -177,6 +183,12 @@ impl<T: Debug + Ord, A: AllocatorClone> Debug for OccupiedEntry<'_, T, A> {
 /// }
 /// assert!(set.contains("b") && set.len() == 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نظرة على مدخل فارغ في `BTreeSet`. جزء من الـ enum `Entry`.
+///
+/// </div>
 #[unstable(feature = "btree_set_entry", issue = "133549")]
 pub struct VacantEntry<
     'a,

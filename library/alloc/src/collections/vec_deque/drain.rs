@@ -14,6 +14,12 @@ use crate::alloc::{Allocator, Global};
 /// documentation for more.
 ///
 /// [`drain`]: VecDeque::drain
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يُفرغ (يسحب) عناصر `VecDeque`.
+///
+/// </div>
 #[stable(feature = "drain", since = "1.6.0")]
 pub struct Drain<
     'a,

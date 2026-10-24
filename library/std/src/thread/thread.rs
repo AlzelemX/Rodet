@@ -84,6 +84,12 @@ impl Inner {
 /// [`thread::current`]: super::current::current
 /// [`Builder`]: super::Builder
 /// [`spawn`]: super::spawn
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض لـ thread.
+///
+/// </div>
 pub struct Thread {
     // We use the System allocator such that creating or dropping this handle
     // does not interfere with a potential Global allocator using thread-local
@@ -210,6 +216,12 @@ impl Thread {
     ///
     /// [`park`]: super::park
     /// [park documentation]: super::park
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجعل رمز المقبض متاحًا (إن لم يكن متاحًا) بشكل ذري.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn unpark(&self) {
@@ -230,6 +242,12 @@ impl Thread {
     /// let other_thread_id = other_thread.join().unwrap();
     /// assert!(thread::current().id() != other_thread_id);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المعرّف الفريد للـ thread.
+    ///
+    /// </div>
     #[stable(feature = "thread_id", since = "1.19.0")]
     #[must_use]
     pub fn id(&self) -> ThreadId {
@@ -264,6 +282,12 @@ impl Thread {
     ///     assert_ne!(spawned, thread::current().os_id());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المعرّف الذي أعطاه نظام التشغيل لهذا الـ thread، إن أمكن قراءته.
+    ///
+    /// </div>
     #[unstable(feature = "thread_os_id", issue = "160215")]
     #[must_use]
     pub fn os_id(&self) -> Option<u64> {
@@ -307,6 +331,12 @@ impl Thread {
     /// ```
     ///
     /// [naming-threads]: ./index.html#naming-threads
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الـ thread.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn name(&self) -> Option<&str> {
@@ -339,6 +369,12 @@ impl Thread {
     ///     assert_eq!(Thread::from_raw(ptr).id(), id);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Thread` ويرجع مؤشرًا خامًا.
+    ///
+    /// </div>
     #[unstable(feature = "thread_raw", issue = "97523")]
     pub fn into_raw(self) -> *const () {
         // Safety: We only expose an opaque pointer, which maintains the `Pin` invariant.
@@ -362,6 +398,12 @@ impl Thread {
     ///
     /// Calling this function twice on the same raw pointer can lead
     /// to a double-free if both `Thread` instances are dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Thread` من مؤشر خام.
+    ///
+    /// </div>
     #[unstable(feature = "thread_raw", issue = "97523")]
     pub unsafe fn from_raw(ptr: *const ()) -> Thread {
         // Safety: Upheld by caller.

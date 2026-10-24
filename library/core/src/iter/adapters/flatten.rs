@@ -12,6 +12,12 @@ use crate::{array, fmt, option, result};
 ///
 /// This `struct` is created by [`Iterator::flat_map`]. See its documentation
 /// for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يحوّل كل عنصر إلى مكرر، ويعطي عناصر المكررات الناتجة.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct FlatMap<I, U: IntoIterator, F> {
@@ -179,6 +185,12 @@ where
 /// documentation for more.
 ///
 /// [`flatten`]: Iterator::flatten()
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يزيل مستوى واحدًا من التداخل في مكرر عناصره يمكن تحويلها إلى مكررات.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "iterator_flatten", since = "1.29.0")]
 pub struct Flatten<I: Iterator<Item: IntoIterator>> {

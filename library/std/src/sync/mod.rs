@@ -172,6 +172,12 @@
 //!
 //! This is only of note to platforms which disallow blocking, such as multithreaded WebAssembly on the main thread.
 //! None of the implementations in `std::sync` are guaranteed to be (or remain) non-blocking in this regard.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات مزامنة مفيدة: `Mutex` و`RwLock` و`Arc` والقنوات وغيرها.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -257,6 +263,12 @@ pub use self::poison::{MappedMutexGuard, MappedRwLockReadGuard, MappedRwLockWrit
 /// It is returned by the [`wait_timeout`] method.
 ///
 /// [`wait_timeout`]: Condvar::wait_timeout
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يبيّن هل انتهى انتظار متغير الشرط بسبب انتهاء المهلة.
+///
+/// </div>
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
 #[stable(feature = "wait_timeout", since = "1.5.0")]
 pub struct WaitTimeoutResult(bool);
@@ -307,6 +319,12 @@ impl WaitTimeoutResult {
     /// # // Prevent leaks for Miri.
     /// # let _ = handle.join();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا عُرف أن الانتظار انتهى بسبب انتهاء المهلة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "wait_timeout", since = "1.5.0")]
     pub fn timed_out(&self) -> bool {

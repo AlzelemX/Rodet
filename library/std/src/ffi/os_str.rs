@@ -1198,6 +1198,12 @@ impl OsStr {
     ///
     /// assert_eq!("grÜße, jÜrgen ❤", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا النص إلى أحرف ASCII صغيرة في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     #[inline]
     pub fn make_ascii_lowercase(&mut self) {
@@ -1223,6 +1229,12 @@ impl OsStr {
     ///
     /// assert_eq!("GRüßE, JüRGEN ❤", s);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا النص إلى أحرف ASCII كبيرة في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     #[inline]
     pub fn make_ascii_uppercase(&mut self) {
@@ -1300,6 +1312,12 @@ impl OsStr {
     /// assert!(ascii.is_ascii());
     /// assert!(!non_ascii.is_ascii());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل كل أحرف هذا النص ضمن مدى ASCII.
+    ///
+    /// </div>
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     #[must_use]
     #[inline]
@@ -1321,6 +1339,12 @@ impl OsStr {
     /// assert!(OsString::from("Ferrös").eq_ignore_ascii_case("FERRöS"));
     /// assert!(!OsString::from("Ferrös").eq_ignore_ascii_case("FERRÖS"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل النصان متساويان بتجاهل حالة أحرف ASCII.
+    ///
+    /// </div>
     #[stable(feature = "osstring_ascii", since = "1.53.0")]
     pub fn eq_ignore_ascii_case<S: AsRef<OsStr>>(&self, other: S) -> bool {
         self.inner.eq_ignore_ascii_case(&other.as_ref().inner)

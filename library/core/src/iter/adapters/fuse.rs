@@ -12,6 +12,12 @@ use crate::ops::Try;
 ///
 /// This `struct` is created by [`Iterator::fuse`]. See its documentation
 /// for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي `None` إلى الأبد بعد أن يعطي المكرر الأساسي `None` مرة واحدة.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -225,6 +231,12 @@ impl<I: Default> Default for Fuse<I> {
     /// ```
     ///
     /// [^fuse_note]: if `I` does not override `Iterator::fuse`'s default implementation
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكرر `Fuse` من القيمة الافتراضية لـ `I`.
+    ///
+    /// </div>
     fn default() -> Self {
         Fuse { iter: Some(I::default()) }
     }

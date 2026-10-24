@@ -10,6 +10,12 @@
 //! the right thread name on main even after the thread handle has been destroyed.
 //! Note however that this also means that the name reported in pre-main functions
 //! will be incorrect, but that's just something we have to live with.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يخزن معرّف الـ thread الرئيسي.
+//!
+//! </div>
 
 cfg_select! {
     target_has_atomic = "64" => {

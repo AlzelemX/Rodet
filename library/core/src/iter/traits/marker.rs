@@ -24,6 +24,12 @@ pub unsafe trait TrustedFused {}
 /// wrapper will be a no-op with no performance penalty.
 ///
 /// [`Fuse`]: crate::iter::Fuse
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يستمر دائمًا في إعطاء `None` بعد أن ينتهي.
+///
+/// </div>
 #[stable(feature = "fused", since = "1.26.0")]
 #[unsafe(rustc_allow_lifetime_dependent_specialization)]
 // FIXME: this should be a #[marker] and have another blanket impl for T: TrustedFused
@@ -61,6 +67,12 @@ impl<I: FusedIterator + ?Sized> FusedIterator for &mut I {}
 ///
 /// This trait must only be implemented when the contract is upheld. Consumers
 /// of this trait must inspect [`Iterator::size_hint()`]’s upper bound.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي طولًا دقيقًا عبر size_hint.
+///
+/// </div>
 #[unstable(feature = "trusted_len", issue = "37572")]
 #[unsafe(rustc_allow_lifetime_dependent_specialization)]
 #[rustc_const_unstable(feature = "const_iter", issue = "92476")]
@@ -94,11 +106,23 @@ pub unsafe trait InPlaceIterable {
     /// E.g. [[u8; 4]; 4].iter().flatten().flatten() would have a `EXPAND_BY` of 16.
     /// This is an upper bound, i.e. the transformations will produce at most this many items per
     /// input. It's meant for layout calculations.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حاصل ضرب توسعات العناصر (من واحد إلى كثير) في سلسلة المكررات. هذا حد أعلى.
+    ///
+    /// </div>
     const EXPAND_BY: Option<NonZero<usize>>;
     /// The product of many-to-one item reductions that happen throughout the iterator pipeline.
     /// E.g. [u8].iter().array_chunks::<4>().array_chunks::<4>() would have a `MERGE_BY` of 16.
     /// This is a lower bound, i.e. the transformations will consume at least this many items per
     /// output.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حاصل ضرب تقليصات العناصر (من كثير إلى واحد) في سلسلة المكررات. هذا حد أدنى.
+    ///
+    /// </div>
     const MERGE_BY: Option<NonZero<usize>>;
 }
 
@@ -113,6 +137,12 @@ pub unsafe trait InPlaceIterable {
 /// The implementation of [`Step`] for the given type must guarantee all
 /// invariants of all methods are upheld. See the [`Step`] trait's documentation
 /// for details. Consumers are free to rely on the invariants in unsafe code.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يحقق كل شروط `Step`.
+///
+/// </div>
 #[unstable(feature = "trusted_step", issue = "85731")]
 #[rustc_specialization_trait]
 #[rustc_const_unstable(feature = "const_iter", issue = "92476")]

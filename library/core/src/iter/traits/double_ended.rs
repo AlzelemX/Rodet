@@ -38,6 +38,12 @@ use crate::ops::{ControlFlow, Try};
 /// assert_eq!(None, iter.next());
 /// assert_eq!(None, iter.next_back());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يستطيع إعطاء العناصر من الطرفين.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "DoubleEndedIterator"]
 #[rustc_const_unstable(feature = "const_iter", issue = "92476")]

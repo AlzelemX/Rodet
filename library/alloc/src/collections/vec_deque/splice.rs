@@ -19,6 +19,12 @@ use crate::vec::Vec;
 /// let new = [7, 8];
 /// let iter: std::collections::vec_deque::Splice<'_, _> = v.splice(1.., new);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر استبدال (splice) لـ `VecDeque`.
+///
+/// </div>
 #[unstable(feature = "deque_extend_front", issue = "146975")]
 #[derive(Debug)]
 pub struct Splice<

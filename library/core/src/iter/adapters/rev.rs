@@ -9,6 +9,12 @@ use crate::ops::Try;
 ///
 /// [`rev`]: Iterator::rev
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر من الطرفين باتجاه معكوس.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -35,6 +41,12 @@ impl<T> Rev<T> {
     /// assert_eq!(rev.next(), Some('b'));
     /// assert_eq!(rev.into_inner().collect::<String>(), "foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Rev` ويرجع المكرر الداخلي.
+    ///
+    /// </div>
     #[unstable(feature = "rev_into_inner", issue = "144277")]
     pub fn into_inner(self) -> T {
         self.iter
@@ -165,6 +177,12 @@ impl<I: Default> Default for Rev<I> {
     /// let iter: Rev<slice::Iter<'_, u8>> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكرر `Rev` من القيمة الافتراضية لـ `I`.
+    ///
+    /// </div>
     fn default() -> Self {
         Rev::new(Default::default())
     }

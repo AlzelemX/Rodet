@@ -56,6 +56,12 @@ use crate::iter::{FusedIterator, TrustedLen};
 ///     println!("{f:?}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا يحسب قيمة واحدة مرة واحدة فقط عند الحاجة باستدعاء الإغلاق المعطى.
+///
+/// </div>
 #[inline]
 #[stable(feature = "iter_once_with", since = "1.43.0")]
 pub fn once_with<A, F: FnOnce() -> A>(make: F) -> OnceWith<F> {
@@ -67,6 +73,12 @@ pub fn once_with<A, F: FnOnce() -> A>(make: F) -> OnceWith<F> {
 ///
 /// This `struct` is created by the [`once_with()`] function.
 /// See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي عنصرًا واحدًا من النوع `A` باستدعاء الإغلاق المعطى `F: FnOnce() -> A`.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "iter_once_with", since = "1.43.0")]
 pub struct OnceWith<F> {

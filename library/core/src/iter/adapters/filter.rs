@@ -15,6 +15,12 @@ use crate::ops::Try;
 ///
 /// [`filter`]: Iterator::filter
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يفلتر عناصر `iter` بالشرط `predicate`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

@@ -12,6 +12,12 @@ use crate::ops::Try;
 ///
 /// [`cloned`]: Iterator::cloned
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر ينسخ (clone) عناصر مكرر أساسي.
+///
+/// </div>
 #[stable(feature = "iter_cloned", since = "1.1.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[derive(Clone, Debug)]
@@ -151,6 +157,12 @@ impl<I: Default> Default for Cloned<I> {
     /// let iter: Cloned<slice::Iter<'_, u8>> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكرر `Cloned` من القيمة الافتراضية لـ `I`.
+    ///
+    /// </div>
     fn default() -> Self {
         Self::new(Default::default())
     }

@@ -17,6 +17,12 @@
 //! Note: Because the term "leading byte" can sometimes be ambiguous (for
 //! example, it could also refer to the first byte of a slice), we'll often use
 //! the term "non-continuation byte" to refer to these bytes in the code.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! كود لعدّ أحرف (`char`) نص UTF-8 بكفاءة.
+//!
+//! </div>
 
 use core::intrinsics::unlikely;
 

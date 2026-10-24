@@ -4865,6 +4865,12 @@ impl<T> [T] {
     /// s.insert(idx, num);
     /// assert_eq!(s, [0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 42, 55]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع نقطة التقسيم حسب الشرط المعطى (موضع أول عنصر في القسم الثاني).
+    ///
+    /// </div>
     #[rustc_const_unstable(feature = "const_binary_search", issue = "159532")]
     #[stable(feature = "partition_point", since = "1.52.0")]
     #[must_use]

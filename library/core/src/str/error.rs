@@ -1,4 +1,10 @@
 //! Defines utf8 error type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف نوع خطأ UTF-8.
+//!
+//! </div>
 
 use crate::error::Error;
 use crate::fmt;
@@ -42,6 +48,12 @@ use crate::fmt;
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأخطاء التي قد تحدث عند محاولة تفسير تسلسل من `u8` كنص.
+///
+/// </div>
 #[derive(Copy, Eq, PartialEq, Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Utf8Error {
@@ -72,6 +84,12 @@ impl Utf8Error {
     /// // the second byte is invalid here
     /// assert_eq!(1, error.valid_up_to());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع في النص الذي تم التحقق من صحة UTF-8 حتى قبله.
+    ///
+    /// </div>
     #[stable(feature = "utf8_error", since = "1.5.0")]
     #[rustc_const_stable(feature = "const_str_from_utf8_shared", since = "1.63.0")]
     #[must_use]
@@ -95,6 +113,12 @@ impl Utf8Error {
     ///   lossy decoding.
     ///
     /// [U+FFFD]: ../../std/char/constant.REPLACEMENT_CHARACTER.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي معلومات أكثر عن الفشل:
+    ///
+    /// </div>
     #[stable(feature = "utf8_error_error_len", since = "1.20.0")]
     #[rustc_const_stable(feature = "const_str_from_utf8_shared", since = "1.63.0")]
     #[must_use]
@@ -129,6 +153,12 @@ impl Error for Utf8Error {}
 /// An error returned when parsing a `bool` using [`from_str`] fails
 ///
 /// [`from_str`]: super::FromStr::from_str
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يرجع عند فشل قراءة `bool` باستخدام `from_str`.
+///
+/// </div>
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[non_exhaustive]
 #[stable(feature = "rust1", since = "1.0.0")]

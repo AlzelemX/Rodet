@@ -12,6 +12,12 @@ use crate::{fmt, io};
 /// A scope to spawn scoped threads in.
 ///
 /// See [`scope`] for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق لتشغيل threads محدودة النطاق (scoped).
+///
+/// </div>
 #[stable(feature = "scoped_threads", since = "1.63.0")]
 pub struct Scope<'scope, 'env: 'scope> {
     data: Arc<ScopeData>,
@@ -35,6 +41,12 @@ pub struct Scope<'scope, 'env: 'scope> {
 /// An owned permission to join on a scoped thread (block on its termination).
 ///
 /// See [`Scope::spawn`] for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذن مملوك لانتظار انتهاء thread محدود النطاق.
+///
+/// </div>
 #[stable(feature = "scoped_threads", since = "1.63.0")]
 pub struct ScopedJoinHandle<'scope, T>(JoinInner<'scope, T>);
 
@@ -136,6 +148,12 @@ impl ScopeData {
 /// such as local variables defined right before the scope, can be borrowed by the scoped threads.
 ///
 /// The `'env: 'scope` bound is part of the definition of the `Scope` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نطاقًا لتشغيل threads محدودة النطاق، يمكنها استعارة متغيرات محلية.
+///
+/// </div>
 #[track_caller]
 #[stable(feature = "scoped_threads", since = "1.63.0")]
 pub fn scope<'env, F, T>(f: F) -> T
@@ -197,6 +215,12 @@ impl<'scope, 'env> Scope<'scope, 'env> {
     /// to recover from such errors.
     ///
     /// [`join`]: ScopedJoinHandle::join
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل thread جديدًا داخل النطاق، ويرجع `ScopedJoinHandle` له.
+    ///
+    /// </div>
     #[stable(feature = "scoped_threads", since = "1.63.0")]
     pub fn spawn<F, T>(&'scope self, f: F) -> ScopedJoinHandle<'scope, T>
     where
@@ -252,6 +276,12 @@ impl Builder {
     /// a.push(4);
     /// assert_eq!(x, a.len());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل thread محدود النطاق بالإعدادات المضبوطة في هذا الـ `Builder`.
+    ///
+    /// </div>
     #[stable(feature = "scoped_threads", since = "1.63.0")]
     pub fn spawn_scoped<'scope, 'env, F, T>(
         self,
@@ -284,6 +314,12 @@ impl<'scope, T> ScopedJoinHandle<'scope, T> {
     ///     println!("thread id: {:?}", t.thread().id());
     /// });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مقبضًا للـ thread الأساسي.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "scoped_threads", since = "1.63.0")]
     pub fn thread(&self) -> &Thread {
@@ -318,6 +354,12 @@ impl<'scope, T> ScopedJoinHandle<'scope, T> {
     ///     assert!(t.join().is_err());
     /// });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر حتى ينتهي الـ thread المرتبط.
+    ///
+    /// </div>
     #[stable(feature = "scoped_threads", since = "1.63.0")]
     pub fn join(self) -> Result<T> {
         self.0.join()
@@ -333,6 +375,12 @@ impl<'scope, T> ScopedJoinHandle<'scope, T> {
     /// function has returned, but before the thread itself has stopped running.
     /// However, once this returns `true`, [`join`][Self::join] can be expected
     /// to return quickly, without blocking for any significant amount of time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل انتهى الـ thread المرتبط من تنفيذ دالته الرئيسية.
+    ///
+    /// </div>
     #[stable(feature = "scoped_threads", since = "1.63.0")]
     pub fn is_finished(&self) -> bool {
         self.0.is_finished()

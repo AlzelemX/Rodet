@@ -1,12 +1,30 @@
 use crate::mem::MaybeUninit;
 
 /// Trait used to describe the maximum number of digits in decimal base of the implemented integer.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يصف أقصى عدد أرقام عشرية للعدد الصحيح.
+///
+/// </div>
 #[unstable(feature = "fmt_internals", issue = "none")]
 pub trait NumBufferTrait {
     /// Used for initializing the `NumberBuffer` value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُستخدم لتهيئة قيمة `NumberBuffer`.
+    ///
+    /// </div>
     #[unstable(feature = "fmt_internals", issue = "none")]
     const DEFAULT: Self::Buf;
     /// The actual underlying type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الأساسي الفعلي.
+    ///
+    /// </div>
     #[unstable(feature = "fmt_internals", issue = "none")]
     type Buf: AsRef<[MaybeUninit<u8>]> + AsMut<[MaybeUninit<u8>]>;
 }
@@ -62,6 +80,12 @@ impl_NumBufferTrait! {
 /// let n2 = -1972i32;
 /// assert_eq!(n2.format_into(&mut buf), "-1972");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ذاكرة لتنسيق الأرقام باستخدام `format_into()`.
+///
+/// </div>
 #[stable(feature = "int_format_into", since = "1.98.0")]
 pub struct NumBuffer<T: NumBufferTrait> {
     pub(crate) buf: T::Buf,
@@ -78,6 +102,12 @@ impl<T: NumBufferTrait> core::fmt::Debug for NumBuffer<T> {
 #[stable(feature = "int_format_into", since = "1.98.0")]
 impl<T: NumBufferTrait> NumBuffer<T> {
     /// Initializes internal buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ المخزن الداخلي.
+    ///
+    /// </div>
     #[stable(feature = "int_format_into", since = "1.98.0")]
     #[rustc_const_stable(feature = "int_format_into", since = "1.98.0")]
     pub const fn new() -> Self {

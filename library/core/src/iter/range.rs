@@ -22,6 +22,12 @@ unsafe_impl_trusted_step![NonZero<u8> NonZero<u16> NonZero<u32> NonZero<u64> Non
 ///
 /// The *successor* operation moves towards values that compare greater.
 /// The *predecessor* operation moves towards values that compare lesser.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أشياء لها مفهوم العنصر *التالي* و*السابق*.
+///
+/// </div>
 #[rustc_diagnostic_item = "range_step"]
 #[diagnostic::on_unimplemented(
     message = "`std::ops::Range<{Self}>` is not an iterator",
@@ -979,6 +985,13 @@ macro_rules! range_exact_iter_impl {
 
 /// Safety: This macro must only be used on types that are `Copy` and result in ranges
 /// which have an exact `size_hint()` where the upper bound must not be `None`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أمان: هذا الماكرو يُستخدم فقط على أنواع `Copy` تعطي مديات لها `size_hint()` دقيق وحده الأعلى ليس
+/// `None`.
+///
+/// </div>
 macro_rules! unsafe_range_trusted_random_access_impl {
     ($($t:ty)*) => ($(
         #[doc(hidden)]

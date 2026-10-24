@@ -11,6 +11,12 @@ use crate::ops::{ControlFlow, NeverShortCircuit, Try};
 ///
 /// This `struct` is created by the [`array_chunks`][Iterator::array_chunks]
 /// method on [`Iterator`]. See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي `N` عنصرًا من المكرر الأصلي في كل مرة.
+///
+/// </div>
 #[derive(Debug, Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "iter_array_chunks", issue = "100450")]
@@ -42,6 +48,13 @@ where
     /// assert_eq!(rem.next(), Some(5));
     /// assert_eq!(rem.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على العناصر الباقية من المكرر الأصلي التي لن يعطيها هذا المكرر (على الأكثر `N-1`
+    /// عنصر).
+    ///
+    /// </div>
     #[unstable(feature = "iter_array_chunks", issue = "100450")]
     #[inline]
     pub fn into_remainder(mut self) -> array::IntoIter<I::Item, N> {

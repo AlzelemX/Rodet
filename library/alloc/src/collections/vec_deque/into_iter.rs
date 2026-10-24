@@ -14,6 +14,12 @@ use crate::alloc::{Allocator, Global};
 /// (provided by the [`IntoIterator`] trait). See its documentation for more.
 ///
 /// [`into_iter`]: VecDeque::into_iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على عناصر `VecDeque`.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoIter<

@@ -105,6 +105,12 @@ where
 ///     r#"Foo { bar: 10, baz: "Hello World" }"#,
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تساعد في كتابة تطبيقات `fmt::Debug`.
+///
+/// </div>
 #[must_use = "must eventually call `finish()` on Debug builders"]
 #[allow(missing_debug_implementations)]
 #[stable(feature = "debug_builders", since = "1.2.0")]
@@ -152,6 +158,12 @@ impl<'a, 'b: 'a> DebugStruct<'a, 'b> {
     ///     r#"Bar { bar: 10, another: "Hello World", nonexistent_field: 1 }"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف حقلًا جديدًا إلى مخرجات الـ struct.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn field(&mut self, name: &str, value: &dyn fmt::Debug) -> &mut Self {
         self.result = self.result.and_then(|_| {
@@ -209,6 +221,12 @@ impl<'a, 'b: 'a> DebugStruct<'a, 'b> {
     ///     r#"Bar { bar: 0x0000000a, another: "Hello World" }"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف حقلًا جديدًا إلى مخرجات الـ struct.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn field_with(
         &mut self,
@@ -244,6 +262,12 @@ impl<'a, 'b: 'a> DebugStruct<'a, 'b> {
     ///     "Bar { bar: 10, .. }",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم الـ struct بأنه غير مكتمل، ليعرف القارئ أن هناك حقولًا أخرى لا تظهر في تمثيل التنقيح.
+    ///
+    /// </div>
     #[stable(feature = "debug_non_exhaustive", since = "1.53.0")]
     pub fn finish_non_exhaustive(&mut self) -> fmt::Result {
         self.result = self.result.and_then(|_| {
@@ -291,6 +315,12 @@ impl<'a, 'b: 'a> DebugStruct<'a, 'b> {
     ///     r#"Bar { bar: 10, baz: "Hello World" }"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي المخرجات ويرجع أي خطأ حدث.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn finish(&mut self) -> fmt::Result {
         if self.has_fields {
@@ -334,6 +364,12 @@ impl<'a, 'b: 'a> DebugStruct<'a, 'b> {
 ///     r#"Foo(10, "Hello World")"#,
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تساعد في كتابة تطبيقات `fmt::Debug`.
+///
+/// </div>
 #[must_use = "must eventually call `finish()` on Debug builders"]
 #[allow(missing_debug_implementations)]
 #[stable(feature = "debug_builders", since = "1.2.0")]
@@ -376,6 +412,12 @@ impl<'a, 'b: 'a> DebugTuple<'a, 'b> {
     ///     r#"Foo(10, "Hello World")"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف حقلًا جديدًا إلى مخرجات الـ struct الذي على شكل صف.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn field(&mut self, value: &dyn fmt::Debug) -> &mut Self {
         self.result = self.result.and_then(|_| {
@@ -426,6 +468,12 @@ impl<'a, 'b: 'a> DebugTuple<'a, 'b> {
     ///     r#"Foo(0x0000000a, "Hello World")"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف حقلًا جديدًا إلى مخرجات الـ struct الذي على شكل صف.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn field_with(
         &mut self,
@@ -457,6 +505,12 @@ impl<'a, 'b: 'a> DebugTuple<'a, 'b> {
     ///     "Foo(10, ..)",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم الـ struct (على شكل صف) بأنه غير مكتمل، ليعرف القارئ أن هناك حقولًا أخرى لا تظهر.
+    ///
+    /// </div>
     #[stable(feature = "debug_more_non_exhaustive", since = "1.83.0")]
     pub fn finish_non_exhaustive(&mut self) -> fmt::Result {
         self.result = self.result.and_then(|_| {
@@ -501,6 +555,12 @@ impl<'a, 'b: 'a> DebugTuple<'a, 'b> {
     ///     r#"Foo(10, "Hello World")"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي المخرجات ويرجع أي خطأ حدث.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn finish(&mut self) -> fmt::Result {
         if self.fields > 0 {
@@ -583,6 +643,12 @@ impl<'a, 'b: 'a> DebugInner<'a, 'b> {
 ///     "{10, 11}",
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تساعد في كتابة تطبيقات `fmt::Debug`.
+///
+/// </div>
 #[must_use = "must eventually call `finish()` on Debug builders"]
 #[allow(missing_debug_implementations)]
 #[stable(feature = "debug_builders", since = "1.2.0")]
@@ -619,6 +685,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
     ///     "{[10, 11], [12, 13]}",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا جديدًا إلى مخرجات المجموعة.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entry(&mut self, entry: &dyn fmt::Debug) -> &mut Self {
         self.inner.entry(entry);
@@ -652,6 +724,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
     ///     "{[10, 11], {12, 13}}",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا جديدًا إلى مخرجات المجموعة.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn entry_with(
         &mut self,
@@ -684,6 +762,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
     ///     "{10, 11, 12, 13}",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عناصر مكرر إلى مخرجات المجموعة.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entries<D, I>(&mut self, entries: I) -> &mut Self
     where
@@ -724,6 +808,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
     ///     "{1, 2, ..}",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم المجموعة بأنها غير مكتملة، ليعرف القارئ أن هناك عناصر أخرى لا تظهر.
+    ///
+    /// </div>
     #[stable(feature = "debug_more_non_exhaustive", since = "1.83.0")]
     pub fn finish_non_exhaustive(&mut self) -> fmt::Result {
         self.inner.result = self.inner.result.and_then(|_| {
@@ -766,6 +856,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
     ///     "{10, 11}",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي المخرجات ويرجع أي خطأ حدث.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn finish(&mut self) -> fmt::Result {
         self.inner.result = self.inner.result.and_then(|_| self.inner.fmt.write_str("}"));
@@ -798,6 +894,12 @@ impl<'a, 'b: 'a> DebugSet<'a, 'b> {
 ///     "[10, 11]",
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تساعد في كتابة تطبيقات `fmt::Debug`.
+///
+/// </div>
 #[must_use = "must eventually call `finish()` on Debug builders"]
 #[allow(missing_debug_implementations)]
 #[stable(feature = "debug_builders", since = "1.2.0")]
@@ -834,6 +936,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
     ///     "[[10, 11], [12, 13]]",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا جديدًا إلى مخرجات القائمة.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entry(&mut self, entry: &dyn fmt::Debug) -> &mut Self {
         self.inner.entry(entry);
@@ -867,6 +975,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
     ///     "[[10, 11], {12, 13}]",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا جديدًا إلى مخرجات القائمة.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn entry_with(
         &mut self,
@@ -899,6 +1013,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
     ///     "[10, 11, 12, 13]",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عناصر مكرر إلى مخرجات القائمة.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entries<D, I>(&mut self, entries: I) -> &mut Self
     where
@@ -939,6 +1059,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
     ///     "[1, 2, ..]",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم القائمة بأنها غير مكتملة، ليعرف القارئ أن هناك عناصر أخرى لا تظهر.
+    ///
+    /// </div>
     #[stable(feature = "debug_more_non_exhaustive", since = "1.83.0")]
     pub fn finish_non_exhaustive(&mut self) -> fmt::Result {
         self.inner.result.and_then(|_| {
@@ -980,6 +1106,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
     ///     "[10, 11]",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي المخرجات ويرجع أي خطأ حدث.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn finish(&mut self) -> fmt::Result {
         self.inner.result = self.inner.result.and_then(|_| self.inner.fmt.write_str("]"));
@@ -1012,6 +1144,12 @@ impl<'a, 'b: 'a> DebugList<'a, 'b> {
 ///     r#"{"A": 10, "B": 11}"#,
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تساعد في كتابة تطبيقات `fmt::Debug`.
+///
+/// </div>
 #[must_use = "must eventually call `finish()` on Debug builders"]
 #[allow(missing_debug_implementations)]
 #[stable(feature = "debug_builders", since = "1.2.0")]
@@ -1052,6 +1190,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"whole": [("A", 10), ("B", 11)]}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف مدخلًا جديدًا إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entry(&mut self, key: &dyn fmt::Debug, value: &dyn fmt::Debug) -> &mut Self {
         self.key(key).value(value)
@@ -1089,6 +1233,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"whole": [("A", 10), ("B", 11)]}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف جزء المفتاح من مدخل جديد إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_map_key_value", since = "1.42.0")]
     pub fn key(&mut self, key: &dyn fmt::Debug) -> &mut Self {
         self.result = self.result.and_then(|_| {
@@ -1158,6 +1308,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{entry A: 0x0000000a, entry B: 0x0000000b}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف جزء المفتاح من مدخل جديد إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn key_with(
         &mut self,
@@ -1198,6 +1354,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"whole": [("A", 10), ("B", 11)]}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف جزء القيمة من مدخل جديد إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_map_key_value", since = "1.42.0")]
     pub fn value(&mut self, value: &dyn fmt::Debug) -> &mut Self {
         self.result = self.result.and_then(|_| {
@@ -1256,6 +1418,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{entry A: 0x0000000a, entry B: 0x0000000b}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف جزء القيمة من مدخل جديد إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_closure_helpers", since = "CURRENT_RUSTC_VERSION")]
     pub fn value_with(
         &mut self,
@@ -1288,6 +1456,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"A": 10, "B": 11}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف مدخلات مكرر إلى مخرجات الجدول.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn entries<K, V, I>(&mut self, entries: I) -> &mut Self
     where
@@ -1333,6 +1507,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"A": 10, "B": 11, ..}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم الجدول بأنه غير مكتمل، ليعرف القارئ أن هناك مدخلات أخرى لا تظهر.
+    ///
+    /// </div>
     #[stable(feature = "debug_more_non_exhaustive", since = "1.83.0")]
     pub fn finish_non_exhaustive(&mut self) -> fmt::Result {
         self.result = self.result.and_then(|_| {
@@ -1383,6 +1563,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
     ///     r#"{"A": 10, "B": 11}"#,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي المخرجات ويرجع أي خطأ حدث.
+    ///
+    /// </div>
     #[stable(feature = "debug_builders", since = "1.2.0")]
     pub fn finish(&mut self) -> fmt::Result {
         self.result = self.result.and_then(|_| {
@@ -1414,6 +1600,12 @@ impl<'a, 'b: 'a> DebugMap<'a, 'b> {
 /// assert_eq!(format!("{}", wrapped), "'a'");
 /// assert_eq!(format!("{:?}", wrapped), "'a'");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نوعًا تطبيقاته لـ `fmt::Debug` و`fmt::Display` تحيل إلى الإغلاق المعطى.
+///
+/// </div>
 #[stable(feature = "fmt_from_fn", since = "1.93.0")]
 #[rustc_const_stable(feature = "const_fmt_from_fn", since = "1.95.0")]
 #[must_use = "returns a type implementing Debug and Display, which do not have any effects unless they are used"]
@@ -1424,6 +1616,12 @@ pub const fn from_fn<F: Fn(&mut fmt::Formatter<'_>) -> fmt::Result>(f: F) -> Fro
 /// Implements [`fmt::Debug`] and [`fmt::Display`] via the provided closure.
 ///
 /// Created with [`from_fn`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `fmt::Debug` و`fmt::Display` عبر الإغلاق المعطى.
+///
+/// </div>
 #[stable(feature = "fmt_from_fn", since = "1.93.0")]
 pub struct FromFn<F>(F);
 

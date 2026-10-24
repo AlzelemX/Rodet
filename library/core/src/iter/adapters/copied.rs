@@ -13,6 +13,12 @@ use crate::{array, ptr};
 ///
 /// [`copied`]: Iterator::copied
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر ينسخ (copy) عناصر مكرر أساسي.
+///
+/// </div>
 #[stable(feature = "iter_copied", since = "1.36.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[derive(Clone, Debug)]
@@ -255,6 +261,12 @@ impl<I: Default> Default for Copied<I> {
     /// let iter: Copied<slice::Iter<'_, u8>> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكرر `Copied` من القيمة الافتراضية لـ `I`.
+    ///
+    /// </div>
     fn default() -> Self {
         Self::new(Default::default())
     }

@@ -1,4 +1,10 @@
 //! Operations related to UTF-8 validation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! عمليات متعلقة بالتحقق من صحة UTF-8.
+//!
+//! </div>
 
 use super::Utf8Error;
 use crate::intrinsics::const_eval_select;
@@ -30,6 +36,12 @@ pub(super) const fn utf8_is_cont_byte(byte: u8) -> bool {
 /// # Safety
 ///
 /// `bytes` must produce a valid UTF-8-like (UTF-8 or WTF-8) string
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ رمز يونيكود التالي من مكرر بايتات (بافتراض ترميز شبيه بـ UTF-8).
+///
+/// </div>
 #[unstable(feature = "str_internals", issue = "none")]
 #[inline]
 pub unsafe fn next_code_point<'a, I: Iterator<Item = &'a u8>>(bytes: &mut I) -> Option<u32> {
@@ -272,6 +284,12 @@ const UTF8_CHAR_WIDTH: &[u8; 256] = &[
 ];
 
 /// Given a first byte, determines how many bytes are in this UTF-8 character.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد عدد بايتات حرف UTF-8 من أول بايت فيه.
+///
+/// </div>
 #[unstable(feature = "str_internals", issue = "none")]
 #[must_use]
 #[inline]

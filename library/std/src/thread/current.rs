@@ -158,6 +158,12 @@ pub(super) fn set_current(thread: Thread) -> Result<(), Thread> {
 /// let other_thread_id = other_thread.join().unwrap();
 /// assert_ne!(thread::current_id(), other_thread_id);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع المعرّف الفريد للـ thread الذي يستدعيها.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "current_thread_id", issue = "147194")]
@@ -272,6 +278,12 @@ pub(crate) fn current_or_unnamed() -> Thread {
 ///
 /// handler.join().unwrap();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مقبضًا للـ thread الذي يستدعيها.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn current() -> Thread {

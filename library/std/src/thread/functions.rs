@@ -1,4 +1,10 @@
 //! Free functions.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال حرة.
+//!
+//! </div>
 
 use super::builder::Builder;
 use super::current::current;
@@ -120,6 +126,12 @@ use crate::{io, panicking};
 /// [`channels`]: crate::sync::mpsc
 /// [`join`]: JoinHandle::join
 /// [`Err`]: crate::result::Result::Err
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يشغّل thread جديدًا، ويرجع `JoinHandle` له.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
 pub fn spawn<F, T>(f: F) -> JoinHandle<T>
@@ -163,6 +175,12 @@ where
 /// [`join`]: JoinHandle::join
 /// [`Condvar`]: crate::sync::Condvar
 /// [`Mutex`]: crate::sync::Mutex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتنازل طوعًا عن حصته من وقت المعالج لمجدول نظام التشغيل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn yield_now() {
     imp::yield_now()
@@ -214,6 +232,12 @@ pub fn yield_now() {
 /// ```
 ///
 /// [Mutex]: crate::sync::Mutex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد هل الـ thread الحالي في حالة panic.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -245,6 +269,12 @@ pub fn panicking() -> bool {
 /// // Let's sleep for 2 seconds:
 /// thread::sleep_ms(2000);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخدم `sleep`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.6.0", note = "replaced by `std::thread::sleep`")]
 pub fn sleep_ms(ms: u32) {
@@ -288,6 +318,12 @@ pub fn sleep_ms(ms: u32) {
 ///
 /// assert!(now.elapsed() >= ten_millis);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينيّم الـ thread الحالي مدة لا تقل عن المدة المحددة.
+///
+/// </div>
 #[stable(feature = "thread_sleep", since = "1.4.0")]
 pub fn sleep(dur: Duration) {
     imp::sleep(dur)
@@ -390,6 +426,12 @@ pub fn sleep(dur: Duration) {
 /// # }
 /// # let _data = try_api_call();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينيّم الـ thread الحالي حتى يمر الموعد المحدد.
+///
+/// </div>
 #[unstable(feature = "thread_sleep_until", issue = "113752")]
 pub fn sleep_until(deadline: Instant) {
     imp::sleep_until(deadline)
@@ -528,6 +570,12 @@ impl Drop for PanicGuard {
 /// [`unpark`]: super::Thread::unpark
 /// [`thread::park_timeout`]: park_timeout
 /// [release sequence]: https://en.cppreference.com/w/cpp/atomic/memory_order#Release_sequence
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يوقف التنفيذ حتى يصبح رمز الـ thread الحالي متاحًا.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn park() {
     let guard = PanicGuard;
@@ -551,6 +599,12 @@ pub fn park() {
 /// amount of time waited to be precisely `ms` long.
 ///
 /// See the [park documentation][`park`] for more detail.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخدم `park_timeout`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.6.0", note = "replaced by `std::thread::park_timeout`")]
 pub fn park_timeout_ms(ms: u32) {
@@ -595,6 +649,12 @@ pub fn park_timeout_ms(ms: u32) {
 ///     timeout_remaining = timeout - elapsed;
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يوقف التنفيذ حتى يصبح رمز الـ thread متاحًا أو تنتهي المدة المحددة (قد يستيقظ بدون سبب).
+///
+/// </div>
 #[stable(feature = "park_timeout", since = "1.4.0")]
 pub fn park_timeout(dur: Duration) {
     let guard = PanicGuard;
@@ -690,6 +750,12 @@ pub fn park_timeout(dur: Duration) {
 ///   assert!(count.get() >= 1_usize);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع تقديرًا لمقدار التوازي الافتراضي الذي يجب أن يستخدمه البرنامج (مثل عدد الأنوية).
+///
+/// </div>
 #[doc(alias = "available_concurrency")] // Alias for a previous name we gave this API on unstable.
 #[doc(alias = "hardware_concurrency")] // Alias for C++ `std::thread::hardware_concurrency`.
 #[doc(alias = "num_cpus")] // Alias for a popular ecosystem crate which provides similar functionality.

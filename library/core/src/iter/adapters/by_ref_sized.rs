@@ -5,6 +5,12 @@ use crate::ops::{NeverShortCircuit, Try};
 ///
 /// Ideally this will no longer be required, eventually, but as can be seen in
 /// the benchmarks (as of Feb 2022 at least) `by_ref` can have performance cost.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `Iterator::by_ref`، لكنه يتطلب `Sized` ليمرر المعاملات العامة.
+///
+/// </div>
 #[unstable(feature = "std_internals", issue = "none")]
 #[derive(Debug)]
 pub struct ByRefSized<'a, I>(pub &'a mut I);

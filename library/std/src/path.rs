@@ -3359,6 +3359,12 @@ impl Path {
     /// let metadata = path.symlink_metadata().expect("the path should exist");
     /// println!("{:?}", metadata.file_type());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم عن البيانات الوصفية لملف بدون اتباع الروابط الرمزية.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[inline]
     pub fn symlink_metadata(&self) -> io::Result<fs::Metadata> {
@@ -3495,6 +3501,12 @@ impl Path {
     /// let path = Path::new("/laputa/sky_castle.rs");
     /// let path_link = path.read_link().expect("the path should be an existing symbolic link");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ رابطًا رمزيًا ويرجع الملف الذي يشير إليه.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[inline]
     pub fn read_link(&self) -> io::Result<PathBuf> {
@@ -3520,6 +3532,12 @@ impl Path {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على مدخلات مجلد.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[inline]
     pub fn read_dir(&self) -> io::Result<fs::ReadDir> {
@@ -3585,6 +3603,12 @@ impl Path {
     ///
     /// [TOCTOU]: fs#time-of-check-to-time-of-use-toctou
     /// [`exists()`]: Self::exists
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Ok(true)` إذا كان المسار يشير إلى شيء موجود.
+    ///
+    /// </div>
     #[stable(feature = "path_try_exists", since = "1.63.0")]
     #[inline]
     pub fn try_exists(&self) -> io::Result<bool> {

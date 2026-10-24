@@ -9,6 +9,12 @@ use core::{fmt, mem, slice};
 /// documentation for more.
 ///
 /// [`iter`]: super::VecDeque::iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على عناصر `VecDeque`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Iter<'a, T: 'a> {
     i1: slice::Iter<'a, T>,
@@ -49,6 +55,12 @@ impl<'a, T> Iter<'a, T> {
     ///
     /// assert_eq!(iter.as_slices(), (&[9, 10][..], &[0, 1][..]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الداخلية كزوج من الشرائح الجزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_iter_as_slices", issue = "123947")]
     pub fn as_slices(&self) -> (&'a [T], &'a [T]) {
         (self.i1.as_slice(), self.i2.as_slice())
@@ -71,6 +83,12 @@ impl<T> Default for Iter<'_, T> {
     /// let iter: vec_deque::Iter<'_, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `vec_deque::Iter` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         Iter { i1: Default::default(), i2: Default::default() }
     }

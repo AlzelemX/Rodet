@@ -109,6 +109,12 @@
 //! drop(tx);
 //! assert!(rx.recv().is_err());
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات اتصال: طابور FIFO بعدة مرسلين وعدة مستقبلين.
+//!
+//! </div>
 
 // This module is used as the implementation for the channels in `sync::mpsc`.
 // The implementation comes from the crossbeam-channel crate:
@@ -195,6 +201,12 @@ use crate::time::{Duration, Instant};
 /// // Let's see what that answer was
 /// println!("{:?}", receiver.recv().unwrap());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قناة غير متزامنة جديدة، ويرجع طرفي الإرسال والاستقبال.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
@@ -247,6 +259,12 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
 /// assert_eq!(receiver.recv().unwrap(), 1);
 /// assert_eq!(receiver.recv().unwrap(), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قناة متزامنة محدودة السعة جديدة.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 pub fn sync_channel<T>(cap: usize) -> (Sender<T>, Receiver<T>) {
@@ -298,6 +316,12 @@ pub fn sync_channel<T>(cap: usize) -> (Sender<T>, Receiver<T>) {
 ///
 /// assert_eq!(3, msg + msg2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الإرسال في قناة Rust المتزامنة.
+///
+/// </div>
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "MpmcSender")]
 pub struct Sender<T> {
@@ -307,9 +331,21 @@ pub struct Sender<T> {
 /// Sender flavors.
 enum SenderFlavor<T> {
     /// Bounded channel based on a preallocated array.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة محدودة السعة مبنية على مصفوفة محجوزة مسبقًا.
+    ///
+    /// </div>
     Array(counter::Sender<array::Channel<T>>),
 
     /// Unbounded channel implemented as a linked list.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة غير محدودة السعة مبنية كقائمة مترابطة.
+    ///
+    /// </div>
     List(counter::Sender<list::Channel<T>>),
 
     /// Zero-capacity channel.
@@ -346,6 +382,12 @@ impl<T> Sender<T> {
     ///
     /// assert!(sender.try_send(1).is_ok());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرسال رسالة في القناة بدون انتظار.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn try_send(&self, msg: T) -> Result<(), TrySendError<T>> {
         match &self.flavor {
@@ -397,6 +439,12 @@ impl<T> Sender<T> {
     /// drop(rx);
     /// assert!(tx.send(1).is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرسال قيمة في هذه القناة، ويرجعها إذا تعذّر إرسالها.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn send(&self, msg: T) -> Result<(), SendError<T>> {
         match &self.flavor {
@@ -433,6 +481,12 @@ impl<T> Sender<T> {
     ///
     /// tx.send_timeout(1, Duration::from_millis(400)).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إرسال رسالة في القناة، لكن لمدة محدودة فقط.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn send_timeout(&self, msg: T, timeout: Duration) -> Result<(), SendTimeoutError<T>> {
         match Instant::now().checked_add(timeout) {
@@ -464,6 +518,12 @@ impl<T> Sender<T> {
     /// let t = Instant::now() + Duration::from_millis(400);
     /// tx.send_deadline(1, t).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إرسال رسالة في القناة، لكن حتى موعد محدد فقط.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn send_deadline(&self, msg: T, deadline: Instant) -> Result<(), SendTimeoutError<T>> {
         match &self.flavor {
@@ -500,6 +560,12 @@ impl<T> Sender<T> {
     ///
     /// assert!(!tx1.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة فارغة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_empty(&self) -> bool {
         match &self.flavor {
@@ -534,6 +600,12 @@ impl<T> Sender<T> {
     ///
     /// assert!(tx1.is_full());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة ممتلئة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_full(&self) -> bool {
         match &self.flavor {
@@ -566,6 +638,12 @@ impl<T> Sender<T> {
     ///
     /// assert_eq!(tx1.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الرسائل في القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn len(&self) -> usize {
         match &self.flavor {
@@ -902,9 +980,21 @@ impl<T> IntoIterator for Receiver<T> {
 /// Receiver flavors.
 enum ReceiverFlavor<T> {
     /// Bounded channel based on a preallocated array.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة محدودة السعة مبنية على مصفوفة محجوزة مسبقًا.
+    ///
+    /// </div>
     Array(counter::Receiver<array::Channel<T>>),
 
     /// Unbounded channel implemented as a linked list.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة غير محدودة السعة مبنية كقائمة مترابطة.
+    ///
+    /// </div>
     List(counter::Receiver<list::Channel<T>>),
 
     /// Zero-capacity channel.
@@ -1231,6 +1321,12 @@ impl<T> Receiver<T> {
     ///
     /// assert!(!recv.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة فارغة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_empty(&self) -> bool {
         match &self.flavor {
@@ -1264,6 +1360,12 @@ impl<T> Receiver<T> {
     ///
     /// assert!(recv.is_full());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة ممتلئة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_full(&self) -> bool {
         match &self.flavor {
@@ -1295,6 +1397,12 @@ impl<T> Receiver<T> {
     ///
     /// assert_eq!(recv.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الرسائل في القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn len(&self) -> usize {
         match &self.flavor {

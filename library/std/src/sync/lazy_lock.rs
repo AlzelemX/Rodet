@@ -77,6 +77,12 @@ union Data<T, F> {
 ///     println!("{}", *data.number);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة تُهيَّأ عند أول وصول إليها (مناسبة للمتغيرات العامة static).
+///
+/// </div>
 #[stable(feature = "lazy_cell", since = "1.80.0")]
 pub struct LazyLock<#[rustc_assert_variance(invariant)] T, F = fn() -> T> {
     // FIXME(nonpoison_once): if possible, switch to nonpoison version once it is available
@@ -98,6 +104,12 @@ impl<T, F: FnOnce() -> T> LazyLock<T, F> {
     ///
     /// assert_eq!(&*lazy, "HELLO, WORLD!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ قيمة كسولة جديدة بدالة التهيئة المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_cell", since = "1.80.0")]
     #[rustc_const_stable(feature = "lazy_cell", since = "1.80.0")]
@@ -127,6 +139,12 @@ impl<T, F: FnOnce() -> T> LazyLock<T, F> {
     /// assert_eq!(&*lazy, "HELLO, WORLD!");
     /// assert_eq!(LazyLock::into_inner(lazy).ok(), Some("HELLO, WORLD!".to_string()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الـ `LazyLock` ويرجع القيمة المخزنة.
+    ///
+    /// </div>
     #[unstable(feature = "lazy_cell_into_inner", issue = "125623")]
     pub fn into_inner(mut this: Self) -> Result<T, F> {
         let state = this.once.state();
@@ -172,6 +190,12 @@ impl<T, F: FnOnce() -> T> LazyLock<T, F> {
     /// *p = 44;
     /// assert_eq!(*lazy, 44);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجبر حساب هذه القيمة الكسولة ويرجع مرجعًا قابلًا للتعديل إلى النتيجة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     pub fn force_mut(this: &mut LazyLock<T, F>) -> &mut T {
@@ -235,6 +259,12 @@ impl<T, F: FnOnce() -> T> LazyLock<T, F> {
     /// assert_eq!(LazyLock::force(&lazy), &92);
     /// assert_eq!(&*lazy, &92);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجبر حساب هذه القيمة الكسولة ويرجع مرجعًا إلى النتيجة. مثل `Deref` لكن بشكل صريح.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_cell", since = "1.80.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -278,6 +308,12 @@ impl<T, F> LazyLock<T, F> {
     /// *LazyLock::get_mut(&mut lazy).unwrap() = 44;
     /// assert_eq!(*lazy, 44);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة إذا كانت مهيَّأة، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     pub fn get_mut(this: &mut LazyLock<T, F>) -> Option<&mut T> {
@@ -305,6 +341,12 @@ impl<T, F> LazyLock<T, F> {
     /// let _ = LazyLock::force(&lazy);
     /// assert_eq!(LazyLock::get(&lazy), Some(&92));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة إذا كانت مهيَّأة، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -341,6 +383,12 @@ impl<T, F> LazyLock<T, F> {
     /// let value = unsafe { LazyLock::get_unchecked(&lazy) };
     /// assert_eq!(*value, 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة المخزنة بدون التحقق من تهيئتها (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_lazy_lock_get_unchecked", issue = "162716")]
     pub unsafe fn get_unchecked(this: &LazyLock<T, F>) -> &T {
@@ -372,6 +420,12 @@ impl<T, F> LazyLock<T, F> {
     ///
     /// assert_eq!(*lazy, 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة المخزنة بدون التحقق من تهيئتها (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_lazy_lock_get_unchecked", issue = "162716")]
     pub unsafe fn get_unchecked_mut(this: &mut LazyLock<T, F>) -> &mut T {
@@ -412,6 +466,12 @@ impl<T, F: FnOnce() -> T> Deref for LazyLock<T, F> {
     ///
     /// [`new()`]: LazyLock::new
     /// [`force()`]: LazyLock::force
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيل المرجع عن القيمة (ويحسبها إن لزم).
+    ///
+    /// </div>
     #[inline]
     fn deref(&self) -> &T {
         LazyLock::force(self)
@@ -460,6 +520,12 @@ impl<T: fmt::Debug, F> fmt::Debug for LazyLock<T, F> {
 impl<T, F> From<T> for LazyLock<T, F> {
     /// Constructs a `LazyLock` that starts already initialized
     /// with the provided value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LazyLock` مهيَّأ مسبقًا بالقيمة المعطاة.
+    ///
+    /// </div>
     #[inline]
     fn from(value: T) -> Self {
         LazyLock {

@@ -1,4 +1,10 @@
 //! Thread local storage
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تخزين خاص بكل thread (thread local).
+//!
+//! </div>
 
 #![unstable(feature = "thread_local_internals", issue = "none")]
 
@@ -110,6 +116,12 @@ use crate::fmt;
 /// [converted into a fiber]: https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-convertthreadtofiber
 /// [loader lock]: https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices
 /// [`with`]: LocalKey::with
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مفتاح تخزين خاص بكل thread يملك محتوياته.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "LocalKey")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct LocalKey<T: 'static> {
@@ -348,6 +360,12 @@ pub macro thread_local_process_attrs {
 /// information.
 ///
 /// [`std::thread::LocalKey`]: crate::thread::LocalKey
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرّف مفتاح تخزين جديدًا خاصًا بكل thread من النوع `std::thread::LocalKey`.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "thread_local_macro")]
@@ -362,6 +380,12 @@ macro_rules! thread_local {
 }
 
 /// An error returned by [`LocalKey::try_with`](struct.LocalKey.html#method.try_with).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `LocalKey::try_with`.
+///
+/// </div>
 #[stable(feature = "thread_local_try_with", since = "1.26.0")]
 #[non_exhaustive]
 #[derive(Clone, Copy, Eq, PartialEq)]
@@ -426,6 +450,12 @@ impl<T: 'static> LocalKey<T> {
     ///     "I am initialized",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ مرجعًا إلى القيمة في مفتاح التخزين هذا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn with<F, R>(&'static self, f: F) -> R
     where
@@ -460,6 +490,12 @@ impl<T: 'static> LocalKey<T> {
     ///     Ok(String::from("I am initialized")),
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ مرجعًا إلى القيمة في مفتاح التخزين هذا.
+    ///
+    /// </div>
     #[stable(feature = "thread_local_try_with", since = "1.26.0")]
     #[inline]
     pub fn try_with<F, R>(&'static self, f: F) -> Result<R, AccessError>
@@ -526,6 +562,12 @@ impl<T: 'static> LocalKey<Cell<T>> {
     ///
     /// assert_eq!(X.get(), 123);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يهيئ القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn set(&'static self, value: T) {
         self.initialize_with(Cell::new(value), |value, cell| {
@@ -559,6 +601,12 @@ impl<T: 'static> LocalKey<Cell<T>> {
     ///
     /// assert_eq!(X.get(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn get(&'static self) -> T
     where
@@ -589,6 +637,12 @@ impl<T: 'static> LocalKey<Cell<T>> {
     /// assert_eq!(X.take(), Some(1));
     /// assert_eq!(X.take(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة الموجودة، ويترك `Default::default()` مكانها.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn take(&'static self) -> T
     where
@@ -619,6 +673,12 @@ impl<T: 'static> LocalKey<Cell<T>> {
     /// assert_eq!(X.replace(2), 1);
     /// assert_eq!(X.replace(3), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     #[rustc_confusables("swap")]
     pub fn replace(&'static self, value: T) -> T {
@@ -647,6 +707,12 @@ impl<T: 'static> LocalKey<Cell<T>> {
     /// X.update(|x| x + 1);
     /// assert_eq!(X.get(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدّث القيمة الموجودة باستخدام دالة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_update", since = "1.99.0")]
     pub fn update(&'static self, f: impl FnOnce(T) -> T)
     where
@@ -680,6 +746,12 @@ impl<T: 'static> LocalKey<RefCell<T>> {
     ///
     /// X.with_borrow(|v| assert!(v.is_empty()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ مرجعًا إلى القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn with_borrow<F, R>(&'static self, f: F) -> R
     where
@@ -713,6 +785,12 @@ impl<T: 'static> LocalKey<RefCell<T>> {
     ///
     /// X.with_borrow(|v| assert_eq!(*v, vec![1]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ مرجعًا قابلًا للتعديل إلى القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn with_borrow_mut<F, R>(&'static self, f: F) -> R
     where
@@ -749,6 +827,12 @@ impl<T: 'static> LocalKey<RefCell<T>> {
     ///
     /// X.with_borrow(|v| assert_eq!(*v, vec![1, 2, 3]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع أو يهيئ القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn set(&'static self, value: T) {
         self.initialize_with(RefCell::new(value), |value, cell| {
@@ -790,6 +874,12 @@ impl<T: 'static> LocalKey<RefCell<T>> {
     ///
     /// X.with_borrow(|v| assert!(v.is_empty()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة الموجودة، ويترك `Default::default()` مكانها.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     pub fn take(&'static self) -> T
     where
@@ -821,6 +911,12 @@ impl<T: 'static> LocalKey<RefCell<T>> {
     ///
     /// X.with_borrow(|v| assert_eq!(*v, vec![1, 2, 3]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[stable(feature = "local_key_cell_methods", since = "1.73.0")]
     #[rustc_confusables("swap")]
     pub fn replace(&'static self, value: T) -> T {

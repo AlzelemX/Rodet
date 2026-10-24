@@ -58,6 +58,12 @@ use crate::num::NonZero;
 /// // ... and now we're done
 /// assert_eq!(None, four_fours.next());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا جديدًا يكرر عنصرًا واحدًا بلا نهاية.
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "iter_repeat"]
@@ -68,6 +74,12 @@ pub fn repeat<T: Clone>(elt: T) -> Repeat<T> {
 /// An iterator that repeats an element endlessly.
 ///
 /// This `struct` is created by the [`repeat()`] function. See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يكرر عنصرًا بلا نهاية.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Repeat<A> {
@@ -106,6 +118,12 @@ impl<A: Clone> Iterator for Repeat<A> {
     /// # Panics
     ///
     /// This method always panics because `Repeat` is infinite.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك المكرر ويتوقف بخطأ (panic).
+    ///
+    /// </div>
     #[track_caller]
     fn last(self) -> Option<A> {
         panic!("iterator is infinite");
@@ -116,6 +134,12 @@ impl<A: Clone> Iterator for Repeat<A> {
     /// # Panics
     ///
     /// This method always panics because `Repeat` is infinite.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك المكرر ويتوقف بخطأ (panic).
+    ///
+    /// </div>
     #[track_caller]
     fn count(self) -> usize {
         panic!("iterator is infinite");

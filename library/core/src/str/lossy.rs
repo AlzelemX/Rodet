@@ -41,6 +41,12 @@ impl [u8] {
     ///     assert_eq!(lit, expected);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على أجزاء UTF-8 الصالحة المتصلة في هذه الشريحة، والأجزاء غير الصالحة بينها.
+    ///
+    /// </div>
     #[stable(feature = "utf8_chunks", since = "1.79.0")]
     pub fn utf8_chunks(&self) -> Utf8Chunks<'_> {
         Utf8Chunks { source: self }
@@ -67,6 +73,12 @@ impl [u8] {
 /// // The fourth character is broken
 /// assert_eq!(b"\xF1\x80", chunk.invalid());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنصر يعطيه المكرر `Utf8Chunks`.
+///
+/// </div>
 #[stable(feature = "utf8_chunks", since = "1.79.0")]
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Utf8Chunk<'a> {
@@ -79,6 +91,12 @@ impl<'a> Utf8Chunk<'a> {
     ///
     /// This substring can be empty at the start of the string or between
     /// broken UTF-8 characters.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء التالي من النص الذي تم التحقق من صحته.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "utf8_chunks", since = "1.79.0")]
     pub fn valid(&self) -> &'a str {
@@ -99,6 +117,12 @@ impl<'a> Utf8Chunk<'a> {
     ///
     /// [`valid`]: Self::valid
     /// [`U+FFFD REPLACEMENT CHARACTER`]: char::REPLACEMENT_CHARACTER
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع التسلسل غير الصالح الذي سبب الفشل.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "utf8_chunks", since = "1.79.0")]
     pub fn invalid(&self) -> &'a [u8] {
@@ -179,6 +203,12 @@ impl fmt::Debug for Debug<'_> {
 /// ```
 ///
 /// [`String::from_utf8_lossy`]: ../../std/string/struct.String.html#method.from_utf8_lossy
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر لفك بايتات معظمها UTF-8 إلى شرائح نص (`&str`) وشرائح بايتات.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "utf8_chunks", since = "1.79.0")]
 #[derive(Clone)]

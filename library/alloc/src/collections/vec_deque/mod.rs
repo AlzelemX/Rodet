@@ -4,6 +4,12 @@
 //! container. It also has *O*(1) indexing like a vector. The contained elements
 //! are not required to be copyable, and the queue will be sendable if the
 //! contained type is sendable.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! طابور من الطرفين (deque) مبني على مخزن حلقي قابل للنمو.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -98,6 +104,12 @@ mod tests;
 /// [`extend`]: VecDeque::extend
 /// [`append`]: VecDeque::append
 /// [`make_contiguous`]: VecDeque::make_contiguous
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طابور من الطرفين (يمكن الإضافة والحذف من البداية والنهاية) مبني على مخزن حلقي قابل للنمو.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "VecDeque")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_insignificant_dtor]
@@ -169,6 +181,12 @@ unsafe impl<#[may_dangle] T, A: Allocator> Drop for VecDeque<T, A> {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for VecDeque<T> {
     /// Creates an empty deque.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     fn default() -> VecDeque<T> {
         VecDeque::new()
@@ -856,6 +874,12 @@ impl<T> VecDeque<T> {
     ///
     /// let deque: VecDeque<u32> = VecDeque::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_vec_deque_new", since = "1.68.0")]
@@ -874,6 +898,12 @@ impl<T> VecDeque<T> {
     ///
     /// let deque: VecDeque<i32> = VecDeque::with_capacity(10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا بمساحة تكفي `capacity` عنصرًا على الأقل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -899,6 +929,12 @@ impl<T> VecDeque<T> {
     /// let deque: VecDeque<u32> = VecDeque::try_with_capacity(10)?;
     /// # Ok(()) }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا بمساحة تكفي `capacity` عنصرًا على الأقل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "try_with_capacity", issue = "91913")]
     pub fn try_with_capacity(capacity: usize) -> Result<VecDeque<T>, TryReserveError> {
@@ -923,6 +959,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     ///
     /// let deque: VecDeque<i32> = VecDeque::new_in(Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub const fn new_in(alloc: A) -> VecDeque<T, A> {
@@ -941,6 +983,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     ///
     /// let deque: VecDeque<i32> = VecDeque::with_capacity_in(10, Global);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا فارغًا بمساحة تكفي `capacity` عنصرًا على الأقل.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
         VecDeque {
@@ -1004,6 +1052,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.push_back(6);
     /// assert_eq!(buf.get(1), Some(&4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر في الموضع المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get(&self, index: usize) -> Option<&T> {
         if index < self.len {
@@ -1035,6 +1089,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(buf[1], 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر في الموضع المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self, index: usize) -> Option<&mut T> {
         if index < self.len {
@@ -1069,6 +1129,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.swap(0, 2);
     /// assert_eq!(buf, [5, 4, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل العنصرين في الموضعين `i` و`j`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn swap(&mut self, i: usize, j: usize) {
         assert!(i < self.len());
@@ -1090,6 +1156,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let buf: VecDeque<i32> = VecDeque::with_capacity(10);
     /// assert!(buf.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر التي يتسع لها الطابور بدون إعادة حجز الذاكرة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn capacity(&self) -> usize {
@@ -1118,6 +1190,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// ```
     ///
     /// [`reserve`]: VecDeque::reserve
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز أقل سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الطابور. لا يفعل شيئًا إذا كانت
+    /// السعة كافية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn reserve_exact(&mut self, additional: usize) {
         let new_cap = self.len.checked_add(additional).expect("capacity overflow");
@@ -1148,6 +1227,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.reserve(10);
     /// assert!(buf.capacity() >= 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الطابور. قد يحجز أكثر لتجنب إعادة
+    /// الحجز المتكرر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "vecdeque_reserve")]
     pub fn reserve(&mut self, additional: usize) {
@@ -1202,6 +1288,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// # process_data(&[1, 2, 3]).expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة تكفي `additional` عنصرًا إضافيًا في الطابور، ويرجع خطأً بدل التوقف إذا فشل
+    /// الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
         let new_cap =
@@ -1251,6 +1344,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// # process_data(&[1, 2, 3]).expect("reserving capacity for 12 bytes should never fail");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة تكفي `additional` عنصرًا إضافيًا على الأقل في الطابور، ويرجع خطأً بدل التوقف
+    /// إذا فشل الحجز.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve", since = "1.57.0")]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         let new_cap =
@@ -1283,6 +1383,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.shrink_to_fit();
     /// assert!(buf.capacity() >= 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة الطابور قدر الإمكان.
+    ///
+    /// </div>
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn shrink_to_fit(&mut self) {
         self.shrink_to(0);
@@ -1308,6 +1414,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.shrink_to(0);
     /// assert!(buf.capacity() >= 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلص سعة الطابور مع حد أدنى لا تقل عنه.
+    ///
+    /// </div>
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
         let target_cap = min_capacity.max(self.len);
@@ -1481,6 +1593,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.truncate(1);
     /// assert_eq!(buf, [5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الطابور، فيُبقي أول `len` عنصر ويحذف الباقي.
+    ///
+    /// </div>
     #[doc(alias = "retain_front")]
     #[stable(feature = "deque_extras", since = "1.16.0")]
     pub fn truncate(&mut self, len: usize) {
@@ -1535,6 +1653,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.retain_back(1);
     /// assert_eq!(buf.as_slices(), (&[5][..], &[][..]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الطابور، فيُبقي آخر `len` عنصر ويحذف الباقي.
+    ///
+    /// </div>
     #[doc(alias = "truncate_front")]
     #[stable(feature = "vec_deque_truncate_front", since = "1.99.0")]
     pub fn retain_back(&mut self, len: usize) {
@@ -1589,6 +1713,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.truncate_to_range(2..5);
     /// assert_eq!(buf, [2, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الطابور إلى العناصر داخل `range`، ويحذف الباقي.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_retain_range", issue = "156215")]
     pub fn truncate_to_range<R>(&mut self, range: R)
     where
@@ -1687,6 +1817,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let c: Vec<&i32> = buf.iter().collect();
     /// assert_eq!(&c[..], b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا من البداية إلى النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "vecdeque_iter")]
     pub fn iter(&self) -> Iter<'_, T> {
@@ -1711,6 +1847,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let b: &[_] = &[&mut 3, &mut 1, &mut 2];
     /// assert_eq!(&buf.iter_mut().collect::<Vec<&mut i32>>()[..], b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا من البداية إلى النهاية يعطي مراجع قابلة للتعديل.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         let (a, b) = self.as_mut_slices();
@@ -1751,6 +1893,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(&expected[..front.len()], front);
     /// assert_eq!(&expected[front.len()..], back);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع زوجًا من الشرائح يحتويان محتويات الطابور بالترتيب.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn as_slices(&self) -> (&[T], &[T]) {
@@ -1800,6 +1948,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let v: Vec<_> = deque.into();
     /// assert_eq!(v, [42, 10, 24, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع زوجًا من الشرائح يحتويان محتويات الطابور بالترتيب.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn as_mut_slices(&mut self) -> (&mut [T], &mut [T]) {
@@ -1821,6 +1975,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.push_back(1);
     /// assert_eq!(deque.len(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في الطابور.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("length", "size")]
     pub fn len(&self) -> usize {
@@ -1839,6 +1999,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.push_front(1);
     /// assert!(!deque.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn is_empty(&self) -> bool {
         self.len == 0
@@ -1907,6 +2073,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let all = deque.range(..);
     /// assert_eq!(all.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يغطي المدى المحدد في الطابور.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "deque_range", since = "1.51.0")]
     pub fn range<R>(&self, range: R) -> Iter<'_, T>
@@ -1947,6 +2119,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(deque, [2, 4, 12]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا قابلًا للتعديل يغطي المدى المحدد في الطابور.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "deque_range", since = "1.51.0")]
     pub fn range_mut<R>(&mut self, range: R) -> IterMut<'_, T>
@@ -1997,6 +2175,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.drain(..);
     /// assert!(deque.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف المدى المحدد من الطابور دفعة واحدة، ويرجع كل العناصر المحذوفة كمكرر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "drain", since = "1.6.0")]
     pub fn drain<R>(&mut self, range: R) -> Drain<'_, T, A>
@@ -2089,6 +2273,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// v.splice(1..1, new);
     /// assert_eq!(v, [1, 2, 3, 4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا يستبدل المدى المحدد في الطابور بعناصر المكرر `replace_with` ويعطي العناصر
+    /// المحذوفة.
+    ///
+    /// </div>
     #[unstable(feature = "deque_extend_front", issue = "146975")]
     pub fn splice<R, I>(&mut self, range: R, replace_with: I) -> Splice<'_, I::IntoIter, A>
     where
@@ -2110,6 +2301,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.clear();
     /// assert!(deque.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ الطابور بحذف كل القيم.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[expect(clippy::manual_clear, reason = "implements clear")]
     #[inline]
@@ -2141,6 +2338,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(deque.contains(&1), true);
     /// assert_eq!(deque.contains(&10), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الطابور يحتوي عنصرًا يساوي القيمة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "vec_deque_contains", since = "1.12.0")]
     pub fn contains(&self, x: &T) -> bool
     where
@@ -2165,6 +2368,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// d.push_back(2);
     /// assert_eq!(d.front(), Some(&1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأول، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("first")]
     pub fn front(&self) -> Option<&T> {
@@ -2190,6 +2399,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(d.front(), Some(&9));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأول، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn front_mut(&mut self) -> Option<&mut T> {
         self.get_mut(0)
@@ -2210,6 +2425,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// d.push_back(2);
     /// assert_eq!(d.back(), Some(&2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا إلى العنصر الأخير، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("last")]
     pub fn back(&self) -> Option<&T> {
@@ -2235,6 +2456,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(d.back(), Some(&9));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا قابلًا للتعديل إلى العنصر الأخير، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn back_mut(&mut self) -> Option<&mut T> {
         self.get_mut(self.len.wrapping_sub(1))
@@ -2256,6 +2483,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(d.pop_front(), Some(2));
     /// assert_eq!(d.pop_front(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الأول ويرجعه، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop_front(&mut self) -> Option<T> {
         if self.is_empty() {
@@ -2286,6 +2519,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.push_back(3);
     /// assert_eq!(buf.pop_back(), Some(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الأخير ويرجعه، أو `None` إذا كان الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop_back(&mut self) -> Option<T> {
         if self.is_empty() {
@@ -2316,6 +2555,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(deque, [1, 2, 3, 4]);
     /// assert_eq!(deque.pop_front_if(pred), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الأول ويرجعه إذا أرجع الشرط `true`، أو يرجع `None` إذا أرجع الشرط false أو كان
+    /// الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "vec_deque_pop_if", since = "1.93.0")]
     pub fn pop_front_if(&mut self, predicate: impl FnOnce(&mut T) -> bool) -> Option<T> {
         let first = self.front_mut()?;
@@ -2338,6 +2584,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(deque, [0, 1, 2, 3]);
     /// assert_eq!(deque.pop_back_if(pred), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر الأخير ويرجعه إذا أرجع الشرط `true`، أو يرجع `None` إذا أرجع الشرط false أو كان
+    /// الطابور فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "vec_deque_pop_if", since = "1.93.0")]
     pub fn pop_back_if(&mut self, predicate: impl FnOnce(&mut T) -> bool) -> Option<T> {
         let last = self.back_mut()?;
@@ -2356,6 +2609,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// d.push_front(2);
     /// assert_eq!(d.front(), Some(&2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى بداية الطابور.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn push_front(&mut self, value: T) {
         let _ = self.push_front_mut(value);
@@ -2373,6 +2632,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// *x -= 1;
     /// assert_eq!(d.front(), Some(&7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى بداية الطابور، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `VecDeque::push_front` instead"]
     pub fn push_front_mut(&mut self, value: T) -> &mut T {
@@ -2398,6 +2663,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.push_back(3);
     /// assert_eq!(3, *buf.back().unwrap());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية الطابور.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("push", "put", "append")]
     pub fn push_back(&mut self, value: T) {
@@ -2416,6 +2687,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// *x += 1;
     /// assert_eq!(d.back(), Some(&10));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عنصرًا إلى نهاية الطابور، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `VecDeque::push_back` instead"]
     pub fn push_back_mut(&mut self, value: T) -> &mut T {
@@ -2458,6 +2735,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(deque1, [1, 2, 3, 4, 5, 6]);
     /// assert!(deque2.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف كل محتويات المكرر إلى بداية الطابور، مع الحفاظ على ترتيبها.
+    ///
+    /// </div>
     #[unstable(feature = "deque_extend_front", issue = "146975")]
     #[track_caller]
     pub fn prepend<I: IntoIterator<Item = T, IntoIter: DoubleEndedIterator>>(&mut self, other: I) {
@@ -2490,6 +2773,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(deque, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف كل محتويات المكرر إلى بداية الطابور، كأن `push_front` استُدعيت مرة لكل قيمة.
+    ///
+    /// </div>
     #[unstable(feature = "deque_extend_front", issue = "146975")]
     #[track_caller]
     pub fn extend_front<I: IntoIterator<Item = T>>(&mut self, iter: I) {
@@ -2526,6 +2815,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(buf.swap_remove_front(2), Some(3));
     /// assert_eq!(buf, [2, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف عنصرًا من أي مكان في الطابور ويرجعه، ويضع العنصر الأول مكانه.
+    ///
+    /// </div>
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn swap_remove_front(&mut self, index: usize) -> Option<T> {
         let length = self.len;
@@ -2561,6 +2856,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(buf.swap_remove_back(0), Some(1));
     /// assert_eq!(buf, [3, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف عنصرًا من أي مكان في الطابور ويرجعه، ويضع العنصر الأخير مكانه.
+    ///
+    /// </div>
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn swap_remove_back(&mut self, index: usize) -> Option<T> {
         let length = self.len;
@@ -2598,6 +2899,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// vec_deque.insert(4, 'e');
     /// assert_eq!(vec_deque, &['a', 'd', 'b', 'c', 'e']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا في الموضع `index` داخل الطابور، ويزيح العناصر من ذلك الموضع فما بعد نحو
+    /// النهاية.
+    ///
+    /// </div>
     #[stable(feature = "deque_extras_15", since = "1.5.0")]
     pub fn insert(&mut self, index: usize, value: T) {
         let _ = self.insert_mut(index, value);
@@ -2624,6 +2932,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// *x += 7;
     /// assert_eq!(vec_deque, &[1, 12, 2, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُدرج عنصرًا في الموضع `index` داخل الطابور، ويزيح العناصر من ذلك الموضع فما بعد نحو
+    /// النهاية، ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[stable(feature = "push_mut", since = "1.95.0")]
     #[must_use = "if you don't need a reference to the value, use `VecDeque::insert` instead"]
     pub fn insert_mut(&mut self, index: usize, value: T) -> &mut T {
@@ -2678,6 +2993,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(buf.remove(1), Some('b'));
     /// assert_eq!(buf, ['a', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف العنصر في الموضع `index` من الطابور ويرجعه، أو يرجع `None` إذا كان الموضع خارج الحدود.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("delete", "take")]
     pub fn remove(&mut self, index: usize) -> Option<T> {
@@ -2731,6 +3052,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// assert_eq!(buf, ['a']);
     /// assert_eq!(buf2, ['b', 'c']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الطابور إلى جزأين عند الموضع المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "use `.truncate()` if you don't need the other half"]
     #[stable(feature = "split_off", since = "1.4.0")]
@@ -2980,6 +3307,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// buf.resize_with(5, || { state += 1; state });
     /// assert_eq!(buf, [5, 10, 101, 102, 103]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعدّل الطابور في مكانه ليصبح `len()` مساويًا لـ `new_len`، بحذف العناصر الزائدة من النهاية
+    /// أو بإضافة عناصر ينتجها `generator`.
+    ///
+    /// </div>
     #[stable(feature = "vec_resize_with", since = "1.33.0")]
     pub fn resize_with(&mut self, new_len: usize, generator: impl FnMut() -> T) {
         let len = self.len;
@@ -3046,6 +3380,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     ///     assert_eq!(slice, &[3, 2, 1] as &[_]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعيد ترتيب ذاكرة الطابور لتصبح شريحة واحدة متصلة، ويرجعها.
+    ///
+    /// </div>
     #[stable(feature = "deque_make_contiguous", since = "1.48.0")]
     pub fn make_contiguous(&mut self) -> &mut [T] {
         if T::IS_ZST {
@@ -3229,6 +3569,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(buf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدوّر الطابور `n` موضعًا إلى اليسار.
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_rotate", since = "1.36.0")]
     pub fn rotate_left(&mut self, n: usize) {
         assert!(n <= self.len());
@@ -3274,6 +3620,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// }
     /// assert_eq!(buf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدوّر الطابور `n` موضعًا إلى اليمين.
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_rotate", since = "1.36.0")]
     pub fn rotate_right(&mut self, n: usize) {
         assert!(n <= self.len());
@@ -3362,6 +3714,13 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.insert(idx, num);
     /// assert_eq!(deque, &[0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 42, 55]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا عن عنصر في هذا الـ `VecDeque`. إذا لم يكن مرتبًا، فالنتيجة غير محددة ولا
+    /// معنى لها.
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_binary_search", since = "1.54.0")]
     #[inline]
     pub fn binary_search(&self, x: &T) -> Result<usize, usize>
@@ -3409,6 +3768,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let r = deque.binary_search_by(|x| x.cmp(&1));
     /// assert!(matches!(r, Ok(1..=4)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا في هذا الـ `VecDeque` بدالة مقارنة.
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_binary_search", since = "1.54.0")]
     pub fn binary_search_by<'a, F>(&'a self, mut f: F) -> Result<usize, usize>
     where
@@ -3466,6 +3831,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// let r = deque.binary_search_by_key(&1, |&(a, b)| b);
     /// assert!(matches!(r, Ok(1..=4)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا في هذا الـ `VecDeque` بدالة تستخرج مفتاحًا.
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_binary_search", since = "1.54.0")]
     #[inline]
     pub fn binary_search_by_key<'a, B, F>(&'a self, b: &B, mut f: F) -> Result<usize, usize>
@@ -3519,6 +3890,12 @@ impl<T, A: Allocator> VecDeque<T, A> {
     /// deque.insert(idx, num);
     /// assert_eq!(deque, &[0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 42, 55]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع نقطة التقسيم حسب الشرط المعطى (موضع أول عنصر في القسم الثاني).
+    ///
+    /// </div>
     #[stable(feature = "vecdeque_binary_search", since = "1.54.0")]
     pub fn partition_point<P>(&self, mut pred: P) -> usize
     where
@@ -3556,6 +3933,13 @@ impl<T: Clone, A: Allocator> VecDeque<T, A> {
     /// buf.resize(5, 20);
     /// assert_eq!(buf, [5, 10, 20, 20, 20]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعدّل الطابور في مكانه ليصبح `len()` مساويًا لـ new_len، بحذف العناصر الزائدة من النهاية أو
+    /// بإضافة نسخ من `value`.
+    ///
+    /// </div>
     #[stable(feature = "deque_extras", since = "1.16.0")]
     pub fn resize(&mut self, new_len: usize, value: T) {
         if new_len > self.len() {
@@ -3591,6 +3975,12 @@ impl<T: Clone, A: Allocator> VecDeque<T, A> {
     /// strings.extend_from_within(1..=2);
     /// assert_eq!(strings, ["hello", "world", "!", "world", "!"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ العناصر في المدى `src` ويضيفها إلى النهاية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "deque_extend_front", issue = "146975")]
     pub fn extend_from_within<R>(&mut self, src: R)
@@ -3633,6 +4023,12 @@ impl<T: Clone, A: Allocator> VecDeque<T, A> {
     /// strings.prepend_from_within(1..=2);
     /// assert_eq!(strings, ["world", "!", "hello", "world", "!"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ العناصر في المدى `src` ويضيفها إلى البداية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "deque_extend_front", issue = "146975")]
     pub fn prepend_from_within<R>(&mut self, src: R)
@@ -4004,6 +4400,12 @@ impl<T, A: Allocator> IntoIterator for VecDeque<T, A> {
 
     /// Consumes the deque into a front-to-back iterator yielding elements by
     /// value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الطابور ويحوّله إلى مكرر من البداية إلى النهاية يعطي العناصر بالقيمة.
+    ///
+    /// </div>
     fn into_iter(self) -> IntoIter<T, A> {
         IntoIter::new(self)
     }
@@ -4096,6 +4498,12 @@ impl<T, A: AllocatorNightly> From<Vec<T, A>> for VecDeque<T, A> {
     /// This conversion is guaranteed to run in *O*(1) time
     /// and to not re-allocate the `Vec`'s buffer or allocate
     /// any additional memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<T>` إلى `VecDeque<T>`.
+    ///
+    /// </div>
     #[inline]
     fn from(other: Vec<T, A>) -> Self {
         let (ptr, len, cap, alloc) = other.into_raw_parts_with_allocator();
@@ -4139,6 +4547,12 @@ impl<T, A: Allocator> From<VecDeque<T, A>> for Vec<T, A> {
     /// assert_eq!(vec, [8, 9, 1, 2, 3, 4]);
     /// assert_eq!(vec.as_ptr(), ptr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `VecDeque<T>` إلى `Vec<T>`.
+    ///
+    /// </div>
     fn from(mut other: VecDeque<T, A>) -> Self {
         other.make_contiguous();
 
@@ -4169,6 +4583,12 @@ impl<T, const N: usize> From<[T; N]> for VecDeque<T> {
     /// let deq2: VecDeque<_> = [1, 2, 3, 4].into();
     /// assert_eq!(deq1, deq2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `[T; N]` إلى `VecDeque<T>`.
+    ///
+    /// </div>
     fn from(arr: [T; N]) -> Self {
         let mut deq = VecDeque::with_capacity(N);
         let arr = ManuallyDrop::new(arr);

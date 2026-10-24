@@ -92,6 +92,12 @@ struct SpawnHook {
 /// ```
 ///
 /// [`Builder::no_hooks`]: crate::thread::Builder::no_hooks
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسجّل دالة تُنفَّذ لكل thread جديد يتم تشغيله.
+///
+/// </div>
 #[unstable(feature = "thread_spawn_hook", issue = "132951")]
 pub fn add_spawn_hook<F, G>(hook: F)
 where

@@ -34,6 +34,13 @@ impl<A> RangeIter<A> {
 
 /// Safety: This macro must only be used on types that are `Copy` and result in ranges
 /// which have an exact `size_hint()` where the upper bound must not be `None`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أمان: هذا الماكرو يُستخدم فقط على أنواع `Copy` تعطي مديات لها `size_hint()` دقيق وحده الأعلى ليس
+/// `None`.
+///
+/// </div>
 macro_rules! unsafe_range_trusted_random_access_impl {
     ($($t:ty)*) => ($(
         #[doc(hidden)]

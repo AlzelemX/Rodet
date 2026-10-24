@@ -9,6 +9,12 @@ use core::{fmt, mem, slice};
 /// documentation for more.
 ///
 /// [`iter_mut`]: super::VecDeque::iter_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على عناصر `VecDeque`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IterMut<'a, T: 'a> {
     i1: slice::IterMut<'a, T>,
@@ -52,6 +58,12 @@ impl<'a, T> IterMut<'a, T> {
     /// slices.1[0] = 24;
     /// assert_eq!(deque.as_slices(), (&[8, 42, 10][..], &[24, 1, 2][..]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الداخلية كزوج من الشرائح الجزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_iter_as_slices", issue = "123947")]
     pub fn into_slices(self) -> (&'a mut [T], &'a mut [T]) {
         (self.i1.into_slice(), self.i2.into_slice())
@@ -86,6 +98,12 @@ impl<'a, T> IterMut<'a, T> {
     ///
     /// assert_eq!(iter.as_slices(), (&[9, 10][..], &[0, 1][..]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الداخلية كزوج من الشرائح الجزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_iter_as_slices", issue = "123947")]
     pub fn as_slices(&self) -> (&[T], &[T]) {
         (self.i1.as_slice(), self.i2.as_slice())
@@ -122,6 +140,12 @@ impl<'a, T> IterMut<'a, T> {
     /// iter.as_mut_slices().1[0] = 24;
     /// assert_eq!(deque.as_slices(), (&[8, 42, 10][..], &[24, 1, 2][..]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الداخلية كزوج من الشرائح الجزئية من البيانات الأصلية.
+    ///
+    /// </div>
     #[unstable(feature = "vec_deque_iter_as_slices", issue = "123947")]
     pub fn as_mut_slices(&mut self) -> (&mut [T], &mut [T]) {
         (self.i1.as_mut_slice(), self.i2.as_mut_slice())
@@ -144,6 +168,12 @@ impl<T> Default for IterMut<'_, T> {
     /// let iter: vec_deque::IterMut<'_, u8> = Default::default();
     /// assert_eq!(iter.len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `vec_deque::IterMut` فارغًا.
+    ///
+    /// </div>
     fn default() -> Self {
         IterMut { i1: Default::default(), i2: Default::default() }
     }

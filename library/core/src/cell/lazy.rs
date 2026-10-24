@@ -50,6 +50,12 @@ enum State<T, F> {
 /// //   92
 /// //   92
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة تُهيَّأ عند أول وصول إليها (مناسبة للمتغيرات العامة static).
+///
+/// </div>
 #[stable(feature = "lazy_cell", since = "1.80.0")]
 pub struct LazyCell<
     #[rustc_assert_variance(invariant)] T,
@@ -72,6 +78,12 @@ impl<T, F: FnOnce() -> T> LazyCell<T, F> {
     ///
     /// assert_eq!(&*lazy, "HELLO, WORLD!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ قيمة كسولة جديدة بدالة التهيئة المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_cell", since = "1.80.0")]
     #[rustc_const_stable(feature = "lazy_cell", since = "1.80.0")]
@@ -177,6 +189,12 @@ impl<T, F: FnOnce() -> T> LazyCell<T, F> {
     /// *p = 44;
     /// assert_eq!(*lazy, 44);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجبر حساب هذه القيمة الكسولة ويرجع مرجعًا قابلًا للتعديل إلى النتيجة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     pub fn force_mut(this: &mut LazyCell<T, F>) -> &mut T {
@@ -275,6 +293,12 @@ impl<T, F> LazyCell<T, F> {
     /// *LazyCell::get_mut(&mut lazy).unwrap() = 44;
     /// assert_eq!(*lazy, 44);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة إذا كانت مهيَّأة، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     pub fn get_mut(this: &mut LazyCell<T, F>) -> Option<&mut T> {
@@ -299,6 +323,12 @@ impl<T, F> LazyCell<T, F> {
     /// let _ = LazyCell::force(&lazy);
     /// assert_eq!(LazyCell::get(&lazy), Some(&92));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة إذا كانت مهيَّأة، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_get", since = "1.94.0")]
     pub fn get(this: &LazyCell<T, F>) -> Option<&T> {

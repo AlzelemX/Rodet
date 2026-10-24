@@ -1,4 +1,10 @@
 //! Iterators for `str` methods.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مكررات دوال `str`.
+//!
+//! </div>
 
 use super::pattern::{DoubleEndedSearcher, Pattern, ReverseSearcher, Searcher};
 use super::validations::{next_code_point, next_code_point_reverse};
@@ -24,6 +30,12 @@ use crate::slice::{self, Split as SliceSplit};
 ///
 /// [`char`]: prim@char
 /// [`chars`]: str::chars
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أحرف (`char`) شريحة نص.
+///
+/// </div>
 #[derive(Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -172,6 +184,12 @@ impl<'a> Chars<'a> {
 ///
 /// [`char`]: prim@char
 /// [`char_indices`]: str::char_indices
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أحرف (`char`) شريحة نص مع مواضعها.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -276,6 +294,12 @@ impl<'a> CharIndices<'a> {
     /// assert_eq!(chars.offset(), 4);
     /// assert_eq!(chars.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع البايت للحرف التالي، أو طول النص إذا لم يتبق أحرف.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "char_indices_offset", since = "1.82.0")]
@@ -290,6 +314,12 @@ impl<'a> CharIndices<'a> {
 /// See its documentation for more.
 ///
 /// [`bytes`]: str::bytes
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على بايتات شريحة نص.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone, Debug)]
@@ -424,6 +454,12 @@ unsafe impl TrustedRandomAccessNoCoerce for Bytes<'_> {
 
 /// This macro generates a Clone impl for string pattern API
 /// wrapper types of the form X<'a, P>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الماكرو يولّد تطبيق Clone لأنواع واجهة الأنماط النصية.
+///
+/// </div>
 macro_rules! derive_pattern_clone {
     (clone $t:ident with |$s:ident| $e:expr) => {
         impl<'a, P> Clone for $t<'a, P>
@@ -476,6 +512,12 @@ macro_rules! derive_pattern_clone {
 /// so the two wrapper structs implement `Iterator`
 /// and `DoubleEndedIterator` depending on the concrete pattern type, leading
 /// to the complex impls seen above.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا الماكرو يولّد مكررين عامين يغلّفان مكررًا داخليًا يستخدم واجهة `Pattern`.
+///
+/// </div>
 macro_rules! generate_pattern_iterators {
     {
         // Forward iterator
@@ -829,6 +871,12 @@ impl<'a, P: Pattern> Split<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -852,6 +900,12 @@ impl<'a, P: Pattern> RSplit<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -893,6 +947,12 @@ impl<'a, P: Pattern> SplitTerminator<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -916,6 +976,12 @@ impl<'a, P: Pattern> RSplitTerminator<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -1020,6 +1086,12 @@ impl<'a, P: Pattern> SplitN<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -1043,6 +1115,12 @@ impl<'a, P: Pattern> RSplitN<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -1168,6 +1246,12 @@ generate_pattern_iterators! {
 /// See its documentation for more.
 ///
 /// [`lines`]: str::lines
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أسطر نص، كشرائح نص.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[derive(Clone, Debug)]
@@ -1221,6 +1305,12 @@ impl<'a> Lines<'a> {
     /// lines.by_ref().for_each(drop);
     /// assert_eq!(lines.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأسطر الباقية من النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "str_lines_remainder", issue = "77998")]
@@ -1232,6 +1322,12 @@ impl<'a> Lines<'a> {
 /// Created with the method [`lines_any`].
 ///
 /// [`lines_any`]: str::lines_any
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشأ بالدالة `lines_any`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.4.0", note = "use lines()/Lines instead now")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -1275,6 +1371,12 @@ impl FusedIterator for LinesAny<'_> {}
 /// See its documentation for more.
 ///
 /// [`split_whitespace`]: str::split_whitespace
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء النص غير الفارغة، مفصولة بأي عدد من المسافات البيضاء.
+///
+/// </div>
 #[stable(feature = "split_whitespace", since = "1.1.0")]
 #[derive(Clone, Debug)]
 pub struct SplitWhitespace<'a> {
@@ -1288,6 +1390,12 @@ pub struct SplitWhitespace<'a> {
 /// See its documentation for more.
 ///
 /// [`split_ascii_whitespace`]: str::split_ascii_whitespace
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء النص، مفصولة بأي عدد من مسافات ASCII البيضاء.
+///
+/// </div>
 #[stable(feature = "split_ascii_whitespace", since = "1.34.0")]
 #[derive(Clone, Debug)]
 pub struct SplitAsciiWhitespace<'a> {
@@ -1304,6 +1412,13 @@ pub struct SplitAsciiWhitespace<'a> {
 /// See its documentation for more.
 ///
 /// [`split_inclusive`]: str::split_inclusive
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء النص، كل جزء ينتهي بجزء يطابق الشرط. على عكس `Split`، يحتوي الجزء المطابق في
+/// نهايته.
+///
+/// </div>
 #[stable(feature = "split_inclusive", since = "1.51.0")]
 pub struct SplitInclusive<'a, P: Pattern>(pub(super) SplitInternal<'a, P>);
 
@@ -1355,6 +1470,12 @@ impl<'a> SplitWhitespace<'a> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "str_split_whitespace_remainder", issue = "77998")]
@@ -1413,6 +1534,12 @@ impl<'a> SplitAsciiWhitespace<'a> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "str_split_whitespace_remainder", issue = "77998")]
@@ -1480,6 +1607,12 @@ impl<'a, P: Pattern> SplitInclusive<'a, P> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي النص المقسوم.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_split_inclusive_remainder", issue = "77998")]
     pub fn remainder(&self) -> Option<&'a str> {
@@ -1493,6 +1626,12 @@ impl<'a, P: Pattern> SplitInclusive<'a, P> {
 /// See its documentation for more.
 ///
 /// [`encode_utf16`]: str::encode_utf16
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قيم `u16` على النص بترميز UTF-16.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "encode_utf16", since = "1.8.0")]
 pub struct EncodeUtf16<'a> {
@@ -1588,6 +1727,12 @@ impl<'a> Iterator for EncodeUtf16<'a> {
 impl FusedIterator for EncodeUtf16<'_> {}
 
 /// The return type of [`str::escape_debug`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع إرجاع `str::escape_debug`.
+///
+/// </div>
 #[stable(feature = "str_escape", since = "1.34.0")]
 #[derive(Clone, Debug)]
 pub struct EscapeDebug<'a> {
@@ -1595,6 +1740,12 @@ pub struct EscapeDebug<'a> {
 }
 
 /// The return type of [`str::escape_default`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع إرجاع `str::escape_default`.
+///
+/// </div>
 #[stable(feature = "str_escape", since = "1.34.0")]
 #[derive(Clone, Debug)]
 pub struct EscapeDefault<'a> {
@@ -1602,6 +1753,12 @@ pub struct EscapeDefault<'a> {
 }
 
 /// The return type of [`str::escape_unicode`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع إرجاع `str::escape_unicode`.
+///
+/// </div>
 #[stable(feature = "str_escape", since = "1.34.0")]
 #[derive(Clone, Debug)]
 pub struct EscapeUnicode<'a> {

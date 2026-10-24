@@ -1093,6 +1093,12 @@ impl DirEntryExt2 for fs::DirEntry {
 ///
 /// # Examples
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا (symbolic link) جديدًا.
+///
+/// </div>
 #[cfg_attr(target_family = "unix", doc = "```no_run")]
 #[cfg_attr(not(target_family = "unix"), doc = "```ignore (needs unix)")]
 /// use std::os::unix::fs;

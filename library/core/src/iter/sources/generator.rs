@@ -18,6 +18,12 @@
 /// let v: Vec<_> = it.collect();
 /// assert_eq!(v, [1, 2, 3]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ إغلاقًا جديدًا يرجع مكررًا كل خطوة فيه تتقدم بالمولّد إلى جملة `yield` التالية.
+///
+/// </div>
 #[unstable(feature = "iter_macro", issue = "142269", reason = "generators are unstable")]
 #[allow_internal_unstable(coroutines, iter_from_coroutine)]
 #[rustc_builtin_macro]

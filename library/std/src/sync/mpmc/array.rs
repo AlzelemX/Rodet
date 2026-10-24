@@ -7,6 +7,12 @@
 //! Source:
 //!   - <http://www.1024cores.net/home/lock-free-algorithms/queues/bounded-mpmc-queue>
 //!   - <https://docs.google.com/document/d/1yIAYmbvL3JxOKOjuCyon7JhW4cSv1wy5hC0ApeGMV9s/pub>
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قناة محدودة السعة مبنية على مصفوفة محجوزة مسبقًا.
+//!
+//! </div>
 
 use super::context::Context;
 use super::error::*;
@@ -47,6 +53,12 @@ impl Default for ArrayToken {
 }
 
 /// Bounded channel based on a preallocated array.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قناة محدودة السعة مبنية على مصفوفة محجوزة مسبقًا.
+///
+/// </div>
 pub(crate) struct Channel<T> {
     /// The head of the channel.
     ///
@@ -544,6 +556,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة فارغة.
+    ///
+    /// </div>
     pub(crate) fn is_empty(&self) -> bool {
         let head = self.head.load(Ordering::SeqCst);
         let tail = self.tail.load(Ordering::SeqCst);
@@ -556,6 +574,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is full.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة ممتلئة.
+    ///
+    /// </div>
     pub(crate) fn is_full(&self) -> bool {
         let tail = self.tail.load(Ordering::SeqCst);
         let head = self.head.load(Ordering::SeqCst);

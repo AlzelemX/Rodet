@@ -548,6 +548,12 @@ impl<T: Copy> Cell<T> {
     ///
     /// let five = c.get();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة الموجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_cell", since = "1.88.0")]
@@ -569,6 +575,12 @@ impl<T: Copy> Cell<T> {
     /// c.update(|x| x + 1);
     /// assert_eq!(c.get(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدّث القيمة الموجودة باستخدام دالة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cell_update", since = "1.88.0")]
     #[rustc_const_unstable(feature = "const_cell_traits", issue = "147787")]

@@ -1,4 +1,10 @@
 //! Thread-local channel context.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! سياق القناة الخاص بكل thread.
+//!
+//! </div>
 
 use super::select::Selected;
 use super::waker::current_thread_id;

@@ -6,6 +6,12 @@ use crate::{fmt, ptr};
 ///
 /// This `struct` is created by the [`Iterator::map_windows`]. See its
 /// documentation for more information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على نوافذ محوّلة من مكرر آخر.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "iter_map_windows", issue = "87155")]
 pub struct MapWindows<I: Iterator, F, const N: usize> {

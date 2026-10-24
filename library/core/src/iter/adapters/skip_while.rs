@@ -11,6 +11,12 @@ use crate::ops::Try;
 ///
 /// [`skip_while`]: Iterator::skip_while
 /// [`Iterator`]: trait.Iterator.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يرفض العناصر طالما أرجع `predicate` القيمة `true`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

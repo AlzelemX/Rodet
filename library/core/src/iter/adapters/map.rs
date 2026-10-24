@@ -55,6 +55,12 @@ use crate::ops::Try;
 ///     println!("{pair:?}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يحوّل قيم `iter` بالدالة `f`.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]

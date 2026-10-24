@@ -104,6 +104,12 @@ pub use self::{
 #[rustc_specialization_trait]
 pub unsafe trait SourceIter {
     /// A source stage in an iterator pipeline.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مرحلة مصدر في سلسلة مكررات.
+    ///
+    /// </div>
     type Source;
 
     /// Retrieve the source of an iterator pipeline.
@@ -133,6 +139,12 @@ pub unsafe trait SourceIter {
     /// * the memory that has become unused by advancing a consuming iterator
     ///
     /// [`next()`]: Iterator::next()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مصدر سلسلة مكررات.
+    ///
+    /// </div>
     unsafe fn as_inner(&mut self) -> &mut Self::Source;
 }
 

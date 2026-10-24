@@ -40,6 +40,12 @@ use crate::fmt;
 /// });
 /// assert_eq!(counter.collect::<Vec<_>>(), &[1, 2, 3, 4, 5]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا دالة `next` الخاصة به هي الإغلاق المعطى `F: FnMut() -> Option<T>`.
+///
+/// </div>
 #[inline]
 #[stable(feature = "iter_from_fn", since = "1.34.0")]
 #[rustc_diagnostic_item = "iter_from_fn"]
@@ -56,6 +62,12 @@ where
 /// See its documentation for more.
 ///
 /// [`iter::from_fn()`]: from_fn
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر كل خطوة فيه تستدعي الإغلاق المعطى `F: FnMut() -> Option<T>`.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "iter_from_fn", since = "1.34.0")]
 pub struct FromFn<F>(F);

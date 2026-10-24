@@ -1,4 +1,10 @@
 //! Integer and floating-point number formatting
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تنسيق الأعداد الصحيحة والعشرية.
+//!
+//! </div>
 
 use crate::fmt::NumBuffer;
 use crate::mem::MaybeUninit;
@@ -6,11 +12,23 @@ use crate::num::imp::fmt as numfmt;
 use crate::{fmt, str};
 
 /// Formatting of integers with a non-decimal radix.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق الأعداد الصحيحة بأساس غير عشري.
+///
+/// </div>
 macro_rules! radix_integer {
     (fmt::$Trait:ident for $Signed:ident and $Unsigned:ident, $prefix:literal, $dig_tab:literal) => {
         #[stable(feature = "rust1", since = "1.0.0")]
         impl fmt::$Trait for $Unsigned {
             /// Format unsigned integers in the radix.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق الأعداد الصحيحة بدون إشارة بالأساس المعطى.
+            ///
+            /// </div>
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 // Check macro arguments at compile time.
                 const {
@@ -53,6 +71,12 @@ macro_rules! radix_integer {
         #[stable(feature = "rust1", since = "1.0.0")]
         impl fmt::$Trait for $Signed {
             /// Format signed integers in the two’s-complement form.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق الأعداد الصحيحة بإشارة بصيغة المتمم الثنائي.
+            ///
+            /// </div>
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 fmt::$Trait::fmt(&self.cast_unsigned(), f)
             }
@@ -61,6 +85,12 @@ macro_rules! radix_integer {
 }
 
 /// Formatting of integers with a non-decimal radix.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تنسيق الأعداد الصحيحة بأساس غير عشري.
+///
+/// </div>
 macro_rules! radix_integers {
     ($Signed:ident, $Unsigned:ident) => {
         radix_integer! { fmt::Binary   for $Signed and $Unsigned, "0b", b"01" }
@@ -266,6 +296,13 @@ macro_rules! impl_Display {
             /// ```
             /// use core::fmt::NumBuffer;
             ///
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق هذا العدد كرقم عشري بإشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين النص
+            /// المُرجَع.
+            ///
+            /// </div>
             #[doc = concat!("let n = 0", stringify!($Signed), ";")]
             /// let mut buf = NumBuffer::new();
             /// assert_eq!(n.format_into(&mut buf), "0");
@@ -314,6 +351,13 @@ macro_rules! impl_Display {
             /// ```
             /// use core::fmt::NumBuffer;
             ///
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق هذا العدد كرقم عشري بدون إشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين
+            /// النص المُرجَع.
+            ///
+            /// </div>
             #[doc = concat!("let n = 0", stringify!($Unsigned), ";")]
             /// let mut buf = NumBuffer::new();
             /// assert_eq!(n.format_into(&mut buf), "0");
@@ -772,6 +816,13 @@ impl u128 {
     /// let mut buf2 = NumBuffer::new();
     /// assert_eq!(n2.format_into(&mut buf2), u128::MAX.to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسّق هذا العدد كرقم عشري بدون إشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين النص
+    /// المُرجَع.
+    ///
+    /// </div>
     #[stable(feature = "int_format_into", since = "1.98.0")]
     pub fn format_into(self, buf: &mut NumBuffer<Self>) -> &str {
         let diff = buf.buf.len() - U128_MAX_DEC_N;
@@ -808,6 +859,13 @@ impl i128 {
     /// let n2 = i128::MAX;
     /// assert_eq!(n2.format_into(&mut buf), i128::MAX.to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسّق هذا العدد كرقم عشري بإشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين النص
+    /// المُرجَع.
+    ///
+    /// </div>
     #[stable(feature = "int_format_into", since = "1.98.0")]
     pub fn format_into(self, buf: &mut NumBuffer<Self>) -> &str {
         let diff = buf.buf.len() - U128_MAX_DEC_N;

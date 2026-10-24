@@ -144,6 +144,12 @@
 //! [`raw_arg`]: crate::os::windows::process::CommandExt::raw_arg
 //!
 //! [`CreateProcessW`]: https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessw
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة للتعامل مع العمليات (تشغيل برامج أخرى).
+//!
+//! </div>
 
 #![stable(feature = "process", since = "1.0.0")]
 #![deny(unsafe_op_in_unsafe_fn)]
@@ -214,6 +220,12 @@ use crate::{fmt, format_args_nl, fs, str};
 /// ```
 ///
 /// [`wait`]: Child::wait
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تمثيل لعملية فرعية تعمل أو انتهت.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Child")]
 pub struct Child {
@@ -228,6 +240,12 @@ pub struct Child {
     ///
     /// to avoid partially moving the `child` and thus blocking yourself from calling
     /// functions on `child` while using `stdin`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقبض الكتابة إلى الإدخال القياسي للعملية الفرعية، إذا تم التقاطه.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub stdin: Option<ChildStdin>,
 
@@ -240,6 +258,12 @@ pub struct Child {
     ///
     /// to avoid partially moving the `child` and thus blocking yourself from calling
     /// functions on `child` while using `stdout`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقبض القراءة من الإخراج القياسي للعملية الفرعية، إذا تم التقاطه.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub stdout: Option<ChildStdout>,
 
@@ -252,6 +276,12 @@ pub struct Child {
     ///
     /// to avoid partially moving the `child` and thus blocking yourself from calling
     /// functions on `child` while using `stderr`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقبض القراءة من مجرى أخطاء العملية الفرعية، إذا تم التقاطه.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub stderr: Option<ChildStderr>,
 }
@@ -310,6 +340,12 @@ pub(crate) struct StdioPipes {
 ///
 /// [`stdin`]: Child::stdin
 /// [dropped]: Drop
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض للإدخال القياسي لعملية فرعية.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 pub struct ChildStdin {
     inner: imp::ChildPipe,
@@ -396,6 +432,12 @@ impl fmt::Debug for ChildStdin {
 ///
 /// [`stdout`]: Child::stdout
 /// [dropped]: Drop
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض للإخراج القياسي لعملية فرعية.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 pub struct ChildStdout {
     inner: imp::ChildPipe,
@@ -466,6 +508,12 @@ impl fmt::Debug for ChildStdout {
 ///
 /// [`stderr`]: Child::stderr
 /// [dropped]: Drop
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض لمجرى أخطاء عملية فرعية.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 pub struct ChildStderr {
     inner: imp::ChildPipe,
@@ -587,6 +635,12 @@ impl fmt::Debug for ChildStderr {
 /// // And then execute `ls` again but in the root directory.
 /// list_dir.status().expect("process should execute successfully");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة بناء عملية، تعطي تحكمًا دقيقًا في طريقة تشغيل عملية جديدة.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Command")]
 pub struct Command {
@@ -682,6 +736,12 @@ impl Command {
     ///
     /// [`arg`]: Self::arg
     /// [`args`]: Self::args
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Command` جديدًا لتشغيل البرنامج في المسار `program`، بالإعدادات الافتراضية التالية:
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn new<S: AsRef<OsStr>>(program: S) -> Command {
         Command { inner: imp::Command::new(program.as_ref()) }
@@ -745,6 +805,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف وسيطًا يُمرَّر إلى البرنامج.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn arg<S: AsRef<OsStr>>(&mut self, arg: S) -> &mut Command {
         self.inner.arg(arg.as_ref());
@@ -791,6 +857,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عدة وسائط تُمرَّر إلى البرنامج.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn args<I, S>(&mut self, args: I) -> &mut Command
     where
@@ -827,6 +899,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف أو يحدّث متغير بيئة صريحًا.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn env<K, V>(&mut self, key: K, val: V) -> &mut Command
     where
@@ -871,6 +949,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("printenv command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف أو يحدّث عدة متغيرات بيئة صريحة.
+    ///
+    /// </div>
     #[stable(feature = "command_envs", since = "1.19.0")]
     pub fn envs<I, K, V>(&mut self, vars: I) -> &mut Command
     where
@@ -911,6 +995,12 @@ impl Command {
     ///     .spawn()?;
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف متغير بيئة مضبوطًا صراحة ويمنع وراثته من العملية الأب.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn env_remove<K: AsRef<OsStr>>(&mut self, key: K) -> &mut Command {
         self.inner.env_mut().remove(key.as_ref());
@@ -943,6 +1033,12 @@ impl Command {
     ///     .spawn()?;
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف كل متغيرات البيئة المضبوطة صراحة ويمنع وراثة أي متغيرات من العملية الأب.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn env_clear(&mut self) -> &mut Command {
         self.inner.env_mut().clear();
@@ -971,6 +1067,12 @@ impl Command {
     /// ```
     ///
     /// [`canonicalize`]: crate::fs::canonicalize
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مجلد العمل للعملية الفرعية.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn current_dir<P: AsRef<Path>>(&mut self, dir: P) -> &mut Command {
         self.inner.cwd(dir.as_ref().as_ref());
@@ -998,6 +1100,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إعداد مقبض الإدخال القياسي (stdin) للعملية الفرعية.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn stdin<T: Into<Stdio>>(&mut self, cfg: T) -> &mut Command {
         self.inner.stdin(cfg.into().0);
@@ -1025,6 +1133,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إعداد مقبض الإخراج القياسي (stdout) للعملية الفرعية.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn stdout<T: Into<Stdio>>(&mut self, cfg: T) -> &mut Command {
         self.inner.stdout(cfg.into().0);
@@ -1052,6 +1166,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إعداد مقبض مجرى الأخطاء (stderr) للعملية الفرعية.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn stderr<T: Into<Stdio>>(&mut self, cfg: T) -> &mut Command {
         self.inner.stderr(cfg.into().0);
@@ -1091,6 +1211,12 @@ impl Command {
     ///     .spawn()
     ///     .expect("ls command should start");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل الأمر كعملية فرعية، ويرجع مقبضًا لها (بدون انتظار).
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn spawn(&mut self) -> io::Result<Child> {
         self.inner.spawn(imp::Stdio::Inherit, true).map(Child::from_inner)
@@ -1134,6 +1260,12 @@ impl Command {
     /// assert!(output.status.success());
     /// # io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل الأمر كعملية فرعية، وينتظر انتهاءها ويجمع كل مخرجاتها.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn output(&mut self) -> io::Result<Output> {
         let (status, stdout, stderr) = imp::output(&mut self.inner)?;
@@ -1172,6 +1304,12 @@ impl Command {
     ///
     /// assert!(status.success());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل الأمر كعملية فرعية، وينتظر انتهاءها ويرجع حالة الخروج.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn status(&mut self) -> io::Result<ExitStatus> {
         self.inner
@@ -1190,6 +1328,12 @@ impl Command {
     /// let cmd = Command::new("echo");
     /// assert_eq!(cmd.get_program(), "echo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مسار البرنامج المعطى لـ `Command::new`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "command_access", since = "1.57.0")]
     pub fn get_program(&self) -> &OsStr {
@@ -1213,6 +1357,12 @@ impl Command {
     /// let args: Vec<&OsStr> = cmd.get_args().collect();
     /// assert_eq!(args, &["first", "second"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الوسائط التي ستُمرَّر إلى البرنامج.
+    ///
+    /// </div>
     #[stable(feature = "command_access", since = "1.57.0")]
     pub fn get_args(&self) -> CommandArgs<'_> {
         CommandArgs { inner: self.inner.get_args() }
@@ -1249,6 +1399,12 @@ impl Command {
     ///     (OsStr::new("TZ"), None)
     /// ]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على متغيرات البيئة المضبوطة صراحة للعملية الفرعية.
+    ///
+    /// </div>
     #[stable(feature = "command_access", since = "1.57.0")]
     pub fn get_envs(&self) -> CommandEnvs<'_> {
         CommandEnvs { iter: self.inner.get_envs() }
@@ -1285,6 +1441,12 @@ impl Command {
     /// assert_eq!(resolved.get(OsStr::new("TZ")), Some(&OsString::from("UTC")));
     /// assert_eq!(resolved.get(OsStr::new("EDITOR")), Some(&OsString::from("vim")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على متغيرات البيئة التي ستكون مضبوطة عند تشغيل العملية.
+    ///
+    /// </div>
     #[unstable(feature = "command_resolved_envs", issue = "149070")]
     pub fn get_resolved_envs(&self) -> CommandResolvedEnvs {
         self.inner.get_resolved_envs()
@@ -1305,6 +1467,12 @@ impl Command {
     /// cmd.current_dir("/bin");
     /// assert_eq!(cmd.get_current_dir(), Some(Path::new("/bin")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مجلد العمل للعملية الفرعية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "command_access", since = "1.57.0")]
     pub fn get_current_dir(&self) -> Option<&Path> {
@@ -1329,6 +1497,12 @@ impl Command {
     /// cmd.env_clear();
     /// assert_eq!(cmd.get_env_clear(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل ستُفرَّغ البيئة للعملية الفرعية.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "command_resolved_envs", issue = "149070")]
     pub fn get_env_clear(&self) -> bool {
@@ -1350,6 +1524,12 @@ impl fmt::Debug for Command {
     /// Note that the debug implementation is platform-specific.
     ///
     /// [the alternate syntax]: fmt#sign0
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسّق البرنامج ووسائطه للعرض. البيانات التي ليست UTF-8 تُستبدل بحرف الاستبدال.
+    ///
+    /// </div>
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         self.inner.fmt(f)
     }
@@ -1373,6 +1553,12 @@ impl AsInnerMut<imp::Command> for Command {
 ///
 /// This struct is created by [`Command::get_args`]. See its documentation for
 /// more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على وسائط الأمر.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "command_access", since = "1.57.0")]
 #[derive(Debug)]
@@ -1412,6 +1598,12 @@ const _: () = assert_sync::<CommandArgs<'static>>();
 /// This struct is created by
 /// [`Command::get_envs`][crate::process::Command::get_envs]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على متغيرات بيئة الأمر.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "command_access", since = "1.57.0")]
 pub struct CommandEnvs<'a> {
@@ -1460,16 +1652,40 @@ pub use imp::CommandResolvedEnvs;
 ///
 /// [`output`]: Command::output
 /// [`wait_with_output`]: Child::wait_with_output
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مخرجات عملية انتهت.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone)]
 #[stable(feature = "process", since = "1.0.0")]
 pub struct Output {
     /// The status (exit code) of the process.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حالة (رمز خروج) العملية.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub status: ExitStatus,
     /// The data that the process wrote to stdout.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// البيانات التي كتبتها العملية في stdout.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub stdout: Vec<u8>,
     /// The data that the process wrote to stderr.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// البيانات التي كتبتها العملية في stderr.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub stderr: Vec<u8>,
 }
@@ -1502,6 +1718,12 @@ impl Output {
     /// assert!(Command::new("false").output().unwrap().exit_ok().is_err());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع خطأً إذا كانت حالة الخروج غير صفرية.
+    ///
+    /// </div>
     #[unstable(feature = "exit_status_error", issue = "84908")]
     pub fn exit_ok(self) -> Result<Self, ExitStatusError> {
         self.status.exit_ok()?;
@@ -1540,6 +1762,13 @@ impl fmt::Debug for Output {
 /// [`stdin`]: Command::stdin
 /// [`stdout`]: Command::stdout
 /// [`stderr`]: Command::stderr
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد ما يُفعل بمجرى إدخال/إخراج قياسي للعملية الفرعية عند تمريره إلى `stdin` و`stdout` و`stderr`
+/// في `Command`.
+///
+/// </div>
 #[stable(feature = "process", since = "1.0.0")]
 pub struct Stdio(imp::Stdio);
 
@@ -1590,6 +1819,12 @@ impl Stdio {
     /// its entire stdin before writing more than a pipe buffer's worth of output.
     /// The size of a pipe buffer varies on different targets.
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُنشأ أنبوب جديد يربط العملية الأب بالفرعية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process", since = "1.0.0")]
     pub fn piped() -> Stdio {
@@ -1630,6 +1865,12 @@ impl Stdio {
     /// io::stdout().write_all(&output.stdout)?;
     /// # io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العملية الفرعية ترث المجرى المقابل من العملية الأب.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process", since = "1.0.0")]
     pub fn inherit() -> Stdio {
@@ -1670,6 +1911,12 @@ impl Stdio {
     /// assert_eq!(String::from_utf8_lossy(&output.stdout), "");
     /// // Ignores any piped-in input
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُتجاهل هذا المجرى. مثل توصيله بـ `/dev/null`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process", since = "1.0.0")]
     pub fn null() -> Stdio {
@@ -1687,6 +1934,12 @@ impl Stdio {
     /// let io = Stdio::piped();
     /// assert_eq!(io.makes_pipe(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا يتطلب أن ينشئ `Command` أنبوبًا جديدًا.
+    ///
+    /// </div>
     #[unstable(feature = "stdio_makes_pipe", issue = "98288")]
     pub fn makes_pipe(&self) -> bool {
         matches!(self.0, imp::Stdio::MakePipe)
@@ -1730,6 +1983,12 @@ impl From<ChildStdin> for Stdio {
     ///
     /// // "!dlrow ,olleH" echoed to console
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ChildStdin` إلى `Stdio`.
+    ///
+    /// </div>
     fn from(child: ChildStdin) -> Stdio {
         Stdio::from_inner(child.into_inner().into())
     }
@@ -1759,6 +2018,12 @@ impl From<ChildStdout> for Stdio {
     ///
     /// assert_eq!(reverse.stdout, b"!dlrow ,olleH\n");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ChildStdout` إلى `Stdio`.
+    ///
+    /// </div>
     fn from(child: ChildStdout) -> Stdio {
         Stdio::from_inner(child.into_inner().into())
     }
@@ -1790,6 +2055,12 @@ impl From<ChildStderr> for Stdio {
     ///     "rev: cannot open non_existing_file.txt: No such file or directory\n"
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ChildStderr` إلى `Stdio`.
+    ///
+    /// </div>
     fn from(child: ChildStderr) -> Stdio {
         Stdio::from_inner(child.into_inner().into())
     }
@@ -1817,6 +2088,12 @@ impl From<fs::File> for Stdio {
     /// assert_eq!(reverse.stdout, b"!dlrow ,olleH");
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `File` إلى `Stdio`.
+    ///
+    /// </div>
     fn from(file: fs::File) -> Stdio {
         Stdio::from_inner(file.into_inner().into())
     }
@@ -1835,6 +2112,12 @@ impl From<io::Stdout> for Stdio {
     ///
     /// # fn test() -> Result<(), Box<dyn std::error::Error>> {
     /// let output = Command::new("whoami")
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوجّه stdout/stderr الأمر إلى stdout الخاص بنا.
+    ///
+    /// </div>
     // "whoami" is a command which exists on both Unix and Windows,
     // and which succeeds, producing some stdout output but no stderr.
     ///     .stdout(io::stdout())
@@ -1877,6 +2160,12 @@ impl From<io::Stderr> for Stdio {
     /// #     test().unwrap();
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوجّه stdout/stderr الأمر إلى stderr الخاص بنا.
+    ///
+    /// </div>
     fn from(inherit: io::Stderr) -> Stdio {
         Stdio::from_inner(inherit.into())
     }
@@ -1920,6 +2209,12 @@ impl From<io::PipeReader> for Stdio {
 ///
 /// [`status`]: Command::status
 /// [`wait`]: Child::wait
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصف نتيجة عملية بعد انتهائها.
+///
+/// </div>
 //
 // We speak slightly loosely (here and in various other places in the stdlib docs) about `exit`
 // vs `_exit`.  Naming of Unix system calls is not standardised across Unices, so terminology is a
@@ -1930,6 +2225,12 @@ impl From<io::PipeReader> for Stdio {
 pub struct ExitStatus(imp::ExitStatus);
 
 /// The default value is one which indicates successful completion.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// القيمة الافتراضية تعني انتهاءً ناجحًا.
+///
+/// </div>
 #[stable(feature = "process_exitstatus_default", since = "1.73.0")]
 impl Default for ExitStatus {
     fn default() -> Self {
@@ -1957,6 +2258,12 @@ impl ExitStatus {
     /// status.exit_ok().expect_err("/dev/nonexistent could be listed!");
     /// # } // cfg!(unix)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل كان الانتهاء ناجحًا؟ يرجع `Result`.
+    ///
+    /// </div>
     #[unstable(feature = "exit_status_error", issue = "84908")]
     pub fn exit_ok(&self) -> Result<(), ExitStatusError> {
         self.0.exit_ok().map_err(ExitStatusError)
@@ -1981,6 +2288,13 @@ impl ExitStatus {
     ///     println!("failed to create 'projects/' directory: {status}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل كان الانتهاء ناجحًا؟ الانتهاء بإشارة (signal) لا يُعتبر نجاحًا، والنجاح يعني رمز خروج
+    /// صفر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process", since = "1.0.0")]
     pub fn success(&self) -> bool {
@@ -2013,6 +2327,12 @@ impl ExitStatus {
     ///     None => println!("Process terminated by signal")
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رمز خروج العملية، إن وُجد.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process", since = "1.0.0")]
     pub fn code(&self) -> Option<i32> {
@@ -2060,6 +2380,12 @@ impl fmt::Display for ExitStatus {
 /// run("false").unwrap_err();
 /// # } // cfg!(unix)
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصف نتيجة عملية بعد فشلها.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 #[unstable(feature = "exit_status_error", issue = "84908")]
 // The definition of imp::ExitStatusError should ideally be such that
@@ -2099,6 +2425,12 @@ impl ExitStatusError {
     /// assert_eq!(bad.code(), Some(1));
     /// # } // #[cfg(unix)]
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي رمز الخروج من `ExitStatusError`، إن وُجد.
+    ///
+    /// </div>
     #[must_use]
     pub fn code(&self) -> Option<i32> {
         self.code_nonzero().map(Into::into)
@@ -2125,12 +2457,24 @@ impl ExitStatusError {
     /// assert_eq!(bad.code_nonzero().unwrap(), NonZero::new(1).unwrap());
     /// # } // cfg!(unix)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي رمز الخروج من `ExitStatusError` كـ `NonZero`، إن وُجد.
+    ///
+    /// </div>
     #[must_use]
     pub fn code_nonzero(&self) -> Option<NonZero<i32>> {
         self.0.code()
     }
 
     /// Converts an `ExitStatusError` (back) to an `ExitStatus`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ExitStatusError` (مرة أخرى) إلى `ExitStatus`.
+    ///
+    /// </div>
     #[must_use]
     pub fn into_status(&self) -> ExitStatus {
         ExitStatus(self.0.into())
@@ -2204,6 +2548,13 @@ impl crate::error::Error for ExitStatusError {}
 ///     ExitCode::SUCCESS
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يمثل رمز الحالة الذي يمكن أن ترجعه العملية الحالية لأبيها عند انتهائها طبيعيًا (مثلًا من
+/// `main`).
+///
+/// </div>
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[stable(feature = "process_exitcode", since = "1.61.0")]
 #[must_use]
@@ -2216,6 +2567,12 @@ impl ExitCode {
     /// Note that a `()`-returning `main` implicitly results in a successful
     /// termination, so there's no need to return this from `main` unless
     /// you're also returning other possible codes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// رمز `ExitCode` القياسي للانتهاء الناجح على هذا النظام.
+    ///
+    /// </div>
     #[stable(feature = "process_exitcode", since = "1.61.0")]
     pub const SUCCESS: ExitCode = ExitCode(imp::ExitCode::SUCCESS);
 
@@ -2224,6 +2581,12 @@ impl ExitCode {
     /// If you're only returning this and `SUCCESS` from `main`, consider
     /// instead returning `Err(_)` and `Ok(())` respectively, which will
     /// return the same codes (but will also `eprintln!` the error).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// رمز `ExitCode` القياسي للانتهاء الفاشل على هذا النظام.
+    ///
+    /// </div>
     #[stable(feature = "process_exitcode", since = "1.61.0")]
     pub const FAILURE: ExitCode = ExitCode(imp::ExitCode::FAILURE);
 
@@ -2265,6 +2628,12 @@ impl ExitCode {
     ///     code.exit_process()
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي العملية الحالية برمز `ExitCode` المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "exitcode_exit_method", issue = "97100")]
     pub fn exit_process(self) -> ! {
         exit(self.to_i32())
@@ -2292,6 +2661,12 @@ impl ExitCode {
 }
 
 /// The default value is [`ExitCode::SUCCESS`]
+///
+/// <div lang="ar" dir="rtl">
+///
+/// القيمة الافتراضية هي `ExitCode::SUCCESS`.
+///
+/// </div>
 #[stable(feature = "process_exitcode_default", since = "1.75.0")]
 impl Default for ExitCode {
     fn default() -> Self {
@@ -2302,6 +2677,12 @@ impl Default for ExitCode {
 #[stable(feature = "process_exitcode", since = "1.61.0")]
 impl From<u8> for ExitCode {
     /// Constructs an `ExitCode` from an arbitrary u8 value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `ExitCode` من أي قيمة u8.
+    ///
+    /// </div>
     fn from(code: u8) -> Self {
         ExitCode(imp::ExitCode::from(code))
     }
@@ -2343,6 +2724,12 @@ impl Child {
     ///
     /// [`ErrorKind`]: io::ErrorKind
     /// [`InvalidInput`]: io::ErrorKind::InvalidInput
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجبر العملية الفرعية على الخروج. إذا كانت قد خرجت يرجع `Ok(())`.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "child_kill")]
     pub fn kill(&mut self) -> io::Result<()> {
@@ -2363,6 +2750,12 @@ impl Child {
     ///     println!("ls command didn't start");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم العملية (PID) الذي أعطاه نظام التشغيل لهذه العملية الفرعية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "process_id", since = "1.3.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "child_id")]
@@ -2392,6 +2785,12 @@ impl Child {
     ///     println!("ls command didn't start");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر حتى تخرج العملية الفرعية تمامًا، ويرجع حالة خروجها.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn wait(&mut self) -> io::Result<ExitStatus> {
         drop(self.stdin.take());
@@ -2431,6 +2830,12 @@ impl Child {
     /// }
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول جمع حالة خروج العملية الفرعية إذا كانت قد خرجت (بدون انتظار).
+    ///
+    /// </div>
     #[stable(feature = "process_try_wait", since = "1.18.0")]
     pub fn try_wait(&mut self) -> io::Result<Option<ExitStatus>> {
         Ok(self.handle.try_wait()?.map(ExitStatus))
@@ -2468,6 +2873,12 @@ impl Child {
     /// assert!(output.status.success());
     /// ```
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر خروج العملية الفرعية ويجمع كل ما بقي من مخرجات stdout/stderr معًا، ويرجع `Output`.
+    ///
+    /// </div>
     #[stable(feature = "process", since = "1.0.0")]
     pub fn wait_with_output(mut self) -> io::Result<Output> {
         drop(self.stdin.take());
@@ -2566,6 +2977,12 @@ impl Child {
 /// - [GNU C library Bugzilla](https://sourceware.org/bugzilla/show_bug.cgi?id=31997)
 ///
 /// [C-exit]: https://en.cppreference.com/w/c/program/exit
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينهي العملية الحالية برمز الخروج المحدد.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "process_exit")]
 pub fn exit(code: i32) -> ! {
@@ -2631,6 +3048,12 @@ pub fn exit(code: i32) -> ! {
 /// ```
 ///
 /// [panic hook]: crate::panic::set_hook
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينهي العملية بشكل غير طبيعي (مفاجئ).
+///
+/// </div>
 #[stable(feature = "process_abort", since = "1.17.0")]
 #[cold]
 #[cfg_attr(not(test), rustc_diagnostic_item = "process_abort")]
@@ -2652,6 +3075,12 @@ pub use core::process::abort_immediate;
 ///
 /// println!("My pid is {}", process::id());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع رقم العملية (PID) الذي أعطاه نظام التشغيل لهذه العملية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "getpid", since = "1.26.0")]
 pub fn id() -> u32 {
@@ -2671,6 +3100,12 @@ pub fn id() -> u32 {
 /// of the `main` function, this trait is likely to be available only on
 /// standard library's runtime for convenience. Other runtimes are not required
 /// to provide similar functionality.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لدعم أنواع إرجاع مختلفة للدالة `main`.
+///
+/// </div>
 #[cfg_attr(not(any(test, doctest)), lang = "termination")]
 #[stable(feature = "termination_trait_lib", since = "1.61.0")]
 #[rustc_on_unimplemented(on(
@@ -2681,6 +3116,12 @@ pub fn id() -> u32 {
 pub trait Termination {
     /// Is called to get the representation of the value as status code.
     /// This status code is returned to the operating system.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُستدعى للحصول على رمز الحالة الذي يمثل القيمة، ويُرجع هذا الرمز لنظام التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "termination_trait_lib", since = "1.61.0")]
     fn report(self) -> ExitCode;
 }

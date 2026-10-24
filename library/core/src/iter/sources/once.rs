@@ -52,6 +52,12 @@ use crate::iter::{FusedIterator, TrustedLen};
 /// }
 /// # std::io::Result::Ok(())
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا يعطي عنصرًا واحدًا مرة واحدة بالضبط.
+///
+/// </div>
 #[stable(feature = "iter_once", since = "1.2.0")]
 pub fn once<T>(value: T) -> Once<T> {
     Once { inner: Some(value).into_iter() }
@@ -60,6 +66,12 @@ pub fn once<T>(value: T) -> Once<T> {
 /// An iterator that yields an element exactly once.
 ///
 /// This `struct` is created by the [`once()`] function. See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي عنصرًا واحدًا مرة واحدة بالضبط.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "iter_once", since = "1.2.0")]
 #[rustc_diagnostic_item = "IterOnce"]
