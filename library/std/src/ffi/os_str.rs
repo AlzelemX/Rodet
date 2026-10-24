@@ -856,7 +856,10 @@ impl Clone for OsString {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// ينسخ محتويات `source` إلى `self`.
+    /// ينسخ محتوى `source` إلى `self`.
+    ///
+    /// هذه الدالة مفضلة على مجرد إسناد `source.clone()` إلى `self`، لأنها تتجنب إعادة الحجز إن
+    /// أمكن.
     ///
     /// </div>
     #[inline]
