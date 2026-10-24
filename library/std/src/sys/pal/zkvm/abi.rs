@@ -1,4 +1,10 @@
 //! ABI definitions for symbols exported by risc0-zkvm-platform.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات ABI للرموز التي يصدّرها risc0-zkvm-platform.
+//!
+//! </div>
 
 // Included here so we don't have to depend on risc0-zkvm-platform.
 //
@@ -11,6 +17,12 @@
 pub const DIGEST_WORDS: usize = 8;
 
 /// Standard IO file descriptors for use with sys_read and sys_write.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصفات ملفات الإدخال والإخراج القياسية لاستخدامها مع `sys_read` و`sys_write`.
+///
+/// </div>
 pub mod fileno {
     pub const STDIN: u32 = 0;
     pub const STDOUT: u32 = 1;

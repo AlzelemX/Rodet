@@ -56,6 +56,12 @@
 //!
 //! Besides, we'd need to implement the version lookup via PList to support older versions anyhow,
 //! so we might as well use that everywhere (since it can also be optimized more after inlining).
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهة ABI لفحص الإصدار وقت التشغيل للمترجمات الأخرى.
+//!
+//! </div>
 
 #![allow(non_snake_case)]
 

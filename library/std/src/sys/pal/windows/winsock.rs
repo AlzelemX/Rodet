@@ -7,6 +7,12 @@ static WSA_INIT: Once = Once::new();
 
 /// Checks whether the Windows socket interface has been started already, and
 /// if not, starts it.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل بدأت واجهة مقابس Windows، وإن لم تبدأ يشغّلها.
+///
+/// </div>
 #[inline]
 pub fn startup() {
     // Make sure to only call `WSAStartup` once, because it's not thread-safe
@@ -33,6 +39,12 @@ pub fn cleanup() {
 }
 
 /// Returns the last error from the Windows socket interface.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع آخر خطأ من واجهة مقابس Windows.
+///
+/// </div>
 pub fn last_error() -> io::Error {
     io::Error::from_raw_os_error(unsafe { c::WSAGetLastError() })
 }
@@ -55,16 +67,34 @@ impl_is_minus_one! { i8 i16 i32 i64 isize }
 /// Checks if the signed integer is the Windows constant `SOCKET_ERROR` (-1)
 /// and if so, returns the last error from the Windows socket interface. This
 /// function must be called before another call to the socket API is made.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل العدد يساوي `SOCKET_ERROR` (-1) في Windows، وإن كان كذلك يرجع آخر خطأ.
+///
+/// </div>
 pub fn cvt<T: IsMinusOne>(t: T) -> io::Result<T> {
     if t.is_minus_one() { Err(last_error()) } else { Ok(t) }
 }
 
 /// A variant of `cvt` for `getaddrinfo` which return 0 for a success.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة من `cvt` لـ `getaddrinfo` التي ترجع 0 عند النجاح.
+///
+/// </div>
 pub fn cvt_gai(err: c_int) -> io::Result<()> {
     if err == 0 { Ok(()) } else { Err(last_error()) }
 }
 
 /// Just to provide the same interface as sys/pal/unix/net.rs
+///
+/// <div lang="ar" dir="rtl">
+///
+/// فقط لتوفير نفس الواجهة الموجودة في sys/pal/unix/net.rs.
+///
+/// </div>
 pub fn cvt_r<T, F>(mut f: F) -> io::Result<T>
 where
     T: IsMinusOne,

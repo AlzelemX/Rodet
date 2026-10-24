@@ -78,6 +78,12 @@ pub(crate) struct WaitableTimer {
 
 impl WaitableTimer {
     /// Creates a high-resolution timer. Will fail before Windows 10, version 1803.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤقتًا عالي الدقة؛ يفشل قبل Windows 10 إصدار 1803.
+    ///
+    /// </div>
     pub fn high_resolution() -> Result<Self, ()> {
         let handle = unsafe {
             c::CreateWaitableTimerExW(

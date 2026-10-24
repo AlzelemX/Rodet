@@ -8,6 +8,12 @@
 //! each TLS key or variable that we know about.
 //!
 //! [1]: https://devblogs.microsoft.com/oldnewthing/20191011-00/?p=102989
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم مُدمِّرات TLS في Windows.
+//!
+//! </div>
 
 use core::ffi::c_void;
 use core::sync::atomic::{AtomicBool, AtomicU32, Ordering, fence};
@@ -107,6 +113,12 @@ impl Drop for EnableGuard {
 }
 
 /// Set up the current thread to invoke `cleanup` when it finishes.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجهّز الخيط الحالي لاستدعاء `cleanup` عند انتهائه.
+///
+/// </div>
 pub fn enable() {
     let registered = if cfg!(target_thread_local) {
         #[thread_local]

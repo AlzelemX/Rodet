@@ -1,6 +1,12 @@
 //! Emulated wait status for non-Unix `#[cfg(unix)]` platforms
 //!
 //! Separate module to facilitate testing against a real Unix implementation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! حالة انتظار محاكاة لمنصات `#[cfg(unix)]` التي ليست يونكس.
+//!
+//! </div>
 
 use super::ExitStatusError;
 use crate::ffi::c_int;
@@ -14,12 +20,24 @@ use crate::num::NonZero;
 ///
 /// These platforms aren't Unix, but are simply pretending to be for porting convenience.
 /// So, we provide a faithful pretence here.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حالة انتظار محاكاة يستخدمها `unsupported.rs`.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug, Default)]
 pub struct ExitStatus {
     wait_status: c_int,
 }
 
 /// Converts a raw `c_int` to a type-safe `ExitStatus` by wrapping it
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `c_int` خامًا إلى `ExitStatus` آمن النوع بتغليفه.
+///
+/// </div>
 impl From<c_int> for ExitStatus {
     fn from(wait_status: c_int) -> ExitStatus {
         ExitStatus { wait_status }

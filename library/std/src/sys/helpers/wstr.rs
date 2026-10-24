@@ -1,4 +1,10 @@
 //! This module contains constructs to work with 16-bit characters (UCS-2 or UTF-16)
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! هذه الوحدة فيها أدوات للتعامل مع حروف 16 بت (UCS-2 أو UTF-16).
+//!
+//! </div>
 
 use crate::marker::PhantomData;
 use crate::num::NonZero;
@@ -6,6 +12,12 @@ use crate::ptr::NonNull;
 
 /// A safe iterator over a LPWSTR
 /// (aka a pointer to a series of UTF-16 code units terminated by a NULL).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر آمن على LPWSTR (مؤشر إلى وحدات UTF-16 تنتهي بـ NULL).
+///
+/// </div>
 pub struct WStrUnits<'a> {
     // The pointer must never be null...
     lpwstr: NonNull<u16>,
@@ -18,6 +30,12 @@ impl WStrUnits<'_> {
     ///
     /// SAFETY: `lpwstr` must point to a null-terminated wide string that lives
     /// at least as long as the lifetime of this struct.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ المكرر؛ يرجع `None` إذا كان `lpwstr` فارغًا.
+    ///
+    /// </div>
     pub unsafe fn new(lpwstr: *const u16) -> Option<Self> {
         Some(Self { lpwstr: NonNull::new(lpwstr as _)?, lifetime: PhantomData })
     }
@@ -30,6 +48,12 @@ impl WStrUnits<'_> {
 
     /// Advance the iterator while `predicate` returns true.
     /// Returns the number of items it advanced by.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم المكرر ما دام `predicate` صحيحًا، ويرجع عدد العناصر التي تقدم بها.
+    ///
+    /// </div>
     pub fn advance_while<P: FnMut(NonZero<u16>) -> bool>(&mut self, mut predicate: P) -> usize {
         let mut counter = 0;
         while let Some(w) = self.peek() {

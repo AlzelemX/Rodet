@@ -2,6 +2,12 @@
 //! <https://docs.microsoft.com/en-us/archive/blogs/larryosterman/the-windows-command-line-is-just-a-string>
 //!
 //! This module implements the parsing necessary to turn that string into a list of arguments.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! سطر أوامر Windows مجرد نص واحد؛ هذه الوحدة تحلله إلى معاملات.
+//!
+//! </div>
 
 #[cfg(test)]
 mod tests;

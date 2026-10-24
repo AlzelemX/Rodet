@@ -1,4 +1,10 @@
 //! POSIX conditional variable implementation based on user-space wait queues.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق متغير شرطي POSIX مبني على طوابير انتظار في مساحة المستخدم.
+//!
+//! </div>
 
 use crate::mem::replace;
 use crate::ptr::NonNull;
@@ -234,6 +240,12 @@ mod waiter_queue {
 
         /// Given a `Waiter` that was previously inserted to `self`, remove
         /// it from `self` if it's still there.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحذف `Waiter` أُضيف سابقًا إلى `self` إذا كان لا يزال موجودًا.
+        ///
+        /// </div>
         #[inline]
         pub unsafe fn remove(&mut self, mut waiter_ptr: NonNull<Waiter>) -> bool {
             unsafe {
@@ -270,6 +282,12 @@ mod waiter_queue {
 
         /// Given a `Waiter` that was previously inserted to `self`, return a
         /// flag indicating whether it's still in `self`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع هل `Waiter` الذي أُضيف سابقًا لا يزال في `self`.
+        ///
+        /// </div>
         #[inline]
         pub unsafe fn is_queued(&self, waiter: NonNull<Waiter>) -> bool {
             unsafe { waiter.as_ref().task != 0 }

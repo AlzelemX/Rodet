@@ -15,6 +15,12 @@
 //! symbol, but that caused Debian to detect an unnecessarily strict versioned
 //! dependency on libc6 (#23628) because it is GLIBC_PRIVATE. We now use `dlsym`
 //! for a runtime lookup of that symbol to avoid the ELF versioned dependency.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم "الربط الضعيف" للرموز على يونكس.
+//!
+//! </div>
 
 #![forbid(unsafe_op_in_unsafe_fn)]
 

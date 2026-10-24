@@ -1,5 +1,11 @@
 //! On some targets like wasm there's no threads, so no need to generate
 //! thread locals and we can instead just use plain statics!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! على منصات مثل wasm لا توجد خيوط، فنستخدم متغيرات static عادية.
+//!
+//! </div>
 
 use crate::cell::{Cell, UnsafeCell};
 use crate::mem::MaybeUninit;
@@ -92,6 +98,12 @@ impl<T> LazyStorage<T> {
     ///
     /// The resulting pointer may not be used after reentrant inialialization
     /// has occurred.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى قيمة TLS، وقد يهيئها بالمعاملات المعطاة.
+    ///
+    /// </div>
     #[inline]
     pub fn get(&'static self, i: Option<&mut Option<T>>, f: impl FnOnce() -> T) -> *const T {
         if self.state.get() == State::Alive {

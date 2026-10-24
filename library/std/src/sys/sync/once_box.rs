@@ -2,6 +2,12 @@
 //!
 //! This is used to implement synchronization primitives that need allocation,
 //! like the pthread versions.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! بديل لـ `OnceLock<Box<T>>` يُهيأ بشكل متسابق.
+//!
+//! </div>
 
 #![allow(dead_code)] // Only used on some platforms.
 
@@ -38,6 +44,12 @@ impl<T> OnceBox<T> {
     ///
     /// # Safety
     /// This causes undefined behavior if the assumption above is violated.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا إلى القيمة بافتراض أنها مهيأة وأن الخيط الحالي رأى التهيئة.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn get_unchecked(&self) -> Pin<&T> {
         unsafe { Pin::new_unchecked(&*self.ptr.load(Relaxed)) }

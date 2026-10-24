@@ -1,4 +1,10 @@
 //! A readers-writer lock implementation backed by the SOLID kernel extension.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق قفل قراءة/كتابة مبني على امتداد نواة SOLID.
+//!
+//! </div>
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 use crate::sys::pal::abi;

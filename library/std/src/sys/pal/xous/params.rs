@@ -67,6 +67,12 @@
 //! They are a sequence of the form:
 //!
 //!      (u16 /* val_len */ [0u8; val_len as usize])
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! Xous يمرر مؤشرًا إلى كتلة المعاملات كمعامل ثانٍ، لتمرير أشياء مثل متغيرات البيئة.
+//!
+//! </div>
 
 use crate::ffi::OsString;
 use crate::slice;

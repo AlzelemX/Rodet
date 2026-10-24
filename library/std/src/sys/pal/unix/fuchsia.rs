@@ -31,6 +31,12 @@ unsafe extern "C" {
 }
 
 /// A safe wrapper around `zx_handle_t`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف آمن حول `zx_handle_t`.
+///
+/// </div>
 pub struct Handle {
     raw: zx_handle_t,
 }

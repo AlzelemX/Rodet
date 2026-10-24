@@ -13,6 +13,12 @@
 //!
 //! 3. While CriticalSection is fair and SRWLock is not, the current Rust policy
 //!    is that there are no guarantees of fairness.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أقفال النظام.
+//!
+//! </div>
 
 use crate::cell::UnsafeCell;
 use crate::sys::c;

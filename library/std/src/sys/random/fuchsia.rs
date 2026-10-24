@@ -2,6 +2,12 @@
 //!
 //! Fuchsia, as always, is quite nice and provides exactly the API we need:
 //! <https://fuchsia.dev/reference/syscalls/cprng_draw>.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد بيانات عشوائية باستخدام نواة Zircon.
+//!
+//! </div>
 
 #[link(name = "zircon")]
 unsafe extern "C" {

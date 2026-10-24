@@ -6,6 +6,12 @@
 //! This is all super highly experimental and not actually intended for
 //! wide/production use yet, it's still all in the experimental category. This
 //! will likely change over time.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! روابط النظام لمنصة risc0 zkvm.
+//!
+//! </div>
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 pub const WORD_SIZE: usize = size_of::<u32>();

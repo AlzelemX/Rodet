@@ -10,6 +10,12 @@
 //! the pointer will be aligned to the specified alignment and not point to the start of the allocated block.
 //! Instead there will be a header readable directly before the returned pointer, containing the actual
 //! location of the start of the block.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يطبّق `System` على Windows.
+//!
+//! </div>
 
 use super::{MIN_ALIGN, realloc_fallback};
 use crate::alloc::Layout;

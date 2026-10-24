@@ -723,6 +723,12 @@ impl OsString {
     /// This bypasses the encoding-dependent surrogate joining, so either
     /// `self` must not end with a leading surrogate half, or `other` must not
     /// start with a trailing surrogate half.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::extend_from_slice` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub(crate) unsafe fn extend_from_slice_unchecked(&mut self, other: &[u8]) {
         // SAFETY: Guaranteed by caller.

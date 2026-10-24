@@ -15,6 +15,12 @@ impl SolidError {
 /// undefined error code.
 ///
 /// The SOLID error codes are a superset of μITRON error codes.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصف رمز خطأ SOLID المحدد؛ يرجع `None` إذا كان رمزًا غير معرّف.
+///
+/// </div>
 pub fn error_name(er: abi::ER) -> Option<&'static str> {
     match er {
         // Success

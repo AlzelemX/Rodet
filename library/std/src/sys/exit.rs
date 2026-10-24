@@ -19,6 +19,12 @@ cfg_select! {
         /// * If it is called again on the same thread as the first call, it will abort.
         /// * If it is called again on a different thread, it will wait in a loop
         ///   (waiting for the process to exit).
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// حل مؤقت لمشكلة https://github.com/rust-lang/rust/issues/126600.
+        ///
+        /// </div>
         pub fn unique_thread_exit() {
             use crate::ffi::c_int;
             use crate::ptr;
@@ -68,6 +74,12 @@ cfg_select! {
         ///
         /// Mitigation is ***NOT*** implemented on this platform, either because this platform
         /// is not affected, or because mitigation is not yet implemented for this platform.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// حل مؤقت لمشكلة https://github.com/rust-lang/rust/issues/126600.
+        ///
+        /// </div>
         #[cfg_attr(any(test, doctest), expect(dead_code))]
         pub fn unique_thread_exit() {
             // Mitigation not required on platforms where `exit` is thread-safe.

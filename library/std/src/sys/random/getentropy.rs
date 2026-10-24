@@ -6,6 +6,12 @@
 //! meant to be used to seed other CPRNGs, which we don't have, so we only use
 //! it where `arc4random_buf` and friends aren't available or secure (currently
 //! that's only the case on Emscripten).
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد بيانات عشوائية عبر `getentropy`.
+//!
+//! </div>
 
 pub fn fill_bytes(bytes: &mut [u8]) {
     // GETENTROPY_MAX isn't defined yet on most platforms, but it's mandated

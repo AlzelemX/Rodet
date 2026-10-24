@@ -4,6 +4,12 @@ use fortanix_sgx_abi::Tcs;
 /// all currently running threads in the enclave, and it is guaranteed to be
 /// constant for the lifetime of the thread. More specifically for SGX, there
 /// is a one-to-one correspondence of the ID to the address of the TCS.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معرّف الخيط الحالي؛ المعرّف فريد بين الخيوط العاملة حاليًا في الـ enclave.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn current() -> Tcs {
     unsafe extern "C" {

@@ -144,6 +144,12 @@ impl<'a> PanicHookInfo<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحمولة المرتبطة بالـ panic إذا كانت نصًا.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "panic_payload_as_str", since = "1.91.0")]
@@ -288,6 +294,12 @@ pub use crate::panicking::{set_hook, take_hook};
 /// accessed later using [`PanicHookInfo::payload`].
 ///
 /// See the [`panic!`] macro for more information about panicking.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسبب panic في الخيط الحالي بالرسالة المعطاة كحمولة.
+///
+/// </div>
 #[stable(feature = "panic_any", since = "1.51.0")]
 #[inline]
 #[track_caller]
@@ -390,6 +402,12 @@ pub use core::panic::abort_on_unwind;
 /// });
 /// assert!(result.is_err());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي دالة مغلقة ويلتقط سبب الـ panic إذا حدث فك مكدس.
+///
+/// </div>
 #[stable(feature = "catch_unwind", since = "1.9.0")]
 pub fn catch_unwind<F: FnOnce() -> R + UnwindSafe, R>(f: F) -> Result<R> {
     unsafe { panicking::catch_unwind(f) }
@@ -422,6 +440,12 @@ pub fn catch_unwind<F: FnOnce() -> R + UnwindSafe, R>(f: F) -> Result<R> {
 ///     panic::resume_unwind(err);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطلق panic بدون استدعاء خطّاف الـ panic.
+///
+/// </div>
 #[stable(feature = "resume_unwind", since = "1.9.0")]
 pub fn resume_unwind(payload: Box<dyn Any + Send>) -> ! {
     panicking::resume_unwind(payload)
@@ -458,6 +482,12 @@ pub fn resume_unwind(payload: Box<dyn Any + Send>) -> ! {
 /// // We will have aborted already, due to the panic.
 /// unreachable!();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجعل كل حالات الـ panic القادمة توقف البرنامج مباشرة بدون خطّاف ولا فك مكدس.
+///
+/// </div>
 #[unstable(feature = "panic_always_abort", issue = "84438")]
 pub fn always_abort() {
     crate::panicking::panic_count::set_always_abort();
@@ -465,16 +495,40 @@ pub fn always_abort() {
 
 /// The configuration for whether and how the default panic hook will capture
 /// and display the backtrace.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إعداد هل وكيف يلتقط خطّاف الـ panic الافتراضي تتبع المكدس ويعرضه.
+///
+/// </div>
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 #[unstable(feature = "panic_backtrace_config", issue = "93346")]
 #[non_exhaustive]
 pub enum BacktraceStyle {
     /// Prints a terser backtrace which ideally only contains relevant
     /// information.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبع تتبع مكدس مختصرًا فيه المعلومات المهمة فقط.
+    ///
+    /// </div>
     Short,
     /// Prints a backtrace with all possible information.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبع تتبع مكدس بكل المعلومات الممكنة.
+    ///
+    /// </div>
     Full,
     /// Disable collecting and displaying backtraces.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطّل جمع تتبع المكدس وعرضه.
+    ///
+    /// </div>
     Off,
 }
 
@@ -512,6 +566,12 @@ static SHOULD_CAPTURE: Atomic<u8> = AtomicU8::new(0);
 ///
 /// The default value for this setting may be set by the `RUST_BACKTRACE`
 /// environment variable; see the details in [`get_backtrace_style`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد هل يلتقط خطّاف الـ panic الافتراضي تتبع المكدس ويعرضه.
+///
+/// </div>
 #[unstable(feature = "panic_backtrace_config", issue = "93346")]
 pub fn set_backtrace_style(style: BacktraceStyle) {
     if cfg!(feature = "backtrace") {
@@ -541,6 +601,12 @@ pub fn set_backtrace_style(style: BacktraceStyle) {
 ///   the future
 ///
 /// Returns `None` if backtraces aren't currently supported.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل سيلتقط خطّاف الـ panic في المكتبة القياسية تتبع المكدس ويطبعه.
+///
+/// </div>
 #[unstable(feature = "panic_backtrace_config", issue = "93346")]
 pub fn get_backtrace_style() -> Option<BacktraceStyle> {
     if !cfg!(feature = "backtrace") {

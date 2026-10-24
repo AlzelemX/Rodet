@@ -109,6 +109,12 @@
 //! To properly synchronize changes to the data protected by the lock, the lock is acquired and
 //! released with [`Acquire`] and [`Release`] ordering, respectively. To propagate the
 //! initialization of nodes, changes to the queue lock are also performed using these orderings.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أقفال قراءة/كتابة فعّالة بدون `pthread_rwlock_t`.
+//!
+//! </div>
 
 #![forbid(unsafe_op_in_unsafe_fn)]
 
@@ -317,6 +323,12 @@ impl Drop for PanicGuard {
 }
 
 /// The public inner `RwLock` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع `RwLock` الداخلي العام.
+///
+/// </div>
 pub struct RwLock {
     state: AtomicState,
 }

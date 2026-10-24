@@ -23,6 +23,12 @@
 //! * Finally, by using the `errno` address as the locked value of the spin
 //!   lock, we can detect cases where a SIGSEGV occurred while the thread
 //!   info is being modified.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تخزين محلي للخيط (TLS) آمن داخل معالجات الإشارات.
+//!
+//! </div>
 
 use crate::collections::BTreeMap;
 use crate::hint::spin_loop;
@@ -59,6 +65,12 @@ impl Drop for UnlockOnDrop {
 /// is aborted shortly after this function is called.
 ///
 /// This function is guaranteed to be async-signal-safe if `f` is too.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معلومات الخيط الحالي إن وُجدت.
+///
+/// </div>
 pub fn with_current_info<R>(f: impl FnOnce(Option<&ThreadInfo>) -> R) -> R {
     let this = errno_location().addr();
     let mut attempt = 0;

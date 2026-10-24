@@ -26,6 +26,12 @@
 //!   to the entry, which invalidates the pointers to the entry stored in the list.
 //!   This is fine in this case because `remove` only overwrites those pointers,
 //!   and never dereferences them.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قائمة مرتبطة مزدوجة يتولى فيها المستدعي حجز ذاكرة العُقد.
+//!
+//! </div>
 
 // # Aliasing
 //

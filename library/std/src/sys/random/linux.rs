@@ -56,6 +56,12 @@
 //! [^1]: <https://lwn.net/Articles/606141/>
 //! [^2]: <https://lwn.net/Articles/808575/>
 //!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد بيانات عشوائية بنواة Linux.
+//!
+//! </div>
 // FIXME(in 2040 or so): once the minimum kernel version is 5.6, remove the
 // `GRND_NONBLOCK` fallback and use `/dev/random` instead of `/dev/urandom`
 // when secure data is required.

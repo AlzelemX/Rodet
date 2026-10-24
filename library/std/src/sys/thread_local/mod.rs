@@ -13,6 +13,12 @@
 //!
 //! Additionally, this module contains abstractions for the OS interfaces used
 //! for these implementations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق الماكرو `thread_local`.
+//!
+//! </div>
 
 #![cfg_attr(test, allow(unused))]
 #![doc(hidden)]

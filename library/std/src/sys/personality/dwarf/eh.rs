@@ -8,6 +8,12 @@
 //!
 //! A reference implementation may be found in the GCC source tree
 //! (`<root>/libgcc/unwind-c.c` as of this writing).
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تحليل منطقة البيانات الخاصة باللغة (LSDA) بأسلوب GCC.
+//!
+//! </div>
 
 #![allow(non_upper_case_globals)]
 #![allow(unused)]
@@ -49,8 +55,20 @@ type LPad = *const u8;
 pub enum EHAction {
     None,
     /// Destructors should be executed when stack unwinds.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب تنفيذ المُدمِّرات عند فك المكدس.
+    ///
+    /// </div>
     Cleanup(LPad),
     /// Stack unwind should be stopped as the exception is going to be caught by `catch_unwind`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب إيقاف فك المكدس لأن `catch_unwind` سيلتقط الاستثناء.
+    ///
+    /// </div>
     Catch(LPad),
     /// Stack unwind should be stopped for termination (`UnwindAction::Terminate`).
     ///
@@ -60,8 +78,20 @@ pub enum EHAction {
     /// Handling of this is mostly identical to `Catch`; except that Rust frames that have no
     /// destructors but only `UnwindAction::Terminate` is considered as plain-old-frame (POF) and
     /// forced unwind is allowed to unwind past it; so this is treated as `None` during forced unwind.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب إيقاف فك المكدس لإنهاء البرنامج (`UnwindAction::Terminate`).
+    ///
+    /// </div>
     Filter(LPad),
     /// Process should be terminated as the call site does not permit unwinding.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب إنهاء العملية لأن مكان الاستدعاء لا يسمح بفك المكدس.
+    ///
+    /// </div>
     Terminate,
 }
 
@@ -71,6 +101,12 @@ pub enum EHAction {
 /// instead uses DWARF Call Frame Information (CFI) unwinding.
 ///
 /// <https://github.com/llvm/llvm-project/blob/llvmorg-18.1.4/clang/lib/Driver/ToolChains/Darwin.cpp#L3107-L3119>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// منصات Darwin على ARM 32 بت تستخدم استثناءات SjLj.
+///
+/// </div>
 pub const USING_SJLJ_EXCEPTIONS: bool =
     cfg!(all(target_vendor = "apple", not(target_os = "watchos"), target_arch = "arm"));
 

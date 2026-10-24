@@ -4,6 +4,12 @@
 //! does version detection at compile-time.
 //!
 //! See also the `os_info` crate.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! معرفة إصدار نظام التشغيل / المنصة وقت التشغيل.
+//!
+//! </div>
 
 #[cfg(target_vendor = "apple")]
 mod darwin;

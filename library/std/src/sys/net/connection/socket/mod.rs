@@ -246,6 +246,12 @@ unsafe fn socket_addr_from_c(
 ///
 /// # Safety
 /// `T` must be the type associated with the given socket option.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد قيمة خيار مقبس.
+///
+/// </div>
 pub unsafe fn setsockopt<T>(
     sock: &Socket,
     level: c_int,
@@ -275,6 +281,12 @@ pub unsafe fn setsockopt<T>(
 ///
 /// # Safety
 /// `T` must be the type associated with the given socket option.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قيمة خيار مقبس.
+///
+/// </div>
 pub unsafe fn getsockopt<T: Copy>(
     sock: &Socket,
     level: c_int,

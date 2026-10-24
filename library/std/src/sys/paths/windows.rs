@@ -1,4 +1,10 @@
 //! Implementation of `std::os` functionality for Windows.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق وظائف `std::os` لـ Windows.
+//!
+//! </div>
 
 #![allow(nonstandard_style)]
 

@@ -47,6 +47,12 @@ pub fn init(env: *const *const c_char) {
 
 /// Returns a vector of (variable, value) byte-vector pairs for all the
 /// environment variables of the current process.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع متجه أزواج (المتغير، القيمة) لكل متغيرات البيئة في العملية الحالية.
+///
+/// </div>
 pub fn env() -> Env {
     let guard = ENV.lock().unwrap();
     let env = guard.as_ref().unwrap();

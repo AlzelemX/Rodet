@@ -4,13 +4,37 @@ use crate::sync::atomic::Atomic;
 use crate::time::Duration;
 
 /// An atomic for use as a futex that is at least 32-bits but may be larger
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة ذرية تُستخدم كـ futex بحجم 32 بت على الأقل.
+///
+/// </div>
 pub type Futex = Atomic<Primitive>;
 /// Must be the underlying type of Futex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون النوع الأساسي لـ `Futex`.
+///
+/// </div>
 pub type Primitive = u32;
 
 /// An atomic for use as a futex that is at least 8-bits but may be larger.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة ذرية تُستخدم كـ futex بحجم 8 بت على الأقل.
+///
+/// </div>
 pub type SmallFutex = Atomic<SmallPrimitive>;
 /// Must be the underlying type of SmallFutex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون النوع الأساسي لـ `SmallFutex`.
+///
+/// </div>
 pub type SmallPrimitive = u32;
 
 pub fn futex_wait(futex: &Atomic<u32>, expected: u32, timeout: Option<Duration>) -> bool {

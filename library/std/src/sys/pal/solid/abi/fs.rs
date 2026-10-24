@@ -1,4 +1,10 @@
 //! `solid_fs.h`
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! `solid_fs.h`.
+//!
+//! </div>
 
 pub use libc::{
     O_APPEND, O_CREAT, O_EXCL, O_RDONLY, O_RDWR, O_TRUNC, O_WRONLY, S_IFBLK, S_IFCHR, S_IFDIR,

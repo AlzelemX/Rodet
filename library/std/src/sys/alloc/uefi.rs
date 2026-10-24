@@ -1,5 +1,11 @@
 //! Global Allocator for UEFI.
 //! Uses [r-efi-alloc](https://crates.io/crates/r-efi-alloc)
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! المُخصِّص العام لـ UEFI؛ يستخدم r-efi-alloc.
+//!
+//! </div>
 
 use r_efi::protocols::loaded_image;
 

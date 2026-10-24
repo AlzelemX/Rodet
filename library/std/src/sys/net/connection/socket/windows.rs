@@ -21,6 +21,12 @@ pub(super) mod netc {
     //!
     //! Some Windows API types are not quite what's expected by our cross-platform
     //! net code. E.g. naming differences or different pointer types.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! طبقة توافق مع مقابس BSD.
+    //!
+    //! </div>
 
     use core::ffi::{c_char, c_int, c_uint, c_ulong, c_ushort, c_void};
 

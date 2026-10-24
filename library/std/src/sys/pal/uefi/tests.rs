@@ -1,5 +1,11 @@
 //! These tests are not run automatically right now. Please run these tests manually by copying them
 //! to a separate project when modifying any related code.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! هذه الاختبارات لا تُشغل تلقائيًا حاليًا؛ شغّلها يدويًا في مشروع منفصل عند التعديل.
+//!
+//! </div>
 
 use super::time::system_time_internal::{from_uefi, to_uefi};
 use crate::io::{IoSlice, IoSliceMut};

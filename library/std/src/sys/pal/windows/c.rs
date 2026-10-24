@@ -1,4 +1,10 @@
 //! C definitions used by libnative that don't belong in liblibc
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات C تستخدمها libnative ولا تنتمي إلى liblibc.
+//!
+//! </div>
 
 #![allow(nonstandard_style)]
 #![cfg_attr(test, allow(dead_code))]
@@ -328,6 +334,12 @@ impl IO_STATUS_BLOCK {
 
 /// NB: Use carefully! In general using this as a reference is likely to get the
 /// provenance wrong for the `rest` field!
+///
+/// <div lang="ar" dir="rtl">
+///
+/// انتبه! استخدام هذا كمرجع غالبًا يخطئ في مصدر (provenance) الحقل `rest`.
+///
+/// </div>
 #[repr(C)]
 pub struct REPARSE_DATA_BUFFER {
     pub ReparseTag: c_uint,
@@ -338,6 +350,12 @@ pub struct REPARSE_DATA_BUFFER {
 
 /// NB: Use carefully! In general using this as a reference is likely to get the
 /// provenance wrong for the `PathBuffer` field!
+///
+/// <div lang="ar" dir="rtl">
+///
+/// انتبه! استخدام هذا كمرجع غالبًا يخطئ في مصدر (provenance) حقول المخزن.
+///
+/// </div>
 #[repr(C)]
 pub struct SYMBOLIC_LINK_REPARSE_BUFFER {
     pub SubstituteNameOffset: c_ushort,

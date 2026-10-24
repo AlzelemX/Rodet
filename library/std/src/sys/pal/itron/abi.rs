@@ -1,75 +1,219 @@
 //! ABI for μITRON derivatives
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهة ABI لمشتقات μITRON.
+//!
+//! </div>
 pub type int_t = crate::os::raw::c_int;
 pub type uint_t = crate::os::raw::c_uint;
 pub type bool_t = int_t;
 
 /// Kernel object ID
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معرّف كائن في النواة.
+///
+/// </div>
 pub type ID = int_t;
 
 /// The current task.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المهمة الحالية.
+///
+/// </div>
 pub const TSK_SELF: ID = 0;
 
 /// Relative time
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وقت نسبي.
+///
+/// </div>
 pub type RELTIM = u32;
 
 /// Timeout (a valid `RELTIM` value or `TMO_FEVR`)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مهلة (قيمة `RELTIM` صالحة أو `TMO_FEVR`).
+///
+/// </div>
 pub type TMO = u32;
 
 /// The infinite timeout value
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة المهلة اللانهائية.
+///
+/// </div>
 pub const TMO_FEVR: TMO = TMO::MAX;
 
 /// The maximum valid value of `RELTIM`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أكبر قيمة صالحة لـ `RELTIM`.
+///
+/// </div>
 pub const TMAX_RELTIM: RELTIM = 4_000_000_000;
 
 /// System time
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وقت النظام.
+///
+/// </div>
 pub type SYSTIM = u64;
 
 /// Error code type
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع رمز الخطأ.
+///
+/// </div>
 pub type ER = int_t;
 
 /// Error code type, `ID` on success
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع رمز الخطأ، أو `ID` عند النجاح.
+///
+/// </div>
 pub type ER_ID = int_t;
 
 /// Service call operational mode
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وضع تشغيل استدعاء الخدمة.
+///
+/// </div>
 pub type MODE = uint_t;
 
 /// OR waiting condition for an eventflag
+///
+/// <div lang="ar" dir="rtl">
+///
+/// شرط انتظار "أو" لعلم حدث (eventflag).
+///
+/// </div>
 pub const TWF_ORW: MODE = 0x01;
 
 /// Object attributes
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خصائص الكائن.
+///
+/// </div>
 pub type ATR = uint_t;
 
 /// FIFO wait order
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ترتيب انتظار FIFO.
+///
+/// </div>
 pub const TA_FIFO: ATR = 0;
 /// Only one task is allowed to be in the waiting state for the eventflag
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مسموح لمهمة واحدة فقط أن تنتظر علم الحدث.
+///
+/// </div>
 pub const TA_WSGL: ATR = 0;
 /// The eventflag’s bit pattern is cleared when a task is released from the
 /// waiting state for that eventflag.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُمسح نمط بتات علم الحدث عند تحرير مهمة من انتظاره.
+///
+/// </div>
 pub const TA_CLR: ATR = 0x04;
 
 /// Bit pattern of an eventflag
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نمط بتات علم الحدث.
+///
+/// </div>
 pub type FLGPTN = uint_t;
 
 /// Task or interrupt priority
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أولوية المهمة أو المقاطعة.
+///
+/// </div>
 pub type PRI = int_t;
 
 /// The special value of `PRI` representing the current task's priority.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة خاصة لـ `PRI` تمثل أولوية المهمة الحالية.
+///
+/// </div>
 pub const TPRI_SELF: PRI = 0;
 
 /// Use the priority inheritance protocol
+///
+/// <div lang="ar" dir="rtl">
+///
+/// استخدام بروتوكول وراثة الأولوية.
+///
+/// </div>
 #[cfg(target_os = "solid_asp3")]
 pub const TA_INHERIT: ATR = 0x02;
 
 /// Activate the task on creation
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تفعيل المهمة عند إنشائها.
+///
+/// </div>
 pub const TA_ACT: ATR = 0x01;
 
 /// The maximum count of a semaphore
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أقصى عدد للإشارة (semaphore).
+///
+/// </div>
 pub const TMAX_MAXSEM: uint_t = uint_t::MAX;
 
 /// Callback parameter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الاستدعاء الراجع.
+///
+/// </div>
 pub type EXINF = isize;
 
 /// Task entrypoint
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نقطة دخول المهمة.
+///
+/// </div>
 pub type TASK = Option<unsafe extern "C" fn(EXINF)>;
 
 // Error codes

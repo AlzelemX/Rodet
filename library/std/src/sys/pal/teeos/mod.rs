@@ -2,6 +2,12 @@
 //!
 //! This module contains the facade (aka platform-specific) implementations of
 //! OS level functionality for Teeos.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! روابط النظام لمنصة Teeos.
+//!
+//! </div>
 #![deny(unsafe_op_in_unsafe_fn)]
 #![allow(unused_variables)]
 #![allow(dead_code)]

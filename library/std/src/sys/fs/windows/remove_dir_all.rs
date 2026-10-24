@@ -27,6 +27,12 @@
 //!
 //! In short, we can't guarantee this will always succeed in the event of a
 //! race but we do make a best effort such that it *should* do so.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق `std::fs::remove_dir_all` على Windows.
+//!
+//! </div>
 
 use core::ptr;
 use core::sync::atomic::{Atomic, AtomicU32, Ordering};

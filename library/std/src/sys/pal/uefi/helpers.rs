@@ -8,6 +8,12 @@
 //! - Every protocol has a GUID associated with it. The GUID serves as the name for the protocol.
 //! - Protocols are produced and consumed.
 //! - More information about protocols can be found [here](https://edk2-docs.gitbook.io/edk-ii-uefi-driver-writer-s-guide/3_foundation/36_protocols_and_handles)
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يحتوي معظم الأجزاء المشتركة الخاصة بـ UEFI.
+//!
+//! </div>
 
 use r_efi::efi::{self, Guid};
 use r_efi::protocols::{device_path, device_path_to_text, file, service_binding, shell};

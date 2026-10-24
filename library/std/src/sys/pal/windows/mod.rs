@@ -30,6 +30,12 @@ cfg_select! {
 pub mod winsock;
 
 /// Map a [`Result<T, WinError>`] to [`io::Result<T>`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `Result<T, WinError>` إلى `io::Result<T>`.
+///
+/// </div>
 pub trait IoResult<T> {
     fn io_result(self) -> io::Result<T>;
 }
@@ -261,6 +267,12 @@ pub fn dur2timeout(dur: Duration) -> u32 {
 /// will still terminate the process but might run some exception handlers.
 ///
 /// <https://docs.microsoft.com/en-us/cpp/intrinsics/fastfail>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخدم `__fastfail` لإيقاف العملية.
+///
+/// </div>
 #[cfg(not(miri))] // inline assembly does not work in Miri
 pub fn abort_internal() -> ! {
     unsafe {

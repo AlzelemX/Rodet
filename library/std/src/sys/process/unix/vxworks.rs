@@ -146,6 +146,12 @@ impl Command {
 ////////////////////////////////////////////////////////////////////////////////
 
 /// The unique id of the process (this should never be negative).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المعرّف الفريد للعملية (يجب ألا يكون سالبًا أبدًا).
+///
+/// </div>
 pub struct Process {
     pid: RTP_ID,
     status: Option<ExitStatus>,
@@ -203,6 +209,12 @@ impl Process {
 }
 
 /// Unix exit statuses
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حالات خروج يونكس.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug, Default)]
 pub struct ExitStatus(c_int);
 
@@ -255,6 +267,12 @@ impl ExitStatus {
 }
 
 /// Converts a raw `c_int` to a type-safe `ExitStatus` by wrapping it without copying.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `c_int` خامًا إلى `ExitStatus` آمن النوع بتغليفه بدون نسخ.
+///
+/// </div>
 impl From<c_int> for ExitStatus {
     fn from(a: c_int) -> ExitStatus {
         ExitStatus(a)

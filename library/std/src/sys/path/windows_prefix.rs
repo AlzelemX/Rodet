@@ -1,4 +1,10 @@
 //! Parse Windows prefixes, for both Windows and Cygwin.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يحلل بادئات مسارات Windows، لـ Windows وCygwin.
+//!
+//! </div>
 
 use super::{is_sep_byte, is_verbatim_sep};
 use crate::ffi::OsStr;

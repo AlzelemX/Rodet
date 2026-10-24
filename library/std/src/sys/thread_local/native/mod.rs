@@ -28,6 +28,12 @@
 //! and use the `!` type (never type) as type parameter for `!Drop` types. This
 //! eliminates the `Destroyed` state for these values, which can allow more niche
 //! optimizations to occur for the `State` enum. For `Drop` types, `()` is used.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم التخزين المحلي للخيط للمنصات ذات TLS أصلي.
+//!
+//! </div>
 
 use crate::cell::Cell;
 use crate::ptr;

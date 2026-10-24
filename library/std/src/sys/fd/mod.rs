@@ -1,4 +1,10 @@
 //! Platform-dependent file descriptor abstraction.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تجريد واصفات الملفات حسب المنصة.
+//!
+//! </div>
 
 #![forbid(unsafe_op_in_unsafe_fn)]
 

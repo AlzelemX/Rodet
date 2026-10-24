@@ -2,6 +2,12 @@
 //!
 //! If any of these have uses outside of `sys`, please move them to a different
 //! module.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال مساعدة صغيرة تُستخدم داخل `sys`.
+//!
+//! </div>
 
 #[cfg_attr(not(target_os = "netbsd"), allow(unused))] // Not used on all platforms.
 mod c_opaque;
@@ -23,6 +29,12 @@ pub use wstr::WStrUnits;
 /// Computes `(value*numerator)/denom` without overflow, as long as both
 /// `numerator*denom` and the overall result fit into `u64` (which is the case
 /// for our time conversions).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب `(value*numerator)/denom` بدون فيضان، طالما الناتج يتسع في `u64`.
+///
+/// </div>
 #[cfg_attr(not(target_os = "windows"), allow(unused))] // Not used on all platforms.
 pub fn mul_div_u64(value: u64, numerator: u64, denom: u64) -> u64 {
     let q = value / denom;

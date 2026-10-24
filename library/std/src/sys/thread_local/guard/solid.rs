@@ -1,6 +1,12 @@
 //! SOLID, just like macOS, has an API to register TLS destructors. But since
 //! it does not allow specifying an argument to that function, and will not run
 //! destructors for terminated tasks, we still keep our own list.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! SOLID مثل macOS لها واجهة لتسجيل مُدمِّرات TLS.
+//!
+//! </div>
 
 use crate::cell::Cell;
 use crate::sys::pal::abi;

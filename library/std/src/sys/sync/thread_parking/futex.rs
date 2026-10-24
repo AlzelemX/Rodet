@@ -38,6 +38,12 @@ pub struct Parker {
 impl Parker {
     /// Constructs the futex parker. The UNIX parker implementation
     /// requires this to happen in-place.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ موقِف الـ futex؛ تطبيق يونكس يتطلب أن يتم ذلك في مكانه.
+    ///
+    /// </div>
     pub unsafe fn new_in_place(parker: *mut Parker) {
         unsafe { parker.write(Self { state: Futex::new(EMPTY) }) };
     }

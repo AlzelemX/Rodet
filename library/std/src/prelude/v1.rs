@@ -1,6 +1,12 @@
 //! The first version of the prelude of The Rust Standard Library.
 //!
 //! See the [module-level documentation](super) for more.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النسخة الأولى من مقدمة المكتبة القياسية.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

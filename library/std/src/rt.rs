@@ -5,6 +5,12 @@
 //! backtrace support. The APIs in this module are highly unstable,
 //! and should be considered as private implementation details for the
 //! time being.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! خدمات وقت التشغيل.
+//!
+//! </div>
 
 #![unstable(
     feature = "rt",

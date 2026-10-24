@@ -17,6 +17,12 @@ struct Vexos;
 
 unsafe impl dlmalloc::Allocator for Vexos {
     /// Allocs system resources
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز موارد النظام.
+    ///
+    /// </div>
     fn alloc(&self, _size: usize) -> (*mut u8, usize, u32) {
         static INIT: AtomicBool = AtomicBool::new(false);
 

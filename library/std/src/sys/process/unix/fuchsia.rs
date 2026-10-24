@@ -295,6 +295,12 @@ impl ExitStatus {
 }
 
 /// Converts a raw `c_int` to a type-safe `ExitStatus` by wrapping it without copying.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `c_int` خامًا إلى `ExitStatus` آمن النوع بتغليفه بدون نسخ.
+///
+/// </div>
 impl From<c_int> for ExitStatus {
     fn from(a: c_int) -> ExitStatus {
         ExitStatus(a as i64)

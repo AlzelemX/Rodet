@@ -7,6 +7,12 @@ use crate::{fmt, mem, ptr};
 /// This type manages an array of C-string pointers terminated by a null
 /// pointer. The pointer to the array (as returned by `as_ptr`) can be used as
 /// a value of `argv` or `environ`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مساعد لإدارة ملكية النصوص داخل مصفوفة بأسلوب C.
+///
+/// </div>
 pub struct CStringArray {
     ptrs: Vec<*const c_char>,
 }
@@ -14,6 +20,12 @@ pub struct CStringArray {
 impl CStringArray {
     /// Creates a new `CStringArray` with enough capacity to hold `capacity`
     /// strings.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CStringArray` جديدًا بسعة تكفي لـ `capacity` نص.
+    ///
+    /// </div>
     pub fn with_capacity(capacity: usize) -> Self {
         let mut result = CStringArray { ptrs: Vec::with_capacity(capacity + 1) };
         result.ptrs.push(ptr::null());
@@ -21,6 +33,12 @@ impl CStringArray {
     }
 
     /// Replace the string at position `index`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل النص في الموضع `index`.
+    ///
+    /// </div>
     pub fn write(&mut self, index: usize, item: CString) {
         let argc = self.ptrs.len() - 1;
         let ptr = &mut self.ptrs[..argc][index];
@@ -33,6 +51,12 @@ impl CStringArray {
     }
 
     /// Push an additional string to the array.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف نصًا إلى المصفوفة.
+    ///
+    /// </div>
     pub fn push(&mut self, item: CString) {
         let argc = self.ptrs.len() - 1;
         // Amend the array by another null pointer first, to ensure that the
@@ -44,11 +68,23 @@ impl CStringArray {
     }
 
     /// Returns a pointer to the C-string array managed by this type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى مصفوفة نصوص C التي يديرها هذا النوع.
+    ///
+    /// </div>
     pub fn as_ptr(&self) -> *const *const c_char {
         self.ptrs.as_ptr()
     }
 
     /// Returns an iterator over all `CStr`s contained in this array.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على كل الـ `CStr` في هذه المصفوفة.
+    ///
+    /// </div>
     pub fn iter(&self) -> CStringIter<'_> {
         CStringIter { iter: self.ptrs[..self.ptrs.len() - 1].iter() }
     }
@@ -88,6 +124,12 @@ impl Drop for CStringArray {
 }
 
 /// An iterator over all `CStr`s contained in a `CStringArray`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على كل الـ `CStr` في `CStringArray`.
+///
+/// </div>
 #[derive(Clone)]
 pub struct CStringIter<'a> {
     iter: crate::slice::Iter<'a, *const c_char>,

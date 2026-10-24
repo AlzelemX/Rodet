@@ -6,6 +6,12 @@
 //! * Panic hooks
 //! * Executing a panic up to doing the actual implementation
 //! * Shims around "try"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق أجزاء مختلفة من ماكرو `panic!` وما يرتبط به وقت التشغيل.
+//!
+//! </div>
 
 #![deny(unsafe_op_in_unsafe_fn)]
 
@@ -136,6 +142,12 @@ static HOOK: RwLock<Hook> = RwLock::new(Hook::Default);
 ///
 /// panic!("Normal panic");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسجّل خطّاف panic مخصصًا، ويستبدل الخطّاف المسجل سابقًا.
+///
+/// </div>
 #[stable(feature = "panic_hooks", since = "1.10.0")]
 pub fn set_hook(hook: Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send>) {
     if thread::panicking() {
@@ -175,6 +187,12 @@ pub fn set_hook(hook: Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send>) {
 ///
 /// panic!("Normal panic");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلغي تسجيل خطّاف الـ panic الحالي ويرجعه، ويسجّل الخطّاف الافتراضي مكانه.
+///
+/// </div>
 #[stable(feature = "panic_hooks", since = "1.10.0")]
 pub fn take_hook() -> Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send> {
     if thread::panicking() {
@@ -215,6 +233,12 @@ pub fn take_hook() -> Box<dyn Fn(&PanicHookInfo<'_>) + 'static + Sync + Send> {
 ///
 /// panic!("Custom and then normal");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دمج ذري لـ `take_hook` و`set_hook`، لاستبدال معالج الـ panic بمعالج جديد يمكنه استدعاء القديم.
+///
+/// </div>
 #[unstable(feature = "panic_update_hook", issue = "92649")]
 pub fn update_hook<F>(hook_fn: F)
 where
@@ -323,6 +347,12 @@ fn default_hook(info: &PanicHookInfo<'_>) {
 #[unstable(feature = "update_panic_count", issue = "none")]
 pub mod panic_count {
     /// A reason for forcing an immediate abort on panic.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// سبب لفرض إيقاف فوري عند الـ panic.
+    ///
+    /// </div>
     #[derive(Debug)]
     pub enum MustAbort {
         AlwaysAbort,
@@ -368,6 +398,12 @@ pub mod panic_count {
     const ALWAYS_ABORT_FLAG: usize = 1 << (usize::BITS - 1);
 
     /// A reason for forcing an immediate abort on panic.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// سبب لفرض إيقاف فوري عند الـ panic.
+    ///
+    /// </div>
     #[derive(Debug)]
     pub enum MustAbort {
         AlwaysAbort,
@@ -488,12 +524,24 @@ pub mod panic_count {
 pub use realstd::rt::panic_count;
 
 /// Invoke a closure, capturing the cause of an unwinding panic if one occurs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي دالة مغلقة ويلتقط سبب الـ panic إذا حدث فك مكدس.
+///
+/// </div>
 #[cfg(panic = "immediate-abort")]
 pub unsafe fn catch_unwind<R, F: FnOnce() -> R>(f: F) -> Result<R, Box<dyn Any + Send>> {
     Ok(f())
 }
 
 /// Invoke a closure, capturing the cause of an unwinding panic if one occurs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي دالة مغلقة ويلتقط سبب الـ panic إذا حدث فك مكدس.
+///
+/// </div>
 #[cfg(not(panic = "immediate-abort"))]
 pub(crate) unsafe fn catch_unwind<R, F: FnOnce() -> R>(f: F) -> Result<R, Box<dyn Any + Send>> {
     union Data<F, R> {
@@ -695,6 +743,12 @@ pub(crate) fn panic_handler(info: &core::panic::PanicInfo<'_>) -> ! {
 /// This is the entry point of panicking for the non-format-string variants of
 /// panic!() and assert!(). In particular, this is the only entry point that supports
 /// arbitrary payloads, not just format strings.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نقطة الدخول للـ panic في نسخ `panic!()` و`assert!()` التي لا تستخدم نص تنسيق.
+///
+/// </div>
 #[unstable(feature = "libstd_sys_internals", reason = "used by the panic! macro", issue = "none")]
 #[cfg_attr(not(any(test, doctest)), lang = "begin_panic")]
 // lang item for CTFE panic support

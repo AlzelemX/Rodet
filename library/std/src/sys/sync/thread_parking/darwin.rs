@@ -9,6 +9,12 @@
 //! only one primitive (as opposed to a mutex-condvar pair). We use the semaphore
 //! provided by libdispatch, as the underlying Mach semaphore is only dubiously
 //! public.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! إيقاف الخيوط (parking) لأنظمة Darwin.
+//!
+//! </div>
 
 #![allow(non_camel_case_types)]
 

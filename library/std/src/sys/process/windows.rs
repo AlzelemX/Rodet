@@ -716,6 +716,12 @@ impl From<io::Stderr> for Stdio {
 /// The lifetime of this value is linked to the lifetime of the actual
 /// process - the Process destructor calls self.finish() which waits
 /// for the process to terminate.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة تمثل عملية فرعية.
+///
+/// </div>
 pub struct Process {
     handle: Handle,
     main_thread_handle: Handle,
@@ -796,6 +802,12 @@ impl ExitStatus {
 }
 
 /// Converts a raw `u32` to a type-safe `ExitStatus` by wrapping it without copying.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `u32` خامًا إلى `ExitStatus` آمن النوع بتغليفه بدون نسخ.
+///
+/// </div>
 impl From<u32> for ExitStatus {
     fn from(u: u32) -> ExitStatus {
         ExitStatus(u)

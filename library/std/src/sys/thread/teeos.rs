@@ -87,6 +87,12 @@ impl Thread {
     }
 
     /// must join, because no pthread_detach supported
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب الانضمام (join) لأن `pthread_detach` غير مدعوم.
+    ///
+    /// </div>
     pub fn join(self) {
         let id = self.into_id();
         let ret = unsafe { libc::pthread_join(id, ptr::null_mut()) };
@@ -111,6 +117,12 @@ pub fn yield_now() {
 }
 
 /// only main thread could wait for sometime in teeos
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الخيط الرئيسي فقط يمكنه الانتظار مدة في teeos.
+///
+/// </div>
 pub fn sleep(dur: Duration) {
     let sleep_millis = dur.as_millis();
     let final_sleep: u32 =

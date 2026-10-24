@@ -12,6 +12,12 @@ pub fn page_size() -> usize {
 ///
 /// [posix_confstr]:
 ///     https://pubs.opengroup.org/onlinepubs/9799919799/functions/confstr.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قيمة `confstr(key, ...)`؛ يُستخدم حاليًا على Darwin فقط لكنه يعمل على أي يونكس.
+///
+/// </div>
 #[cfg(target_vendor = "apple")]
 pub fn confstr(
     key: crate::ffi::c_int,

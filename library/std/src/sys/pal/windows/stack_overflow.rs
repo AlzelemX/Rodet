@@ -4,6 +4,12 @@ use crate::sys::c;
 use crate::thread;
 
 /// Reserve stack space for use in stack overflow exceptions.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحجز مساحة في المكدس لاستخدامها في استثناءات فيضان المكدس.
+///
+/// </div>
 pub fn reserve_stack() {
     let result = unsafe { c::SetThreadStackGuarantee(&mut 0x5000) };
     // Reserving stack space is not critical so we allow it to fail in the released build of libstd.

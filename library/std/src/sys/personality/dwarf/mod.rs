@@ -1,6 +1,12 @@
 //! Utilities for parsing DWARF-encoded data streams.
 //! See <http://www.dwarfstd.org>,
 //! DWARF-4 standard, Section 7 - "Data Representation"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات لتحليل مجاري البيانات المرمّزة بـ DWARF.
+//!
+//! </div>
 
 // This module is used only by x86_64-pc-windows-gnu for now, but we
 // are compiling it everywhere to avoid regressions.
@@ -24,6 +30,12 @@ impl DwarfReader {
     /// Read a type T and then bump the pointer by that amount.
     ///
     /// DWARF streams are "packed", so all types must be read at align 1.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ نوعًا `T` ثم يقدّم المؤشر بحجمه.
+    ///
+    /// </div>
     pub unsafe fn read<T: Copy>(&mut self) -> T {
         unsafe {
             let result = self.ptr.cast::<T>().read_unaligned();
@@ -33,6 +45,12 @@ impl DwarfReader {
     }
 
     /// ULEB128 and SLEB128 encodings are defined in Section 7.6 - "Variable Length Data".
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ترميزا ULEB128 وSLEB128 معرّفان في القسم 7.6 "بيانات متغيرة الطول".
+    ///
+    /// </div>
     pub unsafe fn read_uleb128(&mut self) -> u64 {
         let mut shift: usize = 0;
         let mut result: u64 = 0;

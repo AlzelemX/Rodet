@@ -8,6 +8,12 @@
 //! Note that technically, `arc4random_buf` is available as well, but that calls
 //! into the same system service anyway, and `CCRandomGenerateBytes` has been
 //! proven to be App Store-compatible.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! بيانات عشوائية على منصات Apple.
+//!
+//! </div>
 
 pub fn fill_bytes(bytes: &mut [u8]) {
     let ret = unsafe { libc::CCRandomGenerateBytes(bytes.as_mut_ptr().cast(), bytes.len()) };

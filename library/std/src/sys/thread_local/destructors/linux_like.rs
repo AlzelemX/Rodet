@@ -9,6 +9,12 @@
 //! Unfortunately, our minimum supported glibc version (at the time of writing)
 //! is 2.17, so we can only link this symbol weakly and need to use the
 //! [`list`](super::list) destructor implementation as fallback.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تسجيل المُدمِّرات لأنظمة شبيهة بـ Linux.
+//!
+//! </div>
 
 use crate::mem::transmute;
 

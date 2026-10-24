@@ -1,4 +1,10 @@
 //! Minimal utilities for interfacing with a dynamically loaded CoreFoundation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات بسيطة للتعامل مع CoreFoundation المحمّلة ديناميكيًا.
+//!
+//! </div>
 #![allow(non_snake_case, non_upper_case_globals)]
 use super::root_relative;
 use crate::ffi::{CStr, c_char, c_void};

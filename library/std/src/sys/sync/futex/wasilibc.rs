@@ -13,6 +13,12 @@
 //!
 //! Regardless this module is effectively delegating to `wasi-libc` to determine
 //! how to do thread management.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق futex مبني على أساسيات `wasi-libc`.
+//!
+//! </div>
 
 use libc::c_int;
 

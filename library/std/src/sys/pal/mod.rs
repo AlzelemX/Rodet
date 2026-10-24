@@ -1,5 +1,11 @@
 //! The PAL (platform abstraction layer) contains platform-specific abstractions
 //! for implementing the features in the other submodules, such as e.g. bindings.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! طبقة تجريد المنصة (PAL) فيها التجريدات الخاصة بكل منصة لتطبيق ميزات الوحدات الأخرى.
+//!
+//! </div>
 
 #![allow(missing_debug_implementations)]
 

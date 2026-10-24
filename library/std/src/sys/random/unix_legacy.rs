@@ -5,6 +5,12 @@
 //! Linux and exposed random devices at `/dev/random` and `/dev/urandom`. Thus,
 //! for the few systems that support neither `arc4random_buf` nor `getentropy`
 //! yet, we just read from the file.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! بيانات عشوائية من `/dev/urandom`.
+//!
+//! </div>
 
 use crate::fs::File;
 use crate::io::Read;

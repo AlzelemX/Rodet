@@ -3481,6 +3481,13 @@ macro_rules! atomic_int {
             ///         })
             /// });
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعطي وصولًا غير ذري لشريحة القيم الذرية؛ آمن لأن المرجع القابل للتعديل يضمن عدم وصول
+            /// خيوط أخرى في نفس الوقت.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_from_mut", since = "1.98.0")]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -4250,6 +4257,12 @@ macro_rules! atomic_int {
             /// An alias for
             #[doc = concat!("[`", stringify!($atomic_type), "::try_update`]")]
             /// .
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// اسم بديل لـ `try_update`.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "no_more_cas", since = "1.45.0")]
             #[cfg(any($cfg_cas, doc))]

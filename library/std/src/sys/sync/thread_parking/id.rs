@@ -6,6 +6,12 @@
 //! parker is constructed before that id is known, an atomic state variable is used
 //! to manage the park state and propagate the thread id. This also avoids platform
 //! calls in the case where `unpark` is called before `park`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! إيقاف الخيوط باستخدام معرّفات الخيوط.
+//!
+//! </div>
 
 use crate::cell::UnsafeCell;
 use crate::pin::Pin;
@@ -29,6 +35,12 @@ impl Parker {
     }
 
     /// Creates a new thread parker. UNIX requires this to happen in-place.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ موقِف خيوط جديدًا؛ يونكس يتطلب أن يتم ذلك في مكانه.
+    ///
+    /// </div>
     pub unsafe fn new_in_place(parker: *mut Parker) {
         parker.write(Parker::new())
     }

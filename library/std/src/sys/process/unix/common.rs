@@ -141,10 +141,28 @@ pub enum Stdio {
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum ProgramKind {
     /// A program that would be looked up on the PATH (e.g. `ls`)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// برنامج يُبحث عنه في PATH (مثل `ls`).
+    ///
+    /// </div>
     PathLookup,
     /// A relative path (e.g. `my-dir/foo`, `../foo`, `./foo`)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مسار نسبي (مثل `my-dir/foo` أو `../foo` أو `./foo`).
+    ///
+    /// </div>
     Relative,
     /// An absolute path.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مسار مطلق.
+    ///
+    /// </div>
     Absolute,
 }
 

@@ -1,4 +1,10 @@
 //! Platform-dependent command line arguments abstraction.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تجريد معاملات سطر الأوامر حسب المنصة.
+//!
+//! </div>
 
 #![forbid(unsafe_op_in_unsafe_fn)]
 

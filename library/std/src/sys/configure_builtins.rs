@@ -1,6 +1,12 @@
 //! The configure builtins provides runtime support compiler-builtin features
 //! which require dynamic initialization to work as expected, e.g. aarch64
 //! outline-atomics.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يوفر دعمًا وقت التشغيل لميزات compiler-builtins التي تحتاج تهيئة ديناميكية.
+//!
+//! </div>
 
 /// Enable LSE atomic operations at startup, if supported.
 ///

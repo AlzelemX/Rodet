@@ -144,6 +144,12 @@ use crate::sys::random as sys;
 /// SystemRng.fill_bytes(&mut buf);
 /// dbg!(buf);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مولّد الأرقام العشوائية الخاص بالنظام.
+///
+/// </div>
 #[doc(alias = "getrandom", alias = "getentropy", alias = "arc4random")]
 #[derive(Default, Debug, Clone, Copy)]
 #[unstable(feature = "random", issue = "130703")]
@@ -181,6 +187,12 @@ impl Rng for SystemRng {
 /// ```
 ///
 /// [version 4/variant 1 UUID]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يولّد قيمة عشوائية من توزيع باستخدام مصدر العشوائية الافتراضي.
+///
+/// </div>
 #[unstable(feature = "random", issue = "130703")]
 pub fn random<T>(dist: impl Distribution<T>) -> T {
     dist.sample(&mut SystemRng)

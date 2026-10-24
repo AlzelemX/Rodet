@@ -4,6 +4,12 @@ use crate::sys::process::EnvKey;
 use crate::{env, fmt};
 
 /// Stores a set of changes to an environment
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخزن مجموعة تغييرات على بيئة.
+///
+/// </div>
 #[derive(Clone, Default)]
 pub struct CommandEnv {
     clear: bool,
@@ -119,6 +125,12 @@ impl<'a> ExactSizeIterator for CommandEnvs<'a> {
 /// This struct is created by
 /// [`Command::get_resolved_envs`][crate::process::Command::get_resolved_envs]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على متغيرات البيئة بعد حسابها كاملة.
+///
+/// </div>
 #[derive(Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "command_resolved_envs", issue = "149070")]

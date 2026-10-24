@@ -19,6 +19,12 @@
 //! Additionally this is not the only possible definition of this function, so
 //! this is defined as a "weak" symbol. This means that other definitions are
 //! allowed to overwrite it if they are present in a compilation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريف قياسي للدالة `cabi_realloc` لنموذج المكونات (component model).
+//!
+//! </div>
 
 use crate::alloc::{self, Layout};
 use crate::ptr;

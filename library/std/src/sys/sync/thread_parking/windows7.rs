@@ -96,6 +96,12 @@ const NOTIFIED: i8 = 1;
 impl Parker {
     /// Constructs the Windows parker. The UNIX parker implementation
     /// requires this to happen in-place.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ موقِف Windows؛ تطبيق يونكس يتطلب أن يتم ذلك في مكانه.
+    ///
+    /// </div>
     pub unsafe fn new_in_place(parker: *mut Parker) {
         parker.write(Self { state: AtomicI8::new(EMPTY) });
     }

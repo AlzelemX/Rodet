@@ -8,6 +8,12 @@
 //! all UNIX systems, most notably Linux (until recently, but it's just a
 //! wrapper for `getrandom`. Since we need to hook into `getrandom` directly for
 //! `HashMap` keys anyway, we just keep our version).
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد بيانات عشوائية بـ `arc4random_buf`.
+//!
+//! </div>
 
 #[cfg(not(target_os = "vita"))]
 use libc::arc4random_buf;

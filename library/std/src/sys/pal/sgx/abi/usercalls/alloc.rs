@@ -41,6 +41,12 @@ use crate::{cmp, intrinsics, slice};
 /// * **No internal padding.** Padding might contain previously-initialized
 ///   secret data stored at that memory location and must not be leaked for
 ///   confidentiality reasons.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمكن قراءته من مساحة المستخدم أو كتابته إليها بأمان.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub unsafe trait UserSafeSized: Copy + Sized {}
 
@@ -60,9 +66,21 @@ unsafe impl UserSafeSized for Cancel {}
 unsafe impl<T: UserSafeSized> UserSafeSized for [T; 2] {}
 
 /// A type that can be represented in memory as one or more `UserSafeSized`s.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمكن تمثيله في الذاكرة كواحد أو أكثر من `UserSafeSized`.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub unsafe trait UserSafe {
     /// Equivalent to `align_of::<Self>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعادل `align_of::<Self>`.
+    ///
+    /// </div>
     fn align_of() -> usize;
 
     /// Constructs a pointer to `Self` given a memory range in user space.
@@ -73,6 +91,12 @@ pub unsafe trait UserSafe {
     ///
     /// The caller must ensure the memory range is in user memory, is the
     /// correct size and is correctly aligned and points to the right type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا إلى `Self` من نطاق ذاكرة في مساحة المستخدم بدون فحص.
+    ///
+    /// </div>
     unsafe fn from_raw_sized_unchecked(ptr: *mut u8, size: usize) -> *mut Self;
 
     /// Constructs a pointer to `Self` given a memory range.
@@ -91,6 +115,12 @@ pub unsafe trait UserSafe {
     /// * the pointer is null.
     /// * the pointed-to range does not fit in the address space.
     /// * the pointed-to range is not in user memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا إلى `Self` من نطاق ذاكرة.
+    ///
+    /// </div>
     unsafe fn from_raw_sized(ptr: *mut u8, size: usize) -> NonNull<Self> {
         assert!(ptr.wrapping_add(size) >= ptr);
         // SAFETY: The caller has guaranteed the pointer is valid
@@ -115,6 +145,12 @@ pub unsafe trait UserSafe {
     /// * the pointer is not aligned.
     /// * the pointer is null.
     /// * the pointed-to range is not in user memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل يمكن أن يشير مؤشر إلى `Self` في ذاكرة المستخدم.
+    ///
+    /// </div>
     unsafe fn check_ptr(ptr: *const Self) {
         let is_aligned = |p: *const u8| -> bool { p.is_aligned_to(Self::align_of()) };
 
@@ -166,6 +202,12 @@ unsafe impl<T: UserSafeSized> UserSafe for [T] {
 /// the pointed-to memory is uniquely borrowed. The two different reference types
 /// are used solely to indicate intent: a mutable reference is for writing to
 /// user memory, an immutable reference for reading from user memory.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مرجع إلى نوع في ذاكرة مساحة المستخدم؛ `&UserRef<T>` يعادل `&T` في ذاكرة الـ enclave.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 #[repr(transparent)]
 pub struct UserRef<T: ?Sized>(UnsafeCell<T>);
@@ -174,6 +216,12 @@ pub struct UserRef<T: ?Sized>(UnsafeCell<T>);
 /// TOCTTOU issues. The user memory will be freed when the value is dropped.
 /// After copying, code should make sure to completely check the value before
 /// use.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مملوك في ذاكرة مساحة المستخدم؛ `User<T>` يعادل `Box<T>` في ذاكرة الـ enclave.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct User<T: UserSafe + ?Sized>(NonNull<UserRef<T>>);
 
@@ -206,9 +254,21 @@ impl<T: ?Sized> NewUserRef<NonNull<T>> for NonNull<UserRef<T>> {
 /// # Safety
 ///
 /// Requires that `T` and `Self` have identical layouts.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمكن أن يكون وجهة للنسخ الآمن من مساحة المستخدم.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub unsafe trait UserSafeCopyDestination<T: ?Sized> {
     /// Returns a pointer for writing to the value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا للكتابة في القيمة.
+    ///
+    /// </div>
     fn as_mut_ptr(&mut self) -> *mut T;
 }
 
@@ -266,6 +326,12 @@ where
     }
 
     /// Copies `val` into freshly allocated space in user memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `val` إلى مساحة جديدة محجوزة في ذاكرة المستخدم.
+    ///
+    /// </div>
     pub fn new_from_enclave(val: &T) -> Self {
         unsafe {
             let mut user = Self::new_uninit_bytes(size_of_val(val));
@@ -286,6 +352,12 @@ where
     /// * The pointer is not aligned
     /// * The pointer is null
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `User<T>` مملوكًا من مؤشر خام.
+    ///
+    /// </div>
     pub unsafe fn from_raw(ptr: *mut T) -> Self {
         // SAFETY: the caller must uphold the safety contract for `from_raw`.
         unsafe { T::check_ptr(ptr) };
@@ -294,6 +366,12 @@ where
 
     /// Converts this value into a raw pointer. The value will no longer be
     /// automatically freed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه القيمة إلى مؤشر خام؛ لن تُحرر تلقائيًا بعد ذلك.
+    ///
+    /// </div>
     pub fn into_raw(self) -> *mut T {
         ManuallyDrop::new(self).0.as_ptr() as _
     }
@@ -305,6 +383,12 @@ where
     T: UserSafe,
 {
     /// Allocates space for `T` in user memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز مساحة لـ `T` في ذاكرة المستخدم.
+    ///
+    /// </div>
     pub fn uninitialized() -> Self {
         Self::new_uninit_bytes(size_of::<T>())
     }
@@ -316,6 +400,12 @@ where
     [T]: UserSafe,
 {
     /// Allocates space for a `[T]` of `n` elements in user memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز مساحة لـ `[T]` من `n` عنصر في ذاكرة المستخدم.
+    ///
+    /// </div>
     pub fn uninitialized(n: usize) -> Self {
         Self::new_uninit_bytes(n * size_of::<T>())
     }
@@ -334,6 +424,12 @@ where
     /// * The pointer is null
     /// * The pointed-to range does not fit in the address space
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `User<[T]>` مملوكًا من مؤشر خام رفيع وطول شريحة.
+    ///
+    /// </div>
     pub unsafe fn from_raw_parts(ptr: *mut T, len: usize) -> Self {
         User(unsafe { NonNull::new_userref(<[T]>::from_raw_sized(ptr as _, len * size_of::<T>())) })
     }
@@ -528,6 +624,12 @@ where
     /// * The pointer is not aligned
     /// * The pointer is null
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `&UserRef<[T]>` من مؤشر خام.
+    ///
+    /// </div>
     pub unsafe fn from_ptr<'a>(ptr: *const T) -> &'a Self {
         // SAFETY: The caller must uphold the safety contract for `from_ptr`.
         unsafe { T::check_ptr(ptr) };
@@ -546,6 +648,12 @@ where
     /// * The pointer is not aligned
     /// * The pointer is null
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `&mut UserRef<[T]>` من مؤشر خام.
+    ///
+    /// </div>
     pub unsafe fn from_mut_ptr<'a>(ptr: *mut T) -> &'a mut Self {
         // SAFETY: The caller must uphold the safety contract for `from_mut_ptr`.
         unsafe { T::check_ptr(ptr) };
@@ -557,6 +665,12 @@ where
     /// # Panics
     /// This function panics if the destination doesn't have the same size as
     /// the source. This can happen for dynamically-sized types such as slices.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `val` إلى ذاكرة المستخدم.
+    ///
+    /// </div>
     pub fn copy_from_enclave(&mut self, val: &T) {
         unsafe {
             assert_eq!(size_of_val(val), size_of_val(&*self.0.get()));
@@ -573,6 +687,12 @@ where
     /// # Panics
     /// This function panics if the destination doesn't have the same size as
     /// the source. This can happen for dynamically-sized types such as slices.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ القيمة من ذاكرة المستخدم ويضعها في `dest`.
+    ///
+    /// </div>
     pub fn copy_to_enclave<U: ?Sized + UserSafeCopyDestination<T>>(&self, dest: &mut U) {
         unsafe {
             assert_eq!(size_of_val(dest), size_of_val(&*self.0.get()));
@@ -585,11 +705,23 @@ where
     }
 
     /// Obtain a raw pointer from this reference.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا من هذا المرجع.
+    ///
+    /// </div>
     pub fn as_raw_ptr(&self) -> *const T {
         self as *const _ as _
     }
 
     /// Obtain a raw pointer from this reference.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا من هذا المرجع.
+    ///
+    /// </div>
     pub fn as_raw_mut_ptr(&mut self) -> *mut T {
         self as *mut _ as _
     }
@@ -601,6 +733,12 @@ where
     T: UserSafe,
 {
     /// Copies the value from user memory into enclave memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ القيمة من ذاكرة المستخدم إلى ذاكرة الـ enclave.
+    ///
+    /// </div>
     pub fn to_enclave(&self) -> T {
         unsafe {
             let mut data = mem::MaybeUninit::uninit();
@@ -627,6 +765,12 @@ where
     /// * The pointer is null
     /// * The pointed-to range does not fit in the address space
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `&UserRef<[T]>` من مؤشر خام رفيع وطول شريحة.
+    ///
+    /// </div>
     pub unsafe fn from_raw_parts<'a>(ptr: *const T, len: usize) -> &'a Self {
         // SAFETY: The caller must uphold the safety contract for `from_raw_parts`.
         unsafe { &*(<[T]>::from_raw_sized(ptr as _, len * size_of::<T>()).as_ptr() as *const Self) }
@@ -646,6 +790,12 @@ where
     /// * The pointer is null
     /// * The pointed-to range does not fit in the address space
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `&mut UserRef<[T]>` من مؤشر خام رفيع وطول شريحة.
+    ///
+    /// </div>
     pub unsafe fn from_raw_parts_mut<'a>(ptr: *mut T, len: usize) -> &'a mut Self {
         // SAFETY: The caller must uphold the safety contract for `from_raw_parts_mut`.
         unsafe {
@@ -654,21 +804,45 @@ where
     }
 
     /// Obtain a raw pointer to the first element of this user slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى أول عنصر في شريحة المستخدم هذه.
+    ///
+    /// </div>
     pub fn as_ptr(&self) -> *const T {
         self.0.get() as _
     }
 
     /// Obtain a raw pointer to the first element of this user slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى أول عنصر في شريحة المستخدم هذه.
+    ///
+    /// </div>
     pub fn as_mut_ptr(&mut self) -> *mut T {
         self.0.get() as _
     }
 
     /// Obtain the number of elements in this user slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في شريحة المستخدم هذه.
+    ///
+    /// </div>
     pub fn len(&self) -> usize {
         unsafe { self.0.get().len() }
     }
 
     /// Copies the value from user memory and appends it to `dest`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ القيمة من ذاكرة المستخدم ويضيفها إلى `dest`.
+    ///
+    /// </div>
     pub fn append_to_enclave_vec(&self, dest: &mut Vec<T>) {
         dest.reserve(self.len());
         self.copy_to_enclave(&mut dest.spare_capacity_mut()[..self.len()]);
@@ -677,6 +851,12 @@ where
     }
 
     /// Copies the value from user memory into a vector in enclave memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ القيمة من ذاكرة المستخدم إلى متجه في ذاكرة الـ enclave.
+    ///
+    /// </div>
     pub fn to_enclave(&self) -> Vec<T> {
         let mut ret = Vec::with_capacity(self.len());
         self.append_to_enclave_vec(&mut ret);
@@ -715,6 +895,12 @@ where
 /// Immutable user slice iterator
 ///
 /// This struct is created by the `iter` method on `UserRef<[T]>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر غير قابل للتعديل على شريحة مستخدم.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct Iter<'a, T: 'a + UserSafe>(slice::Iter<'a, T>);
 
@@ -731,6 +917,12 @@ impl<'a, T: UserSafe> Iterator for Iter<'a, T> {
 /// Mutable user slice iterator
 ///
 /// This struct is created by the `iter_mut` method on `UserRef<[T]>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر قابل للتعديل على شريحة مستخدم.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct IterMut<'a, T: 'a + UserSafe>(slice::IterMut<'a, T>);
 
@@ -833,6 +1025,12 @@ impl UserRef<super::raw::ByteBuffer> {
     /// * The pointer is null
     /// * The pointed-to range does not fit in the address space
     /// * The pointed-to range is not in user memory
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ نطاق ذاكرة المستخدم الذي يشير إليه `ByteBuffer` إلى ذاكرة الـ enclave.
+    ///
+    /// </div>
     pub fn copy_user_buffer(&self) -> Vec<u8> {
         unsafe {
             let buf = self.to_enclave();

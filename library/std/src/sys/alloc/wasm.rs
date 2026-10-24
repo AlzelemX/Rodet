@@ -15,6 +15,12 @@
 //!
 //! The crate itself provides a global allocator which on wasm has no
 //! synchronization as there are no threads!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق مُخصِّص عام لمنصات wasm عند عدم استخدام emscripten أو wasi.
+//!
+//! </div>
 
 use core::cell::SyncUnsafeCell;
 

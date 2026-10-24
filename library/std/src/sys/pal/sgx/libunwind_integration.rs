@@ -1,5 +1,11 @@
 //! The functions in this module are needed by libunwind. These symbols are named
 //! in pre-link args for the target specification, so keep that in sync.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الدوال في هذه الوحدة تحتاجها libunwind.
+//!
+//! </div>
 
 #![cfg(not(test))]
 

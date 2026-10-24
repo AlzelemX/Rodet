@@ -28,6 +28,12 @@
 //! hope is to have std depend on sys and not the other way around.
 //! However, some amount of glue code may currently be necessary so such code
 //! should go in sys/pal/windows/mod.rs rather than here. See `IoResult` as an example.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أغلفة أكثر أمانًا حول دوال واجهة Windows.
+//!
+//! </div>
 
 use core::ffi::c_void;
 use core::marker::PhantomData;
@@ -35,6 +41,12 @@ use core::marker::PhantomData;
 use super::c;
 
 /// Creates a null-terminated UTF-16 string from a str.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نص UTF-16 منتهيًا بصفر من `str`.
+///
+/// </div>
 pub macro wide_str($str:literal) {{
     const _: () = {
         if core::slice::memchr::memchr(0, $str.as_bytes()).is_some() {
@@ -45,6 +57,12 @@ pub macro wide_str($str:literal) {{
 }}
 
 /// Creates a UTF-16 string from a str without null termination.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نص UTF-16 من `str` بدون صفر في النهاية.
+///
+/// </div>
 pub macro utf16($str:expr) {{
     const UTF8: &str = $str;
     const UTF16_LEN: usize = crate::sys::pal::windows::api::utf16_len(UTF8);
@@ -56,6 +74,12 @@ pub macro utf16($str:expr) {{
 mod tests;
 
 /// Gets the UTF-16 length of a UTF-8 string, for use in the wide_str macro.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع طول نص UTF-8 بوحدات UTF-16، لاستخدامه في الماكرو `wide_str`.
+///
+/// </div>
 pub const fn utf16_len(s: &str) -> usize {
     let s = s.as_bytes();
     let mut i = 0;
@@ -78,6 +102,12 @@ pub const fn utf16_len(s: &str) -> usize {
 /// Const convert UTF-8 to UTF-16, for use in the wide_str macro.
 ///
 /// Note that this is designed for use in const contexts so is not optimized.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل UTF-8 إلى UTF-16 وقت الترجمة، لاستخدامه في الماكرو `wide_str`.
+///
+/// </div>
 pub const fn to_utf16<const UTF16_LEN: usize>(s: &str) -> [u16; UTF16_LEN] {
     let mut output = [0_u16; UTF16_LEN];
     let mut pos = 0;
@@ -171,12 +201,36 @@ const fn win32_size_of<T: Sized>() -> u32 {
 /// * `as_ptr` must return a pointer to memory that is readable up to `size` bytes.
 /// * `CLASS` must accurately reflect the type pointed to by `as_ptr`. E.g.
 /// the `FILE_BASIC_INFO` structure has the class `FileBasicInfo`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الدالة `SetFileInformationByHandle` تأخذ معاملًا عامًا بتحديد نوع (صنف) المعلومات.
+///
+/// </div>
 pub unsafe trait SetFileInformation {
     /// The type of information to set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع المعلومات المطلوب ضبطها.
+    ///
+    /// </div>
     const CLASS: i32;
     /// A pointer to the file information to set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مؤشر إلى معلومات الملف المطلوب ضبطها.
+    ///
+    /// </div>
     fn as_ptr(&self) -> *const c_void;
     /// The size of the type pointed to by `as_ptr`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حجم النوع الذي يشير إليه `as_ptr`.
+    ///
+    /// </div>
     fn size(&self) -> u32;
 }
 /// Helper trait for implementing `SetFileInformation` for statically sized types.
@@ -239,6 +293,12 @@ pub fn set_file_information_by_handle<T: SetFileInformation>(
 /// Gets the error from the last function.
 /// This must be called immediately after the function that sets the error to
 /// avoid the risk of another function overwriting it.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع خطأ آخر دالة؛ يجب استدعاؤه فورًا بعد الدالة التي ضبطت الخطأ.
+///
+/// </div>
 pub fn get_last_error() -> WinError {
     // SAFETY: This just returns a thread-local u32 and has no other effects.
     unsafe { WinError { code: c::GetLastError() } }
@@ -248,6 +308,12 @@ pub fn get_last_error() -> WinError {
 ///
 /// This is usually a 16-bit Win32 error code but may be a 32-bit HRESULT or NTSTATUS.
 /// Check the documentation of the Windows API function being called for expected errors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رمز خطأ كما ترجعه `get_last_error`.
+///
+/// </div>
 #[derive(Clone, Copy, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct WinError {
@@ -268,6 +334,12 @@ impl WinError {
     /// Success is not an error.
     /// Some Windows APIs do use this to distinguish between a zero return and an error return
     /// but we should never return this to users as an error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النجاح ليس خطأً؛ بعض واجهات Windows تستخدمه للتمييز بين إرجاع صفر وإرجاع خطأ.
+    ///
+    /// </div>
     pub const SUCCESS: Self = Self::new(c::ERROR_SUCCESS);
     // tidy-alphabetical-start
     pub const ACCESS_DENIED: Self = Self::new(c::ERROR_ACCESS_DENIED);
@@ -300,6 +372,12 @@ impl WinError {
 /// If the MaximumLength field of the underlying UNICODE_STRING is greater than
 /// the Length field then you can test if the string is null terminated by inspecting
 /// the u16 directly after the string. You cannot otherwise depend on nul termination.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف حول UNICODE_STRING يعادل `&[u16]`.
+///
+/// </div>
 #[derive(Copy, Clone)]
 pub struct UnicodeStrRef<'a> {
     s: c::UNICODE_STRING,
@@ -334,6 +412,12 @@ impl UnicodeStrRef<'_> {
     }
 
     /// Returns a pointer to the underlying UNICODE_STRING
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى UNICODE_STRING الأساسي.
+    ///
+    /// </div>
     pub const fn as_ptr(&self) -> *const c::UNICODE_STRING {
         &self.s
     }
@@ -352,6 +436,12 @@ impl UnicodeStrRef<'_> {
 /// **NOTE:** we lack a UNICODE_STRING builder type as we don't currently have
 /// a use for it. If needing to dynamically build a UNICODE_STRING, the builder
 /// should try to ensure there's a nul one past the end of the string.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `UnicodeStringRef` من نص ثابت أو مصفوفة `u16`.
+///
+/// </div>
 pub macro unicode_str {
     ($str:literal) => {const {
         crate::sys::pal::windows::api::UnicodeStrRef::from_slice_with_nul(
@@ -371,6 +461,12 @@ pub macro unicode_str {
 /// Each letter is returned as an ascii byte.
 ///
 /// [`GetLogicalDrives`]: (https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getlogicaldrives)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قائمة بأحرف الأقراص المفعّلة.
+///
+/// </div>
 pub fn get_logical_drives() -> impl Iterator<Item = u8> {
     // SAFETY: `GetLogicalDrives` only returns information.
     let drives = unsafe { c::GetLogicalDrives() };
@@ -382,6 +478,12 @@ pub fn get_logical_drives() -> impl Iterator<Item = u8> {
 /// # Safety
 ///
 /// `device_name` must be null-terminated.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مسار NT الذي يشير إليه اسم جهاز.
+///
+/// </div>
 // FIXME: Use a null-terminated wide string type to assert validity, similar to CStr.
 // Then this function can be safe.
 pub unsafe fn query_dos_device<'a>(

@@ -8,6 +8,12 @@ pub struct Instant(Duration);
 /// the timezone is assumed to be in UTC.
 ///
 /// UEFI SystemTime is stored as Duration from 1900-01-01-00:00:00 with timezone -1440 as anchor
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عند تحديد منطقة زمنية تكون المدة المخزنة بتوقيت UTC.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
 pub struct SystemTime(Duration);
 

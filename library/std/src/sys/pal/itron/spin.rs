@@ -5,6 +5,12 @@ use crate::sync::atomic::{Atomic, AtomicBool, AtomicUsize, Ordering};
 
 /// A mutex implemented by `dis_dsp` (for intra-core synchronization) and a
 /// spinlock (for inter-core synchronization).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قفل (mutex) مطبَّق بـ `dis_dsp` للتزامن داخل النواة وقفل دوّار للتزامن بين الأنوية.
+///
+/// </div>
 pub struct SpinMutex<T = ()> {
     locked: Atomic<bool>,
     data: UnsafeCell<T>,
@@ -17,6 +23,12 @@ impl<T> SpinMutex<T> {
     }
 
     /// Acquire a lock.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القفل.
+    ///
+    /// </div>
     #[inline]
     pub fn with_locked<R>(&self, f: impl FnOnce(&mut T) -> R) -> R {
         struct SpinMutexGuard<'a>(&'a Atomic<bool>);
@@ -49,6 +61,12 @@ impl<T> SpinMutex<T> {
 ///
 /// It's assumed that `0` is not a valid ID, and all kernel
 /// object IDs fall into range `1..=usize::MAX`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `OnceCell<(abi::ID, T)>` مطبَّق بـ `dis_dsp` وقفل دوّار.
+///
+/// </div>
 pub struct SpinIdOnceCell<T = ()> {
     id: Atomic<usize>,
     spin: SpinMutex<()>,
@@ -92,6 +110,12 @@ impl<T> SpinIdOnceCell<T> {
 
     /// Assign the content without checking if it's already initialized or
     /// being initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المحتوى بدون التحقق هل هو مهيأ أو قيد التهيئة.
+    ///
+    /// </div>
     pub unsafe fn set_unchecked(&self, (id, extra): (abi::ID, T)) {
         debug_assert!(self.get().is_none());
 
@@ -110,6 +134,12 @@ impl<T> SpinIdOnceCell<T> {
     ///
     /// Warning: `f` must not perform a blocking operation, which
     /// includes panicking.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الخلية، ويهيئها بـ `f` إذا كانت فارغة؛ إذا فشلت `f` يرجع الخطأ.
+    ///
+    /// </div>
     #[inline]
     pub fn get_or_try_init<F, E>(&self, f: F) -> Result<(abi::ID, &T), E>
     where

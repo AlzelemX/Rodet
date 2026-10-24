@@ -36,6 +36,12 @@
 //! OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //!
 //! [mutex in Fuchsia's libsync]: https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/system/ulib/sync/mutex.c
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قفل (mutex) بوراثة الأولوية لـ Fuchsia.
+//!
+//! </div>
 
 use crate::sync::atomic::Ordering::{Acquire, Relaxed, Release};
 use crate::sync::atomic::{Atomic, AtomicU32};

@@ -451,6 +451,12 @@ pub fn unlink(p: &Path) -> io::Result<()> {
 /// 2. Check that both lie in the same disk.
 /// 3. Construct the target path relative to the current disk root.
 /// 4. Set this target path as the file_name in the file_info structure.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// التطبيق يحاكي تطبيق `mv` في صدفة UEFI.
+///
+/// </div>
 pub fn rename(old: &Path, new: &Path) -> io::Result<()> {
     let old_absolute = crate::path::absolute(old)?;
     let new_absolute = crate::path::absolute(new)?;

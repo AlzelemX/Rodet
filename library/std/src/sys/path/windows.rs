@@ -14,6 +14,12 @@ path_separator_bytes!(b'\\', b'/');
 pub const HAS_PREFIXES: bool = true;
 
 /// A null terminated wide string.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نص عريض (wide) منتهٍ بصفر.
+///
+/// </div>
 #[repr(transparent)]
 pub struct WCStr([u16]);
 
@@ -26,6 +32,12 @@ impl WCStr {
     /// # Safety
     ///
     /// The slice must end in a null.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة إلى `WCStr` بدون فحص.
+    ///
+    /// </div>
     pub unsafe fn from_wchars_with_null_unchecked(s: &[u16]) -> &Self {
         unsafe { &*(s as *const [u16] as *const Self) }
     }

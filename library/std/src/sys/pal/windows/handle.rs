@@ -12,6 +12,12 @@ use crate::sys::{AsInner, FromInner, IntoInner, c, cvt};
 /// An owned container for `HANDLE` object, closing them on Drop.
 ///
 /// All methods are inherited through a `Deref` impl to `RawHandle`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاوية مملوكة لكائن `HANDLE`، تغلقه عند التخلص منها.
+///
+/// </div>
 #[derive(Debug)]
 pub struct Handle(OwnedHandle);
 

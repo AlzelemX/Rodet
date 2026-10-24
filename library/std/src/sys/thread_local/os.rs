@@ -79,6 +79,12 @@ pub macro thread_local_inner {
 /// Use a regular global static to store this key; the state provided will then be
 /// thread-local.
 /// INVARIANT: ALIGN must be a valid alignment, and no less than `value_align::<T>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخدم متغيرًا static عامًا لتخزين هذا المفتاح.
+///
+/// </div>
 #[allow(missing_debug_implementations)]
 pub struct Storage<T, const ALIGN: usize> {
     key: LazyKey,
@@ -167,6 +173,12 @@ impl<T: 'static, const ALIGN: usize> Storage<T, ALIGN> {
     ///
     /// The resulting pointer may not be used after reentrant inialialization
     /// or thread destruction has occurred.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى قيمة TLS، وقد يهيئها بالمعاملات المعطاة.
+    ///
+    /// </div>
     #[inline]
     pub fn get(&'static self, i: Option<&mut Option<T>>, f: impl FnOnce() -> T) -> *const T {
         let key = self.key.force();

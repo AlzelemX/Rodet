@@ -59,6 +59,12 @@ mod task_queue {
 /// local variables. This is needed for signaling that a thread has finished
 /// execution. The signal is sent once all TLS destructors have finished at
 /// which point no new thread locals should be created.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة تزامن لا تستخدم متغيرات محلية للخيط.
+///
+/// </div>
 pub mod wait_notify {
     use crate::pin::Pin;
     use crate::sync::Arc;
@@ -70,6 +76,12 @@ pub mod wait_notify {
         /// Notify the waiter. The waiter is either notified right away (if
         /// currently blocked in `Waiter::wait()`) or later when it calls the
         /// `Waiter::wait()` method.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يُعلم المنتظر: إما فورًا إذا كان ينتظر في `Waiter::wait()`، أو لاحقًا عندما يستدعيها.
+        ///
+        /// </div>
         pub fn notify(self) {
             Pin::new(&*self.0).unpark()
         }
@@ -81,6 +93,12 @@ pub mod wait_notify {
         /// Wait for a notification. If `Notifier::notify()` has already been
         /// called, this will return immediately, otherwise the current thread
         /// is blocked until notified.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينتظر إشعارًا؛ إذا استُدعيت `Notifier::notify()` مسبقًا يرجع فورًا، وإلا ينتظر.
+        ///
+        /// </div>
         pub fn wait(self) {
             // SAFETY:
             // This is only ever called on one thread.

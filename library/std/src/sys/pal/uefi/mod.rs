@@ -11,6 +11,12 @@
 //!
 //! [`OsStr`]: crate::ffi::OsStr
 //! [`OsString`]: crate::ffi::OsString
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `std` الخاصة بمنصات UEFI.
+//!
+//! </div>
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 pub mod helpers;

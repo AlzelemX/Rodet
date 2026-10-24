@@ -23,6 +23,12 @@ impl SyncBitset {
     }
 
     /// Not atomic.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ليس ذريًا.
+    ///
+    /// </div>
     pub fn iter(&self) -> SyncBitsetIter<'_> {
         SyncBitsetIter { iter: self.0.iter().enumerate().peekable(), elem_idx: 0 }
     }
@@ -34,6 +40,12 @@ impl SyncBitset {
 
     /// Sets any unset bit. Not atomic. Returns `None` if all bits were
     /// observed to be set.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط أي بت غير مضبوط (ليس ذريًا)؛ يرجع `None` إذا كانت كل البتات مضبوطة.
+    ///
+    /// </div>
     pub fn set(&self) -> Option<usize> {
         'elems: for (idx, elem) in self.0.iter().enumerate() {
             let mut current = elem.load(Ordering::Relaxed);

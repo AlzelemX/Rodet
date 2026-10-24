@@ -11,6 +11,12 @@ path_separator_bytes!(b'/', b'\\');
 /// internally when calling Win32 APIs. Therefore, the server component of path
 /// `\\?\UNC\localhost/share` is `localhost/share` on Win32, but `localhost`
 /// on Cygwin.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// Cygwin يفضّل `/` على `\` دائمًا، ويحوّل كل `/` إلى `\` داخليًا عند استدعاء واجهات Win32.
+///
+/// </div>
 #[inline]
 pub const fn is_verbatim_sep(b: u8) -> bool {
     is_sep_byte(b)

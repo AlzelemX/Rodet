@@ -35,6 +35,12 @@
 //!
 //! Once stack has been unwound down to the handler frame level, unwinding stops
 //! and the last personality routine transfers control to the catch block.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق الـ panic المبني على libgcc/libunwind.
+//!
+//! </div>
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 use unwind as uw;

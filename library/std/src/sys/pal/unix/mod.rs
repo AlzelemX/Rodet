@@ -236,11 +236,23 @@ impl_is_minus_one! { i8 i16 i32 i64 isize }
 
 /// Converts native return values to Result using the *-1 means error is in `errno`*  convention.
 /// Non-error values are `Ok`-wrapped.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل قيم الإرجاع الأصلية إلى `Result` حسب اتفاقية "-1 يعني خطأ في errno".
+///
+/// </div>
 pub fn cvt<T: IsMinusOne>(t: T) -> io::Result<T> {
     if t.is_minus_one() { Err(io::Error::last_os_error()) } else { Ok(t) }
 }
 
 /// `-1` → look at `errno` → retry on `EINTR`. Otherwise `Ok()`-wrap the closure return value.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `-1` ← افحص `errno` ← أعد المحاولة عند `EINTR`؛ وإلا غلّف الناتج في `Ok()`.
+///
+/// </div>
 pub fn cvt_r<T, F>(mut f: F) -> io::Result<T>
 where
     T: IsMinusOne,
@@ -256,6 +268,12 @@ where
 
 #[allow(dead_code)] // Not used on all platforms.
 /// Zero means `Ok()`, all other values are treated as raw OS errors. Does not look at `errno`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الصفر يعني `Ok()`، وكل القيم الأخرى أخطاء نظام خام؛ لا يفحص `errno`.
+///
+/// </div>
 pub fn cvt_nz(error: libc::c_int) -> io::Result<()> {
     if error == 0 { Ok(()) } else { Err(io::Error::from_raw_os_error(error)) }
 }

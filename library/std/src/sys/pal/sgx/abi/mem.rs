@@ -32,6 +32,12 @@ pub(crate) fn heap_size() -> usize {
 // For the same reason we use inline ASM here instead of an extern static to
 // locate the base
 /// Returns address at which current enclave is loaded.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع العنوان الذي حُمّل فيه الـ enclave الحالي.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn image_base() -> u64 {
@@ -50,6 +56,12 @@ pub fn image_base() -> u64 {
 ///
 /// For safety, this function also checks whether the range given overflows,
 /// returning `false` if so.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true` إذا كان نطاق الذاكرة المحدد داخل الـ enclave.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn is_enclave_range(p: *const u8, len: usize) -> bool {
     let start = p as usize;
@@ -73,6 +85,12 @@ pub fn is_enclave_range(p: *const u8, len: usize) -> bool {
 ///
 /// For safety, this function also checks whether the range given overflows,
 /// returning `false` if so.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true` إذا كان نطاق الذاكرة المحدد في مساحة المستخدم.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn is_user_range(p: *const u8, len: usize) -> bool {
     let start = p as usize;

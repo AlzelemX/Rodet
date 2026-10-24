@@ -24,6 +24,12 @@ unsafe extern "C" {
 /// # Panics
 ///
 /// Panics if `nr` is `0`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينفّذ استدعاء المستخدم الخام كما تعرّفه اتفاقية الاستدعاء في الـ ABI.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 #[inline]
 pub unsafe fn do_usercall(
@@ -39,28 +45,70 @@ pub unsafe fn do_usercall(
 }
 
 /// A value passed or returned in a CPU register.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة تُمرر أو تُرجع في سجل (register) المعالج.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub type Register = u64;
 
 /// Translate a type from/to Register to be used as an argument.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يترجم نوعًا من وإلى سجل لاستخدامه كمعامل.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub trait RegisterArgument {
     /// Translate a Register to Self.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يترجم سجلًا إلى `Self`.
+    ///
+    /// </div>
     fn from_register(_: Register) -> Self;
     /// Translate self to a Register.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يترجم `self` إلى سجل.
+    ///
+    /// </div>
     fn into_register(self) -> Register;
 }
 
 /// Translate a pair of Registers to the raw usercall return value.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يترجم زوج سجلات إلى القيمة المُرجعة الخام لاستدعاء المستخدم.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub trait ReturnValue {
     /// Translate a pair of Registers to the raw usercall return value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يترجم زوج سجلات إلى القيمة المُرجعة الخام لاستدعاء المستخدم.
+    ///
+    /// </div>
     fn from_registers(call: &'static str, regs: (Register, Register)) -> Self;
 }
 
 macro_rules! define_usercalls {
     ($(fn $f:ident($($n:ident: $t:ty),*) $(-> $r:tt)*; )*) => {
         /// Usercall numbers as per the ABI.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أرقام استدعاءات المستخدم حسب الـ ABI.
+        ///
+        /// </div>
         #[repr(u64)]
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[derive(Copy, Clone, Hash, PartialEq, Eq, Debug)]
@@ -191,6 +239,12 @@ macro_rules! enclave_usercalls_internal_define_usercalls {
                      $n3:ident: $t3:ty, $n4:ident: $t4:ty) -> $r:tt) => (
         /// This is the raw function definition, see the ABI documentation for
         /// more information.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا تعريف الدالة الخام؛ راجع توثيق الـ ABI.
+        ///
+        /// </div>
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[inline(always)]
         pub unsafe fn $f($n1: $t1, $n2: $t2, $n3: $t3, $n4: $t4) -> $r {
@@ -207,6 +261,12 @@ macro_rules! enclave_usercalls_internal_define_usercalls {
     (def fn $f:ident($n1:ident: $t1:ty, $n2:ident: $t2:ty, $n3:ident: $t3:ty) -> $r:tt) => (
         /// This is the raw function definition, see the ABI documentation for
         /// more information.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا تعريف الدالة الخام؛ راجع توثيق الـ ABI.
+        ///
+        /// </div>
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[inline(always)]
         pub unsafe fn $f($n1: $t1, $n2: $t2, $n3: $t3) -> $r {
@@ -223,6 +283,12 @@ macro_rules! enclave_usercalls_internal_define_usercalls {
     (def fn $f:ident($n1:ident: $t1:ty, $n2:ident: $t2:ty) -> $r:tt) => (
         /// This is the raw function definition, see the ABI documentation for
         /// more information.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا تعريف الدالة الخام؛ راجع توثيق الـ ABI.
+        ///
+        /// </div>
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[inline(always)]
         pub unsafe fn $f($n1: $t1, $n2: $t2) -> $r {
@@ -238,6 +304,12 @@ macro_rules! enclave_usercalls_internal_define_usercalls {
     (def fn $f:ident($n1:ident: $t1:ty) -> $r:tt) => (
         /// This is the raw function definition, see the ABI documentation for
         /// more information.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا تعريف الدالة الخام؛ راجع توثيق الـ ABI.
+        ///
+        /// </div>
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[inline(always)]
         pub unsafe fn $f($n1: $t1) -> $r {
@@ -252,6 +324,12 @@ macro_rules! enclave_usercalls_internal_define_usercalls {
     (def fn $f:ident() -> $r:tt) => (
         /// This is the raw function definition, see the ABI documentation for
         /// more information.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا تعريف الدالة الخام؛ راجع توثيق الـ ABI.
+        ///
+        /// </div>
         #[unstable(feature = "sgx_platform", issue = "56975")]
         #[inline(always)]
         pub unsafe fn $f() -> $r {

@@ -1,4 +1,10 @@
 //! Constants associated with each target.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت مرتبطة بكل منصة هدف.
+//!
+//! </div>
 
 // Replaces the #[else] gate with #[cfg(not(any(…)))] of all the other gates.
 // This ensures that they must be mutually exclusive and do not have precedence

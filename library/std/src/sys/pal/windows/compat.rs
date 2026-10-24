@@ -18,6 +18,12 @@
 //! already loaded) it does mean there's some overhead the first time the
 //! function is called. In the worst case, multiple threads may all end up
 //! importing the same function unnecessarily.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! "طبقة توافق" لدعم إصدارات Windows الأقدم.
+//!
+//! </div>
 
 use crate::ffi::{CStr, c_void};
 use crate::ptr::{self, NonNull};
@@ -70,6 +76,12 @@ unsafe extern "C" fn init() {
 }
 
 /// Helper macro for creating CStrs from literals and symbol names.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو مساعد لإنشاء `CStr` من نصوص ثابتة وأسماء رموز.
+///
+/// </div>
 macro_rules! ansi_str {
     (sym $ident:ident) => {{ crate::sys::compat::const_cstr_from_bytes(concat!(stringify!($ident), "\0").as_bytes()) }};
     ($lit:literal) => {{ crate::sys::compat::const_cstr_from_bytes(concat!($lit, "\0").as_bytes()) }};
@@ -111,6 +123,12 @@ impl Module {
     ///
     /// This should only be use for modules that exist for the lifetime of std
     /// (e.g. kernel32 and ntdll).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول الحصول على مقبض لوحدة محمّلة.
+    ///
+    /// </div>
     pub unsafe fn new(name: &CStr) -> Option<Self> {
         // SAFETY: A CStr is always null terminated.
         unsafe {
@@ -124,6 +142,12 @@ impl Module {
     /// # SAFETY
     ///
     /// This should only be use for modules that exist for the lifetime of std.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحميل مقبض وحدة.
+    ///
+    /// </div>
     pub unsafe fn load(name: &CStr) -> Option<Self> {
         // SAFETY: A CStr is always null terminated.
         unsafe {
@@ -166,17 +190,35 @@ const fn lazy_load_module(name: &'static CStr) -> LazyLoadModule {
 pub(in crate::sys) struct LazyModule(LazyLock<Option<Module>, LazyLoadModule>);
 impl LazyModule {
     ///  Create a lazy-loaded handle to a module.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا لوحدة يُحمّل عند الحاجة.
+    ///
+    /// </div>
     pub const unsafe fn new(name: &'static CStr) -> Self {
         Self(LazyLock::new(lazy_load_module(name)))
     }
 
     /// Get the module handle, loading it if necessary.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مقبض الوحدة، ويحمّلها إذا لزم.
+    ///
+    /// </div>
     pub fn load(&self) -> Option<Module> {
         *LazyLock::force(&self.0)
     }
 }
 
 /// Load a function or use a fallback implementation if that fails.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحمّل دالة أو يستخدم تطبيقًا بديلًا إذا فشل ذلك.
+///
+/// </div>
 macro_rules! compat_fn_with_fallback {
     (pub static $module:ident: &CStr = $name:expr; $(
         $(#[$meta:meta])*
@@ -305,6 +347,12 @@ macro_rules! compat_fn_with_fallback {
 /// Optionally loaded functions.
 ///
 /// Relies on the functions being pre-loaded elsewhere.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال تُحمّل اختياريًا.
+///
+/// </div>
 #[cfg(target_vendor = "win7")]
 macro_rules! compat_fn_optional {
     ($(

@@ -9,6 +9,12 @@
 //!
 //! Additionally, ARM EHABI uses the personality function when generating
 //! backtraces.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! هذه الوحدة فيها تطبيق عنصر اللغة `eh_personality`.
+//!
+//! </div>
 
 mod dwarf;
 

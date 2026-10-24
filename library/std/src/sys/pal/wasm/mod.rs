@@ -13,6 +13,12 @@
 //! remove all this and just omit parts of the standard library if we're
 //! compiling for wasm. That way it's a compile time error for something that's
 //! guaranteed to be a runtime error!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! روابط النظام لمنصة wasm/الويب.
+//!
+//! </div>
 
 #![deny(unsafe_op_in_unsafe_fn)]
 

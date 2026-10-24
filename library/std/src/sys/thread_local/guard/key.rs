@@ -1,6 +1,12 @@
 //! A lot of UNIX platforms don't have a specialized way to register TLS
 //! destructors for native TLS. Instead, we use one TLS key with a destructor
 //! that will run all native TLS destructors in the destructor list.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! كثير من منصات يونكس ليس لها طريقة خاصة لتسجيل مُدمِّرات TLS، فنستخدم مفتاح TLS واحدًا.
+//!
+//! </div>
 
 use crate::ptr;
 use crate::sys::thread_local::key::{LazyKey, set};
@@ -34,6 +40,12 @@ pub fn enable() {
 /// We still have to make sure that [`crate::rt::thread_cleanup`] is called,
 /// however. This is done by deferring the execution of a TLS destructor to
 /// the next round of destruction inside the TLS destructors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// على المنصات ذات TLS المبني على المفاتيح، النظام يشغّل المُدمِّرات عنا.
+///
+/// </div>
 #[cfg(not(target_thread_local))]
 pub fn enable() {
     const DEFER: *mut u8 = ptr::without_provenance_mut(1);

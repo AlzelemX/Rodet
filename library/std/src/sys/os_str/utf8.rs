@@ -1,4 +1,10 @@
 //! An OsString/OsStr implementation that is guaranteed to be UTF-8.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق OsString/OsStr مضمون أن يكون UTF-8.
+//!
+//! </div>
 
 use core::clone::CloneToUninit;
 
@@ -194,6 +200,12 @@ impl Buf {
     ///
     /// The length must be at an `OsStr` boundary, according to
     /// `Slice::check_public_boundary`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::truncate` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn truncate_unchecked(&mut self, len: usize) {
         self.inner.truncate(len);
@@ -207,6 +219,12 @@ impl Buf {
     /// The slice must be valid for the platform encoding (as described in
     /// `OsStr::from_encoded_bytes_unchecked`). For this encoding, that means
     /// `other` must be valid UTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::extend_from_slice` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn extend_from_slice_unchecked(&mut self, other: &[u8]) {
         self.inner.push_str(unsafe { str::from_utf8_unchecked(other) });

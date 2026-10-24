@@ -1,5 +1,11 @@
 //! The underlying OsString/OsStr implementation on Windows is a
 //! wrapper around the "WTF-8" encoding; see the `wtf8` module for more.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق OsString/OsStr الأساسي على Windows غلاف حول ترميز WTF-8.
+//!
+//! </div>
 
 use alloc::wtf8::{Wtf8, Wtf8Buf};
 use core::clone::CloneToUninit;
@@ -204,6 +210,12 @@ impl Buf {
     ///
     /// The length must be at an `OsStr` boundary, according to
     /// `Slice::check_public_boundary`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::truncate` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn truncate_unchecked(&mut self, len: usize) {
         self.inner.truncate(len);
@@ -221,6 +233,12 @@ impl Buf {
     /// Additionally, this method bypasses the WTF-8 surrogate joining, so
     /// either `self` must not end with a leading surrogate half, or `other`
     /// must not start with a trailing surrogate half.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::extend_from_slice` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn extend_from_slice_unchecked(&mut self, other: &[u8]) {
         unsafe {

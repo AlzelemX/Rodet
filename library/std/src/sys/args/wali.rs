@@ -1,11 +1,23 @@
 pub use super::common::Args;
 
 /// One-time global initialization.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تهيئة عامة لمرة واحدة.
+///
+/// </div>
 pub unsafe fn init(argc: isize, argv: *const *const u8) {
     unsafe { imp::init(argc, argv) }
 }
 
 /// Returns the command line arguments
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معاملات سطر الأوامر.
+///
+/// </div>
 pub fn args() -> Args {
     imp::args()
 }

@@ -41,6 +41,12 @@
 //! * optimizations only apply to std types. If a user adds a custom wrapper type, e.g. to report
 //!   progress, they can hit a performance cliff.
 //! * complexity
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تخصيصات تنقل عمليات `io::copy()` بين أنواع فيها واصفات ملفات إلى استدعاءات نظام أسرع.
+//!
+//! </div>
 
 #[cfg(not(any(all(target_os = "linux", target_env = "gnu"), target_os = "hurd")))]
 use libc::sendfile as sendfile64;

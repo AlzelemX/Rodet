@@ -190,6 +190,12 @@ impl BorrowedSocket<'_> {
 }
 
 /// Returns the last error from the Windows socket interface.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع آخر خطأ من واجهة مقابس Windows.
+///
+/// </div>
 fn last_error() -> io::Error {
     io::Error::from_raw_os_error(unsafe { sys::c::WSAGetLastError() })
 }

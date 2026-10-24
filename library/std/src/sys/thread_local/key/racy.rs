@@ -5,6 +5,12 @@
 //! Instead of blocking API like `OnceLock`, we use racy initialization, which
 //! should be more lightweight and avoids circular dependencies with the rest of
 //! `std`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق `LazyKey` بتهيئة متسابقة.
+//!
+//! </div>
 
 use crate::sync::atomic::{Atomic, AtomicUsize, Ordering};
 
@@ -12,6 +18,12 @@ use crate::sync::atomic::{Atomic, AtomicUsize, Ordering};
 ///
 /// This is basically a `LazyLock<Key>`, but avoids blocking and circular
 /// dependencies with the rest of `std`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع لمفاتيح TLS المحجوزة ثابتًا.
+///
+/// </div>
 pub struct LazyKey {
     /// Inner static TLS key (internals).
     key: Atomic<usize>,

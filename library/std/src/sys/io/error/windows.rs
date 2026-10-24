@@ -95,6 +95,12 @@ pub fn decode_error_kind(errno: i32) -> io::ErrorKind {
 }
 
 /// Gets a detailed string description for the given error number.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع وصفًا نصيًا مفصلًا لرقم الخطأ المعطى.
+///
+/// </div>
 pub fn format_error(mut errnum: i32, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     let mut buf = [0 as c::WCHAR; 2048];
 

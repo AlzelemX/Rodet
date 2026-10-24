@@ -1,4 +1,10 @@
 //! Common code for printing backtraces.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! كود مشترك لطباعة تتبع المكدس.
+//!
+//! </div>
 #![forbid(unsafe_op_in_unsafe_fn)]
 
 use crate::backtrace_rs::{self, BacktraceFmt, BytesOrWideString, PrintFmt};
@@ -158,6 +164,12 @@ unsafe fn _print_fmt(fmt: &mut fmt::Formatter<'_>, print_fmt: PrintFmt) -> fmt::
 /// Fixed frame used to clean the backtrace with `RUST_BACKTRACE=1`. Note that
 /// this is only inline(never) when backtraces in std are enabled, otherwise
 /// it's fine to optimize away.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إطار ثابت يُستخدم لتنظيف تتبع المكدس مع `RUST_BACKTRACE=1`.
+///
+/// </div>
 #[cfg_attr(feature = "backtrace", inline(never))]
 pub fn __rust_begin_short_backtrace<F, T>(f: F) -> T
 where
@@ -174,6 +186,12 @@ where
 /// Fixed frame used to clean the backtrace with `RUST_BACKTRACE=1`. Note that
 /// this is only inline(never) when backtraces in std are enabled, otherwise
 /// it's fine to optimize away.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إطار ثابت يُستخدم لتنظيف تتبع المكدس مع `RUST_BACKTRACE=1`.
+///
+/// </div>
 #[cfg_attr(feature = "backtrace", inline(never))]
 pub fn __rust_end_short_backtrace<F, T>(f: F) -> T
 where
@@ -190,6 +208,12 @@ where
 /// Prints the filename of the backtrace frame.
 ///
 /// See also `output`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع اسم الملف لإطار تتبع المكدس.
+///
+/// </div>
 pub fn output_filename(
     fmt: &mut fmt::Formatter<'_>,
     bows: BytesOrWideString<'_>,

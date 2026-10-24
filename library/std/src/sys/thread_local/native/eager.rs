@@ -30,6 +30,12 @@ impl<T> Storage<T> {
     ///
     /// # Safety
     /// The `self` reference must remain valid until the TLS destructor is run.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى قيمة TLS؛ إذا كان المتغير قد أُتلف يرجع مؤشرًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn get(&self) -> *const T {
         if let State::Alive = self.state.get() {

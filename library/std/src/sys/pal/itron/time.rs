@@ -17,6 +17,12 @@ pub fn get_tim() -> abi::SYSTIM {
 }
 
 /// Split `Duration` into zero or more `RELTIM`s.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقسم `Duration` إلى صفر أو أكثر من `RELTIM`.
+///
+/// </div>
 #[inline]
 pub fn dur2reltims(dur: Duration) -> impl Iterator<Item = abi::RELTIM> {
     // `RELTIM` is microseconds
@@ -55,6 +61,12 @@ fn dur2tmos(dur: Duration) -> impl Iterator<Item = abi::TMO> {
 }
 
 /// Split `Duration` into one or more API calls with timeout.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقسم `Duration` إلى استدعاء أو أكثر بمهلة.
+///
+/// </div>
 #[inline]
 pub fn with_tmos(dur: Duration, mut f: impl FnMut(abi::TMO) -> abi::ER) -> abi::ER {
     let mut er = abi::E_TMOUT;
@@ -69,6 +81,12 @@ pub fn with_tmos(dur: Duration, mut f: impl FnMut(abi::TMO) -> abi::ER) -> abi::
 
 /// Split `Duration` into one or more API calls with timeout. This function can
 /// handle spurious wakeups.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقسم `Duration` إلى استدعاء أو أكثر بمهلة، ويتعامل مع الإيقاظ الزائف.
+///
+/// </div>
 #[inline]
 pub fn with_tmos_strong(dur: Duration, mut f: impl FnMut(abi::TMO) -> abi::ER) -> abi::ER {
     // `TMO` and `SYSTIM` are microseconds.

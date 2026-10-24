@@ -1,4 +1,10 @@
 //! Thread parking without `futex` using the `pthread` synchronization primitives.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! إيقاف الخيوط بدون `futex` باستخدام أدوات تزامن `pthread`.
+//!
+//! </div>
 
 use crate::pin::Pin;
 use crate::sync::atomic::Ordering::{Acquire, Relaxed, Release};
@@ -21,6 +27,12 @@ impl Parker {
     ///
     /// # Safety
     /// The constructed parker must never be moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ موقِف يونكس في مكانه.
+    ///
+    /// </div>
     pub unsafe fn new_in_place(parker: *mut Parker) {
         parker.write(Parker {
             state: AtomicUsize::new(EMPTY),

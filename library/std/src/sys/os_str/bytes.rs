@@ -1,5 +1,11 @@
 //! The underlying OsString/OsStr implementation on Unix and many other
 //! systems: just a `Vec<u8>`/`[u8]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق OsString/OsStr الأساسي على يونكس وأنظمة كثيرة: مجرد `Vec<u8>`/`[u8]`.
+//!
+//! </div>
 
 use core::clone::CloneToUninit;
 
@@ -205,6 +211,12 @@ impl Buf {
     ///
     /// The length must be at an `OsStr` boundary, according to
     /// `Slice::check_public_boundary`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::truncate` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn truncate_unchecked(&mut self, len: usize) {
         self.inner.truncate(len);
@@ -218,6 +230,12 @@ impl Buf {
     /// The slice must be valid for the platform encoding (as described in
     /// `OsStr::from_encoded_bytes_unchecked`). This encoding has no safety
     /// requirements.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::extend_from_slice` بدون إعطاء وصول كامل قابل للتعديل للـ `Vec`.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn extend_from_slice_unchecked(&mut self, other: &[u8]) {
         self.inner.extend_from_slice(other);

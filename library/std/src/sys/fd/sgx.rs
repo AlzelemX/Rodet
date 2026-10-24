@@ -20,6 +20,12 @@ impl FileDesc {
     }
 
     /// Extracts the actual file descriptor without closing it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج واصف الملف الفعلي بدون إغلاقه.
+    ///
+    /// </div>
     pub fn into_raw(self) -> Fd {
         ManuallyDrop::new(self).fd
     }

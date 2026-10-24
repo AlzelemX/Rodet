@@ -16,6 +16,12 @@ pub fn env_read_lock() -> impl Drop {
 
 /// Returns a vector of (variable, value) byte-vector pairs for all the
 /// environment variables of the current process.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع متجه أزواج (المتغير، القيمة) لكل متغيرات البيئة في العملية الحالية.
+///
+/// </div>
 pub fn env() -> Env {
     unsafe extern "C" {
         static mut environ: *const *const c_char;

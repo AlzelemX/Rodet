@@ -3,6 +3,12 @@
 //! This module contains the facade (aka platform-specific) implementations of
 //! OS level functionality for WASI. Currently this includes both WASIp1 and
 //! WASIp2.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! روابط النظام لمنصات WASI.
+//!
+//! </div>
 
 use crate::io;
 

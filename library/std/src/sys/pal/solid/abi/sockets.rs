@@ -152,6 +152,12 @@ pub struct iovec {
 }
 
 /// This value can be chosen by an application
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يمكن للتطبيق اختيار هذه القيمة.
+///
+/// </div>
 pub const SOLID_NET_FD_SETSIZE: usize = 1;
 
 #[repr(C)]

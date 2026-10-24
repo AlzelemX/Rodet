@@ -44,6 +44,12 @@ pub fn cvt<T: IsMinusOne>(t: T) -> io::Result<T> {
 }
 
 /// A variant of `cvt` for `getaddrinfo` which return 0 for a success.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة من `cvt` لـ `getaddrinfo` التي ترجع 0 عند النجاح.
+///
+/// </div>
 pub fn cvt_gai(err: c_int) -> io::Result<()> {
     if err == 0 {
         Ok(())
@@ -64,6 +70,12 @@ pub fn cvt_gai(err: c_int) -> io::Result<()> {
 }
 
 /// Just to provide the same interface as sys/pal/unix/net.rs
+///
+/// <div lang="ar" dir="rtl">
+///
+/// فقط لتوفير نفس الواجهة الموجودة في sys/pal/unix/net.rs.
+///
+/// </div>
 pub fn cvt_r<T, F>(mut f: F) -> io::Result<T>
 where
     T: IsMinusOne,

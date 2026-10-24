@@ -9,6 +9,12 @@
 //! Since userspace may send spurious wake-ups, the wakeup event state is
 //! recorded in the enclave. The wakeup event state is protected by a spinlock.
 //! The queue and associated wait state are stored in a `WaitVariable`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق طابور بسيط لأدوات التزامن.
+//!
+//! </div>
 
 #[cfg(test)]
 mod tests;
@@ -40,6 +46,12 @@ struct WaitEntry {
 /// Consumers of this API should use a synchronization primitive for shared
 /// access. `WaitVariable::new` is the only constructor and provides that
 /// with `SpinMutex`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بيانات مخزنة مع `WaitQueue` لضمان تزامن الوصول إلى الطابور والبيانات.
+///
+/// </div>
 pub struct WaitVariable<T> {
     queue: WaitQueue,
     lock: T,
@@ -66,6 +78,12 @@ impl<T> WaitVariable<T> {
     /// list initialized. Initialization makes the list self-referential and
     /// happens before pinning: only the `Box` pointer is moved into the
     /// `Pin`, the heap allocation itself never moves.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `WaitVariable` محميًا بقفل في الـ heap مع تهيئة قائمة طابوره.
+    ///
+    /// </div>
     pub fn new(value: T) -> Pin<Box<SpinMutex<WaitVariable<T>>>> {
         // SAFETY: `init` is called below, before the queue is otherwise used
         // or dropped.
@@ -84,6 +102,12 @@ pub enum NotifiedTcs {
 
 /// An RAII guard that will notify a set of target threads as well as unlock
 /// a mutex on drop.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حارس RAII يُعلم مجموعة خيوط ويفتح قفلًا عند التخلص منه.
+///
+/// </div>
 pub struct WaitGuard<'a, T: 'a> {
     mutex_guard: Option<Pin<SpinMutexGuard<'a, WaitVariable<T>>>>,
     notified_tcs: NotifiedTcs,
@@ -96,6 +120,12 @@ pub struct WaitGuard<'a, T: 'a> {
 /// safe because the waiting thread will not return from that stack frame until
 /// after it is notified. The notifying thread ensures to clean up any
 /// references to the list entries before sending the wakeup event.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طابور خيوط تنتظر أداة تزامن.
+///
+/// </div>
 // The safety requirements of `UnsafeList` are upheld as follows:
 //
 // * All list operations are performed while holding the lock of the
@@ -158,6 +188,12 @@ impl WaitQueue {
     /// before any other use of the queue, including dropping it.
     /// `WaitVariable::new`, the sole constructor of the containing
     /// structure, does this.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ طابورًا جديدًا.
+    ///
+    /// </div>
     pub const unsafe fn new() -> Self {
         // SAFETY: the caller upholds `UnsafeList::new`'s contract (see this
         // function's safety requirements).
@@ -175,6 +211,12 @@ impl WaitQueue {
     ///
     /// This function does not return until this thread has been awoken. When `before_wait` panics,
     /// this function will abort.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف الخيط المستدعي إلى طابور انتظار الـ `WaitVariable` ثم ينتظر حدث إيقاظ.
+    ///
+    /// </div>
     pub fn wait<T, F: FnOnce()>(
         mut guard: Pin<SpinMutexGuard<'_, WaitVariable<T>>>,
         before_wait: F,
@@ -205,6 +247,12 @@ impl WaitQueue {
     /// until a wakeup event or timeout. If event was observed, returns true.
     /// If not, it will remove the calling thread from the wait queue.
     /// When `before_wait` panics, this function will abort.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف الخيط المستدعي إلى طابور الانتظار ثم ينتظر حدث إيقاظ أو انتهاء المهلة.
+    ///
+    /// </div>
     pub fn wait_timeout<T, F: FnOnce()>(
         lock: Pin<&SpinMutex<WaitVariable<T>>>,
         timeout: Duration,
@@ -239,6 +287,12 @@ impl WaitQueue {
     ///
     /// If a waiter is found, a `WaitGuard` is returned which will notify the
     /// waiter when it is dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد المنتظر التالي في الطابور، أو يرجع حارس القفل بدون تغيير.
+    ///
+    /// </div>
     pub fn notify_one<T>(
         mut guard: Pin<SpinMutexGuard<'_, WaitVariable<T>>>,
     ) -> Result<WaitGuard<'_, T>, Pin<SpinMutexGuard<'_, WaitVariable<T>>>> {
@@ -266,6 +320,12 @@ impl WaitQueue {
     ///
     /// If at least one waiter is found, a `WaitGuard` is returned which will
     /// notify all waiters when it is dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجد كل المنتظرين في الطابور، أو يرجع حارس القفل بدون تغيير.
+    ///
+    /// </div>
     pub fn notify_all<T>(
         mut guard: Pin<SpinMutexGuard<'_, WaitVariable<T>>>,
     ) -> Result<WaitGuard<'_, T>, Pin<SpinMutexGuard<'_, WaitVariable<T>>>> {

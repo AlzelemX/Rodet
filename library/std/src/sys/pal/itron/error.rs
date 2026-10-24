@@ -2,6 +2,12 @@ use super::abi;
 use crate::{fmt, io};
 
 /// Wraps a μITRON error code.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغلّف رمز خطأ μITRON.
+///
+/// </div>
 #[derive(Debug, Copy, Clone)]
 pub struct ItronError {
     er: abi::ER,
@@ -10,18 +16,36 @@ pub struct ItronError {
 impl ItronError {
     /// Constructs `ItronError` from the specified error code. Returns `None` if the
     /// error code does not represent a failure or warning.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `ItronError` من رمز الخطأ المحدد؛ يرجع `None` إذا لم يكن الرمز فشلًا أو تحذيرًا.
+    ///
+    /// </div>
     #[inline]
     pub fn new(er: abi::ER) -> Option<Self> {
         if er < 0 { Some(Self { er }) } else { None }
     }
 
     /// Returns `Ok(er)` if `er` represents a success or `Err(_)` otherwise.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Ok(er)` إذا كان `er` يمثل نجاحًا، وإلا `Err(_)`.
+    ///
+    /// </div>
     #[inline]
     pub fn err_if_negative(er: abi::ER) -> Result<abi::ER, Self> {
         if let Some(error) = Self::new(er) { Err(error) } else { Ok(er) }
     }
 
     /// Gets the raw error code.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رمز الخطأ الخام.
+    ///
+    /// </div>
     #[inline]
     pub fn as_raw(&self) -> abi::ER {
         self.er
@@ -41,6 +65,12 @@ impl fmt::Display for ItronError {
 
 /// Describe the specified μITRON error code. Returns `None` if it's an
 /// undefined error code.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصف رمز خطأ μITRON المحدد؛ يرجع `None` إذا كان رمزًا غير معرّف.
+///
+/// </div>
 pub fn error_name(er: abi::ER) -> Option<&'static str> {
     match er {
         // Success
@@ -128,6 +158,13 @@ pub fn decode_error_kind(er: abi::ER) -> io::ErrorKind {
 /// primitives that are used by `std`'s internal mechanisms. Such failures
 /// are common when the system is mis-configured to provide a too-small pool for
 /// kernel objects.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `ItronError::err_if_negative(er).expect()` لكنه يطبع الرسالة إلى `panic_output` عند الـ
+/// panic.
+///
+/// </div>
 #[inline]
 pub fn expect_success(er: abi::ER, msg: &&str) -> abi::ER {
     match ItronError::err_if_negative(er) {
@@ -140,6 +177,12 @@ pub fn expect_success(er: abi::ER, msg: &&str) -> abi::ER {
 ///
 /// Use this where panicking is not allowed or the effect of the failure
 /// would be persistent.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `ItronError::err_if_negative(er).expect()` لكنه يوقف البرنامج بدلًا من ذلك.
+///
+/// </div>
 #[inline]
 pub fn expect_success_aborting(er: abi::ER, msg: &&str) -> abi::ER {
     match ItronError::err_if_negative(er) {

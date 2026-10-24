@@ -1,5 +1,11 @@
 //! Thread implementation backed by μITRON tasks. Assumes `acre_tsk` and
 //! `exd_tsk` are available.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق الخيوط المبني على مهام μITRON.
+//!
+//! </div>
 
 use crate::cell::UnsafeCell;
 use crate::mem::ManuallyDrop;

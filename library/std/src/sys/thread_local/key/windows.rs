@@ -20,6 +20,12 @@
 //! keys with destructors through [`INIT_ONCE`](c::INIT_ONCE) (`std`'s
 //! [`Once`](crate::sync::Once) cannot be used since it might use TLS itself).
 //! For keys without destructors, racy initialization suffices.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق `LazyKey` لـ Windows.
+//!
+//! </div>
 
 // FIXME: investigate using a fixed-size array instead, as the maximum number
 //        of keys is [limited to 1088](https://learn.microsoft.com/en-us/windows/win32/ProcThread/thread-local-storage).
@@ -180,6 +186,12 @@ unsafe fn register_dtor(key: &'static LazyKey) {
 }
 
 /// This will and must only be run by the destructor callback in [`guard`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يُشغّل فقط من استدعاء المُدمِّر في `guard`.
+///
+/// </div>
 pub unsafe fn run_dtors() {
     for _ in 0..5 {
         let mut any_run = false;

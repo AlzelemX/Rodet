@@ -1,4 +1,10 @@
 //! Implementation of `std::os` functionality for unix systems
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق وظائف `std::os` لأنظمة يونكس.
+//!
+//! </div>
 
 #![allow(unused_imports)] // lots of cfg code here
 

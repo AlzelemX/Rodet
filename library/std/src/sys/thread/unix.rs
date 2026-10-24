@@ -841,6 +841,13 @@ mod cgroups {
     //! * cgroup v2 in non-standard mountpoints
     //! * paths containing control characters or spaces, since those would be escaped in procfs
     //!   output and we don't unescape
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! غير مغطى حاليًا: cgroup v2 في نقاط تحميل غير قياسية، والمسارات التي فيها حروف تحكم أو
+    //! مسافات.
+    //!
+    //! </div>
 
     use crate::borrow::Cow;
     use crate::ffi::OsString;

@@ -1,4 +1,10 @@
 //! Trivial spinlock-based implementation of `sync::Mutex`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق بسيط لـ `sync::Mutex` مبني على قفل دوّار.
+//!
+//! </div>
 // FIXME: Perhaps use Intel TSX to avoid locking?
 
 #[cfg(test)]

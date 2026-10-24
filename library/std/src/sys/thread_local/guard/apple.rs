@@ -1,6 +1,12 @@
 //! macOS allows registering destructors through _tlv_atexit. But since calling
 //! it while TLS destructors are running is UB, we still need to keep our own
 //! list of destructors.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! macOS يسمح بتسجيل المُدمِّرات عبر `_tlv_atexit`.
+//!
+//! </div>
 
 use crate::cell::Cell;
 use crate::ptr;

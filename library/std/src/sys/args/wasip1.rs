@@ -5,6 +5,12 @@ use crate::ffi::{CStr, OsStr, OsString};
 use crate::os::wasi::ffi::OsStrExt;
 
 /// Returns the command line arguments
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معاملات سطر الأوامر.
+///
+/// </div>
 pub fn args() -> Args {
     Args::new(maybe_args().unwrap_or(Vec::new()))
 }

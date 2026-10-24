@@ -1,4 +1,10 @@
 //! Platform-dependent environment variables abstraction.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تجريد متغيرات البيئة حسب المنصة.
+//!
+//! </div>
 
 #![forbid(unsafe_op_in_unsafe_fn)]
 

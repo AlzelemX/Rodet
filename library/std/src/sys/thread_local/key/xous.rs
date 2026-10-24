@@ -33,6 +33,12 @@
 //! expanding the `LazyKey` structure to contain not only a slot for the TLS
 //! key but also a slot for the destructor queue on windows. An optimization for
 //! another day!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! التخزين المحلي للخيط (TLS).
+//!
+//! </div>
 
 // FIXME(joboet): implement support for native TLS instead.
 

@@ -2,6 +2,12 @@
 //!
 //! This module contains the facade (aka platform-specific) implementations of
 //! OS level functionality for Fortanix SGX.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! روابط النظام لمنصة Fortanix SGX.
+//!
+//! </div>
 #![deny(unsafe_op_in_unsafe_fn)]
 #![allow(implicit_provenance_casts)] // FIXME: this entire module systematically confuses pointers and integers
 
@@ -27,6 +33,12 @@ pub unsafe fn cleanup() {}
 
 /// This function is used to implement functionality that simply doesn't exist.
 /// Programs relying on this functionality will need to deal with the error.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تُستخدم لتطبيق وظائف غير موجودة أصلًا؛ البرامج التي تعتمد عليها لن تعمل.
+///
+/// </div>
 pub fn unsupported<T>() -> io::Result<T> {
     Err(unsupported_err())
 }
@@ -40,6 +52,12 @@ pub fn unsupported_err() -> io::Error {
 /// returned, the program might very well be able to function normally. This is
 /// what happens when `SGX_INEFFECTIVE_ERROR` is set to `true`. If it is
 /// `false`, the behavior is the same as `unsupported`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تُستخدم لتطبيق دوال غير موجودة، لكن غيابها قد لا يكون سببًا لفشل البرنامج.
+///
+/// </div>
 pub fn sgx_ineffective<T>(v: T) -> io::Result<T> {
     static SGX_INEFFECTIVE_ERROR: Atomic<bool> = AtomicBool::new(false);
     if SGX_INEFFECTIVE_ERROR.load(Ordering::Relaxed) {

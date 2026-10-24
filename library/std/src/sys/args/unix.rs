@@ -2,6 +2,12 @@
 //!
 //! On some platforms these are stored during runtime startup,
 //! and on some they are retrieved from the system on demand.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تهيئة عامة لمعاملات سطر الأوامر وقراءتها.
+//!
+//! </div>
 
 #![allow(dead_code)] // runtime init functions not used during testing
 
@@ -13,11 +19,23 @@ use crate::os::hermit::ffi::OsStringExt;
 use crate::os::unix::ffi::OsStringExt;
 
 /// One-time global initialization.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تهيئة عامة لمرة واحدة.
+///
+/// </div>
 pub unsafe fn init(argc: isize, argv: *const *const u8) {
     unsafe { imp::init(argc, argv) }
 }
 
 /// Returns the command line arguments
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معاملات سطر الأوامر.
+///
+/// </div>
 pub fn args() -> Args {
     let (argc, argv) = imp::argc_argv();
 
