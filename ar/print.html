@@ -1,0 +1,1879 @@
+<!DOCTYPE HTML>
+<html lang="ar" class="light sidebar-visible" dir="rtl">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>كتاب Rust++ (Doc Book)</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="كيف تكتب بلغة Rust++: لغة Rust أسهل في القراءة والتعلم.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/rustpp-e6ac2df5.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "searchindex-c6f4f38b.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-057c8d48.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">كتاب Rust++ (Doc Book)</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/AlzelemX/Rust-/tree/main/docbook/ar" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="المقدمة"><a class="header" href="#المقدمة">المقدمة</a></h1>
+<blockquote>
+<p>🌐 <a href="https://alzelemx.github.io/Rust-/">Read this book in English</a></p>
+</blockquote>
+<p><strong>Rust++</strong> لغة برمجة مبنية من Rust 1.101. تحتفظ بكل ما يجعل Rust جيدة —
+سرعة مثل C، بدون جامع نفايات (garbage collector)، وبدون انهيارات بسبب
+الاستخدام الخاطئ للذاكرة — وتغيّر الأجزاء التي تجعل Rust صعبة القراءة وبطيئة
+التعلم.</p>
+<pre><code class="language-rust">fn greet(name: &amp;str = "world", times: u32 = 1) {
+    for _ in 0..times {
+        out!("Hello, {name}!");
+    }
+}
+
+fn main() {
+    greet();
+    greet("Rust++", times = 2);
+}</code></pre>
+<pre><code class="language-text">Hello, world!
+Hello, Rust++!
+Hello, Rust++!
+</code></pre>
+<h2 id="ما-الذي-يختلف-عن-rust"><a class="header" href="#ما-الذي-يختلف-عن-rust">ما الذي يختلف عن Rust</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rust</th><th>Rust++</th><th>الفصل</th></tr>
+</thead>
+<tbody>
+<tr><td><code>println!("...")</code></td><td><code>out!("...")</code></td><td><a href="#مرحبا-يا-عالم">مرحبا يا عالم!</a></td></tr>
+<tr><td><code>area(3, 4)</code></td><td><code>area(width = 3, height = 4)</code></td><td><a href="#الوسائط-بالاسم">الوسائط بالاسم</a></td></tr>
+<tr><td>دوال كثيرة مثل <code>new_with_...</code></td><td><code>fn open(path: &amp;str, write: bool = false)</code></td><td><a href="#القيم-الافتراضية">القيم الافتراضية</a></td></tr>
+<tr><td><code>fn f&lt;'a&gt;(x: &amp;'a str) -&gt; &amp;'a str</code></td><td><code>fn f(x: &amp;str) -&gt; &amp;{x} str</code></td><td><a href="#مصادر-الاستعارة">مصادر الاستعارة</a></td></tr>
+<tr><td><code>struct P&lt;'a&gt; { s: &amp;'a str }</code></td><td><code>struct P&lt;_a&gt; { s: &amp;_a str }</code></td><td><a href="#الأعمار-المسماة">الأعمار المسماة</a></td></tr>
+<tr><td><code>&amp;'static str</code></td><td><code>&amp;_static str</code></td><td><a href="#الأعمار-المسماة">الأعمار المسماة</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>كل شيء آخر مثل Rust تمامًا، لذلك مكتبات Rust (crates) تعمل في Rust++ أيضًا.</p>
+<h2 id="كيف-تقرأ-هذا-الكتاب"><a class="header" href="#كيف-تقرأ-هذا-الكتاب">كيف تقرأ هذا الكتاب</a></h2>
+<p>اقرأه بالترتيب في المرة الأولى: كل فصل يستخدم ما علّمته الفصول التي قبله.
+مربعات مثل هذا تدل على الجديد في Rust++:</p>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> شيء غير موجود في Rust.</p>
+</blockquote>
+<p>كل مثال في هذا الكتاب برنامج كامل. انسخه إلى <code>src/main.rs</code> في مشروع Cargo
+وشغّله بـ <code>cargo run</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="تثبيت-rust"><a class="header" href="#تثبيت-rust">تثبيت Rust++</a></h1>
+<h2 id="ويندوز"><a class="header" href="#ويندوز">ويندوز</a></h2>
+<ol>
+<li>نزّل <strong><code>rustup++_init.exe</code></strong> من
+<a href="https://github.com/AlzelemX/Rust-/releases/latest">آخر إصدار</a>.</li>
+<li>افتحه بضغطتين. يثبّت Rust++ في <code>%USERPROFILE%\.rustpp</code> ويضيفها إلى
+متغير PATH.</li>
+<li>إذا كانت أدوات Visual Studio C++ Build Tools غير موجودة، يعرض عليك
+تثبيتها. وافق: برامج ويندوز تُربط بأداة الربط من مايكروسوفت.</li>
+</ol>
+<h2 id="لينكس-وماك"><a class="header" href="#لينكس-وماك">لينكس وماك</a></h2>
+<pre><code class="language-sh">curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh
+</code></pre>
+<p>تحتاج أيضًا أداة ربط للغة C: <code>xcode-select --install</code> على الماك، أو
+<code>build-essential</code> (أوبونتو/ديبيان) / <code>gcc</code> على لينكس.</p>
+<h2 id="تأكد-أنها-تعمل"><a class="header" href="#تأكد-أنها-تعمل">تأكد أنها تعمل</a></h2>
+<p>افتح طرفية <strong>جديدة</strong>:</p>
+<pre><code class="language-text">&gt; rustc --version
+rustc 1.101.0-dev (Rust++ #19)
+&gt; cargo --version
+cargo 1.100.0-beta.1 (3d7cf6e93 2026-09-25)
+</code></pre>
+<p>إذا ظهر <code>(Rust++ #…)</code> فأنت جاهز. الرقم هو رقم البناء: الإصدار الأحدث رقمه
+أكبر.</p>
+<h2 id="التحديث-والإزالة"><a class="header" href="#التحديث-والإزالة">التحديث والإزالة</a></h2>
+<ul>
+<li>
+<p><strong>التحديث:</strong> شغّل المثبّت مرة أخرى.</p>
+</li>
+<li>
+<p><strong>الإزالة:</strong> <code>rustup++_init.exe --uninstall</code> على ويندوز، أو</p>
+<pre><code class="language-sh">curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall
+</code></pre>
+</li>
+</ul>
+<h2 id="المحرر"><a class="header" href="#المحرر">المحرر</a></h2>
+<p>استخدم <strong><a href="#محرر-devr">DEVR+</a></strong>، المحرر المصنوع لـ Rust++: يعرف كل الكتابة
+الجديدة، ويعرض الأخطاء أثناء الكتابة، ويشغّل مشروعك بزر <code>F5</code>.</p>
+<p>تأتي Rust++ أيضًا مع <strong><code>rust++-analyzer</code></strong>، محلل اللغة الذي يستخدمه DEVR+.
+المحررات الأخرى يمكنها استخدامه أيضًا: في VS Code ثبّت إضافة
+<em>rust-analyzer</em> واجعل الإعداد <code>rust-analyzer.server.path</code> يشير إلى
+<code>rust++-analyzer</code> في <code>~/.rustpp/bin</code> (<code>%USERPROFILE%\.rustpp\bin</code> على
+ويندوز).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="مرحبا-يا-عالم"><a class="header" href="#مرحبا-يا-عالم">مرحبا يا عالم!</a></h1>
+<p>أنشئ ملفًا اسمه <code>main.rs</code>:</p>
+<pre><code class="language-rust">fn main() {
+    out!("Hello, world!");
+}</code></pre>
+<p>ترجمه وشغّله:</p>
+<pre><code class="language-text">&gt; rustc main.rs
+&gt; ./main          (on Windows: .\main.exe)
+Hello, world!
+</code></pre>
+<h2 id="معنى-كل-جزء"><a class="header" href="#معنى-كل-جزء">معنى كل جزء</a></h2>
+<ul>
+<li><code>fn main()</code> — دالة اسمها <code>main</code>. كل برنامج يبدأ من هنا.</li>
+<li><code>{ ... }</code> — جسم الدالة.</li>
+<li><code>out!("...")</code> — يطبع سطرًا. علامة <code>!</code> تعني أن <code>out!</code> <em>ماكرو</em>: كود يكتب
+كودًا عنك.</li>
+<li><code>;</code> — تنهي الجملة.</li>
+</ul>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> <code>out!</code> يطبع سطرًا. يعمل تمامًا مثل <code>println!</code> في Rust،
+و<code>println!</code> ما زال يعمل أيضًا.</p>
+</blockquote>
+<h2 id="طباعة-القيم"><a class="header" href="#طباعة-القيم">طباعة القيم</a></h2>
+<p>ضع <code>{}</code> في المكان الذي تريد فيه القيمة، أو اسم المتغير داخل <code>{}</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let name = "Sara";
+    let age = 25;
+
+    out!("{name} is {age} years old");
+    out!("{} + {} = {}", 2, 3, 2 + 3);
+    out!();                        // سطر فارغ
+    out!("{:?}", [1, 2, 3]);       // {:?} يطبع القوائم والبيانات الأخرى
+    out!("{:.2}", 3.14159);        // رقمان بعد الفاصلة: 3.14
+}</code></pre>
+<pre><code class="language-text">Sara is 25 years old
+2 + 3 = 5
+
+[1, 2, 3]
+3.14
+</code></pre>
+<p>ماكروهات طباعة أخرى:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الماكرو</th><th>ماذا يفعل</th></tr>
+</thead>
+<tbody>
+<tr><td><code>out!</code></td><td>يطبع سطرًا</td></tr>
+<tr><td><code>print!</code></td><td>يطبع بدون سطر جديد</td></tr>
+<tr><td><code>eprintln!</code></td><td>يطبع سطرًا في مخرج الأخطاء</td></tr>
+<tr><td><code>format!</code></td><td>يصنع <code>String</code> بدلًا من الطباعة</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="المشاريع-مع-cargo"><a class="header" href="#المشاريع-مع-cargo">المشاريع مع Cargo</a></h1>
+<p><code>rustc</code> يترجم ملفًا واحدًا. للبرامج الحقيقية استخدم <strong>Cargo</strong>: ينشئ المشروع،
+ويبنيه، ويشغّله، وينزّل المكتبات.</p>
+<pre><code class="language-text">&gt; cargo new hello
+&gt; cd hello
+</code></pre>
+<pre><code class="language-text">hello/
+├── Cargo.toml      المشروع: الاسم، الإصدار، المكتبات
+└── src/
+    └── main.rs     الكود الخاص بك
+</code></pre>
+<p>عدّل <code>src/main.rs</code>:</p>
+<pre><code class="language-rust">fn main() {
+    out!("Hello from Cargo!");
+}</code></pre>
+<h2 id="الأوامر"><a class="header" href="#الأوامر">الأوامر</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الأمر</th><th>ماذا يفعل</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cargo run</code></td><td>يبني ويشغّل</td></tr>
+<tr><td><code>cargo build</code></td><td>يبني فقط (في <code>target/debug/</code>)</td></tr>
+<tr><td><code>cargo build --release</code></td><td>يبني برنامجًا محسّنًا وسريعًا (في <code>target/release/</code>)</td></tr>
+<tr><td><code>cargo check</code></td><td>يبحث عن الأخطاء بدون بناء — الأسرع</td></tr>
+<tr><td><code>cargo test</code></td><td>يشغّل الاختبارات</td></tr>
+</tbody>
+</table>
+</div>
+<p>قِس السرعة دائمًا مع <code>--release</code>: نسخة التطوير قد تكون أبطأ من 10 إلى 50 مرة.</p>
+<h2 id="المكتبات-crates"><a class="header" href="#المكتبات-crates">المكتبات (crates)</a></h2>
+<p>المكتبات اسمها <em>crates</em>. أضف واحدة في <code>Cargo.toml</code> تحت <code>[dependencies]</code>:</p>
+<pre><code class="language-toml">[dependencies]
+rand = "0.8"
+</code></pre>
+<p>ينزّلها Cargo في المرة القادمة التي تبني فيها. المكتبات المكتوبة لـ Rust
+تعمل في Rust++.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="محرر-devr"><a class="header" href="#محرر-devr">محرر DEVR+</a></h1>
+<p><strong>DEVR+</strong> هو المحرر المصنوع لـ Rust++. شكله مثل VS Code، فكل شيء في المكان
+الذي تتوقعه، لكنه يفهم كل ميزات Rust++.</p>
+<h2 id="التثبيت"><a class="header" href="#التثبيت">التثبيت</a></h2>
+<p>نزّل DEVR+ من
+<a href="https://github.com/AlzelemX/Rust-/releases">الإصدارات التي اسمها “DEVR+”</a>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>النظام</th><th>الملف</th></tr>
+</thead>
+<tbody>
+<tr><td>ويندوز</td><td><code>DEVR+_…_x64-setup.exe</code></td></tr>
+<tr><td>لينكس (glibc 2.39+: أوبونتو 24.04+، ديبيان 13+)</td><td><code>.deb</code> أو <code>.AppImage</code></td></tr>
+<tr><td>ماك (Apple Silicon / Intel)</td><td><code>DEVR+_…_aarch64.dmg</code> / <code>DEVR+_…_x64.dmg</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>يستخدم DEVR+ نسخة Rust++ التي ثبّتها بـ <code>rustup++_init</code>. إذا لم تكن
+موجودة، في صفحة البداية زر <strong>تثبيت Rust++</strong>.</p>
+<blockquote>
+<p>الماك: التطبيق غير موقّع من Apple بعد. في أول مرة اضغط عليه بالزر الأيمن
+واختر <strong>Open</strong>.</p>
+</blockquote>
+<h2 id="العربية"><a class="header" href="#العربية">العربية</a></h2>
+<p>من الإعدادات (<code>Ctrl+,</code>) اختر <strong>اللغة: العربية</strong>. يصبح المحرر كله بالعربي:
+القوائم والأوامر، ورسائل المترجم، والإصلاحات السريعة، ونصائح السرعة، وشرح
+المكتبة القياسية، وهذا الكتاب. الكود نفسه يبقى من اليسار إلى اليمين.</p>
+<p>العربية موجودة داخل Rust++ نفسها، وليس في المحرر فقط:</p>
+<ul>
+<li><strong>رسائل المترجم.</strong> يتكلم <code>rustc</code> و<code>cargo</code> بالعربي عندما يكون متغير البيئة
+<code>RUSTPP_LANG</code> يساوي <code>ar</code> (يضبطه DEVR+ تلقائيًا، وفي الطرفية التي بداخله أيضًا).
+من أي طرفية: <code>RUSTPP_LANG=ar cargo build</code>
+(في PowerShell: <code>$env:RUSTPP_LANG="ar"; cargo build</code>). الأسماء والأنواع
+والكود داخل الرسائل تبقى كما هي.</li>
+<li><strong>شرح المكتبة القياسية.</strong> كل عنصر موثّق في <code>std</code> و<code>core</code> و<code>alloc</code> له شرح
+بالعربي بجانب الإنجليزي في نفس تعليق التوثيق. <code>Option</code> و<code>Result</code> و<code>String</code>
+و<code>Vec</code> و<code>HashMap</code> وماكروهات الطباعة مشروحة كاملة بالعربي، والباقي ملخص قصير
+حاليًا. يعرض المحلل (analyzer) اللغة التي اخترتها (الإعداد <code>rustpp.language</code>:
+<code>en</code> أو <code>ar</code>)، وأمثلة الكود تظهر في اللغتين.</li>
+</ul>
+<h2 id="أول-مشروع"><a class="header" href="#أول-مشروع">أول مشروع</a></h2>
+<ol>
+<li><strong>مشروع Rust++ جديد…</strong> في صفحة البداية (أو <code>Ctrl+Shift+P</code> ← <em>Cargo: مشروع Rust++ جديد</em>).</li>
+<li>اضغط <strong>F5</strong>: يبنيه Cargo ويشغّله في الطرفية بالأسفل.</li>
+<li>تظهر الأخطاء أثناء الكتابة؛ والضغط على ملف:سطر باللون الأحمر في الطرفية
+يفتح الملف عند ذلك السطر.</li>
+</ol>
+<h2 id="ما-الذي-تراه"><a class="header" href="#ما-الذي-تراه">ما الذي تراه</a></h2>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="start/devr.png" alt="محرر DEVR+"><span class="img-wrapper"><img src="start/devr.png" alt="محرر DEVR+"></span></label></p>
+<ul>
+<li><strong>علامات الإرجاع ↩</strong>: بعد القيمة التي ترجعها الدالة.</li>
+<li><strong>⚡ تقييم السرعة</strong>: بجانب زر التشغيل، من 0 إلى 100. مرّر الماوس عليه لترى
+كل مكان بطيء وطريقة إصلاحه. الأماكن البطيئة تحتها خط منقّط.</li>
+<li><strong>▶ تشغيل</strong> فوق <code>fn main</code>، و<strong>N تطبيقات (impl)</strong> فوق الأنواع.</li>
+<li><strong>التلميحات</strong> الرمادية: الأنواع التي يستنتجها Rust++ (<code>: u32</code>)، وأسماء
+المعاملات في الاستدعاءات التي لا تستخدم <a href="#الوسائط-بالاسم">الوسائط بالاسم</a>.</li>
+<li><strong>كتاب Doc Book</strong> (أيقونة الكتاب على اليسار): هذا الكتاب داخل المحرر،
+بالعربي أو الإنجليزي، ويأتي مع Rust++ المثبتة فيطابق نسختك من اللغة.</li>
+</ul>
+<h2 id="الاختصارات"><a class="header" href="#الاختصارات">الاختصارات</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>المفتاح</th><th>ماذا يفعل</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Ctrl+P</code></td><td>فتح ملف بالاسم</td></tr>
+<tr><td><code>Ctrl+Shift+P</code></td><td>كل الأوامر</td></tr>
+<tr><td><code>Ctrl+T</code></td><td>الذهاب إلى struct أو trait أو دالة… في المشروع</td></tr>
+<tr><td><code>Ctrl+Shift+T</code></td><td>لوحة <strong>البحث عن الرموز</strong> مع فلاتر: struct، enum، trait، fn، impl…</td></tr>
+<tr><td><code>Ctrl+Shift+F</code></td><td>البحث في كل الملفات</td></tr>
+<tr><td><code>F12</code> / <code>Shift+F12</code></td><td>الذهاب إلى التعريف / كل المراجع</td></tr>
+<tr><td><code>Ctrl+F12</code></td><td>الذهاب إلى كتل <code>impl</code> لنوع أو trait</td></tr>
+<tr><td><code>F2</code></td><td>إعادة التسمية في كل مكان</td></tr>
+<tr><td><code>Ctrl+.</code></td><td>إصلاح سريع</td></tr>
+<tr><td><code>F8</code></td><td>الخطأ التالي</td></tr>
+<tr><td><code>F5</code> / <code>Ctrl+F5</code></td><td>تشغيل / تشغيل سريع (<code>--release</code>)</td></tr>
+<tr><td><code>Ctrl+Shift+B</code></td><td>بناء</td></tr>
+<tr><td><code>Ctrl+`</code></td><td>طرفية جديدة</td></tr>
+<tr><td><code>Ctrl+B</code> / <code>Ctrl+J</code></td><td>إظهار أو إخفاء الشريط الجانبي / اللوحة السفلية</td></tr>
+<tr><td><code>Ctrl+,</code></td><td>الإعدادات (اللغة، الثيم، الخط، التلميحات، تقييم السرعة…)</td></tr>
+</tbody>
+</table>
+</div>
+<p>على الماك استخدم <code>⌘</code> بدلًا من <code>Ctrl</code>.</p>
+<h2 id="قسم-cargo"><a class="header" href="#قسم-cargo">قسم Cargo</a></h2>
+<p>أيقونة الصندوق على اليسار تعرض مشروعك: <strong>تشغيل</strong>، <strong>بناء</strong>، <strong>فحص</strong>،
+<strong>اختبار</strong>، <strong>تشغيل سريع</strong> و<strong>تنظيف</strong>، والبرامج التي فيه، ومكتباته. المكتبة
+التي لها إصدار أحدث على crates.io يظهر بجانبها باللون الأخضر؛ وزر <strong>+</strong>
+يضيف مكتبة (<code>cargo add</code>).</p>
+<h2 id="في-المتصفح"><a class="header" href="#في-المتصفح">في المتصفح</a></h2>
+<p><code>devr-server</code> يقدّم نفس المحرر لمتصفح الإنترنت:</p>
+<pre><code class="language-text">devr-server --ui path/to/devr/ui/dist
+</code></pre>
+<p>ثم افتح <a href="http://127.0.0.1:7878">http://127.0.0.1:7878</a>. يستمع فقط على جهازك.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="إضافات-devr"><a class="header" href="#إضافات-devr">إضافات DEVR+</a></h1>
+<p>الإضافة تستطيع تغيير أي شيء في DEVR+: إضافة أوامر واختصارات، ولوحات جانبية
+وسفلية، وعناصر في شريط الحالة، وصفحات، وتغيير الألوان والشكل كله، وإضافة
+ميزات جديدة لمحرر الكود، والتعامل مع المحلل (analyzer) والطرفية وملفاتك.</p>
+<h2 id="استخدام-الإضافات"><a class="header" href="#استخدام-الإضافات">استخدام الإضافات</a></h2>
+<p>افتح <strong>الإضافات</strong> (<code>Ctrl+Shift+X</code>، أيقونة قطعة البازل). لكل إضافة زر تشغيل
+وإيقاف، و<strong>إعادة تحميل</strong> و<strong>تعديل</strong> و<strong>حذف</strong>.</p>
+<ul>
+<li><strong>تثبيت من مجلد…</strong>: مجلد فيه <code>plugin.json</code>.</li>
+<li><strong>إنشاء إضافة</strong>: ينشئ إضافة جديدة من قالب ويفتحها.</li>
+</ul>
+<blockquote>
+<p>الإضافة تستطيع فعل كل ما يفعله DEVR+، ومن ذلك قراءة ملفاتك وتغييرها وتشغيل
+البرامج. ثبّت فقط الإضافات التي تثق بها.</p>
+</blockquote>
+<p>الإضافات محفوظة في مجلد إعدادات DEVR+، داخل <code>plugins/</code>.</p>
+<h2 id="كتابة-إضافة"><a class="header" href="#كتابة-إضافة">كتابة إضافة</a></h2>
+<p><strong>إنشاء إضافة</strong> يصنع مجلدًا مثل هذا:</p>
+<pre><code class="language-text">my-plugin/
+├── plugin.json   تعريف الإضافة
+├── main.js       الكود
+├── style.css     تنسيق CSS للمحرر كله
+└── devr.d.ts     الواجهة كاملة مع الشرح (للإكمال التلقائي)
+</code></pre>
+<p><code>plugin.json</code>:</p>
+<pre><code class="language-json">{
+  "id": "my-plugin",
+  "name": { "en": "My Plugin", "ar": "إضافتي" },
+  "version": "0.1.0",
+  "description": { "en": "What it does.", "ar": "ماذا تفعل." },
+  "main": "main.js",
+  "styles": ["style.css"],
+  "themes": ["themes/night.json"],
+  "devr": "1"
+}
+</code></pre>
+<p>فقط <code>id</code> مطلوب. يمكن أن تكون الإضافة ثيمًا وCSS فقط بدون كود.</p>
+<p>ملف <code>main.js</code> يصدّر الدالة <code>activate</code> التي تستقبل المحرر باسم <code>devr</code>:</p>
+<pre><code class="language-js">// @ts-check
+/** @param {import('./devr').Devr} devr */
+export function activate(devr) {
+  devr.addTranslations({ 'Hello!': 'مرحبًا!' });
+
+  devr.commands.register({
+    id: 'my-plugin.hello',
+    title: 'My Plugin: Say Hello',
+    key: 'Ctrl+Alt+H',
+    run: () =&gt; devr.ui.toast(devr.t('Hello!'), 'success'),
+  });
+
+  const lines = devr.ui.addStatusItem({ icon: 'list-ordered', align: 'right' });
+  devr.editor.onChange(() =&gt; lines.set(String(devr.editor.model?.getLineCount() ?? '')));
+}
+</code></pre>
+<p><strong>احفظ أي ملف من ملفات الإضافة فتُعاد تلقائيًا</strong>: عدّل، احفظ، شاهد. كل ما
+أضافته الإضافة يُزال عند إيقافها أو إعادة تحميلها؛ وما تصنعه بـ Monaco مباشرة
+أضفه إلى <code>devr.subscriptions</code>.</p>
+<h2 id="ماذا-يوجد-في-devr"><a class="header" href="#ماذا-يوجد-في-devr">ماذا يوجد في <code>devr</code></a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الجزء</th><th>لماذا</th></tr>
+</thead>
+<tbody>
+<tr><td><code>devr.commands</code>، <code>devr.keys</code></td><td>أوامر في لوحة الأوامر، واختصارات (حتى لأوامر DEVR+ نفسه)</td></tr>
+<tr><td><code>devr.ui</code></td><td>إشعارات، نوافذ حوار، قوائم اختيار، قوائم، لوحات جانبية وسفلية، عناصر الحالة، صفحات</td></tr>
+<tr><td><code>devr.layout</code></td><td>كل أجزاء النافذة (شريط الأنشطة، الشريط الجانبي، التبويبات، اللوحة، شريط الحالة)</td></tr>
+<tr><td><code>devr.theme</code></td><td>ثيمات الألوان، CSS، الألوان (<code>setColors({ '--accent': '#2f9e44' })</code>)</td></tr>
+<tr><td><code>devr.editor</code></td><td>محرر الكود وواجهة Monaco كاملة</td></tr>
+<tr><td><code>devr.workspace</code></td><td>فتح الملفات وقراءتها وكتابتها وحفظها؛ وأحداث فتح الملفات وحفظها وإغلاقها</td></tr>
+<tr><td><code>devr.terminal</code></td><td>تشغيل البرامج و<code>cargo</code></td></tr>
+<tr><td><code>devr.lsp</code></td><td>طلبات إلى rust++-analyzer، والأخطاء والتحذيرات</td></tr>
+<tr><td><code>devr.settings</code>، <code>devr.storage</code></td><td>إعدادات المحرر؛ وبيانات إضافتك المحفوظة</td></tr>
+<tr><td><code>devr.backend</code></td><td>كل ما يستطيعه الجزء الخلفي من DEVR+</td></tr>
+<tr><td><code>devr.t</code>، <code>devr.addTranslations</code></td><td>نصوصك بالإنجليزي والعربي</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="الثيمات"><a class="header" href="#الثيمات">الثيمات</a></h2>
+<p>ملف الثيم يحدد ألوان واجهة المحرر (متغيرات CSS)، وإن أردت ألوان محرر الكود
+والطرفية:</p>
+<pre><code class="language-json">{
+  "name": { "en": "Night", "ar": "الليل" },
+  "base": "dark",
+  "colors": { "--bg": "#0b1622", "--accent": "#38bdf8" },
+  "editor": { "rules": [{ "token": "keyword", "foreground": "38bdf8" }] },
+  "terminal": { "background": "#08111b" }
+}
+</code></pre>
+<p>بعدها يظهر في <strong>الإعدادات ← الثيم</strong>.</p>
+<h2 id="أمثلة"><a class="header" href="#أمثلة">أمثلة</a></h2>
+<p>في مستودع Rust++، داخل <code>devr/plugin-api/examples/</code>:</p>
+<ul>
+<li><strong>ocean</strong>: ثيم وشكل بزوايا دائرية، بدون كود.</li>
+<li><strong>todos</strong>: لوحة جانبية بكل TODO وFIXME، وأمر، وعنصر في شريط الحالة.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="المتغيرات"><a class="header" href="#المتغيرات">المتغيرات</a></h1>
+<p>أنشئ متغيرًا بـ <code>let</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let x = 5;
+    out!("x = {x}");
+}</code></pre>
+<h2 id="المتغيرات-لا-تتغير-إلا-إذا-قلت-ذلك"><a class="header" href="#المتغيرات-لا-تتغير-إلا-إذا-قلت-ذلك">المتغيرات لا تتغير إلا إذا قلت ذلك</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let x = 5;
+    x = 6; // خطأ: لا يمكن تغيير `x` مرتين: المتغير ليس `mut`
+}</code></pre>
+<p>أضف <code>mut</code> (قابل للتغيير) ليسمح للمتغير أن يتغير:</p>
+<pre><code class="language-rust">fn main() {
+    let mut count = 0;
+    count = count + 1;
+    count += 1;
+    out!("count = {count}"); // 2
+}</code></pre>
+<p>لماذا ليست <code>mut</code> هي الأصل؟ عندما لا تتغير القيمة، لا تحتاج أبدًا أن تبحث
+عمّن غيّرها. معظم المتغيرات لا تتغير أبدًا، فتبرز القليلة التي عليها <code>mut</code>.</p>
+<h2 id="كتابة-النوع-بنفسك"><a class="header" href="#كتابة-النوع-بنفسك">كتابة النوع بنفسك</a></h2>
+<p>Rust++ تستنتج النوع عنك، لكن يمكنك كتابته بعد <code>:</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let age: u32 = 30;
+    let price: f64 = 9.99;
+    let name: &amp;str = "Ali";
+    out!("{name}, {age}, {price}");
+}</code></pre>
+<p>تذكّر: <strong><code>:</code> تعني “نوعه”</strong>، و**<code>=</code> تعني “قيمته”**. Rust++ تحافظ على هذين
+المعنيين في كل مكان، أيضًا في <a href="#الوسائط-بالاسم">الوسائط بالاسم</a>
+و<a href="#القيم-الافتراضية">القيم الافتراضية</a>.</p>
+<h2 id="التظليل-shadowing"><a class="header" href="#التظليل-shadowing">التظليل (Shadowing)</a></h2>
+<p><code>let</code> جديد بنفس الاسم يصنع متغيرًا جديدًا يخفي القديم. ويمكن أن يكون من نوع
+مختلف:</p>
+<pre><code class="language-rust">fn main() {
+    let input = "42";
+    let input: i32 = input.parse().unwrap();
+    out!("{}", input + 1); // 43
+}</code></pre>
+<h2 id="الثوابت"><a class="header" href="#الثوابت">الثوابت</a></h2>
+<p>قيم لا تتغير أبدًا في البرنامج كله. النوع مطلوب، والاسم بأحرف كبيرة:</p>
+<pre><code class="language-rust">const MAX_PLAYERS: u32 = 4;
+const GAME: &amp;_static str = "Space";
+
+fn main() {
+    out!("{GAME}: up to {MAX_PLAYERS} players");
+}</code></pre>
+<p><code>&amp;_static str</code> تعني “نص يعيش طوال البرنامج”؛ انظر
+<a href="#الأعمار-المسماة">الأعمار المسماة</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الأنواع"><a class="header" href="#الأنواع">الأنواع</a></h1>
+<p>لكل قيمة نوع. النوع يخبر المترجم كم تحتاج القيمة من الذاكرة وماذا يمكنك أن
+تفعل بها.</p>
+<h2 id="الأرقام"><a class="header" href="#الأرقام">الأرقام</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>النوع</th><th>يحمل</th><th>مثال</th></tr>
+</thead>
+<tbody>
+<tr><td><code>i32</code></td><td>أعداد صحيحة، من −2 147 483 648 إلى 2 147 483 647 (الافتراضي)</td><td><code>-7</code></td></tr>
+<tr><td><code>i64</code></td><td>أعداد صحيحة أكبر</td><td><code>9_000_000_000</code></td></tr>
+<tr><td><code>u8</code>، <code>u32</code>، <code>u64</code></td><td>أعداد صحيحة، لا تكون سالبة أبدًا</td><td><code>255</code></td></tr>
+<tr><td><code>usize</code></td><td>الأحجام والمواضع في القوائم</td><td><code>v.len()</code></td></tr>
+<tr><td><code>f64</code></td><td>أعداد بفاصلة عشرية (الافتراضي)</td><td><code>3.14</code></td></tr>
+<tr><td><code>f32</code></td><td>مثل <code>f64</code> لكن أصغر وأقل دقة</td><td><code>1.5</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><code>i</code> = يمكن أن يكون سالبًا، <code>u</code> = بدون إشارة (من 0 فما فوق)، والرقم = عدد البِتّات.</p>
+<pre><code class="language-rust">fn main() {
+    let a = 10;           // i32
+    let b = 3.0;          // f64
+    let big = 1_000_000;  // علامة _ تجعل الأرقام الكبيرة سهلة القراءة
+
+    out!("{}", a / 3);    // 3   (قسمة أعداد صحيحة)
+    out!("{}", a % 3);    // 1   (باقي القسمة)
+    out!("{}", b / 2.0);  // 1.5
+    out!("{}", a as f64 / 4.0); // 2.5  (`as` يحوّل النوع)
+    out!("{big}");
+}</code></pre>
+<p>الأرقام من أنواع مختلفة لا تختلط بالخطأ: <code>a + b</code> في المثال خطأ حتى تحوّل
+واحدًا منهما بـ <code>as</code>. لا ضياع للدقة بدون أن تعلم.</p>
+<h2 id="صح-وخطأ-true-و-false"><a class="header" href="#صح-وخطأ-true-و-false">صح وخطأ (true و false)</a></h2>
+<pre><code class="language-rust">fn main() {
+    let ready: bool = true;
+    let big = 10 &gt; 5; // true
+    out!("{} {} {}", ready &amp;&amp; big, ready || false, !ready);
+}</code></pre>
+<h2 id="الحروف-والنصوص"><a class="header" href="#الحروف-والنصوص">الحروف والنصوص</a></h2>
+<pre><code class="language-rust">fn main() {
+    let letter: char = 'R';     // حرف واحد، بين علامتي تنصيص مفردتين
+    let arabic = 'ع';           // أي لغة، وأي رمز تعبيري
+    let fixed: &amp;str = "hello";  // نص مكتوب في البرنامج
+    let mut owned = String::from("hello"); // نص يمكن تكبيره
+    owned.push_str(", world");
+
+    out!("{letter} {arabic} {fixed} {owned}");
+    out!("{}", owned.len()); // الطول بالبايت: 12
+}</code></pre>
+<p>الفرق بين <code>&amp;str</code> و<code>String</code> مشروح في <a href="#الملكية">الملكية</a>.
+الآن يكفي: <code>"..."</code> من النوع <code>&amp;str</code>؛ واستخدم <code>String</code> عندما يتغير النص.</p>
+<h2 id="الصفوف-tuples-والمصفوفات"><a class="header" href="#الصفوف-tuples-والمصفوفات">الصفوف (tuples) والمصفوفات</a></h2>
+<pre><code class="language-rust">fn main() {
+    let point: (i32, i32) = (3, 4);   // صف: مجموعة ثابتة، أي أنواع
+    let (x, y) = point;               // فكّه إلى أجزاء
+    out!("x={x} y={y} first={}", point.0);
+
+    let days = ["Sat", "Sun", "Mon"]; // مصفوفة: طول ثابت، نوع واحد
+    out!("{} of {}", days[0], days.len());
+
+    let zeros = [0; 5];               // [0, 0, 0, 0, 0]
+    out!("{zeros:?}");
+}</code></pre>
+<p>قراءة <code>days[10]</code> توقف البرنامج بخطأ واضح بدل قراءة ذاكرة عشوائية. للقوائم التي
+تكبر استخدم <code>Vec</code> (<a href="#المجموعات">المجموعات</a>).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الدوال"><a class="header" href="#الدوال">الدوال</a></h1>
+<pre><code class="language-rust">fn add(a: i32, b: i32) -&gt; i32 {
+    a + b
+}
+
+fn main() {
+    let sum = add(2, 3);
+    out!("{sum}");
+}</code></pre>
+<ul>
+<li><code>fn add</code> — الاسم.</li>
+<li><code>(a: i32, b: i32)</code> — المعاملات، ولكل واحد نوعه. الأنواع مطلوبة هنا: هي وعد
+الدالة لمن يستدعيها.</li>
+<li><code>-&gt; i32</code> — نوع القيمة التي ترجعها. بدون <code>-&gt;</code> لا ترجع شيئًا.</li>
+<li><code>a + b</code> — <strong>آخر تعبير، بدون <code>;</code>، هو النتيجة.</strong></li>
+</ul>
+<h2 id="آخر-سطر-هو-النتيجة"><a class="header" href="#آخر-سطر-هو-النتيجة">آخر سطر هو النتيجة</a></h2>
+<pre><code class="language-rust">fn square(n: i32) -&gt; i32 {
+    n * n        // بدون `;` ← هذه القيمة تُرجَع
+}
+
+fn square_too(n: i32) -&gt; i32 {
+    return n * n; // `return` تعمل أيضًا؛ استخدمها للخروج مبكرًا
+}
+
+fn main() {
+    out!("{} {}", square(4), square_too(5));
+}</code></pre>
+<p>علامة <code>;</code> تحوّل التعبير إلى جملة لا تعطي شيئًا. كتابة <code>n * n;</code> في <code>square</code>
+خطأ: الدالة وعدت بـ <code>i32</code> ولا تعطي شيئًا.</p>
+<blockquote>
+<p>في محرر DEVR+ تظهر علامة <strong>↩</strong> بعد القيمة التي ترجعها الدالة، فترى النتيجة
+مباشرة.</p>
+</blockquote>
+<h2 id="الكتل-تعابير-أيضًا"><a class="header" href="#الكتل-تعابير-أيضًا">الكتل تعابير أيضًا</a></h2>
+<pre><code class="language-rust">fn main() {
+    let grade = 85;
+    let label = if grade &gt;= 90 { "excellent" } else { "good" };
+
+    let area = {
+        let w = 3;
+        let h = 4;
+        w * h
+    };
+    out!("{label} {area}");
+}</code></pre>
+<h2 id="إضافتان-من-rust"><a class="header" href="#إضافتان-من-rust">إضافتان من Rust++</a></h2>
+<p>يمكن استدعاء الدوال في Rust++ بأسماء المعاملات، ويمكن أن يكون للمعاملات
+قيم افتراضية:</p>
+<pre><code class="language-rust">fn rect(width: u32, height: u32 = 1) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    out!("{}", rect(width = 3, height = 4)); // 12
+    out!("{}", rect(5));                     // 5، و height = 1
+}</code></pre>
+<p>الفصلان التاليان يشرحانهما.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الوسائط-بالاسم"><a class="header" href="#الوسائط-بالاسم">الوسائط بالاسم</a></h1>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> عند استدعاء دالة، اكتب <code>name = value</code> لتحدد أي معامل
+يأخذ أي قيمة.</p>
+</blockquote>
+<pre><code class="language-rust">fn transfer(from: &amp;str, to: &amp;str, amount: u32) {
+    out!("{amount} from {from} to {to}");
+}
+
+fn main() {
+    transfer("Ali", "Sara", 100);                      // أيها أيها؟
+    transfer(from = "Ali", to = "Sara", amount = 100); // واضح
+    transfer(amount = 100, to = "Sara", from = "Ali"); // بأي ترتيب
+}</code></pre>
+<p>الاستدعاءات الثلاثة تفعل نفس الشيء. الاستدعاء بالأسماء أوضح في القراءة، ولا
+يمكنك أن تبدّل <code>from</code> و<code>to</code> بالخطأ.</p>
+<h2 id="بالترتيب-أولًا-ثم-بالاسم"><a class="header" href="#بالترتيب-أولًا-ثم-بالاسم">بالترتيب أولًا، ثم بالاسم</a></h2>
+<p>يمكنك إعطاء القيم الأولى بالترتيب وتسمية الباقي:</p>
+<pre><code class="language-rust">fn area(width: u32, height: u32) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    out!("{}", area(3, height = 4));
+}</code></pre>
+<p>بعد أول قيمة بالاسم، يجب أن تكون كل القيم التالية بالاسم:</p>
+<pre><code class="language-rust compile_fail">fn area(width: u32, height: u32) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    area(width = 3, 4); // خطأ: قيمة بالترتيب بعد قيمة بالاسم
+}</code></pre>
+<h2 id="الدوال-المرتبطة-والمُنشئات"><a class="header" href="#الدوال-المرتبطة-والمُنشئات">الدوال المرتبطة والمُنشئات</a></h2>
+<p>الوسائط بالاسم تعمل مع الدوال المرتبطة (methods) ومع <code>Type::new</code> أيضًا:</p>
+<pre><code class="language-rust">struct Window {
+    width: u32,
+    height: u32,
+}
+
+impl Window {
+    fn new(width: u32, height: u32) -&gt; Window {
+        Window { width, height }
+    }
+
+    fn resize(&amp;mut self, width: u32, height: u32) {
+        self.width = width;
+        self.height = height;
+    }
+}
+
+fn main() {
+    let mut w = Window::new(width = 800, height = 600);
+    w.resize(height = 1080, width = 1920);
+    out!("{}x{}", w.width, w.height);
+}</code></pre>
+<h2 id="أخطاء-يكتشفها-المترجم"><a class="header" href="#أخطاء-يكتشفها-المترجم">أخطاء يكتشفها المترجم</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>ما تكتبه</th><th>الخطأ</th></tr>
+</thead>
+<tbody>
+<tr><td><code>area(widht = 3, height = 4)</code></td><td>هذه الدالة ليس لها معامل اسمه <code>widht</code></td></tr>
+<tr><td><code>area(3, width = 4)</code></td><td>المعامل <code>width</code> أُعطي أكثر من مرة</td></tr>
+<tr><td><code>area(width = 3)</code></td><td>لم تُعطَ قيمة للمعامل <code>height</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="لماذا--وليس-"><a class="header" href="#لماذا--وليس-">لماذا <code>=</code> وليس <code>:</code></a></h2>
+<p>في Rust++، <code>:</code> تعني دائمًا “نوعه” (<code>let x: u32</code>) و<code>=</code> تعني دائمًا “قيمته”
+(<code>let x = 5</code>). الوسيط بالاسم يعطي قيمة، لذلك يستخدم <code>=</code>.</p>
+<h2 id="التكلفة"><a class="header" href="#التكلفة">التكلفة</a></h2>
+<p>لا شيء. المترجم يعيد القيم إلى ترتيبها الصحيح قبل بناء البرنامج؛ والنتيجة
+مثل الاستدعاء بالترتيب تمامًا.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="القيم-الافتراضية"><a class="header" href="#القيم-الافتراضية">القيم الافتراضية</a></h1>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> يمكن أن يكون للمعامل قيمة افتراضية: <code>name: Type = value</code>.
+اتركه عند الاستدعاء فتُستخدم القيمة الافتراضية.</p>
+</blockquote>
+<pre><code class="language-rust">fn connect(host: &amp;str, port: u16 = 443, secure: bool = true) {
+    out!("{host}:{port} secure={secure}");
+}
+
+fn main() {
+    connect("example.com");                       // المنفذ 443، آمن
+    connect("example.com", 8080);                 // آمن
+    connect("localhost", port = 3000, secure = false);
+    connect("localhost", secure = false);         // المنفذ 443
+}</code></pre>
+<pre><code class="language-text">example.com:443 secure=true
+example.com:8080 secure=true
+localhost:3000 secure=false
+localhost:443 secure=false
+</code></pre>
+<p>مع <a href="#الوسائط-بالاسم">الوسائط بالاسم</a> يمكنك ترك أي معامل له قيمة افتراضية،
+وليس الأخيرة فقط: <code>connect("localhost", secure = false)</code> يبقي المنفذ
+الافتراضي.</p>
+<h2 id="داخل-الأنواع"><a class="header" href="#داخل-الأنواع">داخل الأنواع</a></h2>
+<p>القيم الافتراضية تعمل في كتل <code>impl</code> أيضًا، فلا تحتاج دوالًا كثيرة مثل
+<code>new_with_...</code>:</p>
+<pre><code class="language-rust">struct Counter {
+    value: i64,
+    step: i64,
+}
+
+impl Counter {
+    fn new(start: i64 = 0, step: i64 = 1) -&gt; Counter {
+        Counter { value: start, step }
+    }
+
+    fn tick(&amp;mut self, times: i64 = 1) {
+        self.value += self.step * times;
+    }
+}
+
+fn main() {
+    let mut a = Counter::new();
+    a.tick();
+    a.tick(times = 5);
+    out!("{}", a.value); // 6
+
+    let b = Counter::new(step = 10);
+    out!("{}", b.value + b.step); // 10
+}</code></pre>
+<h2 id="القواعد"><a class="header" href="#القواعد">القواعد</a></h2>
+<ul>
+<li>
+<p><strong>القيمة الافتراضية يجب أن تكون ثابتة</strong>: أرقام، <code>"نص"</code>، <code>true</code>، <code>'c'</code>،
+<code>None</code>، ثوابت، وعمليات حسابية عليها (<code>MAX / 2</code>).</p>
+<pre><code class="language-rust compile_fail">fn hello(name: String = String::from("world")) {} // خطأ: ليست ثابتة
+
+fn main() {}</code></pre>
+<p>لقيمة افتراضية نصية، خذ <code>&amp;str</code> بدلًا من <code>String</code>: <code>fn hello(name: &amp;str = "world")</code>.</p>
+</li>
+<li>
+<p>مسموحة في الدوال وفي <code>impl Type { ... }</code>. ليست في الـ trait بعد.</p>
+</li>
+<li>
+<p>المعاملات التي ليس لها قيمة افتراضية يجب إعطاؤها.</p>
+</li>
+</ul>
+<h2 id="التكلفة-1"><a class="header" href="#التكلفة-1">التكلفة</a></h2>
+<p>لا شيء. كل قيمة افتراضية تُحفظ مرة واحدة كثابت مخفي، والاستدعاء الذي يترك
+المعامل يستخدم ذلك الثابت كأنك كتبته بنفسك.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="التحكم-في-سير-البرنامج"><a class="header" href="#التحكم-في-سير-البرنامج">التحكم في سير البرنامج</a></h1>
+<h2 id="if"><a class="header" href="#if">if</a></h2>
+<pre><code class="language-rust">fn main() {
+    let temp = 38;
+
+    if temp &gt; 40 {
+        out!("very hot");
+    } else if temp &gt; 30 {
+        out!("hot");
+    } else {
+        out!("nice");
+    }
+
+    // `if` تعطي قيمة
+    let wear = if temp &gt; 30 { "t-shirt" } else { "jacket" };
+    out!("{wear}");
+}</code></pre>
+<p>الشرط يجب أن يكون <code>bool</code>. كتابة <code>if count { ... }</code> مع رقم خطأ: اكتب
+<code>if count != 0</code>.</p>
+<h2 id="loop-و-while-و-for"><a class="header" href="#loop-و-while-و-for">loop و while و for</a></h2>
+<pre><code class="language-rust">fn main() {
+    // loop: للأبد، حتى `break`. و`break value` يعطي قيمة.
+    let mut n = 1;
+    let first_big = loop {
+        n *= 2;
+        if n &gt; 100 { break n; }
+    };
+    out!("{first_big}"); // 128
+
+    // while: ما دام الشرط صحيحًا
+    let mut left = 3;
+    while left &gt; 0 {
+        out!("{left}...");
+        left -= 1;
+    }
+
+    // for: على مدى أو قائمة
+    for i in 0..3 {          // 0، 1، 2
+        out!("i = {i}");
+    }
+    for i in 1..=3 {         // 1، 2، 3
+        out!("i = {i}");
+    }
+    for name in ["Ali", "Sara"] {
+        out!("hi {name}");
+    }
+}</code></pre>
+<p>استخدم <code>for</code> كلما أمكنك: لا يمكن أن تتجاوز نهاية القائمة.
+و<code>continue</code> تنتقل إلى الدورة التالية.</p>
+<h2 id="match"><a class="header" href="#match">match</a></h2>
+<p><code>match</code> تقارن القيمة بأنماط، من الأعلى إلى الأسفل، وتنفذ أول نمط يطابق:</p>
+<pre><code class="language-rust">fn main() {
+    let code = 404;
+    let text = match code {
+        200 =&gt; "OK",
+        301 | 302 =&gt; "moved",          // واحد من الاثنين
+        400..=499 =&gt; "your mistake",   // مدى
+        _ =&gt; "something else",         // أي شيء متبقٍّ
+    };
+    out!("{text}");
+}</code></pre>
+<p>يجب أن تغطي <code>match</code> <strong>كل</strong> القيم الممكنة؛ و<code>_</code> تلتقط الباقي. إذا نسيت حالة،
+لا يُترجم البرنامج. هذا مفيد جدًا مع <a href="#التعدادات-enum-و-match">التعدادات</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الملكية"><a class="header" href="#الملكية">الملكية</a></h1>
+<p>الملكية هي طريقة Rust++ في إدارة الذاكرة <strong>بدون جامع نفايات وبدون أن تستدعي
+<code>free</code> بنفسك</strong>. هي الفكرة الوحيدة التي تجعل Rust++ سريعة وآمنة معًا، فخذ وقتك
+مع هذا الفصل.</p>
+<h2 id="ثلاث-قواعد"><a class="header" href="#ثلاث-قواعد">ثلاث قواعد</a></h2>
+<ol>
+<li>لكل قيمة <strong>مالك واحد</strong>: المتغير الذي يحملها.</li>
+<li>عندما يختفي المالك (تنتهي كتلة <code>{ }</code> الخاصة به)، تُحرَّر القيمة.</li>
+<li>إعطاء القيمة لغيرك <strong>ينقلها</strong>: المتغير القديم لا يستطيع استخدامها بعد ذلك.</li>
+</ol>
+<pre><code class="language-rust">fn main() {
+    {
+        let s = String::from("hello"); // s يملك النص
+        out!("{s}");
+    }                                  // انتهت الكتلة: حُرِّر النص
+}</code></pre>
+<p>لا تسرّب للذاكرة (القيمة تُحرَّر دائمًا) ولا تحرير مزدوج (مالك واحد فقط
+يحررها). المترجم يتحقق من هذا؛ ولا يكلف شيئًا وقت التشغيل.</p>
+<h2 id="النقل"><a class="header" href="#النقل">النقل</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let a = String::from("hello");
+    let b = a;           // النص ينتقل من `a` إلى `b`
+    out!("{a}");         // خطأ: استعارة `a` بعد نقله
+}</code></pre>
+<p>لماذا؟ لو امتلك <code>a</code> و<code>b</code> النص معًا، لحرّره كل منهما. لذلك يعطي <code>a</code> النص
+ويصبح غير قابل للاستخدام.</p>
+<p>نفس الشيء يحدث عندما تعطي قيمة لدالة:</p>
+<pre><code class="language-rust">fn shout(text: String) {
+    out!("{}!", text.to_uppercase());
+}   // يُحرَّر `text` هنا
+
+fn main() {
+    let msg = String::from("hi");
+    shout(msg);           // `msg` ينتقل إلى الدالة
+    // out!("{msg}");     // خطأ: `msg` نُقل
+}</code></pre>
+<h2 id="copy-القيم-الصغيرة-تُنسخ-ولا-تُنقل"><a class="header" href="#copy-القيم-الصغيرة-تُنسخ-ولا-تُنقل">Copy: القيم الصغيرة تُنسخ ولا تُنقل</a></h2>
+<p>الأرقام و<code>bool</code> و<code>char</code>، والصفوف والمصفوفات منها، صغيرة، فتُنسخ بدلًا من
+النقل:</p>
+<pre><code class="language-rust">fn main() {
+    let x = 5;
+    let y = x;           // نسخ
+    out!("{x} {y}");     // الاثنان يعملان
+}</code></pre>
+<h2 id="clone-النسخ-عن-قصد"><a class="header" href="#clone-النسخ-عن-قصد">clone: النسخ عن قصد</a></h2>
+<p>لتحصل فعلًا على نسختين من <code>String</code> أو <code>Vec</code>، اطلب ذلك بـ <code>.clone()</code>. يظهر في
+الكود، فترى دائمًا أين تُنسخ الذاكرة:</p>
+<pre><code class="language-rust">fn main() {
+    let a = String::from("hello");
+    let b = a.clone();
+    out!("{a} {b}");
+}</code></pre>
+<h2 id="الفرق-بين-string-و-str"><a class="header" href="#الفرق-بين-string-و-str">الفرق بين String و &amp;str</a></h2>
+<ul>
+<li><code>String</code> <strong>يملك</strong> نصه. يمكن أن يكبر ويتغير.</li>
+<li><code>&amp;str</code> <strong>يستعير</strong> نصًا يملكه غيره (<code>String</code>، أو نص مكتوب في البرنامج).</li>
+</ul>
+<p>معظم الدوال تحتاج فقط أن تقرأ النص، فتأخذ <code>&amp;str</code>. هذه هي <em>الاستعارة</em>،
+موضوع الفصل التالي.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الاستعارة"><a class="header" href="#الاستعارة">الاستعارة</a></h1>
+<p>نقل القيمة إلى كل دالة تقرؤها سيكون مزعجًا. بدلًا من ذلك <strong>تُعيرها</strong>:
+<code>&amp;value</code> تصنع <em>مرجعًا</em>، مؤشرًا يستعير القيمة بدون أن يملكها.</p>
+<pre><code class="language-rust">fn length(text: &amp;String) -&gt; usize {
+    text.len()
+}   // `text` مستعار فقط: لا يُحرَّر شيء
+
+fn main() {
+    let s = String::from("hello");
+    let n = length(&amp;s);   // نعير `s`
+    out!("{s} has {n} bytes"); // `s` ما زال لنا
+}</code></pre>
+<h2 id="التعديل-عبر-الاستعارة-mut"><a class="header" href="#التعديل-عبر-الاستعارة-mut">التعديل عبر الاستعارة: &amp;mut</a></h2>
+<p><code>&amp;</code> تعير للقراءة. و<code>&amp;mut</code> تعير للتعديل:</p>
+<pre><code class="language-rust">fn add_world(text: &amp;mut String) {
+    text.push_str(", world");
+}
+
+fn main() {
+    let mut s = String::from("hello");
+    add_world(&amp;mut s);
+    out!("{s}"); // hello, world
+}</code></pre>
+<h2 id="قاعدة-الاستعارة"><a class="header" href="#قاعدة-الاستعارة">قاعدة الاستعارة</a></h2>
+<p>في أي لحظة يمكن أن يكون عندك <strong>إما</strong></p>
+<ul>
+<li>أي عدد من <code>&amp;</code> (قرّاء)، <strong>أو</strong></li>
+<li><code>&amp;mut</code> واحدة فقط (كاتب واحد)،</li>
+</ul>
+<p>لكن ليس الاثنين معًا.</p>
+<pre><code class="language-rust compile_fail">fn main() {
+    let mut list = vec![1, 2, 3];
+    let first = &amp;list[0];   // قارئ
+    list.push(4);           // كاتب والقارئ ما زال موجودًا: خطأ
+    out!("{first}");
+}</code></pre>
+<p>هذا ليس تشددًا: <code>push</code> قد تنقل القائمة إلى مكان أكبر في الذاكرة، فيصبح
+<code>first</code> مشيرًا إلى ذاكرة محررة. في C++ يُترجم هذا ثم ينهار لاحقًا؛ وفي Rust++
+لا يُترجم.</p>
+<p>الاستعارة تنتهي بعد آخر استخدام لها، لذلك هذا صحيح:</p>
+<pre><code class="language-rust">fn main() {
+    let mut list = vec![1, 2, 3];
+    let first = list[0];    // نسخة من الرقم، وليست استعارة
+    list.push(4);
+    out!("{first} {list:?}");
+}</code></pre>
+<h2 id="المرجع-لا-يعيش-أطول-من-قيمته"><a class="header" href="#المرجع-لا-يعيش-أطول-من-قيمته">المرجع لا يعيش أطول من قيمته</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let r;
+    {
+        let s = String::from("short life");
+        r = &amp;s;
+    }               // يُحرَّر `s` هنا...
+    out!("{r}");    // ...فسيشير `r` إلى لا شيء: خطأ
+}</code></pre>
+<p>عندما <strong>ترجع الدالة مرجعًا</strong>، يحتاج المترجم أن يعرف من أي قيمة يستعير،
+ليتحقق من هذه القاعدة عند الاستدعاء. في Rust هذا ما تفعله الأعمار (<code>'a</code>).
+في Rust++ طريقة أسهل: الفصل التالي.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="مصادر-الاستعارة"><a class="header" href="#مصادر-الاستعارة">مصادر الاستعارة</a></h1>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> عندما ترجع الدالة مرجعًا، اكتب من أي المعاملات تستعير:
+<code>&amp;{x, y} T</code>.</p>
+</blockquote>
+<pre><code class="language-rust">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;{x, y} str {
+    if x.len() &gt;= y.len() { x } else { y }
+}
+
+fn main() {
+    let a = String::from("apple");
+    let b = String::from("fig");
+    out!("{}", longest(&amp;a, &amp;b)); // apple
+}</code></pre>
+<p>اقرأ <code>-&gt; &amp;{x, y} str</code> هكذا: <em>ترجع <code>&amp;str</code> مستعارًا من <code>x</code> أو من <code>y</code></em>. الآن
+يعرف المترجم أن النتيجة صالحة فقط ما دام <code>a</code> و<code>b</code> موجودين.</p>
+<h2 id="فقط-المعاملات-المهمة"><a class="header" href="#فقط-المعاملات-المهمة">فقط المعاملات المهمة</a></h2>
+<pre><code class="language-rust">fn pick(list: &amp;Vec&lt;i32&gt;, index: &amp;usize) -&gt; &amp;{list} i32 {
+    &amp;list[*index]
+}
+
+fn main() {
+    let numbers = vec![10, 20, 30];
+    let x = {
+        let i = 1;
+        pick(&amp;numbers, &amp;i)   // يُحرَّر `i` بعد هذه الكتلة...
+    };
+    out!("{x}");             // ...وهذا صحيح: x يستعير من `numbers` فقط
+}</code></pre>
+<p>لأن النتيجة <code>&amp;{list} i32</code>، يعرف المترجم أنها لا تستعير من <code>index</code>. المعلومة
+الدقيقة تعني أخطاء خاطئة أقل.</p>
+<h2 id="في-أي-مكان-من-نوع-الإرجاع"><a class="header" href="#في-أي-مكان-من-نوع-الإرجاع">في أي مكان من نوع الإرجاع</a></h2>
+<pre><code class="language-rust">fn first_word(text: &amp;mut String) -&gt; (&amp;{text} str, usize) {
+    let end = text.find(' ').unwrap_or(text.len());
+    (&amp;text[..end], end)
+}
+
+fn get&lt;T&gt;(items: &amp;[T], i: usize) -&gt; Option&lt;&amp;{items} T&gt; {
+    items.get(i)
+}
+
+fn main() {
+    let mut s = String::from("hello world");
+    let (w, n) = first_word(&amp;mut s);
+    out!("{w} {n}");
+    out!("{:?}", get(&amp;[1, 2, 3], 2)); // Some(3)
+}</code></pre>
+<h2 id="self"><a class="header" href="#self">self</a></h2>
+<p>في الدوال المرتبطة، <code>self</code> مصدر مثل أي مصدر آخر:</p>
+<pre><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn first(&amp;self) -&gt; &amp;{self} str {
+        &amp;self.books[0]
+    }
+
+    fn first_or(&amp;self, other: &amp;str, use_other: bool) -&gt; &amp;{self, other} str {
+        if use_other { other } else { &amp;self.books[0] }
+    }
+}
+
+fn main() {
+    let lib = Library { books: vec![String::from("Dune")] };
+    out!("{} {}", lib.first(), lib.first_or("none", true));
+}</code></pre>
+<h2 id="هل-أحتاجها-دائمًا"><a class="header" href="#هل-أحتاجها-دائمًا">هل أحتاجها دائمًا؟</a></h2>
+<p>لا. مثل Rust، عندما تأخذ الدالة مرجعًا <strong>واحدًا</strong>، أو تأخذ <code>&amp;self</code>، يعرف
+المترجم من أين تأتي النتيجة:</p>
+<pre><code class="language-rust">fn trim_dots(text: &amp;str) -&gt; &amp;str {    // مصدر واحد فقط: لا حاجة لـ {..}
+    text.trim_matches('.')
+}
+
+fn main() {
+    out!("{}", trim_dots("..hi.."));
+}</code></pre>
+<p>اكتب <code>&amp;{...}</code> عندما يكون هناك مرجعان أو أكثر يمكن الاختيار بينها.</p>
+<h2 id="القواعد-1"><a class="header" href="#القواعد-1">القواعد</a></h2>
+<ul>
+<li>كل اسم يجب أن يكون معاملًا من نوع مرجع (<code>&amp;T</code> أو <code>&amp;mut T</code>)، أو <code>self</code>.</li>
+<li>لا تكلفة وقت التشغيل: المترجم يحوّل <code>&amp;{x, y}</code> إلى أعمار ويتحقق من نفس
+القواعد تمامًا.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الأعمار-المسماة"><a class="header" href="#الأعمار-المسماة">الأعمار المسماة</a></h1>
+<p><a href="#مصادر-الاستعارة">مصادر الاستعارة</a> تكفي للدوال. يبقى مكان واحد يحتاج اسمًا
+لـ “كم تعيش الاستعارة”: <strong>struct يحمل مرجعًا</strong>.</p>
+<blockquote>
+<p><strong>جديد في Rust++:</strong> أسماء الأعمار تُكتب مثل الأسماء العادية التي تبدأ بـ
+<code>_</code>: <code>_a</code>، <code>_text</code>. و<code>'static</code> أصبحت <code>_static</code>.</p>
+</blockquote>
+<pre><code class="language-rust">struct Parser&lt;_a&gt; {
+    input: &amp;_a str,
+    pos: usize,
+}
+
+impl&lt;_a&gt; Parser&lt;_a&gt; {
+    fn new(input: &amp;_a str) -&gt; Parser&lt;_a&gt; {
+        Parser { input, pos: 0 }
+    }
+
+    fn next_word(&amp;mut self) -&gt; Option&lt;&amp;_a str&gt; {
+        let rest = &amp;self.input[self.pos..];
+        let rest = rest.trim_start();
+        if rest.is_empty() {
+            return None;
+        }
+        let start = self.input.len() - rest.len();
+        let end = rest.find(' ').unwrap_or(rest.len());
+        self.pos = start + end;
+        Some(&amp;rest[..end])
+    }
+}
+
+fn main() {
+    let text = String::from("borrow without fear");
+    let mut p = Parser::new(&amp;text);
+    while let Some(word) = p.next_word() {
+        out!("{word}");
+    }
+}</code></pre>
+<p>اقرأ <code>Parser&lt;_a&gt;</code> هكذا: <em><code>Parser</code> يستعير شيئًا لمدة اسمها <code>_a</code></em>، و
+<code>input: &amp;_a str</code> هكذا: <em><code>input</code> مستعار لتلك المدة</em>. الـ <code>Parser</code> لا يمكن أن
+يعيش أطول من النص الذي يقرؤه؛ والمترجم يتحقق من ذلك.</p>
+<h2 id="_static"><a class="header" href="#_static">_static</a></h2>
+<p><code>_static</code> تعني “طوال البرنامج”. النص المكتوب في البرنامج نوعه <code>&amp;_static str</code>:</p>
+<pre><code class="language-rust">const GREETING: &amp;_static str = "salam";
+
+fn pick_color(dark: bool) -&gt; &amp;_static str {
+    if dark { "black" } else { "white" }
+}
+
+fn main() {
+    out!("{GREETING} {}", pick_color(true));
+}</code></pre>
+<p>وتعمل أيضًا كشرط، بمعنى “لا يحمل استعارات قصيرة العمر”:</p>
+<pre><code class="language-rust">fn keep&lt;T: _static + std::fmt::Debug&gt;(value: T) -&gt; Box&lt;dyn std::fmt::Debug + _static&gt; {
+    Box::new(value)
+}
+
+fn main() {
+    out!("{:?}", keep(42));
+}</code></pre>
+<h2 id="القواعد-2"><a class="header" href="#القواعد-2">القواعد</a></h2>
+<ul>
+<li>اسم العمر هو <code>_</code> يتبعها حرف إنجليزي صغير: <code>_a</code>، <code>_x</code>، <code>_input</code>.</li>
+<li>يُكتب داخل <code>&lt;...&gt;</code> وبعد <code>&amp;</code>.</li>
+<li><em>المتغير</em> الذي اسمه <code>_a</code> يبقى متغيرًا عاديًا.</li>
+<li>اسم يبدأ بـ <code>_</code> ويتبعه <code>::</code> أو <code>!</code> أو <code>&lt;</code> هو مسار عادي وليس عمرًا:
+<code>_paths::Thing</code>.</li>
+<li><code>'a</code> من Rust ما زالت تعمل الآن. ستُزال؛ انظر <a href="#قريبًا">قريبًا</a>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الهياكل-struct"><a class="header" href="#الهياكل-struct">الهياكل (struct)</a></h1>
+<p><strong>الـ struct</strong> يجمع قيمًا مترابطة تحت اسم واحد.</p>
+<pre><code class="language-rust">struct User {
+    name: String,
+    age: u32,
+    active: bool,
+}
+
+fn main() {
+    let mut user = User {
+        name: String::from("Sara"),
+        age: 25,
+        active: true,
+    };
+
+    user.age += 1;
+    out!("{} is {} (active: {})", user.name, user.age, user.active);
+}</code></pre>
+<ul>
+<li>عرّفه بـ <code>struct Name { field: Type, ... }</code>.</li>
+<li>أنشئ واحدًا بـ <code>Name { field: value, ... }</code>.</li>
+<li>اقرأ حقلًا بـ <code>.field</code>. لتغيير الحقول، يحتاج المتغير <code>mut</code>.</li>
+</ul>
+<h2 id="اختصارات"><a class="header" href="#اختصارات">اختصارات</a></h2>
+<pre><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn make(x: i32, y: i32) -&gt; Point {
+    Point { x, y }                   // مثل Point { x: x, y: y }
+}
+
+fn main() {
+    let a = make(1, 2);
+    let b = Point { y: 10, ..a };    // باقي الحقول من `a`
+    let Point { x, y } = b;          // فكّه إلى أجزاء
+    out!("{x} {y}");
+}</code></pre>
+<h2 id="struct-على-شكل-صف-و-struct-بدون-حقول"><a class="header" href="#struct-على-شكل-صف-و-struct-بدون-حقول">struct على شكل صف، و struct بدون حقول</a></h2>
+<pre><code class="language-rust">struct Meters(f64);          // حقل واحد بلا اسم: رقم له معنى
+struct Color(u8, u8, u8);
+struct Marker;               // بدون حقول
+
+fn main() {
+    let d = Meters(5.5);
+    let red = Color(255, 0, 0);
+    let _m = Marker;
+    out!("{} {}", d.0, red.0);
+}</code></pre>
+<p><code>Meters(5.5)</code> و<code>5.5</code> العادي نوعان مختلفان، فلا يمكنك أن تعطي ثوانيَ حيث
+يُنتظر أمتار.</p>
+<h2 id="طباعة-struct"><a class="header" href="#طباعة-struct">طباعة struct</a></h2>
+<p>أضف <code>#[derive(Debug)]</code> واطبعه بـ <code>{:?}</code> (أو <code>{:#?}</code> لحقل في كل سطر):</p>
+<pre><code class="language-rust">#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p = Point { x: 3, y: 4 };
+    out!("{p:?}");   // Point { x: 3, y: 4 }
+}</code></pre>
+<p><code>derive</code> يكتب لك كودًا شائعًا. ومن المفيد أيضًا: <code>Clone</code> و<code>Copy</code>
+و<code>PartialEq</code> (لـ <code>==</code>) و<code>Default</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الدوال-المرتبطة-methods"><a class="header" href="#الدوال-المرتبطة-methods">الدوال المرتبطة (methods)</a></h1>
+<p>الدوال التي تنتمي لنوع تُكتب في كتلة <code>impl</code>:</p>
+<pre><code class="language-rust">struct Rect {
+    width: f64,
+    height: f64,
+}
+
+impl Rect {
+    // بدون `self`: تُستدعى هكذا Rect::new(...)
+    fn new(width: f64, height: f64 = 1.0) -&gt; Rect {
+        Rect { width, height }
+    }
+
+    fn square(size: f64) -&gt; Rect {
+        Rect::new(width = size, height = size)
+    }
+
+    // &amp;self: تقرأ القيمة
+    fn area(&amp;self) -&gt; f64 {
+        self.width * self.height
+    }
+
+    // &amp;mut self: تغيّر القيمة
+    fn scale(&amp;mut self, by: f64 = 2.0) {
+        self.width *= by;
+        self.height *= by;
+    }
+
+    // self: تأخذ القيمة (تنتقل إلى الدالة)
+    fn into_square(self) -&gt; Rect {
+        Rect::square(self.width.max(self.height))
+    }
+}
+
+fn main() {
+    let mut r = Rect::new(width = 3.0, height = 4.0);
+    out!("{}", r.area());        // 12
+    r.scale();
+    out!("{}", r.area());        // 48
+    r.scale(by = 0.5);
+    let s = r.into_square();
+    out!("{}", s.area());        // 16
+    // لا يمكن استخدام r بعد الآن: into_square أخذته
+}</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>المعامل الأول</th><th>معناه</th><th>الاستدعاء</th></tr>
+</thead>
+<tbody>
+<tr><td>(لا شيء)</td><td>تنتمي للنوع</td><td><code>Rect::new(...)</code></td></tr>
+<tr><td><code>&amp;self</code></td><td>تقرأ</td><td><code>r.area()</code></td></tr>
+<tr><td><code>&amp;mut self</code></td><td>تغيّر</td><td><code>r.scale()</code></td></tr>
+<tr><td><code>self</code></td><td>تأخذ</td><td><code>r.into_square()</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>اختر الأضعف الذي يكفي: <code>&amp;self</code> إذا كنت تقرأ فقط.</p>
+<p><code>Self</code> (بحرف S كبير) اسم مختصر لنوع الـ <code>impl</code>:
+<code>fn new(...) -&gt; Self</code> تعني <code>-&gt; Rect</code>.</p>
+<blockquote>
+<p><strong>Rust++:</strong> <a href="#الوسائط-بالاسم">الوسائط بالاسم</a>
+و<a href="#القيم-الافتراضية">القيم الافتراضية</a> تعمل مع الدوال المرتبطة:
+<code>Rect::new(width = 3.0)</code>، <code>r.scale(by = 0.5)</code>.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="التعدادات-enum-و-match"><a class="header" href="#التعدادات-enum-و-match">التعدادات (enum) و match</a></h1>
+<p>الـ struct يعني “هذا <strong>و</strong> ذاك”. والـ <strong>enum</strong> يعني “هذا <strong>أو</strong> ذاك”: قيمة
+تكون واحدة من عدة أنواع.</p>
+<pre><code class="language-rust">enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+fn turn(d: Direction) -&gt; &amp;_static str {
+    match d {
+        Direction::Up =&gt; "going up",
+        Direction::Down =&gt; "going down",
+        Direction::Left | Direction::Right =&gt; "going sideways",
+    }
+}
+
+fn main() {
+    out!("{}", turn(Direction::Left));
+}</code></pre>
+<h2 id="كل-نوع-يمكن-أن-يحمل-بيانات"><a class="header" href="#كل-نوع-يمكن-أن-يحمل-بيانات">كل نوع يمكن أن يحمل بيانات</a></h2>
+<p>كل نوع يمكن أن يحمل قيمه الخاصة:</p>
+<pre><code class="language-rust">enum Shape {
+    Circle { radius: f64 },
+    Rect { width: f64, height: f64 },
+    Point,
+}
+
+impl Shape {
+    fn area(&amp;self) -&gt; f64 {
+        match self {
+            Shape::Circle { radius } =&gt; 3.14159 * radius * radius,
+            Shape::Rect { width, height } =&gt; width * height,
+            Shape::Point =&gt; 0.0,
+        }
+    }
+}
+
+fn main() {
+    let shapes = [
+        Shape::Circle { radius: 1.0 },
+        Shape::Rect { width: 2.0, height: 3.0 },
+        Shape::Point,
+    ];
+    for s in &amp;shapes {
+        out!("{:.2}", s.area());
+    }
+}</code></pre>
+<p>يجب أن تعالج <code>match</code> كل نوع. أضف نوعًا جديدًا إلى <code>Shape</code> وسيعرض لك المترجم
+كل <code>match</code> تحتاج تحديثًا: لا تُنسى أي حالة.</p>
+<h2 id="option-قيمة-أو-لا-شيء"><a class="header" href="#option-قيمة-أو-لا-شيء">Option: قيمة أو لا شيء</a></h2>
+<p>Rust++ ليس فيها <code>null</code>. القيمة التي قد تكون غير موجودة نوعها <code>Option</code>:</p>
+<pre><code class="language-rust">fn find_age(name: &amp;str) -&gt; Option&lt;u32&gt; {
+    if name == "Sara" { Some(25) } else { None }
+}
+
+fn main() {
+    match find_age("Sara") {
+        Some(age) =&gt; out!("age {age}"),
+        None =&gt; out!("unknown"),
+    }
+
+    // صيغ أقصر
+    if let Some(age) = find_age("Ali") {
+        out!("Ali is {age}");
+    }
+    let age = find_age("Ali").unwrap_or(0);
+    out!("{age}");
+}</code></pre>
+<p>لا يمكنك استخدام <code>Option&lt;u32&gt;</code> كأنه <code>u32</code> بالخطأ: يجب أن تعالج <code>None</code> أولًا.
+هذا يزيل عائلة كاملة من الانهيارات.</p>
+<h2 id="الأنماط-في-match"><a class="header" href="#الأنماط-في-match">الأنماط في match</a></h2>
+<pre><code class="language-rust">fn describe(point: (i32, i32)) -&gt; String {
+    match point {
+        (0, 0) =&gt; String::from("center"),
+        (x, 0) =&gt; format!("on the x line at {x}"),
+        (0, y) =&gt; format!("on the y line at {y}"),
+        (x, y) if x == y =&gt; String::from("on the diagonal"),
+        _ =&gt; String::from("somewhere"),
+    }
+}
+
+fn main() {
+    out!("{}", describe((3, 3)));
+}</code></pre>
+<p><code>if</code> بعد النمط <em>حارس</em>: شرط إضافي.</p>
+<blockquote>
+<p><strong>قريبًا في Rust++:</strong> <code>data</code>، نوع واحد يمكن أن يكون struct أو enum أو
+الاثنين، ودوال <code>match</code> المسماة. انظر <a href="#قريبًا">قريبًا</a>.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="السمات-trait-والأنواع-العامة"><a class="header" href="#السمات-trait-والأنواع-العامة">السمات (trait) والأنواع العامة</a></h1>
+<h2 id="الـ-trait-ما-الذي-يستطيع-النوع-فعله"><a class="header" href="#الـ-trait-ما-الذي-يستطيع-النوع-فعله">الـ trait: ما الذي يستطيع النوع فعله</a></h2>
+<p><strong>الـ trait</strong> قائمة دوال. النوع الذي يملك تلك الدوال <em>يطبّق</em> الـ trait.</p>
+<pre><code class="language-rust">trait Speak {
+    fn name(&amp;self) -&gt; String;
+
+    // دالة لها جسم هي قيمة افتراضية: يمكن للأنواع أن تبقيها أو تستبدلها
+    fn greet(&amp;self) -&gt; String {
+        format!("Hello from {}", self.name())
+    }
+}
+
+struct Cat;
+struct Robot {
+    id: u32,
+}
+
+impl Speak for Cat {
+    fn name(&amp;self) -&gt; String {
+        String::from("a cat")
+    }
+}
+
+impl Speak for Robot {
+    fn name(&amp;self) -&gt; String {
+        format!("robot #{}", self.id)
+    }
+    fn greet(&amp;self) -&gt; String {
+        format!("BEEP. I AM {}", self.name().to_uppercase())
+    }
+}
+
+fn main() {
+    out!("{}", Cat.greet());
+    out!("{}", Robot { id: 7 }.greet());
+}</code></pre>
+<h2 id="الأنواع-العامة-generics-دالة-واحدة-لأنواع-كثيرة"><a class="header" href="#الأنواع-العامة-generics-دالة-واحدة-لأنواع-كثيرة">الأنواع العامة (Generics): دالة واحدة لأنواع كثيرة</a></h2>
+<p><code>&lt;T&gt;</code> معامل نوع: مكان لـ “نوع ما”. و<code>T: Speak</code> تعني “أي نوع يطبّق <code>Speak</code>”:</p>
+<pre><code class="language-rust">trait Speak {
+    fn name(&amp;self) -&gt; String;
+}
+
+struct Cat;
+impl Speak for Cat {
+    fn name(&amp;self) -&gt; String { String::from("cat") }
+}
+
+fn introduce&lt;T: Speak&gt;(thing: &amp;T) {
+    out!("This is {}", thing.name());
+}
+
+fn largest&lt;T: PartialOrd + Copy&gt;(items: &amp;[T]) -&gt; T {
+    let mut best = items[0];
+    for &amp;item in items {
+        if item &gt; best {
+            best = item;
+        }
+    }
+    best
+}
+
+fn main() {
+    introduce(&amp;Cat);
+    out!("{}", largest(&amp;[3, 9, 2]));
+    out!("{}", largest(&amp;[1.5, 0.5]));
+    out!("{}", largest(&amp;['a', 'z', 'm']));
+}</code></pre>
+<p>المترجم يصنع نسخة منفصلة ومحسّنة بالكامل من الدالة العامة لكل نوع تستخدمه.
+الأنواع العامة لا تكلف شيئًا وقت التشغيل.</p>
+<h2 id="trait-ستستخدمها-كثيرًا"><a class="header" href="#trait-ستستخدمها-كثيرًا">trait ستستخدمها كثيرًا</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الـ trait</th><th>يعطيك</th><th>يأتي عادة من</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Debug</code></td><td>الطباعة بـ <code>{:?}</code></td><td><code>#[derive(Debug)]</code></td></tr>
+<tr><td><code>Display</code></td><td>الطباعة بـ <code>{}</code></td><td><code>impl</code> تكتبه بنفسك</td></tr>
+<tr><td><code>Clone</code> / <code>Copy</code></td><td><code>.clone()</code> / النسخ</td><td><code>#[derive(...)]</code></td></tr>
+<tr><td><code>PartialEq</code></td><td><code>==</code> و<code>!=</code></td><td><code>#[derive(PartialEq)]</code></td></tr>
+<tr><td><code>PartialOrd</code></td><td><code>&lt;</code> و<code>&gt;</code></td><td><code>#[derive(PartialOrd)]</code></td></tr>
+<tr><td><code>Default</code></td><td><code>Type::default()</code></td><td><code>#[derive(Default)]</code></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-rust">use std::fmt;
+
+struct Money {
+    cents: u64,
+}
+
+impl fmt::Display for Money {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, "${}.{:02}", self.cents / 100, self.cents % 100)
+    }
+}
+
+fn main() {
+    let price = Money { cents: 1999 };
+    out!("{price}"); // $19.99
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="المجموعات"><a class="header" href="#المجموعات">المجموعات</a></h1>
+<h2 id="vec-قائمة-تكبر"><a class="header" href="#vec-قائمة-تكبر">Vec: قائمة تكبر</a></h2>
+<pre><code class="language-rust">fn main() {
+    let mut scores: Vec&lt;u32&gt; = Vec::new();
+    scores.push(90);
+    scores.push(75);
+    scores.push(60);
+
+    let names = vec!["Ali", "Sara", "Omar"]; // vec! ينشئ قائمة بقيمها
+
+    out!("{} scores, first {}", scores.len(), scores[0]);
+    out!("{:?}", scores.get(10));            // None: بدون انهيار
+
+    for s in &amp;scores {                       // &amp; = اقرأ ولا تأخذ
+        out!("score {s}");
+    }
+    for s in &amp;mut scores {                   // &amp;mut = غيّر كل واحد
+        *s += 5;
+    }
+    out!("{scores:?} {names:?}");
+
+    let last = scores.pop();                 // Some(65)
+    out!("{last:?}");
+}</code></pre>
+<p><code>v[i]</code> يوقف البرنامج إذا كان <code>i</code> بعد النهاية؛ و<code>v.get(i)</code> يعطي <code>Option</code> بدلًا
+من ذلك.</p>
+<h2 id="العمل-على-القوائم-المكررات-iterators"><a class="header" href="#العمل-على-القوائم-المكررات-iterators">العمل على القوائم: المكررات (iterators)</a></h2>
+<p>بدل كتابة الحلقات بيدك، اربط خطوات صغيرة:</p>
+<pre><code class="language-rust">fn main() {
+    let prices = vec![12, 5, 40, 8, 25];
+
+    let total: u32 = prices.iter().sum();
+    let cheap: Vec&lt;u32&gt; = prices.iter().filter(|&amp;&amp;p| p &lt; 20).cloned().collect();
+    let doubled: Vec&lt;u32&gt; = prices.iter().map(|p| p * 2).collect();
+    let max = prices.iter().max();
+
+    out!("{total} {cheap:?} {doubled:?} {max:?}");
+
+    for (i, p) in prices.iter().enumerate() {
+        if i &lt; 2 { out!("#{i}: {p}"); }
+    }
+}</code></pre>
+<p><code>|p| p * 2</code> <strong>إغلاق (closure)</strong>: دالة صغيرة بدون اسم. سلاسل المكررات تُترجم إلى
+نفس كود الآلة الذي تنتجه حلقة مكتوبة باليد.</p>
+<h2 id="string"><a class="header" href="#string">String</a></h2>
+<pre><code class="language-rust">fn main() {
+    let mut s = String::from("Rust");
+    s.push_str("++");
+    s.push('!');
+
+    let joined = format!("{s} is {}", "fast");
+    out!("{joined}");
+
+    for word in "one two three".split(' ') {
+        out!("{word}");
+    }
+    out!("{}", "  padded  ".trim());
+    out!("{}", "hello".to_uppercase());
+    out!("{}", "hello".contains("ell"));
+}</code></pre>
+<h2 id="hashmap-ابحث-عن-قيمة-بمفتاح"><a class="header" href="#hashmap-ابحث-عن-قيمة-بمفتاح">HashMap: ابحث عن قيمة بمفتاح</a></h2>
+<pre><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut stock: HashMap&lt;&amp;str, u32&gt; = HashMap::new();
+    stock.insert("apple", 3);
+    stock.insert("fig", 10);
+
+    *stock.entry("apple").or_insert(0) += 2;  // أضف، أو ابدأ من 0
+    *stock.entry("kiwi").or_insert(0) += 1;
+
+    if let Some(n) = stock.get("fig") {
+        out!("figs: {n}");
+    }
+    let mut items: Vec&lt;_&gt; = stock.iter().collect();
+    items.sort();
+    out!("{items:?}");
+}</code></pre>
+<p>الـ <code>HashMap</code> ليس لها ترتيب. رتّب العناصر، أو استخدم <code>BTreeMap</code>، عندما يهمك
+الترتيب.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الأخطاء"><a class="header" href="#الأخطاء">الأخطاء</a></h1>
+<p>في Rust++ نوعان من الأخطاء:</p>
+<ul>
+<li><strong>العيوب (bugs)</strong> التي يجب ألا تحدث أبدًا: يتوقف البرنامج بـ <code>panic!</code>.</li>
+<li><strong>الفشل المتوقع</strong>، مثل ملف غير موجود أو مدخل خاطئ: الدالة ترجع <code>Result</code>
+ومن يستدعيها يقرر ماذا يفعل.</li>
+</ul>
+<h2 id="result"><a class="header" href="#result">Result</a></h2>
+<pre><code class="language-rust">fn divide(a: f64, b: f64) -&gt; Result&lt;f64, String&gt; {
+    if b == 0.0 {
+        Err(String::from("can't divide by zero"))
+    } else {
+        Ok(a / b)
+    }
+}
+
+fn main() {
+    match divide(10.0, 4.0) {
+        Ok(v) =&gt; out!("result {v}"),
+        Err(e) =&gt; out!("error: {e}"),
+    }
+    match divide(1.0, 0.0) {
+        Ok(v) =&gt; out!("result {v}"),
+        Err(e) =&gt; out!("error: {e}"),
+    }
+}</code></pre>
+<p><code>Result&lt;T, E&gt;</code> إما <code>Ok(value)</code> أو <code>Err(error)</code>. مثل <code>Option</code>، لا يمكنك استخدام
+القيمة بدون معالجة الخطأ أولًا.</p>
+<h2 id="علامة---مرّر-الخطأ-للأعلى"><a class="header" href="#علامة---مرّر-الخطأ-للأعلى">علامة ? : مرّر الخطأ للأعلى</a></h2>
+<p>داخل دالة ترجع <code>Result</code>، علامة <code>?</code> بعد استدعاء تعني: <em>إذا كان هذا خطأ، أرجعه
+الآن؛ وإلا أعطني القيمة</em>.</p>
+<pre><code class="language-rust">fn parse_pair(text: &amp;str) -&gt; Result&lt;(i32, i32), std::num::ParseIntError&gt; {
+    let mut parts = text.split(',');
+    let a = parts.next().unwrap_or("").trim().parse::&lt;i32&gt;()?;
+    let b = parts.next().unwrap_or("").trim().parse::&lt;i32&gt;()?;
+    Ok((a, b))
+}
+
+fn main() {
+    out!("{:?}", parse_pair("3, 4"));   // Ok((3, 4))
+    out!("{:?}", parse_pair("3, x"));   // Err(ParseIntError { kind: InvalidDigit })
+}</code></pre>
+<h2 id="طرق-سريعة-وبسيطة"><a class="header" href="#طرق-سريعة-وبسيطة">طرق سريعة وبسيطة</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الاستدعاء</th><th>عندما يكون خطأ</th></tr>
+</thead>
+<tbody>
+<tr><td><code>.unwrap()</code></td><td>يوقف البرنامج</td></tr>
+<tr><td><code>.expect("message")</code></td><td>يوقف البرنامج برسالتك</td></tr>
+<tr><td><code>.unwrap_or(value)</code></td><td>يستخدم <code>value</code> بدلًا منه</td></tr>
+<tr><td><code>.unwrap_or_default()</code></td><td>يستخدم <code>0</code> أو <code>""</code> أو <code>false</code>…</td></tr>
+<tr><td><code>?</code></td><td>يرجع الخطأ لمن استدعى الدالة</td></tr>
+</tbody>
+</table>
+</div>
+<p>استخدم <code>unwrap</code> في البرامج الصغيرة والاختبارات. في الكود الحقيقي، فضّل <code>?</code>
+أو <code>match</code>.</p>
+<h2 id="main-يمكن-أن-ترجع-result"><a class="header" href="#main-يمكن-أن-ترجع-result">main يمكن أن ترجع Result</a></h2>
+<pre><code class="language-rust">use std::fs;
+
+fn main() -&gt; Result&lt;(), std::io::Error&gt; {
+    fs::write("hello.txt", "salam")?;
+    let text = fs::read_to_string("hello.txt")?;
+    out!("{text}");
+    fs::remove_file("hello.txt")?;
+    Ok(())
+}</code></pre>
+<p>إذا وصل خطأ إلى <code>main</code>، يطبعه البرنامج وينتهي برمز خطأ.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="الوحدات-modules"><a class="header" href="#الوحدات-modules">الوحدات (modules)</a></h1>
+<p>عندما يكبر البرنامج، قسّمه إلى <strong>وحدات</strong>. الوحدة مجموعة لها اسم من الدوال
+والأنواع والوحدات الأخرى.</p>
+<pre><code class="language-rust">mod shapes {
+    pub struct Circle {
+        pub radius: f64,
+    }
+
+    impl Circle {
+        pub fn area(&amp;self) -&gt; f64 {
+            PI * self.radius * self.radius
+        }
+    }
+
+    const PI: f64 = 3.14159; // خاص: يُستخدم داخل `shapes` فقط
+}
+
+use shapes::Circle;
+
+fn main() {
+    let c = Circle { radius: 2.0 };
+    out!("{:.2}", c.area());
+}</code></pre>
+<ul>
+<li>كل شيء <strong>خاص (private)</strong> في الأصل. و<code>pub</code> تجعله قابلًا للاستخدام خارج
+الوحدة.</li>
+<li><code>use</code> تجلب اسمًا إلى النطاق فلا تحتاج كتابة المسار كاملًا.</li>
+<li><code>::</code> تفصل أجزاء المسار: <code>shapes::Circle</code>، <code>std::collections::HashMap</code>.</li>
+</ul>
+<h2 id="وحدة-لكل-ملف"><a class="header" href="#وحدة-لكل-ملف">وحدة لكل ملف</a></h2>
+<p>في مشروع Cargo، <code>mod shapes;</code> (مع <code>;</code>) تحمّل الوحدة من ملف:</p>
+<pre><code class="language-text">src/
+├── main.rs        mod shapes;  use shapes::Circle;
+└── shapes.rs      pub struct Circle { ... }
+</code></pre>
+<p>المجلد يعمل أيضًا: <code>src/shapes/mod.rs</code>، أو <code>src/shapes.rs</code> بجانب مجلد
+<code>src/shapes/</code> لوحداتها الفرعية.</p>
+<h2 id="المسارات"><a class="header" href="#المسارات">المسارات</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>المسار</th><th>معناه</th></tr>
+</thead>
+<tbody>
+<tr><td><code>crate::shapes::Circle</code></td><td>من أعلى مشروعك</td></tr>
+<tr><td><code>super::helper</code></td><td>من الوحدة الأم</td></tr>
+<tr><td><code>self::inner</code></td><td>من هذه الوحدة</td></tr>
+<tr><td><code>std::fs</code></td><td>من المكتبة القياسية</td></tr>
+<tr><td><code>rand::random</code></td><td>من مكتبة في <code>Cargo.toml</code></td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rust-لمبرمجي-rust"><a class="header" href="#rust-لمبرمجي-rust">Rust++ لمبرمجي Rust</a></h1>
+<p>إذا كنت تعرف Rust، فهذه الصفحة كل ما تحتاجه. Rust++ هي Rust 1.101.0-dev مع
+هذه التغييرات؛ وكل شيء آخر، بما فيه crates.io، يعمل كما في Rust.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rust</th><th>Rust++</th></tr>
+</thead>
+<tbody>
+<tr><td><code>println!("{x}")</code></td><td><code>out!("{x}")</code> (و<code>println!</code> ما زالت تعمل)</td></tr>
+<tr><td><code>area(3, 4)</code></td><td><code>area(width = 3, height = 4)</code>، بأي ترتيب، بعد القيم بالترتيب</td></tr>
+<tr><td><code>fn open(p: &amp;str, w: bool)</code> + <code>open(p, false)</code></td><td><code>fn open(p: &amp;str, w: bool = false)</code> + <code>open(p)</code></td></tr>
+<tr><td><code>fn f&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str</code></td><td><code>fn f(x: &amp;str, y: &amp;str) -&gt; &amp;{x} str</code></td></tr>
+<tr><td><code>fn f(&amp;self) -&gt; &amp;str</code></td><td>نفسها، أو <code>-&gt; &amp;{self} str</code></td></tr>
+<tr><td><code>struct P&lt;'a&gt; { s: &amp;'a str }</code></td><td><code>struct P&lt;_a&gt; { s: &amp;_a str }</code></td></tr>
+<tr><td><code>&amp;'static str</code>، <code>T: 'static</code></td><td><code>&amp;_static str</code>، <code>T: _static</code></td></tr>
+<tr><td><code>rustup</code>، <code>rustc --version</code> ← <code>rustc 1.101.0-dev</code></td><td><code>rustup++_init</code>، <code>rustc 1.101.0-dev (Rust++ #19)</code></td></tr>
+<tr><td>rust-analyzer</td><td><code>rust++-analyzer</code> ومحرر <a href="#محرر-devr">DEVR+</a></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="كيف-تُترجم-الكتابة-الجديدة"><a class="header" href="#كيف-تُترجم-الكتابة-الجديدة">كيف تُترجم الكتابة الجديدة</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>الميزة</th><th>تصبح</th><th>التكلفة</th></tr>
+</thead>
+<tbody>
+<tr><td><code>out!</code></td><td><code>println!</code></td><td>لا شيء</td></tr>
+<tr><td><code>&amp;{x, y} T</code></td><td>عمر واحد مشترك بين <code>x</code> و<code>y</code> والنتيجة</td><td>لا شيء</td></tr>
+<tr><td><code>_a</code></td><td><code>'_a</code> (و<code>_static</code> ← <code>'static</code>)</td><td>لا شيء</td></tr>
+<tr><td>الوسائط بالاسم</td><td>استدعاء بالترتيب حسب ترتيب المعاملات</td><td>لا شيء</td></tr>
+<tr><td>القيم الافتراضية</td><td><code>const</code> مخفي لكل معامل، يُستخدم للوسائط المتروكة</td><td>لا شيء</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="الحدود-اليوم"><a class="header" href="#الحدود-اليوم">الحدود اليوم</a></h2>
+<ul>
+<li>القيم الافتراضية: تعابير ثابتة فقط؛ ليست في الـ trait.</li>
+<li>الوسائط بالاسم: على الدوال والدوال المرتبطة التي تُستدعى مباشرة، وليس على
+الإغلاقات (closures) أو مؤشرات الدوال.</li>
+<li>rustfmt لا يعرف الكتابة الجديدة بعد.</li>
+</ul>
+<p>لكل تغيير بطاقة في
+<a href="https://github.com/AlzelemX/Rust-/tree/main/notebook">NoteBook</a> فيها التاريخ
+والكود قبل وبعد.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="قريبًا"><a class="header" href="#قريبًا">قريبًا</a></h1>
+<p>أفكار مخطط لها لكنها لم تُبنَ بعد. <strong>لا شيء من الكود في هذه الصفحة يُترجم
+اليوم</strong>، والكتابة النهائية قد تتغير. القائمة المحدّثة في
+<a href="https://github.com/AlzelemX/Rust-#status">لوحة الحالة</a>.</p>
+<h2 id="data-نوع-واحد-للـ-struct-والـ-enum"><a class="header" href="#data-نوع-واحد-للـ-struct-والـ-enum"><code>data</code>: نوع واحد للـ struct والـ enum</a></h2>
+<p>كلمة واحدة لـ “هذا وذاك” و“هذا أو ذاك“، مع حقول مشتركة بين كل الأنواع:</p>
+<pre><code class="language-rust ignore">data Shape {
+    color: Color,              // كل Shape له لون
+    | Circle { radius: f64 }
+    | Rect { w: f64, h: f64 }
+}</code></pre>
+<p><code>struct</code> و<code>enum</code> باقيتان؛ و<code>data</code> لما تحتاج الاثنين.</p>
+<h2 id="match-المسماة"><a class="header" href="#match-المسماة">match المسماة</a></h2>
+<p><code>match</code> هي أيضًا دالة، للقواعد التي تستخدمها في أكثر من مكان:</p>
+<pre><code class="language-rust ignore">match price(size: Size) -&gt; u32 {
+    Size::Small =&gt; 10,
+    Size::Big =&gt; 20,
+}</code></pre>
+<h2 id="لا-مزيد-من-a"><a class="header" href="#لا-مزيد-من-a">لا مزيد من <code>'a</code></a></h2>
+<p>مصادر الاستعارة و<code>_a</code> تحل محل معظم الأعمار الآن. الخطة إزالة <code>'a</code> تمامًا،
+بما في ذلك المكتبة القياسية ورسائل الأخطاء.</p>
+<h2 id="رسائل-أخطاء-بأسلوب-rust"><a class="header" href="#رسائل-أخطاء-بأسلوب-rust">رسائل أخطاء بأسلوب Rust++</a></h2>
+<p>أخطاء المترجم تعرض كتابة Rust++ (<code>&amp;{x}</code>، <code>_a</code>) في اقتراحاتها.</p>
+<h2 id="on_ready"><a class="header" href="#on_ready"><code>on_ready()</code></a></h2>
+<p>مُنشئ تصريحي: كود يعمل عندما تصبح القيمة جاهزة.</p>
+<h2 id="أندرويد-و-ios"><a class="header" href="#أندرويد-و-ios">أندرويد و iOS</a></h2>
+<p>المكتبة القياسية للجوالات.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/bidi-05a7bb88.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

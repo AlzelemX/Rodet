@@ -1,0 +1,1899 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Rust++ Doc Book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="How to write Rust++: a faster to read, easier to learn Rust.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/rustpp-b0ca7138.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "searchindex-8dca38e8.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-212b24be.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust++ Doc Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/AlzelemX/Rust-/tree/main/docbook" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<blockquote>
+<p>🌐 <a href="https://alzelemx.github.io/Rust-/ar/">اقرأ هذا الكتاب بالعربية</a></p>
+</blockquote>
+<p><strong>Rust++</strong> is a programming language built from Rust 1.101. It keeps
+everything that makes Rust good — speed like C, no garbage collector, no
+crashes from bad memory use — and changes the parts that make Rust hard to
+read and slow to learn.</p>
+<pre><code class="language-rust">fn greet(name: &amp;str = "world", times: u32 = 1) {
+    for _ in 0..times {
+        out!("Hello, {name}!");
+    }
+}
+
+fn main() {
+    greet();
+    greet("Rust++", times = 2);
+}</code></pre>
+<pre><code class="language-text">Hello, world!
+Hello, Rust++!
+Hello, Rust++!
+</code></pre>
+<h2 id="what-is-different-from-rust"><a class="header" href="#what-is-different-from-rust">What is different from Rust</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rust</th><th>Rust++</th><th>Chapter</th></tr>
+</thead>
+<tbody>
+<tr><td><code>println!("...")</code></td><td><code>out!("...")</code></td><td><a href="#hello-world">Hello, World!</a></td></tr>
+<tr><td><code>area(3, 4)</code></td><td><code>area(width = 3, height = 4)</code></td><td><a href="#named-arguments">Named Arguments</a></td></tr>
+<tr><td>many <code>new_with_...</code> functions</td><td><code>fn open(path: &amp;str, write: bool = false)</code></td><td><a href="#default-values">Default Values</a></td></tr>
+<tr><td><code>fn f&lt;'a&gt;(x: &amp;'a str) -&gt; &amp;'a str</code></td><td><code>fn f(x: &amp;str) -&gt; &amp;{x} str</code></td><td><a href="#borrow-sources">Borrow Sources</a></td></tr>
+<tr><td><code>struct P&lt;'a&gt; { s: &amp;'a str }</code></td><td><code>struct P&lt;_a&gt; { s: &amp;_a str }</code></td><td><a href="#named-lifetimes">Named Lifetimes</a></td></tr>
+<tr><td><code>&amp;'static str</code></td><td><code>&amp;_static str</code></td><td><a href="#named-lifetimes">Named Lifetimes</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>Everything else is the same as Rust, so Rust libraries (crates) work in
+Rust++ too.</p>
+<h2 id="how-to-read-this-book"><a class="header" href="#how-to-read-this-book">How to read this book</a></h2>
+<p>Read it in order the first time: each chapter uses what the chapters before
+it taught. Boxes like this one mark what is new in Rust++:</p>
+<blockquote>
+<p><strong>New in Rust++:</strong> something Rust doesn’t have.</p>
+</blockquote>
+<p>Every example in this book is a complete program. Copy it into
+<code>src/main.rs</code> of a Cargo project and run it with <code>cargo run</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="install-rust"><a class="header" href="#install-rust">Install Rust++</a></h1>
+<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
+<ol>
+<li>Download <strong><code>rustup++_init.exe</code></strong> from the
+<a href="https://github.com/AlzelemX/Rust-/releases/latest">latest release</a>.</li>
+<li>Double-click it. It installs Rust++ into <code>%USERPROFILE%\.rustpp</code> and adds
+it to your PATH.</li>
+<li>If the Visual Studio C++ Build Tools are missing, it offers to install
+them. Say yes: Windows programs are linked with Microsoft’s linker.</li>
+</ol>
+<h2 id="linux-and-macos"><a class="header" href="#linux-and-macos">Linux and macOS</a></h2>
+<pre><code class="language-sh">curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh
+</code></pre>
+<p>You also need a C linker: <code>xcode-select --install</code> on macOS, or
+<code>build-essential</code> (Ubuntu/Debian) / <code>gcc</code> on Linux.</p>
+<h2 id="check-it-works"><a class="header" href="#check-it-works">Check it works</a></h2>
+<p>Open a <strong>new</strong> terminal:</p>
+<pre><code class="language-text">&gt; rustc --version
+rustc 1.101.0-dev (Rust++ #19)
+&gt; cargo --version
+cargo 1.100.0-beta.1 (3d7cf6e93 2026-09-25)
+</code></pre>
+<p>If <code>(Rust++ #…)</code> is there, you’re ready. The number is the build: a newer release has a bigger number.</p>
+<h2 id="update-and-uninstall"><a class="header" href="#update-and-uninstall">Update and uninstall</a></h2>
+<ul>
+<li>
+<p><strong>Update:</strong> run the installer again.</p>
+</li>
+<li>
+<p><strong>Uninstall:</strong> <code>rustup++_init.exe --uninstall</code> on Windows, or</p>
+<pre><code class="language-sh">curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh -s -- --uninstall
+</code></pre>
+</li>
+</ul>
+<h2 id="editor"><a class="header" href="#editor">Editor</a></h2>
+<p>Use <strong><a href="#the-devr-editor">DEVR+</a></strong>, the editor made for Rust++: it knows all the new
+syntax, shows errors as you type and runs your project with <code>F5</code>.</p>
+<p>Rust++ also comes with <strong><code>rust++-analyzer</code></strong>, the language server DEVR+ uses.
+Other editors can use it too: in VS Code, install the <em>rust-analyzer</em>
+extension and set <code>rust-analyzer.server.path</code> to the <code>rust++-analyzer</code> in
+<code>~/.rustpp/bin</code> (<code>%USERPROFILE%\.rustpp\bin</code> on Windows).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="hello-world"><a class="header" href="#hello-world">Hello, World!</a></h1>
+<p>Make a file called <code>main.rs</code>:</p>
+<pre><code class="language-rust">fn main() {
+    out!("Hello, world!");
+}</code></pre>
+<p>Compile it and run it:</p>
+<pre><code class="language-text">&gt; rustc main.rs
+&gt; ./main          (on Windows: .\main.exe)
+Hello, world!
+</code></pre>
+<h2 id="what-each-part-means"><a class="header" href="#what-each-part-means">What each part means</a></h2>
+<ul>
+<li><code>fn main()</code> — a function called <code>main</code>. Every program starts here.</li>
+<li><code>{ ... }</code> — the body of the function.</li>
+<li><code>out!("...")</code> — prints a line. The <code>!</code> means <code>out!</code> is a <em>macro</em>: a piece
+of code that writes code for you.</li>
+<li><code>;</code> — ends the statement.</li>
+</ul>
+<blockquote>
+<p><strong>New in Rust++:</strong> <code>out!</code> prints a line. It works exactly like Rust’s
+<code>println!</code>, which still works too.</p>
+</blockquote>
+<h2 id="printing-values"><a class="header" href="#printing-values">Printing values</a></h2>
+<p>Put <code>{}</code> where a value should go, or the name of a variable inside <code>{}</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let name = "Sara";
+    let age = 25;
+
+    out!("{name} is {age} years old");
+    out!("{} + {} = {}", 2, 3, 2 + 3);
+    out!();                        // empty line
+    out!("{:?}", [1, 2, 3]);       // {:?} prints lists and other data
+    out!("{:.2}", 3.14159);        // 2 digits after the point: 3.14
+}</code></pre>
+<pre><code class="language-text">Sara is 25 years old
+2 + 3 = 5
+
+[1, 2, 3]
+3.14
+</code></pre>
+<p>Other printing macros:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Macro</th><th>Does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>out!</code></td><td>print a line</td></tr>
+<tr><td><code>print!</code></td><td>print without a new line</td></tr>
+<tr><td><code>eprintln!</code></td><td>print a line to the error output</td></tr>
+<tr><td><code>format!</code></td><td>make a <code>String</code> instead of printing</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="projects-with-cargo"><a class="header" href="#projects-with-cargo">Projects with Cargo</a></h1>
+<p><code>rustc</code> compiles one file. For real programs use <strong>Cargo</strong>: it makes the
+project, builds it, runs it, and downloads libraries.</p>
+<pre><code class="language-text">&gt; cargo new hello
+&gt; cd hello
+</code></pre>
+<pre><code class="language-text">hello/
+├── Cargo.toml      the project: name, version, libraries
+└── src/
+    └── main.rs     your code
+</code></pre>
+<p>Change <code>src/main.rs</code>:</p>
+<pre><code class="language-rust">fn main() {
+    out!("Hello from Cargo!");
+}</code></pre>
+<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cargo run</code></td><td>build and run</td></tr>
+<tr><td><code>cargo build</code></td><td>build only (into <code>target/debug/</code>)</td></tr>
+<tr><td><code>cargo build --release</code></td><td>build optimized, fast program (into <code>target/release/</code>)</td></tr>
+<tr><td><code>cargo check</code></td><td>check for errors without building — fastest</td></tr>
+<tr><td><code>cargo test</code></td><td>run the tests</td></tr>
+</tbody>
+</table>
+</div>
+<p>Always measure speed with <code>--release</code>: debug builds can be 10–50 times
+slower.</p>
+<h2 id="libraries-crates"><a class="header" href="#libraries-crates">Libraries (crates)</a></h2>
+<p>Libraries are called <em>crates</em>. Add one to <code>Cargo.toml</code> under
+<code>[dependencies]</code>:</p>
+<pre><code class="language-toml">[dependencies]
+rand = "0.8"
+</code></pre>
+<p>Cargo downloads it the next time you build. Crates written for Rust work in
+Rust++.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="the-devr-editor"><a class="header" href="#the-devr-editor">The DEVR+ Editor</a></h1>
+<p><strong>DEVR+</strong> is the editor made for Rust++. It looks like VS Code, so
+everything is where you expect it, but it understands every Rust++ feature.</p>
+<h2 id="install"><a class="header" href="#install">Install</a></h2>
+<p>Download DEVR+ from the
+<a href="https://github.com/AlzelemX/Rust-/releases">releases named “DEVR+”</a>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>System</th><th>File</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows</td><td><code>DEVR+_…_x64-setup.exe</code></td></tr>
+<tr><td>Linux (glibc 2.39+: Ubuntu 24.04+, Debian 13+)</td><td><code>.deb</code> or <code>.AppImage</code></td></tr>
+<tr><td>macOS (Apple Silicon / Intel)</td><td><code>DEVR+_…_aarch64.dmg</code> / <code>DEVR+_…_x64.dmg</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>DEVR+ uses the Rust++ you installed with <code>rustup++_init</code>. If it’s missing,
+the welcome page has an <strong>Install Rust++</strong> button.</p>
+<blockquote>
+<p>macOS: the app isn’t signed by Apple yet. The first time, right-click it
+and choose <strong>Open</strong>.</p>
+</blockquote>
+<h2 id="arabic"><a class="header" href="#arabic">Arabic</a></h2>
+<p>In the settings (<code>Ctrl+,</code>) choose <strong>Language: العربية</strong>. The whole editor
+switches to Arabic: menus and commands, compiler messages, quick fixes, speed
+tips, the documentation of the standard library, and this book. Code itself
+stays left to right.</p>
+<p>The Arabic lives in Rust++ itself, not only in the editor:</p>
+<ul>
+<li><strong>Compiler messages.</strong> <code>rustc</code> and <code>cargo</code> speak Arabic when the
+environment variable <code>RUSTPP_LANG</code> is <code>ar</code> (DEVR+ sets it for you, also in
+its terminal). From any terminal: <code>RUSTPP_LANG=ar cargo build</code>
+(PowerShell: <code>$env:RUSTPP_LANG="ar"; cargo build</code>). Names, types and code
+in the messages stay as they are.</li>
+<li><strong>Standard library docs.</strong> Every documented item of <code>std</code>, <code>core</code> and
+<code>alloc</code> has an Arabic explanation next to the English one, in the same doc
+comment. <code>Option</code>, <code>Result</code>, <code>String</code>, <code>Vec</code>, <code>HashMap</code> and the print
+macros have the whole text in Arabic, the rest a short summary for now.
+The analyzer shows the language you chose (setting <code>rustpp.language</code>:
+<code>en</code> or <code>ar</code>); code examples are shown in both.</li>
+</ul>
+<h2 id="a-first-project"><a class="header" href="#a-first-project">A first project</a></h2>
+<ol>
+<li><strong>New Rust++ Project…</strong> on the welcome page (or <code>Ctrl+Shift+P</code> → <em>Cargo: New</em>).</li>
+<li>Press <strong>F5</strong>: Cargo builds and runs it in the terminal at the bottom.</li>
+<li>Errors appear as you type; a red file:line in the terminal opens the file
+at that line.</li>
+</ol>
+<h2 id="what-you-see"><a class="header" href="#what-you-see">What you see</a></h2>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="start/devr.png" alt="The DEVR+ editor"><span class="img-wrapper"><img src="start/devr.png" alt="The DEVR+ editor"></span></label></p>
+<ul>
+<li><strong>↩ return marks</strong>: after the value a function gives back.</li>
+<li><strong>⚡ Speed score</strong>: next to the Run button, from 0 to 100. Point at it to see
+each slow spot and how to fix it. Slow spots are underlined with dots.</li>
+<li><strong>▶ Run</strong> above <code>fn main</code>, and <strong>N implementations</strong> above types.</li>
+<li>Gray <strong>hints</strong>: the types Rust++ works out (<code>: u32</code>), and parameter names
+for calls that don’t use <a href="#named-arguments">named arguments</a>.</li>
+<li><strong>Doc Book</strong> (the book icon on the left): this book inside the editor, in
+English or Arabic. It comes with the installed Rust++, so it always matches
+your version of the language.</li>
+</ul>
+<h2 id="keys"><a class="header" href="#keys">Keys</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Ctrl+P</code></td><td>open a file by name</td></tr>
+<tr><td><code>Ctrl+Shift+P</code></td><td>all commands</td></tr>
+<tr><td><code>Ctrl+T</code></td><td>go to a struct, trait, function… in the project</td></tr>
+<tr><td><code>Ctrl+Shift+T</code></td><td><strong>Find Symbols</strong> panel with filters: struct, enum, trait, fn, impl…</td></tr>
+<tr><td><code>Ctrl+Shift+F</code></td><td>search in all files</td></tr>
+<tr><td><code>F12</code> / <code>Shift+F12</code></td><td>go to definition / all references</td></tr>
+<tr><td><code>Ctrl+F12</code></td><td>go to the <code>impl</code> blocks of a type or trait</td></tr>
+<tr><td><code>F2</code></td><td>rename everywhere</td></tr>
+<tr><td><code>Ctrl+.</code></td><td>quick fix</td></tr>
+<tr><td><code>F8</code></td><td>next error</td></tr>
+<tr><td><code>F5</code> / <code>Ctrl+F5</code></td><td>run / run fast (<code>--release</code>)</td></tr>
+<tr><td><code>Ctrl+Shift+B</code></td><td>build</td></tr>
+<tr><td><code>Ctrl+`</code></td><td>new terminal</td></tr>
+<tr><td><code>Ctrl+B</code> / <code>Ctrl+J</code></td><td>show or hide the side bar / the bottom panel</td></tr>
+<tr><td><code>Ctrl+,</code></td><td>settings (language, theme, font, hints, speed score…)</td></tr>
+</tbody>
+</table>
+</div>
+<p>On macOS use <code>⌘</code> instead of <code>Ctrl</code>.</p>
+<h2 id="the-cargo-view"><a class="header" href="#the-cargo-view">The Cargo view</a></h2>
+<p>The package icon on the left shows your project: <strong>Run</strong>, <strong>Build</strong>,
+<strong>Check</strong>, <strong>Test</strong>, <strong>Run fast</strong> and <strong>Clean</strong>, the programs in it, and its
+libraries. A library with a newer version on crates.io shows it in green;
+<strong>+</strong> adds a library (<code>cargo add</code>).</p>
+<h2 id="in-a-browser"><a class="header" href="#in-a-browser">In a browser</a></h2>
+<p><code>devr-server</code> serves the same editor to a web browser:</p>
+<pre><code class="language-text">devr-server --ui path/to/devr/ui/dist
+</code></pre>
+<p>Then open <a href="http://127.0.0.1:7878">http://127.0.0.1:7878</a>. It only listens on your own computer.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="devr-plugins"><a class="header" href="#devr-plugins">DEVR+ Plugins</a></h1>
+<p>A plugin can change anything in DEVR+: add commands and shortcuts, views,
+panels, status bar items and pages, change the colors and the whole look,
+teach the code editor new tricks, and talk to the language server, the
+terminal and your files.</p>
+<h2 id="use-plugins"><a class="header" href="#use-plugins">Use plugins</a></h2>
+<p>Open <strong>Extensions</strong> (<code>Ctrl+Shift+X</code>, the puzzle icon). Each plugin has a
+switch to turn it on or off, <strong>Reload</strong>, <strong>Edit</strong> and <strong>Remove</strong>.</p>
+<ul>
+<li><strong>Install from a Folder…</strong>: a folder with a <code>plugin.json</code>.</li>
+<li><strong>Create a Plugin</strong>: makes a new plugin from a template and opens it.</li>
+</ul>
+<blockquote>
+<p>A plugin can do anything DEVR+ can, including reading and changing your
+files and running programs. Install only plugins you trust.</p>
+</blockquote>
+<p>Plugins are kept in the DEVR+ settings folder, in <code>plugins/</code>.</p>
+<h2 id="write-a-plugin"><a class="header" href="#write-a-plugin">Write a plugin</a></h2>
+<p><strong>Create a Plugin</strong> makes a folder like this:</p>
+<pre><code class="language-text">my-plugin/
+├── plugin.json   what the plugin is
+├── main.js       its code
+├── style.css     CSS for the whole editor
+└── devr.d.ts     the whole API, with explanations (for completion)
+</code></pre>
+<p><code>plugin.json</code>:</p>
+<pre><code class="language-json">{
+  "id": "my-plugin",
+  "name": { "en": "My Plugin", "ar": "إضافتي" },
+  "version": "0.1.0",
+  "description": { "en": "What it does.", "ar": "ماذا تفعل." },
+  "main": "main.js",
+  "styles": ["style.css"],
+  "themes": ["themes/night.json"],
+  "devr": "1"
+}
+</code></pre>
+<p>Only <code>id</code> is required. A plugin can be only a theme and CSS, with no code.</p>
+<p><code>main.js</code> exports <code>activate</code>, which gets the editor as <code>devr</code>:</p>
+<pre><code class="language-js">// @ts-check
+/** @param {import('./devr').Devr} devr */
+export function activate(devr) {
+  devr.addTranslations({ 'Hello!': 'مرحبًا!' });
+
+  devr.commands.register({
+    id: 'my-plugin.hello',
+    title: 'My Plugin: Say Hello',
+    key: 'Ctrl+Alt+H',
+    run: () =&gt; devr.ui.toast(devr.t('Hello!'), 'success'),
+  });
+
+  const lines = devr.ui.addStatusItem({ icon: 'list-ordered', align: 'right' });
+  devr.editor.onChange(() =&gt; lines.set(String(devr.editor.model?.getLineCount() ?? '')));
+}
+</code></pre>
+<p><strong>Save a file of the plugin and it reloads</strong>: change, save, see. Everything
+the plugin added is removed when it stops or reloads; for things you make
+with Monaco directly, add them to <code>devr.subscriptions</code>.</p>
+<h2 id="what-devr-has"><a class="header" href="#what-devr-has">What <code>devr</code> has</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Part</th><th>For</th></tr>
+</thead>
+<tbody>
+<tr><td><code>devr.commands</code>, <code>devr.keys</code></td><td>commands in the palette, shortcuts (also for DEVR+’s own commands)</td></tr>
+<tr><td><code>devr.ui</code></td><td>toasts, dialogs, quick picks, menus, side views, panels, status items, pages</td></tr>
+<tr><td><code>devr.layout</code></td><td>every part of the window (activity bar, side bar, tabs, panel, status bar)</td></tr>
+<tr><td><code>devr.theme</code></td><td>color themes, CSS, colors (<code>setColors({ '--accent': '#2f9e44' })</code>)</td></tr>
+<tr><td><code>devr.editor</code></td><td>the code editor and the whole Monaco API</td></tr>
+<tr><td><code>devr.workspace</code></td><td>open, read, write and save files; events when files open, save, close</td></tr>
+<tr><td><code>devr.terminal</code></td><td>run programs and <code>cargo</code></td></tr>
+<tr><td><code>devr.lsp</code></td><td>requests to rust++-analyzer, errors and warnings</td></tr>
+<tr><td><code>devr.settings</code>, <code>devr.storage</code></td><td>the editor’s settings; your plugin’s own saved data</td></tr>
+<tr><td><code>devr.backend</code></td><td>everything the DEVR+ backend can do</td></tr>
+<tr><td><code>devr.t</code>, <code>devr.addTranslations</code></td><td>your texts in English and Arabic</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="themes"><a class="header" href="#themes">Themes</a></h2>
+<p>A theme file sets the workbench colors (CSS variables), and if you want the
+code editor’s and the terminal’s:</p>
+<pre><code class="language-json">{
+  "name": { "en": "Night", "ar": "الليل" },
+  "base": "dark",
+  "colors": { "--bg": "#0b1622", "--accent": "#38bdf8" },
+  "editor": { "rules": [{ "token": "keyword", "foreground": "38bdf8" }] },
+  "terminal": { "background": "#08111b" }
+}
+</code></pre>
+<p>It then shows in <strong>Settings → Theme</strong>.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>In the Rust++ repository, <code>devr/plugin-api/examples/</code>:</p>
+<ul>
+<li><strong>ocean</strong>: a theme and a rounded look, no code.</li>
+<li><strong>todos</strong>: a side view with every TODO and FIXME, a command and a status item.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
+<p>Make a variable with <code>let</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let x = 5;
+    out!("x = {x}");
+}</code></pre>
+<h2 id="variables-cant-change-unless-you-say-so"><a class="header" href="#variables-cant-change-unless-you-say-so">Variables can’t change unless you say so</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let x = 5;
+    x = 6; // error: cannot assign twice to immutable variable `x`
+}</code></pre>
+<p>Add <code>mut</code> (mutable) to let a variable change:</p>
+<pre><code class="language-rust">fn main() {
+    let mut count = 0;
+    count = count + 1;
+    count += 1;
+    out!("count = {count}"); // 2
+}</code></pre>
+<p>Why not <code>mut</code> by default? When a value can’t change, you never have to
+check who changed it. Most variables never change, so the few with <code>mut</code>
+stand out.</p>
+<h2 id="giving-the-type-yourself"><a class="header" href="#giving-the-type-yourself">Giving the type yourself</a></h2>
+<p>Rust++ works out the type for you, but you can write it after <code>:</code>:</p>
+<pre><code class="language-rust">fn main() {
+    let age: u32 = 30;
+    let price: f64 = 9.99;
+    let name: &amp;str = "Ali";
+    out!("{name}, {age}, {price}");
+}</code></pre>
+<p>Remember: <strong><code>:</code> means “has the type”</strong>, <strong><code>=</code> means “gets the value”</strong>.
+Rust++ keeps these two meanings everywhere, also in
+<a href="#named-arguments">named arguments</a> and <a href="#default-values">default values</a>.</p>
+<h2 id="shadowing"><a class="header" href="#shadowing">Shadowing</a></h2>
+<p>A new <code>let</code> with the same name makes a new variable that hides the old one.
+It can even have a different type:</p>
+<pre><code class="language-rust">fn main() {
+    let input = "42";
+    let input: i32 = input.parse().unwrap();
+    out!("{}", input + 1); // 43
+}</code></pre>
+<h2 id="constants"><a class="header" href="#constants">Constants</a></h2>
+<p>Values that never change in the whole program. The type is required, and
+the name is in CAPITALS:</p>
+<pre><code class="language-rust">const MAX_PLAYERS: u32 = 4;
+const GAME: &amp;_static str = "Space";
+
+fn main() {
+    out!("{GAME}: up to {MAX_PLAYERS} players");
+}</code></pre>
+<p><code>&amp;_static str</code> means “text that lives for the whole program”; see
+<a href="#named-lifetimes">Named Lifetimes</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="types"><a class="header" href="#types">Types</a></h1>
+<p>Every value has a type. The type tells the compiler how much memory the
+value needs and what you can do with it.</p>
+<h2 id="numbers"><a class="header" href="#numbers">Numbers</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Holds</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>i32</code></td><td>whole numbers, −2 147 483 648 to 2 147 483 647 (the default)</td><td><code>-7</code></td></tr>
+<tr><td><code>i64</code></td><td>bigger whole numbers</td><td><code>9_000_000_000</code></td></tr>
+<tr><td><code>u8</code>, <code>u32</code>, <code>u64</code></td><td>whole numbers, never negative</td><td><code>255</code></td></tr>
+<tr><td><code>usize</code></td><td>sizes and positions in lists</td><td><code>v.len()</code></td></tr>
+<tr><td><code>f64</code></td><td>numbers with a point (the default)</td><td><code>3.14</code></td></tr>
+<tr><td><code>f32</code></td><td>smaller, less precise <code>f64</code></td><td><code>1.5</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><code>i</code> = can be negative, <code>u</code> = unsigned (0 and up), the number = bits.</p>
+<pre><code class="language-rust">fn main() {
+    let a = 10;           // i32
+    let b = 3.0;          // f64
+    let big = 1_000_000;  // _ makes big numbers readable
+
+    out!("{}", a / 3);    // 3   (whole-number division)
+    out!("{}", a % 3);    // 1   (remainder)
+    out!("{}", b / 2.0);  // 1.5
+    out!("{}", a as f64 / 4.0); // 2.5  (`as` converts)
+    out!("{big}");
+}</code></pre>
+<p>Numbers of different types don’t mix by accident: <code>a + b</code> above is an
+error until you convert one of them with <code>as</code>. No silent precision loss.</p>
+<h2 id="true-and-false"><a class="header" href="#true-and-false">true and false</a></h2>
+<pre><code class="language-rust">fn main() {
+    let ready: bool = true;
+    let big = 10 &gt; 5; // true
+    out!("{} {} {}", ready &amp;&amp; big, ready || false, !ready);
+}</code></pre>
+<h2 id="characters-and-text"><a class="header" href="#characters-and-text">Characters and text</a></h2>
+<pre><code class="language-rust">fn main() {
+    let letter: char = 'R';     // one character, single quotes
+    let arabic = 'ع';           // any language, any emoji
+    let fixed: &amp;str = "hello";  // text written in the program
+    let mut owned = String::from("hello"); // text you can grow
+    owned.push_str(", world");
+
+    out!("{letter} {arabic} {fixed} {owned}");
+    out!("{}", owned.len()); // length in bytes: 12
+}</code></pre>
+<p><code>&amp;str</code> vs <code>String</code> is explained in <a href="#ownership">Ownership</a>.
+For now: <code>"..."</code> is a <code>&amp;str</code>; use <code>String</code> when the text changes.</p>
+<h2 id="tuples-and-arrays"><a class="header" href="#tuples-and-arrays">Tuples and arrays</a></h2>
+<pre><code class="language-rust">fn main() {
+    let point: (i32, i32) = (3, 4);   // tuple: fixed group, any types
+    let (x, y) = point;               // take it apart
+    out!("x={x} y={y} first={}", point.0);
+
+    let days = ["Sat", "Sun", "Mon"]; // array: fixed length, one type
+    out!("{} of {}", days[0], days.len());
+
+    let zeros = [0; 5];               // [0, 0, 0, 0, 0]
+    out!("{zeros:?}");
+}</code></pre>
+<p>Reading <code>days[10]</code> stops the program with a clear error instead of reading
+random memory. For lists that grow, use <code>Vec</code> (<a href="#collections">Collections</a>).</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
+<pre><code class="language-rust">fn add(a: i32, b: i32) -&gt; i32 {
+    a + b
+}
+
+fn main() {
+    let sum = add(2, 3);
+    out!("{sum}");
+}</code></pre>
+<ul>
+<li><code>fn add</code> — the name.</li>
+<li><code>(a: i32, b: i32)</code> — the parameters, each with its type. Types are
+required here: they are the function’s promise to its callers.</li>
+<li><code>-&gt; i32</code> — the type it gives back. No <code>-&gt;</code> means it gives back nothing.</li>
+<li><code>a + b</code> — <strong>the last expression, without <code>;</code>, is the result.</strong></li>
+</ul>
+<h2 id="the-last-line-is-the-result"><a class="header" href="#the-last-line-is-the-result">The last line is the result</a></h2>
+<pre><code class="language-rust">fn square(n: i32) -&gt; i32 {
+    n * n        // no `;` → this is returned
+}
+
+fn square_too(n: i32) -&gt; i32 {
+    return n * n; // `return` also works; use it to leave early
+}
+
+fn main() {
+    out!("{} {}", square(4), square_too(5));
+}</code></pre>
+<p>A <code>;</code> turns an expression into a statement that gives nothing. Writing
+<code>n * n;</code> in <code>square</code> is an error: the function promised an <code>i32</code> and gives
+nothing.</p>
+<h2 id="blocks-are-expressions-too"><a class="header" href="#blocks-are-expressions-too">Blocks are expressions too</a></h2>
+<pre><code class="language-rust">fn main() {
+    let grade = 85;
+    let label = if grade &gt;= 90 { "excellent" } else { "good" };
+
+    let area = {
+        let w = 3;
+        let h = 4;
+        w * h
+    };
+    out!("{label} {area}");
+}</code></pre>
+<h2 id="two-rust-extras"><a class="header" href="#two-rust-extras">Two Rust++ extras</a></h2>
+<p>Functions in Rust++ can be called with names, and parameters can have
+default values:</p>
+<pre><code class="language-rust">fn rect(width: u32, height: u32 = 1) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    out!("{}", rect(width = 3, height = 4)); // 12
+    out!("{}", rect(5));                     // 5, height = 1
+}</code></pre>
+<p>The next two chapters explain them.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="named-arguments"><a class="header" href="#named-arguments">Named Arguments</a></h1>
+<blockquote>
+<p><strong>New in Rust++:</strong> when calling a function, write <code>name = value</code> to say
+which parameter gets which value.</p>
+</blockquote>
+<pre><code class="language-rust">fn transfer(from: &amp;str, to: &amp;str, amount: u32) {
+    out!("{amount} from {from} to {to}");
+}
+
+fn main() {
+    transfer("Ali", "Sara", 100);                      // which is which?
+    transfer(from = "Ali", to = "Sara", amount = 100); // clear
+    transfer(amount = 100, to = "Sara", from = "Ali"); // any order
+}</code></pre>
+<p>All three calls do the same thing. Named calls are clearer to read, and you
+can’t swap <code>from</code> and <code>to</code> by mistake.</p>
+<h2 id="positional-first-then-named"><a class="header" href="#positional-first-then-named">Positional first, then named</a></h2>
+<p>You can give the first values by position and name the rest:</p>
+<pre><code class="language-rust">fn area(width: u32, height: u32) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    out!("{}", area(3, height = 4));
+}</code></pre>
+<p>After the first named value, all the rest must be named:</p>
+<pre><code class="language-rust compile_fail">fn area(width: u32, height: u32) -&gt; u32 {
+    width * height
+}
+
+fn main() {
+    area(width = 3, 4); // error: positional argument after a named argument
+}</code></pre>
+<h2 id="methods-and-constructors"><a class="header" href="#methods-and-constructors">Methods and constructors</a></h2>
+<p>Named arguments work on methods and on <code>Type::new</code> too:</p>
+<pre><code class="language-rust">struct Window {
+    width: u32,
+    height: u32,
+}
+
+impl Window {
+    fn new(width: u32, height: u32) -&gt; Window {
+        Window { width, height }
+    }
+
+    fn resize(&amp;mut self, width: u32, height: u32) {
+        self.width = width;
+        self.height = height;
+    }
+}
+
+fn main() {
+    let mut w = Window::new(width = 800, height = 600);
+    w.resize(height = 1080, width = 1920);
+    out!("{}x{}", w.width, w.height);
+}</code></pre>
+<h2 id="mistakes-the-compiler-catches"><a class="header" href="#mistakes-the-compiler-catches">Mistakes the compiler catches</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>You write</th><th>Error</th></tr>
+</thead>
+<tbody>
+<tr><td><code>area(widht = 3, height = 4)</code></td><td>this function has no parameter named <code>widht</code></td></tr>
+<tr><td><code>area(3, width = 4)</code></td><td>parameter <code>width</code> is given more than once</td></tr>
+<tr><td><code>area(width = 3)</code></td><td>missing argument for parameter <code>height</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="why--and-not-"><a class="header" href="#why--and-not-">Why <code>=</code> and not <code>:</code></a></h2>
+<p>In Rust++, <code>:</code> always means “has the type” (<code>let x: u32</code>) and <code>=</code> always
+means “gets the value” (<code>let x = 5</code>). A named argument gives a value, so it
+uses <code>=</code>.</p>
+<h2 id="cost"><a class="header" href="#cost">Cost</a></h2>
+<p>None. The compiler puts the values back in the right order before
+building the program; the result is the same as a positional call.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="default-values"><a class="header" href="#default-values">Default Values</a></h1>
+<blockquote>
+<p><strong>New in Rust++:</strong> a parameter can have a default value: <code>name: Type = value</code>.
+Leave it out when calling, and the default is used.</p>
+</blockquote>
+<pre><code class="language-rust">fn connect(host: &amp;str, port: u16 = 443, secure: bool = true) {
+    out!("{host}:{port} secure={secure}");
+}
+
+fn main() {
+    connect("example.com");                       // port 443, secure
+    connect("example.com", 8080);                 // secure
+    connect("localhost", port = 3000, secure = false);
+    connect("localhost", secure = false);         // port 443
+}</code></pre>
+<pre><code class="language-text">example.com:443 secure=true
+example.com:8080 secure=true
+localhost:3000 secure=false
+localhost:443 secure=false
+</code></pre>
+<p>With <a href="#named-arguments">named arguments</a> you can skip any parameter that
+has a default, not only the last ones: <code>connect("localhost", secure = false)</code>
+keeps the default port.</p>
+<h2 id="in-types"><a class="header" href="#in-types">In types</a></h2>
+<p>Defaults work in <code>impl</code> blocks too, which removes the need for many
+<code>new_with_...</code> functions:</p>
+<pre><code class="language-rust">struct Counter {
+    value: i64,
+    step: i64,
+}
+
+impl Counter {
+    fn new(start: i64 = 0, step: i64 = 1) -&gt; Counter {
+        Counter { value: start, step }
+    }
+
+    fn tick(&amp;mut self, times: i64 = 1) {
+        self.value += self.step * times;
+    }
+}
+
+fn main() {
+    let mut a = Counter::new();
+    a.tick();
+    a.tick(times = 5);
+    out!("{}", a.value); // 6
+
+    let b = Counter::new(step = 10);
+    out!("{}", b.value + b.step); // 10
+}</code></pre>
+<h2 id="rules"><a class="header" href="#rules">Rules</a></h2>
+<ul>
+<li>
+<p><strong>The default must be a constant</strong>: numbers, <code>"text"</code>, <code>true</code>, <code>'c'</code>,
+<code>None</code>, constants, and math on them (<code>MAX / 2</code>).</p>
+<pre><code class="language-rust compile_fail">fn hello(name: String = String::from("world")) {} // error: not a constant
+
+fn main() {}</code></pre>
+<p>For a <code>String</code> default, take <code>&amp;str</code> instead: <code>fn hello(name: &amp;str = "world")</code>.</p>
+</li>
+<li>
+<p>Allowed on functions and in <code>impl Type { ... }</code>. Not yet in traits.</p>
+</li>
+<li>
+<p>Parameters without a default must still be given.</p>
+</li>
+</ul>
+<h2 id="cost-1"><a class="header" href="#cost-1">Cost</a></h2>
+<p>None. Each default is stored once as a hidden constant, and a call that
+leaves a parameter out uses that constant as if you had written it.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
+<h2 id="if"><a class="header" href="#if">if</a></h2>
+<pre><code class="language-rust">fn main() {
+    let temp = 38;
+
+    if temp &gt; 40 {
+        out!("very hot");
+    } else if temp &gt; 30 {
+        out!("hot");
+    } else {
+        out!("nice");
+    }
+
+    // `if` gives a value
+    let wear = if temp &gt; 30 { "t-shirt" } else { "jacket" };
+    out!("{wear}");
+}</code></pre>
+<p>The condition must be a <code>bool</code>. <code>if count { ... }</code> with a number is an
+error: write <code>if count != 0</code>.</p>
+<h2 id="loop-while-for"><a class="header" href="#loop-while-for">loop, while, for</a></h2>
+<pre><code class="language-rust">fn main() {
+    // loop: forever, until `break`. `break value` gives a value.
+    let mut n = 1;
+    let first_big = loop {
+        n *= 2;
+        if n &gt; 100 { break n; }
+    };
+    out!("{first_big}"); // 128
+
+    // while: as long as the condition is true
+    let mut left = 3;
+    while left &gt; 0 {
+        out!("{left}...");
+        left -= 1;
+    }
+
+    // for: over a range or a list
+    for i in 0..3 {          // 0, 1, 2
+        out!("i = {i}");
+    }
+    for i in 1..=3 {         // 1, 2, 3
+        out!("i = {i}");
+    }
+    for name in ["Ali", "Sara"] {
+        out!("hi {name}");
+    }
+}</code></pre>
+<p>Use <code>for</code> whenever you can: it can’t go past the end of a list.
+<code>continue</code> skips to the next round.</p>
+<h2 id="match"><a class="header" href="#match">match</a></h2>
+<p><code>match</code> compares a value against patterns, top to bottom, and runs the
+first one that fits:</p>
+<pre><code class="language-rust">fn main() {
+    let code = 404;
+    let text = match code {
+        200 =&gt; "OK",
+        301 | 302 =&gt; "moved",          // either one
+        400..=499 =&gt; "your mistake",   // a range
+        _ =&gt; "something else",         // anything left
+    };
+    out!("{text}");
+}</code></pre>
+<p>A <code>match</code> must cover <strong>every</strong> possible value; <code>_</code> catches the rest. If you
+forget a case, the program doesn’t compile. This becomes very useful with
+<a href="#enums-and-match">enums</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ownership"><a class="header" href="#ownership">Ownership</a></h1>
+<p>Ownership is how Rust++ manages memory <strong>without a garbage collector and
+without you calling <code>free</code></strong>. It is the one idea that makes Rust++ both fast
+and safe, so take your time with this chapter.</p>
+<h2 id="three-rules"><a class="header" href="#three-rules">Three rules</a></h2>
+<ol>
+<li>Every value has <strong>one owner</strong>: the variable that holds it.</li>
+<li>When the owner goes away (its <code>{ }</code> block ends), the value is freed.</li>
+<li>Giving the value to someone else <strong>moves</strong> it: the old variable can’t
+use it any more.</li>
+</ol>
+<pre><code class="language-rust">fn main() {
+    {
+        let s = String::from("hello"); // s owns the text
+        out!("{s}");
+    }                                  // block ends: the text is freed
+}</code></pre>
+<p>No leaks (the value is always freed) and no double frees (only one owner
+frees it). The compiler checks this; it costs nothing at run time.</p>
+<h2 id="moving"><a class="header" href="#moving">Moving</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let a = String::from("hello");
+    let b = a;           // the text moves from `a` to `b`
+    out!("{a}");         // error: borrow of moved value: `a`
+}</code></pre>
+<p>Why? If both <code>a</code> and <code>b</code> owned the text, both would free it. So <code>a</code> gives
+the text away and becomes unusable.</p>
+<p>The same happens when you pass a value to a function:</p>
+<pre><code class="language-rust">fn shout(text: String) {
+    out!("{}!", text.to_uppercase());
+}   // `text` is freed here
+
+fn main() {
+    let msg = String::from("hi");
+    shout(msg);           // `msg` moves into the function
+    // out!("{msg}");     // error: `msg` was moved
+}</code></pre>
+<h2 id="copy-small-values-are-copied-not-moved"><a class="header" href="#copy-small-values-are-copied-not-moved">Copy: small values are copied, not moved</a></h2>
+<p>Numbers, <code>bool</code>, <code>char</code>, and tuples/arrays of them are small, so they are
+copied instead:</p>
+<pre><code class="language-rust">fn main() {
+    let x = 5;
+    let y = x;           // copy
+    out!("{x} {y}");     // both fine
+}</code></pre>
+<h2 id="clone-copy-on-purpose"><a class="header" href="#clone-copy-on-purpose">clone: copy on purpose</a></h2>
+<p>To really have two copies of a <code>String</code> or a <code>Vec</code>, ask for it with
+<code>.clone()</code>. It’s visible in the code, so you always see where memory is
+copied:</p>
+<pre><code class="language-rust">fn main() {
+    let a = String::from("hello");
+    let b = a.clone();
+    out!("{a} {b}");
+}</code></pre>
+<h2 id="string-vs-str"><a class="header" href="#string-vs-str">String vs &amp;str</a></h2>
+<ul>
+<li><code>String</code> <strong>owns</strong> its text. It can grow and change.</li>
+<li><code>&amp;str</code> <strong>borrows</strong> text that someone else owns (a <code>String</code>, or text
+written in the program).</li>
+</ul>
+<p>Most functions only need to read text, so they take <code>&amp;str</code>. That’s
+<em>borrowing</em>, the next chapter.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="borrowing"><a class="header" href="#borrowing">Borrowing</a></h1>
+<p>Moving a value into every function that reads it would be annoying. Instead
+you <strong>lend</strong> it: <code>&amp;value</code> makes a <em>reference</em>, a pointer that borrows the
+value without owning it.</p>
+<pre><code class="language-rust">fn length(text: &amp;String) -&gt; usize {
+    text.len()
+}   // `text` is only borrowed: nothing is freed
+
+fn main() {
+    let s = String::from("hello");
+    let n = length(&amp;s);   // lend `s`
+    out!("{s} has {n} bytes"); // `s` is still ours
+}</code></pre>
+<h2 id="changing-through-a-borrow-mut"><a class="header" href="#changing-through-a-borrow-mut">Changing through a borrow: &amp;mut</a></h2>
+<p><code>&amp;</code> lends for reading. <code>&amp;mut</code> lends for changing:</p>
+<pre><code class="language-rust">fn add_world(text: &amp;mut String) {
+    text.push_str(", world");
+}
+
+fn main() {
+    let mut s = String::from("hello");
+    add_world(&amp;mut s);
+    out!("{s}"); // hello, world
+}</code></pre>
+<h2 id="the-borrowing-rule"><a class="header" href="#the-borrowing-rule">The borrowing rule</a></h2>
+<p>At any moment you can have <strong>either</strong></p>
+<ul>
+<li>any number of <code>&amp;</code> (readers), <strong>or</strong></li>
+<li>exactly one <code>&amp;mut</code> (one writer),</li>
+</ul>
+<p>but not both.</p>
+<pre><code class="language-rust compile_fail">fn main() {
+    let mut list = vec![1, 2, 3];
+    let first = &amp;list[0];   // reader
+    list.push(4);           // writer while the reader still exists: error
+    out!("{first}");
+}</code></pre>
+<p>This is not fussiness: <code>push</code> may move the list to a bigger place in
+memory, and <code>first</code> would then point at freed memory. In C++ this compiles
+and crashes later; in Rust++ it doesn’t compile.</p>
+<p>A borrow ends after its last use, so this is fine:</p>
+<pre><code class="language-rust">fn main() {
+    let mut list = vec![1, 2, 3];
+    let first = list[0];    // a copy of the number, not a borrow
+    list.push(4);
+    out!("{first} {list:?}");
+}</code></pre>
+<h2 id="a-reference-cant-outlive-its-value"><a class="header" href="#a-reference-cant-outlive-its-value">A reference can’t outlive its value</a></h2>
+<pre><code class="language-rust compile_fail">fn main() {
+    let r;
+    {
+        let s = String::from("short life");
+        r = &amp;s;
+    }               // `s` is freed here...
+    out!("{r}");    // ...so `r` would point at nothing: error
+}</code></pre>
+<p>When a <strong>function returns a reference</strong>, the compiler needs to know which
+value it borrows from, to check this rule at the call. In Rust that’s what
+lifetimes (<code>'a</code>) are for. Rust++ has an easier way: the next chapter.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="borrow-sources"><a class="header" href="#borrow-sources">Borrow Sources</a></h1>
+<blockquote>
+<p><strong>New in Rust++:</strong> when a function returns a reference, write which
+parameters it borrows from: <code>&amp;{x, y} T</code>.</p>
+</blockquote>
+<pre><code class="language-rust">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;{x, y} str {
+    if x.len() &gt;= y.len() { x } else { y }
+}
+
+fn main() {
+    let a = String::from("apple");
+    let b = String::from("fig");
+    out!("{}", longest(&amp;a, &amp;b)); // apple
+}</code></pre>
+<p>Read <code>-&gt; &amp;{x, y} str</code> as: <em>returns a <code>&amp;str</code> that is borrowed from <code>x</code> or
+<code>y</code></em>. Now the compiler knows the result is only valid while both <code>a</code> and <code>b</code>
+are alive.</p>
+<h2 id="only-the-parameters-that-matter"><a class="header" href="#only-the-parameters-that-matter">Only the parameters that matter</a></h2>
+<pre><code class="language-rust">fn pick(list: &amp;Vec&lt;i32&gt;, index: &amp;usize) -&gt; &amp;{list} i32 {
+    &amp;list[*index]
+}
+
+fn main() {
+    let numbers = vec![10, 20, 30];
+    let x = {
+        let i = 1;
+        pick(&amp;numbers, &amp;i)   // `i` is freed after this block...
+    };
+    out!("{x}");             // ...and that's fine: x borrows only `numbers`
+}</code></pre>
+<p>Because the result is <code>&amp;{list} i32</code>, the compiler knows it doesn’t borrow
+from <code>index</code>. Precise information means fewer false errors.</p>
+<h2 id="anywhere-in-the-return-type"><a class="header" href="#anywhere-in-the-return-type">Anywhere in the return type</a></h2>
+<pre><code class="language-rust">fn first_word(text: &amp;mut String) -&gt; (&amp;{text} str, usize) {
+    let end = text.find(' ').unwrap_or(text.len());
+    (&amp;text[..end], end)
+}
+
+fn get&lt;T&gt;(items: &amp;[T], i: usize) -&gt; Option&lt;&amp;{items} T&gt; {
+    items.get(i)
+}
+
+fn main() {
+    let mut s = String::from("hello world");
+    let (w, n) = first_word(&amp;mut s);
+    out!("{w} {n}");
+    out!("{:?}", get(&amp;[1, 2, 3], 2)); // Some(3)
+}</code></pre>
+<h2 id="self"><a class="header" href="#self">self</a></h2>
+<p>In methods, <code>self</code> is a source like any other:</p>
+<pre><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn first(&amp;self) -&gt; &amp;{self} str {
+        &amp;self.books[0]
+    }
+
+    fn first_or(&amp;self, other: &amp;str, use_other: bool) -&gt; &amp;{self, other} str {
+        if use_other { other } else { &amp;self.books[0] }
+    }
+}
+
+fn main() {
+    let lib = Library { books: vec![String::from("Dune")] };
+    out!("{} {}", lib.first(), lib.first_or("none", true));
+}</code></pre>
+<h2 id="do-i-always-need-it"><a class="header" href="#do-i-always-need-it">Do I always need it?</a></h2>
+<p>No. Like in Rust, when a function takes <strong>one</strong> reference, or takes
+<code>&amp;self</code>, the compiler already knows where the result comes from:</p>
+<pre><code class="language-rust">fn trim_dots(text: &amp;str) -&gt; &amp;str {    // only one source: no {..} needed
+    text.trim_matches('.')
+}
+
+fn main() {
+    out!("{}", trim_dots("..hi.."));
+}</code></pre>
+<p>Write <code>&amp;{...}</code> when there are two or more references to choose from.</p>
+<h2 id="rules-1"><a class="header" href="#rules-1">Rules</a></h2>
+<ul>
+<li>Each name must be a parameter that is a reference (<code>&amp;T</code> or <code>&amp;mut T</code>), or
+<code>self</code>.</li>
+<li>There’s no runtime cost: the compiler turns <code>&amp;{x, y}</code> into lifetimes and
+checks exactly the same rules.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="named-lifetimes"><a class="header" href="#named-lifetimes">Named Lifetimes</a></h1>
+<p><a href="#borrow-sources">Borrow sources</a> cover functions. One place still needs
+a name for “how long a borrow lives”: <strong>a struct that holds a reference</strong>.</p>
+<blockquote>
+<p><strong>New in Rust++:</strong> lifetime names are written like normal names that start
+with <code>_</code>: <code>_a</code>, <code>_text</code>. <code>'static</code> is <code>_static</code>.</p>
+</blockquote>
+<pre><code class="language-rust">struct Parser&lt;_a&gt; {
+    input: &amp;_a str,
+    pos: usize,
+}
+
+impl&lt;_a&gt; Parser&lt;_a&gt; {
+    fn new(input: &amp;_a str) -&gt; Parser&lt;_a&gt; {
+        Parser { input, pos: 0 }
+    }
+
+    fn next_word(&amp;mut self) -&gt; Option&lt;&amp;_a str&gt; {
+        let rest = &amp;self.input[self.pos..];
+        let rest = rest.trim_start();
+        if rest.is_empty() {
+            return None;
+        }
+        let start = self.input.len() - rest.len();
+        let end = rest.find(' ').unwrap_or(rest.len());
+        self.pos = start + end;
+        Some(&amp;rest[..end])
+    }
+}
+
+fn main() {
+    let text = String::from("borrow without fear");
+    let mut p = Parser::new(&amp;text);
+    while let Some(word) = p.next_word() {
+        out!("{word}");
+    }
+}</code></pre>
+<p>Read <code>Parser&lt;_a&gt;</code> as: <em>a <code>Parser</code> that borrows something for a time called
+<code>_a</code></em>, and <code>input: &amp;_a str</code> as: <em><code>input</code> is borrowed for that time</em>. A
+<code>Parser</code> can’t outlive the text it reads; the compiler checks it.</p>
+<h2 id="_static"><a class="header" href="#_static">_static</a></h2>
+<p><code>_static</code> means “for the whole program”. Text written in the program is
+<code>&amp;_static str</code>:</p>
+<pre><code class="language-rust">const GREETING: &amp;_static str = "salam";
+
+fn pick_color(dark: bool) -&gt; &amp;_static str {
+    if dark { "black" } else { "white" }
+}
+
+fn main() {
+    out!("{GREETING} {}", pick_color(true));
+}</code></pre>
+<p>It also works as a bound, meaning “holds no short-lived borrows”:</p>
+<pre><code class="language-rust">fn keep&lt;T: _static + std::fmt::Debug&gt;(value: T) -&gt; Box&lt;dyn std::fmt::Debug + _static&gt; {
+    Box::new(value)
+}
+
+fn main() {
+    out!("{:?}", keep(42));
+}</code></pre>
+<h2 id="rules-2"><a class="header" href="#rules-2">Rules</a></h2>
+<ul>
+<li>A lifetime name is <code>_</code> followed by a small letter: <code>_a</code>, <code>_x</code>, <code>_input</code>.</li>
+<li>It goes in <code>&lt;...&gt;</code> and after <code>&amp;</code>.</li>
+<li>A <em>variable</em> called <code>_a</code> is still just a variable.</li>
+<li>Rust’s <code>'a</code> still works for now. It will be removed; see
+<a href="#coming-soon">Coming Soon</a>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="structs"><a class="header" href="#structs">Structs</a></h1>
+<p>A <strong>struct</strong> groups values that belong together under one name.</p>
+<pre><code class="language-rust">struct User {
+    name: String,
+    age: u32,
+    active: bool,
+}
+
+fn main() {
+    let mut user = User {
+        name: String::from("Sara"),
+        age: 25,
+        active: true,
+    };
+
+    user.age += 1;
+    out!("{} is {} (active: {})", user.name, user.age, user.active);
+}</code></pre>
+<ul>
+<li>Define it with <code>struct Name { field: Type, ... }</code>.</li>
+<li>Make one with <code>Name { field: value, ... }</code>.</li>
+<li>Read a field with <code>.field</code>. To change fields, the variable needs <code>mut</code>.</li>
+</ul>
+<h2 id="shortcuts"><a class="header" href="#shortcuts">Shortcuts</a></h2>
+<pre><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn make(x: i32, y: i32) -&gt; Point {
+    Point { x, y }                   // same as Point { x: x, y: y }
+}
+
+fn main() {
+    let a = make(1, 2);
+    let b = Point { y: 10, ..a };    // the rest of the fields from `a`
+    let Point { x, y } = b;          // take it apart
+    out!("{x} {y}");
+}</code></pre>
+<h2 id="tuple-structs-and-unit-structs"><a class="header" href="#tuple-structs-and-unit-structs">Tuple structs and unit structs</a></h2>
+<pre><code class="language-rust">struct Meters(f64);          // one unnamed field: a number with a meaning
+struct Color(u8, u8, u8);
+struct Marker;               // no fields
+
+fn main() {
+    let d = Meters(5.5);
+    let red = Color(255, 0, 0);
+    let _m = Marker;
+    out!("{} {}", d.0, red.0);
+}</code></pre>
+<p><code>Meters(5.5)</code> and a plain <code>5.5</code> are different types, so you can’t pass
+seconds where meters are expected.</p>
+<h2 id="printing-a-struct"><a class="header" href="#printing-a-struct">Printing a struct</a></h2>
+<p>Add <code>#[derive(Debug)]</code> and print it with <code>{:?}</code> (or <code>{:#?}</code> for one field
+per line):</p>
+<pre><code class="language-rust">#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p = Point { x: 3, y: 4 };
+    out!("{p:?}");   // Point { x: 3, y: 4 }
+}</code></pre>
+<p><code>derive</code> writes common code for you. Other useful ones: <code>Clone</code>, <code>Copy</code>,
+<code>PartialEq</code> (for <code>==</code>), <code>Default</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="methods"><a class="header" href="#methods">Methods</a></h1>
+<p>Functions that belong to a type go in an <code>impl</code> block:</p>
+<pre><code class="language-rust">struct Rect {
+    width: f64,
+    height: f64,
+}
+
+impl Rect {
+    // no `self`: called as Rect::new(...)
+    fn new(width: f64, height: f64 = 1.0) -&gt; Rect {
+        Rect { width, height }
+    }
+
+    fn square(size: f64) -&gt; Rect {
+        Rect::new(width = size, height = size)
+    }
+
+    // &amp;self: reads the value
+    fn area(&amp;self) -&gt; f64 {
+        self.width * self.height
+    }
+
+    // &amp;mut self: changes the value
+    fn scale(&amp;mut self, by: f64 = 2.0) {
+        self.width *= by;
+        self.height *= by;
+    }
+
+    // self: takes the value (it is moved into the method)
+    fn into_square(self) -&gt; Rect {
+        Rect::square(self.width.max(self.height))
+    }
+}
+
+fn main() {
+    let mut r = Rect::new(width = 3.0, height = 4.0);
+    out!("{}", r.area());        // 12
+    r.scale();
+    out!("{}", r.area());        // 48
+    r.scale(by = 0.5);
+    let s = r.into_square();
+    out!("{}", s.area());        // 16
+    // r can't be used any more: into_square took it
+}</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>First parameter</th><th>Means</th><th>Call</th></tr>
+</thead>
+<tbody>
+<tr><td>(none)</td><td>belongs to the type</td><td><code>Rect::new(...)</code></td></tr>
+<tr><td><code>&amp;self</code></td><td>reads</td><td><code>r.area()</code></td></tr>
+<tr><td><code>&amp;mut self</code></td><td>changes</td><td><code>r.scale()</code></td></tr>
+<tr><td><code>self</code></td><td>takes</td><td><code>r.into_square()</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Pick the weakest one that works: <code>&amp;self</code> if you only read.</p>
+<p><code>Self</code> (capital S) is a short name for the type of the <code>impl</code>:
+<code>fn new(...) -&gt; Self</code> means <code>-&gt; Rect</code>.</p>
+<blockquote>
+<p><strong>Rust++:</strong> <a href="#named-arguments">named arguments</a> and
+<a href="#default-values">default values</a> work on methods:
+<code>Rect::new(width = 3.0)</code>, <code>r.scale(by = 0.5)</code>.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="enums-and-match"><a class="header" href="#enums-and-match">Enums and match</a></h1>
+<p>A struct is “this <strong>and</strong> that”. An <strong>enum</strong> is “this <strong>or</strong> that”: a value
+that is one of several kinds.</p>
+<pre><code class="language-rust">enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+fn turn(d: Direction) -&gt; &amp;_static str {
+    match d {
+        Direction::Up =&gt; "going up",
+        Direction::Down =&gt; "going down",
+        Direction::Left | Direction::Right =&gt; "going sideways",
+    }
+}
+
+fn main() {
+    out!("{}", turn(Direction::Left));
+}</code></pre>
+<h2 id="kinds-can-carry-data"><a class="header" href="#kinds-can-carry-data">Kinds can carry data</a></h2>
+<p>Each kind can hold its own values:</p>
+<pre><code class="language-rust">enum Shape {
+    Circle { radius: f64 },
+    Rect { width: f64, height: f64 },
+    Point,
+}
+
+impl Shape {
+    fn area(&amp;self) -&gt; f64 {
+        match self {
+            Shape::Circle { radius } =&gt; 3.14159 * radius * radius,
+            Shape::Rect { width, height } =&gt; width * height,
+            Shape::Point =&gt; 0.0,
+        }
+    }
+}
+
+fn main() {
+    let shapes = [
+        Shape::Circle { radius: 1.0 },
+        Shape::Rect { width: 2.0, height: 3.0 },
+        Shape::Point,
+    ];
+    for s in &amp;shapes {
+        out!("{:.2}", s.area());
+    }
+}</code></pre>
+<p><code>match</code> must handle every kind. Add a new kind to <code>Shape</code> and the compiler
+shows you every <code>match</code> that needs updating: no case is forgotten.</p>
+<h2 id="option-a-value-or-nothing"><a class="header" href="#option-a-value-or-nothing">Option: a value or nothing</a></h2>
+<p>Rust++ has no <code>null</code>. A value that may be missing is an <code>Option</code>:</p>
+<pre><code class="language-rust">fn find_age(name: &amp;str) -&gt; Option&lt;u32&gt; {
+    if name == "Sara" { Some(25) } else { None }
+}
+
+fn main() {
+    match find_age("Sara") {
+        Some(age) =&gt; out!("age {age}"),
+        None =&gt; out!("unknown"),
+    }
+
+    // shorter forms
+    if let Some(age) = find_age("Ali") {
+        out!("Ali is {age}");
+    }
+    let age = find_age("Ali").unwrap_or(0);
+    out!("{age}");
+}</code></pre>
+<p>You can’t use an <code>Option&lt;u32&gt;</code> as a <code>u32</code> by accident: you must handle
+<code>None</code> first. That removes a whole family of crashes.</p>
+<h2 id="patterns-in-match"><a class="header" href="#patterns-in-match">Patterns in match</a></h2>
+<pre><code class="language-rust">fn describe(point: (i32, i32)) -&gt; String {
+    match point {
+        (0, 0) =&gt; String::from("center"),
+        (x, 0) =&gt; format!("on the x line at {x}"),
+        (0, y) =&gt; format!("on the y line at {y}"),
+        (x, y) if x == y =&gt; String::from("on the diagonal"),
+        _ =&gt; String::from("somewhere"),
+    }
+}
+
+fn main() {
+    out!("{}", describe((3, 3)));
+}</code></pre>
+<p><code>if</code> after a pattern is a <em>guard</em>: an extra condition.</p>
+<blockquote>
+<p><strong>Coming to Rust++:</strong> <code>data</code>, one type that can be a struct, an enum, or
+both, and named <code>match</code> functions. See <a href="#coming-soon">Coming Soon</a>.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="traits-and-generics"><a class="header" href="#traits-and-generics">Traits and Generics</a></h1>
+<h2 id="traits-what-a-type-can-do"><a class="header" href="#traits-what-a-type-can-do">Traits: what a type can do</a></h2>
+<p>A <strong>trait</strong> is a list of methods. A type that has those methods
+<em>implements</em> the trait.</p>
+<pre><code class="language-rust">trait Speak {
+    fn name(&amp;self) -&gt; String;
+
+    // a method with a body is a default: types can keep or replace it
+    fn greet(&amp;self) -&gt; String {
+        format!("Hello from {}", self.name())
+    }
+}
+
+struct Cat;
+struct Robot {
+    id: u32,
+}
+
+impl Speak for Cat {
+    fn name(&amp;self) -&gt; String {
+        String::from("a cat")
+    }
+}
+
+impl Speak for Robot {
+    fn name(&amp;self) -&gt; String {
+        format!("robot #{}", self.id)
+    }
+    fn greet(&amp;self) -&gt; String {
+        format!("BEEP. I AM {}", self.name().to_uppercase())
+    }
+}
+
+fn main() {
+    out!("{}", Cat.greet());
+    out!("{}", Robot { id: 7 }.greet());
+}</code></pre>
+<h2 id="generics-one-function-many-types"><a class="header" href="#generics-one-function-many-types">Generics: one function, many types</a></h2>
+<p><code>&lt;T&gt;</code> is a type parameter: a placeholder for “some type”. <code>T: Speak</code> says
+“any type that implements <code>Speak</code>”:</p>
+<pre><code class="language-rust">trait Speak {
+    fn name(&amp;self) -&gt; String;
+}
+
+struct Cat;
+impl Speak for Cat {
+    fn name(&amp;self) -&gt; String { String::from("cat") }
+}
+
+fn introduce&lt;T: Speak&gt;(thing: &amp;T) {
+    out!("This is {}", thing.name());
+}
+
+fn largest&lt;T: PartialOrd + Copy&gt;(items: &amp;[T]) -&gt; T {
+    let mut best = items[0];
+    for &amp;item in items {
+        if item &gt; best {
+            best = item;
+        }
+    }
+    best
+}
+
+fn main() {
+    introduce(&amp;Cat);
+    out!("{}", largest(&amp;[3, 9, 2]));
+    out!("{}", largest(&amp;[1.5, 0.5]));
+    out!("{}", largest(&amp;['a', 'z', 'm']));
+}</code></pre>
+<p>The compiler makes a separate, fully optimized copy of a generic function
+for each type you use. Generics cost nothing at run time.</p>
+<h2 id="traits-youll-use-a-lot"><a class="header" href="#traits-youll-use-a-lot">Traits you’ll use a lot</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Trait</th><th>Gives you</th><th>Usually from</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Debug</code></td><td><code>{:?}</code> printing</td><td><code>#[derive(Debug)]</code></td></tr>
+<tr><td><code>Display</code></td><td><code>{}</code> printing</td><td><code>impl</code> by hand</td></tr>
+<tr><td><code>Clone</code> / <code>Copy</code></td><td><code>.clone()</code> / copying</td><td><code>#[derive(...)]</code></td></tr>
+<tr><td><code>PartialEq</code></td><td><code>==</code> and <code>!=</code></td><td><code>#[derive(PartialEq)]</code></td></tr>
+<tr><td><code>PartialOrd</code></td><td><code>&lt;</code>, <code>&gt;</code></td><td><code>#[derive(PartialOrd)]</code></td></tr>
+<tr><td><code>Default</code></td><td><code>Type::default()</code></td><td><code>#[derive(Default)]</code></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-rust">use std::fmt;
+
+struct Money {
+    cents: u64,
+}
+
+impl fmt::Display for Money {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, "${}.{:02}", self.cents / 100, self.cents % 100)
+    }
+}
+
+fn main() {
+    let price = Money { cents: 1999 };
+    out!("{price}"); // $19.99
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="collections"><a class="header" href="#collections">Collections</a></h1>
+<h2 id="vec-a-list-that-grows"><a class="header" href="#vec-a-list-that-grows">Vec: a list that grows</a></h2>
+<pre><code class="language-rust">fn main() {
+    let mut scores: Vec&lt;u32&gt; = Vec::new();
+    scores.push(90);
+    scores.push(75);
+    scores.push(60);
+
+    let names = vec!["Ali", "Sara", "Omar"]; // vec! makes one with values
+
+    out!("{} scores, first {}", scores.len(), scores[0]);
+    out!("{:?}", scores.get(10));            // None: no crash
+
+    for s in &amp;scores {                       // &amp; = read, don't take
+        out!("score {s}");
+    }
+    for s in &amp;mut scores {                   // &amp;mut = change each one
+        *s += 5;
+    }
+    out!("{scores:?} {names:?}");
+
+    let last = scores.pop();                 // Some(65)
+    out!("{last:?}");
+}</code></pre>
+<p><code>v[i]</code> stops the program if <code>i</code> is past the end; <code>v.get(i)</code> gives an
+<code>Option</code> instead.</p>
+<h2 id="working-with-lists-iterators"><a class="header" href="#working-with-lists-iterators">Working with lists: iterators</a></h2>
+<p>Instead of writing loops by hand, chain small steps:</p>
+<pre><code class="language-rust">fn main() {
+    let prices = vec![12, 5, 40, 8, 25];
+
+    let total: u32 = prices.iter().sum();
+    let cheap: Vec&lt;u32&gt; = prices.iter().filter(|&amp;&amp;p| p &lt; 20).cloned().collect();
+    let doubled: Vec&lt;u32&gt; = prices.iter().map(|p| p * 2).collect();
+    let max = prices.iter().max();
+
+    out!("{total} {cheap:?} {doubled:?} {max:?}");
+
+    for (i, p) in prices.iter().enumerate() {
+        if i &lt; 2 { out!("#{i}: {p}"); }
+    }
+}</code></pre>
+<p><code>|p| p * 2</code> is a <strong>closure</strong>: a small function without a name. Iterator
+chains compile to the same machine code as a hand-written loop.</p>
+<h2 id="string"><a class="header" href="#string">String</a></h2>
+<pre><code class="language-rust">fn main() {
+    let mut s = String::from("Rust");
+    s.push_str("++");
+    s.push('!');
+
+    let joined = format!("{s} is {}", "fast");
+    out!("{joined}");
+
+    for word in "one two three".split(' ') {
+        out!("{word}");
+    }
+    out!("{}", "  padded  ".trim());
+    out!("{}", "hello".to_uppercase());
+    out!("{}", "hello".contains("ell"));
+}</code></pre>
+<h2 id="hashmap-look-up-a-value-by-a-key"><a class="header" href="#hashmap-look-up-a-value-by-a-key">HashMap: look up a value by a key</a></h2>
+<pre><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut stock: HashMap&lt;&amp;str, u32&gt; = HashMap::new();
+    stock.insert("apple", 3);
+    stock.insert("fig", 10);
+
+    *stock.entry("apple").or_insert(0) += 2;  // add, or start at 0
+    *stock.entry("kiwi").or_insert(0) += 1;
+
+    if let Some(n) = stock.get("fig") {
+        out!("figs: {n}");
+    }
+    let mut items: Vec&lt;_&gt; = stock.iter().collect();
+    items.sort();
+    out!("{items:?}");
+}</code></pre>
+<p>A <code>HashMap</code> has no order. Sort the items, or use <code>BTreeMap</code>, when order
+matters.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="errors"><a class="header" href="#errors">Errors</a></h1>
+<p>Rust++ has two kinds of errors:</p>
+<ul>
+<li><strong>Bugs</strong>, which should never happen: the program stops with <code>panic!</code>.</li>
+<li><strong>Expected failures</strong>, like a missing file or bad input: the function
+returns a <code>Result</code> and the caller decides what to do.</li>
+</ul>
+<h2 id="result"><a class="header" href="#result">Result</a></h2>
+<pre><code class="language-rust">fn divide(a: f64, b: f64) -&gt; Result&lt;f64, String&gt; {
+    if b == 0.0 {
+        Err(String::from("can't divide by zero"))
+    } else {
+        Ok(a / b)
+    }
+}
+
+fn main() {
+    match divide(10.0, 4.0) {
+        Ok(v) =&gt; out!("result {v}"),
+        Err(e) =&gt; out!("error: {e}"),
+    }
+    match divide(1.0, 0.0) {
+        Ok(v) =&gt; out!("result {v}"),
+        Err(e) =&gt; out!("error: {e}"),
+    }
+}</code></pre>
+<p><code>Result&lt;T, E&gt;</code> is either <code>Ok(value)</code> or <code>Err(error)</code>. Like <code>Option</code>, you
+can’t use the value without handling the error first.</p>
+<h2 id="--pass-the-error-up"><a class="header" href="#--pass-the-error-up">? : pass the error up</a></h2>
+<p>Inside a function that returns <code>Result</code>, <code>?</code> after a call means: <em>if this is
+an error, return it now; otherwise give me the value</em>.</p>
+<pre><code class="language-rust">fn parse_pair(text: &amp;str) -&gt; Result&lt;(i32, i32), std::num::ParseIntError&gt; {
+    let mut parts = text.split(',');
+    let a = parts.next().unwrap_or("").trim().parse::&lt;i32&gt;()?;
+    let b = parts.next().unwrap_or("").trim().parse::&lt;i32&gt;()?;
+    Ok((a, b))
+}
+
+fn main() {
+    out!("{:?}", parse_pair("3, 4"));   // Ok((3, 4))
+    out!("{:?}", parse_pair("3, x"));   // Err(ParseIntError { kind: InvalidDigit })
+}</code></pre>
+<h2 id="quick-and-simple"><a class="header" href="#quick-and-simple">Quick and simple</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Call</th><th>When it’s an error</th></tr>
+</thead>
+<tbody>
+<tr><td><code>.unwrap()</code></td><td>stop the program</td></tr>
+<tr><td><code>.expect("message")</code></td><td>stop the program with your message</td></tr>
+<tr><td><code>.unwrap_or(value)</code></td><td>use <code>value</code> instead</td></tr>
+<tr><td><code>.unwrap_or_default()</code></td><td>use <code>0</code>, <code>""</code>, <code>false</code>, …</td></tr>
+<tr><td><code>?</code></td><td>return the error to the caller</td></tr>
+</tbody>
+</table>
+</div>
+<p>Use <code>unwrap</code> in small programs and tests. In real code, prefer <code>?</code> or a
+<code>match</code>.</p>
+<h2 id="main-can-return-a-result"><a class="header" href="#main-can-return-a-result">main can return a Result</a></h2>
+<pre><code class="language-rust">use std::fs;
+
+fn main() -&gt; Result&lt;(), std::io::Error&gt; {
+    fs::write("hello.txt", "salam")?;
+    let text = fs::read_to_string("hello.txt")?;
+    out!("{text}");
+    fs::remove_file("hello.txt")?;
+    Ok(())
+}</code></pre>
+<p>If an error reaches <code>main</code>, the program prints it and exits with an error
+code.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="modules"><a class="header" href="#modules">Modules</a></h1>
+<p>As a program grows, split it into <strong>modules</strong>. A module is a named group of
+functions, types and other modules.</p>
+<pre><code class="language-rust">mod shapes {
+    pub struct Circle {
+        pub radius: f64,
+    }
+
+    impl Circle {
+        pub fn area(&amp;self) -&gt; f64 {
+            PI * self.radius * self.radius
+        }
+    }
+
+    const PI: f64 = 3.14159; // private: only usable inside `shapes`
+}
+
+use shapes::Circle;
+
+fn main() {
+    let c = Circle { radius: 2.0 };
+    out!("{:.2}", c.area());
+}</code></pre>
+<ul>
+<li>Everything is <strong>private</strong> by default. <code>pub</code> makes it usable outside the
+module.</li>
+<li><code>use</code> brings a name into scope so you don’t have to write the full path.</li>
+<li><code>::</code> separates path parts: <code>shapes::Circle</code>, <code>std::collections::HashMap</code>.</li>
+</ul>
+<h2 id="one-module-per-file"><a class="header" href="#one-module-per-file">One module per file</a></h2>
+<p>In a Cargo project, <code>mod shapes;</code> (with <code>;</code>) loads the module from a file:</p>
+<pre><code class="language-text">src/
+├── main.rs        mod shapes;  use shapes::Circle;
+└── shapes.rs      pub struct Circle { ... }
+</code></pre>
+<p>A folder works too: <code>src/shapes/mod.rs</code>, or <code>src/shapes.rs</code> next to a
+<code>src/shapes/</code> folder for its sub-modules.</p>
+<h2 id="paths"><a class="header" href="#paths">Paths</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Path</th><th>Means</th></tr>
+</thead>
+<tbody>
+<tr><td><code>crate::shapes::Circle</code></td><td>from the top of your project</td></tr>
+<tr><td><code>super::helper</code></td><td>from the parent module</td></tr>
+<tr><td><code>self::inner</code></td><td>from this module</td></tr>
+<tr><td><code>std::fs</code></td><td>from the standard library</td></tr>
+<tr><td><code>rand::random</code></td><td>from a crate in <code>Cargo.toml</code></td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rust-for-rust-programmers"><a class="header" href="#rust-for-rust-programmers">Rust++ for Rust Programmers</a></h1>
+<p>If you already know Rust, this page is all you need. Rust++ is Rust
+1.101.0-dev with these changes; everything else, including crates.io, works
+as in Rust.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rust</th><th>Rust++</th></tr>
+</thead>
+<tbody>
+<tr><td><code>println!("{x}")</code></td><td><code>out!("{x}")</code> (<code>println!</code> still works)</td></tr>
+<tr><td><code>area(3, 4)</code></td><td><code>area(width = 3, height = 4)</code>, any order, after positional ones</td></tr>
+<tr><td><code>fn open(p: &amp;str, w: bool)</code> + <code>open(p, false)</code></td><td><code>fn open(p: &amp;str, w: bool = false)</code> + <code>open(p)</code></td></tr>
+<tr><td><code>fn f&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str</code></td><td><code>fn f(x: &amp;str, y: &amp;str) -&gt; &amp;{x} str</code></td></tr>
+<tr><td><code>fn f(&amp;self) -&gt; &amp;str</code></td><td>the same, or <code>-&gt; &amp;{self} str</code></td></tr>
+<tr><td><code>struct P&lt;'a&gt; { s: &amp;'a str }</code></td><td><code>struct P&lt;_a&gt; { s: &amp;_a str }</code></td></tr>
+<tr><td><code>&amp;'static str</code>, <code>T: 'static</code></td><td><code>&amp;_static str</code>, <code>T: _static</code></td></tr>
+<tr><td><code>rustup</code>, <code>rustc --version</code> → <code>rustc 1.101.0-dev</code></td><td><code>rustup++_init</code>, <code>rustc 1.101.0-dev (Rust++ #19)</code></td></tr>
+<tr><td>rust-analyzer</td><td><code>rust++-analyzer</code> and the <a href="#the-devr-editor">DEVR+</a> editor</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-the-new-syntax-is-compiled"><a class="header" href="#how-the-new-syntax-is-compiled">How the new syntax is compiled</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Becomes</th><th>Cost</th></tr>
+</thead>
+<tbody>
+<tr><td><code>out!</code></td><td><code>println!</code></td><td>none</td></tr>
+<tr><td><code>&amp;{x, y} T</code></td><td>one lifetime shared by <code>x</code>, <code>y</code> and the result</td><td>none</td></tr>
+<tr><td><code>_a</code></td><td><code>'_a</code> (<code>_static</code> → <code>'static</code>)</td><td>none</td></tr>
+<tr><td>named arguments</td><td>positional call in parameter order</td><td>none</td></tr>
+<tr><td>default values</td><td>hidden <code>const</code> per parameter, used for left-out arguments</td><td>none</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="limits-today"><a class="header" href="#limits-today">Limits today</a></h2>
+<ul>
+<li>Default values: constant expressions only; not in traits.</li>
+<li>Named arguments: on functions and methods called directly, not on
+closures or function pointers.</li>
+<li>rustfmt doesn’t know the new syntax yet.</li>
+</ul>
+<p>Every change has a card in the
+<a href="https://github.com/AlzelemX/Rust-/tree/main/notebook">NoteBook</a> with the
+date and before/after code.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="coming-soon"><a class="header" href="#coming-soon">Coming Soon</a></h1>
+<p>Ideas that are planned but not built yet. <strong>None of the code on this page
+compiles today</strong>, and the final syntax may change. The live list is the
+<a href="https://github.com/AlzelemX/Rust-#status">status board</a>.</p>
+<h2 id="data-one-type-for-struct-and-enum"><a class="header" href="#data-one-type-for-struct-and-enum"><code>data</code>: one type for struct and enum</a></h2>
+<p>One keyword for “this and that” and “this or that”, with fields shared by
+all kinds:</p>
+<pre><code class="language-rust ignore">data Shape {
+    color: Color,              // every Shape has a color
+    | Circle { radius: f64 }
+    | Rect { w: f64, h: f64 }
+}</code></pre>
+<p><code>struct</code> and <code>enum</code> stay; <code>data</code> is for when you need both.</p>
+<h2 id="named-match"><a class="header" href="#named-match">Named match</a></h2>
+<p>A <code>match</code> that is also a function, for rules you use in several places:</p>
+<pre><code class="language-rust ignore">match price(size: Size) -&gt; u32 {
+    Size::Small =&gt; 10,
+    Size::Big =&gt; 20,
+}</code></pre>
+<h2 id="no-more-a"><a class="header" href="#no-more-a">No more <code>'a</code></a></h2>
+<p>Borrow sources and <code>_a</code> already replace most lifetimes. The plan is to
+remove <code>'a</code> completely, including in the standard library and in error
+messages.</p>
+<h2 id="error-messages-in-rust-style"><a class="header" href="#error-messages-in-rust-style">Error messages in Rust++ style</a></h2>
+<p>Compiler errors that show Rust++ syntax (<code>&amp;{x}</code>, <code>_a</code>) in their
+suggestions.</p>
+<h2 id="on_ready"><a class="header" href="#on_ready"><code>on_ready()</code></a></h2>
+<p>A declarative constructor: code that runs when a value is ready.</p>
+<h2 id="android-and-ios"><a class="header" href="#android-and-ios">Android and iOS</a></h2>
+<p>The standard library for phones.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
