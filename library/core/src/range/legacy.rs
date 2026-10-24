@@ -5,6 +5,12 @@
 //! module, [`core::range`].
 //!
 //! The types here are equivalent to those in [`core::ops`].
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع النطاقات القديمة.
+//!
+//! </div>
 
 #[doc(inline)]
 #[stable(feature = "new_range_api_legacy", since = "1.98.0")]

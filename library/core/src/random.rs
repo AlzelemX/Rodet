@@ -1,8 +1,20 @@
 //! Random value generation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد القيم العشوائية.
+//!
+//! </div>
 
 use crate::range::{RangeFull, RangeInclusive};
 
 /// A source of randomness.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مصدر للعشوائية.
+///
+/// </div>
 #[unstable(feature = "random", issue = "130703")]
 pub trait Rng {
     /// Fills `bytes` with random bytes.
@@ -11,11 +23,24 @@ pub trait Rng {
     /// with a larger buffer. An `Rng` is allowed to return different bytes for those two cases. For
     /// instance, this allows an `Rng` to generate a word at a time and throw part of it away if not
     /// needed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ `bytes` ببايتات عشوائية.
+    ///
+    /// </div>
     fn fill_bytes(&mut self, bytes: &mut [u8]);
 }
 
 /// Implements `Rng` for mutable references to random number generators by
 /// forwarding all methods to the referenced generator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `Rng` للمراجع القابلة للتعديل إلى مولدات الأرقام العشوائية بتمرير كل الدوال إلى المولد
+/// المشار إليه.
+///
+/// </div>
 #[unstable(feature = "random", issue = "130703")]
 impl<'a, R: Rng + ?Sized> Rng for &'a mut R {
     fn fill_bytes(&mut self, bytes: &mut [u8]) {
@@ -24,9 +49,21 @@ impl<'a, R: Rng + ?Sized> Rng for &'a mut R {
 }
 
 /// A trait representing a distribution of random values for a type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يمثّل توزيعًا للقيم العشوائية لنوع.
+///
+/// </div>
 #[unstable(feature = "random", issue = "130703")]
 pub trait Distribution<T> {
     /// Samples a random value from the distribution, using the specified random source.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ قيمة عشوائية من التوزيع باستخدام مصدر العشوائية المحدد.
+    ///
+    /// </div>
     fn sample(&self, source: &mut (impl Rng + ?Sized)) -> T;
 }
 
@@ -153,6 +190,12 @@ macro_rules! impl_range {
             ///     println!("Miri attacks!");
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يختار رقمًا عشوائيًا داخل النطاق.
+            ///
+            /// </div>
             #[inline]
             fn sample(&self, source: &mut (impl Rng + ?Sized)) -> $unsigned {
                 if self.start > self.last {
@@ -218,6 +261,12 @@ macro_rules! impl_range {
             ///     println!("Miri attacks!");
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يختار رقمًا عشوائيًا داخل النطاق.
+            ///
+            /// </div>
             #[inline]
             fn sample(&self, source: &mut (impl Rng + ?Sized)) -> $signed {
                 if self.start > self.last {

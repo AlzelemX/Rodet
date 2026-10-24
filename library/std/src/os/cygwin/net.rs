@@ -6,6 +6,12 @@
 //! * Cannot bind to abstract addr.
 //! * Unbounded unix socket has an abstract local addr.
 //! * Doesn't support recvmsg with control data.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بـ Cygwin.
+//!
+//! </div>
 
 #![stable(feature = "unix_socket_abstract", since = "1.70.0")]
 

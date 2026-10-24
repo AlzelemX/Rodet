@@ -1,4 +1,10 @@
 //! Linux and Android-specific socket functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف مقابس خاصة بـ Linux وAndroid.
+//!
+//! </div>
 
 use crate::io;
 use crate::os::unix::net;
@@ -9,6 +15,12 @@ use crate::sys::AsInner;
 ///
 /// [`UnixDatagram`]: net::UnixDatagram
 /// [`UnixStream`]: net::UnixStream
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وظائف خاصة بـ Linux لمقابس `AF_UNIX` (`UnixDatagram` و`UnixStream`).
+///
+/// </div>
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub impl(self) trait UnixSocketExt {
     /// Query the current setting of socket option `SO_PASSCRED`.

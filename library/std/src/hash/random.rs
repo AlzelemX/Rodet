@@ -6,6 +6,12 @@
 //! outside this crate.
 //!
 //! [`collections`]: crate::collections
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! هذه الوحدة تعزل `RandomState` و`DefaultHasher` خارج وحدة `collections`.
+//!
+//! </div>
 
 use super::{BuildHasher, Hasher, SipHasher13};
 use crate::cell::Cell;
@@ -30,6 +36,12 @@ use crate::sys::random::hashmap_random_keys;
 /// let mut map = HashMap::with_hasher(s);
 /// map.insert(1, 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `RandomState` الحالة الافتراضية لأنواع `HashMap`.
+///
+/// </div>
 #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
 #[derive(Clone)]
 pub struct RandomState {
@@ -47,6 +59,12 @@ impl RandomState {
     ///
     /// let s = RandomState::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RandomState` جديدًا بمفاتيح عشوائية.
+    ///
+    /// </div>
     #[inline]
     #[allow(deprecated)]
     // rand
@@ -89,6 +107,12 @@ impl BuildHasher for RandomState {
 ///
 /// The internal algorithm is not specified, and so it and its hashes should
 /// not be relied upon over releases.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الـ `Hasher` الافتراضي الذي يستخدمه `RandomState`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
 pub struct DefaultHasher(SipHasher13);
@@ -99,6 +123,12 @@ impl DefaultHasher {
     /// This hasher is not guaranteed to be the same as all other
     /// `DefaultHasher` instances, but is the same as all other `DefaultHasher`
     /// instances created through `new` or `default`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `DefaultHasher` جديدًا.
+    ///
+    /// </div>
     #[stable(feature = "hashmap_default_hasher", since = "1.13.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_default", issue = "143894")]
@@ -145,6 +175,12 @@ impl Hasher for DefaultHasher {
 #[stable(feature = "hashmap_build_hasher", since = "1.7.0")]
 impl Default for RandomState {
     /// Constructs a new `RandomState`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RandomState` جديدًا.
+    ///
+    /// </div>
     #[inline]
     fn default() -> RandomState {
         RandomState::new()

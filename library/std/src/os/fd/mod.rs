@@ -2,6 +2,12 @@
 //!
 //! This module is supported on Unix platforms and WASI, which both use a
 //! similar file descriptor system for referencing OS resources.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واصفات ملفات (file descriptors) يونكس مملوكة ومستعارة.
+//!
+//! </div>
 
 #![stable(feature = "os_fd", since = "1.66.0")]
 #![deny(unsafe_op_in_unsafe_fn)]

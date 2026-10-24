@@ -12,6 +12,12 @@
 //! the `-darwin` suffix in the `x86_64-apple-darwin` and
 //! `aarch64-apple-darwin` target names, which are mostly named that way for
 //! legacy reasons.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `std` الخاصة بمنصات Darwin / Apple.
+//!
+//! </div>
 
 #![stable(feature = "os_darwin", since = "1.84.0")]
 #![doc(cfg(target_vendor = "apple"))]

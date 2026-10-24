@@ -1,4 +1,10 @@
 //! Raw Unix-like file descriptors.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واصفات ملفات يونكس الخام.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -27,6 +33,12 @@ use crate::os::wasi::io::OwnedFd;
 use crate::sys::{AsInner, FromInner, IntoInner};
 
 /// Raw file descriptors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصفات الملفات الخام.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg(all(not(target_os = "hermit"), not(target_os = "motor")))]
 pub type RawFd = raw::c_int;
@@ -39,6 +51,12 @@ pub type RawFd = i32;
 /// This is only available on unix and WASI platforms and must be imported in
 /// order to call the method. Windows platforms have a corresponding
 /// `AsRawHandle` and `AsRawSocket` set of traits.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستخراج واصف الملف الخام من كائن.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait AsRawFd {
     /// Extracts the raw file descriptor.
@@ -66,12 +84,24 @@ pub trait AsRawFd {
     /// let raw_fd: RawFd = f.as_raw_fd();
     /// # Ok::<(), io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج واصف الملف الخام.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn as_raw_fd(&self) -> RawFd;
 }
 
 /// A trait to express the ability to construct an object from a raw file
 /// descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية إنشاء كائن من واصف ملف خام.
+///
+/// </div>
 #[stable(feature = "from_raw_os", since = "1.1.0")]
 pub trait FromRawFd {
     /// Constructs a new instance of `Self` from the given raw file
@@ -110,12 +140,24 @@ pub trait FromRawFd {
     /// let f = unsafe { File::from_raw_fd(raw_fd) };
     /// # Ok::<(), io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من `Self` من واصف الملف الخام المعطى.
+    ///
+    /// </div>
     #[stable(feature = "from_raw_os", since = "1.1.0")]
     unsafe fn from_raw_fd(fd: RawFd) -> Self;
 }
 
 /// A trait to express the ability to consume an object and acquire ownership of
 /// its raw file descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية استهلاك كائن وأخذ ملكية واصف ملفه الخام.
+///
+/// </div>
 #[stable(feature = "into_raw_os", since = "1.4.0")]
 pub trait IntoRawFd {
     /// Consumes this object, returning the raw underlying file descriptor.
@@ -141,6 +183,12 @@ pub trait IntoRawFd {
     /// let raw_fd: RawFd = f.into_raw_fd();
     /// # Ok::<(), io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الكائن ويرجع واصف الملف الخام الأساسي.
+    ///
+    /// </div>
     #[must_use = "losing the raw file descriptor may leak resources"]
     #[stable(feature = "into_raw_os", since = "1.4.0")]
     fn into_raw_fd(self) -> RawFd;
@@ -258,6 +306,12 @@ impl<'a> AsRawFd for io::StderrLock<'a> {
 /// impl MyTrait for Box<UdpSocket> {}
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق يسمح بتطبيق traits تتطلب `AsRawFd` على `Arc`.
+///
+/// </div>
 #[stable(feature = "asrawfd_ptrs", since = "1.63.0")]
 impl<T: AsRawFd> AsRawFd for crate::sync::Arc<T> {
     #[inline]

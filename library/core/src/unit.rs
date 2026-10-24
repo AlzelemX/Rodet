@@ -13,6 +13,12 @@ use crate::intrinsics::reflection::type_id;
 ///     .collect();
 /// assert!(res.is_ok());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يدمج كل عناصر الوحدة `()` من مكرر في عنصر واحد.
+///
+/// </div>
 #[stable(feature = "unit_from_iter", since = "1.23.0")]
 impl FromIterator<()> for () {
     fn from_iter<I: IntoIterator<Item = ()>>(iter: I) -> Self {

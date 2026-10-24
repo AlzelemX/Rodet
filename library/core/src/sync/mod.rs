@@ -1,4 +1,10 @@
 //! Synchronization primitives
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات التزامن بين الخيوط.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

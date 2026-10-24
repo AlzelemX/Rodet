@@ -1,6 +1,12 @@
 //! Darwin-specific extension traits to [`fs`].
 //!
 //! [`fs`]: crate::fs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits امتداد خاصة بـ Darwin لوحدة `fs`.
+//!
+//! </div>
 #![stable(feature = "metadata_ext", since = "1.1.0")]
 
 use crate::fs::{self, Metadata};
@@ -17,6 +23,12 @@ pub use dirs::MediaDirsExt;
 /// OS-specific extensions to [`fs::Metadata`].
 ///
 /// [`fs::Metadata`]: crate::fs::Metadata
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Gain a reference to the underlying `stat` structure which contains
@@ -25,6 +37,12 @@ pub trait MetadataExt {
     /// The contents of the returned `stat` are **not** consistent across
     /// Unix platforms. The `os::unix::fs::MetadataExt` trait contains the
     /// cross-Unix abstractions contained within the raw stat.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى بنية `stat` الأساسية التي فيها المعلومات الخام من نظام التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     #[deprecated(
         since = "1.8.0",
@@ -162,6 +180,12 @@ impl MetadataExt for Metadata {
 }
 
 /// OS-specific extensions to [`fs::FileTimes`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `fs::FileTimes`.
+///
+/// </div>
 #[stable(feature = "file_set_times", since = "1.75.0")]
 pub impl(self) trait FileTimesExt {
     /// Set the creation time of a file.

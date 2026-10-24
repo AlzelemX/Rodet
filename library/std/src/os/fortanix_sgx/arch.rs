@@ -2,6 +2,12 @@
 //!
 //! The functionality in this module is further documented in the Intel
 //! Software Developer's Manual, Volume 3, Chapter 40.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وصول خاص بـ SGX لميزات المعمارية.
+//!
+//! </div>
 #![unstable(feature = "sgx_platform", issue = "56975")]
 
 use core::arch::asm;
@@ -9,16 +15,34 @@ use core::arch::asm;
 use crate::mem::MaybeUninit;
 
 /// Wrapper struct to force 16-byte alignment.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية غلاف تفرض محاذاة 16 بايت.
+///
+/// </div>
 #[repr(align(16))]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct Align16<T>(pub T);
 
 /// Wrapper struct to force 128-byte alignment.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية غلاف تفرض محاذاة 128 بايت.
+///
+/// </div>
 #[repr(align(128))]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct Align128<T>(pub T);
 
 /// Wrapper struct to force 512-byte alignment.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية غلاف تفرض محاذاة 512 بايت.
+///
+/// </div>
 #[repr(align(512))]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct Align512<T>(pub T);
@@ -27,6 +51,12 @@ const ENCLU_EREPORT: u32 = 0;
 const ENCLU_EGETKEY: u32 = 1;
 
 /// Call the `EGETKEY` instruction to obtain a 128-bit secret key.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي تعليمة `EGETKEY` للحصول على مفتاح سري 128 بت.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn egetkey(request: &Align512<[u8; 512]>) -> Result<Align16<[u8; 16]>, u32> {
     unsafe {
@@ -56,6 +86,12 @@ pub fn egetkey(request: &Align512<[u8; 512]>) -> Result<Align16<[u8; 16]>, u32> 
 /// This creates a cryptographic report describing the contents of the current
 /// enclave. The report may be verified by the enclave described in
 /// `targetinfo`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي تعليمة `EREPORT`.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub fn ereport(
     targetinfo: &Align512<[u8; 512]>,

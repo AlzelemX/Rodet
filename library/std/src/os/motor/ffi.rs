@@ -1,10 +1,22 @@
 //! Motor OS-specific extensions to primitives in the [`std::ffi`] module.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Motor OS لأنواع وحدة `std::ffi`.
+//!
+//! </div>
 #![unstable(feature = "motor_ext", issue = "147456")]
 
 use crate::ffi::{OsStr, OsString};
 use crate::sys::{AsInner, IntoInner};
 
 /// Motor OS–specific extensions to [`OsString`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Motor OS لـ `OsString`.
+///
+/// </div>
 pub impl(self) trait OsStringExt {
     /// Yields the underlying UTF-8 string of this [`OsString`].
     ///
@@ -20,6 +32,12 @@ impl OsStringExt for OsString {
 }
 
 /// Motor OS–specific extensions to [`OsString`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Motor OS لـ `OsString`.
+///
+/// </div>
 pub impl(self) trait OsStrExt {
     /// Gets the underlying UTF-8 string view of the [`OsStr`] slice.
     ///

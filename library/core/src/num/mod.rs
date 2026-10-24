@@ -326,15 +326,15 @@ macro_rules! widening_carryless_mul_impl {
         /// ```
         /// #![feature(uint_carryless_mul)]
         ///
+        #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.widening_carryless_mul(",
+                                stringify!($SelfT), "::MAX), ", stringify!($WideT), "::MAX / 3);")]
+        /// ```
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// ينفذ ضربًا موسِّعًا بدون حمل (carry-less).
         ///
         /// </div>
-        #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.widening_carryless_mul(",
-                                stringify!($SelfT), "::MAX), ", stringify!($WideT), "::MAX / 3);")]
-        /// ```
         #[rustc_const_unstable(feature = "uint_carryless_mul", issue = "152080")]
         #[doc(alias = "clmul")]
         #[unstable(feature = "uint_carryless_mul", issue = "152080")]
@@ -1846,13 +1846,6 @@ macro_rules! from_str_int_impl {
             /// #
             #[doc = concat!("assert!(", stringify!($int_ty), "::from_str(\"1 \").is_err());")]
             /// ```
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
-            ///
-            /// </div>
             #[inline]
             fn from_str(src: &str) -> Result<$int_ty, ParseIntError> {
                 <$int_ty>::from_str_radix(src, 10)
@@ -1905,8 +1898,7 @@ macro_rules! from_str_int_impl {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا صحيحًا من شريحة نص بأرقام بأساس معيّن.
             ///
             /// </div>
             #[stable(feature = "rust1", since = "1.0.0")]
@@ -1919,12 +1911,6 @@ macro_rules! from_str_int_impl {
             /// Parses an integer from an ASCII-byte slice with decimal digits.
             ///
             /// The characters are expected to be an optional
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام عشرية.
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1954,8 +1940,7 @@ macro_rules! from_str_int_impl {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام عشرية.
             ///
             /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
@@ -1971,12 +1956,6 @@ macro_rules! from_str_int_impl {
             /// Parses an integer from an ASCII-byte slice with digits in a given base.
             ///
             /// The characters are expected to be an optional
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام بأساس معيّن.
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -2015,8 +1994,7 @@ macro_rules! from_str_int_impl {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام بأساس معيّن.
             ///
             /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]

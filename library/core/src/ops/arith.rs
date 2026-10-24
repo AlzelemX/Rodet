@@ -506,13 +506,13 @@ macro_rules! div_impl_integer {
         ///
         /// # Panics
         ///
+        #[doc = $panic]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// هذه العملية تقرّب نحو الصفر، وتحذف أي جزء كسري من النتيجة.
         ///
         /// </div>
-        #[doc = $panic]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
         const impl Div for $t {
@@ -627,13 +627,13 @@ macro_rules! rem_impl_integer {
         ///
         /// # Panics
         ///
+        #[doc = $panic]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// هذه العملية تحقق `n % d == n - (n / d) * d`. النتيجة لها نفس إشارة المعامل الأيسر.
         ///
         /// </div>
-        #[doc = $panic]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
         const impl Rem for $t {

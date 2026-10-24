@@ -1,4 +1,10 @@
 //! Defines [`SyncView`].
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف `SyncView`.
+//!
+//! </div>
 
 use core::clone::TrivialClone;
 use core::cmp::Ordering;
@@ -89,6 +95,12 @@ use core::task::{Context, Poll};
 /// for any value. This is a parallel with the fact that
 /// `&` and `&mut` references together can be thought of as a _compile-time_
 /// version of a read-write lock.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `SyncView` يعطي وصولًا _حصريًا_ (قابلًا للتعديل) للقيمة الأساسية فقط، فيصبح `Sync` دائمًا.
+///
+/// </div>
 #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
 #[doc(alias = "SyncWrapper")]
 #[doc(alias = "SyncCell")]
@@ -127,6 +139,12 @@ impl<T: ?Sized> fmt::Debug for SyncView<T> {
 
 impl<T: Sized> SyncView<T> {
     /// Wrap a value in an `SyncView`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلّف قيمة في `SyncView`.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[must_use]
@@ -136,6 +154,12 @@ impl<T: Sized> SyncView<T> {
     }
 
     /// Unwrap the value contained in the `SyncView`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك القيمة الموجودة في الـ `SyncView`.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -153,6 +177,12 @@ impl<T: ?Sized> SyncView<T> {
     /// value, which means _unpinned_ `SyncView`s can produce _unpinned_
     /// access to the underlying value, but _pinned_ `SyncView`s only
     /// produce _pinned_ access to the underlying value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا حصريًا مثبتًا إلى القيمة الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[must_use]
@@ -166,6 +196,12 @@ impl<T: ?Sized> SyncView<T> {
     /// Build a _mutable_ reference to an `SyncView<T>` from
     /// a _mutable_ reference to a `T`. This allows you to skip
     /// building an `SyncView` with [`SyncView::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبني مرجعًا _قابلًا للتعديل_ إلى `SyncView<T>` من مرجع قابل للتعديل إلى `T`.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[must_use]
@@ -178,6 +214,12 @@ impl<T: ?Sized> SyncView<T> {
     /// Build a _pinned mutable_ reference to an `SyncView<T>` from
     /// a _pinned mutable_ reference to a `T`. This allows you to skip
     /// building an `SyncView` with [`SyncView::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبني مرجعًا _مثبتًا قابلًا للتعديل_ إلى `SyncView<T>` من مرجع مثبت قابل للتعديل إلى `T`.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[must_use]
@@ -196,6 +238,12 @@ impl<T: ?Sized + Sync> SyncView<T> {
     /// value, which means _unpinned_ `SyncView`s can produce _unpinned_
     /// access to the underlying value, but _pinned_ `SyncView`s only
     /// produce _pinned_ access to the underlying value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا مشتركًا مثبتًا إلى القيمة الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[rustc_const_stable(feature = "exclusive_wrapper", since = "CURRENT_RUSTC_VERSION")]
     #[must_use]

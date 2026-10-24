@@ -33,6 +33,12 @@
 //! let bytes = os_str.as_bytes();
 //! assert_eq!(bytes, b"foo");
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتداد خاص بـ Hermit لأنواع وحدة `std::ffi`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

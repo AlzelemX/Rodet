@@ -2245,12 +2245,6 @@ impl ExitStatus {
     /// # Examples
     ///
     /// ```
-    ///
-    /// <div lang="ar" dir="rtl">
-    ///
-    /// يوجّه stdout/stderr الأمر إلى stderr الخاص بنا.
-    ///
-    /// </div>
     /// #![feature(exit_status_error)]
     /// # if cfg!(all(unix, not(all(target_vendor = "apple", not(target_os = "macos"))))) {
     /// use std::process::Command;

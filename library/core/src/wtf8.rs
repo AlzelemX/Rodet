@@ -10,6 +10,12 @@
 //! of WTF-8 strings,
 //! nor can it decode WTF-8 from arbitrary bytes.
 //! WTF-8 strings can be obtained from UTF-8, UTF-16, or code points.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق ترميز WTF-8.
+//!
+//! </div>
 #![unstable(
     feature = "wtf8_internals",
     issue = "none",
@@ -39,6 +45,12 @@ pub struct CodePoint(CodePointInner);
 
 /// Format the code point as `U+` followed by four to six hexadecimal digits.
 /// Example: `U+1F4A9`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض نقطة الترميز كـ `U+` يليها من أربعة إلى ستة أرقام ست عشرية، مثل `U+1F4A9`.
+///
+/// </div>
 impl fmt::Debug for CodePoint {
     #[inline]
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -52,6 +64,12 @@ impl CodePoint {
     /// # Safety
     ///
     /// `value` must be less than or equal to 0x10FFFF.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CodePoint` جديدًا بدون التحقق من القيمة (غير آمن).
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn from_u32_unchecked(value: u32) -> CodePoint {
         // SAFETY: Guaranteed by caller.
@@ -61,6 +79,12 @@ impl CodePoint {
     /// Creates a new `CodePoint` if the value is a valid code point.
     ///
     /// Returns `None` if `value` is above 0x10FFFF.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CodePoint` جديدًا إذا كانت القيمة نقطة ترميز صالحة.
+    ///
+    /// </div>
     #[inline]
     pub fn from_u32(value: u32) -> Option<CodePoint> {
         Some(CodePoint(CodePointInner::new(value)?))
@@ -69,6 +93,12 @@ impl CodePoint {
     /// Creates a new `CodePoint` from a `char`.
     ///
     /// Since all Unicode scalar values are code points, this always succeeds.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CodePoint` جديدًا من `char`.
+    ///
+    /// </div>
     #[inline]
     pub fn from_char(value: char) -> CodePoint {
         // SAFETY: All char are valid for this type.
@@ -76,12 +106,24 @@ impl CodePoint {
     }
 
     /// Returns the numeric value of the code point.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الرقمية لنقطة الترميز.
+    ///
+    /// </div>
     #[inline]
     pub fn to_u32(&self) -> u32 {
         self.0.as_inner()
     }
 
     /// Returns the numeric value of the code point if it is a leading surrogate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الرقمية لنقطة الترميز إذا كانت نصف زوج بادئ (leading surrogate).
+    ///
+    /// </div>
     #[inline]
     pub fn to_lead_surrogate(&self) -> Option<u16> {
         match self.to_u32() {
@@ -91,6 +133,12 @@ impl CodePoint {
     }
 
     /// Returns the numeric value of the code point if it is a trailing surrogate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الرقمية لنقطة الترميز إذا كانت نصف زوج لاحق (trailing surrogate).
+    ///
+    /// </div>
     #[inline]
     pub fn to_trail_surrogate(&self) -> Option<u16> {
         match self.to_u32() {
@@ -102,6 +150,12 @@ impl CodePoint {
     /// Optionally returns a Unicode scalar value for the code point.
     ///
     /// Returns `None` if the code point is a surrogate (from U+D800 to U+DFFF).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اختياريًا قيمة يونيكود لنقطة الترميز.
+    ///
+    /// </div>
     #[inline]
     pub fn to_char(&self) -> Option<char> {
         match self.to_u32() {
@@ -115,6 +169,12 @@ impl CodePoint {
     ///
     /// Returns `'\u{FFFD}'` (the replacement character “�”)
     /// if the code point is a surrogate (from U+D800 to U+DFFF).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة يونيكود لنقطة الترميز (مع الاستبدال إن لزم).
+    ///
+    /// </div>
     #[inline]
     pub fn to_char_lossy(&self) -> char {
         self.to_char().unwrap_or(char::REPLACEMENT_CHARACTER)
@@ -215,6 +275,12 @@ impl fmt::Display for Wtf8 {
 
 impl Wtf8 {
     /// Creates a WTF-8 slice from a UTF-8 `&str` slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة WTF-8 من شريحة `&str` بصيغة UTF-8.
+    ///
+    /// </div>
     #[inline]
     pub fn from_str(value: &str) -> &Wtf8 {
         // SAFETY: Since WTF-8 is a superset of UTF-8, this always is valid.
@@ -226,6 +292,12 @@ impl Wtf8 {
     /// # Safety
     ///
     /// `value` must contain well-formed WTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة WTF-8 من شريحة بايتات WTF-8.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn from_bytes_unchecked(value: &[u8]) -> &Wtf8 {
         // SAFETY: start with &[u8], end with fancy &[u8]
@@ -237,6 +309,12 @@ impl Wtf8 {
     /// # Safety
     ///
     /// `value` must contain well-formed WTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة WTF-8 قابلة للتعديل من شريحة بايتات WTF-8 قابلة للتعديل.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn from_mut_bytes_unchecked(value: &mut [u8]) -> &mut Wtf8 {
         // SAFETY: start with &mut [u8], end with fancy &mut [u8]
@@ -244,6 +322,12 @@ impl Wtf8 {
     }
 
     /// Returns the length, in WTF-8 bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الطول بعدد بايتات WTF-8.
+    ///
+    /// </div>
     #[inline]
     pub fn len(&self) -> usize {
         self.bytes.len()
@@ -260,6 +344,12 @@ impl Wtf8 {
     /// # Panics
     ///
     /// Panics if `position` is beyond the end of the string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نقطة الترميز عند `position` إذا كانت في نطاق ASCII، وإلا `b'\xFF'`.
+    ///
+    /// </div>
     #[inline]
     pub fn ascii_byte_at(&self, position: usize) -> u8 {
         match self.bytes[position] {
@@ -269,12 +359,24 @@ impl Wtf8 {
     }
 
     /// Returns an iterator for the string’s code points.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على نقاط الترميز في النص.
+    ///
+    /// </div>
     #[inline]
     pub fn code_points(&self) -> Wtf8CodePoints<'_> {
         Wtf8CodePoints { bytes: self.bytes.iter() }
     }
 
     /// Access raw bytes of WTF-8 data
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا إلى البايتات الخام لبيانات WTF-8.
+    ///
+    /// </div>
     #[inline]
     pub fn as_bytes(&self) -> &[u8] {
         &self.bytes
@@ -285,6 +387,12 @@ impl Wtf8 {
     /// Returns `None` if the string contains surrogates.
     ///
     /// This does not copy the data.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل النص إلى UTF-8 ويرجع شريحة `&str`.
+    ///
+    /// </div>
     #[inline]
     pub fn as_str(&self) -> Result<&str, str::Utf8Error> {
         str::from_utf8(&self.bytes)
@@ -296,6 +404,12 @@ impl Wtf8 {
     /// This is lossless:
     /// calling `Wtf8Buf::from_ill_formed_utf16` on the resulting code units
     /// would always return the original WTF-8 string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نص WTF-8 إلى UTF-16 (قد يكون غير سليم) ويرجع مكررًا على وحدات 16 بت.
+    ///
+    /// </div>
     #[inline]
     pub fn encode_wide(&self) -> EncodeWide<'_> {
         EncodeWide { code_points: self.code_points(), extra: 0 }
@@ -374,6 +488,12 @@ impl Wtf8 {
 ///
 /// Panics when `begin` and `end` do not point to code point boundaries,
 /// or point beyond the end of the string.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع شريحة من النص للنطاق البايتي من `begin` إلى `end`.
+///
+/// </div>
 impl ops::Index<ops::Range<usize>> for Wtf8 {
     type Output = Wtf8;
 
@@ -397,6 +517,12 @@ impl ops::Index<ops::Range<usize>> for Wtf8 {
 ///
 /// Panics when `begin` is not at a code point boundary,
 /// or is beyond the end of the string.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع شريحة من النص من البايت `begin` حتى النهاية.
+///
+/// </div>
 impl ops::Index<ops::RangeFrom<usize>> for Wtf8 {
     type Output = Wtf8;
 
@@ -417,6 +543,12 @@ impl ops::Index<ops::RangeFrom<usize>> for Wtf8 {
 ///
 /// Panics when `end` is not at a code point boundary,
 /// or is beyond the end of the string.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع شريحة من النص من البداية حتى البايت `end`.
+///
+/// </div>
 impl ops::Index<ops::RangeTo<usize>> for Wtf8 {
     type Output = Wtf8;
 
@@ -448,6 +580,12 @@ fn decode_surrogate(second_byte: u8, third_byte: u8) -> u16 {
 
 impl Wtf8 {
     /// Copied from str::is_char_boundary
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// منسوخ من `str::is_char_boundary`.
+    ///
+    /// </div>
     #[inline]
     pub fn is_code_point_boundary(&self, index: usize) -> bool {
         if index == 0 {
@@ -466,6 +604,12 @@ impl Wtf8 {
     /// Splitting between surrogates is valid as far as WTF-8 is concerned, but
     /// we do not permit it in the public API because WTF-8 is considered an
     /// implementation detail.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق أن `index` على حافة نقطة ترميز UTF-8 صالحة أو بين نصفي زوج.
+    ///
+    /// </div>
     #[track_caller]
     #[inline]
     pub fn check_utf8_boundary(&self, index: usize) {

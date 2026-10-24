@@ -17,6 +17,12 @@ use crate::{fmt, ptr};
 ///
 /// [vtable]: https://en.wikipedia.org/wiki/Virtual_method_table
 /// [`Wake`]: ../../alloc/task/trait.Wake.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `RawWaker` يسمح لمطوّر منفّذ المهام بإنشاء `Waker` أو `LocalWaker` بسلوك إيقاظ مخصص.
+///
+/// </div>
 #[derive(PartialEq, Debug)]
 #[stable(feature = "futures_api", since = "1.36.0")]
 pub struct RawWaker {
@@ -48,6 +54,12 @@ impl RawWaker {
     /// The `vtable` customizes the behavior of a `Waker` which gets created
     /// from a `RawWaker`. For each operation on the `Waker`, the associated
     /// function in the `vtable` of the underlying `RawWaker` will be called.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RawWaker` جديدًا من المؤشر `data` والجدول `vtable` المعطيين.
+    ///
+    /// </div>
     #[inline]
     #[rustc_promotable]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -105,6 +117,12 @@ impl RawWaker {
 ///  data can be stored in the data pointer, and reference counting does not need any atomic
 /// synchronization. This is because [`LocalWaker`] is not thread safe itself, so it cannot
 /// be sent across threads.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// جدول مؤشرات دوال افتراضية (vtable) يحدد سلوك `RawWaker`.
+///
+/// </div>
 #[stable(feature = "futures_api", since = "1.36.0")]
 #[allow(unpredictable_function_pointer_comparisons)]
 #[derive(PartialEq, Copy, Clone, Debug)]
@@ -194,6 +212,12 @@ impl RawWakerVTable {
     /// The implementation of this function must make sure to release any
     /// resources that are associated with this instance of a [`RawWaker`] and
     /// associated task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RawWakerVTable` جديدًا من الدوال `clone` و`wake` و`wake_by_ref` و`drop`.
+    ///
+    /// </div>
     #[rustc_promotable]
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[rustc_const_stable(feature = "futures_api", since = "1.36.0")]
@@ -217,6 +241,12 @@ enum ExtData<'a> {
 ///
 /// Currently, `Context` only serves to provide access to a [`&Waker`](Waker)
 /// which can be used to wake the current task.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// سياق مهمة غير متزامنة.
+///
+/// </div>
 #[stable(feature = "futures_api", since = "1.36.0")]
 #[lang = "Context"]
 pub struct Context<'a> {
@@ -235,6 +265,12 @@ pub struct Context<'a> {
 
 impl<'a> Context<'a> {
     /// Creates a new `Context` from a [`&Waker`](Waker).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Context` جديدًا من `&Waker`.
+    ///
+    /// </div>
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_waker", since = "1.82.0")]
     #[must_use]
@@ -244,6 +280,12 @@ impl<'a> Context<'a> {
     }
 
     /// Returns a reference to the [`Waker`] for the current task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى الـ `Waker` للمهمة الحالية.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -253,6 +295,12 @@ impl<'a> Context<'a> {
     }
 
     /// Returns a reference to the [`LocalWaker`] for the current task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى الـ `LocalWaker` للمهمة الحالية.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub const fn local_waker(&self) -> &'a LocalWaker {
@@ -260,6 +308,12 @@ impl<'a> Context<'a> {
     }
 
     /// Returns a reference to the extension data for the current task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى بيانات الامتداد للمهمة الحالية.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "context_ext", issue = "123392")]
     pub const fn ext(&mut self) -> &mut dyn Any {
@@ -300,6 +354,12 @@ impl fmt::Debug for Context<'_> {
 /// assert_eq!(poll, Poll::Ready(20));
 ///
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// باني يُستخدم لإنشاء `Context` مع دعم `LocalWaker`.
+///
+/// </div>
 #[unstable(feature = "local_waker", issue = "118959")]
 #[derive(Debug)]
 pub struct ContextBuilder<'a> {
@@ -318,6 +378,12 @@ pub struct ContextBuilder<'a> {
 
 impl<'a> ContextBuilder<'a> {
     /// Creates a ContextBuilder from a Waker.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `ContextBuilder` من `Waker`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub const fn from_waker(waker: &'a Waker) -> Self {
@@ -333,6 +399,12 @@ impl<'a> ContextBuilder<'a> {
     }
 
     /// Creates a ContextBuilder from an existing Context.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `ContextBuilder` من `Context` موجود.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "context_ext", issue = "123392")]
     pub const fn from(cx: &'a mut Context<'_>) -> Self {
@@ -350,6 +422,12 @@ impl<'a> ContextBuilder<'a> {
     }
 
     /// Sets the value for the waker on `Context`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد قيمة الـ waker في `Context`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "context_ext", issue = "123392")]
     pub const fn waker(self, waker: &'a Waker) -> Self {
@@ -357,6 +435,12 @@ impl<'a> ContextBuilder<'a> {
     }
 
     /// Sets the value for the local waker on `Context`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد قيمة الـ waker المحلي في `Context`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub const fn local_waker(self, local_waker: &'a LocalWaker) -> Self {
@@ -364,6 +448,12 @@ impl<'a> ContextBuilder<'a> {
     }
 
     /// Sets the value for the extension data on `Context`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد قيمة بيانات الامتداد في `Context`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "context_ext", issue = "123392")]
     pub const fn ext(self, data: &'a mut dyn Any) -> Self {
@@ -371,6 +461,12 @@ impl<'a> ContextBuilder<'a> {
     }
 
     /// Builds the `Context`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبني الـ `Context`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub const fn build(self) -> Context<'a> {
@@ -405,6 +501,12 @@ impl<'a> ContextBuilder<'a> {
 /// [`Future::poll()`]: core::future::Future::poll
 /// [`Poll::Pending`]: core::task::Poll::Pending
 /// [`Wake`]: ../../alloc/task/trait.Wake.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Waker` مقبض لإيقاظ مهمة بإخبار منفّذها أنها جاهزة للتشغيل.
+///
+/// </div>
 #[repr(transparent)]
 #[stable(feature = "futures_api", since = "1.36.0")]
 #[rustc_diagnostic_item = "Waker"]
@@ -438,6 +540,12 @@ impl Waker {
     /// current task again.
     ///
     /// [`poll()`]: crate::future::Future::poll
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ المهمة المرتبطة بهذا الـ `Waker`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "futures_api", since = "1.36.0")]
     pub fn wake(self) {
@@ -458,6 +566,12 @@ impl Waker {
     /// This is similar to [`wake()`](Self::wake), but may be slightly less efficient in
     /// the case where an owned `Waker` is available. This method should be preferred to
     /// calling `waker.clone().wake()`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ المهمة المرتبطة بهذا الـ `Waker` بدون استهلاكه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "futures_api", since = "1.36.0")]
     pub fn wake_by_ref(&self) {
@@ -477,6 +591,12 @@ impl Waker {
     /// This function is primarily used for optimization purposes — for example,
     /// this type's [`clone_from`](Self::clone_from) implementation uses it to
     /// avoid cloning the waker when they would wake the same task anyway.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الـ `Waker` وآخر سيوقظان نفس المهمة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -511,6 +631,12 @@ impl Waker {
     /// cost of a required heap allocation.)
     ///
     /// [`Wake`]: ../../alloc/task/trait.Wake.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Waker` جديدًا من المؤشر `data` والجدول `vtable` المعطيين.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "waker_getters", since = "1.83.0")]
@@ -530,6 +656,12 @@ impl Waker {
     /// cost of a required heap allocation.)
     ///
     /// [`Wake`]: ../../alloc/task/trait.Wake.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Waker` جديدًا من `RawWaker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -565,6 +697,12 @@ impl Waker {
     /// let mut future = Box::pin(async { 10 });
     /// assert_eq!(future.as_mut().poll(&mut cx), task::Poll::Ready(10));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى `Waker` لا يفعل شيئًا عند استخدامه.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "noop_waker", since = "1.85.0")]
@@ -575,6 +713,12 @@ impl Waker {
     }
 
     /// Gets the `data` pointer used to create this `Waker`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر `data` المستخدم في إنشاء هذا الـ `Waker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "waker_getters", since = "1.83.0")]
@@ -583,6 +727,12 @@ impl Waker {
     }
 
     /// Gets the `vtable` pointer used to create this `Waker`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر `vtable` المستخدم في إنشاء هذا الـ `Waker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "waker_getters", since = "1.83.0")]
@@ -591,6 +741,12 @@ impl Waker {
     }
 
     /// Constructs a `Waker` from a function pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Waker` من مؤشر دالة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "waker_from_fn_ptr", issue = "148457")]
@@ -661,6 +817,12 @@ impl Clone for Waker {
     /// }
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع نسخة من `source` في `self`، إلا إذا كان `self.will_wake(source)` صحيحًا أصلًا.
+    ///
+    /// </div>
     #[inline]
     fn clone_from(&mut self, source: &Self) {
         if !self.will_wake(source) {
@@ -740,6 +902,12 @@ impl fmt::Debug for Waker {
 /// [`Future::poll()`]: core::future::Future::poll
 /// [`Poll::Pending`]: core::task::Poll::Pending
 /// [`local_waker`]: core::task::Context::local_waker
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `LocalWaker` مثل `Waker` لكنه لا يطبّق `Send` ولا `Sync`.
+///
+/// </div>
 #[unstable(feature = "local_waker", issue = "118959")]
 #[repr(transparent)]
 pub struct LocalWaker {
@@ -767,6 +935,12 @@ impl LocalWaker {
     /// current task again.
     ///
     /// [`poll()`]: crate::future::Future::poll
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ المهمة المرتبطة بهذا الـ `LocalWaker`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub fn wake(self) {
@@ -787,6 +961,12 @@ impl LocalWaker {
     /// This is similar to [`wake()`](Self::wake), but may be slightly less efficient in
     /// the case where an owned `Waker` is available. This method should be preferred to
     /// calling `waker.clone().wake()`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ المهمة المرتبطة بهذا الـ `LocalWaker` بدون استهلاكه.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "local_waker", issue = "118959")]
     pub fn wake_by_ref(&self) {
@@ -806,6 +986,12 @@ impl LocalWaker {
     /// This function is primarily used for optimization purposes — for example,
     /// this type's [`clone_from`](Self::clone_from) implementation uses it to
     /// avoid cloning the waker when they would wake the same task anyway.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الـ `LocalWaker` وآخر سيوقظان نفس المهمة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -834,6 +1020,12 @@ impl LocalWaker {
     /// The behavior of the returned `Waker` is undefined if the contract defined
     /// in [`RawWakerVTable`]'s documentation is not upheld.
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LocalWaker` جديدًا من المؤشر `data` والجدول `vtable` المعطيين.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -847,6 +1039,12 @@ impl LocalWaker {
     ///
     /// The behavior of the returned `LocalWaker` is undefined if the contract defined
     /// in [`RawWaker`]'s and [`RawWakerVTable`]'s documentation is not upheld.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LocalWaker` جديدًا من `RawWaker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -884,6 +1082,12 @@ impl LocalWaker {
     /// let mut future = Box::pin(async { 10 });
     /// assert_eq!(future.as_mut().poll(&mut cx), Poll::Ready(10));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى `LocalWaker` لا يفعل شيئًا عند استخدامه.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -893,6 +1097,12 @@ impl LocalWaker {
     }
 
     /// Gets the `data` pointer used to create this `LocalWaker`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر `data` المستخدم في إنشاء هذا الـ `LocalWaker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -901,6 +1111,12 @@ impl LocalWaker {
     }
 
     /// Gets the `vtable` pointer used to create this `LocalWaker`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر `vtable` المستخدم في إنشاء هذا الـ `LocalWaker`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "local_waker", issue = "118959")]
@@ -909,6 +1125,12 @@ impl LocalWaker {
     }
 
     /// Constructs a `LocalWaker` from a function pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LocalWaker` من مؤشر دالة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "waker_from_fn_ptr", issue = "148457")]

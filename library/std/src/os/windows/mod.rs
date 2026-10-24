@@ -43,6 +43,12 @@ pub use core::os::windows::{CodeViewAnnotationArgs, codeview_annotation};
 /// A prelude for conveniently writing platform-specific code.
 ///
 /// Includes all extension traits, and some important type definitions.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقدمة (prelude) لكتابة كود خاص بالمنصة بسهولة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub mod prelude {
     #[doc(no_inline)]

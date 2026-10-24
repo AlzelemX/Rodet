@@ -39,6 +39,12 @@
 //! let bytes = os_str.as_bytes();
 //! assert_eq!(bytes, b"foo");
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتداد خاص بـ SGX لأنواع وحدة `std::ffi`.
+//!
+//! </div>
 
 #![unstable(feature = "sgx_platform", issue = "56975")]
 

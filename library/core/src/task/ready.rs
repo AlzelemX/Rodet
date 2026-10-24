@@ -45,6 +45,12 @@
 ///     # Poll::Ready(())
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج النوع الناجح من `Poll<T>` (ويرجع `Pending` إن لم يكن جاهزًا).
+///
+/// </div>
 #[stable(feature = "ready_macro", since = "1.64.0")]
 #[rustc_macro_transparency = "semiopaque"]
 pub macro ready($e:expr) {

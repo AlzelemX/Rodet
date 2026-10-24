@@ -47,6 +47,12 @@ impl f64 {
     /// assert_eq!(g.floor(), 3.0);
     /// assert_eq!(h.floor(), -4.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أكبر عدد صحيح أصغر من أو يساوي `self`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -71,6 +77,12 @@ impl f64 {
     /// assert_eq!(g.ceil(), 4.0);
     /// assert_eq!(h.ceil(), -3.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أصغر عدد صحيح أكبر من أو يساوي `self`.
+    ///
+    /// </div>
     #[doc(alias = "ceiling")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -408,6 +420,12 @@ impl f64 {
     /// assert_eq!(f64::powf(f64::NAN, 0.0), 1.0);
     /// assert_eq!(f64::powf(0.0, 0.0), 1.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرفع عددًا إلى أس عشري.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -471,6 +489,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `e^(self)` (الدالة الأسية).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -496,6 +520,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `2^(self)`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -531,6 +561,12 @@ impl f64 {
     /// assert_eq!(0_f64.ln(), f64::NEG_INFINITY);
     /// assert!((-42_f64).ln().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اللوغاريتم الطبيعي للعدد.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -568,6 +604,12 @@ impl f64 {
     /// assert_eq!(0_f64.log(10.0), f64::NEG_INFINITY);
     /// assert!((-42_f64).log(10.0).is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع لوغاريتم العدد بأساس معيّن.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -601,6 +643,12 @@ impl f64 {
     /// assert_eq!(0_f64.log2(), f64::NEG_INFINITY);
     /// assert!((-42_f64).log2().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اللوغاريتم الثنائي (الأساس 2) للعدد.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -634,6 +682,12 @@ impl f64 {
     /// assert_eq!(0_f64.log10(), f64::NEG_INFINITY);
     /// assert!((-42_f64).log10().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اللوغاريتم العشري (الأساس 10) للعدد.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -666,6 +720,12 @@ impl f64 {
     /// assert!(abs_difference_x < 1e-10);
     /// assert!(abs_difference_y < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الفرق الموجب بين عددين.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -741,6 +801,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين نقطة الأصل والنقطة (`x`، `y`) في المستوى، أي طول الوتر.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -765,6 +831,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب جيب (sin) العدد (بالراديان).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -789,6 +861,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب جيب تمام (cos) العدد (بالراديان).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -814,6 +892,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الظل (tan) للعدد (بالراديان).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -843,6 +927,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الجيب العكسي (arcsin)؛ الناتج بالراديان في [-pi/2, pi/2] أو NaN خارج [-1, 1].
+    ///
+    /// </div>
     #[doc(alias = "arcsin")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -873,6 +963,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب جيب التمام العكسي (arccos)؛ الناتج بالراديان في [0, pi] أو NaN خارج [-1, 1].
+    ///
+    /// </div>
     #[doc(alias = "arccos")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -902,6 +998,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الظل العكسي (arctan)؛ الناتج بالراديان في [-pi/2, pi/2].
+    ///
+    /// </div>
     #[doc(alias = "arctan")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -946,6 +1048,12 @@ impl f64 {
     /// assert!(abs_difference_1 < 1e-10);
     /// assert!(abs_difference_2 < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الظل العكسي رباعي الأرباع لـ `self` (`y`) و`other` (`x`) بالراديان.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -976,6 +1084,12 @@ impl f64 {
     /// assert!(abs_difference_0 < 1e-10);
     /// assert!(abs_difference_1 < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الجيب وجيب التمام معًا، ويرجع `(sin(x), cos(x))`.
+    ///
+    /// </div>
     #[doc(alias = "sincos")]
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1006,6 +1120,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-20);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `e^(self) - 1` بدقة حتى لو كان العدد قريبًا من الصفر.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1043,6 +1163,12 @@ impl f64 {
     /// assert_eq!((-1.0_f64).ln_1p(), f64::NEG_INFINITY);
     /// assert!((-2.0_f64).ln_1p().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `ln(1+n)` بدقة أكبر من حساب العمليتين منفصلتين.
+    ///
+    /// </div>
     #[doc(alias = "log1p")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1074,6 +1200,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الجيب الزائدي (sinh).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1104,6 +1236,12 @@ impl f64 {
     /// // Same result
     /// assert!(abs_difference < 1.0e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة جيب التمام الزائدي (cosh).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1134,6 +1272,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الظل الزائدي (tanh).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1159,6 +1303,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الجيب الزائدي العكسي (asinh).
+    ///
+    /// </div>
     #[doc(alias = "arcsinh")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1185,6 +1335,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة جيب التمام الزائدي العكسي (acosh).
+    ///
+    /// </div>
     #[doc(alias = "arccosh")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1211,6 +1367,12 @@ impl f64 {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الظل الزائدي العكسي (atanh).
+    ///
+    /// </div>
     #[doc(alias = "arctanh")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1239,6 +1401,12 @@ impl f64 {
     ///
     /// assert!(abs_difference <= 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة جاما.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "float_gamma", issue = "99842")]
@@ -1268,6 +1436,12 @@ impl f64 {
     ///
     /// assert!(abs_difference <= f64::EPSILON);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اللوغاريتم الطبيعي للقيمة المطلقة لدالة جاما.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "float_gamma", issue = "99842")]
@@ -1305,6 +1479,12 @@ impl f64 {
     /// // 99.7% of a normal distribution is within three standard deviations
     /// assert!((within_standard_deviations(3.0) - 99.730).abs() < 0.01);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الخطأ (erf).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "float_erf", issue = "136321")]
@@ -1334,6 +1514,12 @@ impl f64 {
     ///
     /// assert!(abs_difference <= 1e-10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// دالة الخطأ المتممة (erfc).
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "float_erf", issue = "136321")]

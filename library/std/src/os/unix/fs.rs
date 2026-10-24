@@ -593,6 +593,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم الـ inode.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn ino(&self) -> u64;
     /// Returns the rights applied to this file.
@@ -723,6 +729,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn atime(&self) -> i64;
     /// Returns the last access time of the file, in nanoseconds since [`atime`].
@@ -761,6 +773,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn mtime(&self) -> i64;
     /// Returns the last modification time of the file, in nanoseconds since [`mtime`].
@@ -799,6 +817,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn ctime(&self) -> i64;
     /// Returns the last status change time of the file, in nanoseconds since [`ctime`].

@@ -2,6 +2,12 @@
 //!
 //! SGX file descriptors behave differently from Unix file descriptors. See the
 //! description of [`TryIntoRawFd`] for more details.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ SGX لأساسيات الإدخال والإخراج.
+//!
+//! </div>
 #![unstable(feature = "sgx_platform", issue = "56975")]
 
 use crate::net;
@@ -10,6 +16,12 @@ use crate::sys::{self, AsInner, FromInner, IntoInner, TryIntoInner};
 
 /// A trait to extract the raw SGX file descriptor from an underlying
 /// object.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستخراج واصف ملف SGX الخام من كائن.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub trait AsRawFd {
     /// Extracts the raw file descriptor.
@@ -17,15 +29,33 @@ pub trait AsRawFd {
     /// This method does **not** pass ownership of the raw file descriptor
     /// to the caller. The descriptor is only guaranteed to be valid while
     /// the original object has not yet been destroyed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج واصف الملف الخام.
+    ///
+    /// </div>
     #[unstable(feature = "sgx_platform", issue = "56975")]
     fn as_raw_fd(&self) -> RawFd;
 }
 
 /// A trait to express the ability to construct an object from a raw file
 /// descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية إنشاء كائن من واصف ملف خام.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub trait FromRawFd {
     /// An associated type that contains relevant metadata for `Self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع مرتبط يحتوي البيانات الوصفية المتعلقة بـ `Self`.
+    ///
+    /// </div>
     type Metadata: Default;
 
     /// Constructs a new instance of `Self` from the given raw file
@@ -47,12 +77,24 @@ pub trait FromRawFd {
     // FIXME: say something about `metadata`.
     ///
     /// [io-safety]: io#io-safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من `Self` من واصف الملف الخام والبيانات الوصفية المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "sgx_platform", issue = "56975")]
     unsafe fn from_raw_fd(fd: RawFd, metadata: Self::Metadata) -> Self;
 }
 
 /// A trait to express the ability to consume an object and acquire ownership of
 /// its raw file descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية استهلاك كائن وأخذ ملكية واصف ملفه الخام.
+///
+/// </div>
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub trait TryIntoRawFd: Sized {
     /// Consumes this object, returning the raw underlying file descriptor, if
@@ -65,6 +107,12 @@ pub trait TryIntoRawFd: Sized {
     /// Unlike other platforms, on SGX, the file descriptor is shared between
     /// all clones of an object. To avoid race conditions, this function will
     /// only return `Ok` when called on the final clone.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الكائن ويرجع واصف الملف الخام، إذا لم يكن الكائن منسوخًا.
+    ///
+    /// </div>
     #[unstable(feature = "sgx_platform", issue = "56975")]
     fn try_into_raw_fd(self) -> Result<RawFd, Self>;
 }
@@ -84,12 +132,30 @@ impl AsRawFd for net::TcpListener {
 }
 
 /// Metadata for `TcpStream`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// البيانات الوصفية لـ `TcpStream`.
+///
+/// </div>
 #[derive(Debug, Clone, Default)]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct TcpStreamMetadata {
     /// Local address of the TCP stream
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العنوان المحلي لمجرى TCP.
+    ///
+    /// </div>
     pub local_addr: Option<String>,
     /// Peer address of the TCP stream
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان الطرف الآخر لمجرى TCP.
+    ///
+    /// </div>
     pub peer_addr: Option<String>,
 }
 
@@ -105,10 +171,22 @@ impl FromRawFd for net::TcpStream {
 }
 
 /// Metadata for `TcpListener`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// البيانات الوصفية لـ `TcpListener`.
+///
+/// </div>
 #[derive(Debug, Clone, Default)]
 #[unstable(feature = "sgx_platform", issue = "56975")]
 pub struct TcpListenerMetadata {
     /// Local address of the TCP listener
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العنوان المحلي لمستمع TCP.
+    ///
+    /// </div>
     pub local_addr: Option<String>,
 }
 

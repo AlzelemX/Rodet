@@ -1,6 +1,12 @@
 //! Linux and Android-specific tcp extensions to primitives in the [`std::net`] module.
 //!
 //! [`std::net`]: crate::net
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات TCP خاصة بـ Linux وAndroid لأنواع وحدة `std::net`.
+//!
+//! </div>
 
 use crate::sys::AsInner;
 #[cfg(target_os = "linux")]
@@ -10,6 +16,12 @@ use crate::{io, net};
 /// Os-specific extensions for [`TcpStream`]
 ///
 /// [`TcpStream`]: net::TcpStream
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `TcpStream`.
+///
+/// </div>
 #[stable(feature = "tcp_quickack", since = "1.89.0")]
 pub impl(self) trait TcpStreamExt {
     /// Enable or disable `TCP_QUICKACK`.

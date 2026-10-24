@@ -53,11 +53,23 @@ use crate::ptr::NonNull;
 /// with [`from_raw_parts`] or [`from_raw_parts_mut`].
 ///
 /// [`to_raw_parts`]: *const::to_raw_parts
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعطي نوع البيانات الوصفية للمؤشر لأي نوع مشار إليه.
+///
+/// </div>
 #[lang = "pointee_trait"]
 #[rustc_deny_explicit_impl]
 #[rustc_dyn_incompatible_trait]
 pub trait Pointee: PointeeSized {
     /// The type for metadata in pointers and references to `Self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع البيانات الوصفية في المؤشرات والمراجع إلى `Self`.
+    ///
+    /// </div>
     #[lang = "metadata_type"]
     // NOTE: Keep trait bounds in `static_assert_expected_bounds_for_metadata`
     // in `library/core/src/ptr/metadata.rs`
@@ -80,6 +92,12 @@ pub trait Pointee: PointeeSized {
 ///     assert_eq!(size_of::<&T>(), size_of::<usize>())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المؤشرات إلى الأنواع التي تطبّق هذا الاسم البديل للـ trait تكون "رفيعة".
+///
+/// </div>
 #[unstable(feature = "ptr_metadata", issue = "81513")]
 // NOTE: don’t stabilize this before trait aliases are stable in the language?
 pub trait Thin = Pointee<Metadata = ()> + PointeeSized;
@@ -96,6 +114,12 @@ pub trait Thin = Pointee<Metadata = ()> + PointeeSized;
 ///
 /// assert_eq!(std::ptr::metadata("foo"), 3_usize);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج جزء البيانات الوصفية من مؤشر.
+///
+/// </div>
 #[inline]
 pub const fn metadata<T: PointeeSized>(ptr: *const T) -> <T as Pointee>::Metadata {
     ptr_metadata(ptr)
@@ -111,6 +135,12 @@ pub const fn metadata<T: PointeeSized>(ptr: *const T) -> <T as Pointee>::Metadat
 /// a thin pointer can always be obtained by casting `*const T` to `*const ()`.
 ///
 /// [`slice::from_raw_parts`]: crate::slice::from_raw_parts
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكوّن مؤشرًا خامًا (قد يكون عريضًا) من مؤشر بيانات وبيانات وصفية.
+///
+/// </div>
 #[unstable(feature = "ptr_metadata", issue = "81513")]
 #[inline]
 pub const fn from_raw_parts<T: PointeeSized>(
@@ -124,6 +154,12 @@ pub const fn from_raw_parts<T: PointeeSized>(
 /// raw `*mut` pointer is returned, as opposed to a raw `*const` pointer.
 ///
 /// See the documentation of [`from_raw_parts`] for more details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `from_raw_parts` لكنه يرجع مؤشر `*mut` خامًا بدل `*const`.
+///
+/// </div>
 #[unstable(feature = "ptr_metadata", issue = "81513")]
 #[inline]
 pub const fn from_raw_parts_mut<T: PointeeSized>(
@@ -155,6 +191,12 @@ pub const fn from_raw_parts_mut<T: PointeeSized>(
 /// pointers to vtables of the same type for the same trait can compare inequal (because vtables are
 /// duplicated in multiple codegen units), and pointers to vtables of *different* types/traits can
 /// compare equal (since identical vtables can be deduplicated within a codegen unit).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// البيانات الوصفية لنوع كائن trait من الشكل `dyn SomeTrait`.
+///
+/// </div>
 #[lang = "dyn_metadata"]
 pub struct DynMetadata<Dyn: PointeeSized> {
     _vtable_ptr: NonNull<VTable>,
@@ -185,6 +227,12 @@ impl<Dyn: PointeeSized> DynMetadata<Dyn> {
     }
 
     /// Returns the size of the type associated with this vtable.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم النوع المرتبط بجدول الدوال الافتراضية هذا.
+    ///
+    /// </div>
     #[inline]
     pub fn size_of(self) -> usize {
         // Note that "size stored in vtable" is *not* the same as "result of size_of_val_raw".
@@ -195,6 +243,12 @@ impl<Dyn: PointeeSized> DynMetadata<Dyn> {
     }
 
     /// Returns the alignment of the type associated with this vtable.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محاذاة النوع المرتبط بجدول الدوال الافتراضية هذا.
+    ///
+    /// </div>
     #[inline]
     pub fn align_of(self) -> usize {
         // SAFETY: DynMetadata always contains a valid vtable pointer
@@ -202,6 +256,12 @@ impl<Dyn: PointeeSized> DynMetadata<Dyn> {
     }
 
     /// Returns the size and alignment together as a `Layout`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحجم والمحاذاة معًا كـ `Layout`.
+    ///
+    /// </div>
     #[inline]
     pub fn layout(self) -> crate::alloc::Layout {
         // SAFETY: the compiler emitted this vtable for a concrete Rust type which

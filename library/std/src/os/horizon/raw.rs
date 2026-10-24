@@ -1,4 +1,10 @@
 //! Horizon OS raw type definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات الأنواع الخام لنظام Horizon OS.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 #![deprecated(

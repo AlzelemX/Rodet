@@ -936,12 +936,6 @@ macro_rules! nonzero_integer {
 
             /// Returns the index of the highest bit set to one in `self`.
             ///
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يرجع موضع أعلى بت قيمته واحد في `self`.
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -964,6 +958,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع موضع أعلى بت قيمته واحد في `self`.
+            ///
+            /// </div>
             #[stable(feature = "int_lowest_highest_one", since = "1.97.0")]
             #[rustc_const_stable(feature = "int_lowest_highest_one", since = "1.97.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1439,12 +1439,6 @@ macro_rules! nonzero_integer {
             /// # Safety
             ///
             /// This results in undefined behavior when
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يضرب عددين غير صفريين بافتراض عدم تجاوز الحد (غير آمن).
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1472,6 +1466,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب عددين غير صفريين بافتراض عدم تجاوز الحد (غير آمن).
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_ops", issue = "84186")]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -1528,12 +1528,6 @@ macro_rules! nonzero_integer {
             }
 
             /// Raise non-zero value to an integer power.
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يرفع قيمة غير صفرية لأس صحيح (مع التشبع).
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1561,6 +1555,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرفع قيمة غير صفرية لأس صحيح (مع التشبع).
+            ///
+            /// </div>
             #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
             #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1581,12 +1581,6 @@ macro_rules! nonzero_integer {
             /// Parses a non-zero integer from an ASCII-byte slice with decimal digits.
             ///
             /// The characters are expected to be an optional
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// يقرأ عددًا غير صفري من شريحة بايتات ASCII بأرقام عشرية.
-            ///
-            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1626,8 +1620,7 @@ macro_rules! nonzero_integer {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا غير صفري من شريحة بايتات ASCII بأرقام عشرية.
             ///
             /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
@@ -1692,8 +1685,7 @@ macro_rules! nonzero_integer {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا غير صفري من شريحة بايتات ASCII بأرقام بأساس معيّن.
             ///
             /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
@@ -1767,8 +1759,7 @@ macro_rules! nonzero_integer {
             ///
             /// <div lang="ar" dir="rtl">
             ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
+            /// يقرأ عددًا غير صفري من شريحة نص بأرقام بأساس معيّن.
             ///
             /// </div>
             #[stable(feature = "nonzero_from_str_radix", since = "1.98.0")]
@@ -1817,13 +1808,6 @@ macro_rules! nonzero_integer {
             ///
             #[doc = concat!("assert!(NonZero::<", stringify!($Int), ">::from_str(\"1 \").is_err());")]
             /// ```
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
-            /// خطأ.
-            ///
-            /// </div>
             #[inline]
             fn from_str(src: &str) -> Result<Self, Self::Err> {
                 Self::from_str_radix(src, 10)

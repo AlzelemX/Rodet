@@ -233,6 +233,12 @@
 //! // because some other thread may have changed static value already.
 //! println!("live threads: {}", old_thread_count + 1);
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الأنواع الذرية (atomic).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![cfg_attr(not(target_has_atomic_load_store = "8"), allow(dead_code))]
@@ -276,6 +282,12 @@ mod private {
 /// A marker trait for primitive types which can be modified atomically.
 ///
 /// This is an implementation detail for <code>[Atomic]\<T></code> which may disappear or be replaced at any time.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة للأنواع الأساسية التي يمكن تعديلها بشكل ذري.
+///
+/// </div>
 //
 // # Safety
 //
@@ -378,6 +390,12 @@ impl_atomic_primitive!([T] *mut T as Align8<*mut T>, size("ptr"));
 /// and stores of `T`.
 ///
 /// [module-level documentation]: crate::sync::atomic
+///
+/// <div lang="ar" dir="rtl">
+///
+/// موقع ذاكرة يمكن تعديله بأمان من عدة خيوط.
+///
+/// </div>
 #[unstable(feature = "generic_atomic", issue = "130539")]
 #[repr(C)]
 #[rustc_diagnostic_item = "Atomic"]
@@ -411,6 +429,12 @@ const EMULATE_ATOMIC_BOOL: bool = cfg!(any(
 ///
 /// **Note**: This type is only available on platforms that support atomic
 /// loads and stores of `u8`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع منطقي (bool) يمكن مشاركته بأمان بين الخيوط.
+///
+/// </div>
 #[cfg(target_has_atomic_load_store = "8")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type AtomicBool = Atomic<bool>;
@@ -419,6 +443,12 @@ pub type AtomicBool = Atomic<bool>;
 #[stable(feature = "rust1", since = "1.0.0")]
 impl Default for AtomicBool {
     /// Creates an `AtomicBool` initialized to `false`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicBool` بالقيمة الأولية `false`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         Self::new(false)
@@ -431,6 +461,12 @@ impl Default for AtomicBool {
 ///
 /// **Note**: This type is only available on platforms that support atomic
 /// loads and stores of pointers. Its size depends on the target pointer's size.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مؤشر خام يمكن مشاركته بأمان بين الخيوط.
+///
+/// </div>
 #[cfg(target_has_atomic_load_store = "ptr")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type AtomicPtr<T> = Atomic<*mut T>;
@@ -439,6 +475,12 @@ pub type AtomicPtr<T> = Atomic<*mut T>;
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for AtomicPtr<T> {
     /// Creates a null `AtomicPtr<T>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicPtr<T>` فارغًا (null).
+    ///
+    /// </div>
     fn default() -> AtomicPtr<T> {
         AtomicPtr::new(crate::ptr::null_mut())
     }
@@ -458,6 +500,12 @@ impl<T> Default for AtomicPtr<T> {
 /// For more information see the [nomicon].
 ///
 /// [nomicon]: ../../../nomicon/atomics.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ترتيبات الذاكرة للعمليات الذرية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[non_exhaustive]
@@ -468,6 +516,12 @@ pub enum Ordering {
     /// Corresponds to [`memory_order_relaxed`] in C++20.
     ///
     /// [`memory_order_relaxed`]: https://en.cppreference.com/w/cpp/atomic/memory_order#Relaxed_ordering
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بلا قيود ترتيب، عمليات ذرية فقط.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Relaxed,
     /// When coupled with a store, all previous operations become ordered
@@ -483,6 +537,13 @@ pub enum Ordering {
     /// Corresponds to [`memory_order_release`] in C++20.
     ///
     /// [`memory_order_release`]: https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع الكتابة: كل العمليات السابقة تصبح مرتبة قبل أي قراءة لهذه القيمة بترتيب `Acquire` (أو
+    /// أقوى).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Release,
     /// When coupled with a load, if the loaded value was written by a store operation with
@@ -498,6 +559,13 @@ pub enum Ordering {
     /// Corresponds to [`memory_order_acquire`] in C++20.
     ///
     /// [`memory_order_acquire`]: https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع القراءة: إذا كُتبت القيمة بترتيب `Release` (أو أقوى) تصبح كل العمليات قبل الكتابة مرئية
+    /// بعد القراءة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Acquire,
     /// Has the effects of both [`Acquire`] and [`Release`] together:
@@ -512,6 +580,12 @@ pub enum Ordering {
     /// Corresponds to [`memory_order_acq_rel`] in C++20.
     ///
     /// [`memory_order_acq_rel`]: https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// له تأثير `Acquire` و`Release` معًا: القراءة بـ `Acquire` والكتابة بـ `Release`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     AcqRel,
     /// Like [`Acquire`]/[`Release`]/[`AcqRel`] (for load, store, and load-with-store
@@ -521,11 +595,24 @@ pub enum Ordering {
     /// Corresponds to [`memory_order_seq_cst`] in C++20.
     ///
     /// [`memory_order_seq_cst`]: https://en.cppreference.com/w/cpp/atomic/memory_order#Sequentially-consistent_ordering
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `Acquire`/`Release`/`AcqRel` مع ضمان إضافي: كل الخيوط ترى كل العمليات المتسلسلة بنفس
+    /// الترتيب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     SeqCst,
 }
 
 /// An [`AtomicBool`] initialized to `false`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `AtomicBool` بالقيمة الأولية `false`.
+///
+/// </div>
 #[cfg(target_has_atomic_load_store = "8")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
@@ -548,6 +635,12 @@ impl AtomicBool {
     /// let atomic_true = AtomicBool::new(true);
     /// let atomic_false = AtomicBool::new(false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicBool` جديدًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_atomic_new", since = "1.24.0")]
@@ -597,6 +690,12 @@ impl AtomicBool {
     ///
     /// [valid]: crate::ptr#safety
     /// [Memory model for atomic accesses]: self#memory-model-for-atomic-accesses
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicBool` جديدًا من مؤشر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_from_ptr", since = "1.75.0")]
     #[rustc_const_stable(feature = "const_atomic_from_ptr", since = "1.84.0")]
@@ -609,6 +708,12 @@ impl AtomicBool {
     ///
     /// This is useful if you want to do volatile atomic accesses, and thus avoid creating
     /// a reference to the destination.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا إلى `AtomicBool` من مؤشر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     pub const fn from_ptr_raw(ptr: *mut bool) -> *const AtomicBool {
@@ -630,6 +735,12 @@ impl AtomicBool {
     /// *some_bool.get_mut() = false;
     /// assert_eq!(some_bool.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الـ `bool` الأساسي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_access", since = "1.15.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -650,6 +761,12 @@ impl AtomicBool {
     /// a.store(false, Ordering::Relaxed);
     /// assert_eq!(some_bool, false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا ذريًا إلى `&mut bool`.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic_primitive_alignment = "8")]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
@@ -686,6 +803,12 @@ impl AtomicBool {
     ///     }
     /// });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا غير ذري إلى شريحة `&mut [AtomicBool]`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -710,6 +833,12 @@ impl AtomicBool {
     /// });
     /// assert_eq!(some_bools, [true; 10]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا ذريًا إلى شريحة `&mut [bool]`.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic_primitive_alignment = "8")]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
@@ -733,6 +862,12 @@ impl AtomicBool {
     /// let some_bool = AtomicBool::new(true);
     /// assert_eq!(some_bool.into_inner(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك القيمة الذرية ويرجع القيمة التي بداخلها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_access", since = "1.15.0")]
     #[rustc_const_stable(feature = "const_atomic_into_inner", since = "1.79.0")]
@@ -762,6 +897,12 @@ impl AtomicBool {
     ///
     /// assert_eq!(some_bool.load(Ordering::Relaxed), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ قيمة من الـ bool.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -797,6 +938,12 @@ impl AtomicBool {
     /// # Panics
     ///
     /// Panics if `order` is [`Release`] or [`AcqRel`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ قراءة ذرية متطايرة من الـ bool.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -827,6 +974,12 @@ impl AtomicBool {
     /// some_bool.store(false, Ordering::Relaxed);
     /// assert_eq!(some_bool.load(Ordering::Relaxed), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في الـ bool.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -861,6 +1014,12 @@ impl AtomicBool {
     /// # Panics
     ///
     /// Panics if `order` is [`Acquire`] or [`AcqRel`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب كتابة ذرية متطايرة في الـ bool.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -893,6 +1052,12 @@ impl AtomicBool {
     /// assert_eq!(some_bool.swap(false, Ordering::Relaxed), true);
     /// assert_eq!(some_bool.load(Ordering::Relaxed), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في الـ bool ويرجع القيمة السابقة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -958,6 +1123,12 @@ impl AtomicBool {
     /// assert_eq!(some_bool.compare_and_swap(true, true, Ordering::Relaxed), false);
     /// assert_eq!(some_bool.load(Ordering::Relaxed), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في الـ `bool` إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1024,6 +1195,12 @@ impl AtomicBool {
     ///
     /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
     /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في الـ `bool` إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "extended_compare_and_swap", since = "1.10.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1127,6 +1304,12 @@ impl AtomicBool {
     ///
     /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
     /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في الـ `bool` إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "extended_compare_and_swap", since = "1.10.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1192,6 +1375,12 @@ impl AtomicBool {
     /// assert_eq!(foo.fetch_and(false, Ordering::SeqCst), false);
     /// assert_eq!(foo.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// "و" منطقية (AND) مع قيمة منطقية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1236,6 +1425,12 @@ impl AtomicBool {
     /// assert_eq!(foo.fetch_nand(false, Ordering::SeqCst), false);
     /// assert_eq!(foo.load(Ordering::SeqCst), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// "ليس و" منطقية (NAND) مع قيمة منطقية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1290,6 +1485,12 @@ impl AtomicBool {
     /// assert_eq!(foo.fetch_or(false, Ordering::SeqCst), false);
     /// assert_eq!(foo.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// "أو" منطقية (OR) مع قيمة منطقية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1333,6 +1534,12 @@ impl AtomicBool {
     /// assert_eq!(foo.fetch_xor(false, Ordering::SeqCst), false);
     /// assert_eq!(foo.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// "أو الحصرية" منطقية (XOR) مع قيمة منطقية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1372,6 +1579,12 @@ impl AtomicBool {
     /// assert_eq!(foo.fetch_not(Ordering::SeqCst), false);
     /// assert_eq!(foo.load(Ordering::SeqCst), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// "نفي" منطقي (NOT) للقيمة المنطقية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_bool_fetch_not", since = "1.81.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1412,6 +1625,12 @@ impl AtomicBool {
     /// ```
     ///
     /// [memory model]: self#memory-model-for-atomic-accesses
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى الـ `bool` الأساسي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_as_ptr", since = "1.70.0")]
     #[rustc_const_stable(feature = "atomic_as_ptr", since = "1.70.0")]
@@ -1422,6 +1641,12 @@ impl AtomicBool {
     }
 
     /// An alias for [`AtomicBool::try_update`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اسم بديل لـ `AtomicBool::try_update`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_fetch_update", since = "1.53.0")]
     #[cfg(target_has_atomic = "8")]
@@ -1491,6 +1716,13 @@ impl AtomicBool {
     /// assert_eq!(x.try_update(Ordering::SeqCst, Ordering::SeqCst, |x| Some(!x)), Ok(true));
     /// assert_eq!(x.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة اختيارية؛ يرجع `Ok(القيمة السابقة)` إذا خُزنت،
+    /// وإلا `Err`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_try_update", since = "1.95.0")]
     #[cfg(target_has_atomic = "8")]
@@ -1554,6 +1786,12 @@ impl AtomicBool {
     /// assert_eq!(x.update(Ordering::SeqCst, Ordering::SeqCst, |x| !x), true);
     /// assert_eq!(x.load(Ordering::SeqCst), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة؛ تُخزن الجديدة وتُرجع القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_try_update", since = "1.95.0")]
     #[cfg(target_has_atomic = "8")]
@@ -1587,6 +1825,12 @@ impl<T> AtomicPtr<T> {
     /// let ptr = &mut 5;
     /// let atomic_ptr = AtomicPtr::new(ptr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicPtr` جديدًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_atomic_new", since = "1.24.0")]
@@ -1635,6 +1879,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// [valid]: crate::ptr#safety
     /// [Memory model for atomic accesses]: self#memory-model-for-atomic-accesses
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicPtr` جديدًا من مؤشر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_from_ptr", since = "1.75.0")]
     #[rustc_const_stable(feature = "const_atomic_from_ptr", since = "1.84.0")]
@@ -1647,6 +1897,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// This is useful if you want to do volatile atomic accesses, and thus avoid creating
     /// a reference to the destination.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا إلى `AtomicPtr` من مؤشر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     pub const fn from_ptr_raw(ptr: *mut *mut T) -> *const AtomicPtr<T> {
@@ -1664,6 +1920,12 @@ impl<T> AtomicPtr<T> {
     /// let atomic_ptr = AtomicPtr::<()>::null();
     /// assert!(atomic_ptr.load(Ordering::Relaxed).is_null());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `AtomicPtr` جديدًا بقيمة أولية مؤشر فارغ.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "atomic_ptr_null", issue = "150733")]
@@ -1687,6 +1949,12 @@ impl<T> AtomicPtr<T> {
     /// *atomic_ptr.get_mut() = &mut other_data;
     /// assert_eq!(unsafe { *atomic_ptr.load(Ordering::SeqCst) }, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى المؤشر الأساسي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_access", since = "1.15.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1712,6 +1980,12 @@ impl<T> AtomicPtr<T> {
     /// a.store(&mut other_data, Ordering::Relaxed);
     /// assert_eq!(unsafe { *some_ptr }, 456);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا ذريًا إلى مؤشر.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic_primitive_alignment = "ptr")]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
@@ -1757,6 +2031,12 @@ impl<T> AtomicPtr<T> {
     ///     }
     /// });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا غير ذري إلى شريحة `&mut [AtomicPtr]`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1791,6 +2071,12 @@ impl<T> AtomicPtr<T> {
     ///     println!("Hello, {name}!");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا ذريًا إلى شريحة مؤشرات.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic_primitive_alignment = "ptr")]
     #[stable(feature = "atomic_from_mut", since = "1.98.0")]
@@ -1817,6 +2103,12 @@ impl<T> AtomicPtr<T> {
     /// let atomic_ptr = AtomicPtr::new(&mut data);
     /// assert_eq!(unsafe { *atomic_ptr.into_inner() }, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك القيمة الذرية ويرجع القيمة التي بداخلها.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_access", since = "1.15.0")]
     #[rustc_const_stable(feature = "const_atomic_into_inner", since = "1.79.0")]
@@ -1845,6 +2137,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// let value = some_ptr.load(Ordering::Relaxed);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ قيمة من المؤشر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -1910,6 +2208,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// // Now process the data in `buf`.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ قراءة ذرية متطايرة من المؤشر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -1942,6 +2246,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// some_ptr.store(other_ptr, Ordering::Relaxed);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في المؤشر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -2003,6 +2313,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// unsafe { atomic_ptr.store_volatile(buf, Ordering::Relaxed) };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب كتابة ذرية متطايرة في المؤشر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "atomic_volatile", issue = "158947")]
     #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -2037,6 +2353,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// let value = some_ptr.swap(other_ptr, Ordering::Relaxed);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في المؤشر ويرجع القيمة السابقة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -2097,6 +2419,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// let value = some_ptr.compare_and_swap(ptr, other_ptr, Ordering::Relaxed);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في المؤشر إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(
@@ -2156,6 +2484,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
     /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في المؤشر إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "extended_compare_and_swap", since = "1.10.0")]
     #[cfg(target_has_atomic = "ptr")]
@@ -2220,6 +2554,12 @@ impl<T> AtomicPtr<T> {
     ///
     /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
     /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخزن قيمة في المؤشر إذا كانت القيمة الحالية تساوي `current`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "extended_compare_and_swap", since = "1.10.0")]
     #[cfg(target_has_atomic = "ptr")]
@@ -2240,6 +2580,12 @@ impl<T> AtomicPtr<T> {
     }
 
     /// An alias for [`AtomicPtr::try_update`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اسم بديل لـ `AtomicPtr::try_update`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_fetch_update", since = "1.53.0")]
     #[cfg(target_has_atomic = "ptr")]
@@ -2318,6 +2664,13 @@ impl<T> AtomicPtr<T> {
     /// assert_eq!(result, Ok(ptr));
     /// assert_eq!(some_ptr.load(Ordering::SeqCst), new);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة اختيارية؛ يرجع `Ok(القيمة السابقة)` إذا خُزنت،
+    /// وإلا `Err`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_try_update", since = "1.95.0")]
     #[cfg(target_has_atomic = "ptr")]
@@ -2386,6 +2739,12 @@ impl<T> AtomicPtr<T> {
     /// assert_eq!(result, ptr);
     /// assert_eq!(some_ptr.load(Ordering::SeqCst), new);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة؛ تُخزن الجديدة وتُرجع القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_try_update", since = "1.95.0")]
     #[cfg(target_has_atomic = "ptr")]
@@ -2438,6 +2797,12 @@ impl<T> AtomicPtr<T> {
     /// // Note: units of `size_of::<i64>()`.
     /// assert_eq!(atom.load(Ordering::Relaxed).addr(), 8);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيح عنوان المؤشر بإضافة `val` (بوحدات `T`)، ويرجع المؤشر السابق.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2483,6 +2848,12 @@ impl<T> AtomicPtr<T> {
     /// ));
     /// assert!(core::ptr::eq(atom.load(Ordering::Relaxed), &array[0]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيح عنوان المؤشر بطرح `val` (بوحدات `T`)، ويرجع المؤشر السابق.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2518,6 +2889,12 @@ impl<T> AtomicPtr<T> {
     /// // Note: in units of bytes, not `size_of::<i64>()`.
     /// assert_eq!(atom.load(Ordering::Relaxed).addr(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيح عنوان المؤشر بإضافة `val` *بايت*، ويرجع المؤشر السابق.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2554,6 +2931,12 @@ impl<T> AtomicPtr<T> {
     /// assert_eq!(atom.fetch_byte_sub(8, Ordering::Relaxed).addr(), (&raw const arr[1]).addr());
     /// assert_eq!(atom.load(Ordering::Relaxed).addr(), (&raw const arr[0]).addr());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيح عنوان المؤشر بطرح `val` *بايت*، ويرجع المؤشر السابق.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2605,6 +2988,12 @@ impl<T> AtomicPtr<T> {
     /// assert_eq!(tagged.addr() & 1, 1);
     /// assert_eq!(tagged.map_addr(|p| p & !1), pointer);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ "أو" بتية بين عنوان المؤشر الحالي و`val`، ويخزن المؤشر الناتج بنفس المصدر.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2655,6 +3044,12 @@ impl<T> AtomicPtr<T> {
     ///     .map_addr(|a| a & !1);
     /// assert_eq!(untagged, pointer);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ "و" بتية بين عنوان المؤشر الحالي و`val`، ويخزن المؤشر الناتج بنفس المصدر.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2703,6 +3098,12 @@ impl<T> AtomicPtr<T> {
     /// atom.fetch_xor(1, Ordering::Relaxed);
     /// assert_eq!(atom.load(Ordering::Relaxed).addr() & 1, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ "أو الحصرية" بتية بين عنوان المؤشر الحالي و`val`، ويخزن المؤشر الناتج بنفس المصدر.
+    ///
+    /// </div>
     #[inline]
     #[cfg(target_has_atomic = "ptr")]
     #[stable(feature = "strict_provenance_atomic_ptr", since = "1.91.0")]
@@ -2744,6 +3145,12 @@ impl<T> AtomicPtr<T> {
     /// ```
     ///
     /// [memory model]: self#memory-model-for-atomic-accesses
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى المؤشر الأساسي.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "atomic_as_ptr", since = "1.70.0")]
     #[rustc_const_stable(feature = "atomic_as_ptr", since = "1.70.0")]
@@ -2838,6 +3245,12 @@ macro_rules! atomic_int {
         /// `].
         ///
         /// [module-level documentation]: crate::sync::atomic
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نوع عدد صحيح يمكن مشاركته بأمان بين الخيوط.
+        ///
+        /// </div>
         #[$stable]
         pub type $atomic_type = Atomic<$int_type>;
 
@@ -2875,6 +3288,12 @@ macro_rules! atomic_int {
             ///
             #[doc = concat!("let atomic_forty_two = ", stringify!($atomic_type), "::new(42);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ عددًا صحيحًا ذريًا جديدًا.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[$const_stable_new]
@@ -2937,6 +3356,12 @@ macro_rules! atomic_int {
             ///
             /// [valid]: crate::ptr#safety
             /// [Memory model for atomic accesses]: self#memory-model-for-atomic-accesses
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ مرجعًا جديدًا إلى عدد صحيح ذري من مؤشر.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_from_ptr", since = "1.75.0")]
             #[rustc_const_stable(feature = "const_atomic_from_ptr", since = "1.84.0")]
@@ -2949,6 +3374,12 @@ macro_rules! atomic_int {
             ///
             /// This is useful if you want to do volatile atomic accesses, and thus avoid creating
             /// a reference to the destination.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ مؤشرًا جديدًا إلى عدد صحيح ذري من مؤشر.
+            ///
+            /// </div>
             #[inline]
             #[unstable(feature = "atomic_volatile", issue = "158947")]
             pub const fn from_ptr_raw(ptr: *mut $int_type) -> *const $atomic_type {
@@ -2971,6 +3402,12 @@ macro_rules! atomic_int {
             /// *some_var.get_mut() = 5;
             /// assert_eq!(some_var.load(Ordering::SeqCst), 5);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع مرجعًا قابلًا للتعديل إلى العدد الصحيح الأساسي.
+            ///
+            /// </div>
             #[inline]
             #[$stable_access]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3106,6 +3543,12 @@ macro_rules! atomic_int {
             #[doc = concat!("let some_var = ", stringify!($atomic_type), "::new(5);")]
             /// assert_eq!(some_var.into_inner(), 5);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يستهلك القيمة الذرية ويرجع القيمة التي بداخلها.
+            ///
+            /// </div>
             #[inline]
             #[$stable_access]
             #[$const_stable_into_inner]
@@ -3134,6 +3577,12 @@ macro_rules! atomic_int {
             ///
             /// assert_eq!(some_var.load(Ordering::Relaxed), 5);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ قيمة من العدد الصحيح الذري.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3181,6 +3630,12 @@ macro_rules! atomic_int {
             /// # Panics
             ///
             /// Panics if `order` is [`Release`] or [`AcqRel`].
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ قراءة متطايرة من العدد الصحيح الذري.
+            ///
+            /// </div>
             #[inline]
             #[unstable(feature = "atomic_volatile", issue = "158947")]
             #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -3212,6 +3667,12 @@ macro_rules! atomic_int {
             /// some_var.store(10, Ordering::Relaxed);
             /// assert_eq!(some_var.load(Ordering::Relaxed), 10);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يخزن قيمة في العدد الصحيح الذري.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3257,6 +3718,12 @@ macro_rules! atomic_int {
             /// # Panics
             ///
             /// Panics if `order` is [`Acquire`] or [`AcqRel`].
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يكتب كتابة متطايرة في العدد الصحيح الذري.
+            ///
+            /// </div>
             #[inline]
             #[unstable(feature = "atomic_volatile", issue = "158947")]
             #[rustc_const_unstable(feature = "atomic_volatile", issue = "158947")]
@@ -3289,6 +3756,12 @@ macro_rules! atomic_int {
             ///
             /// assert_eq!(some_var.swap(10, Ordering::Relaxed), 5);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يخزن قيمة في العدد الصحيح الذري ويرجع القيمة السابقة.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3352,6 +3825,12 @@ macro_rules! atomic_int {
             /// assert_eq!(some_var.compare_and_swap(6, 12, Ordering::Relaxed), 10);
             /// assert_eq!(some_var.load(Ordering::Relaxed), 10);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يخزن قيمة في العدد الصحيح الذري إذا كانت القيمة الحالية تساوي `current`.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3427,6 +3906,12 @@ macro_rules! atomic_int {
             ///
             /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
             /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يخزن قيمة في العدد الصحيح الذري إذا كانت القيمة الحالية تساوي `current`.
+            ///
+            /// </div>
             #[inline]
             #[$stable_cxchg]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3493,6 +3978,12 @@ macro_rules! atomic_int {
             ///
             /// [ABA Problem]: https://en.wikipedia.org/wiki/ABA_problem
             /// [compare-and-swap operation]: https://en.wikipedia.org/wiki/Compare-and-swap
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يخزن قيمة في العدد الصحيح الذري إذا كانت القيمة الحالية تساوي `current`.
+            ///
+            /// </div>
             #[inline]
             #[$stable_cxchg]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3532,6 +4023,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_add(10, Ordering::SeqCst), 0);
             /// assert_eq!(foo.load(Ordering::SeqCst), 10);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضيف إلى القيمة الحالية ويرجع القيمة السابقة.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3565,6 +4062,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_sub(10, Ordering::SeqCst), 20);
             /// assert_eq!(foo.load(Ordering::SeqCst), 10);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يطرح من القيمة الحالية ويرجع القيمة السابقة.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3601,6 +4104,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_and(0b110011, Ordering::SeqCst), 0b101101);
             /// assert_eq!(foo.load(Ordering::SeqCst), 0b100001);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// "و" بتية (AND) مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3637,6 +4146,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_nand(0x31, Ordering::SeqCst), 0x13);
             /// assert_eq!(foo.load(Ordering::SeqCst), !(0x13 & 0x31));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// "ليس و" بتية (NAND) مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[$stable_nand]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3673,6 +4188,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_or(0b110011, Ordering::SeqCst), 0b101101);
             /// assert_eq!(foo.load(Ordering::SeqCst), 0b111111);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// "أو" بتية (OR) مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3709,6 +4230,12 @@ macro_rules! atomic_int {
             /// assert_eq!(foo.fetch_xor(0b110011, Ordering::SeqCst), 0b101101);
             /// assert_eq!(foo.load(Ordering::SeqCst), 0b011110);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// "أو الحصرية" بتية (XOR) مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[$stable]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3789,6 +4316,13 @@ macro_rules! atomic_int {
             /// assert_eq!(x.try_update(Ordering::SeqCst, Ordering::SeqCst, |x| Some(x + 1)), Ok(8));
             /// assert_eq!(x.load(Ordering::SeqCst), 9);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة اختيارية؛ يرجع `Ok(القيمة السابقة)`
+            /// إذا خُزنت، وإلا `Err`.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_try_update", since = "1.95.0")]
             #[cfg(any($cfg_cas, doc))]
@@ -3856,6 +4390,12 @@ macro_rules! atomic_int {
             /// assert_eq!(x.update(Ordering::SeqCst, Ordering::SeqCst, |x| x + 1), 8);
             /// assert_eq!(x.load(Ordering::SeqCst), 9);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ القيمة ويطبّق عليها دالة ترجع قيمة جديدة؛ تُخزن الجديدة وتُرجع القديمة.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_try_update", since = "1.95.0")]
             #[cfg(any($cfg_cas, doc))]
@@ -3913,6 +4453,12 @@ macro_rules! atomic_int {
             /// let max_foo = foo.fetch_max(bar, Ordering::SeqCst).max(bar);
             /// assert!(max_foo == 42);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// الأكبر مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_min_max", since = "1.45.0")]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -3963,6 +4509,12 @@ macro_rules! atomic_int {
             /// let min_foo = foo.fetch_min(bar, Ordering::SeqCst).min(bar);
             /// assert_eq!(min_foo, 12);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// الأصغر مع القيمة الحالية.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_min_max", since = "1.45.0")]
             #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -4006,6 +4558,12 @@ macro_rules! atomic_int {
             /// ```
             ///
             /// [memory model]: self#memory-model-for-atomic-accesses
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع مؤشرًا قابلًا للتعديل إلى العدد الصحيح الأساسي.
+            ///
+            /// </div>
             #[inline]
             #[stable(feature = "atomic_as_ptr", since = "1.70.0")]
             #[rustc_const_stable(feature = "atomic_as_ptr", since = "1.70.0")]
@@ -4251,6 +4809,12 @@ macro_rules! atomic_int_ptr_sized {
         }
 
         /// An [`AtomicIsize`] initialized to `0`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// `AtomicIsize` بالقيمة الأولية `0`.
+        ///
+        /// </div>
         #[cfg(target_pointer_width = $target_pointer_width)]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[deprecated(
@@ -4262,6 +4826,12 @@ macro_rules! atomic_int_ptr_sized {
         pub const ATOMIC_ISIZE_INIT: AtomicIsize = AtomicIsize::new(0);
 
         /// An [`AtomicUsize`] initialized to `0`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// `AtomicUsize` بالقيمة الأولية `0`.
+        ///
+        /// </div>
         #[cfg(target_pointer_width = $target_pointer_width)]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[deprecated(
@@ -4950,6 +5520,12 @@ impl<T> fmt::Pointer for AtomicPtr<T> {
 /// This function is deprecated in favor of [`hint::spin_loop`].
 ///
 /// [`hint::spin_loop`]: crate::hint::spin_loop
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخبر المعالج أنه داخل حلقة انتظار نشط (spin lock).
+///
+/// </div>
 #[inline]
 #[stable(feature = "spin_loop_hint", since = "1.24.0")]
 #[deprecated(since = "1.51.0", note = "use hint::spin_loop instead")]

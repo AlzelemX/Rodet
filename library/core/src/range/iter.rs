@@ -6,6 +6,12 @@ use crate::range::{Range, RangeFrom, RangeInclusive, legacy};
 use crate::{intrinsics, mem};
 
 /// By-value [`Range`] iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر بالقيمة على `Range`.
+///
+/// </div>
 #[stable(feature = "new_range_api", since = "1.96.0")]
 #[derive(Debug, Clone)]
 pub struct RangeIter<A>(pub(crate) legacy::Range<A>);
@@ -27,6 +33,12 @@ impl<A> RangeIter<A> {
     /// iter.by_ref().for_each(drop);
     /// assert!(iter.remainder().is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء المتبقي من النطاق الجاري التكرار عليه.
+    ///
+    /// </div>
     pub fn remainder(self) -> Range<A> {
         Range { start: self.0.start, end: self.0.end }
     }
@@ -174,6 +186,12 @@ impl<A: Step> IntoIterator for Range<A> {
 }
 
 /// By-value [`RangeInclusive`] iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر بالقيمة على `RangeInclusive`.
+///
+/// </div>
 #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
 #[derive(Debug, Clone)]
 pub struct RangeInclusiveIter<A>(legacy::RangeInclusive<A>);
@@ -196,6 +214,12 @@ impl<A: Step> RangeInclusiveIter<A> {
     /// iter.by_ref().for_each(drop);
     /// assert!(iter.remainder().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء المتبقي من النطاق الجاري التكرار عليه.
+    ///
+    /// </div>
     #[unstable(feature = "new_range_remainder", issue = "154458")]
     pub fn remainder(self) -> Option<RangeInclusive<A>> {
         if self.0.is_empty() {
@@ -329,6 +353,12 @@ range_incl_exact_iter_impl! {
 }
 
 /// By-value [`RangeFrom`] iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر بالقيمة على `RangeFrom`.
+///
+/// </div>
 #[stable(feature = "new_range_from_api", since = "1.96.0")]
 #[derive(Debug, Clone)]
 pub struct RangeFromIter<A> {
@@ -352,6 +382,12 @@ impl<A: Step> RangeFromIter<A> {
     /// iter.next();
     /// assert_eq!(iter.remainder(), core::range::RangeFrom::from(4..));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء المتبقي من النطاق الجاري التكرار عليه.
+    ///
+    /// </div>
     #[inline]
     #[rustc_inherit_overflow_checks]
     #[unstable(feature = "new_range_remainder", issue = "154458")]

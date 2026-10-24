@@ -421,6 +421,12 @@
 //! [CHERI]: https://www.cl.cam.ac.uk/research/security/ctsrd/cheri/
 //! [Strict Provenance]: #strict-provenance
 //! [`UnsafeCell`]: core::cell::UnsafeCell
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! إدارة الذاكرة يدويًا عبر المؤشرات الخام.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 // There are many unsafe functions taking pointers that don't dereference them.
@@ -437,6 +443,12 @@ use crate::{fmt, hash, intrinsics, ub_checks};
 #[unstable(feature = "ptr_alignment_type", issue = "102070")]
 #[deprecated(since = "1.96.0", note = "moved from `ptr` to `mem`")]
 /// Deprecated re-export of [mem::Alignment].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إعادة تصدير قديمة (مهملة) لـ `mem::Alignment`.
+///
+/// </div>
 pub type Alignment = mem::Alignment;
 
 mod metadata;
@@ -540,6 +552,12 @@ mod mut_ptr;
 /// ```
 ///
 /// [`Vec::append`]: ../../std/vec/struct.Vec.html#method.append
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسخ `count * size_of::<T>()` بايت من `src` إلى `dst`؛ يجب *ألا* يتداخل المصدر والوجهة.
+///
+/// </div>
 #[doc(alias = "memcpy")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
@@ -637,6 +655,12 @@ pub const unsafe fn copy_nonoverlapping<T>(src: *const T, dst: *mut T, count: us
 ///     dst
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسخ `count * size_of::<T>()` بايت من `src` إلى `dst`؛ يمكن أن يتداخل المصدر والوجهة.
+///
+/// </div>
 #[doc(alias = "memmove")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
@@ -711,6 +735,12 @@ pub const unsafe fn copy<T>(src: *const T, dst: *mut T, count: usize) {
 /// }
 /// assert_eq!(vec, [0xfefefefe, 0xfefefefe, 0, 0]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضبط `count * size_of::<T>()` بايت من الذاكرة بدءًا من `dst` إلى القيمة `val`.
+///
+/// </div>
 #[doc(alias = "memset")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
@@ -820,6 +850,12 @@ pub const unsafe fn write_bytes<T>(dst: *mut T, val: u8, count: usize) {
 /// // Ensure that the last item was dropped.
 /// assert!(weak.upgrade().is_none());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينفّذ المُدمِّر (إن وُجد) للقيمة المشار إليها.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "drop_in_place", since = "1.8.0")]
 #[rustc_diagnostic_item = "ptr_drop_in_place"]
@@ -864,6 +900,12 @@ where
 /// assert!(p.is_null());
 /// assert_eq!(p as usize, 0); // this pointer has the address 0
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا خامًا فارغًا (null).
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -889,6 +931,12 @@ pub const fn null<T: PointeeSized + Thin>() -> *const T {
 /// assert!(p.is_null());
 /// assert_eq!(p as usize, 0); // this pointer has the address 0
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا خامًا فارغًا قابلًا للتعديل.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -912,6 +960,12 @@ pub const fn null_mut<T: PointeeSized + Thin>() -> *mut T {
 /// exposed provenance. See [`with_exposed_provenance`] for more details on that operation.
 ///
 /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا بالعنوان المعطى وبدون مصدر (provenance).
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -930,6 +984,12 @@ pub const fn without_provenance<T>(addr: usize) -> *const T {
 /// be that of a valid pointer, which means this must not be used
 /// as a "not yet initialized" sentinel value.
 /// Types that lazily allocate must track initialization by some other means.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا جديدًا معلّقًا لكنه غير فارغ ومحاذى بشكل صحيح.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -951,6 +1011,12 @@ pub const fn dangling<T>() -> *const T {
 /// exposed provenance. See [`with_exposed_provenance_mut`] for more details on that operation.
 ///
 /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا بالعنوان المعطى وبدون مصدر (provenance).
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -975,6 +1041,12 @@ pub const fn without_provenance_mut<T>(addr: usize) -> *mut T {
 /// be that of a valid pointer, which means this must not be used
 /// as a "not yet initialized" sentinel value.
 /// Types that lazily allocate must track initialization by some other means.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا جديدًا معلّقًا لكنه غير فارغ ومحاذى بشكل صحيح.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -1014,6 +1086,12 @@ pub const fn dangling_mut<T>() -> *mut T {
 /// pointer has to pick up.
 ///
 /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل عنوانًا إلى مؤشر من جديد، آخذًا مصدرًا (provenance) "مكشوفًا" سابقًا.
+///
+/// </div>
 #[must_use]
 #[inline(always)]
 #[stable(feature = "exposed_provenance", since = "1.84.0")]
@@ -1055,6 +1133,12 @@ pub const fn with_exposed_provenance<T>(addr: usize) -> *const T {
 /// pointer has to pick up.
 ///
 /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل عنوانًا إلى مؤشر قابل للتعديل من جديد، آخذًا مصدرًا "مكشوفًا" سابقًا.
+///
+/// </div>
 #[must_use]
 #[inline(always)]
 #[stable(feature = "exposed_provenance", since = "1.84.0")]
@@ -1112,6 +1196,12 @@ pub const fn with_exposed_provenance_mut<T>(addr: usize) -> *mut T {
 /// let p = ptr::from_ref(&x);
 /// unsafe { p.read() };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا إلى مؤشر خام.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "ptr_from_ref", since = "1.76.0")]
@@ -1163,6 +1253,12 @@ pub const fn from_ref<T: PointeeSized>(r: &T) -> *const T {
 /// let p = ptr::from_mut(&mut x);
 /// unsafe { p.write(T::default()) };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا قابلًا للتعديل إلى مؤشر خام.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "ptr_from_ref", since = "1.76.0")]
@@ -1203,6 +1299,12 @@ pub const fn from_mut<T: PointeeSized>(r: &mut T) -> *mut T {
 ///     danger.as_ref().expect("references must not be null");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكوّن شريحة خامًا من مؤشر وطول.
+///
+/// </div>
 #[inline]
 #[stable(feature = "slice_from_raw_parts", since = "1.42.0")]
 #[rustc_const_stable(feature = "const_slice_from_raw_parts", since = "1.64.0")]
@@ -1249,6 +1351,12 @@ pub const fn slice_from_raw_parts<T>(data: *const T, len: usize) -> *const [T] {
 ///     danger.as_mut().expect("references must not be null");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكوّن شريحة خامًا قابلة للتعديل من مؤشر وطول.
+///
+/// </div>
 #[inline]
 #[stable(feature = "slice_from_raw_parts", since = "1.42.0")]
 #[rustc_const_stable(feature = "const_slice_from_raw_parts_mut", since = "1.83.0")]
@@ -1328,6 +1436,12 @@ pub const fn slice_from_raw_parts_mut<T>(data: *mut T, len: usize) -> *mut [T] {
 ///     assert_eq!([1, 0, 1, 2], array);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبدّل القيمتين في موقعين قابلين للتعديل من نفس النوع، بدون إلغاء تهيئة أي منهما.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_swap", since = "1.85.0")]
@@ -1390,6 +1504,13 @@ pub const unsafe fn swap<T>(x: *mut T, y: *mut T) {
 /// assert_eq!(x, [7, 8, 3, 4]);
 /// assert_eq!(y, [1, 2, 9]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبدّل `count * size_of::<T>()` بايت بين منطقتي الذاكرة اللتين تبدآن عند `x` و`y`؛ يجب ألا
+/// تتداخلا.
+///
+/// </div>
 #[inline]
 #[stable(feature = "swap_nonoverlapping", since = "1.27.0")]
 #[rustc_const_stable(feature = "const_swap_nonoverlapping", since = "1.88.0")]
@@ -1570,6 +1691,12 @@ unsafe fn swap_nonoverlapping_bytes(x: *mut u8, y: *mut u8, bytes: NonZero<usize
 /// assert_eq!(b, 'b');
 /// assert_eq!(rust, &['r', 'u', 's', 't']);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينقل `src` إلى `dst` المشار إليه، ويرجع قيمة `dst` السابقة.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_replace", since = "1.83.0")]
@@ -1707,6 +1834,12 @@ pub const unsafe fn replace<T>(dst: *mut T, src: T) -> T {
 /// ```
 ///
 /// [valid]: self#safety
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ القيمة من `src` بدون نقلها؛ الذاكرة في `src` تبقى كما هي.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_ptr_read", since = "1.71.0")]
@@ -1825,6 +1958,12 @@ pub const unsafe fn read<T>(src: *const T) -> T {
 ///     unsafe { ptr.read_unaligned() }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ القيمة من `src` بدون نقلها؛ الذاكرة في `src` تبقى كما هي.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "ptr_unaligned", since = "1.17.0")]
 #[rustc_const_stable(feature = "const_ptr_read", since = "1.71.0")]
@@ -1931,6 +2070,12 @@ pub const unsafe fn read_unaligned<T>(src: *const T) -> T {
 /// assert_eq!(foo, "bar");
 /// assert_eq!(bar, "foo");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
@@ -2035,6 +2180,12 @@ pub const unsafe fn write<T>(dst: *mut T, src: T) {
 ///     unsafe { ptr.write_unaligned(val) }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "ptr_unaligned", since = "1.17.0")]
 #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
@@ -2140,6 +2291,12 @@ pub const unsafe fn write_unaligned<T>(dst: *mut T, src: T) {
 ///     assert_eq!(std::ptr::read_volatile(y), 12);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ القيمة من `src` قراءة متطايرة بدون نقلها.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "volatile", since = "1.9.0")]
 #[rustc_const_unstable(feature = "const_volatile", issue = "159094")]
@@ -2246,6 +2403,12 @@ pub const unsafe fn read_volatile<T>(src: *const T) -> T {
 ///     assert_eq!(std::ptr::read_volatile(y), 12);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب القيمة المعطاة في موقع ذاكرة كتابة متطايرة بدون قراءة القديمة أو التخلص منها.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "volatile", since = "1.9.0")]
 #[rustc_const_unstable(feature = "const_volatile", issue = "159094")]
@@ -2498,6 +2661,12 @@ pub(crate) unsafe fn align_offset<T: Sized>(p: *const T, a: usize) -> usize {
 /// assert!(!std::ptr::eq(&a[..2], &a[..3]));
 /// assert!(!std::ptr::eq(&a[0..2], &a[1..3]));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن مؤشرين خامين بالمساواة.
+///
+/// </div>
 #[stable(feature = "ptr_eq", since = "1.17.0")]
 #[inline(always)]
 #[must_use = "pointer comparison produces a value"]
@@ -2524,6 +2693,12 @@ pub fn eq<T: PointeeSized>(a: *const T, b: *const T) -> bool {
 /// assert!(ptr::addr_eq(whole, first));
 /// assert!(!ptr::eq::<dyn std::fmt::Debug>(whole, first));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن *عناوين* مؤشرين بالمساواة، متجاهلًا البيانات الوصفية في المؤشرات العريضة.
+///
+/// </div>
 #[stable(feature = "ptr_addr_eq", since = "1.76.0")]
 #[inline(always)]
 #[must_use = "pointer comparison produces a value"]
@@ -2576,6 +2751,12 @@ pub fn addr_eq<T: PointeeSized, U: PointeeSized>(p: *const T, q: *const U) -> bo
 /// spuriously skipped), then it can be legitimate to deduplicate callbacks based on `fn_addr_eq`.
 /// This can never introduce undefined behavior because it only skips executing some of the
 /// registered callbacks.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن *عناوين* مؤشري دالتين بالمساواة.
+///
+/// </div>
 #[stable(feature = "ptr_fn_addr_eq", since = "1.85.0")]
 #[inline(always)]
 #[must_use = "function pointer comparison produces a value"]
@@ -2608,6 +2789,12 @@ pub fn fn_addr_eq<T: FnPtr, U: FnPtr>(f: T, g: U) -> bool {
 ///
 /// assert_eq!(actual, expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب بصمة (hash) مؤشر خام.
+///
+/// </div>
 #[stable(feature = "ptr_hash", since = "1.35.0")]
 pub fn hash<T: PointeeSized, S: hash::Hasher>(hashee: *const T, into: &mut S) {
     use crate::hash::Hash;
@@ -2754,6 +2941,12 @@ impl<F: FnPtr> fmt::Debug for F {
 /// See the [`offset`] docs for a full list of requirements for inbounds pointer arithmetic; the
 /// same requirements apply to field projections, even inside `addr_of!`. (In particular, it makes
 /// no difference whether the pointer is null or dangling.)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا خامًا `const` إلى مكان بدون إنشاء مرجع وسيط.
+///
+/// </div>
 #[stable(feature = "raw_ref_macros", since = "1.51.0")]
 #[rustc_macro_transparency = "semiopaque"]
 pub macro addr_of($place:expr) {
@@ -2844,6 +3037,12 @@ pub macro addr_of($place:expr) {
 /// See the [`offset`] docs for a full list of requirements for inbounds pointer arithmetic; the
 /// same requirements apply to field projections, even inside `addr_of_mut!`. (In particular, it
 /// makes no difference whether the pointer is null or dangling.)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مؤشرًا خامًا `mut` إلى مكان بدون إنشاء مرجع وسيط.
+///
+/// </div>
 #[stable(feature = "raw_ref_macros", since = "1.51.0")]
 #[rustc_macro_transparency = "semiopaque"]
 pub macro addr_of_mut($place:expr) {

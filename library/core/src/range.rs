@@ -14,6 +14,12 @@
 //! assert_eq!(arr[           Range::from(1..3 )], [   1, 2      ]);
 //! assert_eq!(arr[  RangeInclusive::from(1..=3)], [   1, 2, 3   ]);
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع النطاقات البديلة (الجديدة).
+//!
+//! </div>
 
 use crate::fmt;
 use crate::hash::Hash;
@@ -65,6 +71,12 @@ pub use crate::ops::{RangeFull, RangeTo};
 ///
 /// It is planned that the syntax `start..end` will construct this
 /// type in a future edition, but it does not do so today.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق نصف مفتوح: يشمل الحد الأدنى ولا يشمل الحد الأعلى.
+///
+/// </div>
 #[lang = "RangeCopy"]
 #[derive(Copy, Hash)]
 #[derive_const(Clone, Default, PartialEq, Eq)]
@@ -115,6 +127,12 @@ impl<Idx: Step> Range<Idx> {
     /// assert_eq!(i.next(), Some(16));
     /// assert_eq!(i.next(), Some(25));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على العناصر داخل هذا النطاق.
+    ///
+    /// </div>
     #[stable(feature = "new_range_api", since = "1.96.0")]
     #[inline]
     pub fn iter(&self) -> RangeIter<Idx> {
@@ -277,6 +295,12 @@ const impl<T> From<legacy::Range<T>> for Range<T> {
 ///
 /// It is planned that the syntax  `start..=last` will construct this
 /// type in a future edition, but it does not do so today.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق يشمل الحدين الأدنى والأعلى.
+///
+/// </div>
 #[lang = "RangeInclusiveCopy"]
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
@@ -291,6 +315,12 @@ pub struct RangeInclusive<Idx> {
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     pub start: Idx,
     /// The upper bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للنطاق (مشمول).
+    ///
+    /// </div>
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     pub last: Idx,
 }
@@ -398,6 +428,12 @@ impl<Idx: Step> RangeInclusive<Idx> {
     /// assert_eq!(i.next(), Some(16));
     /// assert_eq!(i.next(), Some(25));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على العناصر داخل هذا النطاق.
+    ///
+    /// </div>
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     #[inline]
     pub fn iter(&self) -> RangeInclusiveIter<Idx> {
@@ -539,6 +575,12 @@ const impl<T> From<legacy::RangeInclusive<T>> for RangeInclusive<T> {
 ///
 /// It is planned that the syntax  `start..` will construct this
 /// type in a future edition, but it does not do so today.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق له حد أدنى فقط (مشمول).
+///
+/// </div>
 #[lang = "RangeFromCopy"]
 #[derive(Copy, Hash)]
 #[derive_const(Clone, PartialEq, Eq)]
@@ -579,6 +621,12 @@ impl<Idx: Step> RangeFrom<Idx> {
     /// assert_eq!(i.next(), Some(16));
     /// assert_eq!(i.next(), Some(25));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على العناصر داخل هذا النطاق.
+    ///
+    /// </div>
     #[stable(feature = "new_range_from_api", since = "1.96.0")]
     #[inline]
     pub fn iter(&self) -> RangeFromIter<Idx> {
@@ -733,6 +781,12 @@ const impl<T> From<legacy::RangeFrom<T>> for RangeFrom<T> {
 ///
 /// It is planned that the syntax  `..=last` will construct this
 /// type in a future edition, but it does not do so today.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق له حد أعلى فقط (مشمول).
+///
+/// </div>
 #[lang = "RangeToInclusiveCopy"]
 #[doc(alias = "..=")]
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]

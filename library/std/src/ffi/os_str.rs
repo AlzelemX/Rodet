@@ -1,4 +1,10 @@
 //! The [`OsStr`] and [`OsString`] types and associated utilities.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النوعان `OsStr` و`OsString` والأدوات المرتبطة بهما.
+//!
+//! </div>
 
 #[cfg(test)]
 mod tests;
@@ -89,6 +95,12 @@ use crate::{cmp, fmt, slice};
 /// [`CStr`]: crate::ffi::CStr
 /// [conversions]: super#conversions
 /// [into]: Into::into
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمثّل نصوص النظام الأصلية مملوكة وقابلة للتعديل، ويمكن تحويله بسهولة من وإلى نصوص Rust.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "OsString")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct OsString {
@@ -107,6 +119,12 @@ pub struct OsString {
 /// the traits which `OsStr` implements for [conversions] from/to native representations.
 ///
 /// [conversions]: super#conversions
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مرجع مستعار إلى نص نظام تشغيل (انظر `OsString`).
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "OsStr")]
 #[stable(feature = "rust1", since = "1.0.0")]
 // `OsStr::from_inner` and `impl CloneToUninit for OsStr` current implementation relies
@@ -127,6 +145,12 @@ impl OsString {
     ///
     /// let os_string = OsString::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OsString` جديدًا فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -172,6 +196,12 @@ impl OsString {
     /// ```
     ///
     /// [conversions]: super#conversions
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل بايتات إلى `OsString` بدون التحقق من أنها بيانات `OsStr` صالحة (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "os_str_bytes", since = "1.74.0")]
     pub unsafe fn from_encoded_bytes_unchecked(bytes: Vec<u8>) -> Self {
@@ -189,6 +219,12 @@ impl OsString {
     /// let os_str = OsStr::new("foo");
     /// assert_eq!(os_string.as_os_str(), os_str);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى شريحة `OsStr`.
+    ///
+    /// </div>
     #[cfg_attr(not(test), rustc_diagnostic_item = "os_string_as_os_str")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -211,6 +247,12 @@ impl OsString {
     /// and [`std::ffi`] for platform-specific, specified conversions.
     ///
     /// [`std::ffi`]: crate::ffi
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `OsString` إلى متجه بايتات.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "os_str_bytes", since = "1.74.0")]
     pub fn into_encoded_bytes(self) -> Vec<u8> {
@@ -230,6 +272,12 @@ impl OsString {
     /// let string = os_string.into_string();
     /// assert_eq!(string, Ok(String::from("foo")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `OsString` إلى `String` إذا كان يحتوي يونيكود صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn into_string(self) -> Result<String, OsString> {
@@ -247,6 +295,12 @@ impl OsString {
     /// os_string.push("bar");
     /// assert_eq!(&os_string, "foobar");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمدّ النص بشريحة `&OsStr` المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[rustc_confusables("append", "put")]
@@ -299,6 +353,12 @@ impl OsString {
     ///
     /// assert_eq!(capacity, os_string.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OsString` جديدًا بسعة لا تقل عن السعة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[must_use]
     #[inline]
@@ -319,6 +379,12 @@ impl OsString {
     /// os_string.clear();
     /// assert_eq!(&os_string, "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الـ `OsString` إلى طول صفر.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[inline]
     pub fn clear(&mut self) {
@@ -337,6 +403,12 @@ impl OsString {
     /// let os_string = OsString::with_capacity(10);
     /// assert!(os_string.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع السعة التي يتسع لها هذا الـ `OsString` بدون إعادة حجز.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[must_use]
     #[inline]
@@ -361,6 +433,12 @@ impl OsString {
     /// s.reserve(10);
     /// assert!(s.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة لـ `additional` إضافية على الأقل في الـ `OsString`.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[inline]
     pub fn reserve(&mut self, additional: usize) {
@@ -400,6 +478,12 @@ impl OsString {
     /// }
     /// # process_data("123").expect("why is the test harness OOMing on 3 bytes?");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة لـ `additional` وحدة طول إضافية على الأقل في الـ `OsString`.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     #[inline]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -427,6 +511,12 @@ impl OsString {
     /// s.reserve_exact(10);
     /// assert!(s.capacity() >= 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز أقل سعة لـ `additional` إضافية على الأقل في الـ `OsString`.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[inline]
     pub fn reserve_exact(&mut self, additional: usize) {
@@ -471,6 +561,12 @@ impl OsString {
     /// }
     /// # process_data("123").expect("why is the test harness OOMing on 3 bytes?");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة لـ `additional` وحدة طول إضافية على الأقل في الـ `OsString`.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     #[inline]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -494,6 +590,12 @@ impl OsString {
     /// s.shrink_to_fit();
     /// assert_eq!(3, s.capacity());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلّص سعة الـ `OsString` لتطابق طوله.
+    ///
+    /// </div>
     #[stable(feature = "osstring_shrink_to_fit", since = "1.19.0")]
     #[inline]
     pub fn shrink_to_fit(&mut self) {
@@ -524,6 +626,12 @@ impl OsString {
     /// s.shrink_to(0);
     /// assert!(s.capacity() >= 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلّص سعة الـ `OsString` مع حد أدنى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "shrink_to", since = "1.56.0")]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -541,6 +649,12 @@ impl OsString {
     ///
     /// let b: Box<OsStr> = s.into_boxed_os_str();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `OsString` إلى `OsStr` داخل `Box`.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "into_boxed_os_str", since = "1.20.0")]
     pub fn into_boxed_os_str(self) -> Box<OsStr> {
@@ -561,6 +675,12 @@ impl OsString {
     /// However, keep in mind that trimming the capacity may result in a reallocation and copy.
     ///
     /// [`into_boxed_os_str`]: Self::into_boxed_os_str
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `OsString` ويسرّبه، ويرجع مرجعًا قابلًا للتعديل `&'a mut OsStr` إلى المحتوى.
+    ///
+    /// </div>
     #[stable(feature = "os_string_pathbuf_leak", since = "1.89.0")]
     #[inline]
     pub fn leak<'a>(self) -> &'a mut OsStr {
@@ -576,6 +696,12 @@ impl OsString {
     ///
     /// Panics if `len` does not lie on a valid `OsStr` boundary
     /// (as described in [`OsStr::slice_encoded_bytes`]).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر الـ `OsString` إلى الطول المحدد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "os_string_truncate", issue = "133262")]
     pub fn truncate(&mut self, len: usize) {
@@ -609,6 +735,12 @@ impl From<String> for OsString {
     /// Converts a [`String`] into an [`OsString`].
     ///
     /// This conversion does not allocate or copy memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى `OsString`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: String) -> OsString {
         OsString { inner: Buf::from_string(s) }
@@ -619,6 +751,12 @@ impl From<String> for OsString {
 impl<T: ?Sized + AsRef<OsStr>> From<&T> for OsString {
     /// Copies any value implementing <code>[AsRef]&lt;[OsStr]&gt;</code>
     /// into a newly allocated [`OsString`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ أي قيمة تطبّق `AsRef<OsStr>` إلى `OsString` جديد.
+    ///
+    /// </div>
     fn from(s: &T) -> OsString {
         trait SpecToOsString {
             fn spec_to_os_string(&self) -> OsString;
@@ -686,6 +824,12 @@ impl ops::DerefMut for OsString {
 #[stable(feature = "osstring_default", since = "1.9.0")]
 impl Default for OsString {
     /// Constructs an empty `OsString`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OsString` فارغًا.
+    ///
+    /// </div>
     #[inline]
     fn default() -> OsString {
         OsString::new()
@@ -831,6 +975,12 @@ impl OsStr {
     ///
     /// let os_str = OsStr::new("foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى شريحة `OsStr`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -875,6 +1025,12 @@ impl OsStr {
     /// ```
     ///
     /// [conversions]: super#conversions
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة بايتات إلى شريحة نص نظام بدون التحقق من صلاحيتها (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "os_str_bytes", since = "1.74.0")]
     pub unsafe fn from_encoded_bytes_unchecked(bytes: &[u8]) -> &Self {
@@ -911,6 +1067,12 @@ impl OsStr {
     /// let os_str = OsStr::new("foo");
     /// assert_eq!(os_str.to_str(), Some("foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `&str` إذا كان الـ `OsStr` يونيكود صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -964,6 +1126,12 @@ impl OsStr {
     ///     assert_eq!(os_str.to_string_lossy(), "fo�o");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsStr` إلى `Cow<str>` (مع استبدال الأجزاء غير الصالحة).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -983,6 +1151,12 @@ impl OsStr {
     /// let os_string = os_str.to_os_string();
     /// assert_eq!(os_string, OsString::from("foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ الشريحة إلى `OsString` مملوك.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1005,6 +1179,12 @@ impl OsStr {
     /// let os_str = OsStr::new("foo");
     /// assert!(!os_str.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل الـ `OsStr` فارغ.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[must_use]
     #[inline]
@@ -1039,6 +1219,12 @@ impl OsStr {
     /// let os_str = OsStr::new("foo");
     /// assert_eq!(os_str.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول هذا الـ `OsStr`.
+    ///
+    /// </div>
     #[stable(feature = "osstring_simple_functions", since = "1.9.0")]
     #[must_use]
     #[inline]
@@ -1047,6 +1233,12 @@ impl OsStr {
     }
 
     /// Converts a <code>[Box]<[OsStr]></code> into an [`OsString`] without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<OsStr>` إلى `OsString` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[stable(feature = "into_boxed_os_str", since = "1.20.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     pub fn into_os_string(self: Box<Self>) -> OsString {
@@ -1066,6 +1258,12 @@ impl OsStr {
     ///
     /// Panics if `mid` is not on a valid boundary, or if it is past the end of the last code point of the string slice.
     /// For a non-panicking alternative see [`split_at_checked`][Self::split_at_checked].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص إلى قسمين عند فهرس.
+    ///
+    /// </div>
     #[unstable(feature = "os_str_split_at", issue = "none")]
     pub fn split_at(&self, mid: usize) -> (&OsStr, &OsStr) {
         self.inner.check_public_boundary(mid);
@@ -1086,6 +1284,12 @@ impl OsStr {
     /// - The end of the string
     /// - The start of a valid non-empty UTF-8 substring
     /// - Immediately follows a valid non-empty UTF-8 substring
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة نص إلى قسمين عند فهرس.
+    ///
+    /// </div>
     #[unstable(feature = "os_str_split_at", issue = "none")]
     pub fn split_at_checked(&self, mid: usize) -> Option<(&OsStr, &OsStr)> {
         self.inner.try_check_public_boundary(mid)?;
@@ -1123,6 +1327,12 @@ impl OsStr {
     /// and [`std::ffi`] for platform-specific, specified conversions.
     ///
     /// [`std::ffi`]: crate::ffi
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص نظام إلى شريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "os_str_bytes", since = "1.74.0")]
     pub fn as_encoded_bytes(&self) -> &[u8] {
@@ -1160,6 +1370,12 @@ impl OsStr {
     ///     assert_eq!(value, "bar");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ جزءًا من النص حسب نطاق من ناتج `OsStr::as_encoded_bytes`.
+    ///
+    /// </div>
     #[unstable(feature = "os_str_slice", issue = "118485")]
     pub fn slice_encoded_bytes<R: ops::RangeBounds<usize>>(&self, range: R) -> &Self {
         let encoded_bytes = self.as_encoded_bytes();
@@ -1367,6 +1583,12 @@ impl OsStr {
     /// let s = OsStr::new("Hello, world!");
     /// println!("{}", s.display());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع كائنًا يطبّق `Display` لطباعة `OsStr` بأمان حتى لو كان فيه بيانات غير يونيكود.
+    ///
+    /// </div>
     #[stable(feature = "os_str_display", since = "1.87.0")]
     #[must_use = "this does not display the `OsStr`; \
                   it returns an object that can be displayed"]
@@ -1380,6 +1602,12 @@ impl OsStr {
     /// This method is redundant when used directly on `&OsStr`, but
     /// it helps dereferencing other string-like types to string slices,
     /// for example references to `Box<OsStr>` or `Arc<OsStr>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس النص كشريحة `&OsStr`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_os_str(&self) -> &OsStr {
@@ -1390,6 +1618,12 @@ impl OsStr {
 #[stable(feature = "box_from_os_str", since = "1.17.0")]
 impl From<&OsStr> for Box<OsStr> {
     /// Copies the string into a newly allocated <code>[Box]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Box<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &OsStr) -> Box<OsStr> {
         Box::clone_from_ref(s)
@@ -1399,6 +1633,12 @@ impl From<&OsStr> for Box<OsStr> {
 #[stable(feature = "box_from_mut_slice", since = "1.84.0")]
 impl From<&mut OsStr> for Box<OsStr> {
     /// Copies the string into a newly allocated <code>[Box]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Box<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut OsStr) -> Box<OsStr> {
         Self::from(&*s)
@@ -1409,6 +1649,12 @@ impl From<&mut OsStr> for Box<OsStr> {
 impl From<Cow<'_, OsStr>> for Box<OsStr> {
     /// Converts a `Cow<'a, OsStr>` into a <code>[Box]&lt;[OsStr]&gt;</code>,
     /// by copying the contents if they are borrowed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'a, OsStr>` إلى `Box<OsStr>`، وينسخ المحتوى إذا كان مستعارًا.
+    ///
+    /// </div>
     #[inline]
     fn from(cow: Cow<'_, OsStr>) -> Box<OsStr> {
         match cow {
@@ -1422,6 +1668,12 @@ impl From<Cow<'_, OsStr>> for Box<OsStr> {
 impl From<Box<OsStr>> for OsString {
     /// Converts a <code>[Box]<[OsStr]></code> into an [`OsString`] without copying or
     /// allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<OsStr>` إلى `OsString` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(boxed: Box<OsStr>) -> OsString {
         boxed.into_os_string()
@@ -1431,6 +1683,12 @@ impl From<Box<OsStr>> for OsString {
 #[stable(feature = "box_from_os_string", since = "1.20.0")]
 impl From<OsString> for Box<OsStr> {
     /// Converts an [`OsString`] into a <code>[Box]<[OsStr]></code> without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsString` إلى `Box<OsStr>` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: OsString) -> Box<OsStr> {
         s.into_boxed_os_str()
@@ -1459,6 +1717,12 @@ unsafe impl CloneToUninit for OsStr {
 impl From<OsString> for Arc<OsStr> {
     /// Converts an [`OsString`] into an <code>[Arc]<[OsStr]></code> by moving the [`OsString`]
     /// data into a new [`Arc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsString` إلى `Arc<OsStr>` بنقل البيانات إلى مخزن `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: OsString) -> Arc<OsStr> {
         let arc = s.inner.into_arc();
@@ -1469,6 +1733,12 @@ impl From<OsString> for Arc<OsStr> {
 #[stable(feature = "shared_from_slice2", since = "1.24.0")]
 impl From<&OsStr> for Arc<OsStr> {
     /// Copies the string into a newly allocated <code>[Arc]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Arc<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &OsStr) -> Arc<OsStr> {
         let arc = s.inner.into_arc();
@@ -1479,6 +1749,12 @@ impl From<&OsStr> for Arc<OsStr> {
 #[stable(feature = "shared_from_mut_slice", since = "1.84.0")]
 impl From<&mut OsStr> for Arc<OsStr> {
     /// Copies the string into a newly allocated <code>[Arc]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Arc<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut OsStr) -> Arc<OsStr> {
         Arc::from(&*s)
@@ -1489,6 +1765,12 @@ impl From<&mut OsStr> for Arc<OsStr> {
 impl From<OsString> for Rc<OsStr> {
     /// Converts an [`OsString`] into an <code>[Rc]<[OsStr]></code> by moving the [`OsString`]
     /// data into a new [`Rc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsString` إلى `Rc<OsStr>` بنقل البيانات إلى مخزن `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: OsString) -> Rc<OsStr> {
         let rc = s.inner.into_rc();
@@ -1499,6 +1781,12 @@ impl From<OsString> for Rc<OsStr> {
 #[stable(feature = "shared_from_slice2", since = "1.24.0")]
 impl From<&OsStr> for Rc<OsStr> {
     /// Copies the string into a newly allocated <code>[Rc]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Rc<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &OsStr) -> Rc<OsStr> {
         let rc = s.inner.into_rc();
@@ -1509,6 +1797,12 @@ impl From<&OsStr> for Rc<OsStr> {
 #[stable(feature = "shared_from_mut_slice", since = "1.84.0")]
 impl From<&mut OsStr> for Rc<OsStr> {
     /// Copies the string into a newly allocated <code>[Rc]&lt;[OsStr]&gt;</code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ النص إلى `Rc<OsStr>` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut OsStr) -> Rc<OsStr> {
         Rc::from(&*s)
@@ -1518,6 +1812,12 @@ impl From<&mut OsStr> for Rc<OsStr> {
 #[stable(feature = "cow_from_osstr", since = "1.28.0")]
 impl<'a> From<OsString> for Cow<'a, OsStr> {
     /// Moves the string into a [`Cow::Owned`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل النص إلى `Cow::Owned`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: OsString) -> Cow<'a, OsStr> {
         Cow::Owned(s)
@@ -1527,6 +1827,12 @@ impl<'a> From<OsString> for Cow<'a, OsStr> {
 #[stable(feature = "cow_from_osstr", since = "1.28.0")]
 impl<'a> From<&'a OsStr> for Cow<'a, OsStr> {
     /// Converts the string reference into a [`Cow::Borrowed`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجع النص إلى `Cow::Borrowed`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a OsStr) -> Cow<'a, OsStr> {
         Cow::Borrowed(s)
@@ -1536,6 +1842,12 @@ impl<'a> From<&'a OsStr> for Cow<'a, OsStr> {
 #[stable(feature = "cow_from_osstr", since = "1.28.0")]
 impl<'a> From<&'a OsString> for Cow<'a, OsStr> {
     /// Converts the string reference into a [`Cow::Borrowed`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجع النص إلى `Cow::Borrowed`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a OsString) -> Cow<'a, OsStr> {
         Cow::Borrowed(s.as_os_str())
@@ -1546,6 +1858,12 @@ impl<'a> From<&'a OsString> for Cow<'a, OsStr> {
 impl<'a> From<Cow<'a, OsStr>> for OsString {
     /// Converts a `Cow<'a, OsStr>` into an [`OsString`],
     /// by copying the contents if they are borrowed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'a, OsStr>` إلى `OsString`، وينسخ المحتوى إذا كان مستعارًا.
+    ///
+    /// </div>
     #[inline]
     fn from(s: Cow<'a, OsStr>) -> Self {
         s.into_owned()
@@ -1565,6 +1883,12 @@ impl<'a> TryFrom<&'a OsStr> for &'a str {
     /// let as_str = <&str>::try_from(os_str).unwrap();
     /// assert_eq!(as_str, "foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `&OsStr` إلى `&str`.
+    ///
+    /// </div>
     fn try_from(value: &'a OsStr) -> Result<Self, Self::Error> {
         value.inner.to_str()
     }
@@ -1582,6 +1906,12 @@ impl Default for Box<OsStr> {
 #[stable(feature = "osstring_default", since = "1.9.0")]
 impl Default for &OsStr {
     /// Creates an empty `OsStr`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OsStr` فارغًا.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         OsStr::new("")
@@ -1734,6 +2064,12 @@ impl fmt::Debug for OsStr {
 ///
 /// [`Display`]: fmt::Display
 /// [`format!`]: crate::format
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية مساعدة لطباعة `OsStr` بأمان مع `format!` و`{}`.
+///
+/// </div>
 #[stable(feature = "os_str_display", since = "1.87.0")]
 pub struct Display<'a> {
     os_str: &'a OsStr,

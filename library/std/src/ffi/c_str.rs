@@ -1,4 +1,10 @@
 //! [`CStr`], [`CString`], and related types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! `CStr` و`CString` والأنواع المرتبطة بهما.
+//!
+//! </div>
 
 #[stable(feature = "cstring_from_vec_with_nul", since = "1.58.0")]
 pub use alloc::ffi::c_str::FromVecWithNulError;

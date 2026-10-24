@@ -602,6 +602,7 @@ impl TcpStream {
     /// let stream = TcpStream::connect("127.0.0.1:8080")
     ///                        .expect("Couldn't connect to the server...");
     /// stream.set_keepalive(true).expect("set_keepalive should succeed");
+    /// ```
     ///
     /// <div lang="ar" dir="rtl">
     ///

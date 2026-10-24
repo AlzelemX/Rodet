@@ -340,12 +340,6 @@
 //! * [`transpose`] transposes a [`Result`] of an [`Option`] into an
 //!   [`Option`] of a [`Result`]
 //!
-//!
-//! <div lang="ar" dir="rtl">
-//!
-//! معالجة الأخطاء بالنوع `Result`.
-//!
-//! </div>
 // Do NOT add link reference definitions for `err` or `ok`, because they
 // will generate numerous incorrect URLs for `Err` and `Ok` elsewhere, due
 // to case folding.
@@ -544,6 +538,12 @@
 //! let res: Result<i32, &str> = v.into_iter().product();
 //! assert_eq!(res, Ok(42));
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! معالجة الأخطاء بالنوع `Result`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

@@ -1,5 +1,11 @@
 //! Provides the [`assert_unsafe_precondition`] macro as well as some utility functions that cover
 //! common preconditions.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يوفر الماكرو `assert_unsafe_precondition` ودوال مساعدة للشروط المسبقة الشائعة.
+//!
+//! </div>
 
 use crate::intrinsics::{self, const_eval_select};
 
@@ -48,6 +54,12 @@ use crate::intrinsics::{self, const_eval_select};
 /// order to call it. Since the precompiled standard library is built with full debuginfo and these
 /// variables cannot be optimized out in MIR, an innocent-looking `let` can produce enough
 /// debuginfo to have a measurable compile-time impact on debug builds.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق أن الشروط المسبقة لدالة غير آمنة متحققة.
+///
+/// </div>
 #[macro_export]
 #[unstable(feature = "ub_checks", issue = "none")]
 macro_rules! assert_unsafe_precondition {
@@ -84,6 +96,12 @@ macro_rules! assert_unsafe_precondition {
 pub use assert_unsafe_precondition;
 /// Checking library UB is always enabled when UB-checking is done
 /// (and we use a reexport so that there is no unnecessary wrapper function).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// فحص السلوك غير المعرّف في المكتبة مفعّل دائمًا عند تفعيل فحوص UB.
+///
+/// </div>
 #[unstable(feature = "ub_checks", issue = "none")]
 pub use intrinsics::ub_checks as check_library_ub;
 

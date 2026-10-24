@@ -4,6 +4,12 @@ use crate::io::{self, ErrorKind, const_error};
 use crate::path::PathBuf;
 
 /// Darwin-specific extensions to [`fs::HomeDirs`](HomeDirs).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Darwin لـ `fs::HomeDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_home_dirs", issue = "162082")]
 pub impl(self) trait HomeDirsExt: Sized {
     /// Load the standard user directory paths for the current user.
@@ -62,6 +68,12 @@ pub impl(self) trait HomeDirsExt: Sized {
 }
 
 /// Darwin-specific extensions to [`fs::MediaDirs`](MediaDirs).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Darwin لـ `fs::MediaDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_media_dirs", issue = "162083")]
 pub impl(self) trait MediaDirsExt: Sized {
     /// Load the standard user directory paths for the current user.
@@ -180,6 +192,12 @@ mod sys {
     use crate::path::{Path, PathBuf};
 
     /// Get the path for a system directory using `sysdir(3)`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مسار مجلد نظام باستخدام `sysdir(3)`.
+    ///
+    /// </div>
     pub fn get_user_dir(
         home: &Path,
         kind: libc::sysdir_search_path_directory_t,

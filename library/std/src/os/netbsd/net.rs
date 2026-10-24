@@ -1,4 +1,10 @@
 //! NetBSD-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بـ NetBSD.
+//!
+//! </div>
 
 #![unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 
@@ -12,6 +18,12 @@ use crate::sys::AsInner;
 ///
 /// [`UnixDatagram`]: net::UnixDatagram
 /// [`UnixStream`]: net::UnixStream
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وظائف خاصة بـ NetBSD لمقابس `AF_UNIX` (`UnixDatagram` و`UnixStream`).
+///
+/// </div>
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub impl(self) trait UnixSocketExt {
     /// Query the current setting of socket option `LOCAL_CREDS`.

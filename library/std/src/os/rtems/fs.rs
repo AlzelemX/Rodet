@@ -6,6 +6,12 @@ use crate::sys::AsInner;
 /// OS-specific extensions to [`fs::Metadata`].
 ///
 /// [`fs::Metadata`]: crate::fs::Metadata
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Returns the device ID on which this file resides.
@@ -24,6 +30,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز الذي يوجد عليه هذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_dev(&self) -> u64;
 
@@ -43,6 +55,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم الـ inode.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ino(&self) -> u64;
 
@@ -62,6 +80,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع الملف وصلاحياته.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mode(&self) -> u32;
 
@@ -81,6 +105,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الروابط الصلبة للملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_nlink(&self) -> u64;
 
@@ -100,6 +130,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم مالك الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_uid(&self) -> u32;
 
@@ -119,6 +155,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة المالكة للملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_gid(&self) -> u32;
 
@@ -138,6 +180,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز الذي يمثله هذا الملف (للملفات الخاصة فقط).
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_rdev(&self) -> u64;
 
@@ -160,6 +208,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الملف بالبايتات (إذا كان ملفًا عاديًا أو رابطًا رمزيًا).
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_size(&self) -> u64;
 
@@ -179,6 +233,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_atime(&self) -> i64;
 
@@ -200,6 +260,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالنانوثانية بعد `st_atime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_atime_nsec(&self) -> i64;
 
@@ -219,6 +285,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mtime(&self) -> i64;
 
@@ -240,6 +312,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالنانوثانية بعد `st_mtime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mtime_nsec(&self) -> i64;
 
@@ -259,6 +337,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ctime(&self) -> i64;
 
@@ -280,6 +364,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالنانوثانية بعد `st_ctime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ctime_nsec(&self) -> i64;
 
@@ -299,6 +389,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الكتلة "المفضل" لإدخال وإخراج فعّال في نظام الملفات.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_blksize(&self) -> u64;
 
@@ -318,6 +414,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الكتل المحجوزة للملف، بوحدات 512 بايت.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_blocks(&self) -> u64;
 }

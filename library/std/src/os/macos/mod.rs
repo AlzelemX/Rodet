@@ -1,4 +1,10 @@
 //! macOS-specific definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات خاصة بـ macOS.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 
@@ -11,6 +17,12 @@ pub mod fs {
 }
 
 /// macOS-specific raw type definitions
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعريفات الأنواع الخام الخاصة بـ macOS.
+///
+/// </div>
 #[stable(feature = "raw_ext", since = "1.1.0")]
 #[deprecated(
     since = "1.8.0",

@@ -1,4 +1,10 @@
 //! Haiku-specific raw type definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات الأنواع الخام الخاصة بـ Haiku.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 #![deprecated(

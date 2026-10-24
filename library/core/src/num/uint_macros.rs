@@ -174,13 +174,13 @@ macro_rules! uint_impl {
         #[doc = concat!("let max = ", stringify!($SelfT),"::MAX;")]
         /// assert_eq!(max.leading_zeros(), 0);
         /// ```
+        #[doc = concat!("[`ilog2`]: ", stringify!($SelfT), "::ilog2")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
         ///
         /// </div>
-        #[doc = concat!("[`ilog2`]: ", stringify!($SelfT), "::ilog2")]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1140,18 +1140,18 @@ macro_rules! uint_impl {
         /// # Examples
         ///
         /// ```
-        ///
-        /// <div lang="ar" dir="rtl">
-        ///
-        /// جمع مع التحقق. يحسب `self + rhs`، ويرجع `None` إذا تجاوز الحد.
-        ///
-        /// </div>
         #[doc = concat!(
             "assert_eq!((", stringify!($SelfT), "::MAX - 2).checked_add(1), ",
             "Some(", stringify!($SelfT), "::MAX - 1));"
         )]
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MAX - 2).checked_add(3), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع مع التحقق. يحسب `self + rhs`، ويرجع `None` إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1226,14 +1226,14 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_add`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        #[doc = concat!("[`checked_add`]: ", stringify!($SelfT), "::checked_add")]
+        #[doc = concat!("[`wrapping_add`]: ", stringify!($SelfT), "::wrapping_add")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// جمع بدون تحقق. يحسب `self + rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
         ///
         /// </div>
-        #[doc = concat!("[`checked_add`]: ", stringify!($SelfT), "::checked_add")]
-        #[doc = concat!("[`wrapping_add`]: ", stringify!($SelfT), "::wrapping_add")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
         #[rustc_const_stable(feature = "unchecked_math", since = "1.79.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1435,14 +1435,14 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_sub`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        #[doc = concat!("[`checked_sub`]: ", stringify!($SelfT), "::checked_sub")]
+        #[doc = concat!("[`wrapping_sub`]: ", stringify!($SelfT), "::wrapping_sub")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// طرح بدون تحقق. يحسب `self - rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
         ///
         /// </div>
-        #[doc = concat!("[`checked_sub`]: ", stringify!($SelfT), "::checked_sub")]
-        #[doc = concat!("[`wrapping_sub`]: ", stringify!($SelfT), "::wrapping_sub")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
         #[rustc_const_stable(feature = "unchecked_math", since = "1.79.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1674,14 +1674,14 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_mul`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        #[doc = concat!("[`checked_mul`]: ", stringify!($SelfT), "::checked_mul")]
+        #[doc = concat!("[`wrapping_mul`]: ", stringify!($SelfT), "::wrapping_mul")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// ضرب بدون تحقق. يحسب `self * rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
         ///
         /// </div>
-        #[doc = concat!("[`checked_mul`]: ", stringify!($SelfT), "::checked_mul")]
-        #[doc = concat!("[`wrapping_mul`]: ", stringify!($SelfT), "::wrapping_mul")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
         #[rustc_const_stable(feature = "unchecked_math", since = "1.79.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2512,13 +2512,13 @@ macro_rules! uint_impl {
         /// or equal to the number of bits in `self`,
         /// i.e. when [`checked_shl`] would return `None`.
         ///
+        #[doc = concat!("[`checked_shl`]: ", stringify!($SelfT), "::checked_shl")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// إزاحة لليسار بدون تحقق. يحسب `self << rhs` بافتراض أن `rhs` أقل من عدد البتات (غير آمن).
         ///
         /// </div>
-        #[doc = concat!("[`checked_shl`]: ", stringify!($SelfT), "::checked_shl")]
         #[stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[rustc_const_stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2736,13 +2736,13 @@ macro_rules! uint_impl {
         /// or equal to the number of bits in `self`,
         /// i.e. when [`checked_shr`] would return `None`.
         ///
+        #[doc = concat!("[`checked_shr`]: ", stringify!($SelfT), "::checked_shr")]
         ///
         /// <div lang="ar" dir="rtl">
         ///
         /// إزاحة لليمين بدون تحقق. يحسب `self >> rhs` بافتراض أن `rhs` أقل من عدد البتات (غير آمن).
         ///
         /// </div>
-        #[doc = concat!("[`checked_shr`]: ", stringify!($SelfT), "::checked_shr")]
         #[stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[rustc_const_stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3916,12 +3916,6 @@ macro_rules! uint_impl {
         /// assert_eq!(5u32.carrying_mul(2, 10), (20, 0));
         /// assert_eq!(1_000_000_000u32.carrying_mul(10, 0), (1410065408, 2));
         /// assert_eq!(1_000_000_000u32.carrying_mul(10, 10), (1410065418, 2));
-        ///
-        /// <div lang="ar" dir="rtl">
-        ///
-        /// يحسب "الضرب الكامل" `self * rhs + carry` بدون إمكانية تجاوز الحد.
-        ///
-        /// </div>
         #[doc = concat!("assert_eq!(",
             stringify!($SelfT), "::MAX.carrying_mul(", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX), ",
             "(0, ", stringify!($SelfT), "::MAX));"
@@ -3976,6 +3970,12 @@ macro_rules! uint_impl {
         ///     789_u16.wrapping_mul(456).wrapping_add(123),
         /// );
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب "الضرب الكامل" `self * rhs + carry` بدون إمكانية تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "unsigned_bigint_helpers", since = "1.91.0")]
         #[rustc_const_unstable(feature = "const_unsigned_bigint_helpers", issue = "152015")]
         #[must_use = "this returns the result of the operation, \
@@ -4010,12 +4010,6 @@ macro_rules! uint_impl {
         /// assert_eq!(5u32.carrying_mul_add(2, 10, 10), (30, 0));
         /// assert_eq!(1_000_000_000u32.carrying_mul_add(10, 0, 0), (1410065408, 2));
         /// assert_eq!(1_000_000_000u32.carrying_mul_add(10, 10, 10), (1410065428, 2));
-        ///
-        /// <div lang="ar" dir="rtl">
-        ///
-        /// يحسب "الضرب الكامل" `self * rhs + carry + add`.
-        ///
-        /// </div>
         #[doc = concat!("assert_eq!(",
             stringify!($SelfT), "::MAX.carrying_mul_add(", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX), ",
             "(", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX));"
@@ -4048,6 +4042,12 @@ macro_rules! uint_impl {
         ///     u32::to_le_bytes(0xcffc982d)
         /// );
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب "الضرب الكامل" `self * rhs + carry + add`.
+        ///
+        /// </div>
         #[stable(feature = "unsigned_bigint_helpers", since = "1.91.0")]
         #[rustc_const_unstable(feature = "const_unsigned_bigint_helpers", issue = "152015")]
         #[must_use = "this returns the result of the operation, \

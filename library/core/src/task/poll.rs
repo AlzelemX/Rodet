@@ -6,12 +6,24 @@ use crate::ops::{self, ControlFlow};
 /// scheduled to receive a wakeup instead.
 ///
 /// This is returned by [`Future::poll`](core::future::Future::poll).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبين هل القيمة متاحة، أو أن المهمة الحالية جُدولت لتُوقظ لاحقًا.
+///
+/// </div>
 #[must_use = "this `Poll` may be a `Pending` variant, which should be handled"]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[lang = "Poll"]
 #[stable(feature = "futures_api", since = "1.36.0")]
 pub enum Poll<T> {
     /// Represents that a value is immediately ready.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القيمة جاهزة فورًا.
+    ///
+    /// </div>
     #[lang = "Ready"]
     #[stable(feature = "futures_api", since = "1.36.0")]
     Ready(#[stable(feature = "futures_api", since = "1.36.0")] T),
@@ -21,6 +33,12 @@ pub enum Poll<T> {
     /// When a function returns `Pending`, the function *must* also
     /// ensure that the current task is scheduled to be awoken when
     /// progress can be made.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القيمة ليست جاهزة بعد.
+    ///
+    /// </div>
     #[lang = "Pending"]
     #[stable(feature = "futures_api", since = "1.36.0")]
     Pending,
@@ -43,6 +61,12 @@ impl<T> Poll<T> {
     ///
     /// assert_eq!(poll_some_len, Poll::Ready(13));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Poll<T>` إلى `Poll<U>` بتطبيق دالة على القيمة الموجودة.
+    ///
+    /// </div>
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[inline]
     pub fn map<U, F>(self, f: F) -> Poll<U>
@@ -67,6 +91,12 @@ impl<T> Poll<T> {
     /// let x: Poll<u32> = Poll::Pending;
     /// assert_eq!(x.is_ready(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القيمة `Poll::Ready`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_poll", since = "1.49.0")]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -88,6 +118,12 @@ impl<T> Poll<T> {
     /// let x: Poll<u32> = Poll::Pending;
     /// assert_eq!(x.is_pending(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القيمة `Pending`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "const_poll", since = "1.49.0")]
     #[stable(feature = "futures_api", since = "1.36.0")]
@@ -111,6 +147,12 @@ impl<T, E> Poll<Result<T, E>> {
     /// let squared = res.map_ok(|n| n * n);
     /// assert_eq!(squared, Poll::Ready(Ok(144)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Poll<Result<T, E>>` إلى `Poll<Result<U, E>>` بتطبيق دالة على `Poll::Ready(Ok)` فقط.
+    ///
+    /// </div>
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[inline]
     pub fn map_ok<U, F>(self, f: F) -> Poll<Result<U, E>>
@@ -139,6 +181,13 @@ impl<T, E> Poll<Result<T, E>> {
     /// let res = res.map_err(|_| 0_u8);
     /// assert_eq!(res, Poll::Ready(Err(0)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Poll::Ready<Result<T, E>>` إلى `Poll::Ready<Result<T, U>>` بتطبيق دالة على
+    /// `Poll::Ready(Err)` فقط.
+    ///
+    /// </div>
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[inline]
     pub fn map_err<U, F>(self, f: F) -> Poll<Result<T, U>>
@@ -168,6 +217,12 @@ impl<T, E> Poll<Option<Result<T, E>>> {
     /// let squared = res.map_ok(|n| n * n);
     /// assert_eq!(squared, Poll::Ready(Some(Ok(144))));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Poll<Option<Result<T, E>>>` بتطبيق دالة على `Poll::Ready(Some(Ok))` فقط.
+    ///
+    /// </div>
     #[stable(feature = "poll_map", since = "1.51.0")]
     #[inline]
     pub fn map_ok<U, F>(self, f: F) -> Poll<Option<Result<U, E>>>
@@ -198,6 +253,12 @@ impl<T, E> Poll<Option<Result<T, E>>> {
     /// let res = res.map_err(|_| 0_u8);
     /// assert_eq!(res, Poll::Ready(Some(Err(0))));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Poll::Ready<Option<Result<T, E>>>` بتطبيق دالة على `Poll::Ready(Some(Err))` فقط.
+    ///
+    /// </div>
     #[stable(feature = "poll_map", since = "1.51.0")]
     #[inline]
     pub fn map_err<U, F>(self, f: F) -> Poll<Option<Result<T, U>>>

@@ -1,4 +1,10 @@
 //! Raw type definitions for the ESP-IDF framework.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات الأنواع الخام لإطار ESP-IDF.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 #![deprecated(

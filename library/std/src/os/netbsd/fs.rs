@@ -8,6 +8,12 @@ use crate::sys::AsInner;
 /// OS-specific extensions to [`fs::Metadata`].
 ///
 /// [`fs::Metadata`]: crate::fs::Metadata
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Gain a reference to the underlying `stat` structure which contains
@@ -16,6 +22,12 @@ pub trait MetadataExt {
     /// The contents of the returned `stat` are **not** consistent across
     /// Unix platforms. The `os::unix::fs::MetadataExt` trait contains the
     /// cross-Unix abstractions contained within the raw stat.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى بنية `stat` الأساسية التي فيها المعلومات الخام من نظام التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     #[deprecated(
         since = "1.8.0",

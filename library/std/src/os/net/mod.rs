@@ -1,4 +1,10 @@
 //! OS-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بنظام التشغيل.
+//!
+//! </div>
 
 // See cfg macros in `library/std/src/os/mod.rs` for why these platforms must
 // be special-cased during rustdoc generation.

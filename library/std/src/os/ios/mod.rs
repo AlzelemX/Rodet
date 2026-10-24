@@ -1,4 +1,10 @@
 //! iOS-specific definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات خاصة بـ iOS.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 
@@ -11,6 +17,12 @@ pub mod fs {
 }
 
 /// iOS-specific raw type definitions
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعريفات الأنواع الخام الخاصة بـ iOS.
+///
+/// </div>
 #[stable(feature = "raw_ext", since = "1.1.0")]
 #[deprecated(
     since = "1.8.0",

@@ -1,6 +1,12 @@
 //! Linux-specific extensions to primitives in the [`std::process`] module.
 //!
 //! [`std::process`]: crate::process
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Linux لأنواع وحدة `std::process`.
+//!
+//! </div>
 
 #![unstable(feature = "linux_pidfd", issue = "82971")]
 
@@ -47,6 +53,12 @@ struct InnerPidFd;
 /// [`pidfd`]: fn@ChildExt::pidfd
 /// [`into_pidfd`]: ChildExt::into_pidfd
 /// [`pidfd_open(2)`]: https://man7.org/linux/man-pages/man2/pidfd_open.2.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا النوع يمثّل واصف ملف يشير إلى عملية (process).
+///
+/// </div>
 #[derive(Debug)]
 #[repr(transparent)]
 pub struct PidFd {
@@ -61,6 +73,12 @@ impl PidFd {
     /// races. But doing so will return an Error.
     ///
     /// [`Child::kill`]: process::Child::kill
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجبر العملية الفرعية على الخروج.
+    ///
+    /// </div>
     pub fn kill(&self) -> Result<()> {
         self.inner.kill()
     }
@@ -74,6 +92,12 @@ impl PidFd {
     /// will return an Error.
     ///
     /// [`Child::wait`]: process::Child::wait
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر خروج العملية الفرعية بالكامل، ويرجع حالة خروجها.
+    ///
+    /// </div>
     pub fn wait(&self) -> Result<ExitStatus> {
         self.inner.wait().map(FromInner::from_inner)
     }
@@ -154,6 +178,12 @@ impl From<PidFd> for OwnedFd {
 /// Os-specific extensions for [`Child`]
 ///
 /// [`Child`]: process::Child
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `Child`.
+///
+/// </div>
 pub impl(crate) trait ChildExt {
     /// Obtains a reference to the [`PidFd`] created for this [`Child`], if available.
     ///
@@ -193,6 +223,12 @@ pub impl(crate) trait ChildExt {
 /// Os-specific extensions for [`Command`]
 ///
 /// [`Command`]: process::Command
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `Command`.
+///
+/// </div>
 pub impl(self) trait CommandExt {
     /// Sets whether a [`PidFd`](struct@PidFd) should be created for the [`Child`]
     /// spawned by this [`Command`].

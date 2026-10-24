@@ -71,6 +71,12 @@ use crate::{fmt, hash, intrinsics, mem, ptr};
 /// [`PhantomData`]: crate::marker::PhantomData
 /// [`UnsafeCell<T>`]: crate::cell::UnsafeCell
 /// [null pointer optimization]: crate::option#representation
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `*mut T` لكنه غير فارغ أبدًا ومتغاير (covariant).
+///
+/// </div>
 #[stable(feature = "nonnull", since = "1.25.0")]
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
@@ -80,11 +86,23 @@ pub struct NonNull<#[rustc_assert_variance(covariant)] T: PointeeSized> {
 }
 
 /// `NonNull` pointers are not `Send` because the data they reference may be aliased.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشرات `NonNull` ليست `Send` لأن البيانات التي تشير إليها قد تكون مشتركة.
+///
+/// </div>
 // N.B., this impl is unnecessary, but should provide better error messages.
 #[stable(feature = "nonnull", since = "1.25.0")]
 impl<T: PointeeSized> !Send for NonNull<T> {}
 
 /// `NonNull` pointers are not `Sync` because the data they reference may be aliased.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشرات `NonNull` ليست `Sync` لأن البيانات التي تشير إليها قد تكون مشتركة.
+///
+/// </div>
 // N.B., this impl is unnecessary, but should provide better error messages.
 #[stable(feature = "nonnull", since = "1.25.0")]
 impl<T: PointeeSized> !Sync for NonNull<T> {}
@@ -95,6 +113,12 @@ impl<T: Sized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`ptr::without_provenance_mut`].
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا بالعنوان المعطى وبدون مصدر (provenance).
+    ///
+    /// </div>
     #[stable(feature = "nonnull_provenance", since = "1.89.0")]
     #[rustc_const_stable(feature = "nonnull_provenance", since = "1.89.0")]
     #[must_use]
@@ -123,6 +147,12 @@ impl<T: Sized> NonNull<T> {
     /// // Important: don't try to access the value of `ptr` without
     /// // initializing it first! The pointer is not null but isn't valid either!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonNull` جديدًا معلّقًا لكنه محاذى بشكل صحيح.
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_nonnull_dangling", since = "1.36.0")]
     #[must_use]
@@ -138,6 +168,12 @@ impl<T: Sized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`ptr::with_exposed_provenance_mut`].
     ///
     /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل عنوانًا إلى مؤشر قابل للتعديل من جديد، آخذًا مصدرًا "مكشوفًا" سابقًا.
+    ///
+    /// </div>
     #[stable(feature = "nonnull_provenance", since = "1.89.0")]
     #[rustc_const_unstable(feature = "const_nonnull_with_exposed_provenance", issue = "154215")]
     #[inline]
@@ -163,6 +199,12 @@ impl<T: Sized> NonNull<T> {
     /// the pointer is [convertible to a reference](crate::ptr#pointer-to-reference-conversion).
     /// Note that because the created reference is to `MaybeUninit<T>`, the
     /// source pointer can point to uninitialized memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة؛ على عكس `as_ref` لا يشترط أن تكون القيمة مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
@@ -186,6 +228,12 @@ impl<T: Sized> NonNull<T> {
     /// the pointer is [convertible to a reference](crate::ptr#pointer-to-reference-conversion).
     /// Note that because the created reference is to `MaybeUninit<T>`, the
     /// source pointer can point to uninitialized memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا فريدًا إلى القيمة؛ على عكس `as_mut` لا يشترط أن تكون القيمة مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
@@ -196,6 +244,12 @@ impl<T: Sized> NonNull<T> {
     }
 
     /// Casts from a pointer-to-`T` to a pointer-to-`[T; N]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من مؤشر إلى `T` إلى مؤشر إلى `[T; N]`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "ptr_cast_array", issue = "144514")]
     pub const fn cast_array<const N: usize>(self) -> NonNull<[T; N]> {
@@ -231,6 +285,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// // NEVER DO THAT!!! This is undefined behavior. ⚠️
     /// let ptr = unsafe { NonNull::<u32>::new_unchecked(std::ptr::null_mut()) };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonNull` جديدًا (غير آمن: يجب ألا يكون المؤشر فارغًا).
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_nonnull_new_unchecked", since = "1.25.0")]
     #[inline]
@@ -272,6 +332,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///     unreachable!();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonNull` جديدًا إذا كان `ptr` غير فارغ.
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_nonnull_new", since = "1.85.0")]
     #[inline]
@@ -285,6 +351,12 @@ impl<T: PointeeSized> NonNull<T> {
     }
 
     /// Converts a reference to a `NonNull` pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجعًا إلى مؤشر `NonNull`.
+    ///
+    /// </div>
     #[stable(feature = "non_null_from_ref", since = "1.89.0")]
     #[rustc_const_stable(feature = "non_null_from_ref", since = "1.89.0")]
     #[inline]
@@ -294,6 +366,12 @@ impl<T: PointeeSized> NonNull<T> {
     }
 
     /// Converts a mutable reference to a `NonNull` pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجعًا قابلًا للتعديل إلى مؤشر `NonNull`.
+    ///
+    /// </div>
     #[stable(feature = "non_null_from_ref", since = "1.89.0")]
     #[rustc_const_stable(feature = "non_null_from_ref", since = "1.89.0")]
     #[inline]
@@ -308,6 +386,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See the documentation of [`std::ptr::from_raw_parts`] for more details.
     ///
     /// [`std::ptr::from_raw_parts`]: crate::ptr::from_raw_parts
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `std::ptr::from_raw_parts` لكنه يرجع مؤشر `NonNull` بدل مؤشر `*const` خام.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_metadata", issue = "81513")]
     #[inline]
     pub const fn from_raw_parts(
@@ -342,6 +426,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`pointer::addr`].
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء "العنوان" من المؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -357,6 +447,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`pointer::expose_provenance`].
     ///
     /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكشف جزء "المصدر" (provenance) من المؤشر لاستخدامه لاحقًا في `with_exposed_provenance`.
+    ///
+    /// </div>
     #[stable(feature = "nonnull_provenance", since = "1.89.0")]
     pub fn expose_provenance(self) -> NonZero<usize> {
         // SAFETY: The pointer is guaranteed by the type to be non-null,
@@ -420,6 +516,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// let x_value = unsafe { *ptr.as_ptr() };
     /// assert_eq!(x_value, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر `*mut` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_nonnull_as_ptr", since = "1.32.0")]
     #[rustc_never_returns_null_ptr]
@@ -460,6 +562,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// ```
     ///
     /// [the module documentation]: crate::ptr#safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة؛ إذا كانت قد تكون غير مهيأة استخدم `as_uninit_ref`.
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_nonnull_as_ref", since = "1.73.0")]
     #[must_use]
@@ -498,6 +606,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// ```
     ///
     /// [the module documentation]: crate::ptr#safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا فريدًا إلى القيمة؛ إذا كانت قد تكون غير مهيأة استخدم `as_uninit_mut`.
+    ///
+    /// </div>
     #[stable(feature = "nonnull", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_ptr_as_ref", since = "1.83.0")]
     #[must_use]
@@ -610,6 +724,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الإزاحة من مؤشر بالبايتات.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
@@ -665,6 +785,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الإزاحة من مؤشر بالبايتات (اختصار لـ `.byte_offset(count as isize)`).
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
@@ -725,6 +851,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الإزاحة من مؤشر بالبايتات للخلف (اختصار لـ `.byte_offset` بقيمة سالبة).
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
@@ -976,6 +1108,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::read`] for safety concerns and examples.
     ///
     /// [`ptr::read`]: crate::ptr::read()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` بدون نقلها؛ الذاكرة في `self` تبقى كما هي.
+    ///
+    /// </div>
     #[inline]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -998,6 +1136,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::read_volatile`] for safety concerns and examples.
     ///
     /// [`ptr::read_volatile`]: crate::ptr::read_volatile()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` قراءة متطايرة بدون نقلها؛ الذاكرة تبقى كما هي.
+    ///
+    /// </div>
     #[inline]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1018,6 +1162,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::read_unaligned`] for safety concerns and examples.
     ///
     /// [`ptr::read_unaligned`]: crate::ptr::read_unaligned()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` بدون نقلها؛ الذاكرة في `self` تبقى كما هي.
+    ///
+    /// </div>
     #[inline]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1038,6 +1188,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::copy`] for safety concerns and examples.
     ///
     /// [`ptr::copy`]: crate::ptr::copy()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `self` إلى `dest`؛ يمكن أن يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1058,6 +1214,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::copy_nonoverlapping`] for safety concerns and examples.
     ///
     /// [`ptr::copy_nonoverlapping`]: crate::ptr::copy_nonoverlapping()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `self` إلى `dest`؛ يجب *ألا* يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1078,6 +1240,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::copy`] for safety concerns and examples.
     ///
     /// [`ptr::copy`]: crate::ptr::copy()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `src` إلى `self`؛ يمكن أن يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1098,6 +1266,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::copy_nonoverlapping`] for safety concerns and examples.
     ///
     /// [`ptr::copy_nonoverlapping`]: crate::ptr::copy_nonoverlapping()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `src` إلى `self`؛ يجب *ألا* يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1115,6 +1289,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::drop_in_place`] for safety concerns and examples.
     ///
     /// [`ptr::drop_in_place`]: crate::ptr::drop_in_place()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ المُدمِّر (إن وُجد) للقيمة المشار إليها.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
     #[rustc_const_unstable(feature = "const_drop_in_place", issue = "109342")]
@@ -1132,6 +1312,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::write`] for safety concerns and examples.
     ///
     /// [`ptr::write`]: crate::ptr::write()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1150,6 +1336,13 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::write_bytes`] for safety concerns and examples.
     ///
     /// [`ptr::write_bytes`]: crate::ptr::write_bytes()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي memset على المؤشر المحدد، فيضبط `count * size_of::<T>()` بايت بدءًا من `self` إلى
+    /// `val`.
+    ///
+    /// </div>
     #[inline(always)]
     #[doc(alias = "memset")]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
@@ -1173,6 +1366,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::write_volatile`] for safety concerns and examples.
     ///
     /// [`ptr::write_volatile`]: crate::ptr::write_volatile()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة في موقع ذاكرة كتابة متطايرة بدون قراءة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1193,6 +1392,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::write_unaligned`] for safety concerns and examples.
     ///
     /// [`ptr::write_unaligned`]: crate::ptr::write_unaligned()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1211,6 +1416,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::replace`] for safety concerns and examples.
     ///
     /// [`ptr::replace`]: crate::ptr::replace()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة عند `self` بـ `src` ويرجع القيمة القديمة، بدون التخلص من أي منهما.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
     #[rustc_const_stable(feature = "const_inherent_ptr_replace", since = "1.88.0")]
@@ -1229,6 +1440,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// See [`ptr::swap`] for safety concerns and examples.
     ///
     /// [`ptr::swap`]: crate::ptr::swap()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل القيمتين في موقعين قابلين للتعديل من نفس النوع؛ يمكن أن يتداخلا (على عكس `mem::swap`).
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
     #[rustc_const_stable(feature = "const_swap", since = "1.85.0")]
@@ -1286,6 +1503,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// }
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الإزاحة اللازمة للمؤشر ليصبح محاذى إلى `align`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -1320,6 +1543,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// assert!(ptr.is_aligned());
     /// assert!(!NonNull::new(ptr.as_ptr().wrapping_byte_add(1)).unwrap().is_aligned());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشر محاذى بشكل صحيح لـ `T`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "pointer_is_aligned", since = "1.79.0")]
@@ -1360,6 +1589,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// assert_ne!(ptr.is_aligned_to(8), ptr.wrapping_add(1).is_aligned_to(8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشر محاذى إلى `align`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "pointer_is_aligned_to", issue = "96284")]
@@ -1370,6 +1605,12 @@ impl<T: PointeeSized> NonNull<T> {
 
 impl<T> NonNull<T> {
     /// Casts from a type to its maybe-uninitialized version.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من نوع إلى نسخته التي قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "cast_maybe_uninit", issue = "145036")]
@@ -1399,6 +1640,12 @@ impl<T> NonNull<T> {
     ///
     /// (Note that this example artificially demonstrates a use of this method,
     /// but `let slice = NonNull::from(&x[..]);` would be a better way to write code like this.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة خامًا غير فارغة من مؤشر رفيع وطول.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_cast_slice", issue = "149103")]
@@ -1411,6 +1658,12 @@ impl<T> NonNull<MaybeUninit<T>> {
     ///
     /// This is always safe, since UB can only occur if the pointer is read
     /// before being initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من نوع قد يكون غير مهيأ إلى نسخته المهيأة.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "cast_maybe_uninit", issue = "145036")]
@@ -1441,6 +1694,12 @@ impl<T> NonNull<[T]> {
     ///
     /// (Note that this example artificially demonstrates a use of this method,
     /// but `let slice = NonNull::from(&x[..]);` would be a better way to write code like this.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة خامًا غير فارغة من مؤشر رفيع وطول.
+    ///
+    /// </div>
     #[stable(feature = "nonnull_slice_from_raw_parts", since = "1.70.0")]
     #[rustc_const_stable(feature = "const_slice_from_raw_parts_mut", since = "1.83.0")]
     #[must_use]
@@ -1465,6 +1724,12 @@ impl<T> NonNull<[T]> {
     /// let slice: NonNull<[i8]> = NonNull::slice_from_raw_parts(NonNull::dangling(), 3);
     /// assert_eq!(slice.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول شريحة خام غير فارغة.
+    ///
+    /// </div>
     #[stable(feature = "slice_ptr_len_nonnull", since = "1.63.0")]
     #[rustc_const_stable(feature = "const_slice_ptr_len_nonnull", since = "1.63.0")]
     #[must_use]
@@ -1483,6 +1748,12 @@ impl<T> NonNull<[T]> {
     /// let slice: NonNull<[i8]> = NonNull::slice_from_raw_parts(NonNull::dangling(), 3);
     /// assert!(!slice.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول الشريحة الخام غير الفارغة صفرًا.
+    ///
+    /// </div>
     #[stable(feature = "slice_ptr_is_empty_nonnull", since = "1.79.0")]
     #[rustc_const_stable(feature = "const_slice_ptr_is_empty_nonnull", since = "1.79.0")]
     #[must_use]
@@ -1502,6 +1773,12 @@ impl<T> NonNull<[T]> {
     /// let slice: NonNull<[i8]> = NonNull::slice_from_raw_parts(NonNull::dangling(), 3);
     /// assert_eq!(slice.as_non_null_ptr(), NonNull::<i8>::dangling());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا غير فارغ إلى مخزن الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "slice_ptr_get", issue = "74265")]
@@ -1571,6 +1848,12 @@ impl<T> NonNull<[T]> {
     /// See also [`slice::from_raw_parts`].
     ///
     /// [valid]: crate::ptr#safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى شريحة قيم قد تكون غير مهيأة؛ على عكس `as_ref` لا يشترط التهيئة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
@@ -1635,6 +1918,12 @@ impl<T> NonNull<[T]> {
     /// # unsafe { Global.deallocate(memory.cast(), Layout::new::<[u8; 32]>()); }
     /// # Ok::<_, std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا فريدًا إلى شريحة قيم قد تكون غير مهيأة؛ على عكس `as_mut` لا يشترط التهيئة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
@@ -1665,6 +1954,12 @@ impl<T> NonNull<[T]> {
     ///     assert_eq!(x.get_unchecked_mut(1).as_ptr(), x.as_non_null_ptr().as_ptr().add(1));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى عنصر أو شريحة فرعية بدون فحص الحدود.
+    ///
+    /// </div>
     #[unstable(feature = "slice_ptr_get", issue = "74265")]
     #[rustc_const_unstable(feature = "const_index", issue = "143775")]
     #[inline]

@@ -64,6 +64,12 @@
 //! for more details).
 //!
 //! [re-entrance]: trait.GlobalAlloc.html#re-entrance
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهات حجز الذاكرة.
+//!
+//! </div>
 
 #![deny(unsafe_op_in_unsafe_fn)]
 #![stable(feature = "alloc_module", since = "1.28.0")]
@@ -148,6 +154,12 @@ use crate::{hint, mem, ptr};
 /// still allocate memory using `malloc` and `HeapAlloc`.
 ///
 /// [global_allocator]: GlobalAlloc#the-global_allocator-attribute
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مُخصِّص الذاكرة الافتراضي الذي يوفره نظام التشغيل.
+///
+/// </div>
 #[stable(feature = "alloc_system_type", since = "1.28.0")]
 #[derive(Copy, Debug)]
 #[derive_const(Clone, Default)]
@@ -355,6 +367,12 @@ static HOOK: AtomicPtr<()> = AtomicPtr::new(ptr::null_mut());
 ///
 /// set_alloc_error_hook(custom_alloc_error_hook);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسجّل خطّافًا مخصصًا لأخطاء الحجز، ويستبدل أي خطّاف سابق.
+///
+/// </div>
 #[unstable(feature = "alloc_error_hook", issue = "51245")]
 pub fn set_alloc_error_hook(hook: fn(Layout)) {
     HOOK.store(hook as *mut (), Ordering::Release);
@@ -365,6 +383,12 @@ pub fn set_alloc_error_hook(hook: fn(Layout)) {
 /// *See also the function [`set_alloc_error_hook`].*
 ///
 /// If no custom hook is registered, the default hook will be returned.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلغي تسجيل خطّاف أخطاء الحجز الحالي ويرجعه.
+///
+/// </div>
 #[unstable(feature = "alloc_error_hook", issue = "51245")]
 pub fn take_alloc_error_hook() -> fn(Layout) {
     let hook = HOOK.swap(ptr::null_mut(), Ordering::Acquire);

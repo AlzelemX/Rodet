@@ -2,6 +2,12 @@
 //!
 //! This module provides some extra types that are useful when doing numerical
 //! work. See the individual documentation for each piece for more information.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف إضافية للأعداد.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![allow(missing_docs)]

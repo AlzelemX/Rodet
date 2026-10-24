@@ -1,4 +1,10 @@
 //! Compatibility module for C platform-specific types. Use [`core::ffi`] instead.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة توافق لأنواع C الخاصة بالمنصة؛ استخدم `core::ffi` بدلًا منها.
+//!
+//! </div>
 
 #![stable(feature = "raw_os", since = "1.1.0")]
 

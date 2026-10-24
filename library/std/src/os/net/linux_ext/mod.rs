@@ -1,4 +1,10 @@
 //! Linux, Android and Cygwin-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بـ Linux وAndroid وCygwin.
+//!
+//! </div>
 
 #![doc(cfg(any(target_os = "linux", target_os = "android", target_os = "cygwin")))]
 

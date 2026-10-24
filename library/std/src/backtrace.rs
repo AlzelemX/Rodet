@@ -57,6 +57,12 @@
 //! variables is cached once the first backtrace is created, so altering
 //! `RUST_LIB_BACKTRACE` or `RUST_BACKTRACE` at runtime might not actually change
 //! how backtraces are captured.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم التقاط تتبع المكدس (backtrace) لخيط نظام التشغيل.
+//!
+//! </div>
 
 #![stable(feature = "backtrace", since = "1.65.0")]
 
@@ -103,6 +109,12 @@ use crate::{env, fmt};
 /// previous point in time. In some instances the `Backtrace` type may
 /// internally be empty due to configuration. For more information see
 /// `Backtrace::capture`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تتبع مكدس ملتقط لخيط نظام التشغيل.
+///
+/// </div>
 #[stable(feature = "backtrace", since = "1.65.0")]
 #[must_use]
 pub struct Backtrace {
@@ -111,20 +123,44 @@ pub struct Backtrace {
 
 /// The current status of a backtrace, indicating whether it was captured or
 /// whether it is empty for some other reason.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الحالة الحالية لتتبع المكدس: هل التُقط أم أنه فارغ لسبب آخر.
+///
+/// </div>
 #[stable(feature = "backtrace", since = "1.65.0")]
 #[non_exhaustive]
 #[derive(Debug, PartialEq, Eq)]
 pub enum BacktraceStatus {
     /// Capturing a backtrace is not supported, likely because it's not
     /// implemented for the current platform.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// التقاط تتبع المكدس غير مدعوم، غالبًا لأنه غير مطبَّق لهذه المنصة.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     Unsupported,
     /// Capturing a backtrace has been disabled through either the
     /// `RUST_LIB_BACKTRACE` or `RUST_BACKTRACE` environment variables.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// التقاط تتبع المكدس معطّل عبر متغير البيئة `RUST_LIB_BACKTRACE` أو `RUST_BACKTRACE`.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     Disabled,
     /// A backtrace has been captured and the `Backtrace` should print
     /// reasonable information when rendered.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تم التقاط تتبع المكدس، ويجب أن يطبع الـ `Backtrace` معلومات مفيدة عند عرضه.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     Captured,
 }
@@ -146,6 +182,12 @@ fn _assert_send_sync() {
 }
 
 /// A single frame of a backtrace.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إطار واحد من تتبع المكدس.
+///
+/// </div>
 #[unstable(feature = "backtrace_frames", issue = "79676")]
 pub struct BacktraceFrame {
     frame: RawFrame,
@@ -287,6 +329,12 @@ impl Backtrace {
     ///
     /// To forcibly capture a backtrace regardless of environment variables, use
     /// the `Backtrace::force_capture` function.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يلتقط تتبع المكدس للخيط الحالي.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     #[inline(never)] // want to make sure there's a frame here to remove
     pub fn capture() -> Backtrace {
@@ -306,6 +354,12 @@ impl Backtrace {
     /// Note that capturing a backtrace can be an expensive operation on some
     /// platforms, so this should be used with caution in performance-sensitive
     /// parts of code.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يلتقط تتبع مكدس كاملًا بالقوة، بغض النظر عن متغيرات البيئة.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     #[inline(never)] // want to make sure there's a frame here to remove
     pub fn force_capture() -> Backtrace {
@@ -314,6 +368,12 @@ impl Backtrace {
 
     /// Forcibly captures a disabled backtrace, regardless of environment
     /// variable configuration.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تتبع مكدس معطّلًا بالقوة، بغض النظر عن متغيرات البيئة.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     #[rustc_const_stable(feature = "backtrace", since = "1.65.0")]
     pub const fn disabled() -> Backtrace {
@@ -358,6 +418,12 @@ impl Backtrace {
     /// Returns the status of this backtrace, indicating whether this backtrace
     /// request was unsupported, disabled, or a stack trace was actually
     /// captured.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حالة تتبع المكدس: غير مدعوم، أو معطّل، أو تم التقاطه.
+    ///
+    /// </div>
     #[stable(feature = "backtrace", since = "1.65.0")]
     #[must_use]
     pub fn status(&self) -> BacktraceStatus {
@@ -371,6 +437,12 @@ impl Backtrace {
 
 impl<'a> Backtrace {
     /// Returns an iterator over the backtrace frames.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على إطارات تتبع المكدس.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "backtrace_frames", issue = "79676")]
     pub fn frames(&'a self) -> &'a [BacktraceFrame] {

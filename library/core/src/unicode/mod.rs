@@ -1,4 +1,10 @@
 //! Unicode internals used in liballoc and libstd. Not public API.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أجزاء يونيكود الداخلية المستخدمة في liballoc وlibstd؛ ليست واجهة عامة.
+//!
+//! </div>
 #![unstable(feature = "unicode_internals", issue = "none")]
 #![doc(hidden)]
 

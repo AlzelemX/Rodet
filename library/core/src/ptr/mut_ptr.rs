@@ -195,6 +195,12 @@ impl<T: PointeeSized> *mut T {
     /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
     ///
     /// [`with_exposed_provenance_mut`]: with_exposed_provenance_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكشف جزء "المصدر" (provenance) من المؤشر لاستخدامه لاحقًا في `with_exposed_provenance_mut`.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "exposed_provenance", since = "1.84.0")]
     #[expect(implicit_provenance_casts, reason = "this *is* the replacement")]
@@ -238,6 +244,12 @@ impl<T: PointeeSized> *mut T {
     /// This is a convenience for [`with_addr`][pointer::with_addr], see that method for details.
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا بتحويل عنوان `self` إلى عنوان جديد، مع الحفاظ على مصدر المؤشر الأصلي.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -652,6 +664,12 @@ impl<T: PointeeSized> *mut T {
     /// # assert_eq!(s, [4, 2, 3]);
     /// println!("{s:?}"); // It'll print: "[4, 2, 3]".
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان المؤشر فارغًا، وإلا يرجع مرجعًا فريدًا إلى القيمة داخل `Some`.
+    ///
+    /// </div>
     #[stable(feature = "ptr_as_ref", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_ptr_is_null", since = "1.84.0")]
     #[inline]
@@ -686,6 +704,12 @@ impl<T: PointeeSized> *mut T {
     /// # assert_eq!(s, [4, 2, 3]);
     /// println!("{s:?}"); // It'll print: "[4, 2, 3]".
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا فريدًا إلى القيمة خلف المؤشر بدون فحص (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "ptr_as_ref_unchecked", since = "1.95.0")]
     #[rustc_const_stable(feature = "ptr_as_ref_unchecked", since = "1.95.0")]
     #[inline]
@@ -717,6 +741,13 @@ impl<T: PointeeSized> *mut T {
     /// determined to be null or not. See [`is_null`] for more information.
     ///
     /// [`is_null`]: #method.is_null-1
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان المؤشر فارغًا، وإلا مرجعًا فريدًا إلى القيمة (قد تكون غير مهيأة) داخل
+    /// `Some`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
     pub const unsafe fn as_uninit_mut<'a>(self) -> Option<&'a mut MaybeUninit<T>>
@@ -1255,6 +1286,12 @@ impl<T: PointeeSized> *mut T {
     ///     ptr = ptr.wrapping_add(step);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بدون إشارة إلى مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -1276,6 +1313,12 @@ impl<T: PointeeSized> *mut T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بدون إشارة بالبايتات إلى مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
@@ -1332,6 +1375,12 @@ impl<T: PointeeSized> *mut T {
     ///     ptr = ptr.wrapping_sub(step);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطرح إزاحة بدون إشارة من مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -1352,6 +1401,12 @@ impl<T: PointeeSized> *mut T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطرح إزاحة بدون إشارة بالبايتات من مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
@@ -1366,6 +1421,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::read`] for safety concerns and examples.
     ///
     /// [`ptr::read`]: crate::ptr::read()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` بدون نقلها؛ الذاكرة في `self` تبقى كما هي.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_ptr_read", since = "1.71.0")]
     #[inline(always)]
@@ -1388,6 +1449,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::read_volatile`] for safety concerns and examples.
     ///
     /// [`ptr::read_volatile`]: crate::ptr::read_volatile()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` قراءة متطايرة بدون نقلها؛ الذاكرة تبقى كما هي.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_unstable(feature = "const_volatile", issue = "159094")]
     #[inline(always)]
@@ -1408,6 +1475,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::read_unaligned`] for safety concerns and examples.
     ///
     /// [`ptr::read_unaligned`]: crate::ptr::read_unaligned()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من `self` بدون نقلها؛ الذاكرة في `self` تبقى كما هي.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_ptr_read", since = "1.71.0")]
     #[inline(always)]
@@ -1428,6 +1501,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::copy`] for safety concerns and examples.
     ///
     /// [`ptr::copy`]: crate::ptr::copy()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `self` إلى `dest`؛ يمكن أن يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[inline(always)]
@@ -1448,6 +1527,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::copy_nonoverlapping`] for safety concerns and examples.
     ///
     /// [`ptr::copy_nonoverlapping`]: crate::ptr::copy_nonoverlapping()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `self` إلى `dest`؛ يجب *ألا* يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[inline(always)]
@@ -1468,6 +1553,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::copy`] for safety concerns and examples.
     ///
     /// [`ptr::copy`]: crate::ptr::copy()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `src` إلى `self`؛ يمكن أن يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[inline(always)]
@@ -1488,6 +1579,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::copy_nonoverlapping`] for safety concerns and examples.
     ///
     /// [`ptr::copy_nonoverlapping`]: crate::ptr::copy_nonoverlapping()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `count * size_of::<T>()` بايت من `src` إلى `self`؛ يجب *ألا* يتداخل المصدر والوجهة.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_intrinsic_copy", since = "1.83.0")]
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[inline(always)]
@@ -1505,6 +1602,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::drop_in_place`] for safety concerns and examples.
     ///
     /// [`ptr::drop_in_place`]: crate::ptr::drop_in_place()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ المُدمِّر (إن وُجد) للقيمة المشار إليها.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_unstable(feature = "const_drop_in_place", issue = "109342")]
     #[rustc_diagnostic_item = "ptr_drop_in_place_self"]
@@ -1523,6 +1626,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::write`] for safety concerns and examples.
     ///
     /// [`ptr::write`]: crate::ptr::write()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
     #[inline(always)]
@@ -1541,6 +1650,13 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::write_bytes`] for safety concerns and examples.
     ///
     /// [`ptr::write_bytes`]: crate::ptr::write_bytes()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي memset على المؤشر المحدد، فيضبط `count * size_of::<T>()` بايت بدءًا من `self` إلى
+    /// `val`.
+    ///
+    /// </div>
     #[doc(alias = "memset")]
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
@@ -1564,6 +1680,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::write_volatile`] for safety concerns and examples.
     ///
     /// [`ptr::write_volatile`]: crate::ptr::write_volatile()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة في موقع ذاكرة كتابة متطايرة بدون قراءة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_unstable(feature = "const_volatile", issue = "159094")]
     #[inline(always)]
@@ -1584,6 +1706,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::write_unaligned`] for safety concerns and examples.
     ///
     /// [`ptr::write_unaligned`]: crate::ptr::write_unaligned()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة المعطاة فوق موقع ذاكرة بدون قراءة القيمة القديمة أو التخلص منها.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_ptr_write", since = "1.83.0")]
     #[inline(always)]
@@ -1602,6 +1730,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::replace`] for safety concerns and examples.
     ///
     /// [`ptr::replace`]: crate::ptr::replace()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة عند `self` بـ `src` ويرجع القيمة القديمة، بدون التخلص من أي منهما.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_inherent_ptr_replace", since = "1.88.0")]
     #[inline(always)]
@@ -1620,6 +1754,12 @@ impl<T: PointeeSized> *mut T {
     /// See [`ptr::swap`] for safety concerns and examples.
     ///
     /// [`ptr::swap`]: crate::ptr::swap()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل القيمتين في موقعين قابلين للتعديل من نفس النوع؛ يمكن أن يتداخلا (على عكس `mem::swap`).
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_swap", since = "1.85.0")]
     #[inline(always)]
@@ -1669,6 +1809,12 @@ impl<T: PointeeSized> *mut T {
     /// }
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الإزاحة اللازمة للمؤشر ليصبح محاذى إلى `align`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "align_offset", since = "1.36.0")]
@@ -1710,6 +1856,12 @@ impl<T: PointeeSized> *mut T {
     /// assert!(ptr.is_aligned());
     /// assert!(!ptr.wrapping_byte_add(1).is_aligned());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشر محاذى بشكل صحيح لـ `T`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "pointer_is_aligned", since = "1.79.0")]
@@ -1750,6 +1902,12 @@ impl<T: PointeeSized> *mut T {
     ///
     /// assert_ne!(ptr.is_aligned_to(8), ptr.wrapping_add(1).is_aligned_to(8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشر محاذى إلى `align`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[unstable(feature = "pointer_is_aligned_to", issue = "96284")]
@@ -1767,6 +1925,12 @@ impl<T> *mut T {
     ///
     /// This is always safe, since UB can only occur if the pointer is read
     /// before being initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من نوع إلى نسخته التي قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "cast_maybe_uninit", issue = "145036")]
@@ -1813,6 +1977,12 @@ impl<T> *mut T {
     ///     danger.as_mut().expect("references must not be null");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكوّن شريحة خامًا قابلة للتعديل من مؤشر وطول.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "ptr_cast_slice", issue = "149103")]
     pub const fn cast_slice(self, len: usize) -> *mut [T] {
@@ -1825,6 +1995,12 @@ impl<T> *mut MaybeUninit<T> {
     ///
     /// This is always safe, since UB can only occur if the pointer is read
     /// before being initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من نوع قد يكون غير مهيأ إلى نسخته المهيأة.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[unstable(feature = "cast_maybe_uninit", issue = "145036")]
@@ -1849,6 +2025,12 @@ impl<T> *mut [T] {
     /// let slice: *mut [i8] = ptr::slice_from_raw_parts_mut(ptr::null_mut(), 3);
     /// assert_eq!(slice.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول شريحة خام.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "slice_ptr_len", since = "1.79.0")]
     #[rustc_const_stable(feature = "const_slice_ptr_len", since = "1.79.0")]
@@ -1866,6 +2048,12 @@ impl<T> *mut [T] {
     /// let slice: *mut [i8] = ptr::slice_from_raw_parts_mut(ptr::null_mut(), 3);
     /// assert!(!slice.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول الشريحة الخام صفرًا.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "slice_ptr_len", since = "1.79.0")]
     #[rustc_const_stable(feature = "const_slice_ptr_len", since = "1.79.0")]
@@ -1876,6 +2064,12 @@ impl<T> *mut [T] {
     /// Gets a raw, mutable pointer to the underlying array.
     ///
     /// If `N` is not exactly equal to the length of `self`, then this method returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا قابلًا للتعديل إلى المصفوفة الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[rustc_const_stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[inline]
@@ -1928,6 +2122,12 @@ impl<T> *mut [T] {
     ///     assert_eq!(&*right, [3, 0, 5, 6]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة خامًا قابلة للتعديل إلى قسمين عند فهرس.
+    ///
+    /// </div>
     #[inline(always)]
     #[track_caller]
     #[unstable(feature = "raw_slice_split", issue = "95595")]
@@ -1973,6 +2173,12 @@ impl<T> *mut [T] {
     /// }
     /// assert_eq!(v, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة خامًا قابلة للتعديل إلى قسمين عند فهرس بدون فحص الحدود.
+    ///
+    /// </div>
     #[inline(always)]
     #[unstable(feature = "raw_slice_split", issue = "95595")]
     pub unsafe fn split_at_mut_unchecked(self, mid: usize) -> (*mut [T], *mut [T]) {
@@ -2032,6 +2238,12 @@ impl<T> *mut [T] {
     ///     assert_eq!(x.get_unchecked_mut(1), x.as_mut_ptr().add(1));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى عنصر أو شريحة فرعية بدون فحص الحدود.
+    ///
+    /// </div>
     #[unstable(feature = "slice_ptr_get", issue = "74265")]
     #[rustc_const_unstable(feature = "const_index", issue = "143775")]
     #[inline(always)]
@@ -2105,6 +2317,13 @@ impl<T> *mut [T] {
     /// determined to be null or not. See [`is_null`] for more information.
     ///
     /// [`is_null`]: #method.is_null-1
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `None` إذا كان المؤشر فارغًا، وإلا شريحة فريدة إلى القيم (قد تكون غير مهيأة) داخل
+    /// `Some`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "ptr_as_uninit", issue = "75402")]
     pub const unsafe fn as_uninit_slice_mut<'a>(self) -> Option<&'a mut [MaybeUninit<T>]> {
@@ -2119,6 +2338,12 @@ impl<T> *mut [T] {
 
 impl<T> *mut T {
     /// Casts from a pointer-to-`T` to a pointer-to-`[T; N]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من مؤشر إلى `T` إلى مؤشر إلى `[T; N]`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "ptr_cast_array", issue = "144514")]
     pub const fn cast_array<const N: usize>(self) -> *mut [T; N] {
@@ -2140,6 +2365,12 @@ impl<T, const N: usize> *mut [T; N] {
     /// let arr: *mut [i8; 3] = ptr::null_mut();
     /// assert_eq!(arr.as_mut_ptr(), ptr::null_mut());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى مخزن المصفوفة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "array_ptr_get", issue = "119834")]
     pub const fn as_mut_ptr(self) -> *mut T {
@@ -2160,6 +2391,12 @@ impl<T, const N: usize> *mut [T; N] {
     /// }
     /// assert_eq!(arr, [3, 4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى شريحة قابلة للتعديل تحتوي المصفوفة كاملة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "array_ptr_get", issue = "119834")]
     pub const fn as_mut_slice(self) -> *mut [T] {
@@ -2168,6 +2405,12 @@ impl<T, const N: usize> *mut [T; N] {
 }
 
 /// Pointer equality is by address, as produced by the [`<*mut T>::addr`](pointer::addr) method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تساوي المؤشرات يكون بالعنوان، كما ترجعه الدالة `<*mut T>::addr`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[diagnostic::on_const(
     message = "pointers cannot be reliably compared during const eval",
@@ -2182,6 +2425,12 @@ impl<T: PointeeSized> PartialEq for *mut T {
 }
 
 /// Pointer equality is an equivalence relation.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تساوي المؤشرات علاقة تكافؤ.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[diagnostic::on_const(
     message = "pointers cannot be reliably compared during const eval",
@@ -2190,6 +2439,12 @@ impl<T: PointeeSized> PartialEq for *mut T {
 impl<T: PointeeSized> Eq for *mut T {}
 
 /// Pointer comparison is by address, as produced by the [`<*mut T>::addr`](pointer::addr) method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقارنة المؤشرات تكون بالعنوان، كما ترجعه الدالة `<*mut T>::addr`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[diagnostic::on_const(
     message = "pointers cannot be reliably compared during const eval",
@@ -2210,6 +2465,12 @@ impl<T: PointeeSized> Ord for *mut T {
 }
 
 /// Pointer comparison is by address, as produced by the [`<*mut T>::addr`](pointer::addr) method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقارنة المؤشرات تكون بالعنوان، كما ترجعه الدالة `<*mut T>::addr`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[diagnostic::on_const(
     message = "pointers cannot be reliably compared during const eval",
@@ -2250,6 +2511,12 @@ impl<T: PointeeSized> PartialOrd for *mut T {
 #[stable(feature = "raw_ptr_default", since = "1.88.0")]
 impl<T: ?Sized + Thin> Default for *mut T {
     /// Returns the default value of [`null_mut()`][crate::ptr::null_mut].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الافتراضية وهي `null_mut()`.
+    ///
+    /// </div>
     fn default() -> Self {
         crate::ptr::null_mut()
     }

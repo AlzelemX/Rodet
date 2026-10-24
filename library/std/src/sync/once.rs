@@ -454,6 +454,7 @@ impl OnceState {
     /// INIT.call_once_force(|state| {
     ///     assert!(!state.is_poisoned());
     /// });
+    /// ```
     ///
     /// <div lang="ar" dir="rtl">
     ///

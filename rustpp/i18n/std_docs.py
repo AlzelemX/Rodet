@@ -83,8 +83,25 @@ def priority(path):
     return len(PRIORITY)
 
 
+def skip_attr(lines, k):
+    """Index just after the attribute starting at line `k` (it may span lines)."""
+    depth = 0
+    n = len(lines)
+    while k < n:
+        line = re.sub(r'"(\\.|[^"\\])*"', '""', lines[k])
+        depth += line.count("[") + line.count("(") - line.count("]") - line.count(")")
+        k += 1
+        if depth <= 0:
+            break
+    return k
+
+
 def doc_blocks(lines):
-    """(start, end, kind, indent, prefix) for each run of `///` or `//!` lines."""
+    """(start, end, kind, indent) for each run of `///` or `//!` lines.
+
+    Attributes, blank lines and plain comments between doc lines are part of
+    the run, and so are `#[doc = ...]` attributes right after it (the comment
+    goes on in them), so `end` is past the whole comment."""
     i = 0
     n = len(lines)
     while i < n:
@@ -97,18 +114,24 @@ def doc_blocks(lines):
         while j < n:
             m2 = re.match(r"^(\s*)(///|//!)", lines[j])
             if not m2 or m2.group(2) != marker or lines[j].lstrip().startswith("////"):
-                # A doc comment can go on after attributes (`#[cfg(...)]`
-                # between its lines): it is still one comment.
                 k = j
-                while k < n and (
-                    lines[k].strip().startswith(("#[", "#!["))
-                    or not lines[k].strip()
-                    or (lines[k].strip().startswith("//") and not lines[k].strip().startswith(("///", "//!")))
-                ):
-                    k += 1
+                last_doc = None
+                while k < n:
+                    t = lines[k].strip()
+                    if t.startswith(("#[", "#![")):
+                        end = skip_attr(lines, k)
+                        if re.match(r"#!?\[\s*doc\s*=", t) or re.match(r"#!?\[\s*cfg_attr\(.*\bdoc\s*=", t):
+                            last_doc = end
+                        k = end
+                    elif not t or (t.startswith("//") and not t.startswith(("///", "//!"))):
+                        k += 1
+                    else:
+                        break
                 if k > j and k < n and lines[k].lstrip().startswith(marker) and not lines[k].lstrip().startswith("////"):
                     j = k
                     continue
+                if last_doc is not None:
+                    j = last_doc
                 break
             j += 1
         yield i, j, marker, indent
@@ -161,7 +184,7 @@ def summary(text_lines):
             # A heading first (module docs): use it, unless it is a section
             # like "Panics" that only makes sense with what follows.
             heading = t.lstrip("# ").strip()
-            if heading in ("Panics", "Safety", "Examples", "Errors", "Example", "Notes", "Note"):
+            if heading in ("Panics", "Safety", "Examples", "Errors", "Example", "Notes", "Note", "See Also", "See also"):
                 return ""
             out.append(heading)
             break

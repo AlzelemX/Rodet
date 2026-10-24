@@ -46,10 +46,22 @@ pub use core::ascii::{EscapeDefault, escape_default};
 /// it will not get mapped to an uppercase variant, resulting in `"CAF\u{e9}"`.
 ///
 /// [combining character]: https://en.wikipedia.org/wiki/Combining_character
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال امتداد للعمليات على مجموعة ASCII فقط.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.26.0", note = "use inherent methods instead")]
 pub trait AsciiExt {
     /// Container type for copied ASCII characters.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الحاوية لحروف ASCII المنسوخة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     type Owned;
 

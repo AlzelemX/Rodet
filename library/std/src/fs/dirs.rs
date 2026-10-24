@@ -16,6 +16,12 @@ use crate::sys::fs::{ExtraHomeDirs, ExtraMediaDirs};
 /// As the filesystem conventions for discovering directories varies between
 /// operating systems, constructors for `HomeDirs` that use the host platform's
 /// conventions are provided as extension traits under the `std::os` module.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مسارات مجلدات المستخدم الشائعة لملفات التطبيقات الخاصة بالمستخدم.
+///
+/// </div>
 #[unstable(feature = "fs_home_dirs", issue = "162082")]
 #[derive(Debug, Clone)]
 pub struct HomeDirs {
@@ -42,6 +48,12 @@ pub struct HomeDirs {
 /// As the filesystem conventions for discovering directories varies between
 /// operating systems, constructors for `MediaDirs` that use the host platform's
 /// conventions are provided as extension traits under the `std::os` module.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مسارات مجلدات المستخدم الشائعة لملفات الوسائط الخاصة بالمستخدم.
+///
+/// </div>
 #[unstable(feature = "fs_media_dirs", issue = "162083")]
 #[derive(Debug, Clone)]
 pub struct MediaDirs {
@@ -64,6 +76,12 @@ impl HomeDirs {
     ///
     /// This is useful with the builder `set_*` methods to create a `HomeDirs`
     /// with exactly the directories you want, without any other defaults.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة مجلدات مستخدم معروفة بدون أي مجلد.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn empty() -> Self {
         Self { cache: None, config: None, data: None, state: None, extra: Default::default() }
@@ -99,6 +117,12 @@ impl HomeDirs {
     /// [Windows]: crate::os::windows::fs::HomeDirsExt
     /// [`NSCachesDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/cachesdirectory?language=objc
     /// [`{FOLDERID_LocalAppData}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_localappdata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المجلد الأساسي لملفات الذاكرة المؤقتة غير الأساسية الخاصة بالمستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn cache_home(&self) -> Option<&Path> {
         self.cache.as_deref()
@@ -133,6 +157,12 @@ impl HomeDirs {
     /// [Windows]: crate::os::windows::fs::HomeDirsExt
     /// [`NSApplicationSupportDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/applicationsupportdirectory?language=objc
     /// [`{FOLDERID_RoamingAppData}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_roamingappdata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المجلد الأساسي لملفات الإعدادات الخاصة بالمستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn config_home(&self) -> Option<&Path> {
         self.config.as_deref()
@@ -168,6 +198,12 @@ impl HomeDirs {
     /// [Windows]: crate::os::windows::fs::HomeDirsExt
     /// [`NSApplicationSupportDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/applicationsupportdirectory?language=objc
     /// [`{FOLDERID_RoamingAppData}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_roamingappdata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المجلد الأساسي لملفات البيانات الخاصة بالمستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn data_home(&self) -> Option<&Path> {
         self.data.as_deref()
@@ -203,6 +239,12 @@ impl HomeDirs {
     /// [Windows]: crate::os::windows::fs::HomeDirsExt
     /// [`NSApplicationSupportDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/applicationsupportdirectory?language=objc
     /// [`{FOLDERID_LocalAppData}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_localappdata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المجلد الأساسي لملفات الحالة الخاصة بالمستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn state_home(&self) -> Option<&Path> {
         self.state.as_deref()
@@ -214,6 +256,12 @@ impl MediaDirs {
     ///
     /// This is useful with the builder `set_*` methods to create a `MediaDirs`
     /// with exactly the directories you want, without any other defaults.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجموعة مجلدات مستخدم معروفة بدون أي مجلد.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn empty() -> Self {
         Self {
@@ -250,6 +298,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSDesktopDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/desktopdirectory?language=objc
     /// [`{FOLDERID_Desktop}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_desktop
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "سطح المكتب" للمستخدم، غالبًا `Desktop` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn desktop(&self) -> Option<&Path> {
         self.desktop.as_deref()
@@ -278,6 +332,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSDocumentDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/documentdirectory?language=objc
     /// [`{FOLDERID_Documents}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_documents
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "المستندات" للمستخدم، غالبًا `Documents` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn documents(&self) -> Option<&Path> {
         self.documents.as_deref()
@@ -306,6 +366,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSDownloadsDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/downloadsdirectory?language=objc
     /// [`{FOLDERID_Downloads}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_downloads
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "التنزيلات" للمستخدم، غالبًا `Downloads` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn downloads(&self) -> Option<&Path> {
         self.downloads.as_deref()
@@ -334,6 +400,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSMusicDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/musicdirectory?language=objc
     /// [`{FOLDERID_Music}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_music
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "الموسيقى" للمستخدم، غالبًا `Music` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn music(&self) -> Option<&Path> {
         self.music.as_deref()
@@ -362,6 +434,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSPicturesDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/picturesdirectory?language=objc
     /// [`{FOLDERID_Pictures}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_pictures
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "الصور" للمستخدم، غالبًا `Pictures` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn pictures(&self) -> Option<&Path> {
         self.pictures.as_deref()
@@ -390,6 +468,12 @@ impl MediaDirs {
     /// [Windows]: crate::os::windows::fs::MediaDirsExt
     /// [`NSMoviesDirectory`]: https://developer.apple.com/documentation/foundation/filemanager/searchpathdirectory/moviesdirectory?language=objc
     /// [`{FOLDERID_Videos}`]: https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid#folderid_videos
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مجلد "الفيديوهات" للمستخدم، غالبًا `Videos` في مجلد المستخدم.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn videos(&self) -> Option<&Path> {
         self.videos.as_deref()
@@ -402,6 +486,12 @@ impl HomeDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `cache_home`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn set_cache_home(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "cache home directory path must be absolute");
@@ -414,6 +504,12 @@ impl HomeDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `config_home`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn set_config_home(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "config home directory path must be absolute");
@@ -426,6 +522,12 @@ impl HomeDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `data_home`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn set_data_home(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "data home directory path must be absolute");
@@ -438,6 +540,12 @@ impl HomeDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `state_home`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_home_dirs", issue = "162082")]
     pub fn set_state_home(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "state home directory path must be absolute");
@@ -452,6 +560,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `desktop`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_desktop(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "desktop directory path must be absolute");
@@ -464,6 +578,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `documents`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_documents(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "documents directory path must be absolute");
@@ -476,6 +596,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `downloads`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_downloads(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "downloads directory path must be absolute");
@@ -488,6 +614,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `music`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_music(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "music directory path must be absolute");
@@ -500,6 +632,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `pictures`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_pictures(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "pictures directory path must be absolute");
@@ -512,6 +650,12 @@ impl MediaDirs {
     /// # Panics
     ///
     /// Panics if the provided path is not absolute.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد المسار لـ `videos`.
+    ///
+    /// </div>
     #[unstable(feature = "fs_media_dirs", issue = "162083")]
     pub fn set_videos(&mut self, path: PathBuf) -> &mut Self {
         assert!(path.is_absolute(), "videos directory path must be absolute");

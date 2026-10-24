@@ -1,4 +1,10 @@
 //! Owned and borrowed Unix-like file descriptors.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واصفات ملفات (file descriptors) يونكس مملوكة ومستعارة.
+//!
+//! </div>
 
 #![stable(feature = "io_safety", since = "1.63.0")]
 #![deny(unsafe_op_in_unsafe_fn)]
@@ -45,6 +51,12 @@ type ValidRawFd = core::num::niche_types::NotAllOnes<RawFd>;
 ///
 /// To obtain an [`OwnedFd`], you can use [`BorrowedFd::try_clone_to_owned`]
 /// instead, but this is not supported on all platforms.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مستعار.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
@@ -65,6 +77,12 @@ pub struct BorrowedFd<'fd> {
 /// has the value `-1`.
 ///
 /// You can use [`AsFd::as_fd`] to obtain a [`BorrowedFd`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مملوك.
+///
+/// </div>
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
 #[stable(feature = "io_safety", since = "1.63.0")]
@@ -83,6 +101,12 @@ impl BorrowedFd<'_> {
     /// # Panics
     ///
     /// Panics if the raw file descriptor has the value `-1`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `BorrowedFd` يحمل واصف الملف الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[rustc_const_stable(feature = "io_safety", since = "1.63.0")]
@@ -95,6 +119,12 @@ impl BorrowedFd<'_> {
 impl OwnedFd {
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `OwnedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `OwnedFd` الحالي.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone(&self) -> io::Result<Self> {
         self.as_fd().try_clone_to_owned()
@@ -104,6 +134,12 @@ impl OwnedFd {
 impl BorrowedFd<'_> {
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `BorrowedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `BorrowedFd` الحالي.
+    ///
+    /// </div>
     #[cfg(not(any(
         all(target_family = "wasm", not(target_os = "emscripten")),
         target_os = "hermit",
@@ -132,6 +168,12 @@ impl BorrowedFd<'_> {
 
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `BorrowedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `BorrowedFd` الحالي.
+    ///
+    /// </div>
     #[cfg(any(
         all(target_family = "wasm", not(target_os = "emscripten")),
         target_os = "hermit",
@@ -144,6 +186,12 @@ impl BorrowedFd<'_> {
 
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `BorrowedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `BorrowedFd` الحالي.
+    ///
+    /// </div>
     #[cfg(target_os = "motor")]
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone_to_owned(&self) -> io::Result<OwnedFd> {
@@ -190,6 +238,12 @@ impl FromRawFd for OwnedFd {
     /// # Panics
     ///
     /// Panics if the raw file descriptor has the value `-1`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من `Self` من واصف الملف الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     unsafe fn from_raw_fd(fd: RawFd) -> Self {
@@ -259,6 +313,12 @@ impl_is_terminal!(BorrowedFd<'_>, OwnedFd);
 /// This is only available on unix platforms and must be imported in order to
 /// call the method. Windows platforms have a corresponding `AsHandle` and
 /// `AsSocket` set of traits.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة واصف الملف من كائن.
+///
+/// </div>
 #[stable(feature = "io_safety", since = "1.63.0")]
 pub trait AsFd {
     /// Borrows the file descriptor.
@@ -276,6 +336,12 @@ pub trait AsFd {
     /// let borrowed_fd: BorrowedFd<'_> = f.as_fd();
     /// # Ok::<(), io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير واصف الملف.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     fn as_fd(&self) -> BorrowedFd<'_>;
 }
@@ -328,6 +394,12 @@ impl AsFd for fs::File {
 #[cfg(not(target_os = "trusty"))]
 impl From<fs::File> for OwnedFd {
     /// Takes ownership of a [`File`](fs::File)'s underlying file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف الملف الأساسي لـ `File`.
+    ///
+    /// </div>
     #[inline]
     fn from(file: fs::File) -> OwnedFd {
         file.into_inner().into_inner().into_inner()
@@ -339,6 +411,12 @@ impl From<fs::File> for OwnedFd {
 impl From<OwnedFd> for fs::File {
     /// Returns a [`File`](fs::File) that takes ownership of the given
     /// file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `File` يأخذ ملكية واصف الملف المعطى.
+    ///
+    /// </div>
     #[inline]
     fn from(owned_fd: OwnedFd) -> Self {
         Self::from_inner(FromInner::from_inner(FromInner::from_inner(owned_fd)))
@@ -358,6 +436,12 @@ impl AsFd for crate::net::TcpStream {
 #[cfg(not(target_os = "trusty"))]
 impl From<crate::net::TcpStream> for OwnedFd {
     /// Takes ownership of a [`TcpStream`](crate::net::TcpStream)'s socket file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف المقبس لـ `TcpStream`.
+    ///
+    /// </div>
     #[inline]
     fn from(tcp_stream: crate::net::TcpStream) -> OwnedFd {
         tcp_stream.into_inner().into_socket().into_inner().into_inner()
@@ -388,6 +472,12 @@ impl AsFd for crate::net::TcpListener {
 #[cfg(not(target_os = "trusty"))]
 impl From<crate::net::TcpListener> for OwnedFd {
     /// Takes ownership of a [`TcpListener`](crate::net::TcpListener)'s socket file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف المقبس لـ `TcpListener`.
+    ///
+    /// </div>
     #[inline]
     fn from(tcp_listener: crate::net::TcpListener) -> OwnedFd {
         tcp_listener.into_inner().into_socket().into_inner().into_inner()
@@ -418,6 +508,12 @@ impl AsFd for crate::net::UdpSocket {
 #[cfg(not(target_os = "trusty"))]
 impl From<crate::net::UdpSocket> for OwnedFd {
     /// Takes ownership of a [`UdpSocket`](crate::net::UdpSocket)'s file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف الملف لـ `UdpSocket`.
+    ///
+    /// </div>
     #[inline]
     fn from(udp_socket: crate::net::UdpSocket) -> OwnedFd {
         udp_socket.into_inner().into_socket().into_inner().into_inner()
@@ -451,6 +547,12 @@ impl From<OwnedFd> for crate::net::UdpSocket {
 /// impl MyTrait for Box<UdpSocket> {}
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق يسمح بتطبيق traits تتطلب `AsFd` على `Arc`.
+///
+/// </div>
 impl<T: AsFd + ?Sized> AsFd for crate::sync::Arc<T> {
     #[inline]
     fn as_fd(&self) -> BorrowedFd<'_> {

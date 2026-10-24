@@ -1,4 +1,10 @@
 //! Android-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بـ Android.
+//!
+//! </div>
 
 #![stable(feature = "unix_socket_abstract", since = "1.70.0")]
 

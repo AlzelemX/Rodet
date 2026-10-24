@@ -1,4 +1,10 @@
 //! illumos-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بـ illumos.
+//!
+//! </div>
 
 #![unstable(feature = "unix_socket_exclbind", issue = "123481")]
 
@@ -11,6 +17,12 @@ use crate::sys::AsInner;
 ///
 /// [`UnixDatagram`]: net::UnixDatagram
 /// [`UnixStream`]: net::UnixStream
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وظائف خاصة بـ illumos لمقابس `AF_UNIX` (`UnixDatagram` و`UnixStream`).
+///
+/// </div>
 #[unstable(feature = "unix_socket_exclbind", issue = "123481")]
 pub impl(self) trait UnixSocketExt {
     /// Enables exclusive binding on the socket.

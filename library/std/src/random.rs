@@ -47,6 +47,12 @@
 //! ```
 //!
 //! [version 4/variant 1 UUID]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! توليد القيم العشوائية.
+//!
+//! </div>
 
 #[unstable(feature = "random", issue = "130703")]
 pub use core::random::*;

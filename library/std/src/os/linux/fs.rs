@@ -1,6 +1,12 @@
 //! Linux-specific extensions to primitives in the [`std::fs`] module.
 //!
 //! [`std::fs`]: crate::fs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Linux لأنواع وحدة `std::fs`.
+//!
+//! </div>
 
 #![stable(feature = "metadata_ext", since = "1.1.0")]
 
@@ -12,6 +18,12 @@ use crate::sys::AsInner;
 /// OS-specific extensions to [`fs::Metadata`].
 ///
 /// [`fs::Metadata`]: crate::fs::Metadata
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بنظام التشغيل لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Gain a reference to the underlying `stat` structure which contains
@@ -37,6 +49,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى بنية `stat` الأساسية التي فيها المعلومات الخام من نظام التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     #[deprecated(since = "1.8.0", note = "other methods of this trait are now preferred")]
     #[allow(deprecated)]
@@ -58,6 +76,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز الذي يوجد عليه هذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_dev(&self) -> u64;
     /// Returns the inode number.
@@ -76,6 +100,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم الـ inode.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ino(&self) -> u64;
     /// Returns the file type and mode.
@@ -94,6 +124,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع الملف وصلاحياته.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mode(&self) -> u32;
     /// Returns the number of hard links to file.
@@ -112,6 +148,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الروابط الصلبة للملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_nlink(&self) -> u64;
     /// Returns the user ID of the file owner.
@@ -130,6 +172,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم مالك الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_uid(&self) -> u32;
     /// Returns the group ID of the file owner.
@@ -148,6 +196,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة المالكة للملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_gid(&self) -> u32;
     /// Returns the device ID that this file represents. Only relevant for special file.
@@ -166,6 +220,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز الذي يمثله هذا الملف (للملفات الخاصة فقط).
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_rdev(&self) -> u64;
     /// Returns the size of the file (if it is a regular file or a symbolic link) in bytes.
@@ -187,6 +247,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الملف بالبايتات (إذا كان ملفًا عاديًا أو رابطًا رمزيًا).
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_size(&self) -> u64;
     /// Returns the last access time of the file, in seconds since Unix Epoch.
@@ -205,6 +271,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_atime(&self) -> i64;
     /// Returns the last access time of the file, in nanoseconds since [`st_atime`].
@@ -225,6 +297,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالنانوثانية بعد `st_atime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_atime_nsec(&self) -> i64;
     /// Returns the last modification time of the file, in seconds since Unix Epoch.
@@ -243,6 +321,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mtime(&self) -> i64;
     /// Returns the last modification time of the file, in nanoseconds since [`st_mtime`].
@@ -263,6 +347,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالنانوثانية بعد `st_mtime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_mtime_nsec(&self) -> i64;
     /// Returns the last status change time of the file, in seconds since Unix Epoch.
@@ -281,6 +371,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالثواني منذ بداية زمن يونكس.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ctime(&self) -> i64;
     /// Returns the last status change time of the file, in nanoseconds since [`st_ctime`].
@@ -301,6 +397,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالنانوثانية بعد `st_ctime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_ctime_nsec(&self) -> i64;
     /// Returns the "preferred" block size for efficient filesystem I/O.
@@ -319,6 +421,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الكتلة "المفضل" لإدخال وإخراج فعّال في نظام الملفات.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_blksize(&self) -> u64;
     /// Returns the number of blocks allocated to the file, 512-byte units.
@@ -337,6 +445,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الكتل المحجوزة للملف، بوحدات 512 بايت.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext2", since = "1.8.0")]
     fn st_blocks(&self) -> u64;
 }

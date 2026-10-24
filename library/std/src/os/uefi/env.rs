@@ -1,4 +1,10 @@
 //! UEFI-specific extensions to the primitives in `std::env` module
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ UEFI لأنواع وحدة `std::env`.
+//!
+//! </div>
 
 #![unstable(feature = "uefi_std", issue = "100499")]
 
@@ -66,6 +72,12 @@ pub(crate) unsafe fn init_globals(handle: NonNull<c_void>, system_table: NonNull
 /// additional checks.
 ///
 /// Note: This function panics if the System Table or Image Handle is not initialized.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشر الـ SystemTable.
+///
+/// </div>
 pub fn system_table() -> NonNull<c_void> {
     try_system_table().unwrap()
 }
@@ -93,6 +105,12 @@ pub fn boot_services() -> Option<NonNull<c_void>> {
 /// Gets the SystemTable Pointer.
 ///
 /// This function is mostly intended for places where panic is not an option.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشر الـ SystemTable.
+///
+/// </div>
 pub(crate) fn try_system_table() -> Option<NonNull<c_void>> {
     NonNull::new(SYSTEM_TABLE.load(Ordering::Acquire))
 }

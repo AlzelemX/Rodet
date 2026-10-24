@@ -4,6 +4,12 @@ use super::BorrowedFd;
 ///
 /// See [`io::stdin()`][`crate::io::stdin`] for the higher level handle, which should be preferred
 /// whenever possible. See [`STDERR`] for why the file descriptor might be required and caveats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مجرى الإدخال القياسي للعملية الحالية.
+///
+/// </div>
 #[unstable(feature = "stdio_fd_consts", issue = "150836")]
 pub const STDIN: BorrowedFd<'static> = unsafe { BorrowedFd::borrow_raw(0) };
 
@@ -13,6 +19,12 @@ pub const STDIN: BorrowedFd<'static> = unsafe { BorrowedFd::borrow_raw(0) };
 /// whenever possible. See [`STDERR`] for why the file descriptor might be required and caveats. In
 /// addition to the issues discussed there, note that [`Stdout`][`crate::io::Stdout`] is buffered by
 /// default, and writing to the file descriptor will bypass this buffer.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مجرى الإخراج القياسي للعملية الحالية.
+///
+/// </div>
 #[unstable(feature = "stdio_fd_consts", issue = "150836")]
 pub const STDOUT: BorrowedFd<'static> = unsafe { BorrowedFd::borrow_raw(1) };
 
@@ -49,5 +61,11 @@ pub const STDOUT: BorrowedFd<'static> = unsafe { BorrowedFd::borrow_raw(1) };
 /// [before-after-main]: ../../../std/index.html#use-before-and-after-main
 /// [io-safety]: ../../../std/io/index.html#io-safety
 /// [global-alloc-reentrancy]: ../../../std/alloc/trait.GlobalAlloc.html#re-entrance
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مجرى الأخطاء القياسي للعملية الحالية.
+///
+/// </div>
 #[unstable(feature = "stdio_fd_consts", issue = "150836")]
 pub const STDERR: BorrowedFd<'static> = unsafe { BorrowedFd::borrow_raw(2) };

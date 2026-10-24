@@ -1,4 +1,10 @@
 //! Emscripten-specific raw type definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات الأنواع الخام الخاصة بـ Emscripten.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 #![deprecated(

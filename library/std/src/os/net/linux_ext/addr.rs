@@ -1,8 +1,20 @@
 //! Linux and Android-specific extensions to socket addresses.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Linux وAndroid لعناوين المقابس.
+//!
+//! </div>
 
 use crate::os::unix::net::SocketAddr;
 
 /// Platform-specific extensions to [`SocketAddr`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بالمنصة لـ `SocketAddr`.
+///
+/// </div>
 #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
 pub impl(in crate::os) trait SocketAddrExt {
     /// Creates a Unix socket address in the abstract namespace.

@@ -43,6 +43,12 @@
 //! and free (close) it when they are dropped.
 //!
 //! [`BorrowedFd<'a>`]: crate::os::solid::io::BorrowedFd
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ SOLID لأساسيات الإدخال والإخراج.
+//!
+//! </div>
 
 #![unstable(feature = "solid_ext", issue = "none")]
 
@@ -53,6 +59,12 @@ use crate::sys::{AsInner, FromInner, IntoInner};
 use crate::{fmt, io, net, sys};
 
 /// Raw file descriptors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصفات الملفات الخام.
+///
+/// </div>
 pub type RawFd = i32;
 
 // The max of this is -2, in two's complement. -1 is `SOLID_NET_INVALID_FD`.
@@ -71,6 +83,12 @@ type ValidRawFd = core::num::niche_types::NotAllOnes<RawFd>;
 /// This type's `.to_owned()` implementation returns another `BorrowedFd`
 /// rather than an `OwnedFd`. It just makes a trivial copy of the raw
 /// socket, which is then borrowed under the same lifetime.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مستعار لمقابس SOLID.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
@@ -87,6 +105,12 @@ pub struct BorrowedFd<'socket> {
 /// descriptor, so it can be used in FFI in places where a socket is passed as
 /// an argument, it is not captured or consumed, and it never has the value
 /// `SOLID_NET_INVALID_FD`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واصف ملف مملوك لمقابس SOLID.
+///
+/// </div>
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
 pub struct OwnedFd {
@@ -101,6 +125,12 @@ impl BorrowedFd<'_> {
     /// The resource pointed to by `fd` must remain open for the duration of
     /// the returned `BorrowedFd`, and it must not have the value
     /// `SOLID_NET_INVALID_FD`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `BorrowedFd` يحمل واصف الملف الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     pub const unsafe fn borrow_raw(fd: RawFd) -> Self {
@@ -111,6 +141,12 @@ impl BorrowedFd<'_> {
 impl OwnedFd {
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `OwnedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `OwnedFd` الحالي.
+    ///
+    /// </div>
     pub fn try_clone(&self) -> io::Result<Self> {
         self.as_fd().try_clone_to_owned()
     }
@@ -119,6 +155,12 @@ impl OwnedFd {
 impl BorrowedFd<'_> {
     /// Creates a new `OwnedFd` instance that shares the same underlying file
     /// description as the existing `BorrowedFd` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedFd` جديدًا يشارك نفس وصف الملف الأساسي مع الـ `BorrowedFd` الحالي.
+    ///
+    /// </div>
     pub fn try_clone_to_owned(&self) -> io::Result<OwnedFd> {
         let fd = sys::net::cvt(unsafe { crate::sys::abi::sockets::dup(self.as_raw_fd()) })?;
         Ok(unsafe { OwnedFd::from_raw_fd(fd) })
@@ -153,6 +195,12 @@ impl FromRawFd for OwnedFd {
     ///
     /// The resource pointed to by `fd` must be open and suitable for assuming
     /// ownership. The resource must not require any cleanup other than `close`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من `Self` من واصف الملف الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     unsafe fn from_raw_fd(fd: RawFd) -> Self {
@@ -195,8 +243,20 @@ impl_is_terminal!(BorrowedFd<'_>, OwnedFd);
 
 /// A trait to borrow the SOLID Sockets file descriptor from an underlying
 /// object.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة واصف ملف مقابس SOLID من كائن.
+///
+/// </div>
 pub trait AsFd {
     /// Borrows the file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير واصف الملف.
+    ///
+    /// </div>
     fn as_fd(&self) -> BorrowedFd<'_>;
 }
 
@@ -293,17 +353,35 @@ impl<T: AsFd, A: Allocator> AsFd for Box<T, A> {
 
 /// A trait to extract the raw SOLID Sockets file descriptor from an underlying
 /// object.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستخراج واصف ملف مقابس SOLID الخام من كائن.
+///
+/// </div>
 pub trait AsRawFd {
     /// Extracts the raw file descriptor.
     ///
     /// This method does **not** pass ownership of the raw file descriptor
     /// to the caller. The descriptor is only guaranteed to be valid while
     /// the original object has not yet been destroyed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج واصف الملف الخام.
+    ///
+    /// </div>
     fn as_raw_fd(&self) -> RawFd;
 }
 
 /// A trait to express the ability to construct an object from a raw file
 /// descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية إنشاء كائن من واصف ملف خام.
+///
+/// </div>
 pub trait FromRawFd {
     /// Constructs a new instance of `Self` from the given raw file
     /// descriptor.
@@ -323,17 +401,35 @@ pub trait FromRawFd {
     /// in particular, it must be open.
     ///
     /// [io-safety]: io#io-safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من `Self` من واصف الملف الخام المعطى.
+    ///
+    /// </div>
     unsafe fn from_raw_fd(fd: RawFd) -> Self;
 }
 
 /// A trait to express the ability to consume an object and acquire ownership of
 /// its raw file descriptor.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية استهلاك كائن وأخذ ملكية واصف ملفه الخام.
+///
+/// </div>
 pub trait IntoRawFd {
     /// Consumes this object, returning the raw underlying file descriptor.
     ///
     /// This function **transfers ownership** of the underlying file descriptor
     /// to the caller. Callers are then the unique owners of the file descriptor
     /// and must close the descriptor once it's no longer needed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الكائن ويرجع واصف الملف الخام الأساسي.
+    ///
+    /// </div>
     #[must_use = "losing the raw file descriptor may leak resources"]
     fn into_raw_fd(self) -> RawFd;
 }
