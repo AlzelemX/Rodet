@@ -25,6 +25,14 @@ Commands:
     apply FILE ARABIC                put the Arabic in ARABIC (lines `N| text`,
                                      `\\n` for new lines) into the doc comments
                                      listed in FILE
+    full FILE path [--limit N]       write the prose of whole doc comments under
+                                     `path` (code examples and `# Examples`
+                                     sections left out: the editor shows the
+                                     English ones) for a full translation, also
+                                     for items that only have an Arabic summary
+    apply-full FILE ARABIC           put full translations (blocks that start
+                                     with a line `@@ N`) in place of the Arabic
+                                     the doc comments in FILE have now
 """
 
 import os
@@ -120,7 +128,10 @@ def doc_blocks(lines):
                     t = lines[k].strip()
                     if t.startswith(("#[", "#![")):
                         end = skip_attr(lines, k)
-                        if re.match(r"#!?\[\s*doc\s*=", t) or re.match(r"#!?\[\s*cfg_attr\(.*\bdoc\s*=", t):
+                        # Only attributes of the same kind continue the comment:
+                        # `#![doc = ...]` after `//!`, `#[doc = ...]` after `///`.
+                        bang = "!" if marker == "//!" else ""
+                        if re.match(rf"#{bang}\[\s*doc\s*=", t) or re.match(rf"#{bang}\[\s*cfg_attr\(.*\bdoc\s*=", t):
                             last_doc = end
                         k = end
                     elif not t or (t.startswith("//") and not t.startswith(("///", "//!"))):
@@ -167,6 +178,38 @@ def english_part(text_lines):
     while out and not out[-1].strip():
         out.pop()
     return out
+
+
+def prose(text_lines):
+    """The parts of a doc comment worth translating in full: no code blocks, no
+    `# Examples` sections (only code and "Basic usage:"), no link definitions."""
+    out = []
+    fence = False
+    skip_level = None
+    for t in text_lines:
+        st = t.strip()
+        if st.startswith("```"):
+            fence = not fence
+            continue
+        if fence:
+            continue
+        m = re.match(r"^(#+)\s+(.*)$", st)
+        if m:
+            level = len(m.group(1))
+            if skip_level is not None and level <= skip_level:
+                skip_level = None
+            if m.group(2).strip() in ("Examples", "Example"):
+                skip_level = level
+                continue
+        if skip_level is not None:
+            continue
+        if re.match(r"^\[[^\]]+\]:\s*\S+", st):
+            continue
+        out.append(t)
+    # Squeeze blank lines.
+    text = "\n".join(out)
+    text = re.sub(r"\n\s*\n(\s*\n)+", "\n\n", text).strip()
+    return text
 
 
 def summary(text_lines):
@@ -320,7 +363,9 @@ def arabic_block(arabic, indent, marker):
         elif in_code or not line.strip() or line.lstrip().startswith(("-", "*", "#", "|", ">")) or re.match(r"^\s*\d+\.", line):
             body.append(line)
         else:
-            body.extend(wrap(line, width))
+            # Keep the indent of a list item's later lines.
+            lead = line[: len(line) - len(line.lstrip())]
+            body.extend(lead + w for w in wrap(line.strip(), width - len(lead)))
     out = [f"{prefix}", f"{prefix} {OPEN}", f"{prefix}"]
     out += [f"{prefix} {b}" if b else prefix for b in body]
     out += [f"{prefix}", f"{prefix} {CLOSE}"]
@@ -409,6 +454,66 @@ def main():
             with open(path, "w", encoding="utf-8") as f:
                 f.write("\n".join(lines))
         print(f"added Arabic to {changed} doc comments in {len(by_path)} files")
+    elif cmd == "full":
+        out = sys.argv[2]
+        where = sys.argv[3]
+        args = sys.argv[4:]
+        limit = int(args[args.index("--limit") + 1]) if "--limit" in args else 10**9
+        n = 0
+        with open(out, "w", encoding="utf-8") as f:
+            for d in scan():
+                if not d["public"] or not rel(d["path"]).startswith(where):
+                    continue
+                text = prose(d["english"])
+                if not text:
+                    continue
+                n += 1
+                f.write(f"@@ {n} {d['kind']} {d['name']} {rel(d['path'])}:{d['start'] + 1}\n{text}\n")
+                if n >= limit:
+                    break
+        print(f"{n} doc comments in {out}")
+    elif cmd == "apply-full":
+        def blocks(path):
+            res, cur, head = {}, [], None
+            for line in open(path, encoding="utf-8"):
+                line = line.rstrip("\n")
+                if line.startswith("@@ "):
+                    if head is not None:
+                        res[head] = "\n".join(cur).strip()
+                    head, cur = int(line.split()[1]), []
+                else:
+                    cur.append(line)
+            if head is not None:
+                res[head] = "\n".join(cur).strip()
+            return res
+
+        english = blocks(sys.argv[2])
+        arabic = {english[n]: a for n, a in blocks(sys.argv[3]).items() if a and n in english}
+        by_path = defaultdict(list)
+        for d in scan():
+            text = prose(d["english"])
+            if text in arabic:
+                by_path[d["path"]].append((d, arabic[text]))
+        changed = 0
+        for path, items in by_path.items():
+            with open(path, encoding="utf-8") as f:
+                lines = f.read().split("\n")
+            for d, ar in sorted(items, key=lambda x: -x[0]["end"]):
+                start, end = d["start"], d["end"]
+                # Take out the Arabic the comment has now.
+                for k in range(end - 1, start - 1, -1):
+                    if lines[k].strip() == f"{d['marker']} {OPEN}":
+                        c = k
+                        while lines[c].strip() != f"{d['marker']} {CLOSE}":
+                            c += 1
+                        b0 = k - 1 if lines[k - 1].strip() == d["marker"] else k
+                        del lines[b0 : c + 1]
+                        end -= c + 1 - b0
+                lines[end:end] = arabic_block(ar, d["indent"], d["marker"])
+                changed += 1
+            with open(path, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines))
+        print(f"put full Arabic into {changed} doc comments in {len(by_path)} files")
     else:
         print(__doc__)
 

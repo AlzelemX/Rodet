@@ -13,11 +13,6 @@ macro_rules! legacy_int_module {
             #![doc = concat!("Redundant constants module for the [`", stringify!($T), "` primitive type][", stringify!($T), "].")]
             //!
             //! New code should use the associated constants directly on the primitive type.
-
-            #[doc = concat!(
-                "The smallest value that can be represented by this integer type. Use ",
-                "[`", stringify!($T), "::MIN", "`] instead."
-            )]
             //!
             //! <div lang="ar" dir="rtl">
             //!
@@ -25,6 +20,11 @@ macro_rules! legacy_int_module {
             //! `i32::MAX`).
             //!
             //! </div>
+
+            #[doc = concat!(
+                "The smallest value that can be represented by this integer type. Use ",
+                "[`", stringify!($T), "::MIN", "`] instead."
+            )]
             ///
             /// # Examples
             ///
