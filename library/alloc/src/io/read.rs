@@ -579,6 +579,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا القارئ إلى مكرر (`Iterator`) على بايتاته.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn bytes(self) -> Bytes<Self>
     where
@@ -615,6 +621,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ محوّلًا يربط هذا المجرى بمجرى آخر (يقرأ الأول ثم الثاني).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn chain<R: Read>(self, next: R) -> Chain<Self, R>
     where
@@ -653,6 +665,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ محوّلًا يقرأ منه `limit` بايت على الأكثر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn take(self, limit: u64) -> Take<Self>
     where
@@ -690,6 +708,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ مصفوفة بايتات ثابتة الحجم من هذا المصدر ويرجعها.
+    ///
+    /// </div>
     #[unstable(feature = "read_array", issue = "148848")]
     fn read_array<const N: usize>(&mut self) -> Result<[u8; N]>
     where
@@ -730,6 +754,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ نوعًا (مثل عدد صحيح) بترتيب little-endian ويرجعه.
+    ///
+    /// </div>
     #[unstable(feature = "read_le", issue = "156984")]
     #[inline]
     fn read_le<T: FromEndianBytes>(&mut self) -> Result<T>
@@ -765,6 +795,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ نوعًا (مثل عدد صحيح) بترتيب big-endian ويرجعه.
+    ///
+    /// </div>
     #[unstable(feature = "read_le", issue = "156984")]
     #[inline]
     fn read_be<T: FromEndianBytes>(&mut self) -> Result<T>
@@ -833,6 +869,12 @@ pub trait Read {
 ///
 /// [`read`]: Read::read
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ كل البايتات من قارئ إلى `String` جديد.
+///
+/// </div>
 #[stable(feature = "io_read_to_string", since = "1.65.0")]
 pub fn read_to_string<R: Read>(mut reader: R) -> Result<String> {
     let mut buf = String::new();
@@ -1140,6 +1182,12 @@ pub(super) fn default_read_buf_exact<R: Read + ?Sized>(
 }
 
 /// Trait for types that can be converted from a fixed-size byte array with a specified endianness
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي يمكن إنشاؤها من مصفوفة بايتات ثابتة الحجم بترتيب بايتات محدد.
+///
+/// </div>
 #[unstable(feature = "read_le_be_internals", reason = "internals", issue = "none")]
 // Once we can use associated consts in the types of method parameters, rewrite this to have
 // `from_le_bytes` and `from_be_bytes` methods, move it to `core`, and make it public.

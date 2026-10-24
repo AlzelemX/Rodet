@@ -24,6 +24,12 @@ use crate::{assert_unsafe_precondition, fmt, mem};
 /// be non-zero in size. A caller must either ensure that conditions
 /// like this are met, use specific allocators with looser
 /// requirements, or use the more lenient `Allocator` interface.)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تخطيط كتلة ذاكرة (الحجم والمحاذاة).
+///
+/// </div>
 #[stable(feature = "alloc_layout", since = "1.28.0")]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[lang = "alloc_layout"]
@@ -53,6 +59,12 @@ impl Layout {
     /// * `size`, when rounded up to the nearest multiple of `align`,
     ///   must not overflow `isize` (i.e., the rounded value must be
     ///   less than or equal to `isize::MAX`).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Layout` من `size` و`align` المعطاة، أو يرجع `LayoutError` إذا لم تتحقق الشروط.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_alloc_layout_size_align", since = "1.50.0")]
     #[inline]
@@ -104,6 +116,12 @@ impl Layout {
     /// * `size`, when rounded up to the nearest multiple of `alignment`,
     ///   must not overflow `isize` (i.e., the rounded value must be
     ///   less than or equal to `isize::MAX`).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Layout` من `size` و`alignment` المعطاة، أو يرجع `LayoutError` إذا لم تتحقق الشروط.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn from_size_alignment(
@@ -124,6 +142,12 @@ impl Layout {
     ///
     /// The arguments passed must meet the preconditions from
     /// [`Layout::from_size_align`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا متجاوزًا كل الفحوص (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_alloc_layout_unchecked", since = "1.36.0")]
     #[must_use]
@@ -149,6 +173,12 @@ impl Layout {
     ///
     /// This function is unsafe as it does not verify the preconditions from
     /// [`Layout::from_size_alignment`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا متجاوزًا كل الفحوص (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[must_use]
     #[inline]
@@ -168,6 +198,12 @@ impl Layout {
     }
 
     /// The minimum size in bytes for a memory block of this layout.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقل حجم بالبايتات لكتلة ذاكرة بهذا التخطيط.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_alloc_layout_size_align", since = "1.50.0")]
     #[must_use]
@@ -179,6 +215,12 @@ impl Layout {
     /// The minimum byte alignment for a memory block of this layout.
     ///
     /// The returned alignment is guaranteed to be a power of two.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقل محاذاة بالبايتات لكتلة ذاكرة بهذا التخطيط.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_alloc_layout_size_align", since = "1.50.0")]
     #[must_use = "this returns the minimum alignment, \
@@ -191,6 +233,12 @@ impl Layout {
     /// The minimum byte alignment for a memory block of this layout.
     ///
     /// The returned alignment is guaranteed to be a power of two.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقل محاذاة بالبايتات لكتلة ذاكرة بهذا التخطيط.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[must_use = "this returns the minimum alignment, without modifying the layout"]
     #[inline]
@@ -199,6 +247,12 @@ impl Layout {
     }
 
     /// Constructs a `Layout` suitable for holding a value of type `T`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Layout` مناسبًا لحمل قيمة من النوع `T`.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "alloc_layout_const_new", since = "1.42.0")]
     #[must_use]
@@ -210,6 +264,13 @@ impl Layout {
     /// Produces layout describing a record that could be used to
     /// allocate backing structure for `T` (which could be a trait
     /// or other unsized type like a slice).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي تخطيطًا يصف سجلًا يصلح لحجز البنية الداعمة لـ `T` (قد يكون trait أو نوعًا غير معروف
+    /// الحجم).
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_alloc_layout", since = "1.85.0")]
     #[must_use]
@@ -252,6 +313,13 @@ impl Layout {
     ///
     /// [trait object]: ../../book/ch17-02-trait-objects.html
     /// [extern type]: ../../unstable-book/language-features/extern-types.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي تخطيطًا يصف سجلًا يصلح لحجز البنية الداعمة لـ `T` (قد يكون trait أو نوعًا غير معروف
+    /// الحجم).
+    ///
+    /// </div>
     #[stable(feature = "layout_for_ptr", since = "1.99.0")]
     #[rustc_const_stable(feature = "layout_for_ptr", since = "1.99.0")]
     #[must_use]
@@ -269,6 +337,12 @@ impl Layout {
     /// be that of a valid pointer, which means this must not be used
     /// as a "not yet initialized" sentinel value.
     /// Types that lazily allocate must track initialization by some other means.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonNull` معلّقًا لكنه محاذى بشكل صحيح لهذا التخطيط.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[rustc_const_stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[must_use]
@@ -291,6 +365,12 @@ impl Layout {
     ///
     /// Returns an error if the combination of `self.size()` and the given
     /// `align` violates the conditions listed in [`Layout::from_size_align`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا بنفس تخطيط `self` لكن محاذى أيضًا إلى المحاذاة `align`.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_manipulation", since = "1.44.0")]
     #[rustc_const_stable(feature = "const_alloc_layout", since = "1.85.0")]
     #[inline]
@@ -316,6 +396,12 @@ impl Layout {
     ///
     /// Returns an error if the combination of `self.size()` and the given
     /// `alignment` violates the conditions listed in [`Layout::from_size_alignment`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا بنفس تخطيط `self` لكن محاذى أيضًا إلى المحاذاة المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn adjust_alignment_to(&self, alignment: Alignment) -> Result<Self, LayoutError> {
@@ -335,6 +421,12 @@ impl Layout {
     /// to be less than or equal to the alignment of the starting
     /// address for the whole allocated block of memory. One way to
     /// satisfy this constraint is to ensure `alignment.as_usize() <= self.align()`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مقدار الحشو الذي يجب إضافته بعد `self` ليحقق العنوان التالي المحاذاة `alignment`.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[must_use = "this returns the padding needed, without modifying the `Layout`"]
     #[inline]
@@ -379,6 +471,12 @@ impl Layout {
     ///
     /// This is equivalent to adding the result of `padding_needed_for`
     /// to the layout's current size.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا بتقريب حجم هذا التخطيط للأعلى إلى مضاعف محاذاته.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_manipulation", since = "1.44.0")]
     #[rustc_const_stable(feature = "const_alloc_layout", since = "1.85.0")]
     #[must_use = "this returns a new `Layout`, \
@@ -429,6 +527,12 @@ impl Layout {
     /// let repeated = padding_needed.repeat(0).unwrap();
     /// assert_eq!(repeated, (Layout::from_size_align(0, 4).unwrap(), 8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا يصف سجلًا لـ `n` نسخة من `self` مع حشو مناسب بينها.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[rustc_const_stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[inline]
@@ -494,6 +598,12 @@ impl Layout {
     /// # let u64 = Layout::new::<u64>();
     /// # assert_eq!(repr_c(&[u64, u32, u16, u32]), Ok((s, vec![0, 8, 12, 16])));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا يصف سجلًا فيه `self` يليه `next` مع الحشو اللازم لمحاذاة `next`.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_manipulation", since = "1.44.0")]
     #[rustc_const_stable(feature = "const_alloc_layout", since = "1.85.0")]
     #[inline]
@@ -526,6 +636,12 @@ impl Layout {
     /// aligned.
     ///
     /// On arithmetic overflow, returns `LayoutError`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا يصف سجلًا لـ `n` نسخة من `self` بدون حشو بينها.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[rustc_const_stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[inline]
@@ -544,6 +660,12 @@ impl Layout {
     /// and is not incorporated *at all* into the resulting layout.
     ///
     /// On arithmetic overflow, returns `LayoutError`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا يصف سجلًا فيه `self` يليه `next` بدون حشو إضافي بينهما.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[rustc_const_stable(feature = "alloc_layout_extra", since = "1.95.0")]
     #[inline]
@@ -559,6 +681,12 @@ impl Layout {
     ///
     /// On arithmetic overflow or when the total size would exceed
     /// `isize::MAX`, returns `LayoutError`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ تخطيطًا يصف سجلًا لمصفوفة `[T; n]`.
+    ///
+    /// </div>
     #[stable(feature = "alloc_layout_manipulation", since = "1.44.0")]
     #[rustc_const_stable(feature = "const_alloc_layout", since = "1.85.0")]
     #[inline]
@@ -606,6 +734,12 @@ pub type LayoutErr = LayoutError;
 /// to `Layout::from_size_align`
 /// or some other `Layout` constructor
 /// do not satisfy its documented constraints.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يُرجَع عندما لا تحقق المعاملات المعطاة لـ `Layout::from_size_align` (أو غيره) شروطه.
+///
+/// </div>
 #[stable(feature = "alloc_layout_error", since = "1.50.0")]
 #[non_exhaustive]
 #[derive(Clone, PartialEq, Eq, Debug)]

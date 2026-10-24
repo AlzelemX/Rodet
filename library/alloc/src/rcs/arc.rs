@@ -253,6 +253,12 @@ macro_rules! acquire {
 /// counting in general.
 ///
 /// [rc_examples]: crate::rc#examples
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر بعدّ مراجع آمن بين الخيوط. 'Arc' اختصار 'Atomically Reference Counted'.
+///
+/// </div>
 #[doc(search_unbox)]
 #[rustc_diagnostic_item = "Arc"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -349,6 +355,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
 /// The typical way to obtain a `Weak` pointer is to call [`Arc::downgrade`].
 ///
 /// [`upgrade`]: Weak::upgrade
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Weak` نسخة من `Arc` تحمل مرجعًا غير مالك إلى الحجز المُدار.
+///
+/// </div>
 #[stable(feature = "arc_weak", since = "1.4.0")]
 #[rustc_diagnostic_item = "ArcWeak"]
 pub struct Weak<
@@ -432,6 +444,12 @@ impl<T> Arc<T> {
     ///
     /// let five = Arc::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -498,6 +516,12 @@ impl<T> Arc<T> {
     /// }
     /// ```
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا ويعطيك `Weak<T>` إليه، لتبني `T` يحمل مؤشرًا ضعيفًا إلى نفسه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "arc_new_cyclic", since = "1.60.0")]
@@ -524,6 +548,12 @@ impl<T> Arc<T> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` جديدًا بمحتوى غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "new_uninit", since = "1.82.0")]
@@ -557,6 +587,12 @@ impl<T> Arc<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` جديدًا بمحتوى غير مهيأ، وتُملأ ذاكرته بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
@@ -574,6 +610,13 @@ impl<T> Arc<T> {
 
     /// Constructs a new `Pin<Arc<T>>`. If `T` does not implement `Unpin`, then
     /// `data` will be pinned in memory and unable to be moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Arc<T>>` جديدًا؛ إذا لم يطبّق `T` الـ `Unpin` تُثبَّت البيانات في الذاكرة ولا يمكن
+    /// نقلها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "pin", since = "1.33.0")]
     #[must_use]
@@ -583,6 +626,12 @@ impl<T> Arc<T> {
     }
 
     /// Constructs a new `Pin<Arc<T>>`, return an error if allocation fails.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Arc<T>>` جديدًا، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_pin(data: T) -> Result<Pin<Arc<T>>, AllocError> {
@@ -601,6 +650,12 @@ impl<T> Arc<T> {
     /// let five = Arc::try_new(5)?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new(data: T) -> Result<Arc<T>, AllocError> {
@@ -635,6 +690,12 @@ impl<T> Arc<T> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_uninit() -> Result<Arc<mem::MaybeUninit<T>>, AllocError> {
         // ignore-tidy-undocumented-unsafe
@@ -668,6 +729,12 @@ impl<T> Arc<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ مملوء بأصفار، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_zeroed() -> Result<Arc<mem::MaybeUninit<T>>, AllocError> {
         // ignore-tidy-undocumented-unsafe
@@ -694,6 +761,12 @@ impl<T, A: Allocator> Arc<T, A> {
     ///
     /// let five = Arc::new_in(5, System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -735,6 +808,12 @@ impl<T, A: Allocator> Arc<T, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -773,6 +852,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ مملوء بأصفار في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -819,6 +904,13 @@ impl<T, A: Allocator> Arc<T, A> {
     ///
     /// [`new_cyclic`]: Arc::new_cyclic
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T, A>` في المُخصِّص المعطى ويعطيك `Weak<T, A>` إليه، لتبني `T` يحمل مؤشرًا ضعيفًا
+    /// إلى نفسه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -882,6 +974,13 @@ impl<T, A: Allocator> Arc<T, A> {
 
     /// Constructs a new `Pin<Arc<T, A>>` in the provided allocator. If `T` does not implement `Unpin`,
     /// then `data` will be pinned in memory and unable to be moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Arc<T, A>>` في المُخصِّص المعطى؛ إذا لم يطبّق `T` الـ `Unpin` تُثبَّت البيانات ولا
+    /// يمكن نقلها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -895,6 +994,12 @@ impl<T, A: Allocator> Arc<T, A> {
 
     /// Constructs a new `Pin<Arc<T, A>>` in the provided allocator, return an error if allocation
     /// fails.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Arc<T, A>>` في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_pin_in(data: T, alloc: A) -> Result<Pin<Arc<T, A>>, AllocError>
@@ -918,6 +1023,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// let five = Arc::try_new_in(5, System)?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T, A>` في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_in(data: T, alloc: A) -> Result<Arc<T, A>, AllocError> {
@@ -960,6 +1071,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_uninit_in(alloc: A) -> Result<Arc<mem::MaybeUninit<T>, A>, AllocError> {
@@ -999,6 +1116,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc` بمحتوى غير مهيأ مملوء بأصفار في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_zeroed_in(alloc: A) -> Result<Arc<mem::MaybeUninit<T>, A>, AllocError> {
@@ -1047,6 +1170,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// let _y = Arc::clone(&x);
     /// assert_eq!(*Arc::try_unwrap(x).unwrap_err(), 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الداخلية إذا كان للـ `Arc` مرجع قوي واحد بالضبط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_unique", since = "1.4.0")]
     pub fn try_unwrap(this: Self) -> Result<T, Self> {
@@ -1166,6 +1295,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// x_thread.join().unwrap();
     /// y_thread.join().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الداخلية إذا كان للـ `Arc` مرجع قوي واحد بالضبط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_into_inner", since = "1.70.0")]
     pub fn into_inner(this: Self) -> Option<T> {
@@ -1213,6 +1348,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// let new = Arc::map(r, |i| i + 7);
     /// assert_eq!(*new, 14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة داخل `Arc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "smart_pointer_map", since = "1.100.0")]
     pub fn map<U>(this: Self, f: impl FnOnce(&T) -> U) -> Arc<U, A> {
@@ -1259,6 +1400,12 @@ impl<T, A: Allocator> Arc<T, A> {
     /// let new = Arc::try_map(b, |&i| u32::try_from(i)).unwrap();
     /// assert_eq!(*new, 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل القيمة داخل `Arc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "smart_pointer_try_map", issue = "144419")]
     pub fn try_map<R>(
@@ -1314,6 +1461,12 @@ impl<T> Arc<[T]> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع ذري بمحتوى غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "new_uninit", since = "1.82.0")]
@@ -1341,6 +1494,12 @@ impl<T> Arc<[T]> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع ذري بمحتوى غير مهيأ مملوء بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
@@ -1383,6 +1542,12 @@ impl<T, A: Allocator> Arc<[T], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع ذري بمحتوى غير مهيأ في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -1412,6 +1577,12 @@ impl<T, A: Allocator> Arc<[T], A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع ذري بمحتوى غير مهيأ مملوء بأصفار في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -1447,6 +1618,12 @@ impl<T, A: Allocator> Arc<[T], A> {
     ///
     /// let arc_array: Arc<[i32; 3]> = arc_slice.into_array().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة ذات عدّ المراجع إلى مصفوفة ذات عدّ مراجع.
+    ///
+    /// </div>
     #[unstable(feature = "alloc_slice_into_array", issue = "148082")]
     #[inline]
     pub fn into_array<const N: usize>(self) -> Result<Arc<[T; N], A>, Self> {
@@ -1490,6 +1667,12 @@ impl<T, A: Allocator> Arc<mem::MaybeUninit<T>, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Arc<T>`.
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline]
@@ -1511,6 +1694,12 @@ impl<T: ?Sized + CloneToUninit> Arc<T> {
     ///
     /// let hello: Arc<str> = Arc::clone_from_ref("hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا فيه نسخة من `value`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     pub fn clone_from_ref(value: &T) -> Arc<T> {
@@ -1528,6 +1717,12 @@ impl<T: ?Sized + CloneToUninit> Arc<T> {
     /// let hello: Arc<str> = Arc::try_clone_from_ref("hello")?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا فيه نسخة من `value`، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_clone_from_ref(value: &T) -> Result<Arc<T>, AllocError> {
@@ -1548,6 +1743,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Arc<T, A> {
     ///
     /// let hello: Arc<str, System> = Arc::clone_from_ref_in("hello", System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا فيه نسخة من `value` في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -1578,6 +1779,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Arc<T, A> {
     /// let hello: Arc<str, System> = Arc::try_clone_from_ref_in("hello", System)?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا فيه نسخة من `value` في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_clone_from_ref_in(value: &T, alloc: A) -> Result<Arc<T, A>, AllocError> {
@@ -1627,6 +1834,12 @@ impl<T, A: Allocator> Arc<[mem::MaybeUninit<T>], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Arc<[T]>`.
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline]
@@ -1702,6 +1915,12 @@ impl<T: ?Sized> Arc<T> {
     ///     assert_eq!(&*x, &[1, 2, 3]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` من مؤشر خام.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_raw", since = "1.17.0")]
     pub unsafe fn from_raw(ptr: *const T) -> Self {
@@ -1725,6 +1944,12 @@ impl<T: ?Sized> Arc<T> {
     /// # // Prevent leaks for Miri.
     /// # drop(unsafe { Arc::from_raw(x_ptr) });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Arc` ويرجع المؤشر الذي يغلفه.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "rc_raw", since = "1.17.0")]
     #[rustc_never_returns_null_ptr]
@@ -1765,6 +1990,12 @@ impl<T: ?Sized> Arc<T> {
     /// #   Arc::decrement_strong_count(ptr);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيد عدد المراجع القوية للـ `Arc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_mutate_strong_count", since = "1.51.0")]
     pub unsafe fn increment_strong_count(ptr: *const T) {
@@ -1806,6 +2037,12 @@ impl<T: ?Sized> Arc<T> {
     ///     assert_eq!(1, Arc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقص عدد المراجع القوية للـ `Arc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_mutate_strong_count", since = "1.51.0")]
     pub unsafe fn decrement_strong_count(ptr: *const T) {
@@ -1851,6 +2088,12 @@ impl<T: ?Sized> Arc<T> {
     ///     assert_eq!(2, Arc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Arc`) إلى الحجز خلف المؤشر الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "arc_raw_get_strong", issue = "157021")]
@@ -1902,6 +2145,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// let x = unsafe { Arc::from_raw_in(ptr, alloc) };
     /// assert_eq!(&*x, "hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Arc` ويرجع المؤشر الذي يغلفه والمُخصِّص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn into_raw_with_allocator(this: Self) -> (*const T, A) {
@@ -1928,6 +2177,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// assert_eq!(x_ptr, Arc::as_ptr(&y));
     /// assert_eq!(unsafe { &*x_ptr }, "hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشرًا خامًا إلى البيانات.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rc_as_ptr", since = "1.45.0")]
     #[rustc_never_returns_null_ptr]
@@ -2010,6 +2265,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     ///     assert_eq!(&*x, &[1, 2, 3]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T, A>` من مؤشر خام.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn from_raw_in(ptr: *const T, alloc: A) -> Self {
@@ -2035,6 +2296,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     ///
     /// let weak_five = Arc::downgrade(&five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر `Weak` جديدًا إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use = "this returns a new `Weak` pointer, \
                   without modifying the original `Arc`"]
     #[stable(feature = "arc_weak", since = "1.4.0")]
@@ -2096,6 +2363,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// // the `Arc` or `Weak` between threads.
     /// assert_eq!(1, Arc::weak_count(&five));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد مؤشرات `Weak` إلى هذا الحجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "arc_counts", since = "1.15.0")]
@@ -2126,6 +2399,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// // the `Arc` between threads.
     /// assert_eq!(2, Arc::strong_count(&five));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Arc`) إلى هذا الحجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "arc_counts", since = "1.15.0")]
@@ -2168,6 +2447,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// #   Arc::decrement_strong_count_in(ptr, System);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيد عدد المراجع القوية للـ `Arc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn increment_strong_count_in(ptr: *const T, alloc: A)
@@ -2218,6 +2503,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     ///     assert_eq!(1, Arc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقص عدد المراجع القوية للـ `Arc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn decrement_strong_count_in(ptr: *const T, alloc: A) {
@@ -2269,6 +2560,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// ```
     ///
     /// [`ptr::eq`]: core::ptr::eq "ptr::eq"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الـ `Arc` الاثنان يشيران إلى نفس الحجز (مثل `ptr::eq`).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "ptr_eq", since = "1.17.0")]
@@ -2516,6 +2813,12 @@ impl<T: ?Sized, A: AllocatorClone> Clone for Arc<T, A> {
     ///
     /// let _ = Arc::clone(&five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من مؤشر الـ `Arc` (يزيد عدد المراجع فقط).
+    ///
+    /// </div>
     #[inline]
     fn clone(&self) -> Arc<T, A> {
         // Using a relaxed ordering is alright here, as knowledge of the
@@ -2640,6 +2943,12 @@ impl<T: ?Sized + CloneToUninit, A: AllocatorClone> Arc<T, A> {
     /// assert!(76 == *data);
     /// assert!(weak.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Arc` المعطى (ينسخ البيانات إذا كانت مشتركة).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_unique", since = "1.4.0")]
     pub fn make_mut(this: &mut Self) -> &mut T {
@@ -2753,6 +3062,12 @@ impl<T: Clone, A: Allocator> Arc<T, A> {
     /// let inner = Arc::unwrap_or_clone(arc2);
     /// assert!(ptr::eq(ptr, inner.as_ptr()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كان عندنا المرجع الوحيد إلى `T` نفكه، وإلا ننسخ `T` ونرجع النسخة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_unwrap_or_clone", since = "1.76.0")]
     pub fn unwrap_or_clone(this: Self) -> T {
@@ -2785,6 +3100,13 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// let _y = Arc::clone(&x);
     /// assert!(Arc::get_mut(&mut x).is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Arc` إذا لم توجد مؤشرات `Arc` أو `Weak` أخرى لنفس
+    /// الحجز.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_unique", since = "1.4.0")]
     pub fn get_mut(this: &mut Self) -> Option<&mut T> {
@@ -2860,6 +3182,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// }
     /// println!("{}", &*x); // Use-after-free
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Arc` بدون أي فحص (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "get_mut_unchecked", issue = "63292")]
     pub unsafe fn get_mut_unchecked(this: &mut Self) -> &mut T {
@@ -2924,6 +3252,12 @@ impl<T: ?Sized, A: Allocator> Arc<T, A> {
     /// `downgrade` may spin-loop for a short period of time.
     ///
     /// [`get_mut_unchecked`]: Self::get_mut_unchecked
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل هذا هو المرجع الوحيد إلى البيانات.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "arc_is_unique", issue = "138938")]
     pub fn is_unique(this: &Self) -> bool {
@@ -2978,6 +3312,12 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Arc<T, A> {
     /// drop(foo);    // Doesn't print anything
     /// drop(foo2);   // Prints "dropped!"
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من الـ `Arc`.
+    ///
+    /// </div>
     #[inline]
     fn drop(&mut self) {
         // Because `fetch_sub` is already atomic, we do not need to synchronize
@@ -3051,6 +3391,12 @@ impl<A: Allocator> Arc<dyn Any + Send + Sync, A> {
     /// print_if_string(Arc::new(my_string));
     /// print_if_string(Arc::new(0i8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `Arc<dyn Any + Send + Sync>` إلى نوع محدد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_downcast", since = "1.29.0")]
     pub fn downcast<T>(self) -> Result<Arc<T, A>, Self>
@@ -3094,6 +3440,12 @@ impl<A: Allocator> Arc<dyn Any + Send + Sync, A> {
     ///
     ///
     /// [`downcast`]: Self::downcast
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Arc<dyn Any + Send + Sync>` إلى نوع محدد بدون فحص (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     pub unsafe fn downcast_unchecked<T>(self) -> Arc<T, A>
@@ -3122,6 +3474,12 @@ impl<T> Weak<T> {
     /// let empty: Weak<i64> = Weak::new();
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T>` جديدًا بدون حجز ذاكرة؛ استدعاء `upgrade` عليه يعطي `None` دائمًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "downgraded_weak", since = "1.10.0")]
     #[rustc_const_stable(feature = "const_weak_new", since = "1.73.0")]
@@ -3149,6 +3507,12 @@ impl<T, A: Allocator> Weak<T, A> {
     /// let empty: Weak<i64, _> = Weak::new_in(System);
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T, A>` جديدًا بدون حجز ذاكرة في المُخصِّص المعطى؛ `upgrade` يعطي `None` دائمًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn new_in(alloc: A) -> Weak<T, A> {
@@ -3205,6 +3569,12 @@ impl<T: ?Sized> Weak<T> {
     /// [`new`]: Weak::new
     /// [`into_raw`]: Weak::into_raw
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مؤشرًا خامًا أُنشئ سابقًا بـ `into_raw` إلى `Weak<T>` من جديد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     pub unsafe fn from_raw(ptr: *const T) -> Self {
@@ -3239,6 +3609,12 @@ impl<T: ?Sized> Weak<T> {
     ///
     /// [`from_raw`]: Weak::from_raw
     /// [`as_ptr`]: Weak::as_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Weak<T>` ويحوّله إلى مؤشر خام.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     pub fn into_raw(self) -> *const T {
@@ -3285,6 +3661,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// ```
     ///
     /// [`null`]: core::ptr::null "ptr::null"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى الكائن `T` الذي يشير إليه هذا الـ `Weak<T>`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     pub fn as_ptr(&self) -> *const T {
@@ -3331,6 +3713,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     ///
     /// [`from_raw_in`]: Weak::from_raw_in
     /// [`as_ptr`]: Weak::as_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Weak<T>` ويرجع المؤشر الذي يغلفه والمُخصِّص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn into_raw_with_allocator(self) -> (*const T, A) {
@@ -3383,6 +3771,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// [`new`]: Weak::new
     /// [`into_raw`]: Weak::into_raw
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مؤشرًا خامًا أُنشئ سابقًا بـ `into_raw` إلى `Weak<T>` في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn from_raw_in(ptr: *const T, alloc: A) -> Self {
@@ -3435,6 +3829,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     ///
     /// assert!(weak_five.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول ترقية مؤشر `Weak` إلى `Arc`، ويؤخر التخلص من القيمة إذا نجح.
+    ///
+    /// </div>
     #[must_use = "this returns a new `Arc`, \
                   without modifying the original weak pointer"]
     #[stable(feature = "arc_weak", since = "1.4.0")]
@@ -3474,6 +3874,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// Gets the number of strong (`Arc`) pointers pointing to this allocation.
     ///
     /// If `self` was created using [`Weak::new`], this will return 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Arc`) التي تشير إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "weak_counts", since = "1.41.0")]
     pub fn strong_count(&self) -> usize {
@@ -3491,6 +3897,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// Due to implementation details, the returned value can be off by 1 in
     /// either direction when other threads are manipulating any `Arc`s or
     /// `Weak`s pointing to the same allocation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عددًا تقريبيًا لمؤشرات `Weak` التي تشير إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "weak_counts", since = "1.41.0")]
     pub fn weak_count(&self) -> usize {
@@ -3569,6 +3981,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// ```
     ///
     /// [`ptr::eq`]: core::ptr::eq "ptr::eq"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الـ `Weak` الاثنان يشيران إلى نفس الحجز، أو لا يشيران إلى أي حجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "weak_ptr_eq", since = "1.39.0")]
@@ -3590,6 +4008,12 @@ impl<T: ?Sized, A: AllocatorClone> Clone for Weak<T, A> {
     ///
     /// let _ = Weak::clone(&weak_five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من مؤشر الـ `Weak` تشير إلى نفس الحجز.
+    ///
+    /// </div>
     #[inline]
     fn clone(&self) -> Weak<T, A> {
         if let Some(inner) = self.inner() {
@@ -3628,6 +4052,12 @@ impl<T> Default for Weak<T> {
     /// let empty: Weak<i64> = Default::default();
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T>` جديدًا بدون حجز ذاكرة؛ استدعاء `upgrade` عليه يعطي `None` دائمًا.
+    ///
+    /// </div>
     fn default() -> Weak<T> {
         Weak::new()
     }
@@ -3659,6 +4089,12 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Weak<T, A> {
     ///
     /// assert!(other_weak_foo.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من مؤشر الـ `Weak`.
+    ///
+    /// </div>
     fn drop(&mut self) {
         // If we find out that we were the last weak pointer, then its time to
         // deallocate the data entirely. See the discussion in Arc::drop() about
@@ -3714,6 +4150,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> ArcEqIdent<T, A> for Arc<T, A> {
 /// the same value, than two `&T`s.
 ///
 /// We can only do this when `T: Eq` as a `PartialEq` might be deliberately irreflexive.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نخصص هنا بدل تحسين عام على `&T` لأن ذلك سيضيف كلفة على كل مقارنة مساواة بين المراجع.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: ?Sized + crate::rc::MarkerEq, A: Allocator> ArcEqIdent<T, A> for Arc<T, A> {
     #[inline]
@@ -3746,6 +4188,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for Arc<T, A> {
     ///
     /// assert!(five == Arc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المساواة بين `Arc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn eq(&self, other: &Arc<T, A>) -> bool {
         ArcEqIdent::eq(self, other)
@@ -3767,6 +4215,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for Arc<T, A> {
     ///
     /// assert!(five != Arc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدم المساواة بين `Arc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn ne(&self, other: &Arc<T, A>) -> bool {
         ArcEqIdent::ne(self, other)
@@ -3789,6 +4243,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Arc<T, A> {
     ///
     /// assert_eq!(Some(Ordering::Less), five.partial_cmp(&Arc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة جزئية بين `Arc` اثنين.
+    ///
+    /// </div>
     fn partial_cmp(&self, other: &Arc<T, A>) -> Option<Ordering> {
         (**self).partial_cmp(&**other)
     }
@@ -3806,6 +4266,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Arc<T, A> {
     ///
     /// assert!(five < Arc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من" بين `Arc` اثنين.
+    ///
+    /// </div>
     fn lt(&self, other: &Arc<T, A>) -> bool {
         *(*self) < *(*other)
     }
@@ -3823,6 +4289,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Arc<T, A> {
     ///
     /// assert!(five <= Arc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من أو يساوي" بين `Arc` اثنين.
+    ///
+    /// </div>
     fn le(&self, other: &Arc<T, A>) -> bool {
         *(*self) <= *(*other)
     }
@@ -3840,6 +4312,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Arc<T, A> {
     ///
     /// assert!(five > Arc::new(4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من" بين `Arc` اثنين.
+    ///
+    /// </div>
     fn gt(&self, other: &Arc<T, A>) -> bool {
         *(*self) > *(*other)
     }
@@ -3857,6 +4335,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Arc<T, A> {
     ///
     /// assert!(five >= Arc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من أو يساوي" بين `Arc` اثنين.
+    ///
+    /// </div>
     fn ge(&self, other: &Arc<T, A>) -> bool {
         *(*self) >= *(*other)
     }
@@ -3877,6 +4361,12 @@ impl<T: ?Sized + Ord, A: Allocator> Ord for Arc<T, A> {
     ///
     /// assert_eq!(Ordering::Less, five.cmp(&Arc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة بين `Arc` اثنين.
+    ///
+    /// </div>
     fn cmp(&self, other: &Arc<T, A>) -> Ordering {
         (**self).cmp(&**other)
     }
@@ -3918,6 +4408,12 @@ impl<T: Default> Default for Arc<T> {
     /// let x: Arc<i32> = Default::default();
     /// assert_eq!(*x, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Arc<T>` جديدًا بالقيمة الافتراضية (`Default`) لـ `T`.
+    ///
+    /// </div>
     fn default() -> Arc<T> {
         // ignore-tidy-undocumented-unsafe
         unsafe {
@@ -3961,6 +4457,12 @@ impl Default for Arc<str> {
     /// Creates an empty str inside an Arc
     ///
     /// This may or may not share an allocation with other Arcs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نصًا فارغًا داخل `Arc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         let arc: Arc<[u8]> = Default::default();
@@ -3977,6 +4479,12 @@ impl Default for Arc<core::ffi::CStr> {
     /// Creates an empty CStr inside an Arc
     ///
     /// This may or may not share an allocation with other Arcs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CStr` فارغًا داخل `Arc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         use core::ffi::CStr;
@@ -3997,6 +4505,12 @@ impl<T> Default for Arc<[T]> {
     /// Creates an empty `[T]` inside an Arc
     ///
     /// This may or may not share an allocation with other Arcs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `[T]` فارغة داخل `Arc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         if align_of::<T>() <= MAX_STATIC_INNER_SLICE_ALIGNMENT {
@@ -4057,6 +4571,12 @@ impl<T> From<T> for Arc<T> {
     ///
     /// assert_eq!(Arc::from(x), arc);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `T` إلى `Arc<T>`.
+    ///
+    /// </div>
     fn from(t: T) -> Self {
         Arc::new(t)
     }
@@ -4077,6 +4597,12 @@ impl<T, const N: usize> From<[T; N]> for Arc<[T]> {
     /// let shared: Arc<[i32]> = Arc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مصفوفة `[T; N]` إلى `Arc<[T]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: [T; N]) -> Arc<[T]> {
         Arc::<[T; N]>::from(v)
@@ -4096,6 +4622,12 @@ impl<T: Clone> From<&[T]> for Arc<[T]> {
     /// let shared: Arc<[i32]> = Arc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع ويملؤها بنسخ عناصر `v`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &[T]) -> Arc<[T]> {
         <Self as ArcFromSlice<T>>::from_slice(v)
@@ -4116,6 +4648,12 @@ impl<T: Clone> From<&mut [T]> for Arc<[T]> {
     /// let shared: Arc<[i32]> = Arc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع ويملؤها بنسخ عناصر `v`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &mut [T]) -> Arc<[T]> {
         Arc::from(&*v)
@@ -4134,6 +4672,12 @@ impl From<&str> for Arc<str> {
     /// let shared: Arc<str> = Arc::from("eggplant");
     /// assert_eq!("eggplant", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `str` بعدّ مراجع وينسخ `v` إليه.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &str) -> Arc<str> {
         let arc = Arc::<[u8]>::from(v.as_bytes());
@@ -4156,6 +4700,12 @@ impl From<&mut str> for Arc<str> {
     /// let shared: Arc<str> = Arc::from(original);
     /// assert_eq!("eggplant", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `str` بعدّ مراجع وينسخ `v` إليه.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &mut str) -> Arc<str> {
         Arc::from(&*v)
@@ -4175,6 +4725,12 @@ impl From<String> for Arc<str> {
     /// let shared: Arc<str> = Arc::from(unique);
     /// assert_eq!("eggplant", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز `str` بعدّ مراجع وينسخ `v` إليه.
+    ///
+    /// </div>
     #[inline]
     fn from(v: String) -> Arc<str> {
         Arc::from(&v[..])
@@ -4194,6 +4750,12 @@ impl<T: ?Sized, A: AllocatorNightly> From<Box<T, A>> for Arc<T, A> {
     /// let shared: Arc<str> = Arc::from(unique);
     /// assert_eq!("eggplant", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كائنًا داخل `Box` إلى حجز جديد بعدّ مراجع.
+    ///
+    /// </div>
     #[inline]
     fn from(v: Box<T, A>) -> Arc<T, A> {
         Arc::from_box_in(v)
@@ -4213,6 +4775,12 @@ impl<T, A: AllocatorNightly> From<Vec<T, A>> for Arc<[T], A> {
     /// let shared: Arc<[i32]> = Arc::from(unique);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع وينقل عناصر `v` إليها.
+    ///
+    /// </div>
     #[inline]
     fn from(v: Vec<T, A>) -> Arc<[T], A> {
         // ignore-tidy-undocumented-unsafe
@@ -4270,6 +4838,12 @@ impl From<Arc<str>> for Arc<[u8]> {
     /// let bytes: Arc<[u8]> = Arc::from(string);
     /// assert_eq!("eggplant".as_bytes(), bytes.as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص بعدّ مراجع ذري إلى شريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     fn from(rc: Arc<str>) -> Self {
         // SAFETY: `str` has the same layout as `[u8]`.
@@ -4333,6 +4907,12 @@ impl<T> FromIterator<T> for Arc<[T]> {
     /// let evens: Arc<[u8]> = (0..10).collect(); // Just a single allocation happens here.
     /// # assert_eq!(&*evens, &*(0..10).collect::<Vec<_>>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ كل عنصر من المكرر ويجمعه في `Arc<[T]>`.
+    ///
+    /// </div>
     fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
         ToArcSlice::to_arc_slice(iter.into_iter())
     }
@@ -4544,6 +5124,12 @@ impl<T: core::error::Error + ?Sized> core::error::Error for Arc<T> {
 /// [`Arc::new_cyclic`]'s `data_fn` parameter cannot be async or return a [`Result`]. As shown in the
 /// previous example, `UniqueArc` allows for more flexibility in the construction of cyclic data,
 /// including fallible or async constructors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Arc` مملوك بشكل فريد.
+///
+/// </div>
 #[unstable(feature = "unique_rc_arc", issue = "112566")]
 pub struct UniqueArc<
     T: ?Sized,
@@ -4652,6 +5238,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for UniqueArc<T, A> {
     ///
     /// assert!(five == UniqueArc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المساواة بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn eq(&self, other: &Self) -> bool {
         PartialEq::eq(&**self, &**other)
@@ -4675,6 +5267,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueArc<T, A> {
     ///
     /// assert_eq!(Some(Ordering::Less), five.partial_cmp(&UniqueArc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة جزئية بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn partial_cmp(&self, other: &UniqueArc<T, A>) -> Option<Ordering> {
         (**self).partial_cmp(&**other)
@@ -4694,6 +5292,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueArc<T, A> {
     ///
     /// assert!(five < UniqueArc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من" بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn lt(&self, other: &UniqueArc<T, A>) -> bool {
         **self < **other
@@ -4713,6 +5317,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueArc<T, A> {
     ///
     /// assert!(five <= UniqueArc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من أو يساوي" بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn le(&self, other: &UniqueArc<T, A>) -> bool {
         **self <= **other
@@ -4732,6 +5342,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueArc<T, A> {
     ///
     /// assert!(five > UniqueArc::new(4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من" بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn gt(&self, other: &UniqueArc<T, A>) -> bool {
         **self > **other
@@ -4751,6 +5367,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueArc<T, A> {
     ///
     /// assert!(five >= UniqueArc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من أو يساوي" بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn ge(&self, other: &UniqueArc<T, A>) -> bool {
         **self >= **other
@@ -4774,6 +5396,12 @@ impl<T: ?Sized + Ord, A: Allocator> Ord for UniqueArc<T, A> {
     ///
     /// assert_eq!(Ordering::Less, five.cmp(&UniqueArc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة بين `UniqueArc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn cmp(&self, other: &UniqueArc<T, A>) -> Ordering {
         (**self).cmp(&**other)
@@ -4797,6 +5425,12 @@ impl<T> UniqueArc<T, Global> {
     /// these weak references will fail before the `UniqueArc` has been converted into an [`Arc`].
     /// After converting the `UniqueArc` into an [`Arc`], any weak references created beforehand will
     /// point to the new [`Arc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UniqueArc` جديدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
@@ -4806,6 +5440,12 @@ impl<T> UniqueArc<T, Global> {
 
     /// Like [`new`](Self::new), but returns an error if the allocation
     /// fails, instead of calling [`handle_alloc_error`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `new` لكن يرجع خطأً إذا فشل الحجز بدل استدعاء `handle_alloc_error`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn try_new(value: T) -> Result<Self, AllocError> {
         Self::try_new_in(value, Global)
@@ -4819,6 +5459,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
     /// these weak references will fail before the `UniqueArc` has been converted into an [`Arc`].
     /// After converting the `UniqueArc` into an [`Arc`], any weak references created beforehand will
     /// point to the new [`Arc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UniqueArc` جديدًا في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
@@ -4839,6 +5485,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
 
     /// Like [`new_in`](Self::new_in), but returns an error if the allocation
     /// fails, instead of calling [`handle_alloc_error`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `new_in` لكن يرجع خطأً إذا فشل الحجز بدل استدعاء `handle_alloc_error`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
     pub fn try_new_in(data: T, alloc: A) -> Result<Self, AllocError> {
@@ -4856,6 +5508,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
     }
 
     /// Consumes the `UniqueArc`, returning its wrapped value and allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `UniqueArc` ويرجع القيمة التي يغلفها والمُخصِّص.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
     #[must_use]
@@ -4874,6 +5532,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
     }
 
     /// Consumes the `UniqueArc`, returning its wrapped value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `UniqueArc` ويرجع القيمة التي يغلفها.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn unwrap(this: Self) -> T {
@@ -4900,6 +5564,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
     /// let new = UniqueArc::map(r, |i| i + 7);
     /// assert_eq!(*new, 14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة داخل `UniqueArc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn map<U>(this: Self, f: impl FnOnce(T) -> U) -> UniqueArc<U, A> {
@@ -4943,6 +5613,12 @@ impl<T, A: Allocator> UniqueArc<T, A> {
     /// let new = UniqueArc::try_map(b, u32::try_from).unwrap();
     /// assert_eq!(*new, 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل القيمة داخل `UniqueArc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "smart_pointer_try_map", issue = "144419")]
     pub fn try_map<R>(
@@ -5007,6 +5683,12 @@ impl<T: ?Sized, A: Allocator> UniqueArc<T, A> {
     ///
     /// Any weak references created before this method is called can now be upgraded to strong
     /// references.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `UniqueArc` إلى `Arc` عادي.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn into_arc(this: Self) -> Arc<T, A> {
@@ -5063,6 +5745,12 @@ impl<T: ?Sized, A: AllocatorClone> UniqueArc<T, A> {
     ///
     /// Attempting to upgrade this weak reference will fail before the `UniqueArc` has been converted
     /// to a [`Arc`] using [`UniqueArc::into_arc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مرجعًا ضعيفًا جديدًا إلى الـ `UniqueArc`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn downgrade(this: &Self) -> Weak<T, A> {
@@ -5091,6 +5779,12 @@ impl<T, A: Allocator> UniqueArc<mem::MaybeUninit<T>, A> {
     ///
     /// This method converts similarly to [`assume_init`](Self::assume_init) but
     /// writes `value` into it before conversion, thus guaranteeing safety.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة ويحوّل إلى `UniqueArc<T, A>`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn write(mut this: Self, value: T) -> UniqueArc<T, A> {
@@ -5112,6 +5806,12 @@ impl<T, A: Allocator> UniqueArc<mem::MaybeUninit<T>, A> {
     /// causes immediate undefined behavior.
     ///
     /// [`MaybeUninit::assume_init`]: mem::MaybeUninit::assume_init
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `UniqueArc<T, A>`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub unsafe fn assume_init(self) -> UniqueArc<T, A> {

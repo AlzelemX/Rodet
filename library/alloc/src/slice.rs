@@ -7,6 +7,12 @@
 //!
 //! A few functions are provided to create a slice from a value reference
 //! or from a raw pointer.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للنوع الأساسي "الشريحة" (slice).
+//!
+//! </div>
 #![stable(feature = "rust1", since = "1.0.0")]
 
 use core::borrow::{Borrow, BorrowMut};
@@ -124,6 +130,12 @@ impl<T> [T] {
     ///
     /// [driftsort]: https://github.com/Voultapher/driftsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا مع الحفاظ على الترتيب الأصلي للعناصر المتساوية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -185,6 +197,12 @@ impl<T> [T] {
     ///
     /// [driftsort]: https://github.com/Voultapher/driftsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا بدالة مقارنة، مع الحفاظ على الترتيب الأصلي للعناصر المتساوية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -240,6 +258,12 @@ impl<T> [T] {
     ///
     /// [driftsort]: https://github.com/Voultapher/driftsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا بدالة تستخرج مفتاحًا، مع الحفاظ على الترتيب الأصلي للعناصر المتساوية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "slice_sort_by_key", since = "1.7.0")]
@@ -305,6 +329,12 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا بدالة تستخرج مفتاحًا، مع الحفاظ على الترتيب الأصلي للعناصر المتساوية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "slice_sort_by_cached_key", since = "1.34.0")]
@@ -364,6 +394,12 @@ impl<T> [T] {
     /// let x = s.to_vec();
     /// // Here, `s` and `x` can be modified independently.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `self` إلى `Vec` جديد.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[rustc_conversion_suggestion]
@@ -389,6 +425,12 @@ impl<T> [T] {
     /// let x = s.to_vec_in(System);
     /// // Here, `s` and `x` can be modified independently.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `self` إلى `Vec` جديد بمُخصِّص معيّن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[inline]
@@ -474,6 +516,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(x, vec![10, 40, 30]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `self` إلى متجه بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -506,6 +554,12 @@ impl<T> [T] {
     /// // this will panic at runtime
     /// b"0123456789abcdef".repeat(usize::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ متجهًا بنسخ الشريحة `n` مرة.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "repeat_generic_slice", since = "1.40.0")]
@@ -591,6 +645,12 @@ impl<T> [T] {
     /// assert_eq!(["hello", "world"].concat(), "helloworld");
     /// assert_eq!([[1, 2], [3, 4]].concat(), [1, 2, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج شريحة من `T` في قيمة واحدة من `Self::Output`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn concat<Item: ?Sized>(&self) -> <Self as Concat<Item>>::Output
@@ -610,6 +670,12 @@ impl<T> [T] {
     /// assert_eq!([[1, 2], [3, 4]].join(&0), [1, 2, 0, 3, 4]);
     /// assert_eq!([[1, 2], [3, 4]].join(&[0, 0][..]), [1, 2, 0, 0, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج شريحة من `T` في قيمة واحدة من `Self::Output`، ويضع فاصلًا بين كل عنصرين.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rename_connect_to_join", since = "1.3.0")]
     pub fn join<Separator>(&self, sep: Separator) -> <Self as Join<Separator>>::Output
@@ -629,6 +695,12 @@ impl<T> [T] {
     /// assert_eq!(["hello", "world"].connect(" "), "hello world");
     /// assert_eq!([[1, 2], [3, 4]].connect(&0), [1, 2, 0, 3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج شريحة من `T` في قيمة واحدة من `Self::Output`، ويضع فاصلًا بين كل عنصرين.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(since = "1.3.0", note = "renamed to join", suggestion = "join")]
@@ -650,6 +722,12 @@ impl [u8] {
     /// To uppercase the value in-place, use [`make_ascii_uppercase`].
     ///
     /// [`make_ascii_uppercase`]: slice::make_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع متجهًا فيه نسخة من الشريحة مع تحويل كل بايت إلى حرف ASCII كبير.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the uppercase bytes as a new Vec, \
@@ -669,6 +747,12 @@ impl [u8] {
     /// To lowercase the value in-place, use [`make_ascii_lowercase`].
     ///
     /// [`make_ascii_lowercase`]: slice::make_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع متجهًا فيه نسخة من الشريحة مع تحويل كل بايت إلى حرف ASCII صغير.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the lowercase bytes as a new Vec, \
@@ -713,25 +797,61 @@ impl [u8] {
 ///     fn borrow(&self) -> &[String] { &self.1 }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مساعد لـ `[T]::concat`.
+///
+/// </div>
 #[unstable(feature = "slice_concat_trait", issue = "27747")]
 pub trait Concat<Item: ?Sized> {
     #[unstable(feature = "slice_concat_trait", issue = "27747")]
     /// The resulting type after concatenation
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الناتج بعد الدمج.
+    ///
+    /// </div>
     type Output;
 
     /// Implementation of [`[T]::concat`](slice::concat)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تطبيق `[T]::concat`.
+    ///
+    /// </div>
     #[unstable(feature = "slice_concat_trait", issue = "27747")]
     fn concat(slice: &Self) -> Self::Output;
 }
 
 /// Helper trait for [`[T]::join`](slice::join)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مساعد لـ `[T]::join`.
+///
+/// </div>
 #[unstable(feature = "slice_concat_trait", issue = "27747")]
 pub trait Join<Separator> {
     #[unstable(feature = "slice_concat_trait", issue = "27747")]
     /// The resulting type after concatenation
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الناتج بعد الدمج.
+    ///
+    /// </div>
     type Output;
 
     /// Implementation of [`[T]::join`](slice::join)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تطبيق `[T]::join`.
+    ///
+    /// </div>
     #[unstable(feature = "slice_concat_trait", issue = "27747")]
     fn join(slice: &Self, sep: Separator) -> Self::Output;
 }

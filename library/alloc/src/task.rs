@@ -95,11 +95,23 @@ use crate::sync::Arc;
 ///     println!("Hi from inside a future!");
 /// });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق إيقاظ مهمة في منفّذ (executor).
+///
+/// </div>
 #[cfg(target_has_atomic = "ptr")]
 #[stable(feature = "wake_trait", since = "1.51.0")]
 #[rustc_diagnostic_item = "Wake"]
 pub trait Wake {
     /// Wake this task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ هذه المهمة.
+    ///
+    /// </div>
     #[stable(feature = "wake_trait", since = "1.51.0")]
     fn wake(self: Arc<Self>);
 
@@ -110,6 +122,12 @@ pub trait Wake {
     /// [`Arc`] and calls [`wake`] on the clone.
     ///
     /// [`wake`]: Wake::wake
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ هذه المهمة بدون استهلاك الـ waker.
+    ///
+    /// </div>
     #[stable(feature = "wake_trait", since = "1.51.0")]
     fn wake_by_ref(self: &Arc<Self>) {
         self.clone().wake();
@@ -121,6 +139,12 @@ impl<W: Wake + Send + Sync + 'static> From<Arc<W>> for Waker {
     /// Use a [`Wake`]-able type as a `Waker`.
     ///
     /// No heap allocations or atomic operations are used for this conversion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم نوعًا يطبّق `Wake` كـ `Waker`.
+    ///
+    /// </div>
     fn from(waker: Arc<W>) -> Waker {
         // SAFETY: This is safe because raw_waker safely constructs
         // a RawWaker from Arc<W>.
@@ -133,6 +157,12 @@ impl<W: Wake + Send + Sync + 'static> From<Arc<W>> for RawWaker {
     /// Use a `Wake`-able type as a `RawWaker`.
     ///
     /// No heap allocations or atomic operations are used for this conversion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم نوعًا يطبّق `Wake` كـ `RawWaker`.
+    ///
+    /// </div>
     fn from(waker: Arc<W>) -> RawWaker {
         raw_waker(waker)
     }
@@ -153,6 +183,12 @@ impl<W: Wake + Send + Sync + 'static> From<Arc<W>> for RawWaker {
 /// waker.wake_by_ref(); // Prints "woken".
 /// waker.wake();        // Prints "woken".
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل دالة مغلقة (closure) إلى `Waker`.
+///
+/// </div>
 #[cfg(target_has_atomic = "ptr")]
 #[unstable(feature = "waker_fn", issue = "149580")]
 pub fn waker_fn<F: Fn() + Send + Sync + 'static>(f: F) -> Waker {
@@ -318,9 +354,21 @@ fn raw_waker<W: Wake + Send + Sync + 'static>(waker: Arc<W>) -> RawWaker {
 /// });
 /// ```
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مشابه لـ `Wake` لكنه يُستخدم لبناء `LocalWaker`.
+///
+/// </div>
 #[unstable(feature = "local_waker", issue = "118959")]
 pub trait LocalWake {
     /// Wake this task.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ هذه المهمة.
+    ///
+    /// </div>
     #[unstable(feature = "local_waker", issue = "118959")]
     fn wake(self: Rc<Self>);
 
@@ -331,6 +379,12 @@ pub trait LocalWake {
     /// [`Rc`] and calls [`wake`] on the clone.
     ///
     /// [`wake`]: LocalWaker::wake
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ هذه المهمة بدون استهلاك الـ waker المحلي.
+    ///
+    /// </div>
     #[unstable(feature = "local_waker", issue = "118959")]
     fn wake_by_ref(self: &Rc<Self>) {
         self.clone().wake();
@@ -342,6 +396,12 @@ impl<W: LocalWake + 'static> From<Rc<W>> for LocalWaker {
     /// Use a `Wake`-able type as a `LocalWaker`.
     ///
     /// No heap allocations or atomic operations are used for this conversion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم نوعًا يطبّق `Wake` كـ `LocalWaker`.
+    ///
+    /// </div>
     fn from(waker: Rc<W>) -> LocalWaker {
         // SAFETY: This is safe because raw_waker safely constructs
         // a RawWaker from Rc<W>.
@@ -354,6 +414,12 @@ impl<W: LocalWake + 'static> From<Rc<W>> for RawWaker {
     /// Use a `Wake`-able type as a `RawWaker`.
     ///
     /// No heap allocations or atomic operations are used for this conversion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم نوعًا يطبّق `Wake` كـ `RawWaker`.
+    ///
+    /// </div>
     fn from(waker: Rc<W>) -> RawWaker {
         local_raw_waker(waker)
     }
@@ -375,6 +441,12 @@ impl<W: LocalWake + 'static> From<Rc<W>> for RawWaker {
 /// waker.wake_by_ref(); // Prints "woken".
 /// waker.wake();        // Prints "woken".
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل دالة مغلقة (closure) إلى `LocalWaker`.
+///
+/// </div>
 // #[unstable(feature = "local_waker", issue = "118959")]
 #[unstable(feature = "waker_fn", issue = "149580")]
 pub fn local_waker_fn<F: Fn() + Send + Sync + 'static>(f: F) -> LocalWaker {

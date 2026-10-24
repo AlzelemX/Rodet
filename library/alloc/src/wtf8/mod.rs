@@ -1,4 +1,10 @@
 //! Heap-allocated counterpart to core `wtf8` module.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النسخة المحجوزة في الـ heap من وحدة `wtf8` في `core`.
+//!
+//! </div>
 #![unstable(
     feature = "wtf8_internals",
     issue = "none",
@@ -69,6 +75,12 @@ impl ops::DerefMut for Wtf8Buf {
 ///
 /// For example, the code units [U+0061, U+D800, U+000A] are formatted as
 /// `"a\u{D800}\n"`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض النص بين علامتي تنصيص مع تهريب الحروف حسب `char::escape_debug`.
+///
+/// </div>
 impl fmt::Debug for Wtf8Buf {
     #[inline]
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -78,6 +90,12 @@ impl fmt::Debug for Wtf8Buf {
 
 /// Formats the string with unpaired surrogates substituted with the replacement
 /// character, U+FFFD.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض النص مع استبدال أنصاف الأزواج المنفردة بحرف الاستبدال U+FFFD.
+///
+/// </div>
 impl fmt::Display for Wtf8Buf {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         if let Some(s) = self.as_known_utf8() {
@@ -91,12 +109,24 @@ impl fmt::Display for Wtf8Buf {
 #[cfg_attr(test, allow(dead_code))]
 impl Wtf8Buf {
     /// Creates a new, empty WTF-8 string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 جديدًا فارغًا.
+    ///
+    /// </div>
     #[inline]
     pub fn new() -> Wtf8Buf {
         Wtf8Buf { bytes: Vec::new(), is_known_utf8: true }
     }
 
     /// Creates a new, empty WTF-8 string with pre-allocated capacity for `capacity` bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 جديدًا فارغًا بسعة محجوزة مسبقًا قدرها `capacity` بايت.
+    ///
+    /// </div>
     #[inline]
     pub fn with_capacity(capacity: usize) -> Wtf8Buf {
         Wtf8Buf { bytes: Vec::with_capacity(capacity), is_known_utf8: true }
@@ -107,6 +137,12 @@ impl Wtf8Buf {
     /// # Safety
     ///
     /// `value` must contain [well-formed WTF-8](https://wtf-8.codeberg.page/#well-formed).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 من متجه بايتات WTF-8.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn from_bytes_unchecked(value: Vec<u8>) -> Wtf8Buf {
         Wtf8Buf { bytes: value, is_known_utf8: false }
@@ -117,6 +153,12 @@ impl Wtf8Buf {
     /// This takes ownership of the `String` and does not copy.
     ///
     /// Since WTF-8 is a superset of UTF-8, this always succeeds.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 من `String` بصيغة UTF-8.
+    ///
+    /// </div>
     #[inline]
     pub const fn from_string(string: String) -> Wtf8Buf {
         Wtf8Buf { bytes: string.into_bytes(), is_known_utf8: true }
@@ -127,6 +169,12 @@ impl Wtf8Buf {
     /// This copies the content of the slice.
     ///
     /// Since WTF-8 is a superset of UTF-8, this always succeeds.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 من شريحة `&str` بصيغة UTF-8.
+    ///
+    /// </div>
     #[inline]
     pub fn from_str(s: &str) -> Wtf8Buf {
         Wtf8Buf { bytes: s.as_bytes().to_vec(), is_known_utf8: true }
@@ -141,6 +189,12 @@ impl Wtf8Buf {
     ///
     /// This is lossless: calling `.encode_wide()` on the resulting string
     /// will always return the original code units.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص WTF-8 من شريحة UTF-16 قد تكون غير سليمة.
+    ///
+    /// </div>
     pub fn from_wide(v: &[u16]) -> Wtf8Buf {
         let mut string = Wtf8Buf::with_capacity(v.len());
         for item in char::decode_utf16(v.iter().cloned()) {
@@ -214,6 +268,12 @@ impl Wtf8Buf {
     /// # Panics
     ///
     /// Panics if the new capacity exceeds `isize::MAX` bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز سعة لـ `additional` بايت إضافية على الأقل في الـ `Wtf8Buf`.
+    ///
+    /// </div>
     #[inline]
     pub fn reserve(&mut self, additional: usize) {
         self.bytes.reserve(additional)
@@ -230,6 +290,12 @@ impl Wtf8Buf {
     ///
     /// If the capacity overflows, or the allocator reports a failure, then an error
     /// is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز سعة لـ `additional` بايت إضافية على الأقل في الـ `Wtf8Buf`.
+    ///
+    /// </div>
     #[inline]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.bytes.try_reserve(additional)
@@ -256,6 +322,12 @@ impl Wtf8Buf {
     ///
     /// If the capacity overflows, or the allocator reports a failure, then an error
     /// is returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حجز أقل سعة ممكنة لـ `additional` بايت إضافية بالضبط في الـ `Wtf8Buf`.
+    ///
+    /// </div>
     #[inline]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
         self.bytes.try_reserve_exact(additional)
@@ -278,12 +350,24 @@ impl Wtf8Buf {
     }
 
     /// Returns the number of bytes that this string buffer can hold without reallocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات التي يتسع لها هذا المخزن بدون إعادة حجز.
+    ///
+    /// </div>
     #[inline]
     pub fn capacity(&self) -> usize {
         self.bytes.capacity()
     }
 
     /// Append a UTF-8 slice at the end of the string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف شريحة UTF-8 إلى نهاية النص.
+    ///
+    /// </div>
     #[inline]
     pub fn push_str(&mut self, other: &str) {
         self.bytes.extend_from_slice(other.as_bytes())
@@ -294,6 +378,12 @@ impl Wtf8Buf {
     /// This replaces newly paired surrogates at the boundary
     /// with a supplementary code point,
     /// like concatenating ill-formed UTF-16 strings effectively would.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف شريحة WTF-8 إلى نهاية النص.
+    ///
+    /// </div>
     #[inline]
     pub fn push_wtf8(&mut self, other: &Wtf8) {
         match ((*self).final_lead_surrogate(), other.initial_trail_surrogate()) {
@@ -320,6 +410,12 @@ impl Wtf8Buf {
     }
 
     /// Append a Unicode scalar value at the end of the string.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف قيمة يونيكود إلى نهاية النص.
+    ///
+    /// </div>
     #[inline]
     pub fn push_char(&mut self, c: char) {
         // SAFETY: It's always safe to push a char.
@@ -331,6 +427,12 @@ impl Wtf8Buf {
     /// This replaces newly paired surrogates at the boundary
     /// with a supplementary code point,
     /// like concatenating ill-formed UTF-16 strings effectively would.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف نقطة ترميز (code point) إلى نهاية النص.
+    ///
+    /// </div>
     #[inline]
     pub fn push(&mut self, code_point: CodePoint) {
         if let Some(trail) = code_point.to_trail_surrogate() {
@@ -360,6 +462,12 @@ impl Wtf8Buf {
     /// # Panics
     ///
     /// Panics if `new_len` does not lie on a code point boundary.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر النص إلى الطول المحدد.
+    ///
+    /// </div>
     #[inline]
     pub fn truncate(&mut self, new_len: usize) {
         if new_len <= self.len() {
@@ -369,6 +477,12 @@ impl Wtf8Buf {
     }
 
     /// Consumes the WTF-8 string and tries to convert it to a vec of bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك نص WTF-8 ويحاول تحويله إلى متجه بايتات.
+    ///
+    /// </div>
     #[inline]
     pub fn into_bytes(self) -> Vec<u8> {
         self.bytes
@@ -381,6 +495,12 @@ impl Wtf8Buf {
     /// If the contents are not well-formed UTF-8
     /// (that is, if the string contains surrogates),
     /// the original WTF-8 string is returned instead.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك نص WTF-8 ويحاول تحويله إلى UTF-8.
+    ///
+    /// </div>
     pub fn into_string(self) -> Result<String, Wtf8Buf> {
         if self.is_known_utf8 || self.next_surrogate(0).is_none() {
             // SAFETY: We have checked that `self.bytes` contains valid UTF-8.
@@ -395,6 +515,12 @@ impl Wtf8Buf {
     /// This does not copy the data (but may overwrite parts of it in place).
     ///
     /// Surrogates are replaced with `"\u{FFFD}"` (the replacement character “�”)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك نص WTF-8 ويحوّله إلى UTF-8 مع استبدال الأجزاء غير الصالحة.
+    ///
+    /// </div>
     pub fn into_string_lossy(mut self) -> String {
         if !self.is_known_utf8 {
             let mut pos = 0;
@@ -410,6 +536,12 @@ impl Wtf8Buf {
     }
 
     /// Converts this `Wtf8Buf` into a boxed `Wtf8`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `Wtf8Buf` إلى `Wtf8` داخل `Box`.
+    ///
+    /// </div>
     #[inline]
     pub fn into_box(self) -> Box<Wtf8> {
         // SAFETY: `Wtf8` is a transparent wrapper around `[u8]`, and
@@ -419,6 +551,12 @@ impl Wtf8Buf {
     }
 
     /// Converts a `Box<Wtf8>` into a `Wtf8Buf`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<Wtf8>` إلى `Wtf8Buf`.
+    ///
+    /// </div>
     pub fn from_box(boxed: Box<Wtf8>) -> Wtf8Buf {
         // SAFETY: `Wtf8` is a transparent wrapper around `[u8]`, and `boxed` is
         // a `Box<Wtf8>`. Therefore, transmuting `Box<Wtf8>` to `Box<[u8]>` is safe.
@@ -436,6 +574,13 @@ impl Wtf8Buf {
     /// and appending `other` to `self` must preserve that invariant.
     /// In particular, `self` must not end with a leading surrogate,
     /// or `other` must not start with a trailing surrogate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل إلى `Vec::extend_from_slice` في `core` بدون إعطاء الأنواع الخارجية وصولًا كاملًا
+    /// للتعديل.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn extend_from_slice_unchecked(&mut self, other: &[u8]) {
         self.bytes.extend_from_slice(other);
@@ -447,6 +592,12 @@ impl Wtf8Buf {
 ///
 /// This replaces surrogate code point pairs with supplementary code points,
 /// like concatenating ill-formed UTF-16 strings effectively would.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نص WTF-8 جديدًا من مكرر نقاط ترميز.
+///
+/// </div>
 impl FromIterator<CodePoint> for Wtf8Buf {
     fn from_iter<I: IntoIterator<Item = CodePoint>>(iter: I) -> Wtf8Buf {
         let mut string = Wtf8Buf::new();
@@ -459,6 +610,12 @@ impl FromIterator<CodePoint> for Wtf8Buf {
 ///
 /// This replaces surrogate code point pairs with supplementary code points,
 /// like concatenating ill-formed UTF-16 strings effectively would.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضيف نقاط ترميز من مكرر إلى النص.
+///
+/// </div>
 impl Extend<CodePoint> for Wtf8Buf {
     fn extend<I: IntoIterator<Item = CodePoint>>(&mut self, iter: I) {
         let iterator = iter.into_iter();

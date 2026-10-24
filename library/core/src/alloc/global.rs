@@ -185,6 +185,12 @@ use crate::{cmp, ptr};
 /// [`std::thread::park`]: ../../std/thread/fn.park.html
 /// [`std::thread::Thread`]: ../../std/thread/struct.Thread.html
 /// [`unpark`]: ../../std/thread/struct.Thread.html#method.unpark
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مُخصِّص ذاكرة يمكن تسجيله كمُخصِّص افتراضي للمكتبة القياسية عبر الخاصية `#[global_allocator]`.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 pub unsafe trait GlobalAlloc {
     /// Allocates memory as described by the given `layout`.
@@ -219,6 +225,12 @@ pub unsafe trait GlobalAlloc {
     /// rather than directly invoking `panic!` or similar (but note that both may unwind).
     ///
     /// [`handle_alloc_error`]: ../../alloc/alloc/fn.handle_alloc_error.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة كما يصفها الـ `layout` المعطى.
+    ///
+    /// </div>
     #[stable(feature = "global_alloc", since = "1.28.0")]
     unsafe fn alloc(&self, layout: Layout) -> *mut u8;
 
@@ -234,6 +246,12 @@ pub unsafe trait GlobalAlloc {
     ///   memory.
     ///
     /// Otherwise the behavior is undefined.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحرر كتلة الذاكرة عند المؤشر `ptr` بالـ `layout` المعطى.
+    ///
+    /// </div>
     #[stable(feature = "global_alloc", since = "1.28.0")]
     unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout);
 
@@ -257,6 +275,12 @@ pub unsafe trait GlobalAlloc {
     /// rather than directly invoking `panic!` or similar.
     ///
     /// [`handle_alloc_error`]: ../../alloc/alloc/fn.handle_alloc_error.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `alloc` لكنه يضمن أن المحتوى أصفار قبل إرجاعه.
+    ///
+    /// </div>
     #[stable(feature = "global_alloc", since = "1.28.0")]
     unsafe fn alloc_zeroed(&self, layout: Layout) -> *mut u8 {
         let size = layout.size();
@@ -327,6 +351,12 @@ pub unsafe trait GlobalAlloc {
     /// rather than directly invoking `panic!` or similar.
     ///
     /// [`handle_alloc_error`]: ../../alloc/alloc/fn.handle_alloc_error.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يصغّر أو يكبّر كتلة ذاكرة إلى الحجم الجديد `new_size` بالبايتات.
+    ///
+    /// </div>
     #[stable(feature = "global_alloc", since = "1.28.0")]
     unsafe fn realloc(&self, ptr: *mut u8, layout: Layout, new_size: usize) -> *mut u8 {
         let alignment = layout.alignment();
@@ -348,6 +378,12 @@ pub unsafe trait GlobalAlloc {
 }
 
 /// Allows all [`GlobalAllocator`]s to be used with the legacy [`GlobalAlloc`] interface.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسمح باستخدام كل `GlobalAllocator` مع الواجهة القديمة `GlobalAlloc`.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 unsafe impl<A> GlobalAlloc for A
 where

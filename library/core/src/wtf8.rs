@@ -143,6 +143,12 @@ impl AsRef<[u8]> for Wtf8 {
 /// Formats the string in double quotes, with characters escaped according to
 /// [`char::escape_debug`] and unpaired surrogates represented as `\u{xxxx}`,
 /// where each `x` is a hexadecimal digit.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض النص بين علامتي تنصيص مع تهريب الحروف حسب `char::escape_debug`.
+///
+/// </div>
 impl fmt::Debug for Wtf8 {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         fn write_str_escaped(f: &mut fmt::Formatter<'_>, s: &str) -> fmt::Result {
@@ -177,6 +183,12 @@ impl fmt::Debug for Wtf8 {
 
 /// Formats the string with unpaired surrogates substituted with the replacement
 /// character, U+FFFD.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض النص مع استبدال أنصاف الأزواج المنفردة بحرف الاستبدال U+FFFD.
+///
+/// </div>
 impl fmt::Display for Wtf8 {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         let wtf8_bytes = &self.bytes;

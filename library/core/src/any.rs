@@ -83,6 +83,12 @@
 //! }
 //! ```
 //!
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للأنواع الديناميكية وانعكاس الأنواع (type reflection).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -102,6 +108,12 @@ use crate::{fmt, hash, ptr};
 /// See the [module-level documentation][mod] for more details.
 ///
 /// [mod]: crate::any
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لمحاكاة الأنواع الديناميكية.
+///
+/// </div>
 // This trait is not unsafe, though we rely on the specifics of it's sole impl's
 // `type_id` function in unsafe code (e.g., `downcast`). Normally, that would be
 // a problem, but because the only impl of `Any` is a blanket implementation, no

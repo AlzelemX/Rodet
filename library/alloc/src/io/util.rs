@@ -113,11 +113,23 @@ impl Read for Repeat {
     }
 
     /// This function is not supported by `io::Repeat`, because there's no end of its data
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هذه الدالة غير مدعومة في `io::Repeat` لأن بياناته لا نهاية لها.
+    ///
+    /// </div>
     fn read_to_end(&mut self, _: &mut Vec<u8>) -> io::Result<usize> {
         Err(io::Error::from(io::ErrorKind::OutOfMemory))
     }
 
     /// This function is not supported by `io::Repeat`, because there's no end of its data
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هذه الدالة غير مدعومة في `io::Repeat` لأن بياناته لا نهاية لها.
+    ///
+    /// </div>
     fn read_to_string(&mut self, _: &mut String) -> io::Result<usize> {
         Err(io::Error::from(io::ErrorKind::OutOfMemory))
     }
@@ -331,6 +343,12 @@ impl<T: BufRead> BufRead for Take<T> {
 /// Please see the documentation of [`bytes`] for more details.
 ///
 /// [`bytes`]: Read::bytes
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على قيم `u8` من قارئ.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct Bytes<R> {
@@ -403,6 +421,12 @@ pub(super) const fn bytes<R>(inner: R) -> Bytes<R> {
 /// Please see the documentation of [`split`] for more details.
 ///
 /// [`split`]: BufRead::split
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على محتوى `BufRead` مقسومًا عند بايت معيّن.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoSplit")]
@@ -440,6 +464,12 @@ pub(super) const fn split<B>(buf: B, delim: u8) -> Split<B> {
 /// Please see the documentation of [`lines`] for more details.
 ///
 /// [`lines`]: BufRead::lines
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أسطر `BufRead`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoLines")]

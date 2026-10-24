@@ -33,6 +33,12 @@ use crate::ptr::{self, NonNull};
 /// that may be due to resource exhaustion or to
 /// something wrong when combining the given input arguments with this
 /// allocator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني فشل الحجز، بسبب نفاد الموارد أو خطأ في المعاملات المعطاة للمُخصِّص.
+///
+/// </div>
 #[stable(feature = "allocator_api", since = "1.100.0")]
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct AllocError;
@@ -194,6 +200,12 @@ impl fmt::Display for AllocError {
 ///
 /// [*currently allocated*]: #currently-allocated-memory
 /// [*invalidated*]: #invalidating-memory-blocks
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق `Allocator` يستطيع حجز وتكبير وتصغير وتحرير كتل بيانات يصفها `Layout`.
+///
+/// </div>
 // NOTE: the above bound on allocating methods not unwinding, alongside the similar
 // bound on `AllocatorClone`, are currently load-bearing in std! see the below issues
 // and make sure they cannot be triggered before relaxing this:
@@ -530,6 +542,12 @@ pub const unsafe trait Allocator {
 /// [`std::thread::park`]: ../../std/thread/fn.park.html
 /// [`std::thread::Thread`]: ../../std/thread/struct.Thread.html
 /// [`unpark`]: ../../std/thread/struct.Thread.html#method.unpark
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Allocator` يمكن تسجيله كمُخصِّص افتراضي للمكتبة القياسية عبر الخاصية `#[global_allocator]`.
+///
+/// </div>
 #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
 #[expect(multiple_supertrait_upcastable)]
 pub unsafe trait GlobalAllocator: StaticAllocator + Sync + 'static {}
@@ -546,6 +564,12 @@ pub unsafe trait GlobalAllocator: StaticAllocator + Sync + 'static {}
 /// It must also be the case that types which are `AllocatorClone` are either explicitly not
 /// copyable (such as by containing a `!Copy` field) or that copying them also respects allocator
 /// equivalence as if it had been a clone.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعلّم أن تطبيق `Clone` لنوع سليم من ناحية تكافؤ المُخصِّصات.
+///
+/// </div>
 #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
 pub unsafe trait AllocatorClone: Allocator + Clone {}
 
@@ -577,6 +601,12 @@ pub unsafe trait AllocatorClone: Allocator + Clone {}
 ///
 /// [`Pin`]: ../../core/pin/struct.Pin.html
 /// [unsound]: https://github.com/rust-lang/rust/issues/157089
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعلّم أن المُخصِّص لن يُبطل الذاكرة المحجوزة حاليًا إلا إذا حُررت صراحة.
+///
+/// </div>
 #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
 pub unsafe trait StaticAllocator: Allocator {}
 
@@ -779,6 +809,12 @@ unsafe impl<A: StaticAllocator + ?Sized> StaticAllocator for &mut A {}
 /// Note that this trait *will* be removed in the future, but downstream
 /// allocators should still feel free to implement it on nightly, to
 /// allow use of all containers with unstable allocator support.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة للمُخصِّصات لا يُطبَّق بشكل مستقر إلا لـ `Global`.
+///
+/// </div>
 #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
 pub trait AllocatorNightly: Allocator {}
 

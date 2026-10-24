@@ -238,6 +238,12 @@
 //! [upgrade]: Weak::upgrade
 //! [mutability]: core::cell#introducing-mutability-inside-of-something-immutable
 //! [fully qualified syntax]: https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مؤشرات بعدّ مراجع لخيط واحد. 'Rc' اختصار 'Reference Counted'.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -312,6 +318,12 @@ fn rc_inner_layout_for_value_layout(layout: Layout) -> Layout {
 /// `value.get_mut()`. This avoids conflicts with methods of the inner type `T`.
 ///
 /// [get_mut]: Rc::get_mut
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر بعدّ مراجع لخيط واحد. 'Rc' اختصار 'Reference Counted'.
+///
+/// </div>
 #[doc(search_unbox)]
 #[rustc_diagnostic_item = "Rc"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -427,6 +439,12 @@ impl<T> Rc<T> {
     ///
     /// let five = Rc::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn new(value: T) -> Rc<T> {
@@ -494,6 +512,12 @@ impl<T> Rc<T> {
     /// }
     /// ```
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا ويعطيك `Weak<T>` إليه، لتبني `T` يحمل مؤشرًا ضعيفًا إلى نفسه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "arc_new_cyclic", since = "1.60.0")]
     pub fn new_cyclic<F>(data_fn: F) -> Rc<T>
@@ -519,6 +543,12 @@ impl<T> Rc<T> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` جديدًا بمحتوى غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[must_use]
@@ -551,6 +581,12 @@ impl<T> Rc<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` جديدًا بمحتوى غير مهيأ، وتُملأ ذاكرته بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
     #[must_use]
@@ -576,6 +612,12 @@ impl<T> Rc<T> {
     /// let five = Rc::try_new(5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new(value: T) -> Result<Rc<T>, AllocError> {
         // SAFETY: There is an implicit weak pointer owned by all the strong
@@ -610,6 +652,12 @@ impl<T> Rc<T> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_uninit() -> Result<Rc<mem::MaybeUninit<T>>, AllocError> {
         // ignore-tidy-undocumented-unsafe
@@ -643,6 +691,12 @@ impl<T> Rc<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ مملوء بأصفار، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_zeroed() -> Result<Rc<mem::MaybeUninit<T>>, AllocError> {
         // ignore-tidy-undocumented-unsafe
@@ -656,6 +710,12 @@ impl<T> Rc<T> {
     }
     /// Constructs a new `Pin<Rc<T>>`. If `T` does not implement `Unpin`, then
     /// `value` will be pinned in memory and unable to be moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Rc<T>>` جديدًا؛ إذا لم يطبّق `T` الـ `Unpin` تُثبَّت القيمة ولا يمكن نقلها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "pin", since = "1.33.0")]
     #[must_use]
@@ -678,6 +738,12 @@ impl<T, A: Allocator> Rc<T, A> {
     ///
     /// let five = Rc::new_in(5, System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` جديدًا في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -712,6 +778,12 @@ impl<T, A: Allocator> Rc<T, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -750,6 +822,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ مملوء بأصفار في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -796,6 +874,13 @@ impl<T, A: Allocator> Rc<T, A> {
     ///
     /// [`new_cyclic`]: Rc::new_cyclic
     /// [`upgrade`]: Weak::upgrade
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T, A>` في المُخصِّص المعطى ويعطيك `Weak<T, A>` إليه، لتبني `T` يحمل مؤشرًا ضعيفًا
+    /// إلى نفسه.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn new_cyclic_in<F>(data_fn: F, alloc: A) -> Rc<T, A>
@@ -856,6 +941,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// let five = Rc::try_new_in(5, System);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_in(value: T, alloc: A) -> Result<Self, AllocError> {
@@ -895,6 +986,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_uninit_in(alloc: A) -> Result<Rc<mem::MaybeUninit<T>, A>, AllocError> {
@@ -934,6 +1031,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc` بمحتوى غير مهيأ مملوء بأصفار في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_zeroed_in(alloc: A) -> Result<Rc<mem::MaybeUninit<T>, A>, AllocError> {
@@ -952,6 +1055,13 @@ impl<T, A: Allocator> Rc<T, A> {
 
     /// Constructs a new `Pin<Rc<T>>` in the provided allocator. If `T` does not implement `Unpin`, then
     /// `value` will be pinned in memory and unable to be moved.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Rc<T>>` في المُخصِّص المعطى؛ إذا لم يطبّق `T` الـ `Unpin` تُثبَّت القيمة ولا يمكن
+    /// نقلها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -982,6 +1092,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// let _y = Rc::clone(&x);
     /// assert_eq!(*Rc::try_unwrap(x).unwrap_err(), 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الداخلية إذا كان للـ `Rc` مرجع قوي واحد بالضبط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_unique", since = "1.4.0")]
     pub fn try_unwrap(this: Self) -> Result<T, Self> {
@@ -1035,6 +1151,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// assert_eq!(Rc::into_inner(y), None);
     /// assert_eq!(Rc::into_inner(x), Some(4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الداخلية إذا كان للـ `Rc` مرجع قوي واحد بالضبط.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_into_inner", since = "1.70.0")]
     pub fn into_inner(this: Self) -> Option<T> {
@@ -1059,6 +1181,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// let new = Rc::map(r, |i| i + 7);
     /// assert_eq!(*new, 14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة داخل `Rc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "smart_pointer_map", since = "1.100.0")]
     pub fn map<U>(this: Self, f: impl FnOnce(&T) -> U) -> Rc<U, A> {
@@ -1105,6 +1233,12 @@ impl<T, A: Allocator> Rc<T, A> {
     /// let new = Rc::try_map(b, |&i| u32::try_from(i)).unwrap();
     /// assert_eq!(*new, 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل القيمة داخل `Rc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "smart_pointer_try_map", issue = "144419")]
     pub fn try_map<R>(
@@ -1160,6 +1294,12 @@ impl<T> Rc<[T]> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع بمحتوى غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[must_use]
@@ -1186,6 +1326,12 @@ impl<T> Rc<[T]> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع بمحتوى غير مهيأ مملوء بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
     #[must_use]
@@ -1226,6 +1372,12 @@ impl<T, A: Allocator> Rc<[T], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع بمحتوى غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -1255,6 +1407,12 @@ impl<T, A: Allocator> Rc<[T], A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة بعدّ مراجع بمحتوى غير مهيأ مملوء بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -1290,6 +1448,12 @@ impl<T, A: Allocator> Rc<[T], A> {
     ///
     /// let rc_array: Rc<[i32; 3]> = rc_slice.into_array().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة ذات عدّ المراجع إلى مصفوفة ذات عدّ مراجع.
+    ///
+    /// </div>
     #[unstable(feature = "alloc_slice_into_array", issue = "148082")]
     #[inline]
     pub fn into_array<const N: usize>(self) -> Result<Rc<[T; N], A>, Self> {
@@ -1333,6 +1497,12 @@ impl<T, A: Allocator> Rc<mem::MaybeUninit<T>, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Rc<T>`.
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[inline]
     pub unsafe fn assume_init(self) -> Rc<T, A> {
@@ -1353,6 +1523,12 @@ impl<T: ?Sized + CloneToUninit> Rc<T> {
     ///
     /// let hello: Rc<str> = Rc::clone_from_ref("hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا فيه نسخة من `value`.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     pub fn clone_from_ref(value: &T) -> Rc<T> {
@@ -1370,6 +1546,12 @@ impl<T: ?Sized + CloneToUninit> Rc<T> {
     /// let hello: Rc<str> = Rc::try_clone_from_ref("hello")?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا فيه نسخة من `value`، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_clone_from_ref(value: &T) -> Result<Rc<T>, AllocError> {
@@ -1390,6 +1572,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Rc<T, A> {
     ///
     /// let hello: Rc<str, System> = Rc::clone_from_ref_in("hello", System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا فيه نسخة من `value` في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -1420,6 +1608,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Rc<T, A> {
     /// let hello: Rc<str, System> = Rc::try_clone_from_ref_in("hello", System)?;
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا فيه نسخة من `value` في المُخصِّص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_clone_from_ref_in(value: &T, alloc: A) -> Result<Rc<T, A>, AllocError> {
@@ -1469,6 +1663,12 @@ impl<T, A: Allocator> Rc<[mem::MaybeUninit<T>], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Rc<[T]>`.
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[inline]
     pub unsafe fn assume_init(self) -> Rc<[T], A> {
@@ -1543,6 +1743,12 @@ impl<T: ?Sized> Rc<T> {
     ///     assert_eq!(&*x, &[1, 2, 3]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` من مؤشر خام.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_raw", since = "1.17.0")]
     pub unsafe fn from_raw(ptr: *const T) -> Self {
@@ -1566,6 +1772,12 @@ impl<T: ?Sized> Rc<T> {
     /// # // Prevent leaks for Miri.
     /// # drop(unsafe { Rc::from_raw(x_ptr) });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Rc` ويرجع المؤشر الذي يغلفه.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "rc_raw", since = "1.17.0")]
     #[rustc_never_returns_null_ptr]
@@ -1602,6 +1814,12 @@ impl<T: ?Sized> Rc<T> {
     /// #   Rc::decrement_strong_count(ptr);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيد عدد المراجع القوية للـ `Rc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_mutate_strong_count", since = "1.53.0")]
     pub unsafe fn increment_strong_count(ptr: *const T) {
@@ -1640,6 +1858,12 @@ impl<T: ?Sized> Rc<T> {
     ///     assert_eq!(1, Rc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقص عدد المراجع القوية للـ `Rc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_mutate_strong_count", since = "1.53.0")]
     pub unsafe fn decrement_strong_count(ptr: *const T) {
@@ -1678,6 +1902,12 @@ impl<T: ?Sized> Rc<T> {
     ///     assert_eq!(2, Rc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Rc`) إلى الحجز خلف المؤشر الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "arc_raw_get_strong", issue = "157021")]
@@ -1729,6 +1959,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// let x = unsafe { Rc::from_raw_in(ptr, alloc) };
     /// assert_eq!(&*x, "hello");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Rc` ويرجع المؤشر الذي يغلفه والمُخصِّص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn into_raw_with_allocator(this: Self) -> (*const T, A) {
@@ -1755,6 +1991,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// assert_eq!(x_ptr, Rc::as_ptr(&y));
     /// assert_eq!(unsafe { *x_ptr }, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مؤشرًا خامًا إلى البيانات.
+    ///
+    /// </div>
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     #[rustc_never_returns_null_ptr]
     pub fn as_ptr(this: &Self) -> *const T {
@@ -1836,6 +2078,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     ///     assert_eq!(&*x, &[1, 2, 3]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T, A>` من مؤشر خام في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn from_raw_in(ptr: *const T, alloc: A) -> Self {
         // ignore-tidy-undocumented-unsafe
@@ -1860,6 +2108,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     ///
     /// let weak_five = Rc::downgrade(&five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر `Weak` جديدًا إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use = "this returns a new `Weak` pointer, \
                   without modifying the original `Rc`"]
     #[stable(feature = "rc_weak", since = "1.4.0")]
@@ -1885,6 +2139,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     ///
     /// assert_eq!(1, Rc::weak_count(&five));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد مؤشرات `Weak` إلى هذا الحجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rc_counts", since = "1.15.0")]
@@ -1904,6 +2164,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     ///
     /// assert_eq!(2, Rc::strong_count(&five));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Rc`) إلى هذا الحجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rc_counts", since = "1.15.0")]
@@ -1944,6 +2210,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// #   Rc::decrement_strong_count_in(ptr, System);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيد عدد المراجع القوية للـ `Rc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn increment_strong_count_in(ptr: *const T, alloc: A)
@@ -1991,6 +2263,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     ///     assert_eq!(1, Rc::strong_count(&five));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقص عدد المراجع القوية للـ `Rc<T>` المرتبط بالمؤشر المعطى بواحد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn decrement_strong_count_in(ptr: *const T, alloc: A) {
@@ -2044,6 +2322,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// ```
     ///
     /// [`get_mut_unchecked`]: Self::get_mut_unchecked
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل هذا هو المرجع الوحيد إلى البيانات.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "arc_is_unique", issue = "138938")]
     pub fn is_unique(this: &Self) -> bool {
@@ -2074,6 +2358,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// let _y = Rc::clone(&x);
     /// assert!(Rc::get_mut(&mut x).is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Rc` إذا لم توجد مؤشرات `Rc` أو `Weak` أخرى لنفس الحجز.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_unique", since = "1.4.0")]
     pub fn get_mut(this: &mut Self) -> Option<&mut T> {
@@ -2141,6 +2431,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// }
     /// println!("{}", &*x); // Use-after-free
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Rc` بدون أي فحص (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "get_mut_unchecked", issue = "63292")]
     pub unsafe fn get_mut_unchecked(this: &mut Self) -> &mut T {
@@ -2167,6 +2463,12 @@ impl<T: ?Sized, A: Allocator> Rc<T, A> {
     /// assert!(Rc::ptr_eq(&five, &same_five));
     /// assert!(!Rc::ptr_eq(&five, &other_five));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الـ `Rc` الاثنان يشيران إلى نفس الحجز (مثل `ptr::eq`).
+    ///
+    /// </div>
     pub fn ptr_eq(this: &Self, other: &Self) -> bool {
         ptr::addr_eq(this.ptr.as_ptr(), other.ptr.as_ptr())
     }
@@ -2224,6 +2526,12 @@ impl<T: ?Sized + CloneToUninit, A: AllocatorClone> Rc<T, A> {
     /// assert!(76 == *data);
     /// assert!(weak.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل داخل الـ `Rc` المعطى (ينسخ البيانات إذا كانت مشتركة).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_unique", since = "1.4.0")]
     pub fn make_mut(this: &mut Self) -> &mut T {
@@ -2302,6 +2610,12 @@ impl<T: Clone, A: Allocator> Rc<T, A> {
     /// let inner = Rc::unwrap_or_clone(rc2);
     /// assert!(ptr::eq(ptr, inner.as_ptr()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كان عندنا المرجع الوحيد إلى `T` نفكه، وإلا ننسخ `T` ونرجع النسخة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "arc_unwrap_or_clone", since = "1.76.0")]
     pub fn unwrap_or_clone(this: Self) -> T {
@@ -2328,6 +2642,12 @@ impl<A: Allocator> Rc<dyn Any, A> {
     /// print_if_string(Rc::new(my_string));
     /// print_if_string(Rc::new(0i8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `Rc<dyn Any>` إلى نوع محدد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rc_downcast", since = "1.29.0")]
     pub fn downcast<T: Any>(self) -> Result<Rc<T, A>, Self> {
@@ -2367,6 +2687,12 @@ impl<A: Allocator> Rc<dyn Any, A> {
     /// with the incorrect type is *undefined behavior*.
     ///
     /// [`downcast`]: Self::downcast
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Rc<dyn Any>` إلى نوع محدد بدون فحص (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     pub unsafe fn downcast_unchecked<T: Any>(self) -> Rc<T, A> {
@@ -2650,6 +2976,12 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Rc<T, A> {
     /// drop(foo);    // Doesn't print anything
     /// drop(foo2);   // Prints "dropped!"
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من الـ `Rc`.
+    ///
+    /// </div>
     #[inline]
     fn drop(&mut self) {
         // ignore-tidy-undocumented-unsafe
@@ -2678,6 +3010,12 @@ impl<T: ?Sized, A: AllocatorClone> Clone for Rc<T, A> {
     ///
     /// let _ = Rc::clone(&five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من مؤشر الـ `Rc` (يزيد عدد المراجع فقط).
+    ///
+    /// </div>
     #[inline]
     fn clone(&self) -> Self {
         // ignore-tidy-undocumented-unsafe
@@ -2707,6 +3045,12 @@ impl<T: Default> Default for Rc<T> {
     /// let x: Rc<i32> = Default::default();
     /// assert_eq!(*x, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Rc<T>` جديدًا بالقيمة الافتراضية (`Default`) لـ `T`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         // ignore-tidy-undocumented-unsafe
@@ -2725,6 +3069,12 @@ impl Default for Rc<str> {
     /// Creates an empty `str` inside an `Rc`.
     ///
     /// This may or may not share an allocation with other Rcs on the same thread.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `str` فارغًا داخل `Rc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         let rc = Rc::<[u8]>::default();
@@ -2739,6 +3089,12 @@ impl<T> Default for Rc<[T]> {
     /// Creates an empty `[T]` inside an `Rc`.
     ///
     /// This may or may not share an allocation with other Rcs on the same thread.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `[T]` فارغة داخل `Rc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         let arr: [T; 0] = [];
@@ -2792,6 +3148,12 @@ impl<T: ?Sized + Eq> MarkerEq for T {}
 /// the same value, than two `&T`s.
 ///
 /// We can only do this when `T: Eq` as a `PartialEq` might be deliberately irreflexive.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نخصص هنا بدل تحسين عام على `&T` لأن ذلك سيضيف كلفة على كل مقارنة مساواة بين المراجع.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: ?Sized + MarkerEq, A: Allocator> RcEqIdent<T, A> for Rc<T, A> {
     #[inline]
@@ -2825,6 +3187,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for Rc<T, A> {
     ///
     /// assert!(five == Rc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المساواة بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn eq(&self, other: &Rc<T, A>) -> bool {
         RcEqIdent::eq(self, other)
@@ -2847,6 +3215,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for Rc<T, A> {
     ///
     /// assert!(five != Rc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدم المساواة بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn ne(&self, other: &Rc<T, A>) -> bool {
         RcEqIdent::ne(self, other)
@@ -2872,6 +3246,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Rc<T, A> {
     ///
     /// assert_eq!(Some(Ordering::Less), five.partial_cmp(&Rc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة جزئية بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn partial_cmp(&self, other: &Rc<T, A>) -> Option<Ordering> {
         (**self).partial_cmp(&**other)
@@ -2890,6 +3270,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Rc<T, A> {
     ///
     /// assert!(five < Rc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من" بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn lt(&self, other: &Rc<T, A>) -> bool {
         **self < **other
@@ -2908,6 +3294,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Rc<T, A> {
     ///
     /// assert!(five <= Rc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من أو يساوي" بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn le(&self, other: &Rc<T, A>) -> bool {
         **self <= **other
@@ -2926,6 +3318,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Rc<T, A> {
     ///
     /// assert!(five > Rc::new(4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من" بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn gt(&self, other: &Rc<T, A>) -> bool {
         **self > **other
@@ -2944,6 +3342,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for Rc<T, A> {
     ///
     /// assert!(five >= Rc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من أو يساوي" بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn ge(&self, other: &Rc<T, A>) -> bool {
         **self >= **other
@@ -2966,6 +3370,12 @@ impl<T: ?Sized + Ord, A: Allocator> Ord for Rc<T, A> {
     ///
     /// assert_eq!(Ordering::Less, five.cmp(&Rc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة بين `Rc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn cmp(&self, other: &Rc<T, A>) -> Ordering {
         (**self).cmp(&**other)
@@ -3016,6 +3426,12 @@ impl<T> From<T> for Rc<T> {
     ///
     /// assert_eq!(Rc::from(x), rc);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نوعًا عامًا `T` إلى `Rc<T>`.
+    ///
+    /// </div>
     fn from(t: T) -> Self {
         Rc::new(t)
     }
@@ -3036,6 +3452,12 @@ impl<T, const N: usize> From<[T; N]> for Rc<[T]> {
     /// let shared: Rc<[i32]> = Rc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مصفوفة `[T; N]` إلى `Rc<[T]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: [T; N]) -> Rc<[T]> {
         Rc::<[T; N]>::from(v)
@@ -3055,6 +3477,12 @@ impl<T: Clone> From<&[T]> for Rc<[T]> {
     /// let shared: Rc<[i32]> = Rc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع ويملؤها بنسخ عناصر `v`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &[T]) -> Rc<[T]> {
         <Self as RcFromSlice<T>>::from_slice(v)
@@ -3075,6 +3503,12 @@ impl<T: Clone> From<&mut [T]> for Rc<[T]> {
     /// let shared: Rc<[i32]> = Rc::from(original);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع ويملؤها بنسخ عناصر `v`.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &mut [T]) -> Rc<[T]> {
         Rc::from(&*v)
@@ -3093,6 +3527,12 @@ impl From<&str> for Rc<str> {
     /// let shared: Rc<str> = Rc::from("statue");
     /// assert_eq!("statue", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة نص بعدّ مراجع وينسخ `v` إليها.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &str) -> Rc<str> {
         let rc = Rc::<[u8]>::from(v.as_bytes());
@@ -3115,6 +3555,12 @@ impl From<&mut str> for Rc<str> {
     /// let shared: Rc<str> = Rc::from(original);
     /// assert_eq!("statue", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة نص بعدّ مراجع وينسخ `v` إليها.
+    ///
+    /// </div>
     #[inline]
     fn from(v: &mut str) -> Rc<str> {
         Rc::from(&*v)
@@ -3134,6 +3580,12 @@ impl From<String> for Rc<str> {
     /// let shared: Rc<str> = Rc::from(original);
     /// assert_eq!("statue", &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة نص بعدّ مراجع وينسخ `v` إليها.
+    ///
+    /// </div>
     #[inline]
     fn from(v: String) -> Rc<str> {
         Rc::from(&v[..])
@@ -3153,6 +3605,12 @@ impl<T: ?Sized, A: AllocatorNightly> From<Box<T, A>> for Rc<T, A> {
     /// let shared: Rc<i32> = Rc::from(original);
     /// assert_eq!(1, *shared);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كائنًا داخل `Box` إلى حجز جديد بعدّ مراجع.
+    ///
+    /// </div>
     #[inline]
     fn from(v: Box<T, A>) -> Rc<T, A> {
         Rc::from_box_in(v)
@@ -3172,6 +3630,12 @@ impl<T, A: AllocatorNightly> From<Vec<T, A>> for Rc<[T], A> {
     /// let shared: Rc<[i32]> = Rc::from(unique);
     /// assert_eq!(&[1, 2, 3], &shared[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز شريحة بعدّ مراجع وينقل عناصر `v` إليها.
+    ///
+    /// </div>
     #[inline]
     fn from(v: Vec<T, A>) -> Rc<[T], A> {
         // ignore-tidy-undocumented-unsafe
@@ -3229,6 +3693,12 @@ impl From<Rc<str>> for Rc<[u8]> {
     /// let bytes: Rc<[u8]> = Rc::from(string);
     /// assert_eq!("eggplant".as_bytes(), bytes.as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة نص بعدّ مراجع إلى شريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     fn from(rc: Rc<str>) -> Self {
         // SAFETY: `str` has the same layout as `[u8]`.
@@ -3292,6 +3762,12 @@ impl<T> FromIterator<T> for Rc<[T]> {
     /// let evens: Rc<[u8]> = (0..10).collect(); // Just a single allocation happens here.
     /// # assert_eq!(&*evens, &*(0..10).collect::<Vec<_>>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ كل عنصر من المكرر ويجمعه في `Rc<[T]>`.
+    ///
+    /// </div>
     fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
         ToRcSlice::to_rc_slice(iter.into_iter())
     }
@@ -3357,6 +3833,12 @@ impl<T, I: iter::TrustedLen<Item = T>> ToRcSlice<T> for I {
 /// The typical way to obtain a `Weak` pointer is to call [`Rc::downgrade`].
 ///
 /// [`upgrade`]: Weak::upgrade
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Weak` نسخة من `Rc` تحمل مرجعًا غير مالك إلى الحجز المُدار.
+///
+/// </div>
 #[stable(feature = "rc_weak", since = "1.4.0")]
 #[rustc_diagnostic_item = "RcWeak"]
 pub struct Weak<
@@ -3401,6 +3883,12 @@ impl<T> Weak<T> {
     /// let empty: Weak<i64> = Weak::new();
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T>` جديدًا بدون حجز ذاكرة؛ استدعاء `upgrade` عليه يعطي `None` دائمًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "downgraded_weak", since = "1.10.0")]
     #[rustc_const_stable(feature = "const_weak_new", since = "1.73.0")]
@@ -3425,6 +3913,12 @@ impl<T, A: Allocator> Weak<T, A> {
     /// let empty: Weak<i64> = Weak::new();
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T>` جديدًا بدون حجز ذاكرة في المُخصِّص المعطى؛ `upgrade` يعطي `None` دائمًا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn new_in(alloc: A) -> Weak<T, A> {
@@ -3486,6 +3980,12 @@ impl<T: ?Sized> Weak<T> {
     /// [`into_raw`]: Weak::into_raw
     /// [`upgrade`]: Weak::upgrade
     /// [`new`]: Weak::new
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مؤشرًا خامًا أُنشئ سابقًا بـ `into_raw` إلى `Weak<T>` من جديد.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     pub unsafe fn from_raw(ptr: *const T) -> Self {
@@ -3520,6 +4020,12 @@ impl<T: ?Sized> Weak<T> {
     ///
     /// [`from_raw`]: Weak::from_raw
     /// [`as_ptr`]: Weak::as_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Weak<T>` ويحوّله إلى مؤشر خام.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "weak_into_raw", since = "1.45.0")]
     pub fn into_raw(self) -> *const T {
@@ -3566,6 +4072,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// ```
     ///
     /// [`null`]: ptr::null
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى الكائن `T` الذي يشير إليه هذا الـ `Weak<T>`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rc_as_ptr", since = "1.45.0")]
     pub fn as_ptr(&self) -> *const T {
@@ -3612,6 +4124,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     ///
     /// [`from_raw_in`]: Weak::from_raw_in
     /// [`as_ptr`]: Weak::as_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Weak<T>` ويرجع المؤشر الذي يغلفه والمُخصِّص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -3665,6 +4183,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// [`into_raw`]: Weak::into_raw
     /// [`upgrade`]: Weak::upgrade
     /// [`new`]: Weak::new
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مؤشرًا خامًا أُنشئ سابقًا بـ `into_raw` إلى `Weak<T>` من جديد.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub unsafe fn from_raw_in(ptr: *const T, alloc: A) -> Self {
@@ -3715,6 +4239,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     ///
     /// assert!(weak_five.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول ترقية مؤشر `Weak` إلى `Rc`، ويؤخر التخلص من القيمة إذا نجح.
+    ///
+    /// </div>
     #[must_use = "this returns a new `Rc`, \
                   without modifying the original weak pointer"]
     #[stable(feature = "rc_weak", since = "1.4.0")]
@@ -3738,6 +4268,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// Gets the number of strong (`Rc`) pointers pointing to this allocation.
     ///
     /// If `self` was created using [`Weak::new`], this will return 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد المؤشرات القوية (`Rc`) التي تشير إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "weak_counts", since = "1.41.0")]
     pub fn strong_count(&self) -> usize {
@@ -3747,6 +4283,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// Gets the number of `Weak` pointers pointing to this allocation.
     ///
     /// If no strong pointers remain, this will return zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد مؤشرات `Weak` التي تشير إلى هذا الحجز.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "weak_counts", since = "1.41.0")]
     pub fn weak_count(&self) -> usize {
@@ -3818,6 +4360,12 @@ impl<T: ?Sized, A: Allocator> Weak<T, A> {
     /// let third = Rc::downgrade(&third_rc);
     /// assert!(!first.ptr_eq(&third));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الـ `Weak` الاثنان يشيران إلى نفس الحجز، أو لا يشيران إلى أي حجز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "weak_ptr_eq", since = "1.39.0")]
@@ -3852,6 +4400,12 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Weak<T, A> {
     ///
     /// assert!(other_weak_foo.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخلص من مؤشر الـ `Weak`.
+    ///
+    /// </div>
     fn drop(&mut self) {
         let inner = if let Some(inner) = self.inner() { inner } else { return };
 
@@ -3880,6 +4434,12 @@ impl<T: ?Sized, A: AllocatorClone> Clone for Weak<T, A> {
     ///
     /// let _ = Weak::clone(&weak_five);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من مؤشر الـ `Weak` تشير إلى نفس الحجز.
+    ///
+    /// </div>
     #[inline]
     fn clone(&self) -> Weak<T, A> {
         if let Some(inner) = self.inner() {
@@ -3914,6 +4474,12 @@ impl<T> Default for Weak<T> {
     /// let empty: Weak<i64> = Default::default();
     /// assert!(empty.upgrade().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Weak<T>` جديدًا بدون حجز ذاكرة؛ استدعاء `upgrade` عليه يعطي `None` دائمًا.
+    ///
+    /// </div>
     fn default() -> Weak<T> {
         Weak::new()
     }
@@ -4099,6 +4665,12 @@ fn data_offset_alignment(alignment: Alignment) -> usize {
 /// [`Rc::new_cyclic`]'s `data_fn` parameter cannot be async or return a [`Result`]. As shown in the
 /// previous example, `UniqueRc` allows for more flexibility in the construction of cyclic data,
 /// including fallible or async constructors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Rc` مملوك بشكل فريد.
+///
+/// </div>
 #[unstable(feature = "unique_rc_arc", issue = "112566")]
 pub struct UniqueRc<
     T: ?Sized,
@@ -4212,6 +4784,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for UniqueRc<T, A> {
     ///
     /// assert!(five == UniqueRc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المساواة بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn eq(&self, other: &Self) -> bool {
         PartialEq::eq(&**self, &**other)
@@ -4231,6 +4809,12 @@ impl<T: ?Sized + PartialEq, A: Allocator> PartialEq for UniqueRc<T, A> {
     ///
     /// assert!(five != UniqueRc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدم المساواة بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn ne(&self, other: &Self) -> bool {
         PartialEq::ne(&**self, &**other)
@@ -4254,6 +4838,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueRc<T, A> {
     ///
     /// assert_eq!(Some(Ordering::Less), five.partial_cmp(&UniqueRc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة جزئية بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn partial_cmp(&self, other: &UniqueRc<T, A>) -> Option<Ordering> {
         (**self).partial_cmp(&**other)
@@ -4273,6 +4863,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueRc<T, A> {
     ///
     /// assert!(five < UniqueRc::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من" بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn lt(&self, other: &UniqueRc<T, A>) -> bool {
         **self < **other
@@ -4292,6 +4888,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueRc<T, A> {
     ///
     /// assert!(five <= UniqueRc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أصغر من أو يساوي" بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn le(&self, other: &UniqueRc<T, A>) -> bool {
         **self <= **other
@@ -4311,6 +4913,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueRc<T, A> {
     ///
     /// assert!(five > UniqueRc::new(4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من" بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn gt(&self, other: &UniqueRc<T, A>) -> bool {
         **self > **other
@@ -4330,6 +4938,12 @@ impl<T: ?Sized + PartialOrd, A: Allocator> PartialOrd for UniqueRc<T, A> {
     ///
     /// assert!(five >= UniqueRc::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة "أكبر من أو يساوي" بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline(always)]
     fn ge(&self, other: &UniqueRc<T, A>) -> bool {
         **self >= **other
@@ -4353,6 +4967,12 @@ impl<T: ?Sized + Ord, A: Allocator> Ord for UniqueRc<T, A> {
     ///
     /// assert_eq!(Ordering::Less, five.cmp(&UniqueRc::new(6)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقارنة بين `UniqueRc` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn cmp(&self, other: &UniqueRc<T, A>) -> Ordering {
         (**self).cmp(&**other)
@@ -4377,6 +4997,12 @@ impl<T> UniqueRc<T> {
     /// these weak references will fail before the `UniqueRc` has been converted into an [`Rc`].
     /// After converting the `UniqueRc` into an [`Rc`], any weak references created beforehand will
     /// point to the new [`Rc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UniqueRc` جديدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn new(value: T) -> Self {
@@ -4385,6 +5011,12 @@ impl<T> UniqueRc<T> {
 
     /// Like [`new`](Self::new), but returns an error if the allocation
     /// fails, instead of calling [`handle_alloc_error`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `new` لكن يرجع خطأً إذا فشل الحجز بدل استدعاء `handle_alloc_error`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn try_new(value: T) -> Result<Self, AllocError> {
         Self::try_new_in(value, Global)
@@ -4398,6 +5030,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
     /// these weak references will fail before the `UniqueRc` has been converted into an [`Rc`].
     /// After converting the `UniqueRc` into an [`Rc`], any weak references created beforehand will
     /// point to the new [`Rc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UniqueRc` جديدًا في المُخصِّص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
@@ -4418,6 +5056,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
 
     /// Like [`new_in`](Self::new_in), but returns an error if the allocation
     /// fails, instead of calling [`handle_alloc_error`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `new_in` لكن يرجع خطأً إذا فشل الحجز بدل استدعاء `handle_alloc_error`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
     pub fn try_new_in(value: T, alloc: A) -> Result<Self, AllocError> {
@@ -4435,6 +5079,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
     }
 
     /// Consumes the `UniqueRc`, returning its wrapped value and allocator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `UniqueRc` ويرجع القيمة التي يغلفها والمُخصِّص.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     // #[unstable(feature = "allocator_api", issue = "163177")]
     #[must_use]
@@ -4453,6 +5103,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
     }
 
     /// Consumes the `UniqueRc`, returning its wrapped value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `UniqueRc` ويرجع القيمة التي يغلفها.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn unwrap(this: Self) -> T {
@@ -4479,6 +5135,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
     /// let new = UniqueRc::map(r, |i| i + 7);
     /// assert_eq!(*new, 14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة داخل `UniqueRc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn map<U>(this: Self, f: impl FnOnce(T) -> U) -> UniqueRc<U, A> {
@@ -4522,6 +5184,12 @@ impl<T, A: Allocator> UniqueRc<T, A> {
     /// let new = UniqueRc::try_map(b, u32::try_from).unwrap();
     /// assert_eq!(*new, 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل القيمة داخل `UniqueRc` بدالة، ويعيد استخدام الحجز إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "smart_pointer_try_map", issue = "144419")]
     pub fn try_map<R>(
@@ -4586,6 +5254,12 @@ impl<T: ?Sized, A: Allocator> UniqueRc<T, A> {
     ///
     /// Any weak references created before this method is called can now be upgraded to strong
     /// references.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `UniqueRc` إلى `Rc` عادي.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn into_rc(this: Self) -> Rc<T, A> {
         let mut this = ManuallyDrop::new(this);
@@ -4641,6 +5315,12 @@ impl<T: ?Sized, A: AllocatorClone> UniqueRc<T, A> {
     ///
     /// Attempting to upgrade this weak reference will fail before the `UniqueRc` has been converted
     /// to a [`Rc`] using [`UniqueRc::into_rc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مرجعًا ضعيفًا جديدًا إلى الـ `UniqueRc`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     pub fn downgrade(this: &Self) -> Weak<T, A> {
         // SAFETY: This pointer was allocated at creation time and we guarantee that we only have
@@ -4657,6 +5337,12 @@ impl<T, A: Allocator> UniqueRc<mem::MaybeUninit<T>, A> {
     ///
     /// This method converts similarly to [`assume_init`](Self::assume_init) but
     /// writes `value` into it before conversion, thus guaranteeing safety.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة ويحوّل إلى `UniqueRc<T, A>`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub fn write(mut this: Self, value: T) -> UniqueRc<T, A> {
@@ -4678,6 +5364,12 @@ impl<T, A: Allocator> UniqueRc<mem::MaybeUninit<T>, A> {
     /// causes immediate undefined behavior.
     ///
     /// [`MaybeUninit::assume_init`]: mem::MaybeUninit::assume_init
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `UniqueRc<T, A>`.
+    ///
+    /// </div>
     #[unstable(feature = "unique_rc_arc", issue = "112566")]
     #[must_use]
     pub unsafe fn assume_init(self) -> UniqueRc<T, A> {
