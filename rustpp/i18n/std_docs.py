@@ -100,7 +100,11 @@ def doc_blocks(lines):
                 # A doc comment can go on after attributes (`#[cfg(...)]`
                 # between its lines): it is still one comment.
                 k = j
-                while k < n and (lines[k].strip().startswith(("#[", "#![")) or not lines[k].strip()):
+                while k < n and (
+                    lines[k].strip().startswith(("#[", "#!["))
+                    or not lines[k].strip()
+                    or (lines[k].strip().startswith("//") and not lines[k].strip().startswith(("///", "//!")))
+                ):
                     k += 1
                 if k > j and k < n and lines[k].lstrip().startswith(marker) and not lines[k].lstrip().startswith("////"):
                     j = k

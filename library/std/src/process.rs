@@ -2112,12 +2112,6 @@ impl From<io::Stdout> for Stdio {
     ///
     /// # fn test() -> Result<(), Box<dyn std::error::Error>> {
     /// let output = Command::new("whoami")
-    ///
-    /// <div lang="ar" dir="rtl">
-    ///
-    /// يوجّه stdout/stderr الأمر إلى stdout الخاص بنا.
-    ///
-    /// </div>
     // "whoami" is a command which exists on both Unix and Windows,
     // and which succeeds, producing some stdout output but no stderr.
     ///     .stdout(io::stdout())
@@ -2131,6 +2125,12 @@ impl From<io::Stdout> for Stdio {
     /// #     test().unwrap();
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوجّه stdout/stderr الأمر إلى stdout الخاص بنا.
+    ///
+    /// </div>
     fn from(inherit: io::Stdout) -> Stdio {
         Stdio::from_inner(inherit.into())
     }
@@ -2160,12 +2160,6 @@ impl From<io::Stderr> for Stdio {
     /// #     test().unwrap();
     /// # }
     /// ```
-    ///
-    /// <div lang="ar" dir="rtl">
-    ///
-    /// يوجّه stdout/stderr الأمر إلى stderr الخاص بنا.
-    ///
-    /// </div>
     fn from(inherit: io::Stderr) -> Stdio {
         Stdio::from_inner(inherit.into())
     }
@@ -2245,6 +2239,12 @@ impl ExitStatus {
     /// # Examples
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوجّه stdout/stderr الأمر إلى stderr الخاص بنا.
+    ///
+    /// </div>
     /// #![feature(exit_status_error)]
     /// # if cfg!(all(unix, not(all(target_vendor = "apple", not(target_os = "macos"))))) {
     /// use std::process::Command;
