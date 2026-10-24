@@ -296,13 +296,6 @@ macro_rules! impl_Display {
             /// ```
             /// use core::fmt::NumBuffer;
             ///
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// ينسّق هذا العدد كرقم عشري بإشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين النص
-            /// المُرجَع.
-            ///
-            /// </div>
             #[doc = concat!("let n = 0", stringify!($Signed), ";")]
             /// let mut buf = NumBuffer::new();
             /// assert_eq!(n.format_into(&mut buf), "0");
@@ -313,6 +306,13 @@ macro_rules! impl_Display {
             #[doc = concat!("let n2 = ", stringify!($Signed), "::MAX;")]
             #[doc = concat!("assert_eq!(n2.format_into(&mut buf), ", stringify!($Signed), "::MAX.to_string());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق هذا العدد كرقم عشري بإشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين النص
+            /// المُرجَع.
+            ///
+            /// </div>
             #[stable(feature = "int_format_into", since = "1.98.0")]
             pub fn format_into(self, buf: &mut NumBuffer<Self>) -> &str {
                 let mut offset;
@@ -351,13 +351,6 @@ macro_rules! impl_Display {
             /// ```
             /// use core::fmt::NumBuffer;
             ///
-            ///
-            /// <div lang="ar" dir="rtl">
-            ///
-            /// ينسّق هذا العدد كرقم عشري بدون إشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين
-            /// النص المُرجَع.
-            ///
-            /// </div>
             #[doc = concat!("let n = 0", stringify!($Unsigned), ";")]
             /// let mut buf = NumBuffer::new();
             /// assert_eq!(n.format_into(&mut buf), "0");
@@ -368,6 +361,13 @@ macro_rules! impl_Display {
             #[doc = concat!("let n2 = ", stringify!($Unsigned::MAX), ";")]
             #[doc = concat!("assert_eq!(n2.format_into(&mut buf), ", stringify!($Unsigned::MAX), ".to_string());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينسّق هذا العدد كرقم عشري بدون إشارة، ويستخدم الذاكرة التي يشير إليها `buf` لتخزين
+            /// النص المُرجَع.
+            ///
+            /// </div>
             #[stable(feature = "int_format_into", since = "1.98.0")]
             pub fn format_into(self, buf: &mut NumBuffer<Self>) -> &str {
                 let offset;

@@ -1093,12 +1093,6 @@ impl DirEntryExt2 for fs::DirEntry {
 ///
 /// # Examples
 ///
-///
-/// <div lang="ar" dir="rtl">
-///
-/// ينشئ رابطًا رمزيًا (symbolic link) جديدًا.
-///
-/// </div>
 #[cfg_attr(target_family = "unix", doc = "```no_run")]
 #[cfg_attr(not(target_family = "unix"), doc = "```ignore (needs unix)")]
 /// use std::os::unix::fs;
@@ -1108,6 +1102,12 @@ impl DirEntryExt2 for fs::DirEntry {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا (symbolic link) جديدًا.
+///
+/// </div>
 #[stable(feature = "symlink", since = "1.1.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_symlink")]
 pub fn symlink<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::Result<()> {

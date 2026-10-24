@@ -97,6 +97,14 @@ def doc_blocks(lines):
         while j < n:
             m2 = re.match(r"^(\s*)(///|//!)", lines[j])
             if not m2 or m2.group(2) != marker or lines[j].lstrip().startswith("////"):
+                # A doc comment can go on after attributes (`#[cfg(...)]`
+                # between its lines): it is still one comment.
+                k = j
+                while k < n and (lines[k].strip().startswith(("#[", "#![")) or not lines[k].strip()):
+                    k += 1
+                if k > j and k < n and lines[k].lstrip().startswith(marker) and not lines[k].lstrip().startswith("////"):
+                    j = k
+                    continue
                 break
             j += 1
         yield i, j, marker, indent
@@ -106,6 +114,8 @@ def doc_blocks(lines):
 def block_text(lines, start, end, marker):
     out = []
     for line in lines[start:end]:
+        if not line.lstrip().startswith(marker):
+            continue
         s = line.lstrip()[len(marker):]
         out.append(s[1:] if s.startswith(" ") else s)
     return out

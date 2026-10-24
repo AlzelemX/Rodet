@@ -2749,12 +2749,6 @@ impl Metadata {
     ///
     /// # Examples
     ///
-    ///
-    /// <div lang="ar" dir="rtl">
-    ///
-    /// يرجع `true` إذا كانت هذه البيانات الوصفية لرابط رمزي.
-    ///
-    /// </div>
     #[cfg_attr(unix, doc = "```no_run")]
     #[cfg_attr(not(unix), doc = "```ignore")]
     /// use std::fs;
@@ -2771,6 +2765,12 @@ impl Metadata {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه البيانات الوصفية لرابط رمزي.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "is_symlink", since = "1.58.0")]
     pub fn is_symlink(&self) -> bool {
