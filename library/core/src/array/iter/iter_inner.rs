@@ -1,4 +1,10 @@
 //! Defines the `IntoIter` owned iterator for arrays.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف المكرر المالك `IntoIter` للمصفوفات.
+//!
+//! </div>
 
 use crate::clone::TrivialClone;
 use crate::mem::MaybeUninit;
@@ -201,6 +207,12 @@ impl<T: fmt::Debug> fmt::Debug for PolymorphicIter<[MaybeUninit<T>]> {
 ///
 /// We don't implement the actual iterator traits because we want to implement
 /// things like `try_fold` that require `Self: Sized` (which we're not).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال تعادل دوال المكرر.
+///
+/// </div>
 impl<T> PolymorphicIter<[MaybeUninit<T>]> {
     #[inline]
     pub(super) fn next(&mut self) -> Option<T> {

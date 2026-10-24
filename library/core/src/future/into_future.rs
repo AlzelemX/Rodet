@@ -98,6 +98,12 @@ use crate::future::Future;
 ///     format!("{:?}", fut.await)
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل إلى `Future`.
+///
+/// </div>
 #[stable(feature = "into_future", since = "1.64.0")]
 #[rustc_diagnostic_item = "IntoFuture"]
 #[diagnostic::on_unimplemented(
@@ -107,10 +113,22 @@ use crate::future::Future;
 )]
 pub trait IntoFuture {
     /// The output that the future will produce on completion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الناتج الذي سيعطيه الـ future عند الاكتمال.
+    ///
+    /// </div>
     #[stable(feature = "into_future", since = "1.64.0")]
     type Output;
 
     /// Which kind of future are we turning this into?
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الـ future الذي نحوّل إليه.
+    ///
+    /// </div>
     #[stable(feature = "into_future", since = "1.64.0")]
     type IntoFuture: Future<Output = Self::Output>;
 
@@ -129,6 +147,12 @@ pub trait IntoFuture {
     /// assert_eq!("meow", fut.await);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ future من قيمة.
+    ///
+    /// </div>
     #[stable(feature = "into_future", since = "1.64.0")]
     #[lang = "into_future"]
     fn into_future(self) -> Self::IntoFuture;

@@ -8,6 +8,12 @@ use crate::task::{Context, Poll};
 /// See it documentation for more.
 ///
 /// [`from_iter`]: fn.from_iter.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر غير متزامن أُنشئ من مكرر عادي.
+///
+/// </div>
 #[unstable(feature = "async_iter_from_iter", issue = "81798")]
 #[derive(Clone, Debug)]
 pub struct FromIter<I> {
@@ -18,6 +24,12 @@ pub struct FromIter<I> {
 impl<I> Unpin for FromIter<I> {}
 
 /// Converts an iterator into an async iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مكررًا عاديًا إلى مكرر غير متزامن.
+///
+/// </div>
 #[unstable(feature = "async_iter_from_iter", issue = "81798")]
 pub fn from_iter<I: IntoIterator>(iter: I) -> FromIter<I::IntoIter> {
     FromIter { iter: iter.into_iter() }

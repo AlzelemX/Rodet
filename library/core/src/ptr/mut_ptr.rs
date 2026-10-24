@@ -525,6 +525,12 @@ impl<T: PointeeSized> *mut T {
     /// unsafe { *masked_ptr = 0 };
     /// assert_eq!(v, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخفي بتات من المؤشر حسب قناع.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_mask", issue = "98290")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[inline(always)]

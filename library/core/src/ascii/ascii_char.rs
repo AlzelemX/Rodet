@@ -2,6 +2,12 @@
 //! because it avoids a whole bunch of "are you sure you didn't mean `char`?"
 //! suggestions from rustc if you get anything slightly wrong in here, and overall
 //! helps with clarity as we're also referring to `char` intentionally in here.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نستخدم الاسم `AsciiChar` هنا لتجنب التباس الأسماء، رغم أنه غير معروض بهذا الاسم حاليًا.
+//!
+//! </div>
 
 use crate::mem::transmute;
 use crate::{assert_unsafe_precondition, fmt};
@@ -54,12 +60,24 @@ use crate::{assert_unsafe_precondition, fmt};
 /// [chart]: https://www.unicode.org/charts/PDF/U0000.pdf
 /// [NIST FIPS 1-2]: https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub1-2-1977.pdf
 /// [NamesList]: https://www.unicode.org/Public/15.0.0/ucd/NamesList.txt
+///
+/// <div lang="ar" dir="rtl">
+///
+/// واحد من حروف يونيكود الـ 128 من U+0000 إلى U+007F، المعروفة بمجموعة ASCII.
+///
+/// </div>
 #[derive(Copy, Hash)]
 #[derive_const(Clone, Eq, PartialEq, Ord, PartialOrd)]
 #[unstable(feature = "ascii_char", issue = "110998")]
 #[repr(u8)]
 pub enum AsciiChar {
     /// U+0000 (The default variant)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// U+0000 (القيمة الافتراضية).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char_variants", issue = "110998")]
     Null = 0,
     /// U+0001
@@ -447,15 +465,33 @@ pub enum AsciiChar {
 
 impl AsciiChar {
     /// The character with the lowest ASCII code.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحرف صاحب أصغر رمز ASCII.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     pub const MIN: Self = Self::Null;
 
     /// The character with the highest ASCII code.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحرف صاحب أكبر رمز ASCII.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     pub const MAX: Self = Self::Delete;
 
     /// Creates an ASCII character from the byte `b`,
     /// or returns `None` if it's too large.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حرف ASCII من البايت `b`، أو يرجع `None` إذا كان كبيرًا جدًا.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn from_u8(b: u8) -> Option<Self> {
@@ -473,6 +509,12 @@ impl AsciiChar {
     /// # Safety
     ///
     /// `b` must be in `0..=127`, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ حرف ASCII من البايت `b` بدون التحقق من صلاحيته (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const unsafe fn from_u8_unchecked(b: u8) -> Self {
@@ -489,6 +531,12 @@ impl AsciiChar {
     /// `'0'`, `'1'`, …, `'9'` respectively.
     ///
     /// If `d >= 10`, returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عند إعطائه *الرقم* `0` أو `1` … أو `9` يرجع *الحرف* `'0'` أو `'1'` … أو `'9'`.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn digit(d: u8) -> Option<Self> {
@@ -515,6 +563,12 @@ impl AsciiChar {
     /// when writing code using this method, since the implementation doesn't
     /// need something really specific, not to make those other arguments do
     /// something useful. It might be tightened before stabilization.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عند إعطائه *الرقم* `0` … `9` يرجع *الحرف* `'0'` … `'9'` بدون التحقق من النطاق (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     #[track_caller]
@@ -535,6 +589,12 @@ impl AsciiChar {
     }
 
     /// Gets this ASCII character as a byte.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حرف ASCII هذا كبايت.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn to_u8(self) -> u8 {
@@ -542,6 +602,12 @@ impl AsciiChar {
     }
 
     /// Gets this ASCII character as a `char` Unicode Scalar Value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حرف ASCII هذا كـ `char`.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn to_char(self) -> char {
@@ -549,6 +615,12 @@ impl AsciiChar {
     }
 
     /// Views this ASCII character as a one-code-unit UTF-8 `str`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض حرف ASCII هذا كـ `str` من وحدة UTF-8 واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn as_str(&self) -> &str {
@@ -576,6 +648,12 @@ impl AsciiChar {
     /// ```
     ///
     /// [`make_uppercase`]: Self::make_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من القيمة بالحرف الكبير المقابل.
+    ///
+    /// </div>
     #[must_use = "to uppercase the value in-place, use `make_uppercase()`"]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -606,6 +684,12 @@ impl AsciiChar {
     /// ```
     ///
     /// [`make_lowercase`]: Self::make_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من القيمة بالحرف الصغير المقابل.
+    ///
+    /// </div>
     #[must_use = "to lowercase the value in-place, use `make_lowercase()`"]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -630,6 +714,12 @@ impl AsciiChar {
     ///
     /// assert!(lowercase_a.eq_ignore_case(uppercase_a));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمتان متطابقتان بغض النظر عن حالة الأحرف.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn eq_ignore_case(self, other: Self) -> bool {
@@ -659,6 +749,12 @@ impl AsciiChar {
     /// ```
     ///
     /// [`to_uppercase`]: Self::to_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه القيمة إلى الحرف الكبير المقابل في مكانها.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn make_uppercase(&mut self) {
@@ -686,6 +782,12 @@ impl AsciiChar {
     /// ```
     ///
     /// [`to_lowercase`]: Self::to_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه القيمة إلى الحرف الصغير المقابل في مكانها.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn make_lowercase(&mut self) {
@@ -723,6 +825,12 @@ impl AsciiChar {
     /// assert!(!lf.is_alphabetic());
     /// assert!(!esc.is_alphabetic());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف أبجدي (A-Z أو a-z).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -759,6 +867,12 @@ impl AsciiChar {
     /// assert!(!lf.is_uppercase());
     /// assert!(!esc.is_uppercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف كبير: من 0x41 'A' إلى 0x5A 'Z'.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -795,6 +909,12 @@ impl AsciiChar {
     /// assert!(!lf.is_lowercase());
     /// assert!(!esc.is_lowercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف صغير: من 0x61 'a' إلى 0x7A 'z'.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -834,6 +954,12 @@ impl AsciiChar {
     /// assert!(!lf.is_alphanumeric());
     /// assert!(!esc.is_alphanumeric());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف أبجدي أو رقم.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -870,6 +996,12 @@ impl AsciiChar {
     /// assert!(!lf.is_digit());
     /// assert!(!esc.is_digit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم عشري: من 0x30 '0' إلى 0x39 '9'.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -905,6 +1037,12 @@ impl AsciiChar {
     /// assert!(!lf.is_octdigit());
     /// assert!(!esc.is_octdigit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم ثُماني: من 0x30 '0' إلى 0x37 '7'.
+    ///
+    /// </div>
     #[must_use]
     // This is blocked on two unstable features. Please ensure both are
     // stabilized before marking this method as stable.
@@ -947,6 +1085,12 @@ impl AsciiChar {
     /// assert!(!lf.is_hexdigit());
     /// assert!(!esc.is_hexdigit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم ست عشري (0-9 أو A-F أو a-f).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -988,6 +1132,12 @@ impl AsciiChar {
     /// assert!(!lf.is_punctuation());
     /// assert!(!esc.is_punctuation());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة علامة ترقيم أو رمز (ليست حرفًا أو رقمًا أو مسافة أو حرف تحكم).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -1025,6 +1175,12 @@ impl AsciiChar {
     /// assert!(!lf.is_graphic());
     /// assert!(!esc.is_graphic());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف مرئي (ليست مسافة أو حرف تحكم): من 0x21 '!' إلى 0x7E '~'.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -1078,6 +1234,13 @@ impl AsciiChar {
     /// assert!(lf.is_whitespace());
     /// assert!(!esc.is_whitespace());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة مسافة بيضاء: مسافة، أو tab أفقي، أو سطر جديد، أو form feed، أو carriage
+    /// return.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -1116,6 +1279,12 @@ impl AsciiChar {
     /// assert!(lf.is_control());
     /// assert!(esc.is_control());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف تحكم: من 0x00 إلى 0x1F، أو 0x7F (DELETE).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -1151,6 +1320,12 @@ impl AsciiChar {
     /// assert_eq!("\\\"", double_quote.escape_ascii().to_string());
     /// assert_eq!("\\\\", backslash.escape_ascii().to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي نسخة مُهرَّبة من الحرف.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped character as an iterator, \
                   without modifying the original"]
     #[unstable(feature = "ascii_char", issue = "110998")]
@@ -1179,6 +1354,12 @@ into_int_impl!(u8 u16 u32 u64 u128 char);
 
 impl [AsciiChar] {
     /// Views this slice of ASCII characters as a UTF-8 `str`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض شريحة حروف ASCII هذه كـ `str` بصيغة UTF-8.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn as_str(&self) -> &str {
@@ -1190,6 +1371,12 @@ impl [AsciiChar] {
     }
 
     /// Views this slice of ASCII characters as a slice of `u8` bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض شريحة حروف ASCII هذه كشريحة بايتات `u8`.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
     pub const fn as_bytes(&self) -> &[u8] {

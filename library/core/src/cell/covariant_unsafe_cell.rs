@@ -4,6 +4,12 @@ use crate::ops::CoerceUnsized;
 use crate::ptr::{self, NonNull};
 
 /// **Co**variant version of [`UnsafeCell`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة متغايرة (covariant) من `UnsafeCell`.
+///
+/// </div>
 #[unstable(feature = "covariant_unsafe_cell", issue = "159735")]
 #[repr(transparent)]
 #[rustc_pub_transparent]
@@ -35,6 +41,12 @@ impl<T> CovariantUnsafeCell<T> {
     ///
     /// let uc = CovariantUnsafeCell::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CovariantUnsafeCell` جديدًا يغلف القيمة المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "covariant_unsafe_cell", issue = "159735")]
     #[rustc_const_unstable(feature = "covariant_unsafe_cell", issue = "159735")]
     #[inline(always)]
@@ -88,6 +100,12 @@ impl<T: ?Sized> CovariantUnsafeCell<T> {
     ///
     /// let ptr: NonNull<i32> = uc.get();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا غير فارغ قابلًا للتعديل إلى القيمة المغلفة.
+    ///
+    /// </div>
     #[inline(always)]
     #[rustc_as_ptr]
     #[rustc_should_not_be_called_on_const_items]

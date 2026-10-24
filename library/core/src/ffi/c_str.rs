@@ -1,4 +1,10 @@
 //! [`CStr`] and its related types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! `CStr` والأنواع المرتبطة به.
+//!
+//! </div>
 
 use crate::cmp::Ordering;
 use crate::error::Error;
@@ -89,6 +95,12 @@ use crate::{fmt, ops, range, slice, str};
 /// ```
 ///
 /// [str]: prim@str "str"
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عرض بحجم ديناميكي لنص C.
+///
+/// </div>
 #[derive(Hash)]
 #[derive_const(PartialEq, Eq)]
 #[stable(feature = "core_c_str", since = "1.64.0")]
@@ -134,11 +146,23 @@ pub struct CStr {
 #[stable(feature = "core_c_str", since = "1.64.0")]
 pub enum FromBytesWithNulError {
     /// Data provided contains an interior nul byte at byte `position`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// البيانات المعطاة فيها بايت صفري في الوسط عند الموضع `position`.
+    ///
+    /// </div>
     InteriorNul {
         /// The position of the interior nul byte.
         position: usize,
     },
     /// Data provided is not nul terminated.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// البيانات المعطاة لا تنتهي ببايت صفري.
+    ///
+    /// </div>
     NotNulTerminated,
 }
 
@@ -163,6 +187,12 @@ impl Error for FromBytesWithNulError {}
 /// within the slice.
 ///
 /// This error is created by the [`CStr::from_bytes_until_nul`] method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني أنه لا يوجد بايت صفري.
+///
+/// </div>
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 #[stable(feature = "cstr_from_bytes_until_nul", since = "1.69.0")]
 pub struct FromBytesUntilNulError(());
@@ -176,6 +206,12 @@ impl fmt::Display for FromBytesUntilNulError {
 
 /// Shows the underlying bytes as a normal string, with invalid UTF-8
 /// presented as hex escape sequences.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرض البايتات كنص عادي، مع عرض UTF-8 غير الصالح كتهريبات ست عشرية.
+///
+/// </div>
 #[stable(feature = "cstr_debug", since = "1.3.0")]
 impl fmt::Debug for CStr {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -255,6 +291,12 @@ impl CStr {
     /// ```
     ///
     /// [valid]: core::ptr#safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلّف نص C خامًا بغلاف آمن.
+    ///
+    /// </div>
     #[inline] // inline is necessary for codegen to see strlen.
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -307,6 +349,12 @@ impl CStr {
     /// assert_eq!(c_str.to_str().unwrap(), "AAAAAAAA");
     /// ```
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ غلاف نص C من شريحة بايتات فيها أي عدد من الأصفار (يتوقف عند أول صفر).
+    ///
+    /// </div>
     #[stable(feature = "cstr_from_bytes_until_nul", since = "1.69.0")]
     #[rustc_const_stable(feature = "cstr_from_bytes_until_nul", since = "1.69.0")]
     pub const fn from_bytes_until_nul(bytes: &[u8]) -> Result<&CStr, FromBytesUntilNulError> {
@@ -360,6 +408,12 @@ impl CStr {
     /// let cstr = CStr::from_bytes_with_nul(b"he\0llo\0");
     /// assert_eq!(cstr, Err(FromBytesWithNulError::InteriorNul { position: 2 }));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ غلاف نص C من شريحة بايتات فيها صفر واحد بالضبط في النهاية.
+    ///
+    /// </div>
     #[stable(feature = "cstr_from_bytes", since = "1.10.0")]
     #[rustc_const_stable(feature = "const_cstr_methods", since = "1.72.0")]
     pub const fn from_bytes_with_nul(bytes: &[u8]) -> Result<&Self, FromBytesWithNulError> {
@@ -394,6 +448,12 @@ impl CStr {
     /// let cstr = unsafe { CStr::from_bytes_with_nul_unchecked(bytes) };
     /// assert_eq!(cstr.to_bytes_with_nul(), bytes);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ غلاف نص C من شريحة بايتات بدون فحص (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "cstr_from_bytes", since = "1.10.0")]
@@ -488,6 +548,12 @@ impl CStr {
     ///
     /// assert_eq!(unsafe { CStr::from_ptr(ptr) }, c"HI!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشر الداخلي لنص C هذا.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -520,6 +586,12 @@ impl CStr {
     /// assert_eq!(c"foo".count_bytes(), 3);
     /// assert_eq!(c"".count_bytes(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول `self`؛ مثل `strlen` في C لا يشمل الصفر الأخير.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[doc(alias("len", "strlen"))]
@@ -538,6 +610,12 @@ impl CStr {
     /// assert!(!c"foo".is_empty());
     /// assert!(c"".is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول `self.to_bytes()` صفرًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cstr_is_empty", since = "1.71.0")]
     #[rustc_const_stable(feature = "cstr_is_empty", since = "1.71.0")]
@@ -562,6 +640,12 @@ impl CStr {
     /// ```
     /// assert_eq!(c"foo".to_bytes(), b"foo");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نص C هذا إلى شريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -588,6 +672,12 @@ impl CStr {
     /// ```
     /// assert_eq!(c"foo".to_bytes_with_nul(), b"foo\0");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نص C هذا إلى شريحة بايتات تشمل الصفر الأخير.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -616,6 +706,12 @@ impl CStr {
     ///
     /// assert!(c"foo".bytes().eq(*b"foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكرر على بايتات نص C هذا.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "cstr_bytes", issue = "112115")]
     pub fn bytes(&self) -> Bytes<'_> {
@@ -635,6 +731,12 @@ impl CStr {
     /// ```
     /// assert_eq!(c"foo".to_str(), Ok("foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `&str` إذا كان الـ `CStr` يحتوي UTF-8 صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "cstr_to_str", since = "1.4.0")]
     #[rustc_const_stable(feature = "const_cstr_methods", since = "1.72.0")]
     pub const fn to_str(&self) -> Result<&str, str::Utf8Error> {
@@ -659,6 +761,12 @@ impl CStr {
     /// let cstr = c"Hello, world!";
     /// println!("{}", cstr.display());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع كائنًا يطبّق `Display` لطباعة `CStr` بأمان حتى لو كان فيه بيانات غير يونيكود.
+    ///
+    /// </div>
     #[stable(feature = "cstr_display", since = "CURRENT_RUSTC_VERSION")]
     #[must_use = "this does not display the `CStr`; \
                   it returns an object that can be displayed"]
@@ -672,6 +780,12 @@ impl CStr {
     /// This method is redundant when used directly on `&CStr`, but
     /// it helps dereferencing other string-like types to string slices,
     /// for example references to `Box<CStr>` or `Arc<CStr>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس النص كشريحة `&CStr`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_c_str(&self) -> &CStr {
@@ -795,6 +909,12 @@ const unsafe fn strlen(ptr: *const c_char) -> UsizeNoHighBitMinusOne {
 /// See its documentation for more.
 ///
 /// [`bytes`]: CStr::bytes
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على بايتات `CStr` بدون الصفر الأخير.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "cstr_bytes", issue = "112115")]
 #[derive(Clone, Debug)]
@@ -880,6 +1000,12 @@ impl FusedIterator for Bytes<'_> {}
 ///
 /// [`Display`]: fmt::Display
 /// [`format!`]: ../../../std/macro.format.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية مساعدة لطباعة `CStr` بأمان مع `format!` و`{}`.
+///
+/// </div>
 #[stable(feature = "cstr_display", since = "CURRENT_RUSTC_VERSION")]
 pub struct Display<'a> {
     c_str: &'a CStr,

@@ -44,6 +44,12 @@ use crate::task::{Context, Poll, ready};
 /// assert_eq!(x, (1, 2, 3));
 /// # };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينتظر عدة futures في نفس الوقت، ويرجع tuple بكل النتائج عند اكتمالها.
+///
+/// </div>
 #[unstable(feature = "future_join", issue = "91642")]
 pub macro join( $($fut:expr),+ $(,)? ) {
     // Funnel through an internal macro not to leak implementation details.
@@ -60,6 +66,12 @@ pub macro join( $($fut:expr),+ $(,)? ) {
 /// the following trick will be used: `let (_, _, _, _, it, ..) = tuple;`
 /// In order to do that, we need to generate a `i`-long repetition of `_`,
 /// for each i-th fut. Hence the recursive muncher approach.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حيلة داخلية لتسمية الـ future رقم i في الـ tuple.
+///
+/// </div>
 macro join_internal {
     // Recursion step: map each future with its "position" (underscore count).
     (
@@ -149,6 +161,12 @@ macro join_internal {
 /// be later taken and doesn't panic when polled after ready.
 ///
 /// This type is public in a private module for use by the macro.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// future يستخدمه `join!` يخزن ناتجه ليؤخذ لاحقًا ولا يسبب panic إذا استُطلع بعد الجاهزية.
+///
+/// </div>
 #[allow(missing_debug_implementations)]
 #[unstable(feature = "future_join", issue = "91642")]
 pub enum MaybeDone<F: Future> {

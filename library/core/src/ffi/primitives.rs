@@ -2,6 +2,12 @@
 //!
 //! This module is intentionally standalone to facilitate parsing when retrieving
 //! core C types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف أنواعًا أساسية تطابق تعريفات أنواع C للتوافق مع FFI.
+//!
+//! </div>
 
 macro_rules! type_alias {
     {
@@ -157,6 +163,12 @@ mod c_long_definition {
 ///
 /// This type is currently always [`usize`], however in the future there may be
 /// platforms where this is not the case.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `size_t` في C من `stddef.h` (أو `cstddef` في C++).
+///
+/// </div>
 #[unstable(feature = "c_size_t", issue = "88345")]
 pub type c_size_t = usize;
 
@@ -164,6 +176,12 @@ pub type c_size_t = usize;
 ///
 /// This type is currently always [`isize`], however in the future there may be
 /// platforms where this is not the case.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `ptrdiff_t` في C من `stddef.h` (أو `cstddef` في C++).
+///
+/// </div>
 #[unstable(feature = "c_size_t", issue = "88345")]
 pub type c_ptrdiff_t = isize;
 
@@ -171,6 +189,12 @@ pub type c_ptrdiff_t = isize;
 ///
 /// This type is currently always [`isize`], however in the future there may be
 /// platforms where this is not the case.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `ssize_t` في C (على POSIX) أو `SSIZE_T` (على Windows).
+///
+/// </div>
 #[unstable(feature = "c_size_t", issue = "88345")]
 pub type c_ssize_t = isize;
 

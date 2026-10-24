@@ -285,6 +285,12 @@
 //!     )
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات rustc الداخلية لكتابة MIR يدويًا.
+//!
+//! </div>
 
 #![unstable(
     feature = "custom_mir",
@@ -296,21 +302,57 @@
 /// Type representing basic blocks.
 ///
 /// All terminators will have this type as a return type. It helps achieve some type safety.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمثّل الكتل الأساسية (basic blocks).
+///
+/// </div>
 #[rustc_diagnostic_item = "mir_basic_block"]
 pub enum BasicBlock {
     /// A non-cleanup basic block.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كتلة أساسية عادية (ليست للتنظيف).
+    ///
+    /// </div>
     Normal,
     /// A basic block that lies on an unwind path.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كتلة أساسية على مسار فك المكدس (unwind).
+    ///
+    /// </div>
     Cleanup,
 }
 
 /// The reason we are terminating the process during unwinding.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// سبب إنهاء العملية أثناء فك المكدس.
+///
+/// </div>
 #[rustc_diagnostic_item = "mir_unwind_terminate_reason"]
 pub enum UnwindTerminateReason {
     /// Unwinding is just not possible given the ABI of this function.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// فك المكدس غير ممكن مع الـ ABI الخاص بهذه الدالة.
+    ///
+    /// </div>
     Abi,
     /// We were already cleaning up for an ongoing unwind, and a *second*, *nested* unwind was
     /// triggered by the drop glue.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كنا ننظف بالفعل لفك مكدس جارٍ، وبدأ فك مكدس *ثانٍ متداخل* من كود التخلص.
+    ///
+    /// </div>
     InCleanup,
 }
 
@@ -547,6 +589,12 @@ define!(
 ///
 /// See the module documentation for syntax details. This macro is not magic - it only transforms
 /// your MIR into something that is easier to parse in the compiler.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو لتوليد MIR مخصص.
+///
+/// </div>
 #[rustc_macro_transparency = "transparent"]
 pub macro mir {
     {
@@ -609,6 +657,12 @@ pub macro mir {
 /// Helper macro that allows you to treat a value expression like a place expression.
 ///
 /// See the documentation on [`Variant`] for why this is necessary and how to use it.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو مساعد يسمح بمعاملة تعبير قيمة كتعبير مكان.
+///
+/// </div>
 pub macro place($e:expr) {
     (*::core::intrinsics::mir::__internal_make_place($e))
 }

@@ -521,6 +521,12 @@ impl<T: PointeeSized> *const T {
     /// let masked_ptr = tagged_ptr.mask(ptr_mask);
     /// assert_eq!(unsafe { *masked_ptr }, 17);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخفي بتات من المؤشر حسب قناع.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_mask", issue = "98290")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[inline(always)]

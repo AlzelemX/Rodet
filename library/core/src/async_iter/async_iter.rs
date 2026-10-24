@@ -10,12 +10,24 @@ use crate::task::{Context, Poll};
 ///
 /// [module-level documentation]: index.html
 /// [impl]: index.html#implementing-async-iterator
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للتعامل مع المكررات غير المتزامنة (async).
+///
+/// </div>
 #[unstable(feature = "async_iterator", issue = "79024")]
 #[must_use = "async iterators do nothing unless polled"]
 #[doc(alias = "Stream")]
 #[lang = "async_iterator"]
 pub trait AsyncIterator {
     /// The type of items yielded by the async iterator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع العناصر التي يعطيها المكرر غير المتزامن.
+    ///
+    /// </div>
     type Item;
 
     /// Attempts to pull out the next value of this async iterator, registering the
@@ -47,6 +59,13 @@ pub trait AsyncIterator {
     /// Rust's usual rules apply: calls must never cause undefined behavior
     /// (memory corruption, incorrect use of `unsafe` functions, or the like),
     /// regardless of the async iterator's state.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول سحب القيمة التالية من المكرر غير المتزامن، ويسجل المهمة الحالية للإيقاظ إذا لم تكن
+    /// القيمة جاهزة.
+    ///
+    /// </div>
     #[lang = "async_iterator_poll_next"]
     fn poll_next(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>>;
 
@@ -76,6 +95,12 @@ pub trait AsyncIterator {
     ///
     /// The default implementation returns <code>(0, [None])</code> which is correct for any
     /// async iterator.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حدود الطول المتبقي للمكرر غير المتزامن.
+    ///
+    /// </div>
     #[inline]
     fn size_hint(&self) -> (usize, Option<usize>) {
         (0, None)
@@ -140,15 +165,39 @@ impl<T> Poll<Option<T>> {
 }
 
 /// Converts something into an async iterator
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل شيئًا إلى مكرر غير متزامن.
+///
+/// </div>
 #[unstable(feature = "async_iterator", issue = "79024")]
 #[rustc_diagnostic_item = "IntoAsyncIterator"]
 pub trait IntoAsyncIterator {
     /// The type of the item yielded by the iterator
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع العنصر الذي يعطيه المكرر.
+    ///
+    /// </div>
     type Item;
     /// The type of the resulting iterator
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع المكرر الناتج.
+    ///
+    /// </div>
     type IntoAsyncIter: AsyncIterator<Item = Self::Item>;
 
     /// Converts `self` into an async iterator
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `self` إلى مكرر غير متزامن.
+    ///
+    /// </div>
     #[lang = "into_async_iter_into_iter"]
     fn into_async_iter(self) -> Self::IntoAsyncIter;
 }

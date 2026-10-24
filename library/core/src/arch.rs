@@ -19,6 +19,12 @@ pub use crate::core_arch::arch::*;
 ///
 /// [Rust By Example]: https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html
 /// [reference]: https://doc.rust-lang.org/nightly/reference/inline-assembly.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كود assembly مضمَّن داخل الدالة.
+///
+/// </div>
 #[stable(feature = "asm", since = "1.59.0")]
 #[rustc_builtin_macro]
 pub macro asm("assembly template", $(operands,)* $(options($(option),*))?) {
@@ -32,6 +38,12 @@ pub macro asm("assembly template", $(operands,)* $(options($(option),*))?) {
 ///
 /// [Rust By Example]: https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html
 /// [reference]: https://doc.rust-lang.org/nightly/reference/inline-assembly.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كود assembly مضمَّن يُستخدم مع الدوال المعلَّمة بـ `#[naked]`.
+///
+/// </div>
 #[stable(feature = "naked_functions", since = "1.88.0")]
 #[rustc_builtin_macro]
 pub macro naked_asm("assembly template", $(operands,)* $(options($(option),*))?) {
@@ -45,6 +57,12 @@ pub macro naked_asm("assembly template", $(operands,)* $(options($(option),*))?)
 ///
 /// [Rust By Example]: https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html
 /// [reference]: https://doc.rust-lang.org/nightly/reference/inline-assembly.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كود assembly مضمَّن على مستوى الوحدة.
+///
+/// </div>
 #[stable(feature = "global_asm", since = "1.59.0")]
 #[rustc_builtin_macro]
 pub macro global_asm("assembly template", $(operands,)* $(options($(option),*))?) {
@@ -79,6 +97,12 @@ pub macro global_asm("assembly template", $(operands,)* $(options($(option),*))?
 /// The precise instruction is guaranteed only on the following targets:
 /// - On x86 targets, this produces an `int3` instruction.
 /// - On aarch64 targets, this produces a `brk #0xf000` instruction.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُترجم إلى تعليمة نقطة توقف برمجية خاصة بالمنصة إن أمكن، وإلا إلى فخ بديل أو إيقاف.
+///
+/// </div>
 // When adding more items above, also add cases to the test in `tests/assembly-llvm/intrinsics.rs`.
 // When stabilizing this, update the comment on `core::intrinsics::breakpoint`.
 // NOTE: there is an alternative in `process::resumable_breakpoint`. We may or may not
@@ -115,6 +139,12 @@ pub fn breakpoint() {
 /// # #[cfg(not(miri))] // FIXME: Figure out how to make miri work before stabilizing this macro
 /// # run_test()
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الماكرو `core::arch::return_address!()` يرجع مؤشرًا إلى عنوان من استدعى الدالة الحالية.
+///
+/// </div>
 #[unstable(feature = "return_address", issue = "154966")]
 #[allow_internal_unstable(core_intrinsics)]
 pub macro return_address() {{ core::intrinsics::return_address() }}

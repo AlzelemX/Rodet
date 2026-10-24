@@ -111,6 +111,12 @@ use crate::task::{Context, Poll};
 ///     <code>[Pin::new_unchecked](&mut fut)</code> constructor.
 ///
 /// [`pin!`]: crate::pin::pin!
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ future يغلّف دالة ترجع `Poll`.
+///
+/// </div>
 #[stable(feature = "future_poll_fn", since = "1.64.0")]
 pub fn poll_fn<T, F>(f: F) -> PollFn<F>
 where
@@ -123,6 +129,12 @@ where
 ///
 /// This `struct` is created by [`poll_fn()`]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// future يغلّف دالة ترجع `Poll`.
+///
+/// </div>
 #[must_use = "futures do nothing unless you `.await` or poll them"]
 #[stable(feature = "future_poll_fn", since = "1.64.0")]
 pub struct PollFn<F> {

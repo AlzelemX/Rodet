@@ -113,6 +113,12 @@ impl<T, F: FnOnce() -> T> LazyCell<T, F> {
     /// assert_eq!(&*lazy, "HELLO, WORLD!");
     /// assert_eq!(LazyCell::into_inner(lazy).ok(), Some("HELLO, WORLD!".to_string()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الـ `LazyCell` ويرجع القيمة المخزنة.
+    ///
+    /// </div>
     #[unstable(feature = "lazy_cell_into_inner", issue = "125623")]
     #[rustc_const_unstable(feature = "lazy_cell_into_inner", issue = "125623")]
     pub const fn into_inner(this: Self) -> Result<T, F> {
@@ -147,6 +153,12 @@ impl<T, F: FnOnce() -> T> LazyCell<T, F> {
     /// assert_eq!(LazyCell::force(&lazy), &92);
     /// assert_eq!(&*lazy, &92);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرض حساب هذه القيمة الكسولة ويرجع مرجعًا إلى النتيجة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "lazy_cell", since = "1.80.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -404,6 +416,12 @@ impl<T: fmt::Debug, F> fmt::Debug for LazyCell<T, F> {
 impl<T, F> From<T> for LazyCell<T, F> {
     /// Constructs a `LazyCell` that starts already initialized
     /// with the provided value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LazyCell` مهيأً مسبقًا بالقيمة المعطاة.
+    ///
+    /// </div>
     #[inline]
     fn from(value: T) -> Self {
         Self { state: UnsafeCell::new(State::Init(value)) }

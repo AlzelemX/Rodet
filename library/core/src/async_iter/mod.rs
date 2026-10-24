@@ -120,6 +120,12 @@
 //! ```text
 //! warning: unused result that must be used: async iterators do nothing unless polled
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تكرار غير متزامن قابل للتركيب.
+//!
+//! </div>
 
 mod async_iter;
 mod from_iter;

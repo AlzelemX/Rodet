@@ -8,6 +8,12 @@
 //! [`async`]: ../../std/keyword.async.html
 //! [`await`]: ../../std/keyword.await.html
 //! [async book]: https://rust-lang.github.io/async-book/
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الوظائف الأساسية للبرمجة غير المتزامنة.
+//!
+//! </div>
 
 use crate::ptr::NonNull;
 use crate::task::Context;

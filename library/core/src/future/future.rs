@@ -25,6 +25,12 @@ use crate::task::{Context, Poll};
 ///
 /// [`async`]: ../../std/keyword.async.html
 /// [`Waker`]: crate::task::Waker
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الـ future يمثل عملية غير متزامنة، ويُحصل عليه عادةً باستخدام `async`.
+///
+/// </div>
 #[doc(notable_trait)]
 #[doc(search_unbox)]
 #[must_use = "futures do nothing unless you `.await` or poll them"]
@@ -36,6 +42,12 @@ use crate::task::{Context, Poll};
 )]
 pub trait Future {
     /// The type of value produced on completion.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع القيمة الناتجة عند الاكتمال.
+    ///
+    /// </div>
     #[stable(feature = "futures_api", since = "1.36.0")]
     #[lang = "future_output"]
     type Output;
@@ -108,6 +120,12 @@ pub trait Future {
     /// [`Poll::Ready(val)`]: Poll::Ready
     /// [`Waker`]: crate::task::Waker
     /// [`Waker::wake`]: crate::task::Waker::wake
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول حل الـ future إلى قيمة نهائية، ويسجل المهمة الحالية للإيقاظ إذا لم تكن القيمة جاهزة.
+    ///
+    /// </div>
     #[lang = "poll"]
     #[stable(feature = "futures_api", since = "1.36.0")]
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;

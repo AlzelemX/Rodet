@@ -15,13 +15,31 @@ use crate::marker::PhantomData;
 // ***** TryCapture - Generic *****
 
 /// Marker used by [Capture]
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة يستخدمها `Capture`.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub struct TryCaptureWithoutDebug;
 
 /// Catches an arbitrary `E` and modifies `to` accordingly
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلتقط `E` عشوائيًا ويعدّل `to` حسبه.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub trait TryCaptureGeneric<E, M> {
     /// Similar to [TryCapturePrintable] but generic to any `E`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `TryCapturePrintable` لكنه عام لأي `E`.
+    ///
+    /// </div>
     fn try_capture(&self, to: &mut Capture<E, M>);
 }
 
@@ -39,13 +57,31 @@ impl<E> Debug for Capture<E, TryCaptureWithoutDebug> {
 // ***** TryCapture - Printable *****
 
 /// Marker used by [Capture]
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة يستخدمها `Capture`.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub struct TryCaptureWithDebug;
 
 /// Catches an arbitrary `E: Printable` and modifies `to` accordingly
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلتقط `E: Printable` عشوائيًا ويعدّل `to` حسبه.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub trait TryCapturePrintable<E, M> {
     /// Similar as [TryCaptureGeneric] but specialized to any `E: Printable`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `TryCaptureGeneric` لكنه مخصص لأي `E: Printable`.
+    ///
+    /// </div>
     fn try_capture(&self, to: &mut Capture<E, M>);
 }
 
@@ -80,6 +116,12 @@ where
 ///
 /// * `E`: **E**lement that is going to be displayed.
 /// * `M`: **M**arker used to differentiate [Capture]s in regards to [Debug].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كل عناصر `assert!` الممكن التقاطها.
+///
+/// </div>
 //spellchecker:on
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub struct Capture<E, M> {
@@ -99,10 +141,22 @@ impl<M, T> Capture<M, T> {
 }
 
 /// Necessary for the implementations of `TryCapture*`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// لازم لتطبيقات `TryCapture*`.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub struct Wrapper<T>(pub T);
 
 /// Tells which elements can be copied and displayed
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد العناصر التي يمكن نسخها وعرضها.
+///
+/// </div>
 #[unstable(feature = "generic_assert_internals", issue = "44838")]
 pub trait Printable: Copy + Debug {}
 

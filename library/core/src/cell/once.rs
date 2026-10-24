@@ -31,6 +31,12 @@ use crate::{fmt, mem};
 /// assert_eq!(value, "Hello, World!");
 /// assert!(cell.get().is_some());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خلية يمكن الكتابة فيها مرة واحدة فقط.
+///
+/// </div>
 #[stable(feature = "once_cell", since = "1.70.0")]
 pub struct OnceCell<#[rustc_assert_variance(invariant)] T> {
     // Invariant: written to at most once.
@@ -402,6 +408,12 @@ impl<T> OnceCell<T> {
     /// let _ = cell.set("hello".to_owned());
     /// assert_eq!(cell.into_inner(), Some("hello".to_owned()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الخلية ويرجع القيمة المغلفة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_const_stable(feature = "const_cell_into_inner", since = "1.83.0")]
@@ -431,6 +443,12 @@ impl<T> OnceCell<T> {
     /// assert_eq!(cell.take(), Some("hello".to_owned()));
     /// assert_eq!(cell.get(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من هذا الـ `OnceCell` ويعيده إلى حالة غير مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn take(&mut self) -> Option<T> {

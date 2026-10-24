@@ -1,10 +1,22 @@
 //! Field Reflection
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! انعكاس الحقول (field reflection).
+//!
+//! </div>
 
 use crate::fmt;
 use crate::hash::{Hash, Hasher};
 use crate::marker::PhantomData;
 
 /// Field Representing Type
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمثّل حقلًا.
+///
+/// </div>
 #[unstable(feature = "field_representing_type_raw", issue = "none")]
 #[lang = "field_representing_type"]
 #[fundamental]
@@ -123,6 +135,12 @@ impl<T: ?Sized, const VARIANT: u32, const FIELD: u32> Ord
 ///
 /// The container type may be a tuple, `struct`, `union` or `enum`. In the case of an enum, the
 /// variant must also be specified. Only a single field is supported.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتوسع إلى النوع الذي يمثّل الحقل المعطى.
+///
+/// </div>
 #[unstable(feature = "field_projections", issue = "145383")]
 #[allow_internal_unstable(field_representing_type_raw, builtin_syntax)]
 #[diagnostic::on_unmatched_args(
@@ -143,6 +161,12 @@ pub macro field_of($Container:ty, $($fields:expr)+ $(,)?) {
 ///
 /// Given a valid value of type `Self::Base`, there exists a valid value of type `Self::Type` at
 /// byte offset `OFFSET`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمثّل حقلًا في `struct` أو `union` أو متغير `enum` أو tuple.
+///
+/// </div>
 #[lang = "field"]
 #[unstable(feature = "field_projections", issue = "145383")]
 #[rustc_deny_explicit_impl]
@@ -157,14 +181,32 @@ pub macro field_of($Container:ty, $($fields:expr)+ $(,)?) {
 //   `compiler/rustc_next_trait_solver/src/solve/trait_goals.rs`.
 pub unsafe trait Field: Send + Sync + Copy {
     /// The type of the base where this field exists in.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الأساس الذي يوجد فيه هذا الحقل.
+    ///
+    /// </div>
     #[lang = "field_base"]
     type Base;
 
     /// The type of the field.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الحقل.
+    ///
+    /// </div>
     #[lang = "field_type"]
     type Type;
 
     /// The offset of the field in bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إزاحة الحقل بالبايتات.
+    ///
+    /// </div>
     #[lang = "field_offset"]
     const OFFSET: usize = crate::intrinsics::field_offset::<Self>();
 }

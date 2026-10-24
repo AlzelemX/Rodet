@@ -1,4 +1,10 @@
 //! The `ByteStr` type and trait implementations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النوع `ByteStr` وتطبيقاته.
+//!
+//! </div>
 
 mod traits;
 
@@ -37,6 +43,12 @@ use crate::ops::{Deref, DerefMut, DerefPure};
 ///
 /// The `Display` implementation behaves as if the `ByteStr` were first lossily converted to a
 /// `str`, with invalid UTF-8 presented as the Unicode replacement character (�).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف لـ `&[u8]` يمثل نصًا مقروءًا يكون عادةً (وليس دائمًا) UTF-8.
+///
+/// </div>
 #[unstable(feature = "byte_str", issue = "134915")]
 #[rustc_has_incoherent_inherent_impls]
 #[repr(transparent)]
@@ -62,6 +74,12 @@ impl ByteStr {
     /// assert_eq!(a, b);
     /// assert_eq!(a, c);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة `ByteStr` من أي شيء يمكن تحويله إلى شريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "byte_str", issue = "134915")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -74,6 +92,12 @@ impl ByteStr {
     /// This method is redundant when used directly on `&ByteStr`, but
     /// it helps dereferencing other "container" types,
     /// for example `Box<ByteStr>` or `Arc<ByteStr>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس النص كـ `&ByteStr`.
+    ///
+    /// </div>
     #[inline]
     // #[unstable(feature = "str_as_str", issue = "130366")]
     #[unstable(feature = "byte_str", issue = "134915")]
@@ -86,6 +110,12 @@ impl ByteStr {
     /// This method is redundant when used directly on `&mut ByteStr`, but
     /// it helps dereferencing other "container" types,
     /// for example `Box<ByteStr>` or `MutexGuard<ByteStr>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس النص كـ `&mut ByteStr`.
+    ///
+    /// </div>
     #[inline]
     // #[unstable(feature = "str_as_str", issue = "130366")]
     #[unstable(feature = "byte_str", issue = "134915")]

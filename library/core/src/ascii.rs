@@ -6,6 +6,12 @@
 //!
 //! The [`escape_default`] function provides an iterator over the bytes of an
 //! escaped version of the character given.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! عمليات على نصوص وحروف ASCII.
+//!
+//! </div>
 
 #![stable(feature = "core_ascii", since = "1.26.0")]
 
@@ -23,6 +29,12 @@ pub use ascii_char::AsciiChar as Char;
 ///
 /// This `struct` is created by the [`escape_default`] function. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على النسخة المُهرَّبة من بايت.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]
@@ -90,6 +102,12 @@ pub struct EscapeDefault(EscapeIterInner<4, AlwaysEscaped>);
 /// assert_eq!(b'9', escaped.next().unwrap());
 /// assert_eq!(b'd', escaped.next().unwrap());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مكررًا يعطي نسخة مُهرَّبة من `u8`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn escape_default(c: u8) -> EscapeDefault {
     EscapeDefault::new(c)

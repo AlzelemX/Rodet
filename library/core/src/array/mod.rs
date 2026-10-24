@@ -1,6 +1,12 @@
 //! Utilities for the array primitive type.
 //!
 //! *[See also the array primitive type](array).*
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للنوع الأساسي "المصفوفة" (array).
+//!
+//! </div>
 
 #![stable(feature = "core_array", since = "1.35.0")]
 
@@ -47,6 +53,12 @@ pub use iter::IntoIter;
 /// let strings = array::repeat(string);
 /// assert_eq!(strings, ["Hello there!", "Hello there!"]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مصفوفة من النوع `[T; N]` بنسخ قيمة مرارًا.
+///
+/// </div>
 #[inline]
 #[must_use = "cloning is often expensive and is not expected to have side effects"]
 #[stable(feature = "array_repeat", since = "1.91.0")]
@@ -103,6 +115,12 @@ pub fn repeat<T: Clone, const N: usize>(val: T) -> [T; N] {
 /// let a = std::array::from_fn(|_| { let x = state; state *= 2; x });
 /// assert_eq!(a, [1, 2, 4, 8, 16, 32]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مصفوفة كل عنصر فيها ناتج استدعاء `f` بفهرس ذلك العنصر، من البداية للنهاية.
+///
+/// </div>
 #[inline]
 #[stable(feature = "array_from_fn", since = "1.63.0")]
 #[rustc_const_unstable(feature = "const_array", issue = "147606")]
@@ -142,6 +160,12 @@ where
 /// let array: Option<[_; 4]> = std::array::try_from_fn(|i| i.checked_sub(100));
 /// assert_eq!(array, None);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مصفوفة `[T; N]` كل عنصر فيها ناتج استدعاء `cb` الذي قد يفشل؛ يتوقف عند أول خطأ.
+///
+/// </div>
 #[inline]
 #[unstable(feature = "array_try_from_fn", issue = "89379")]
 #[rustc_const_unstable(feature = "array_try_from_fn", issue = "89379")]
@@ -161,6 +185,12 @@ where
 }
 
 /// Converts a reference to `T` into a reference to an array of length 1 (without copying).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا إلى `T` إلى مرجع لمصفوفة طولها 1 (بدون نسخ).
+///
+/// </div>
 #[stable(feature = "array_from_ref", since = "1.53.0")]
 #[rustc_const_stable(feature = "const_array_from_ref_shared", since = "1.63.0")]
 pub const fn from_ref<T>(s: &T) -> &[T; 1] {
@@ -169,6 +199,12 @@ pub const fn from_ref<T>(s: &T) -> &[T; 1] {
 }
 
 /// Converts a mutable reference to `T` into a mutable reference to an array of length 1 (without copying).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا قابلًا للتعديل إلى `T` إلى مرجع قابل للتعديل لمصفوفة طولها 1 (بدون نسخ).
+///
+/// </div>
 #[stable(feature = "array_from_ref", since = "1.53.0")]
 #[rustc_const_stable(feature = "const_array_from_ref", since = "1.83.0")]
 pub const fn from_mut<T>(s: &mut T) -> &mut [T; 1] {
@@ -177,6 +213,12 @@ pub const fn from_mut<T>(s: &mut T) -> &mut [T; 1] {
 }
 
 /// The error type returned when a conversion from a slice to an array fails.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ المُرجَع عند فشل التحويل من شريحة إلى مصفوفة.
+///
+/// </div>
 #[stable(feature = "try_from", since = "1.34.0")]
 #[derive(Debug, Copy, Clone)]
 pub struct TryFromSliceError(());
@@ -246,6 +288,12 @@ const impl<T, const N: usize> BorrowMut<[T]> for [T; N] {
 /// let bytes_tail: [u8; 2] = bytes[1..3].try_into().unwrap();
 /// assert_eq!(512, u16::from_le_bytes(bytes_tail));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول إنشاء مصفوفة `[T; N]` بالنسخ من شريحة `&[T]`؛ ينجح إذا كان `slice.len() == N`.
+///
+/// </div>
 #[stable(feature = "try_from", since = "1.34.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl<T, const N: usize> TryFrom<&[T]> for [T; N]
@@ -272,6 +320,12 @@ where
 /// let bytes_tail: [u8; 2] = (&mut bytes[1..3]).try_into().unwrap();
 /// assert_eq!(512, u16::from_le_bytes(bytes_tail));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول إنشاء مصفوفة `[T; N]` بالنسخ من شريحة قابلة للتعديل؛ ينجح إذا كان `slice.len() == N`.
+///
+/// </div>
 #[stable(feature = "try_from_mut_slice_to_array", since = "1.59.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl<T, const N: usize> TryFrom<&mut [T]> for [T; N]
@@ -298,6 +352,12 @@ where
 /// let bytes_tail: &[u8; 2] = bytes[1..3].try_into().unwrap();
 /// assert_eq!(512, u16::from_le_bytes(*bytes_tail));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول إنشاء مرجع مصفوفة `&[T; N]` من مرجع شريحة `&[T]`؛ ينجح إذا كان `slice.len() == N`.
+///
+/// </div>
 #[stable(feature = "try_from", since = "1.34.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl<'a, T, const N: usize> TryFrom<&'a [T]> for &'a [T; N] {
@@ -321,6 +381,13 @@ const impl<'a, T, const N: usize> TryFrom<&'a [T]> for &'a [T; N] {
 /// let bytes_tail: &mut [u8; 2] = (&mut bytes[1..3]).try_into().unwrap();
 /// assert_eq!(512, u16::from_le_bytes(*bytes_tail));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول إنشاء مرجع مصفوفة قابل للتعديل `&mut [T; N]` من شريحة قابلة للتعديل؛ ينجح إذا كان
+/// `slice.len() == N`.
+///
+/// </div>
 #[stable(feature = "try_from", since = "1.34.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl<'a, T, const N: usize> TryFrom<&'a mut [T]> for &'a mut [T; N] {
@@ -343,6 +410,12 @@ const impl<'a, T, const N: usize> TryFrom<&'a mut [T]> for &'a mut [T; N] {
 /// let s: &[u8] = &[0xa8, 0x3c, 0x09];
 /// assert_eq!(b.hash_one(a), b.hash_one(s));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بصمة (hash) المصفوفة هي نفس بصمة الشريحة المقابلة، كما يتطلب تطبيق `Borrow`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: Hash, const N: usize> Hash for [T; N] {
     fn hash<H: hash::Hasher>(&self, state: &mut H) {
@@ -404,6 +477,12 @@ where
 }
 
 /// Implements comparison of arrays [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق مقارنة المصفوفات بالترتيب المعجمي (حرفًا حرفًا).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl<T: [const] PartialOrd, const N: usize> PartialOrd for [T; N] {
@@ -440,6 +519,12 @@ const impl<T: [const] PartialOrd, const N: usize> PartialOrd for [T; N] {
 }
 
 /// Implements comparison of arrays [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق مقارنة المصفوفات بالترتيب المعجمي (حرفًا حرفًا).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl<T: [const] Ord, const N: usize> Ord for [T; N] {
@@ -595,6 +680,12 @@ impl<T, const N: usize> [T; N] {
     /// let y = x.map(|v| v.len());
     /// assert_eq!(y, [6, 9, 3, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مصفوفة بنفس حجم `self` بعد تطبيق الدالة `f` على كل عنصر بالترتيب.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "array_map", since = "1.55.0")]
     #[rustc_const_unstable(feature = "const_array", issue = "147606")]
@@ -637,6 +728,12 @@ impl<T, const N: usize> [T; N] {
     /// let c = b.map(|x| x.map(NonZero::get));
     /// assert_eq!(c, Some(a));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبّق دالة `f` قد تفشل على كل عنصر بالترتيب، ويرجع مصفوفة بنفس الحجم أو أول خطأ.
+    ///
+    /// </div>
     #[unstable(feature = "array_try_map", issue = "79711")]
     #[rustc_const_unstable(feature = "array_try_map", issue = "79711")]
     pub const fn try_map<R>(
@@ -654,6 +751,12 @@ impl<T, const N: usize> [T; N] {
     }
 
     /// Returns a slice containing the entire array. Equivalent to `&s[..]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة تحتوي المصفوفة كاملة، مثل `&s[..]`.
+    ///
+    /// </div>
     #[stable(feature = "array_as_slice", since = "1.57.0")]
     #[rustc_const_stable(feature = "array_as_slice", since = "1.57.0")]
     pub const fn as_slice(&self) -> &[T] {
@@ -662,6 +765,12 @@ impl<T, const N: usize> [T; N] {
 
     /// Returns a mutable slice containing the entire array. Equivalent to
     /// `&mut s[..]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل تحتوي المصفوفة كاملة، مثل `&mut s[..]`.
+    ///
+    /// </div>
     #[stable(feature = "array_as_slice", since = "1.57.0")]
     #[rustc_const_stable(feature = "const_array_as_mut_slice", since = "1.89.0")]
     pub const fn as_mut_slice(&mut self) -> &mut [T] {
@@ -692,6 +801,12 @@ impl<T, const N: usize> [T; N] {
     /// // We can still access the original array: it has not been moved.
     /// assert_eq!(strings.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير كل عنصر ويرجع مصفوفة مراجع بنفس حجم `self`.
+    ///
+    /// </div>
     #[stable(feature = "array_methods", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_array_each_ref", since = "1.91.0")]
     pub const fn each_ref(&self) -> [&T; N] {
@@ -723,6 +838,12 @@ impl<T, const N: usize> [T; N] {
     /// assert_eq!(float_refs, [&mut 0.0, &mut 2.7, &mut -1.0]);
     /// assert_eq!(floats, [0.0, 2.7, -1.0]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير كل عنصر استعارة قابلة للتعديل ويرجع مصفوفة مراجع قابلة للتعديل بنفس الحجم.
+    ///
+    /// </div>
     #[stable(feature = "array_methods", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_array_each_ref", since = "1.91.0")]
     pub const fn each_mut(&mut self) -> [&mut T; N] {
@@ -775,6 +896,12 @@ impl<T, const N: usize> [T; N] {
     ///     assert_eq!(right, &[]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم مرجع مصفوفة إلى قسمين عند فهرس.
+    ///
+    /// </div>
     #[unstable(
         feature = "split_array",
         reason = "return type should have array as 2nd element",
@@ -808,6 +935,12 @@ impl<T, const N: usize> [T; N] {
     /// right[1] = 4;
     /// assert_eq!(v, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم مرجع مصفوفة قابلًا للتعديل إلى قسمين عند فهرس.
+    ///
+    /// </div>
     #[unstable(
         feature = "split_array",
         reason = "return type should have array as 2nd element",
@@ -853,6 +986,12 @@ impl<T, const N: usize> [T; N] {
     ///     assert_eq!(right, &[1, 2, 3, 4, 5, 6]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم مرجع مصفوفة إلى قسمين عند فهرس محسوب من النهاية.
+    ///
+    /// </div>
     #[unstable(
         feature = "split_array",
         reason = "return type should have array as 2nd element",
@@ -886,6 +1025,12 @@ impl<T, const N: usize> [T; N] {
     /// right[1] = 4;
     /// assert_eq!(v, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم مرجع مصفوفة قابلًا للتعديل إلى قسمين عند فهرس محسوب من النهاية.
+    ///
+    /// </div>
     #[unstable(
         feature = "split_array",
         reason = "return type should have array as 2nd element",
@@ -942,8 +1087,20 @@ const fn try_from_fn_erased<R: [const] Try<Output: [const] Destruct>>(
 /// `push_unchecked` to signal that something unsafe is going on.
 struct Guard<'a, T> {
     /// The array to be initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المصفوفة المطلوب تهيئتها.
+    ///
+    /// </div>
     pub array_mut: &'a mut [MaybeUninit<T>],
     /// The number of items that have been initialized so far.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد العناصر التي هُيئت حتى الآن.
+    ///
+    /// </div>
     pub initialized: usize,
 }
 
@@ -989,8 +1146,20 @@ const impl<T: [const] Destruct> Drop for Guard<'_, T> {
 /// count of `initialized` elements.
 struct GuardBack<'a, T> {
     /// The array to be initialized (will be filled from the end).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المصفوفة المطلوب تهيئتها (تُملأ من النهاية).
+    ///
+    /// </div>
     pub array_mut: &'a mut [MaybeUninit<T>],
     /// The number of items that have been initialized so far.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد العناصر التي هُيئت حتى الآن.
+    ///
+    /// </div>
     pub initialized: usize,
 }
 

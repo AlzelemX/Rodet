@@ -69,6 +69,12 @@
 //! However, even for intrinsics that may unwind, rustc assumes that a Rust intrinsics will never
 //! initiate a foreign (non-Rust) unwind, and thus for panic=abort we can always assume that these
 //! intrinsics cannot unwind.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الدوال الداخلية للمترجم (intrinsics).
+//!
+//! </div>
 
 #![unstable(
     feature = "core_intrinsics",
@@ -103,6 +109,12 @@ use crate::sync::atomic::{
 /// A type for atomic ordering parameters for intrinsics. This is a separate type from
 /// `atomic::Ordering` so that we can make it `ConstParamTy` and fix the values used here without a
 /// risk of leaking that to stable code.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع لمعاملات الترتيب الذري في الدوال الداخلية، منفصل عن `atomic::Ordering`.
+///
+/// </div>
 #[allow(missing_docs)]
 #[derive(Debug, ConstParamTy, PartialEq, Eq)]
 pub enum AtomicOrdering {
@@ -140,6 +152,12 @@ pub enum AtomicOrdering {
 /// [`Atomic<T>::compare_exchange`]: AtomicI32::compare_exchange
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::compare_exchange`]: AtomicPtr::compare_exchange
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخزن قيمة إذا كانت القيمة الحالية تساوي `old`، ويرجع القيمة السابقة وهل نجح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_cxchg<
@@ -174,6 +192,12 @@ pub const unsafe fn atomic_cxchg<
 /// [`Atomic<T>::compare_exchange_weak`]: AtomicI32::compare_exchange_weak
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::compare_exchange_weak`]: AtomicPtr::compare_exchange_weak
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخزن قيمة إذا كانت القيمة الحالية تساوي `old` (قد يفشل خطأً)، ويرجع القيمة السابقة وهل نجح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_cxchgweak<
@@ -203,6 +227,12 @@ pub const unsafe fn atomic_cxchgweak<
 /// [`Atomic<T>::load_volatile`]: AtomicI32::load_volatile
 /// [`Atomic<T>::from_ptr`]: AtomicI32::from_ptr
 /// [`Atomic<T>::load`]: AtomicI32::load
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ القيمة الحالية من المؤشر؛ يجب أن يكون `T` عددًا صحيحًا أو مؤشرًا.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_load<T: Copy, const ORD: AtomicOrdering, const VOLATILE: bool>(
@@ -226,6 +256,12 @@ pub const unsafe fn atomic_load<T: Copy, const ORD: AtomicOrdering, const VOLATI
 /// [`Atomic<T>::store_volatile`]: AtomicI32::store_volatile
 /// [`Atomic<T>::from_ptr`]: AtomicI32::from_ptr
 /// [`Atomic<T>::store`]: AtomicI32::store
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخزن القيمة في موقع الذاكرة المحدد؛ يجب أن يكون `T` عددًا صحيحًا أو مؤشرًا.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_store<T: Copy, const ORD: AtomicOrdering, const VOLATILE: bool>(
@@ -252,6 +288,12 @@ pub const unsafe fn atomic_store<T: Copy, const ORD: AtomicOrdering, const VOLAT
 /// [`Atomic<T>::swap`]: AtomicI32::swap
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::swap`]: AtomicPtr::swap
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخزن القيمة في موقع الذاكرة ويرجع القيمة القديمة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_xchg<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, src: T) -> T;
@@ -276,6 +318,12 @@ pub const unsafe fn atomic_xchg<T: Copy, const ORD: AtomicOrdering>(dst: *mut T,
 /// [`Atomic<T>::fetch_add`]: AtomicI32::fetch_add
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::fetch_byte_add`]: AtomicPtr::fetch_byte_add
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضيف إلى القيمة الحالية ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_xadd<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -303,6 +351,12 @@ pub const unsafe fn atomic_xadd<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 /// [`Atomic<T>::fetch_sub`]: AtomicI32::fetch_sub
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::fetch_byte_sub`]: AtomicPtr::fetch_byte_sub
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطرح من القيمة الحالية ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_xsub<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -330,6 +384,12 @@ pub const unsafe fn atomic_xsub<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 /// [`Atomic<T>::fetch_and`]: AtomicI32::fetch_and
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::fetch_and`]: AtomicPtr::fetch_and
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "و" بتية (AND) مع القيمة الحالية، ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_and<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -351,6 +411,12 @@ pub const unsafe fn atomic_and<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 ///
 /// [`Atomic<T>::from_ptr`]: AtomicI32::from_ptr
 /// [`Atomic<T>::fetch_nand`]: AtomicI32::fetch_nand
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "ليس و" بتية (NAND) مع القيمة الحالية، ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_nand<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -378,6 +444,12 @@ pub const unsafe fn atomic_nand<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 /// [`Atomic<T>::fetch_or`]: AtomicI32::fetch_or
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::fetch_or`]: AtomicPtr::fetch_or
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو" بتية (OR) مع القيمة الحالية، ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_or<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -405,6 +477,12 @@ pub const unsafe fn atomic_or<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 /// [`Atomic<T>::fetch_xor`]: AtomicI32::fetch_xor
 /// [`AtomicPtr<P>::from_ptr`]: AtomicPtr::from_ptr
 /// [`AtomicPtr<P>::fetch_xor`]: AtomicPtr::fetch_xor
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو الحصرية" بتية (XOR) مع القيمة الحالية، ويرجع القيمة السابقة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_xor<T: Copy, U: Copy, const ORD: AtomicOrdering>(
@@ -425,6 +503,12 @@ pub const unsafe fn atomic_xor<T: Copy, U: Copy, const ORD: AtomicOrdering>(
 ///
 /// [`Atomic<T>::from_ptr`]: AtomicI32::from_ptr
 /// [`Atomic<T>::fetch_max`]: AtomicI32::fetch_max
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأكبر مع القيمة الحالية بمقارنة بإشارة؛ يجب أن يكون `T` عددًا صحيحًا بإشارة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_max<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, src: T) -> T;
@@ -442,6 +526,12 @@ pub const unsafe fn atomic_max<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, 
 ///
 /// [`Atomic<T>::from_ptr`]: AtomicI32::from_ptr
 /// [`Atomic<T>::fetch_min`]: AtomicI32::fetch_min
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأصغر مع القيمة الحالية بمقارنة بإشارة؛ يجب أن يكون `T` عددًا صحيحًا بإشارة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_min<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, src: T) -> T;
@@ -459,6 +549,12 @@ pub const unsafe fn atomic_min<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, 
 ///
 /// [`Atomic<T>::from_ptr`]: AtomicU32::from_ptr
 /// [`Atomic<T>::fetch_min`]: AtomicU32::fetch_min
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأصغر مع القيمة الحالية بمقارنة بدون إشارة؛ يجب أن يكون `T` عددًا بدون إشارة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_umin<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, src: T) -> T;
@@ -476,6 +572,12 @@ pub const unsafe fn atomic_umin<T: Copy, const ORD: AtomicOrdering>(dst: *mut T,
 ///
 /// [`Atomic<T>::from_ptr`]: AtomicU32::from_ptr
 /// [`Atomic<T>::fetch_max`]: AtomicU32::fetch_max
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأكبر مع القيمة الحالية بمقارنة بدون إشارة؛ يجب أن يكون `T` عددًا بدون إشارة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_umax<T: Copy, const ORD: AtomicOrdering>(dst: *mut T, src: T) -> T;
@@ -484,6 +586,12 @@ pub const unsafe fn atomic_umax<T: Copy, const ORD: AtomicOrdering>(dst: *mut T,
 ///
 /// The stabilized version of this intrinsic is available in
 /// [`atomic::fence`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاجز ذري (fence).
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_fence<const ORD: AtomicOrdering>();
@@ -492,6 +600,12 @@ pub const unsafe fn atomic_fence<const ORD: AtomicOrdering>();
 ///
 /// The stabilized version of this intrinsic is available in
 /// [`atomic::compiler_fence`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاجز ذري للتزامن داخل خيط واحد.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn atomic_singlethreadfence<const ORD: AtomicOrdering>();
@@ -505,6 +619,12 @@ pub const unsafe fn atomic_singlethreadfence<const ORD: AtomicOrdering>();
 /// to (3) - extremely local keep in cache.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تلميح لمولّد الكود لإدراج تعليمة جلب مسبق للعنوان المعطى إن كانت مدعومة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[miri::intrinsic_fallback_is_spec]
@@ -522,6 +642,12 @@ pub const fn prefetch_read_data<T, const LOCALITY: i32>(data: *const T) {
 /// to (3) - extremely local keep in cache.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تلميح لمولّد الكود لإدراج تعليمة جلب مسبق للعنوان المعطى إن كانت مدعومة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[miri::intrinsic_fallback_is_spec]
@@ -539,6 +665,12 @@ pub const fn prefetch_write_data<T, const LOCALITY: i32>(data: *const T) {
 /// to (3) - extremely local keep in cache.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تلميح لمولّد الكود لإدراج تعليمة جلب مسبق للعنوان المعطى إن كانت مدعومة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[miri::intrinsic_fallback_is_spec]
@@ -556,6 +688,12 @@ pub const fn prefetch_read_instruction<T, const LOCALITY: i32>(data: *const T) {
 /// to (3) - extremely local keep in cache.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تلميح لمولّد الكود لإدراج تعليمة جلب مسبق للعنوان المعطى إن كانت مدعومة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[miri::intrinsic_fallback_is_spec]
@@ -567,14 +705,32 @@ pub const fn prefetch_write_instruction<T, const LOCALITY: i32>(data: *const T) 
 /// Executes a breakpoint trap, for inspection by a debugger.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينفّذ فخ نقطة توقف ليفحصه المنقّح (debugger).
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn breakpoint();
 
 /// A container for the string arguments passed to [`codeview_annotation`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاوية لمعاملات النصوص المعطاة لـ `codeview_annotation`.
+///
+/// </div>
 #[unstable(feature = "codeview_annotation", issue = "163964")]
 pub trait CodeViewAnnotationArgs {
     /// The string arguments to `codeview_annotation`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// معاملات النصوص لـ `codeview_annotation`.
+    ///
+    /// </div>
     const ARGS: &[&str];
 }
 
@@ -584,6 +740,12 @@ pub trait CodeViewAnnotationArgs {
 ///
 /// Works only with targets that use PDB debuginfo and with the LLVM backend.
 /// Is a no-op on other targets and backends.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُصدر استدعاءً لـ `llvm.codeview.annotation` لإضافة تعليق في معلومات التنقيح.
+///
+/// </div>
 #[unstable(feature = "codeview_annotation", issue = "163964")]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -604,6 +766,12 @@ pub fn codeview_annotation<T: CodeViewAnnotationArgs>() {
 /// uninitialized at that point in the control flow.
 ///
 /// This intrinsic should not be used outside of the compiler.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دالة داخلية سحرية يُستمد معناها من الخصائص المرفقة بالدالة.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub fn rustc_peek<T>(_: T) -> T;
@@ -622,6 +790,12 @@ pub fn rustc_peek<T>(_: T) -> T;
 /// Therefore, implementations must not require the user to uphold any safety invariants.
 ///
 /// The stabilized version of this intrinsic is [`core::process::abort_immediate`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يوقف تنفيذ العملية فورًا بدون تنظيف.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub const fn abort_immediate() -> !;
@@ -634,6 +808,12 @@ pub const fn abort_immediate() -> !;
 /// reach code marked with this function.
 ///
 /// The stabilized version of this intrinsic is [`core::hint::unreachable_unchecked`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخبر المُحسِّن أن هذه النقطة لا يمكن الوصول إليها، مما يتيح تحسينات إضافية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -649,6 +829,12 @@ pub const unsafe fn unreachable() -> !;
 /// own, or if it does not enable any significant optimizations.
 ///
 /// The stabilized version of this intrinsic is [`core::hint::assert_unchecked`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخبر المُحسِّن أن الشرط صحيح دائمًا؛ إذا كان خاطئًا فالسلوك غير معرّف.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[unstable(feature = "core_intrinsics", issue = "none")]
@@ -668,6 +854,12 @@ pub const unsafe fn assume(b: bool) {
 /// any safety invariants.
 ///
 /// The stabilized version of this intrinsic is [`core::hint::cold_path`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن مسار الكود الحالي بارد (نادر التنفيذ).
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[miri::intrinsic_fallback_is_spec]
@@ -685,6 +877,12 @@ pub const fn cold_path() {}
 /// any safety invariants.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن شرط التفرع غالبًا صحيح، ويرجع القيمة المعطاة.
+///
+/// </div>
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_nounwind]
 #[inline(always)]
@@ -708,6 +906,12 @@ pub const fn likely(b: bool) -> bool {
 /// any safety invariants.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن شرط التفرع غالبًا خاطئ، ويرجع القيمة المعطاة.
+///
+/// </div>
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_nounwind]
 #[inline(always)]
@@ -734,6 +938,12 @@ pub const fn unlikely(b: bool) -> bool {
 /// The public form of this intrinsic is [`core::hint::select_unpredictable`].
 /// However unlike the public form, the intrinsic will not drop the value that
 /// is not selected.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true_val` أو `false_val` حسب الشرط `b`، مع تلميح للمترجم أن الشرط صعب التوقع.
+///
+/// </div>
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_const_unstable(feature = "const_select_unpredictable", issue = "145938")]
 #[rustc_intrinsic]
@@ -755,6 +965,13 @@ pub const fn select_unpredictable<T>(b: bool, true_val: T, false_val: T) -> T {
 /// and should only be called if an assertion failure will imply language UB in the following code.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حارس للدوال غير الآمنة التي لا يمكن تنفيذها إذا كان `T` بلا قيم: إما يسبب panic أو لا يفعل
+/// شيئًا.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -766,6 +983,12 @@ pub const fn assert_inhabited<T>();
 /// following code.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حارس للدوال غير الآمنة التي لا يمكن تنفيذها إذا كان `T` لا يقبل التهيئة بالأصفار.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -776,6 +999,12 @@ pub const fn assert_zero_valid<T>();
 /// language UB in the following code.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حارس لـ `std::mem::uninitialized`: إما يسبب panic أو لا يفعل شيئًا.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -789,6 +1018,12 @@ pub const fn assert_mem_uninitialized_valid<T>();
 /// any safety invariants.
 ///
 /// Consider using [`core::panic::Location::caller`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مرجعًا إلى `Location` ثابت يبين مكان الاستدعاء.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -803,6 +1038,12 @@ pub const fn caller_location() -> &'static crate::panic::Location<'static>;
 /// it does not require an `unsafe` block.
 /// Therefore, implementations must not require the user to uphold
 /// any safety invariants.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخرج قيمة من النطاق بدون تشغيل كود التخلص منها.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1090,6 +1331,12 @@ pub const fn forget<T: ?Sized>(_: T);
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعيد تفسير بتات قيمة من نوع كأنها من نوع آخر (غير آمن).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_allowed_through_unstable_modules(
     message = "import this function via the `mem` module instead",
@@ -1110,6 +1357,12 @@ pub const unsafe fn transmute<Src, Dst>(src: Src) -> Dst;
 ///
 /// This is not expected to ever be exposed directly to users, rather it
 /// may eventually be exposed through some more-constrained API.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `transmute` لكن بفحص أقل وقت الترجمة.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1128,6 +1381,12 @@ pub const unsafe fn transmute_unchecked<Src, Dst>(src: Src) -> Dst;
 /// backends only see an evaluated constant.
 ///
 /// The stabilized version of this intrinsic is [`mem::needs_drop`](crate::mem::needs_drop).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true` إذا كان النوع `T` يحتاج كود تخلص (drop)، و`false` إذا كان يطبّق `Copy`.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1150,6 +1409,12 @@ pub fn needs_drop<T: ?Sized>() -> bool;
 /// of bounds or arithmetic overflow occurs then this operation is undefined behavior.
 ///
 /// The stabilized version of this intrinsic is [`pointer::offset`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب إزاحة من مؤشر.
+///
+/// </div>
 #[must_use = "returns a new pointer rather than modifying its argument"]
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
@@ -1169,6 +1434,12 @@ pub const unsafe fn offset<Ptr: bounds::BuiltinDeref, Delta>(dst: Ptr, offset: D
 /// value is not necessarily valid to be used to actually access memory.
 ///
 /// The stabilized version of this intrinsic is [`pointer::wrapping_offset`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب إزاحة من مؤشر مع احتمال الالتفاف.
+///
+/// </div>
 #[must_use = "returns a new pointer rather than modifying its argument"]
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
@@ -1190,6 +1461,12 @@ pub const unsafe fn arith_offset<T>(dst: *const T, offset: isize) -> *const T;
 /// - `index < PtrMetadata(slice_ptr)`, so the indexing is in-bounds for the slice
 /// - the resulting offsetting is in-bounds of the allocation, which is
 ///   always the case for references, but needs to be upheld manually for pointers
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصل إلى العنصر رقم `index` في `slice_ptr` بنفس نوع المؤشر المعطى.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub const unsafe fn slice_get_unchecked<
@@ -1209,6 +1486,12 @@ pub const unsafe fn slice_get_unchecked<
 /// any safety invariants.
 ///
 /// Consider using [`pointer::mask`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخفي بتات من المؤشر حسب قناع.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub fn ptr_mask<T>(ptr: *const T, mask: usize) -> *const T;
@@ -1224,6 +1507,12 @@ pub fn ptr_mask<T>(ptr: *const T, mask: usize) -> *const T;
 /// which means it will not be optimized out unless `_count` or `size_of::<T>()` is equal to zero.
 ///
 /// [`copy_nonoverlapping`]: ptr::copy_nonoverlapping
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل `llvm.memcpy` المتطاير بحجم `count * size_of::<T>()`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn volatile_copy_nonoverlapping_memory<T>(dst: *mut T, src: *const T, count: usize);
@@ -1234,6 +1523,12 @@ pub unsafe fn volatile_copy_nonoverlapping_memory<T>(dst: *mut T, src: *const T,
 /// unless size is equal to zero.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل `llvm.memmove` المتطاير بحجم `count * size_of::<T>()`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn volatile_copy_memory<T>(dst: *mut T, src: *const T, count: usize);
@@ -1247,6 +1542,12 @@ pub unsafe fn volatile_copy_memory<T>(dst: *mut T, src: *const T, count: usize);
 /// which means it will not be optimized out unless `_count` or `size_of::<T>()` is equal to zero.
 ///
 /// [`write_bytes`]: ptr::write_bytes
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل `llvm.memset` المتطاير بحجم `count * size_of::<T>()`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn volatile_set_memory<T>(dst: *mut T, val: u8, count: usize);
@@ -1254,12 +1555,24 @@ pub const unsafe fn volatile_set_memory<T>(dst: *mut T, val: u8, count: usize);
 /// Performs a volatile load from the `src` pointer.
 ///
 /// The stabilized version of this intrinsic is [`core::ptr::read_volatile`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ قراءة متطايرة (volatile) من المؤشر `src`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn volatile_load<T>(src: *const T) -> T;
 /// Performs a volatile store to the `dst` pointer.
 ///
 /// The stabilized version of this intrinsic is [`core::ptr::write_volatile`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب كتابة متطايرة (volatile) إلى المؤشر `dst`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn volatile_store<T>(dst: *mut T, val: T);
@@ -1268,6 +1581,12 @@ pub const unsafe fn volatile_store<T>(dst: *mut T, val: T);
 /// The pointer is not required to be aligned.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ قراءة متطايرة من المؤشر `src`، ولا يلزم أن يكون المؤشر محاذى.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[rustc_diagnostic_item = "intrinsics_unaligned_volatile_load"]
@@ -1276,6 +1595,12 @@ pub unsafe fn unaligned_volatile_load<T>(src: *const T) -> T;
 /// The pointer is not required to be aligned.
 ///
 /// This intrinsic does not have a stable counterpart.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب كتابة متطايرة إلى المؤشر `dst`، ولا يلزم أن يكون المؤشر محاذى.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 #[rustc_diagnostic_item = "intrinsics_unaligned_volatile_store"]
@@ -1285,6 +1610,12 @@ pub unsafe fn unaligned_volatile_store<T>(dst: *mut T, val: T);
 ///
 /// The stabilized version of this intrinsic is
 /// [`f16::sqrt`](../../std/primitive.f16.html#method.sqrt)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الجذر التربيعي لـ `f16`.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1295,6 +1626,12 @@ pub fn sqrtf16(x: f16) -> f16 {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f32::sqrt`](../../std/primitive.f32.html#method.sqrt)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الجذر التربيعي لـ `f32`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn sqrtf32(x: f32) -> f32;
@@ -1302,6 +1639,12 @@ pub fn sqrtf32(x: f32) -> f32;
 ///
 /// The stabilized version of this intrinsic is
 /// [`f64::sqrt`](../../std/primitive.f64.html#method.sqrt)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الجذر التربيعي لـ `f64`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn sqrtf64(x: f64) -> f64;
@@ -1309,6 +1652,12 @@ pub fn sqrtf64(x: f64) -> f64;
 ///
 /// The stabilized version of this intrinsic is
 /// [`f128::sqrt`](../../std/primitive.f128.html#method.sqrt)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الجذر التربيعي لـ `f128`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn sqrtf128(x: f128) -> f128;
@@ -1317,6 +1666,12 @@ pub fn sqrtf128(x: f128) -> f128;
 ///
 /// The stabilized version of this intrinsic is
 /// [`f16::powi`](../../std/primitive.f16.html#method.powi)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f16` إلى أس صحيح.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1327,6 +1682,12 @@ pub fn powif16(a: f16, x: i32) -> f16 {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f32::powi`](../../std/primitive.f32.html#method.powi)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f32` إلى أس صحيح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn powif32(a: f32, x: i32) -> f32;
@@ -1334,6 +1695,12 @@ pub fn powif32(a: f32, x: i32) -> f32;
 ///
 /// The stabilized version of this intrinsic is
 /// [`f64::powi`](../../std/primitive.f64.html#method.powi)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f64` إلى أس صحيح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn powif64(a: f64, x: i32) -> f64;
@@ -1341,6 +1708,12 @@ pub fn powif64(a: f64, x: i32) -> f64;
 ///
 /// The stabilized version of this intrinsic is
 /// [`f128::powi`](../../std/primitive.f128.html#method.powi)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f128` إلى أس صحيح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub fn powif128(a: f128, x: i32) -> f128;
@@ -1350,6 +1723,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `sin` method. For example, [`f32::sin`](../../std/primitive.f32.html#method.sin).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جيب (sin) قيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]
@@ -1371,6 +1750,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `cos` method. For example, [`f32::cos`](../../std/primitive.f32.html#method.cos).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جيب تمام (cos) قيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]
@@ -1391,6 +1776,12 @@ intrinsic_dispatch_on_type! {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f16::powf`](../../std/primitive.f16.html#method.powf)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f16` إلى أس من نوع `f16`.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1401,6 +1792,12 @@ pub fn powf16(a: f16, x: f16) -> f16 {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f32::powf`](../../std/primitive.f32.html#method.powf)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f32` إلى أس من نوع `f32`.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1414,6 +1811,12 @@ pub fn powf32(a: f32, x: f32) -> f32 {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f64::powf`](../../std/primitive.f64.html#method.powf)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f64` إلى أس من نوع `f64`.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1424,6 +1827,12 @@ pub fn powf64(a: f64, x: f64) -> f64 {
 ///
 /// The stabilized version of this intrinsic is
 /// [`f128::powf`](../../std/primitive.f128.html#method.powf)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرفع `f128` إلى أس من نوع `f128`.
+///
+/// </div>
 #[inline]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -1436,6 +1845,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `exp` method. For example, [`f32::exp`](../../std/primitive.f32.html#method.exp).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الدالة الأسية لقيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]
@@ -1457,6 +1872,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `exp2` method. For example, [`f32::exp2`](../../std/primitive.f32.html#method.exp2).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع 2 مرفوعًا إلى أس قيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]
@@ -1478,6 +1899,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `ln` method. For example, [`f32::ln`](../../std/primitive.f32.html#method.ln).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اللوغاريتم الطبيعي لقيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]
@@ -1499,6 +1926,12 @@ intrinsic_dispatch_on_type! {
     ///
     /// The stabilized versions of this intrinsic are available on the float primitives via the
     /// `log10` method. For example, [`f32::log10`](../../std/primitive.f32.html#method.log10).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اللوغاريتم العشري (الأساس 10) لقيمة عشرية.
+    ///
+    /// </div>
     #[rustc_nounwind]
     #[inline]
     #[rustc_intrinsic]

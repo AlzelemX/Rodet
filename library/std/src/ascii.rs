@@ -10,6 +10,12 @@
 //!
 //! The [`escape_default`] function provides an iterator over the bytes of an
 //! escaped version of the character given.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! عمليات على نصوص وحروف ASCII.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

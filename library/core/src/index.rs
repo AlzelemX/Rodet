@@ -1,6 +1,12 @@
 #![unstable(feature = "sliceindex_wrappers", issue = "146179")]
 
 //! Helper types for indexing slices.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع مساعدة لفهرسة الشرائح.
+//!
+//! </div>
 
 use crate::intrinsics::slice_get_unchecked;
 use crate::slice::SliceIndex;
@@ -24,6 +30,12 @@ use crate::{cmp, ops, range};
 /// assert_eq!(&[0, 1, 2, 3], &s[Clamp(..=6)]);
 /// assert_eq!(&[] as &[usize], &s[Clamp(6..)]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحصر الفهرس ليضمن الوصول إلى عناصر صالحة فقط في الشريحة.
+///
+/// </div>
 #[unstable(feature = "sliceindex_wrappers", issue = "146179")]
 #[derive(Debug)]
 pub struct Clamp<Idx>(pub Idx);
@@ -45,6 +57,12 @@ pub struct Clamp<Idx>(pub Idx);
 /// assert_eq!(None, Last.get(&[] as &[usize]));
 ///
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يصل دائمًا إلى آخر عنصر في الشريحة.
+///
+/// </div>
 #[unstable(feature = "sliceindex_wrappers", issue = "146179")]
 #[derive(Debug)]
 pub struct Last;

@@ -6,6 +6,12 @@ use crate::task::{Context, Poll};
 ///
 /// This `struct` is created by [`ready()`]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// future جاهز فورًا بقيمة.
+///
+/// </div>
 #[stable(feature = "future_readiness_fns", since = "1.48.0")]
 #[derive(Debug, Clone)]
 #[must_use = "futures do nothing unless you `.await` or poll them"]
@@ -39,6 +45,12 @@ impl<T> Ready<T> {
     /// let a = future::ready(1);
     /// assert_eq!(a.into_inner(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Ready` ويرجع القيمة المغلفة.
+    ///
+    /// </div>
     #[stable(feature = "ready_into_inner", since = "1.82.0")]
     #[must_use]
     #[inline]
@@ -63,6 +75,12 @@ impl<T> Ready<T> {
 /// assert_eq!(a.await, 1);
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ future جاهزًا فورًا بقيمة.
+///
+/// </div>
 #[stable(feature = "future_readiness_fns", since = "1.48.0")]
 pub fn ready<T>(t: T) -> Ready<T> {
     Ready(Some(t))

@@ -24,6 +24,12 @@ use crate::task::{Context, Poll};
 /// are `Copy` get implicitly duplicated by the compiler, making it very
 /// hard to predict when, and how often destructors will be executed. As such,
 /// these types cannot have destructors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النسخة غير المتزامنة من الـ trait `Drop`.
+///
+/// </div>
 #[unstable(feature = "async_drop", issue = "126482")]
 #[lang = "async_drop"]
 pub trait AsyncDrop {
@@ -36,6 +42,12 @@ pub trait AsyncDrop {
     /// That only happens after the method is over.
     ///
     /// # Panics
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفّذ المُدمِّر غير المتزامن لهذا النوع.
+    ///
+    /// </div>
     #[allow(async_fn_in_trait)]
     async fn drop(self: Pin<&mut Self>);
 }
@@ -50,6 +62,12 @@ pub trait AsyncDrop {
 /// See [ptr::drop_in_place] for additional safety concerns.
 ///
 /// [ptr::drop_in_place]: crate::ptr::drop_in_place()
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تخلص غير متزامن.
+///
+/// </div>
 #[unstable(feature = "async_drop", issue = "126482")]
 #[lang = "async_drop_in_place"]
 pub async unsafe fn async_drop_in_place<T: ?Sized>(_to_drop: &mut T) {

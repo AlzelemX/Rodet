@@ -2,6 +2,12 @@ use crate::marker::Destruct;
 use crate::ops::{RangeFrom, RangeFull, RangeInclusive, RangeToInclusive};
 
 /// Trait for ranges supported by [`Ord::clamp_to`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للنطاقات التي يدعمها `Ord::clamp_to`.
+///
+/// </div>
 #[unstable(feature = "clamp_bounds", issue = "147781")]
 #[rustc_const_unstable(feature = "clamp_bounds", issue = "147781")]
 pub const trait ClampBounds<T>: Sized {

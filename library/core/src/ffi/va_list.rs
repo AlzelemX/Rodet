@@ -1,6 +1,12 @@
 //! C's "variable arguments"
 //!
 //! Better known as "varargs".
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! "المعاملات المتغيرة" في C.
+//!
+//! </div>
 
 #[cfg(not(target_arch = "xtensa"))]
 use crate::ffi::c_void;
@@ -216,6 +222,12 @@ crate::cfg_select! {
 ///
 /// A `VaList` can be used across an FFI boundary, and fully matches the platform's `va_list` in
 /// terms of layout and ABI.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قائمة معاملات متغيرة متوافقة مع `va_list` في C.
+///
+/// </div>
 #[repr(transparent)]
 #[lang = "va_list"]
 #[stable(feature = "c_variadic", since = "1.99.0")]
@@ -304,6 +316,12 @@ const impl<'f> Drop for VaList<'f> {
 ///
 /// [`c_float`]: core::ffi::c_float
 /// [`c_double`]: core::ffi::c_double
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يصح قراءتها باستخدام `VaList::next_arg`.
+///
+/// </div>
 // We may unseal this trait in the future, but currently our `va_arg` implementations don't support
 // types with a non-scalar layout. Inline assembly can be used to accept unsupported types in the
 // meantime.
@@ -531,6 +549,12 @@ impl<'f> VaList<'f> {
     /// - `T` is a pointer to [`c_void`] and `U` is a pointer to [`i8`] or [`u8`], or vice versa.
     ///
     /// [`c_void`]: core::ffi::c_void
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ المعامل التالي من قائمة المعاملات المتغيرة.
+    ///
+    /// </div>
     #[inline] // Avoid codegen when not used to help backends that don't support VaList.
     #[stable(feature = "c_variadic", since = "1.99.0")]
     #[rustc_const_unstable(feature = "const_c_variadic", issue = "151787")]

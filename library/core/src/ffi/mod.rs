@@ -5,6 +5,12 @@
 //! as Rust's primitive types. This module provides types which will
 //! match those defined by C, so that code that interacts with C will
 //! refer to the correct types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع خاصة بالمنصة كما تعرّفها لغة C.
+//!
+//! </div>
 
 #![stable(feature = "core_ffi", since = "1.30.0")]
 #![allow(non_camel_case_types)]

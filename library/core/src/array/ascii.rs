@@ -15,6 +15,12 @@ impl<const N: usize> [u8; N] {
     /// assert_eq!(HEX_DIGITS[1].as_str(), "1");
     /// assert_eq!(HEX_DIGITS[10].as_str(), "a");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مصفوفة البايتات هذه إلى مصفوفة حروف ASCII، أو يرجع `None` إذا كان فيها حرف غير ASCII.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]
@@ -33,6 +39,12 @@ impl<const N: usize> [u8; N] {
     /// # Safety
     ///
     /// Every byte in the array must be in `0..=127`, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مصفوفة البايتات هذه إلى مصفوفة حروف ASCII بدون التحقق من صلاحيتها (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]

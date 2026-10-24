@@ -2,6 +2,12 @@
 //!
 //! Intrinsics in this module are intended for use on GPU targets.
 //! They can be target specific but in general GPU targets are similar.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال داخلية لمنصات GPU.
+//!
+//! </div>
 
 #![unstable(feature = "gpu_intrinsics", issue = "none")]
 
@@ -43,6 +49,12 @@
 /// OpenCL and SYCL call this local memory, shared between threads in a work-group.
 /// GLSL calls this shared memory, shared between invocations in a work group.
 /// DirectX calls this groupshared memory, shared between threads in a thread-group.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشرًا إلى ذاكرة مجموعة العمل المحجوزة وقت التشغيل على GPU.
+///
+/// </div>
 #[must_use = "returns a pointer that does nothing unless used"]
 #[rustc_intrinsic]
 #[rustc_nounwind]
@@ -61,6 +73,12 @@ pub fn gpu_launch_sized_workgroup_mem<T>() -> *mut T;
 ///
 /// [HSA Platform System Architecture Specification]: https://hsafoundation.com/wp-content/uploads/2021/02/HSA-SysArch-1.2.pdf
 /// [hsa.h]: https://github.com/ROCm/rocm-systems/blob/rocm-7.1.0/projects/rocr-runtime/runtime/hsa-runtime/inc/hsa.h#L2959
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشرًا إلى حزمة إرسال نواة HSA.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 #[cfg(any(doc, target_arch = "amdgpu"))]

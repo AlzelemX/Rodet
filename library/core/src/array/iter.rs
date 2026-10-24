@@ -1,4 +1,10 @@
 //! Defines the `IntoIter` owned iterator for arrays.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف المكرر المالك `IntoIter` للمصفوفات.
+//!
+//! </div>
 
 use crate::intrinsics::transmute_unchecked;
 use crate::iter::{FusedIterator, TrustedLen, TrustedRandomAccessNoCoerce};
@@ -13,6 +19,12 @@ type InnerSized<T, const N: usize> = iter_inner::PolymorphicIter<[MaybeUninit<T>
 type InnerUnsized<T> = iter_inner::PolymorphicIter<[MaybeUninit<T>]>;
 
 /// A by-value [array] iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر بالقيمة على مصفوفة.
+///
+/// </div>
 #[stable(feature = "array_value_iter", since = "1.51.0")]
 #[rustc_insignificant_dtor]
 #[rustc_diagnostic_item = "ArrayIntoIter"]
@@ -55,6 +67,12 @@ impl<T, const N: usize> IntoIterator for [T; N] {
     /// 2021 edition -- see the [array] Editions section for more information.
     ///
     /// [array]: prim@array
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا مستهلكًا ينقل كل قيمة من المصفوفة (من البداية للنهاية).
+    ///
+    /// </div>
     #[inline]
     fn into_iter(self) -> Self::IntoIter {
         // SAFETY: The transmute here is actually safe. The docs of `MaybeUninit`
@@ -80,6 +98,12 @@ impl<T, const N: usize> IntoIterator for [T; N] {
 
 impl<T, const N: usize> IntoIter<T, N> {
     /// Creates a new iterator over the given `array`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا جديدًا على المصفوفة `array` المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "array_value_iter", since = "1.51.0")]
     #[deprecated(since = "1.59.0", note = "use `IntoIterator::into_iter` instead")]
     pub fn new(array: [T; N]) -> Self {
@@ -141,6 +165,12 @@ impl<T, const N: usize> IntoIter<T, N> {
     /// let r: IntoIter<_, 40> = next_chunk(&mut (10..16)).unwrap_err();
     /// assert_eq!(r.collect::<Vec<_>>(), vec![10, 11, 12, 13, 14, 15]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على عناصر مخزن مهيأ جزئيًا.
+    ///
+    /// </div>
     #[unstable(feature = "array_into_iter_constructors", issue = "91583")]
     #[inline]
     pub const unsafe fn new_unchecked(
@@ -206,6 +236,12 @@ impl<T, const N: usize> IntoIter<T, N> {
     /// assert_eq!(get_bytes(true).collect::<Vec<_>>(), vec![1, 2, 3, 4]);
     /// assert_eq!(get_bytes(false).collect::<Vec<_>>(), vec![]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على `T` لا يعطي أي عناصر.
+    ///
+    /// </div>
     #[unstable(feature = "array_into_iter_constructors", issue = "91583")]
     #[inline]
     pub const fn empty() -> Self {

@@ -245,6 +245,9 @@ def scan():
             eng = english_part(text)
             if not any(t.strip() for t in eng):
                 continue
+            # Docs with no English words (e.g. just `U+0041`) need no translation.
+            if not re.search(r"[A-Za-z]{3,}", " ".join(eng)):
+                continue
             yield {
                 "path": path,
                 "start": start,

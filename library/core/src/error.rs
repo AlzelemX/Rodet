@@ -125,6 +125,12 @@ pub trait Error: Debug + Display {
     }
 
     /// Gets the `TypeId` of `self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الـ `TypeId` الخاص بـ `self`.
+    ///
+    /// </div>
     #[doc(hidden)]
     #[unstable(
         feature = "error_type_id",

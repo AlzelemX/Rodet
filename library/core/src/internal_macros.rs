@@ -69,6 +69,12 @@ macro_rules! forward_ref_op_assign {
 }
 
 /// Creates a zero-size type similar to a closure type, but named.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نوعًا بحجم صفر يشبه نوع الدالة المغلقة لكن له اسم.
+///
+/// </div>
 macro_rules! impl_fn_for_zst {
     ($(
         $( #[$attr: meta] )*
@@ -110,6 +116,12 @@ macro_rules! impl_fn_for_zst {
 }
 
 /// Permanently unstable. Only used in internal rustc tests. Do not use.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غير مستقر دائمًا؛ يُستخدم فقط في اختبارات rustc الداخلية. لا تستخدمه.
+///
+/// </div>
 #[rustc_builtin_macro(test_binder_constraints)]
 #[unstable(feature = "test_binder_constraints", issue = "none")]
 #[macro_export]

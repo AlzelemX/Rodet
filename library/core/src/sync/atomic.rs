@@ -4805,6 +4805,12 @@ const unsafe fn atomic_umin<T: Copy>(dst: *mut T, val: T, order: Ordering) -> T 
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاجز ذري (fence).
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]
@@ -4890,6 +4896,12 @@ pub const fn fence(order: Ordering) {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حاجز ذري للتزامن داخل خيط واحد.
+///
+/// </div>
 #[inline]
 #[stable(feature = "compiler_fences", since = "1.21.0")]
 #[rustc_const_unstable(feature = "const_atomic", issue = "160078")]

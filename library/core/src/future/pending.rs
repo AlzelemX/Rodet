@@ -9,6 +9,12 @@ use crate::task::{Context, Poll};
 ///
 /// This `struct` is created by [`pending()`]. See its
 /// documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ future لا يكتمل أبدًا، يمثل عملية لا تنتهي.
+///
+/// </div>
 #[stable(feature = "future_readiness_fns", since = "1.48.0")]
 #[must_use = "futures do nothing unless you `.await` or poll them"]
 pub struct Pending<T> {
@@ -29,6 +35,12 @@ pub struct Pending<T> {
 /// unreachable!();
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ future لا يكتمل أبدًا، يمثل عملية لا تنتهي.
+///
+/// </div>
 #[stable(feature = "future_readiness_fns", since = "1.48.0")]
 pub fn pending<T>() -> Pending<T> {
     Pending { _data: marker::PhantomData }

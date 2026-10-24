@@ -1,4 +1,10 @@
 //! Macros used to declare intrinsics.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ماكروهات تُستخدم لتعريف الدوال الداخلية.
+//!
+//! </div>
 
 /// Declares an intrinsic that is generic over its type, but whose fallback body has to be
 /// written per-type. This is needed for the float intrinsics, which are generics but may
@@ -17,6 +23,12 @@
 ///     f128 => { libm::maybe_available::expf128(x) }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعرّف دالة داخلية عامة على النوع لكن جسمها البديل يُكتب لكل نوع على حدة.
+///
+/// </div>
 macro_rules! intrinsic_dispatch_on_type {
     (
         $(#[$attr:meta])*

@@ -3,6 +3,12 @@
 //! Hints to compiler that affects how code should be emitted or optimized.
 //!
 //! Hints may be compile time or runtime.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تلميحات للمترجم تؤثر على طريقة توليد الكود أو تحسينه.
+//!
+//! </div>
 
 use crate::marker::Destruct;
 use crate::mem::MaybeUninit;
@@ -96,6 +102,12 @@ use crate::{intrinsics, ub_checks};
 /// assert_eq!(div_1(9, 1), 4);
 /// assert_eq!(div_1(11, u32::MAX), 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخبر المترجم أن هذا المكان لا يمكن الوصول إليه، مما قد يتيح تحسينات إضافية (غير آمن).
+///
+/// </div>
 #[inline]
 #[stable(feature = "unreachable", since = "1.27.0")]
 #[rustc_const_stable(feature = "const_unreachable_unchecked", since = "1.57.0")]
@@ -194,6 +206,12 @@ pub const unsafe fn unreachable_unchecked() -> ! {
 /// to put an assertion right next to code that checks the same thing, and dereferencing a
 /// pointer already has the builtin assumption that it is nonnull. However, it illustrates the
 /// kind of changes the optimizer can make even when the behavior is less obviously related.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وعد *سلامة* للمترجم بأن الشرط `cond` صحيح دائمًا (غير آمن).
+///
+/// </div>
 #[track_caller]
 #[inline(always)]
 #[doc(alias = "assume")]
@@ -265,6 +283,12 @@ pub const unsafe fn assert_unchecked(cond: bool) {
 /// ```
 ///
 /// [`thread::yield_now`]: ../../std/thread/fn.yield_now.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُصدر تعليمة تخبر المعالج أنه في حلقة انتظار نشط (spin lock).
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "renamed_spin_loop", since = "1.49.0")]
 pub fn spin_loop() {
@@ -484,6 +508,12 @@ pub fn spin_loop() {
 /// ```
 ///
 /// During constant evaluation, `black_box` is treated as a no-op.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دالة هوية *تلمّح* للمترجم أن يفترض أسوأ الاحتمالات عمّا قد تفعله (مفيدة في قياس الأداء).
+///
+/// </div>
 #[inline]
 #[stable(feature = "bench_black_box", since = "1.66.0")]
 #[rustc_const_stable(feature = "const_black_box", since = "1.86.0")]
@@ -607,6 +637,12 @@ pub const fn black_box<T>(dummy: T) -> T {
 ///   #     assert_send(f());
 ///   # }
 ///   ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دالة هوية تسبب تحذير `unused_must_use` إذا لم تُستخدم القيمة المعطاة.
+///
+/// </div>
 #[unstable(feature = "hint_must_use", issue = "94745")]
 #[must_use] // <-- :)
 #[inline(always)]
@@ -658,6 +694,12 @@ pub const fn must_use<T>(value: T) -> T {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن شرط التفرع غالبًا صحيح، ويرجع القيمة المعطاة.
+///
+/// </div>
 #[unstable(feature = "likely_unlikely", issue = "151619")]
 #[inline(always)]
 pub const fn likely(b: bool) -> bool {
@@ -708,6 +750,12 @@ pub const fn likely(b: bool) -> bool {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن شرط التفرع غالبًا خاطئ، ويرجع القيمة المعطاة.
+///
+/// </div>
 #[unstable(feature = "likely_unlikely", issue = "151619")]
 #[inline(always)]
 pub const fn unlikely(b: bool) -> bool {
@@ -775,6 +823,12 @@ pub const fn unlikely(b: bool) -> bool {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يلمّح للمترجم أن هذا المسار "بارد" أي نادر التنفيذ.
+///
+/// </div>
 #[stable(feature = "cold_path", since = "1.95.0")]
 #[rustc_const_stable(feature = "cold_path", since = "1.95.0")]
 #[inline(always)]
@@ -826,6 +880,12 @@ pub const fn cold_path() {
 /// # append(&hasher, 42, &mut bucket_one, &mut bucket_two);
 /// # assert_eq!(bucket_one.len() + bucket_two.len(), 1);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true_val` أو `false_val` حسب `condition`، مع تلميح للمترجم أن الشرط صعب التوقع.
+///
+/// </div>
 #[inline(always)]
 #[stable(feature = "select_unpredictable", since = "1.88.0")]
 #[rustc_const_unstable(feature = "const_select_unpredictable", issue = "145938")]
@@ -891,6 +951,12 @@ where
 ///
 /// [`prefetch_read`]: crate::hint::prefetch_read
 /// [`prefetch_write`]: crate::hint::prefetch_write
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المحلية الزمنية المتوقعة لعملية جلب مسبق للذاكرة.
+///
+/// </div>
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 #[non_exhaustive]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -898,14 +964,32 @@ pub enum Locality {
     /// Data is expected to be reused eventually.
     ///
     /// Typically prefetches into L3 cache (if the CPU supports it).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُتوقع إعادة استخدام البيانات في النهاية.
+    ///
+    /// </div>
     L3,
     /// Data is expected to be reused in the near future.
     ///
     /// Typically prefetches into L2 cache.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُتوقع إعادة استخدام البيانات قريبًا.
+    ///
+    /// </div>
     L2,
     /// Data is expected to be reused very soon.
     ///
     /// Typically prefetches into L1 cache.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُتوقع إعادة استخدام البيانات قريبًا جدًا.
+    ///
+    /// </div>
     L1,
 }
 
@@ -945,6 +1029,12 @@ impl Locality {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجلب مسبقًا سطر الذاكرة المؤقتة الذي يحتوي `ptr` لقراءة قادمة.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 pub const fn prefetch_read<T>(ptr: *const T, locality: Locality) {
@@ -965,6 +1055,13 @@ pub const fn prefetch_read<T>(ptr: *const T, locality: Locality) {
 ///
 /// Passing a dangling or invalid pointer is permitted: the memory will not
 /// actually be dereferenced, and no faults are raised.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجلب مسبقًا سطر الذاكرة المؤقتة الذي يحتوي `ptr` لقراءة واحدة قادمة، مع محاولة عدم تلويث الذاكرة
+/// المؤقتة.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 pub const fn prefetch_read_non_temporal<T>(ptr: *const T, locality: Locality) {
@@ -982,6 +1079,12 @@ pub const fn prefetch_read_non_temporal<T>(ptr: *const T, locality: Locality) {
 ///
 /// Passing a dangling or invalid pointer is permitted: the memory will not
 /// actually be dereferenced, and no faults are raised.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجلب مسبقًا سطر الذاكرة المؤقتة الذي يحتوي `ptr` لكتابة قادمة.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 pub const fn prefetch_write<T>(ptr: *mut T, locality: Locality) {
@@ -1002,6 +1105,12 @@ pub const fn prefetch_write<T>(ptr: *mut T, locality: Locality) {
 ///
 /// Passing a dangling or invalid pointer is permitted: the memory will not
 /// actually be dereferenced, and no faults are raised.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجلب مسبقًا سطر الذاكرة المؤقتة الذي يحتوي `ptr` لكتابة واحدة قادمة، مع محاولة عدم تلويثها.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 pub const fn prefetch_write_non_temporal<T>(ptr: *const T, locality: Locality) {
@@ -1019,6 +1128,12 @@ pub const fn prefetch_write_non_temporal<T>(ptr: *const T, locality: Locality) {
 ///
 /// Passing a dangling or invalid pointer is permitted: the memory will not
 /// actually be dereferenced, and no faults are raised.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجلب مسبقًا سطر الذاكرة الذي يحتوي `ptr` إلى ذاكرة التعليمات المؤقتة لقراءة قادمة.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "hint_prefetch", issue = "146941")]
 pub const fn prefetch_read_instruction<T>(ptr: *const T, locality: Locality) {

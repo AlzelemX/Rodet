@@ -1,4 +1,10 @@
 //! Various traits used to restrict intrinsics to not-completely-wrong types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits تحصر الدوال الداخلية (intrinsics) في أنواع مناسبة.
+//!
+//! </div>
 
 use crate::marker::PointeeSized;
 
@@ -7,6 +13,12 @@ use crate::marker::PointeeSized;
 ///
 /// # Safety
 /// Must actually *be* such a type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي لها عامل إلغاء مرجعية مدمج: المراجع والمؤشرات الخام.
+///
+/// </div>
 pub unsafe trait BuiltinDeref: Sized {
     type Pointee: PointeeSized;
 }
@@ -44,6 +56,12 @@ impl<T: PointeeSized, U: PointeeSized> ChangePointee<U> for *const T {
 ///
 /// # Safety
 /// Must actually *be* such a type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع العشرية المدمجة (f16 وf32 وf64 وf128).
+///
+/// </div>
 pub unsafe trait FloatPrimitive: Sized + Copy {
     type UInt: const core::ops::BitOr<Output = Self::UInt>
         + const core::ops::BitAnd<Output = Self::UInt>
@@ -111,6 +129,12 @@ unsafe impl FloatPrimitive for f128 {
 ///
 /// # Safety
 /// Must actually *be* such a type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع الصحيحة المدمجة (i8 وi16 .. i128 وisize وu8 .. u128 وusize).
+///
+/// </div>
 #[rustc_const_unstable(feature = "core_intrinsics", issue = "none")]
 pub const unsafe trait IntegerPrimitive: Copy + [const] Ord {}
 

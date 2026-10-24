@@ -1,4 +1,10 @@
 //! impl bool {}
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال النوع `bool`.
+//!
+//! </div>
 
 use crate::marker::Destruct;
 
@@ -30,6 +36,12 @@ impl bool {
     /// // evaluated eagerly.
     /// assert_eq!(a, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(t)` إذا كان الـ `bool` يساوي `true`، وإلا `None`.
+    ///
+    /// </div>
     #[stable(feature = "bool_to_option", since = "1.62.0")]
     #[rustc_const_unstable(feature = "const_bool", issue = "151531")]
     #[inline]
@@ -57,6 +69,12 @@ impl bool {
     /// // `then`.
     /// assert_eq!(a, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(f())` إذا كان الـ `bool` يساوي `true`، وإلا `None`.
+    ///
+    /// </div>
     #[doc(alias = "then_with")]
     #[stable(feature = "lazy_bool_to_option", since = "1.50.0")]
     #[rustc_diagnostic_item = "bool_then"]
@@ -93,6 +111,12 @@ impl bool {
     /// // evaluated eagerly.
     /// assert_eq!(a, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Ok(())` إذا كان الـ `bool` يساوي `true`، وإلا `Err(err)`.
+    ///
+    /// </div>
     #[stable(feature = "bool_to_result", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_bool", issue = "151531")]
     #[inline]
@@ -120,6 +144,12 @@ impl bool {
     /// // `ok_or_else`.
     /// assert_eq!(a, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Ok(())` إذا كان الـ `bool` يساوي `true`، وإلا `Err(f())`.
+    ///
+    /// </div>
     #[stable(feature = "bool_to_result", since = "1.98.0")]
     #[rustc_const_unstable(feature = "const_bool", issue = "151531")]
     #[inline]
@@ -151,6 +181,12 @@ impl bool {
     ///
     /// [`true`]: ../std/keyword.true.html
     /// [`false`]: ../std/keyword.false.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب قيمة `self` في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "bool_toggle", since = "1.100.0")]
     #[rustc_const_stable(feature = "bool_toggle", since = "1.100.0")]
     #[inline]

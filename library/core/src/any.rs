@@ -146,6 +146,12 @@ pub trait Any: 'static {
     /// assert_eq!(is_string(&0), false);
     /// assert_eq!(is_string(&"cookie monster".to_string()), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الـ `TypeId` الخاص بـ `self`.
+    ///
+    /// </div>
     #[stable(feature = "get_type_id", since = "1.34.0")]
     fn type_id(&self) -> TypeId;
 }
@@ -323,6 +329,12 @@ impl dyn Any {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة الداخلية كنوع `dyn T`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_ref<T: Any>(&self) -> &T {
@@ -353,6 +365,12 @@ impl dyn Any {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الداخلية كنوع `dyn T`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_mut<T: Any>(&mut self) -> &mut T {
@@ -381,6 +399,12 @@ impl dyn Any + Send {
     /// is_string(&0);
     /// is_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `dyn Any`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn is<T: Any>(&self) -> bool {
@@ -405,6 +429,12 @@ impl dyn Any + Send {
     /// print_if_string(&0);
     /// print_if_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `dyn Any`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn downcast_ref<T: Any>(&self) -> Option<&T> {
@@ -433,6 +463,12 @@ impl dyn Any + Send {
     /// assert_eq!(x, 42);
     /// assert_eq!(&s, "starlord");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `dyn Any`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn downcast_mut<T: Any>(&mut self) -> Option<&mut T> {
@@ -459,6 +495,12 @@ impl dyn Any + Send {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `dyn Any`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_ref<T: Any>(&self) -> &T {
@@ -488,6 +530,12 @@ impl dyn Any + Send {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `dyn Any`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_mut<T: Any>(&mut self) -> &mut T {
@@ -515,6 +563,12 @@ impl dyn Any + Send + Sync {
     /// is_string(&0);
     /// is_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `Any`.
+    ///
+    /// </div>
     #[stable(feature = "any_send_sync_methods", since = "1.28.0")]
     #[inline]
     pub fn is<T: Any>(&self) -> bool {
@@ -539,6 +593,12 @@ impl dyn Any + Send + Sync {
     /// print_if_string(&0);
     /// print_if_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `Any`.
+    ///
+    /// </div>
     #[stable(feature = "any_send_sync_methods", since = "1.28.0")]
     #[inline]
     pub fn downcast_ref<T: Any>(&self) -> Option<&T> {
@@ -567,6 +627,12 @@ impl dyn Any + Send + Sync {
     /// assert_eq!(x, 42);
     /// assert_eq!(&s, "starlord");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `Any`.
+    ///
+    /// </div>
     #[stable(feature = "any_send_sync_methods", since = "1.28.0")]
     #[inline]
     pub fn downcast_mut<T: Any>(&mut self) -> Option<&mut T> {
@@ -592,6 +658,12 @@ impl dyn Any + Send + Sync {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `Any`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_ref<T: Any>(&self) -> &T {
@@ -620,6 +692,12 @@ impl dyn Any + Send + Sync {
     ///
     /// The contained value must be of type `T`. Calling this method
     /// with the incorrect type is *undefined behavior*.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرّفة على النوع `Any`.
+    ///
+    /// </div>
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     #[inline]
     pub unsafe fn downcast_unchecked_mut<T: Any>(&mut self) -> &mut T {
@@ -748,6 +826,12 @@ impl dyn Any + Send + Sync {
 ///     std::mem::forget(fake_one_ring);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `TypeId` معرّف فريد عالميًا لنوع.
+///
+/// </div>
 #[derive(Copy, PartialOrd, Ord)]
 #[derive_const(Clone, Eq)]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -792,6 +876,12 @@ impl TypeId {
     /// assert_eq!(is_string(&0), false);
     /// assert_eq!(is_string(&"cookie monster".to_string()), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الـ `TypeId` لمعامل النوع العام.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_type_id", since = "1.91.0")]
@@ -814,6 +904,13 @@ impl TypeId {
     /// assert!(const { TypeId::of::<u8>().trait_info_of::<dyn Blah>() }.is_some());
     /// assert!(const { TypeId::of::<u16>().trait_info_of::<dyn Blah>() }.is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل الـ `TypeId` يطبّق الـ trait؛ إذا كان كذلك يرجع `TraitImpl` يمكن استخدامه لبناء
+    /// مؤشر عريض.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -838,6 +935,13 @@ impl TypeId {
     /// assert!(const { TypeId::of::<u8>().trait_info_of_trait_type_id(TypeId::of::<dyn Blah>()) }.is_some());
     /// assert!(const { TypeId::of::<u16>().trait_info_of_trait_type_id(TypeId::of::<dyn Blah>()) }.is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل الـ `TypeId` يطبّق الـ trait الممثَّل بـ `trait_represented_by_type_id`، ويرجع
+    /// `TraitImpl` إن كان كذلك.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -930,6 +1034,12 @@ impl fmt::Debug for TypeId {
 ///     "core::option::Option<alloc::string::String>",
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع اسم نوع كشريحة نص.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "type_name", since = "1.38.0")]
 #[rustc_const_unstable(feature = "const_type_name", issue = "63084")]
@@ -970,6 +1080,12 @@ pub const fn type_name<T: ?Sized>() -> &'static str {
 /// assert!(type_name_of_val(&x).contains("i32"));
 /// assert!(type_name_of_val(&y).contains("f32"));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع اسم نوع القيمة المشار إليها كشريحة نص.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "type_name_of_val", since = "1.76.0")]
 #[rustc_const_unstable(feature = "const_type_name", issue = "63084")]
@@ -988,6 +1104,12 @@ pub const fn type_name_of_val<T: ?Sized>(_val: &T) -> &'static str {
 /// if they are all necessary. We may be able to lift some requirements in favor
 /// of more precise ones.
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يُطبَّق تلقائيًا لكل `dyn Trait<'b, C> + 'a` بدون قيود على الأنواع المرتبطة.
+///
+/// </div>
 #[unstable(feature = "try_as_dyn", issue = "144361")]
 #[lang = "try_as_dyn"]
 #[rustc_deny_explicit_impl]
@@ -1179,6 +1301,12 @@ pub trait TryAsDynCompatible<'a>: ptr::Pointee<Metadata = ptr::DynMetadata<Self>
 /// // The current implementation of try_as_dyn gives a false positive in this case!
 /// debug_println(&"Hello, world!" as &dyn Debug);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `Some(&U)` إذا أمكن تحويل `T` إلى نوع الـ trait الديناميكي `U`، وإلا `None`.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "try_as_dyn", issue = "144361")]
 pub const fn try_as_dyn<'a, T: ?Sized + 'a, U: TryAsDynCompatible<'a> + ?Sized>(
@@ -1205,6 +1333,12 @@ pub const fn try_as_dyn<'a, T: ?Sized + 'a, U: TryAsDynCompatible<'a> + ?Sized>(
 /// Returns `Some(&mut U)` if `T` can be coerced to the dyn trait type `U`. Otherwise, it returns `None`.
 ///
 /// See documentation of [try_as_dyn] for details about the behaviour and limitations.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `Some(&mut U)` إذا أمكن تحويل `T` إلى نوع الـ trait الديناميكي `U`، وإلا `None`.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "try_as_dyn", issue = "144361")]
 pub const fn try_as_dyn_mut<'a, T: ?Sized + 'a, U: TryAsDynCompatible<'a> + ?Sized>(

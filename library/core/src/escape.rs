@@ -1,4 +1,10 @@
 //! Helper code for character escaping.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! كود مساعد لتهريب الحروف.
+//!
+//! </div>
 
 use crate::ascii;
 use crate::fmt::{self, Write};

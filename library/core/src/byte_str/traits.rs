@@ -1,4 +1,10 @@
 //! Trait implementations for `ByteStr`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيقات الـ traits لـ `ByteStr`.
+//!
+//! </div>
 
 use crate::byte_str::ByteStr;
 use crate::cmp::Ordering;

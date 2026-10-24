@@ -1,4 +1,10 @@
 //! Unstable module containing the unstable contracts lang items and attribute macros.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة غير مستقرة فيها عناصر اللغة وماكروهات الخصائص الخاصة بالعقود (contracts).
+//!
+//! </div>
 
 pub use crate::macros::builtin::{contracts_ensures as ensures, contracts_requires as requires};
 
@@ -10,6 +16,12 @@ pub use crate::macros::builtin::{contracts_ensures as ensures, contracts_require
 /// Ideally, rustc should be able to generate the type annotation.
 /// The existing lowering logic makes it rather hard to add the explicit type annotation,
 /// while the function call is fairly straight forward.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دالة هوية تُستخدم عند فك الخاصية `#[ensures]`.
+///
+/// </div>
 #[unstable(feature = "contracts_internals", issue = "128044" /* compiler-team#759 */)]
 // Similar to `contract_check_requires`, we need to use the user-facing
 // `contracts` feature rather than the perma-unstable `contracts_internals`.
