@@ -246,6 +246,12 @@
 //! [`LazyLock<T, F>`]: ../../std/sync/struct.LazyLock.html
 //! [`Sync`]: ../../std/marker/trait.Sync.html
 //! [`atomic`]: crate::sync::atomic
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! حاويات قابلة للتعديل يمكن مشاركتها (قابلية التعديل الداخلية: `Cell` و`RefCell`).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -308,6 +314,12 @@ pub use once::OnceCell;
 /// ```
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// موضع ذاكرة قابل للتعديل حتى عبر مرجع مشترك (للقيم التي تُنسخ).
+///
+/// </div>
 #[rustc_diagnostic_item = "Cell"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[repr(transparent)]
@@ -411,6 +423,12 @@ impl<T> Cell<T> {
     ///
     /// let c = Cell::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Cell` جديدًا يحتوي القيمة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_cell_new", since = "1.24.0")]
     #[inline]
@@ -468,6 +486,12 @@ impl<T> Cell<T> {
     /// assert_eq!(10, c1.get());
     /// assert_eq!(5, c2.get());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل قيمتي `Cell` اثنين.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "move_cell", since = "1.17.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -511,6 +535,12 @@ impl<T> Cell<T> {
     /// assert_eq!(cell.replace(10), 5);
     /// assert_eq!(cell.get(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة بـ `val`، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "move_cell", since = "1.17.0")]
     #[rustc_const_stable(feature = "const_cell", since = "1.88.0")]
@@ -534,6 +564,12 @@ impl<T> Cell<T> {
     ///
     /// assert_eq!(five, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة ويستهلك الخلية.
+    ///
+    /// </div>
     #[stable(feature = "move_cell", since = "1.17.0")]
     #[rustc_const_stable(feature = "const_cell_into_inner", since = "1.83.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -613,6 +649,12 @@ impl<T: ?Sized> Cell<T> {
     ///
     /// let ptr = c.as_ptr();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى البيانات في هذه الخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cell_as_ptr", since = "1.12.0")]
     #[rustc_const_stable(feature = "const_cell_as_ptr", since = "1.32.0")]
@@ -670,6 +712,12 @@ impl<T: ?Sized> Cell<T> {
     ///
     /// assert_eq!(slice_cell.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `&Cell<T>` من `&mut T`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "as_cell", since = "1.37.0")]
     #[rustc_const_stable(feature = "const_cell", since = "1.88.0")]
@@ -693,6 +741,12 @@ impl<T: Default> Cell<T> {
     /// assert_eq!(five, 5);
     /// assert_eq!(c.into_inner(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ قيمة الخلية، ويترك `Default::default()` مكانها.
+    ///
+    /// </div>
     #[stable(feature = "move_cell", since = "1.17.0")]
     #[rustc_const_unstable(feature = "const_cell_traits", issue = "147787")]
     pub const fn take(&self) -> T
@@ -754,6 +808,12 @@ impl<T> Cell<[T]> {
     ///
     /// assert_eq!(slice_cell.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `&[Cell<T>]` من `&Cell<[T]>`.
+    ///
+    /// </div>
     #[stable(feature = "as_cell", since = "1.37.0")]
     #[rustc_const_stable(feature = "const_cell", since = "1.88.0")]
     pub const fn as_slice_of_cells(&self) -> &[Cell<T>] {
@@ -774,6 +834,12 @@ impl<T, const N: usize> Cell<[T; N]> {
     /// let cell_array: &Cell<[i32; 3]> = Cell::from_mut(&mut array);
     /// let array_cell: &[Cell<i32>; 3] = cell_array.as_array_of_cells();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `&[Cell<T>; N]` من `&Cell<[T; N]>`.
+    ///
+    /// </div>
     #[stable(feature = "as_array_of_cells", since = "1.91.0")]
     #[rustc_const_stable(feature = "as_array_of_cells", since = "1.91.0")]
     pub const fn as_array_of_cells(&self) -> &[Cell<T>; N] {
@@ -820,6 +886,12 @@ impl<T, const N: usize> Cell<[T; N]> {
 /// // this is not sound
 /// // unsafe impl CloneFromCell for Bad<'_> {}
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يكون استنساخ `Cell<Self>` لها آمنًا.
+///
+/// </div>
 #[unstable(feature = "cell_get_cloned", issue = "145329")]
 // Allow potential overlapping implementations in user code
 #[marker]
@@ -862,6 +934,12 @@ impl<T: CloneFromCell> Cell<T> {
     /// let c2 = c1.get_cloned();
     /// assert_eq!(*c2.into_inner(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة الموجودة في الـ `Cell`.
+    ///
+    /// </div>
     pub fn get_cloned(&self) -> Self {
         // SAFETY: T is CloneFromCell, which guarantees that this is sound.
         Cell::new(T::clone(unsafe { &*self.as_ptr() }))
@@ -871,6 +949,12 @@ impl<T: CloneFromCell> Cell<T> {
 /// A mutable memory location with dynamically checked borrow rules
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// موضع ذاكرة قابل للتعديل مع فحص قواعد الاستعارة وقت التشغيل.
+///
+/// </div>
 #[rustc_diagnostic_item = "RefCell"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct RefCell<#[rustc_assert_variance(invariant)] T: ?Sized> {
@@ -885,6 +969,12 @@ pub struct RefCell<#[rustc_assert_variance(invariant)] T: ?Sized> {
 }
 
 /// An error returned by [`RefCell::try_borrow`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `RefCell::try_borrow`.
+///
+/// </div>
 #[stable(feature = "try_borrow", since = "1.13.0")]
 #[non_exhaustive]
 #[derive(Debug)]
@@ -911,6 +1001,12 @@ impl Display for BorrowError {
 }
 
 /// An error returned by [`RefCell::try_borrow_mut`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `RefCell::try_borrow_mut`.
+///
+/// </div>
 #[stable(feature = "try_borrow", since = "1.13.0")]
 #[non_exhaustive]
 #[derive(Debug)]
@@ -992,6 +1088,12 @@ impl<T> RefCell<T> {
     ///
     /// let c = RefCell::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RefCell` جديدًا يحتوي `value`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_refcell_new", since = "1.24.0")]
     #[inline]
@@ -1015,6 +1117,12 @@ impl<T> RefCell<T> {
     ///
     /// let five = c.into_inner();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `RefCell` ويرجع القيمة التي بداخله.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_cell_into_inner", since = "1.83.0")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
@@ -1043,6 +1151,12 @@ impl<T> RefCell<T> {
     /// assert_eq!(old_value, 5);
     /// assert_eq!(cell, RefCell::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة بقيمة جديدة، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "refcell_replace", since = "1.24.0")]
     #[track_caller]
@@ -1069,6 +1183,12 @@ impl<T> RefCell<T> {
     /// assert_eq!(old_value, 5);
     /// assert_eq!(cell, RefCell::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة بقيمة جديدة يحسبها `f`، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "refcell_replace_swap", since = "1.35.0")]
     #[track_caller]
@@ -1099,6 +1219,12 @@ impl<T> RefCell<T> {
     /// assert_eq!(c, RefCell::new(6));
     /// assert_eq!(d, RefCell::new(5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل قيمة `self` بقيمة `other`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "refcell_swap", since = "1.24.0")]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
@@ -1140,6 +1266,12 @@ impl<T: ?Sized> RefCell<T> {
     /// let m = c.borrow_mut();
     /// let b = c.borrow(); // this causes a panic
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير القيمة للقراءة (يتوقف بـ panic إذا كانت مستعارة للتعديل).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[track_caller]
@@ -1177,6 +1309,12 @@ impl<T: ?Sized> RefCell<T> {
     ///     assert!(c.try_borrow().is_ok());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير القيمة للقراءة، ويرجع خطأً إذا كانت مستعارة للتعديل حاليًا.
+    ///
+    /// </div>
     #[stable(feature = "try_borrow", since = "1.13.0")]
     #[inline]
     #[cfg_attr(feature = "debug_refcell", track_caller)]
@@ -1240,6 +1378,12 @@ impl<T: ?Sized> RefCell<T> {
     ///
     /// let b = c.borrow_mut(); // this causes a panic
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير القيمة للتعديل (يتوقف بـ panic إذا كانت مستعارة).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[track_caller]
@@ -1274,6 +1418,12 @@ impl<T: ?Sized> RefCell<T> {
     ///
     /// assert!(c.try_borrow_mut().is_ok());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير القيمة للتعديل، ويرجع خطأً إذا كانت مستعارة حاليًا.
+    ///
+    /// </div>
     #[stable(feature = "try_borrow", since = "1.13.0")]
     #[inline]
     #[cfg_attr(feature = "debug_refcell", track_caller)]
@@ -1311,6 +1461,12 @@ impl<T: ?Sized> RefCell<T> {
     ///
     /// let ptr = c.as_ptr();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى البيانات في هذه الخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cell_as_ptr", since = "1.12.0")]
     #[rustc_as_ptr]
@@ -1385,6 +1541,12 @@ impl<T: ?Sized> RefCell<T> {
     /// c.undo_leak();
     /// assert!(c.try_borrow().is_ok());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يلغي أثر الحراس المتروكة (leaked) على حالة الاستعارة في الـ `RefCell`.
+    ///
+    /// </div>
     #[unstable(feature = "cell_leak", issue = "69099")]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
     pub const fn undo_leak(&mut self) -> &mut T {
@@ -1419,6 +1581,12 @@ impl<T: ?Sized> RefCell<T> {
     ///     assert!(unsafe { c.try_borrow_unguarded() }.is_ok());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير القيمة للقراءة، ويرجع خطأً إذا كانت مستعارة للتعديل حاليًا.
+    ///
+    /// </div>
     #[stable(feature = "borrow_state", since = "1.37.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
@@ -1459,6 +1627,12 @@ impl<T: Default> RefCell<T> {
     /// assert_eq!(five, 5);
     /// assert_eq!(c.into_inner(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة، ويترك `Default::default()` مكانها.
+    ///
+    /// </div>
     #[stable(feature = "refcell_take", since = "1.50.0")]
     pub fn take(&self) -> T {
         self.replace(Default::default())
@@ -1641,6 +1815,12 @@ const impl Clone for BorrowRef<'_> {
 /// A wrapper type for an immutably borrowed value from a `RefCell<T>`.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغلّف مرجعًا مستعارًا للقراءة إلى قيمة في `RefCell<T>`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_not_suspend = "holding a Ref across suspend points can cause BorrowErrors"]
 #[rustc_diagnostic_item = "RefCellRef"]
@@ -1676,6 +1856,12 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// `Ref::clone(...)`. A `Clone` implementation or a method would interfere
     /// with the widespread use of `r.borrow().clone()` to clone the contents of
     /// a `RefCell`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ `Ref`.
+    ///
+    /// </div>
     #[stable(feature = "cell_extras", since = "1.15.0")]
     #[must_use]
     #[inline]
@@ -1702,6 +1888,12 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// let b2: Ref<'_, u32> = Ref::map(b1, |t| &t.0);
     /// assert_eq!(*b2, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ref` جديدًا لجزء من البيانات المستعارة.
+    ///
+    /// </div>
     #[stable(feature = "cell_map", since = "1.8.0")]
     #[inline]
     pub fn map<U: ?Sized, F>(orig: Ref<'b, T>, f: F) -> Ref<'b, U>
@@ -1731,6 +1923,13 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// let b2: Result<Ref<'_, u32>, _> = Ref::filter_map(b1, |v| v.get(1));
     /// assert_eq!(*b2.unwrap(), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ref` جديدًا لجزء اختياري من البيانات. ويُرجع الحارس الأصلي كـ `Err(..)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[stable(feature = "cell_filter_map", since = "1.63.0")]
     #[inline]
     pub fn filter_map<U: ?Sized, F>(orig: Ref<'b, T>, f: F) -> Result<Ref<'b, U>, Self>
@@ -1772,6 +1971,12 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// assert_eq!(*b3, vec![0xF0, 0x9F, 0xA6]);
     /// assert_eq!(e.valid_up_to(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إنشاء `Ref` جديد لجزء من البيانات. عند الفشل يُرجع الحارس الأصلي مع الخطأ.
+    ///
+    /// </div>
     #[unstable(feature = "refcell_try_map", issue = "143801")]
     #[inline]
     pub fn try_map<U: ?Sized, E>(
@@ -1804,6 +2009,12 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// assert_eq!(*begin, [1, 2]);
     /// assert_eq!(*end, [3, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Ref` إلى عدة `Ref` لأجزاء مختلفة من البيانات المستعارة.
+    ///
+    /// </div>
     #[stable(feature = "refcell_map_split", since = "1.35.0")]
     #[inline]
     pub fn map_split<U: ?Sized, V: ?Sized, F>(orig: Ref<'b, T>, f: F) -> (Ref<'b, U>, Ref<'b, V>)
@@ -1842,6 +2053,12 @@ impl<'b, T: ?Sized> Ref<'b, T> {
     /// assert!(cell.try_borrow().is_ok());
     /// assert!(cell.try_borrow_mut().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّله إلى مرجع إلى البيانات الأساسية (ويبقى مستعارًا للأبد).
+    ///
+    /// </div>
     #[unstable(feature = "cell_leak", issue = "69099")]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
     pub const fn leak(orig: Ref<'b, T>) -> &'b T {
@@ -1889,6 +2106,12 @@ impl<'b, T: ?Sized> RefMut<'b, T> {
     /// }
     /// assert_eq!(*c.borrow(), (42, 'b'));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RefMut` جديدًا لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[stable(feature = "cell_map", since = "1.8.0")]
     #[inline]
     pub fn map<U: ?Sized, F>(mut orig: RefMut<'b, T>, f: F) -> RefMut<'b, U>
@@ -1927,6 +2150,13 @@ impl<'b, T: ?Sized> RefMut<'b, T> {
     ///
     /// assert_eq!(*c.borrow(), vec![1, 4, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RefMut` جديدًا لجزء اختياري من البيانات. ويُرجع الحارس الأصلي كـ `Err(..)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[stable(feature = "cell_filter_map", since = "1.63.0")]
     #[inline]
     pub fn filter_map<U: ?Sized, F>(mut orig: RefMut<'b, T>, f: F) -> Result<RefMut<'b, U>, Self>
@@ -1979,6 +2209,12 @@ impl<'b, T: ?Sized> RefMut<'b, T> {
     /// assert_eq!(*b3, vec![0xFF]);
     /// assert_eq!(e.valid_up_to(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إنشاء `RefMut` جديد لجزء من البيانات. عند الفشل يُرجع الحارس الأصلي مع الخطأ.
+    ///
+    /// </div>
     #[unstable(feature = "refcell_try_map", issue = "143801")]
     #[inline]
     pub fn try_map<U: ?Sized, E>(
@@ -2022,6 +2258,12 @@ impl<'b, T: ?Sized> RefMut<'b, T> {
     /// begin.copy_from_slice(&[4, 3]);
     /// end.copy_from_slice(&[2, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `RefMut` إلى عدة `RefMut` لأجزاء مختلفة من البيانات المستعارة.
+    ///
+    /// </div>
     #[stable(feature = "refcell_map_split", since = "1.35.0")]
     #[inline]
     pub fn map_split<U: ?Sized, V: ?Sized, F>(
@@ -2061,6 +2303,12 @@ impl<'b, T: ?Sized> RefMut<'b, T> {
     ///
     /// assert!(cell.try_borrow_mut().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّله إلى مرجع قابل للتعديل إلى البيانات الأساسية.
+    ///
+    /// </div>
     #[unstable(feature = "cell_leak", issue = "69099")]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
     pub const fn leak(mut orig: RefMut<'b, T>) -> &'b mut T {
@@ -2124,6 +2372,12 @@ impl<'b> BorrowRefMut<'b> {
 /// A wrapper type for a mutably borrowed value from a `RefCell<T>`.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع غلاف لقيمة مستعارة للتعديل من `RefCell<T>`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_not_suspend = "holding a RefMut across suspend points can cause BorrowErrors"]
 #[rustc_diagnostic_item = "RefCellRefMut"]
@@ -2334,6 +2588,12 @@ impl<T: ?Sized + fmt::Display> fmt::Display for RefMut<'_, T> {
 /// let contents: i32 = x.into_inner();
 /// assert_eq!(contents, 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأداة الأساسية لقابلية التعديل الداخلية في Rust.
+///
+/// </div>
 #[lang = "unsafe_cell"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[repr(transparent)]
@@ -2358,6 +2618,12 @@ impl<T> UnsafeCell<T> {
     ///
     /// let uc = UnsafeCell::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnsafeCell` جديدًا يغلّف القيمة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_unsafe_cell_new", since = "1.32.0")]
     #[inline(always)]
@@ -2376,6 +2642,12 @@ impl<T> UnsafeCell<T> {
     ///
     /// let five = uc.into_inner();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة ويستهلك الخلية.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_cell_into_inner", since = "1.83.0")]
@@ -2405,6 +2677,12 @@ impl<T> UnsafeCell<T> {
     /// let old = unsafe { uc.replace(10) };
     /// assert_eq!(old, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة في هذا الـ `UnsafeCell` ويرجع القيمة القديمة (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "unsafe_cell_access", since = "1.100.0")]
     #[rustc_const_stable(feature = "unsafe_cell_access", since = "1.100.0")]
@@ -2429,6 +2707,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     /// *uc.get_mut() -= 1;
     /// assert_eq!(*uc.get_mut(), 41);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&mut T` إلى `&mut UnsafeCell<T>`.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "unsafe_cell_from_mut", since = "1.84.0")]
     #[rustc_const_stable(feature = "unsafe_cell_from_mut", since = "1.84.0")]
@@ -2455,6 +2739,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     ///
     /// let five = uc.get();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_unsafecell_get", since = "1.32.0")]
@@ -2524,6 +2814,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     ///
     /// assert_eq!(uc.into_inner(), 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة، ويقبل مؤشرًا خامًا بدل مرجع.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "unsafe_cell_raw_get", since = "1.56.0")]
     #[rustc_const_stable(feature = "unsafe_cell_raw_get", since = "1.56.0")]
@@ -2553,6 +2849,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     /// let val = unsafe { uc.as_ref_unchecked() };
     /// assert_eq!(val, &5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة داخل الـ `UnsafeCell` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "unsafe_cell_access", since = "1.100.0")]
     #[rustc_const_stable(feature = "unsafe_cell_access", since = "1.100.0")]
@@ -2581,6 +2883,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     /// unsafe { *uc.as_mut_unchecked() += 1; }
     /// assert_eq!(uc.into_inner(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا حصريًا إلى القيمة داخل الـ `UnsafeCell` (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "unsafe_cell_access", since = "1.100.0")]
     #[rustc_const_stable(feature = "unsafe_cell_access", since = "1.100.0")]
@@ -2635,6 +2943,12 @@ impl<T: DispatchFromDyn<U>, U> DispatchFromDyn<UnsafeCell<U>> for UnsafeCell<T> 
 /// making this type just as unsafe to use.
 ///
 /// See [`UnsafeCell`] for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `UnsafeCell`، لكنه `Sync`.
+///
+/// </div>
 #[unstable(feature = "sync_unsafe_cell", issue = "95439")]
 #[repr(transparent)]
 #[rustc_diagnostic_item = "SyncUnsafeCell"]
@@ -2649,12 +2963,24 @@ unsafe impl<T: ?Sized + Sync> Sync for SyncUnsafeCell<T> {}
 #[unstable(feature = "sync_unsafe_cell", issue = "95439")]
 impl<T> SyncUnsafeCell<T> {
     /// Constructs a new instance of `SyncUnsafeCell` which will wrap the specified value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `SyncUnsafeCell` جديدًا يغلّف القيمة المحددة.
+    ///
+    /// </div>
     #[inline]
     pub const fn new(value: T) -> Self {
         Self { value: UnsafeCell { value } }
     }
 
     /// Unwraps the value, consuming the cell.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة ويستهلك الخلية.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_unstable(feature = "sync_unsafe_cell", issue = "95439")]
     pub const fn into_inner(self) -> T {
@@ -2670,6 +2996,12 @@ impl<T: ?Sized> SyncUnsafeCell<T> {
     /// Ensure that the access is unique (no active references, mutable or not)
     /// when casting to `&mut T`, and ensure that there are no mutations
     /// or mutable aliases going on when casting to `&T`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة.
+    ///
+    /// </div>
     #[inline]
     #[rustc_as_ptr]
     #[rustc_never_returns_null_ptr]
@@ -2696,6 +3028,12 @@ impl<T: ?Sized> SyncUnsafeCell<T> {
     /// Gets a mutable pointer to the wrapped value.
     ///
     /// See [`UnsafeCell::get`] for details.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة.
+    ///
+    /// </div>
     #[inline]
     pub const fn raw_get(this: *const Self) -> *mut T {
         // We can just cast the pointer from `SyncUnsafeCell<T>` to `T` because

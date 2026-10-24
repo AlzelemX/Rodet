@@ -158,6 +158,12 @@
 //! [`collect`]: crate::iter::Iterator::collect "iter::Iterator::collect"
 //! [windows.OsStringExt]: crate::os::windows::ffi::OsStringExt "os::windows::ffi::OsStringExt"
 //! [`from_wide`]: crate::os::windows::ffi::OsStringExt::from_wide "os::windows::ffi::OsStringExt::from_wide"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات متعلقة بالربط مع لغات أخرى (FFI).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

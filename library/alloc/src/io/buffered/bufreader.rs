@@ -50,6 +50,12 @@ use crate::vec::Vec;
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `BufReader<R>` يضيف مخزنًا مؤقتًا لأي قارئ (أسرع عند القراءات الصغيرة الكثيرة).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoBufReader")]
 pub struct BufReader<R: ?Sized> {
@@ -73,6 +79,12 @@ impl<R: Read> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BufReader<R>` جديدًا بسعة المخزن الافتراضية (حاليًا 8 KiB).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn new(inner: R) -> BufReader<R> {
@@ -106,6 +118,12 @@ impl<R: Read> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BufReader<R>` جديدًا بسعة المخزن المحددة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn with_capacity(capacity: usize, inner: R) -> BufReader<R> {
@@ -143,6 +161,12 @@ impl<R: Read + ?Sized> BufReader<R> {
     /// assert_eq!(&s, "hello there");
     /// assert_eq!(rdr.peek(1).unwrap().len(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول النظر إلى `n` بايت قادمة.
+    ///
+    /// </div>
     #[unstable(feature = "bufreader_peek", issue = "128405")]
     pub fn peek(&mut self, n: usize) -> io::Result<&[u8]> {
         assert!(n <= self.capacity());
@@ -180,6 +204,12 @@ impl<R: ?Sized> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القارئ الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_ref(&self) -> &R {
         &self.inner
@@ -203,6 +233,12 @@ impl<R: ?Sized> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القارئ الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self) -> &mut R {
         &mut self.inner
@@ -231,6 +267,12 @@ impl<R: ?Sized> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى البيانات المخزنة داخليًا.
+    ///
+    /// </div>
     #[stable(feature = "bufreader_buffer", since = "1.37.0")]
     pub fn buffer(&self) -> &[u8] {
         self.buf.buffer()
@@ -254,6 +296,12 @@ impl<R: ?Sized> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات التي يتسع لها المخزن الداخلي دفعة واحدة.
+    ///
+    /// </div>
     #[stable(feature = "buffered_io_capacity", since = "1.46.0")]
     pub fn capacity(&self) -> usize {
         self.buf.capacity()
@@ -278,6 +326,12 @@ impl<R: ?Sized> BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك هذا الـ `BufReader<R>` ويرجع القارئ الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_inner(self) -> R
     where
@@ -310,6 +364,12 @@ impl<R: ?Sized + Seek> BufReader<R> {
     /// the buffer will not be flushed, allowing for more efficient seeks.
     /// This method does not return the location of the underlying reader, so the caller
     /// must track this information themselves if it is required.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل نسبةً للموضع الحالي؛ إذا كان الموضع الجديد داخل المخزن لا يُفرَّغ المخزن.
+    ///
+    /// </div>
     #[stable(feature = "bufreader_seek_relative", since = "1.53.0")]
     pub fn seek_relative(&mut self, offset: i64) -> io::Result<()> {
         let pos = self.buf.pos() as u64;
@@ -532,6 +592,12 @@ impl<R: ?Sized + Seek> Seek for BufReader<R> {
     /// have if you called `seek` with <code>[SeekFrom::Current]\(0)</code>.
     ///
     /// [`std::io::Seek`]: Seek
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع (بالبايتات) في القارئ الأساسي.
+    ///
+    /// </div>
     fn seek(&mut self, pos: SeekFrom) -> io::Result<u64> {
         let result: u64;
         if let SeekFrom::Current(n) = pos {
@@ -592,6 +658,12 @@ impl<R: ?Sized + Seek> Seek for BufReader<R> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع الحالي من بداية المجرى.
+    ///
+    /// </div>
     fn stream_position(&mut self) -> io::Result<u64> {
         let remainder = (self.buf.filled() - self.buf.pos()) as u64;
         self.inner.stream_position().map(|pos| {
@@ -607,6 +679,12 @@ impl<R: ?Sized + Seek> Seek for BufReader<R> {
     /// flushed, allowing for more efficient seeks. This method does not return
     /// the location of the underlying reader, so the caller must track this
     /// information themselves if it is required.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل نسبةً للموضع الحالي.
+    ///
+    /// </div>
     fn seek_relative(&mut self, offset: i64) -> io::Result<()> {
         self.seek_relative(offset)
     }

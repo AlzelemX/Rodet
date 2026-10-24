@@ -1,6 +1,12 @@
 //! Based on
 //! <https://github.com/matthieu-m/rfc2580/blob/b58d1d3cba0d4b5e859d3617ea2d0943aaa31329/examples/thin.rs>
 //! by matthieu-m
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مبني على مثال thin.rs من RFC 2580.
+//!
+//! </div>
 
 use core::error::Error;
 use core::fmt::{self, Debug, Display, Formatter};
@@ -34,6 +40,12 @@ use crate::alloc::{self, Layout, LayoutError};
 /// assert_eq!(size_of_ptr, size_of_val(&five));
 /// assert_eq!(size_of_ptr, size_of_val(&thin_slice));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `ThinBox`: مؤشر رفيع إلى قيمة في الـ heap.
+///
+/// </div>
 #[unstable(feature = "thin_box", issue = "92791")]
 pub struct ThinBox<T: ?Sized> {
     // This is essentially `WithHeader<<T as Pointee>::Metadata>`,
@@ -43,10 +55,22 @@ pub struct ThinBox<T: ?Sized> {
 }
 
 /// `ThinBox<T>` is `Send` if `T` is `Send` because the data is owned.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `ThinBox<T>` يكون `Send` إذا كان `T` هو `Send` لأن البيانات مملوكة.
+///
+/// </div>
 #[unstable(feature = "thin_box", issue = "92791")]
 unsafe impl<T: ?Sized + Send> Send for ThinBox<T> {}
 
 /// `ThinBox<T>` is `Sync` if `T` is `Sync` because the data is owned.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `ThinBox<T>` يكون `Sync` إذا كان `T` هو `Sync` لأن البيانات مملوكة.
+///
+/// </div>
 #[unstable(feature = "thin_box", issue = "92791")]
 unsafe impl<T: ?Sized + Sync> Sync for ThinBox<T> {}
 
@@ -65,6 +89,12 @@ impl<T> ThinBox<T> {
     /// ```
     ///
     /// [`Metadata`]: core::ptr::Pointee::Metadata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل قيمة إلى الـ heap ويخزن بياناتها الوصفية في الـ heap بدل المكدس.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     pub fn new(value: T) -> Self {
         let meta = ptr::metadata(&value);
@@ -86,6 +116,12 @@ impl<T> ThinBox<T> {
     /// ```
     ///
     /// [`Metadata`]: core::ptr::Pointee::Metadata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل قيمة إلى الـ heap ويخزن بياناتها الوصفية فيه، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     pub fn try_new(value: T) -> Result<Self, core::alloc::AllocError> {
         let meta = ptr::metadata(&value);
         WithOpaqueHeader::try_new(meta, value).map(|ptr| ThinBox { ptr, _marker: PhantomData })
@@ -107,6 +143,12 @@ impl<Dyn: ?Sized> ThinBox<Dyn> {
     /// ```
     ///
     /// [`Metadata`]: core::ptr::Pointee::Metadata
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل قيمة إلى الـ heap ويخزن بياناتها الوصفية في الـ heap بدل المكدس.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     pub fn new_unsize<T>(value: T) -> Self
     where

@@ -80,6 +80,12 @@
 //!     s.finish()
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم عام للتجزئة (hashing).
+//!
+//! </div>
 #![stable(feature = "rust1", since = "1.0.0")]
 
 pub(crate) mod random;

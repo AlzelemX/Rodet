@@ -1,4 +1,10 @@
 //! The `ByteStr` and `ByteString` types and trait implementations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الأنواع `ByteStr` و`ByteString` وتطبيقاتها.
+//!
+//! </div>
 
 // This could be more fine-grained.
 #![cfg(not(no_global_oom_handling))]
@@ -41,6 +47,12 @@ use crate::vec::Vec;
 ///
 /// The `Debug` and `Display` implementations for `ByteString` are the same as those for `ByteStr`,
 /// showing invalid UTF-8 as hex escapes or the Unicode replacement character, respectively.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف لـ `Vec<u8>` يمثل نصًا مقروءًا يكون عادةً (وليس دائمًا) UTF-8.
+///
+/// </div>
 #[unstable(feature = "byte_str", issue = "134915")]
 #[repr(transparent)]
 #[derive(Clone, Default)]
@@ -70,6 +82,12 @@ impl ByteString {
     /// implementation for types that implement `Display`, and the trait version
     /// will use the Unicode replacement character rather than returning a
     /// `Result` and allowing for the possibility of the content not being UTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول الحصول على `String` من `&ByteString` إذا كان UTF-8 صالحًا.
+    ///
+    /// </div>
     #[unstable(feature = "byte_str_to_string", issue = "134915")]
     #[rustc_allow_incoherent_impl]
     pub fn to_string(&self) -> Result<String, Utf8Error> {
@@ -698,6 +716,12 @@ impl ByteStr {
     /// implementation for types that implement `Display`, and the trait version
     /// will use the Unicode replacement character rather than returning a
     /// `Result` and allowing for the possibility of the content not being UTF-8.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول الحصول على `String` من `&ByteStr` إذا كان UTF-8 صالحًا.
+    ///
+    /// </div>
     #[unstable(feature = "byte_str_to_string", issue = "134915")]
     #[rustc_allow_incoherent_impl]
     pub fn to_string(&self) -> Result<String, Utf8Error> {

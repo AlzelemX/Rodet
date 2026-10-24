@@ -80,6 +80,12 @@ use crate::vec::Vec;
 /// [`read()`]: Read::read
 /// [`&str`]: prim@str
 /// [`std::io`]: crate::io
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الـ trait `Read` يسمح بقراءة البايتات من مصدر (ملف، شبكة، إدخال قياسي...).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(notable_trait)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoRead")]
@@ -163,6 +169,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يسحب بعض البايتات من هذا المصدر إلى المخزن المحدد، ويرجع عدد البايتات المقروءة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn read(&mut self, buf: &mut [u8]) -> Result<usize> {
         let mut buf = BorrowedBuf::from(buf);
@@ -197,6 +209,12 @@ pub trait Read {
     /// and coalesce writes into a single buffer for higher performance.
     ///
     /// The default implementation returns `false`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل لهذا القارئ تطبيق فعّال لـ `read_vectored`.
+    ///
+    /// </div>
     #[unstable(feature = "can_vector", issue = "69941")]
     fn is_read_vectored(&self) -> bool {
         false
@@ -292,6 +310,12 @@ pub trait Read {
     ///
     /// [`read`]: Read::read
     /// [`Vec::try_reserve`]: crate::vec::Vec::try_reserve
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ كل البايتات حتى نهاية الملف (EOF) ويضعها في `buf`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn read_to_end(&mut self, buf: &mut Vec<u8>) -> Result<usize> {
         default_read_to_end(self, buf, None)
@@ -344,6 +368,12 @@ pub trait Read {
     /// Using `.lines()` with a `BufReader` or using [`read`] can provide a better solution
     ///
     /// [`read`]: Read::read
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ كل البايتات حتى نهاية الملف (EOF) ويضيفها إلى النص `buf`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn read_to_string(&mut self, buf: &mut String) -> Result<usize> {
         default_read_to_string(self, buf, None)
@@ -398,6 +428,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ العدد المطلوب بالضبط من البايتات لملء `buf`.
+    ///
+    /// </div>
     #[stable(feature = "read_exact", since = "1.6.0")]
     fn read_exact(&mut self, buf: &mut [u8]) -> Result<()> {
         default_read_exact(self, buf)
@@ -411,6 +447,12 @@ pub trait Read {
     /// The default implementation delegates to `read`.
     ///
     /// This method makes it possible to return both data and an error but it is advised against.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يسحب بعض البايتات من هذا المصدر إلى المخزن المحدد.
+    ///
+    /// </div>
     #[unstable(feature = "read_buf", issue = "78485")]
     fn read_buf(&mut self, buf: BorrowedCursor<'_, u8>) -> Result<()> {
         default_read_buf(|b| self.read(b), buf)
@@ -437,6 +479,12 @@ pub trait Read {
     ///
     /// [`ErrorKind::Interrupted`]: crate::io::ErrorKind::Interrupted
     /// [`ErrorKind::UnexpectedEof`]: crate::io::ErrorKind::UnexpectedEof
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ العدد المطلوب بالضبط من البايتات لملء `cursor`.
+    ///
+    /// </div>
     #[unstable(feature = "read_buf", issue = "78485")]
     #[doc(alias("read_exact_buf"))]
     fn read_buf_exact(&mut self, cursor: BorrowedCursor<'_, u8>) -> Result<()> {
@@ -475,6 +523,12 @@ pub trait Read {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ محوّلًا "بالمرجع" لهذا القارئ.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn by_ref(&mut self) -> &mut Self
     where

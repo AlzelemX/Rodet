@@ -52,6 +52,12 @@ use crate::fmt::{self, Debug, Display, Formatter};
 ///
 /// impl Error for ReadConfigError {}
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Error` trait يمثل التوقعات الأساسية لقيم الأخطاء، أي `E` في `Result<T, E>`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Error"]
 #[rustc_has_incoherent_inherent_impls]
@@ -107,6 +113,12 @@ pub trait Error: Debug + Display {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المصدر الأدنى لهذا الخطأ، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "error_source", since = "1.30.0")]
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         None
@@ -255,6 +267,12 @@ pub trait Error: Debug + Display {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا حسب النوع لسياق مخصص لتقارير الأخطاء.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     #[allow(unused_variables)]
     fn provide<'a>(&'a self, request: &mut Request<'a>) {}
@@ -274,6 +292,12 @@ impl Error for ! {}
 // Copied from `any.rs`.
 impl dyn Error + 'static {
     /// Returns `true` if the inner type is the same as `T`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النوع الداخلي هو `T`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn is<T: Error + 'static>(&self) -> bool {
@@ -289,6 +313,12 @@ impl dyn Error + 'static {
 
     /// Returns some reference to the inner value if it is of type `T`, or
     /// `None` if it isn't.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة الداخلية إذا كانت من النوع `T`، أو `None`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_ref<T: Error + 'static>(&self) -> Option<&T> {
@@ -302,6 +332,12 @@ impl dyn Error + 'static {
 
     /// Returns some mutable reference to the inner value if it is of type `T`, or
     /// `None` if it isn't.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الداخلية إذا كانت من النوع `T`، أو `None`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_mut<T: Error + 'static>(&mut self) -> Option<&mut T> {
@@ -316,6 +352,12 @@ impl dyn Error + 'static {
 
 impl dyn Error + 'static + Send {
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn is<T: Error + 'static>(&self) -> bool {
@@ -323,6 +365,12 @@ impl dyn Error + 'static + Send {
     }
 
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_ref<T: Error + 'static>(&self) -> Option<&T> {
@@ -330,6 +378,12 @@ impl dyn Error + 'static + Send {
     }
 
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_mut<T: Error + 'static>(&mut self) -> Option<&mut T> {
@@ -339,6 +393,12 @@ impl dyn Error + 'static + Send {
 
 impl dyn Error + 'static + Send + Sync {
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn is<T: Error + 'static>(&self) -> bool {
@@ -346,6 +406,12 @@ impl dyn Error + 'static + Send + Sync {
     }
 
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_ref<T: Error + 'static>(&self) -> Option<&T> {
@@ -353,6 +419,12 @@ impl dyn Error + 'static + Send + Sync {
     }
 
     /// Forwards to the method defined on the type `dyn Error`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحيل إلى الدالة المعرَّفة على `dyn Error`.
+    ///
+    /// </div>
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[inline]
     pub fn downcast_mut<T: Error + 'static>(&mut self) -> Option<&mut T> {
@@ -412,6 +484,12 @@ impl dyn Error {
     /// assert!(iter.next().is_none());
     /// assert!(iter.next().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يبدأ بالخطأ الحالي ثم مصادره واحدًا تلو الآخر.
+    ///
+    /// </div>
     #[unstable(feature = "error_iter", issue = "58520")]
     #[inline]
     pub fn sources(&self) -> Source<'_> {
@@ -446,6 +524,12 @@ impl dyn Error {
 ///     request_value::<String>(err).unwrap()
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطلب قيمة من النوع `T` من `impl Error` المعطى.
+///
+/// </div>
 #[unstable(feature = "error_generic_member_access", issue = "99301")]
 pub fn request_value<'a, T>(err: &'a (impl Error + ?Sized)) -> Option<T>
 where
@@ -469,6 +553,12 @@ where
 ///     request_ref::<str>(err).unwrap()
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطلب مرجعًا من النوع `T` من `impl Error` المعطى.
+///
+/// </div>
 #[unstable(feature = "error_generic_member_access", issue = "99301")]
 pub fn request_ref<'a, T>(err: &'a (impl Error + ?Sized)) -> Option<&'a T>
 where
@@ -583,6 +673,12 @@ where
 /// }
 /// ```
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Request` يدعم الوصول العام حسب النوع إلى البيانات.
+///
+/// </div>
 #[unstable(feature = "error_generic_member_access", issue = "99301")]
 #[repr(transparent)]
 pub struct Request<'a>(Tagged<dyn Erased<'a> + 'a>);
@@ -614,6 +710,12 @@ impl<'a> Request<'a> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي قيمة بأعمار ثابتة فقط.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn provide_value<T>(&mut self, value: T) -> &mut Self
     where
@@ -648,6 +750,12 @@ impl<'a> Request<'a> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي قيمة بأعمار ثابتة يحسبها إغلاق.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn provide_value_with<T>(&mut self, fulfil: impl FnOnce() -> T) -> &mut Self
     where
@@ -683,6 +791,12 @@ impl<'a> Request<'a> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn provide_ref<T: ?Sized + 'static>(&mut self, value: &'a T) -> &mut Self {
         self.provide::<tags::Ref<tags::MaybeSizedValue<T>>>(value)
@@ -722,6 +836,12 @@ impl<'a> Request<'a> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي مرجعًا يحسبه إغلاق.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn provide_ref_with<T: ?Sized + 'static>(
         &mut self,
@@ -831,6 +951,12 @@ impl<'a> Request<'a> {
     /// assert_eq!(Some(99), request_value::<u8>(&child));
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل سيتحقق الطلب بقيمة من النوع المحدد.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn would_be_satisfied_by_value_of<T>(&self) -> bool
     where
@@ -919,6 +1045,12 @@ impl<'a> Request<'a> {
     /// let child = Child { parent, name: "child".into() };
     /// assert_eq!(Some("child"), request_ref::<str>(&child));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل سيتحقق الطلب بمرجع إلى قيمة من النوع المحدد.
+    ///
+    /// </div>
     #[unstable(feature = "error_generic_member_access", issue = "99301")]
     pub fn would_be_satisfied_by_ref_of<T>(&self) -> bool
     where
@@ -953,6 +1085,12 @@ pub(crate) mod tags {
     //! Currently type tags are not exposed to the user. But in the future, if you want to use the
     //! Request API with more complex types (typically those including lifetime parameters), you
     //! will need to write your own tags.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! علامات الأنواع تُستخدم لتعريف نوع بقيمة منفصلة.
+    //!
+    //! </div>
 
     use crate::marker::PhantomData;
 
@@ -1072,6 +1210,12 @@ impl<'a> Tagged<dyn Erased<'a> + 'a> {
 ///
 /// If you want to omit the initial error and only process
 /// its sources, use `skip(1)`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على خطأ (`Error`) ومصادره.
+///
+/// </div>
 #[unstable(feature = "error_iter", issue = "58520")]
 #[derive(Clone, Debug)]
 pub struct Source<'a> {

@@ -141,6 +141,12 @@ pub trait Seek {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع الحالي من بداية المجرى.
+    ///
+    /// </div>
     #[stable(feature = "seek_convenience", since = "1.51.0")]
     #[expect(clippy::seek_from_current, reason = "implements stream_position")]
     fn stream_position(&mut self) -> Result<u64> {
@@ -168,6 +174,12 @@ pub trait Seek {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل نسبةً للموضع الحالي.
+    ///
+    /// </div>
     #[stable(feature = "seek_seek_relative", since = "1.80.0")]
     fn seek_relative(&mut self, offset: i64) -> Result<()> {
         self.seek(SeekFrom::Current(offset))?;

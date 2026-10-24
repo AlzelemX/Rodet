@@ -1,4 +1,10 @@
 //! Provides specialization for `io::copy`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعطي تخصيصًا لـ `io::copy`.
+//!
+//! </div>
 
 use super::CopyState;
 use crate::io::{BufReader, Read, Result, Take, Write};
@@ -37,6 +43,12 @@ pub trait SpecCopy: Read {
     ///
     /// As of time of writing, `&mut R`, `Take<R>`, and `BufReader<R>` will
     /// forward to `R` for a specialized copy implementation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول النسخ من هذا القارئ إلى الكاتب المعطى بطريقة مخصصة.
+    ///
+    /// </div>
     fn copy<R: Read + ?Sized, W: Write + ?Sized>(
         _reader: &mut R,
         _writer: &mut W,

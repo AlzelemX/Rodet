@@ -1,4 +1,10 @@
 //! A module for working with borrowed data.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة للتعامل مع البيانات المستعارة.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -22,10 +28,22 @@ use crate::string::String;
 /// implementing the `Clone` trait. But `Clone` works only for going from `&T`
 /// to `T`. The `ToOwned` trait generalizes `Clone` to construct owned data
 /// from any borrow of a given type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعميم لـ `Clone` على البيانات المستعارة (مثل `&str` إلى `String`).
+///
+/// </div>
 #[rustc_diagnostic_item = "ToOwned"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait ToOwned {
     /// The resulting type after obtaining ownership.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الناتج بعد الحصول على الملكية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     type Owned: Borrow<Self>;
 
@@ -42,6 +60,12 @@ pub trait ToOwned {
     /// let v: &[i32] = &[1, 2];
     /// let vv: Vec<i32> = v.to_owned();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بيانات مملوكة من بيانات مستعارة، عادةً بالاستنساخ (مثل `"نص".to_owned()`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "cloning is often expensive and is not expected to have side effects"]
     #[rustc_diagnostic_item = "to_owned_method"]
@@ -62,6 +86,12 @@ pub trait ToOwned {
     /// let mut v: Vec<i32> = Vec::new();
     /// [1, 2][..].clone_into(&mut v);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم البيانات المستعارة لاستبدال بيانات مملوكة، عادةً بالاستنساخ.
+    ///
+    /// </div>
     #[stable(feature = "toowned_clone_into", since = "1.63.0")]
     fn clone_into(&self, target: &mut Self::Owned) {
         *target = self.to_owned();
@@ -164,6 +194,12 @@ where
 ///     _ => panic!("expect owned data"),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر ذكي "انسخ عند الكتابة" (clone-on-write): مستعار حتى تحتاج تعديله.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Cow"]
 pub enum Cow<'a, B: ?Sized + 'a>
@@ -231,6 +267,12 @@ impl<B: ?Sized + ToOwned> Cow<'_, B> {
     /// let bull: Cow<'_, str> = Cow::Owned("...moo?".to_string());
     /// assert!(!Cow::is_borrowed(&bull));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع true إذا كانت البيانات مستعارة.
+    ///
+    /// </div>
     #[unstable(feature = "cow_is_borrowed", issue = "65143")]
     pub const fn is_borrowed(c: &Self) -> bool {
         match *c {
@@ -257,6 +299,12 @@ impl<B: ?Sized + ToOwned> Cow<'_, B> {
     /// let bull = Cow::Borrowed("...moo?");
     /// assert!(!Cow::is_owned(&bull));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع true إذا كانت البيانات مملوكة.
+    ///
+    /// </div>
     #[unstable(feature = "cow_is_borrowed", issue = "65143")]
     pub const fn is_owned(c: &Self) -> bool {
         !Cow::is_borrowed(c)
@@ -279,6 +327,12 @@ impl<B: ?Sized + ToOwned> Cow<'_, B> {
     ///   Cow::Owned(String::from("FOO")) as Cow<'_, str>
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الشكل المملوك من البيانات (وينسخها إن لزم).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn to_mut(&mut self) -> &mut <B as ToOwned>::Owned {
         match *self {
@@ -327,6 +381,12 @@ impl<B: ?Sized + ToOwned> Cow<'_, B> {
     ///   String::from(s)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج البيانات المملوكة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_owned(self) -> <B as ToOwned>::Owned {
         match self {

@@ -6,6 +6,12 @@
 //! on platforms that support atomic loads and stores of pointers.
 //! This may be detected at compile time using
 //! `#[cfg(target_has_atomic = "ptr")]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع وtraits للعمل مع المهام غير المتزامنة.
+//!
+//! </div>
 
 use core::mem::ManuallyDrop;
 #[cfg(target_has_atomic = "ptr")]

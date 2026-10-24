@@ -55,6 +55,12 @@
 //! [`Cell`]: core::cell
 //! [`Rc`]: rc
 //! [`RefCell`]: core::cell
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مكتبة Rust للحجز والمجموعات (alloc).
+//!
+//! </div>
 
 #![allow(unused_features)]
 #![allow(incomplete_features)]

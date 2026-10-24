@@ -2256,6 +2256,12 @@ impl Duration {
     /// let res = Duration::try_from_secs_f64(val);
     /// assert_eq!(res, Ok(Duration::new(1, 2_929_688)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النسخة مع التحقق من `from_secs_f64`.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_float", since = "1.66.0")]
     #[inline]
     pub fn try_from_secs_f64(secs: f64) -> Result<Duration, TryFromFloatSecsError> {

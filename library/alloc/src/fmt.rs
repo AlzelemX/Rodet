@@ -588,6 +588,12 @@
 //! [`format_args!`]: ../../std/macro.format_args.html "format_args!"
 //! [`fmt::Arguments`]: Arguments "fmt::Arguments"
 //! [`format`]: format() "fmt::format"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات لتنسيق وطباعة النصوص (`String`).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -644,6 +650,12 @@ use crate::string;
 ///
 /// [`format_args!`]: core::format_args
 /// [`format!`]: crate::format
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يأخذ `Arguments` ويرجع النص المنسَّق الناتج.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]

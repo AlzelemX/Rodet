@@ -80,6 +80,12 @@
 //!     s.finish()
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم عام للتجزئة (hashing).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -180,6 +186,12 @@ mod sip;
 /// [`HashSet`]: ../../std/collections/struct.HashSet.html
 /// [`hash`]: Hash::hash
 /// [impl]: ../../std/primitive.str.html#impl-Hash-for-str
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمكن تجزئته (حساب بصمته).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Hash"]
 pub trait Hash: marker::PointeeSized {
@@ -194,6 +206,12 @@ pub trait Hash: marker::PointeeSized {
     /// 7920.hash(&mut hasher);
     /// println!("Hash is {:x}!", hasher.finish());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغذّي هذه القيمة إلى `Hasher` المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn hash<H: Hasher>(&self, state: &mut H);
 
@@ -230,6 +248,12 @@ pub trait Hash: marker::PointeeSized {
     /// [`make_contiguous`]: ../../std/collections/struct.VecDeque.html#method.make_contiguous
     /// [`hash`]: Hash::hash
     /// [`hash_slice`]: Hash::hash_slice
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغذّي شريحة من هذا النوع إلى `Hasher` المعطى.
+    ///
+    /// </div>
     #[stable(feature = "hash_slice", since = "1.3.0")]
     fn hash_slice<H: Hasher>(data: &[Self], state: &mut H)
     where
@@ -244,6 +268,12 @@ pub trait Hash: marker::PointeeSized {
 // Separate module to reexport the macro `Hash` from prelude without the trait `Hash`.
 pub(crate) mod macros {
     /// Derive macro generating an impl of the trait `Hash`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو derive يولّد تطبيقًا للـ trait `Hash`.
+    ///
+    /// </div>
     #[rustc_builtin_macro]
     #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
     #[allow_internal_unstable(core_intrinsics)]
@@ -308,6 +338,12 @@ pub use macros::Hash;
 /// [`write`]: Hasher::write
 /// [`write_u8`]: Hasher::write_u8
 /// [`write_u32`]: Hasher::write_u32
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لتجزئة تسلسل بايتات عشوائي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait Hasher {
     /// Returns the hash value for the values written so far.
@@ -329,6 +365,12 @@ pub trait Hasher {
     /// ```
     ///
     /// [`write`]: Hasher::write
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة البصمة للقيم المكتوبة حتى الآن.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     fn finish(&self) -> u64;
@@ -353,40 +395,82 @@ pub trait Hasher {
     /// You generally should not do length-prefixing as part of implementing
     /// this method.  It's up to the [`Hash`] implementation to call
     /// [`Hasher::write_length_prefix`] before sequences that need it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بيانات في هذا الـ `Hasher`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write(&mut self, bytes: &[u8]);
 
     /// Writes a single `u8` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `u8` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_u8(&mut self, i: u8) {
         self.write(&[i])
     }
     /// Writes a single `u16` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `u16` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_u16(&mut self, i: u16) {
         self.write(&i.to_ne_bytes())
     }
     /// Writes a single `u32` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `u32` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_u32(&mut self, i: u32) {
         self.write(&i.to_ne_bytes())
     }
     /// Writes a single `u64` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `u64` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_u64(&mut self, i: u64) {
         self.write(&i.to_ne_bytes())
     }
     /// Writes a single `u128` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `u128` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "i128", since = "1.26.0")]
     fn write_u128(&mut self, i: u128) {
         self.write(&i.to_ne_bytes())
     }
     /// Writes a single `usize` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `usize` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_usize(&mut self, i: usize) {
@@ -394,36 +478,72 @@ pub trait Hasher {
     }
 
     /// Writes a single `i8` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `i8` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_i8(&mut self, i: i8) {
         self.write_u8(i as u8)
     }
     /// Writes a single `i16` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `i16` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_i16(&mut self, i: i16) {
         self.write_u16(i as u16)
     }
     /// Writes a single `i32` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `i32` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_i32(&mut self, i: i32) {
         self.write_u32(i as u32)
     }
     /// Writes a single `i64` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `i64` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_i64(&mut self, i: i64) {
         self.write_u64(i as u64)
     }
     /// Writes a single `i128` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `i128` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "i128", since = "1.26.0")]
     fn write_i128(&mut self, i: i128) {
         self.write_u128(i as u128)
     }
     /// Writes a single `isize` into this hasher.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `isize` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "hasher_write", since = "1.3.0")]
     fn write_isize(&mut self, i: isize) {
@@ -478,6 +598,12 @@ pub trait Hasher {
     /// If you've decided that your `Hasher` is willing to be susceptible to
     /// Hash-DoS attacks, then you might consider skipping hashing some or all
     /// of the `len` provided in the name of increased performance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بادئة طول في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hasher_prefixfree_extras", issue = "96762")]
     fn write_length_prefix(&mut self, len: usize) {
@@ -545,6 +671,12 @@ pub trait Hasher {
     /// That's because if `write` pads data out to a fixed chunk size, it's
     /// likely that it does it in such a way that `"a"` and `"a\x00"` would
     /// end up hashing the same sequence of things, introducing conflicts.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب `str` واحدًا في هذا المجزِّئ.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hasher_prefixfree_extras", issue = "96762")]
     fn write_str(&mut self, s: &str) {
@@ -632,10 +764,22 @@ impl<H: Hasher + ?Sized> Hasher for &mut H {
 ///
 /// [`build_hasher`]: BuildHasher::build_hasher
 /// [`HashMap`]: ../../std/collections/struct.HashMap.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لإنشاء قيم `Hasher`.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "BuildHasher")]
 #[stable(since = "1.7.0", feature = "build_hasher")]
 pub trait BuildHasher {
     /// Type of the hasher that will be created.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع المجزِّئ الذي سيُنشأ.
+    ///
+    /// </div>
     #[stable(since = "1.7.0", feature = "build_hasher")]
     type Hasher: Hasher;
 
@@ -652,6 +796,12 @@ pub trait BuildHasher {
     /// let s = RandomState::new();
     /// let new_s = s.build_hasher();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجزِّئًا جديدًا.
+    ///
+    /// </div>
     #[stable(since = "1.7.0", feature = "build_hasher")]
     fn build_hasher(&self) -> Self::Hasher;
 
@@ -690,6 +840,12 @@ pub trait BuildHasher {
     ///     bh.hash_one(&OrderAmbivalentPair(2, 10))
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب بصمة قيمة واحدة.
+    ///
+    /// </div>
     #[stable(feature = "build_hasher_simple_hash_one", since = "1.71.0")]
     #[expect(clippy::manual_hash_one, reason = "implements hash_one")]
     fn hash_one<T: Hash>(&self, x: T) -> u64
@@ -748,11 +904,23 @@ pub trait BuildHasher {
 /// [`HashMap`]: ../../std/collections/struct.HashMap.html
 /// [`HashSet`]: ../../std/collections/struct.HashSet.html
 /// [zero-sized]: https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لإنشاء `BuildHasher` افتراضي للأنواع التي تطبّق `Hasher` و`Default`.
+///
+/// </div>
 #[stable(since = "1.7.0", feature = "build_hasher")]
 pub struct BuildHasherDefault<H>(marker::PhantomData<fn() -> H>);
 
 impl<H> BuildHasherDefault<H> {
     /// Creates a new BuildHasherDefault for Hasher `H`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BuildHasherDefault` جديدًا للمجزِّئ `H`.
+    ///
+    /// </div>
     #[stable(feature = "build_hasher_default_const_new", since = "1.85.0")]
     #[rustc_const_stable(feature = "build_hasher_default_const_new", since = "1.85.0")]
     pub const fn new() -> Self {

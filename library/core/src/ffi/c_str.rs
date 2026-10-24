@@ -124,6 +124,12 @@ pub struct CStr {
 ///
 /// let _: FromBytesWithNulError = CStr::from_bytes_with_nul(b"f\0oo").unwrap_err();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني أن البايت الصفري ليس في الموضع المتوقع.
+///
+/// </div>
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 #[stable(feature = "core_c_str", since = "1.64.0")]
 pub enum FromBytesWithNulError {

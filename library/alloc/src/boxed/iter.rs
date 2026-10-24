@@ -51,6 +51,12 @@ impl<I: Iterator + ?Sized, A: Allocator> BoxIter for Box<I, A> {
 
 /// Specialization for sized `I`s that uses `I`s implementation of `last()`
 /// instead of the default.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تخصيص لـ `I` معروف الحجم يستخدم تطبيق `last()` الخاص به.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<I: Iterator, A: Allocator> BoxIter for Box<I, A> {
     fn last(self) -> Option<I::Item> {
@@ -95,16 +101,34 @@ impl<S: ?Sized + AsyncIterator + Unpin> AsyncIterator for Box<S> {
 
 /// This implementation is required to make sure that the `Box<[T]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `Box<[T]>: IntoIterator` مع التطبيق الشامل للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_slice_into_iter", since = "1.80.0")]
 impl<T, A: Allocator> !Iterator for Box<[T], A> {}
 
 /// This implementation is required to make sure that the `&Box<[T]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `&Box<[T]>: IntoIterator` مع التطبيق الشامل للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_slice_into_iter", since = "1.80.0")]
 impl<'a, T, A: Allocator> !Iterator for &'a Box<[T], A> {}
 
 /// This implementation is required to make sure that the `&mut Box<[T]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `&mut Box<[T]>: IntoIterator` مع التطبيق الشامل للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_slice_into_iter", since = "1.80.0")]
 impl<'a, T, A: Allocator> !Iterator for &'a mut Box<[T], A> {}
 
@@ -196,16 +220,35 @@ impl<'a> FromIterator<Cow<'a, str>> for Box<str> {
 
 /// This implementation is required to make sure that the `Box<[I; N]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `Box<[I; N]>: IntoIterator` مع التطبيق الشامل للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
 impl<I, const N: usize, A: Allocator> !Iterator for Box<[I; N], A> {}
 
 /// This implementation is required to make sure that the `&Box<[I; N]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `&Box<[I; N]>: IntoIterator` مع التطبيق الشامل للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
 impl<'a, const N: usize, I, A: Allocator> !Iterator for &'a Box<[I; N], A> {}
 
 /// This implementation is required to make sure that the `&mut Box<[I; N]>: IntoIterator`
 /// implementation doesn't overlap with `IntoIterator for T where T: Iterator` blanket.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق لازم لكي لا يتداخل تطبيق `&mut Box<[I; N]>: IntoIterator` مع التطبيق الشامل
+/// للمكررات.
+///
+/// </div>
 #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
 impl<'a, const N: usize, I, A: Allocator> !Iterator for &'a mut Box<[I; N], A> {}
 
@@ -228,6 +271,12 @@ impl<'a, T, const N: usize, A: Allocator> IntoIterator for &'a mut Box<[T; N], A
 }
 
 /// A by-value `Box<[T; N]>` iterator.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر بالقيمة على `Box<[T; N]>`.
+///
+/// </div>
 #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
 #[rustc_insignificant_dtor]
 pub struct BoxedArrayIntoIter<T, const N: usize, A: Allocator = Global> {
@@ -238,12 +287,24 @@ pub struct BoxedArrayIntoIter<T, const N: usize, A: Allocator = Global> {
 impl<T, const N: usize, A: Allocator> BoxedArrayIntoIter<T, N, A> {
     /// Returns an immutable slice of all elements that have not been yielded
     /// yet.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة غير قابلة للتعديل بكل العناصر التي لم تُعطَ بعد.
+    ///
+    /// </div>
     #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
     pub fn as_slice(&self) -> &[T] {
         self.inner.as_slice()
     }
 
     /// Returns a mutable slice of all elements that have not been yielded yet.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل بكل العناصر التي لم تُعطَ بعد.
+    ///
+    /// </div>
     #[stable(feature = "boxed_array_value_iter", since = "1.99.0")]
     pub fn as_mut_slice(&mut self) -> &mut [T] {
         self.inner.as_mut_slice()

@@ -251,6 +251,12 @@ impl<B: BufRead + ?Sized, A: Allocator> BufRead for Box<B, A> {
 ///
 /// Note that reading updates the slice to point to the yet unread part.
 /// The slice will be empty when EOF is reached.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Read` مطبَّق لـ `&[u8]` بالنسخ من الشريحة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl Read for &[u8] {
     #[inline]
@@ -392,6 +398,12 @@ impl BufRead for &[u8] {
 
 /// Write is implemented for `Vec<u8>` by appending to the vector.
 /// The vector will grow as needed.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Write` مطبَّق لـ `Vec<u8>` بالإضافة إلى المتجه، الذي ينمو حسب الحاجة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<A: Allocator> Write for Vec<u8, A> {
     #[inline]
@@ -448,12 +460,24 @@ impl<A: Allocator> Write for Vec<u8, A> {
 }
 
 /// Read is implemented for `VecDeque<u8>` by consuming bytes from the front of the `VecDeque`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Read` مطبَّق لـ `VecDeque<u8>` باستهلاك البايتات من بداية الطابور.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "vecdeque_read_write", since = "1.63.0")]
 impl<A: Allocator> Read for VecDeque<u8, A> {
     /// Fill `buf` with the contents of the "front" slice as returned by
     /// [`as_slices`][`VecDeque::as_slices`]. If the contained byte slices of the `VecDeque` are
     /// discontiguous, multiple calls to `read` will be needed to read the entire content.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ `buf` بمحتوى الشريحة "الأمامية" كما ترجعها `as_slices`.
+    ///
+    /// </div>
     #[inline]
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         let (ref mut front, _) = self.as_slices();
@@ -540,12 +564,24 @@ impl<A: Allocator> Read for VecDeque<u8, A> {
 }
 
 /// BufRead is implemented for `VecDeque<u8>` by reading bytes from the front of the `VecDeque`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `BufRead` مطبَّق لـ `VecDeque<u8>` بقراءة البايتات من بداية الطابور.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "vecdeque_buf_read", since = "1.75.0")]
 impl<A: Allocator> BufRead for VecDeque<u8, A> {
     /// Returns the contents of the "front" slice as returned by
     /// [`as_slices`][`VecDeque::as_slices`]. If the contained byte slices of the `VecDeque` are
     /// discontiguous, multiple calls to `fill_buf` will be needed to read the entire content.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الشريحة "الأمامية" كما ترجعها `as_slices`.
+    ///
+    /// </div>
     #[inline]
     fn fill_buf(&mut self) -> io::Result<&[u8]> {
         let (front, _) = self.as_slices();
@@ -559,6 +595,12 @@ impl<A: Allocator> BufRead for VecDeque<u8, A> {
 }
 
 /// Write is implemented for `VecDeque<u8>` by appending to the `VecDeque`, growing it as needed.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Write` مطبَّق لـ `VecDeque<u8>` بالإضافة إلى نهايته، وينمو حسب الحاجة.
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[stable(feature = "vecdeque_read_write", since = "1.63.0")]
 impl<A: Allocator> Write for VecDeque<u8, A> {

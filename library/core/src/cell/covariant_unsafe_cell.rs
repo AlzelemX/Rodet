@@ -54,6 +54,12 @@ impl<T> CovariantUnsafeCell<T> {
     ///
     /// let five = uc.into_inner();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة ويستهلك الخلية.
+    ///
+    /// </div>
     #[inline(always)]
     #[unstable(feature = "covariant_unsafe_cell", issue = "159735")]
     #[rustc_const_unstable(feature = "covariant_unsafe_cell", issue = "159735")]
@@ -154,6 +160,12 @@ impl<T: ?Sized> CovariantUnsafeCell<T> {
     ///
     /// assert_eq!(uc.into_inner(), 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة، ويقبل مؤشرًا خامًا بدل مرجع.
+    ///
+    /// </div>
     #[inline(always)]
     #[unstable(feature = "covariant_unsafe_cell", issue = "159735")]
     #[rustc_const_unstable(feature = "covariant_unsafe_cell", issue = "159735")]

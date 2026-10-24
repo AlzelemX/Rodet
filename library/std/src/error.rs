@@ -217,6 +217,12 @@ use crate::fmt::{self, Write};
 /// Caused by:
 ///       SuperErrorSideKick is here!
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة تقارير تطبع خطأً ومصادره.
+///
+/// </div>
 #[unstable(feature = "error_reporter", issue = "90172")]
 pub struct Report<E = Box<dyn Error>> {
     /// The error being reported.
@@ -232,6 +238,12 @@ where
     Report<E>: From<E>,
 {
     /// Creates a new `Report` from an input error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Report` جديدًا من خطأ.
+    ///
+    /// </div>
     #[unstable(feature = "error_reporter", issue = "90172")]
     pub fn new(error: E) -> Report<E> {
         Self::from(error)
@@ -346,6 +358,12 @@ impl<E> Report<E> {
     ///    0: SuperErrorSideKick is here!
     ///    1: SuperErrorSideKickSideKick is here!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفعّل الطباعة المنسقة للتقرير على عدة أسطر.
+    ///
+    /// </div>
     #[unstable(feature = "error_reporter", issue = "90172")]
     pub fn pretty(mut self, pretty: bool) -> Self {
         self.pretty = pretty;
@@ -435,6 +453,12 @@ impl<E> Report<E> {
     ///   10: __libc_start_main
     ///   11: _start
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض تتبع المكدس (backtrace) إن وُجد عند الطباعة المنسقة.
+    ///
+    /// </div>
     #[unstable(feature = "error_reporter", issue = "90172")]
     pub fn show_backtrace(mut self, show_backtrace: bool) -> Self {
         self.show_backtrace = show_backtrace;

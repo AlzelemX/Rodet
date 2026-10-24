@@ -1,4 +1,10 @@
 //! Buffering wrappers for I/O traits
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أغلفة تخزين مؤقت لـ traits الإدخال والإخراج.
+//!
+//! </div>
 
 mod bufreader;
 mod bufwriter;
@@ -39,6 +45,12 @@ use crate::io::Error;
 ///     }
 /// };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `BufWriter::into_inner` يجمع خطأ الكتابة وكائن الكاتب المخزن.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct IntoInnerError<W>(W, Error);
@@ -86,6 +98,12 @@ impl<W> IntoInnerError<W> {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الخطأ الذي سبب فشل `BufWriter::into_inner()`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn error(&self) -> &Error {
         &self.1
@@ -122,6 +140,12 @@ impl<W> IntoInnerError<W> {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع كائن الكاتب المخزن الذي سبب الخطأ.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_inner(self) -> W {
         self.0
@@ -143,6 +167,12 @@ impl<W> IntoInnerError<W> {
     /// let err = into_inner_err.into_error();
     /// assert_eq!(err.kind(), ErrorKind::WriteZero);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `IntoInnerError` ويرجع الخطأ الذي سبب فشل `BufWriter::into_inner()`.
+    ///
+    /// </div>
     #[stable(feature = "io_into_inner_error_parts", since = "1.55.0")]
     pub fn into_error(self) -> Error {
         self.1
@@ -167,6 +197,12 @@ impl<W> IntoInnerError<W> {
     /// assert_eq!(err.kind(), ErrorKind::WriteZero);
     /// assert_eq!(recovered_writer.buffer(), b"t be actually written");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `IntoInnerError` ويرجع الخطأ والكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "io_into_inner_error_parts", since = "1.55.0")]
     pub fn into_parts(self) -> (Error, W) {
         (self.1, self.0)

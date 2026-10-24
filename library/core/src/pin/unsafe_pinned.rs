@@ -131,6 +131,12 @@ impl<T: ?Sized> UnsafePinned<T> {
     ///
     /// [`get_mut_pinned`]: UnsafePinned::get_mut_pinned
     /// [`get_mut_unchecked`]: UnsafePinned::get_mut_unchecked
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة المغلَّفة.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]

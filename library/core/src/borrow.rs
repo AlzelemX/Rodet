@@ -1,4 +1,10 @@
 //! Utilities for working with borrowed data.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للتعامل مع البيانات المستعارة.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -152,6 +158,12 @@
 /// [`Hash`]: crate::hash::Hash
 /// [`HashMap<K, V>`]: ../../std/collections/struct.HashMap.html
 /// [`String`]: ../../std/string/struct.String.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة البيانات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Borrow"]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -184,6 +196,12 @@ pub const trait Borrow<Borrowed: ?Sized> {
 /// As a companion to [`Borrow<T>`] this trait allows a type to borrow as
 /// an underlying type by providing a mutable reference. See [`Borrow<T>`]
 /// for more information on borrowing as another type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة البيانات للتعديل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "BorrowMut"]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]

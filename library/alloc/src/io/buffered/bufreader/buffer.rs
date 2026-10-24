@@ -8,6 +8,12 @@
 //! `pos..filled` is always a valid index into the initialized region of the buffer. This means
 //! that user code which wants to do reads from a `BufReader` via `buffer` + `consume` can do so
 //! without encountering any runtime bounds checks.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تغليف منطق إدارة المخزن في `BufReader`.
+//!
+//! </div>
 
 use core::cmp;
 use core::mem::MaybeUninit;

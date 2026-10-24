@@ -64,6 +64,12 @@ use crate::io::{self, BufWriter, IntoInnerError, IoSlice, Write};
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغلّف كاتبًا ويخزن مخرجاته، ويفرّغ المخزن عند كل سطر جديد (`'\n'`).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct LineWriter<W: ?Sized + Write> {
     inner: BufWriter<W>,
@@ -84,6 +90,12 @@ impl<W: Write> LineWriter<W> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LineWriter` جديدًا.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn new(inner: W) -> LineWriter<W> {
@@ -106,6 +118,12 @@ impl<W: Write> LineWriter<W> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LineWriter` جديدًا بسعة لا تقل عن السعة المحددة للمخزن الداخلي.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn with_capacity(capacity: usize, inner: W) -> LineWriter<W> {
@@ -132,6 +150,12 @@ impl<W: Write> LineWriter<W> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self) -> &mut W {
         self.inner.get_mut()
@@ -160,6 +184,12 @@ impl<W: Write> LineWriter<W> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك هذا الـ `LineWriter` ويرجع الكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_inner(self) -> Result<W, IntoInnerError<LineWriter<W>>> {
         self.inner.into_inner().map_err(|err| err.new_wrapped(|inner| LineWriter { inner }))
@@ -183,6 +213,12 @@ impl<W: ?Sized + Write> LineWriter<W> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى الكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_ref(&self) -> &W {
         self.inner.get_ref()

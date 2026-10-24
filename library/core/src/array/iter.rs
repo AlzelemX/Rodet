@@ -215,6 +215,12 @@ impl<T, const N: usize> IntoIter<T, N> {
 
     /// Returns an immutable slice of all elements that have not been yielded
     /// yet.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة غير قابلة للتعديل بكل العناصر التي لم تُعطَ بعد.
+    ///
+    /// </div>
     #[stable(feature = "array_value_iter", since = "1.51.0")]
     #[inline]
     pub fn as_slice(&self) -> &[T] {
@@ -222,6 +228,12 @@ impl<T, const N: usize> IntoIter<T, N> {
     }
 
     /// Returns a mutable slice of all elements that have not been yielded yet.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة قابلة للتعديل بكل العناصر التي لم تُعطَ بعد.
+    ///
+    /// </div>
     #[stable(feature = "array_value_iter", since = "1.51.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_iter", issue = "92476")]

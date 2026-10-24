@@ -1,4 +1,10 @@
 //! Memory allocation APIs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهات حجز الذاكرة.
+//!
+//! </div>
 
 #![stable(feature = "alloc_module", since = "1.28.0")]
 

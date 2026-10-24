@@ -30,6 +30,12 @@ impl<T> From<T> for Box<T> {
     ///
     /// assert_eq!(Box::from(x), boxed);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `T` إلى `Box<T>`.
+    ///
+    /// </div>
     fn from(t: T) -> Self {
         Box::new(t)
     }
@@ -78,6 +84,12 @@ impl<T: Clone> From<&[T]> for Box<[T]> {
     ///
     /// println!("{boxed_slice:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&[T]` إلى `Box<[T]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(slice: &[T]) -> Box<[T]> {
         Box::clone_from_ref(slice)
@@ -101,6 +113,12 @@ impl<T: Clone> From<&mut [T]> for Box<[T]> {
     ///
     /// println!("{boxed_slice:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut [T]` إلى `Box<[T]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(slice: &mut [T]) -> Box<[T]> {
         Self::from(&*slice)
@@ -116,6 +134,12 @@ impl<T: Clone> From<Cow<'_, [T]>> for Box<[T]> {
     /// conversion allocates on the heap and copies the
     /// underlying slice. Otherwise, it will try to reuse the owned
     /// `Vec`'s allocation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'_, [T]>` إلى `Box<[T]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(cow: Cow<'_, [T]>) -> Box<[T]> {
         match cow {
@@ -139,6 +163,12 @@ impl From<&str> for Box<str> {
     /// let boxed: Box<str> = Box::from("hello");
     /// println!("{boxed}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&str` إلى `Box<str>`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &str) -> Box<str> {
         Box::clone_from_ref(s)
@@ -161,6 +191,12 @@ impl From<&mut str> for Box<str> {
     /// let boxed: Box<str> = Box::from(original);
     /// println!("{boxed}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut str` إلى `Box<str>`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut str) -> Box<str> {
         Self::from(&*s)
@@ -193,6 +229,12 @@ impl From<Cow<'_, str>> for Box<str> {
     /// let boxed: Box<str> = Box::from(unboxed);
     /// println!("{boxed}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'_, str>` إلى `Box<str>`.
+    ///
+    /// </div>
     #[inline]
     fn from(cow: Cow<'_, str>) -> Box<str> {
         match cow {
@@ -220,6 +262,12 @@ impl<A: Allocator> From<Box<str, A>> for Box<[u8], A> {
     ///
     /// assert_eq!(boxed_slice, boxed_str);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<str>` إلى `Box<[u8]>`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: Box<str, A>) -> Self {
         let (raw, alloc) = Box::into_raw_with_allocator(s);
@@ -241,6 +289,12 @@ impl<T, const N: usize> From<[T; N]> for Box<[T]> {
     /// let boxed: Box<[u8]> = Box::from([4, 2]);
     /// println!("{boxed:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `[T; N]` إلى `Box<[T]>`.
+    ///
+    /// </div>
     fn from(array: [T; N]) -> Box<[T]> {
         Box::new(array)
     }
@@ -275,6 +329,12 @@ impl<T, const N: usize, A: Allocator> TryFrom<Box<[T], A>> for Box<[T; N], A> {
     ///
     /// Returns the old `Box<[T]>` in the `Err` variant if
     /// `boxed_slice.len()` does not equal `N`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `Box<[T]>` إلى `Box<[T; N]>`.
+    ///
+    /// </div>
     fn try_from(boxed_slice: Box<[T], A>) -> Result<Self, Self::Error> {
         if boxed_slice.len() == N {
             // SAFETY: Checked length.
@@ -308,6 +368,12 @@ impl<T, const N: usize, A: Allocator> TryFrom<Vec<T, A>> for Box<[T; N], A> {
     /// let state: Box<[f32; 100]> = vec![1.0; 100].try_into().unwrap();
     /// assert_eq!(state.len(), 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `Vec<T>` إلى `Box<[T; N]>`.
+    ///
+    /// </div>
     fn try_from(vec: Vec<T, A>) -> Result<Self, Self::Error> {
         if vec.len() == N {
             let boxed_slice = vec.into_boxed_slice();
@@ -337,6 +403,12 @@ impl<A: Allocator> Box<dyn Any, A> {
     /// print_if_string(Box::new(my_string));
     /// print_if_string(Box::new(0i8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn downcast<T: Any>(self) -> Result<Box<T, A>, Self> {
@@ -368,6 +440,12 @@ impl<A: Allocator> Box<dyn Any, A> {
     /// with the incorrect type is *undefined behavior*.
     ///
     /// [`downcast`]: Self::downcast
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `Box` إلى نوع فعلي محدد بدون تحقق (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     pub unsafe fn downcast_unchecked<T: Any>(self) -> Box<T, A> {
@@ -398,6 +476,12 @@ impl<A: Allocator> Box<dyn Any + Send, A> {
     /// print_if_string(Box::new(my_string));
     /// print_if_string(Box::new(0i8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn downcast<T: Any>(self) -> Result<Box<T, A>, Self> {
@@ -429,6 +513,12 @@ impl<A: Allocator> Box<dyn Any + Send, A> {
     /// with the incorrect type is *undefined behavior*.
     ///
     /// [`downcast`]: Self::downcast
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `Box` إلى نوع فعلي محدد بدون تحقق (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     pub unsafe fn downcast_unchecked<T: Any>(self) -> Box<T, A> {
@@ -459,6 +549,12 @@ impl<A: Allocator> Box<dyn Any + Send + Sync, A> {
     /// print_if_string(Box::new(my_string));
     /// print_if_string(Box::new(0i8));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "box_send_sync_any_downcast", since = "1.51.0")]
     pub fn downcast<T: Any>(self) -> Result<Box<T, A>, Self> {
@@ -490,6 +586,12 @@ impl<A: Allocator> Box<dyn Any + Send + Sync, A> {
     /// with the incorrect type is *undefined behavior*.
     ///
     /// [`downcast`]: Self::downcast
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `Box` إلى نوع فعلي محدد بدون تحقق (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "downcast_unchecked", issue = "90850")]
     pub unsafe fn downcast_unchecked<T: Any>(self) -> Box<T, A> {
@@ -530,6 +632,12 @@ impl<'a, E: Error + 'a> From<E> for Box<dyn Error + 'a> {
     /// let a_boxed_error = Box::<dyn Error>::from(an_error);
     /// assert!(size_of::<Box<dyn Error>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نوعًا يطبّق `Error` إلى `Box<dyn Error>`.
+    ///
+    /// </div>
     fn from(err: E) -> Box<dyn Error + 'a> {
         Box::new(err)
     }
@@ -568,6 +676,12 @@ impl<'a, E: Error + Send + Sync + 'a> From<E> for Box<dyn Error + Send + Sync + 
     /// assert!(
     ///     size_of::<Box<dyn Error + Send + Sync>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل نوعًا يطبّق `Error + Send + Sync` إلى `Box<dyn Error + Send + Sync>`.
+    ///
+    /// </div>
     fn from(err: E) -> Box<dyn Error + Send + Sync + 'a> {
         Box::new(err)
     }
@@ -588,6 +702,12 @@ impl<'a> From<String> for Box<dyn Error + Send + Sync + 'a> {
     /// assert!(
     ///     size_of::<Box<dyn Error + Send + Sync>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى `Box<dyn Error + Send + Sync>`.
+    ///
+    /// </div>
     #[inline]
     fn from(err: String) -> Box<dyn Error + Send + Sync + 'a> {
         struct StringError(String);
@@ -625,6 +745,12 @@ impl<'a> From<String> for Box<dyn Error + 'a> {
     /// let a_boxed_error = Box::<dyn Error>::from(a_string_error);
     /// assert!(size_of::<Box<dyn Error>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى `Box<dyn Error>`.
+    ///
+    /// </div>
     fn from(str_err: String) -> Box<dyn Error + 'a> {
         let err1: Box<dyn Error + Send + Sync> = From::from(str_err);
         let err2: Box<dyn Error> = err1;
@@ -649,6 +775,12 @@ impl<'a> From<&str> for Box<dyn Error + Send + Sync + 'a> {
     /// assert!(
     ///     size_of::<Box<dyn Error + Send + Sync>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `str` إلى `Box<dyn Error + Send + Sync>`.
+    ///
+    /// </div>
     #[inline]
     fn from(err: &str) -> Box<dyn Error + Send + Sync + 'a> {
         From::from(String::from(err))
@@ -671,6 +803,12 @@ impl<'a> From<&str> for Box<dyn Error + 'a> {
     /// let a_boxed_error = Box::<dyn Error>::from(a_str_error);
     /// assert!(size_of::<Box<dyn Error>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `str` إلى `Box<dyn Error>`.
+    ///
+    /// </div>
     fn from(err: &str) -> Box<dyn Error + 'a> {
         From::from(String::from(err))
     }
@@ -692,6 +830,12 @@ impl<'a, 'b> From<Cow<'b, str>> for Box<dyn Error + Send + Sync + 'a> {
     /// assert!(
     ///     size_of::<Box<dyn Error + Send + Sync>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow` إلى `Box<dyn Error + Send + Sync>`.
+    ///
+    /// </div>
     fn from(err: Cow<'b, str>) -> Box<dyn Error + Send + Sync + 'a> {
         From::from(String::from(err))
     }
@@ -712,6 +856,12 @@ impl<'a, 'b> From<Cow<'b, str>> for Box<dyn Error + 'a> {
     /// let a_boxed_error = Box::<dyn Error>::from(a_cow_str_error);
     /// assert!(size_of::<Box<dyn Error>>() == size_of_val(&a_boxed_error))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow` إلى `Box<dyn Error>`.
+    ///
+    /// </div>
     fn from(err: Cow<'b, str>) -> Box<dyn Error + 'a> {
         From::from(String::from(err))
     }
@@ -719,6 +869,12 @@ impl<'a, 'b> From<Cow<'b, str>> for Box<dyn Error + 'a> {
 
 impl dyn Error {
     /// Attempts to downcast the box to a concrete type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[rustc_allow_incoherent_impl]
@@ -737,6 +893,12 @@ impl dyn Error {
 
 impl dyn Error + Send {
     /// Attempts to downcast the box to a concrete type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[rustc_allow_incoherent_impl]
@@ -750,6 +912,12 @@ impl dyn Error + Send {
 
 impl dyn Error + Send + Sync {
     /// Attempts to downcast the box to a concrete type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الـ `Box` إلى نوع فعلي محدد (downcast).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "error_downcast", since = "1.3.0")]
     #[rustc_allow_incoherent_impl]

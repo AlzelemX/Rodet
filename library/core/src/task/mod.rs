@@ -1,6 +1,12 @@
 #![stable(feature = "futures_api", since = "1.36.0")]
 
 //! Types and Traits for working with asynchronous tasks.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع وtraits للعمل مع المهام غير المتزامنة.
+//!
+//! </div>
 
 mod poll;
 #[stable(feature = "futures_api", since = "1.36.0")]

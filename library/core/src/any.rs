@@ -192,6 +192,12 @@ impl dyn Any {
     /// is_string(&0);
     /// is_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النوع الداخلي هو `T`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn is<T: Any>(&self) -> bool {
@@ -224,6 +230,12 @@ impl dyn Any {
     /// print_if_string(&0);
     /// print_if_string(&"cookie monster".to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة الداخلية إذا كانت من النوع `T`، أو `None`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn downcast_ref<T: Any>(&self) -> Option<&T> {
@@ -260,6 +272,12 @@ impl dyn Any {
     /// assert_eq!(x, 42);
     /// assert_eq!(&s, "starlord");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الداخلية إذا كانت من النوع `T`، أو `None`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn downcast_mut<T: Any>(&mut self) -> Option<&mut T> {

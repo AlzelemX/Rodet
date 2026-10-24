@@ -212,6 +212,12 @@
 //! [t-libs-zulip]: https://rust-lang.zulipchat.com/#narrow/channel/219381-t-libs/
 //! [array]: prim@array
 //! [slice]: prim@slice
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! المكتبة القياسية لـ Rust++: الأنواع والأدوات التي يحتاجها كل برنامج.
+//!
+//! </div>
 
 #![cfg_attr(not(restricted_std), stable(feature = "rust1", since = "1.0.0"))]
 #![cfg_attr(
@@ -672,6 +678,12 @@ pub mod simd {
 #[doc = include_str!("../../core/src/autodiff.md")]
 pub mod autodiff {
     /// This macro handles automatic differentiation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هذا الماكرو يتولى الاشتقاق التلقائي.
+    ///
+    /// </div>
     pub use core::autodiff::{autodiff_forward, autodiff_reverse};
 }
 
@@ -684,6 +696,12 @@ pub mod offload {
 #[stable(feature = "futures_api", since = "1.36.0")]
 pub mod task {
     //! Types and Traits for working with asynchronous tasks.
+    //!
+    //! <div lang="ar" dir="rtl">
+    //!
+    //! أنواع وtraits للعمل مع المهام غير المتزامنة.
+    //!
+    //! </div>
 
     #[doc(inline)]
     #[stable(feature = "wake_trait", since = "1.51.0")]
@@ -782,6 +800,12 @@ pub use core::{assert_matches, debug_assert_matches};
 // Re-export unstable derive macro defined through core.
 #[unstable(feature = "derive_from", issue = "144889")]
 /// Unstable module containing the unstable `From` derive macro.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وحدة غير مستقرة فيها ماكرو derive `From`.
+///
+/// </div>
 pub mod from {
     #[unstable(feature = "derive_from", issue = "144889")]
     pub use core::from::From;

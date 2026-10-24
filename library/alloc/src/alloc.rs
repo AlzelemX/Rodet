@@ -1,4 +1,10 @@
 //! Memory allocation APIs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهات حجز الذاكرة.
+//!
+//! </div>
 
 #![stable(feature = "alloc_module", since = "1.28.0")]
 
@@ -78,6 +84,12 @@ unsafe extern "Rust" {
 /// This may change in the future. You must not rely on it for correctness!
 ///
 /// [*equivalent*]: Allocator#equivalent-allocators
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف للمخصص العام للذاكرة.
+///
+/// </div>
 #[stable(feature = "allocator_api", since = "1.100.0")]
 #[derive(Copy, Debug)]
 #[derive_const(Clone, Default)]
@@ -144,6 +156,12 @@ unsafe impl core::alloc::StaticAllocator for Global {}
 ///     dealloc(ptr, layout);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحجز ذاكرة بالمخصص العام.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 #[must_use = "losing the pointer will leak memory"]
 #[inline]
@@ -189,6 +207,12 @@ pub unsafe fn alloc(layout: Layout) -> *mut u8 {
 /// # Safety
 ///
 /// See [`GlobalAlloc::dealloc`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحرر ذاكرة بالمخصص العام.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 #[inline]
 #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
@@ -243,6 +267,12 @@ unsafe fn dealloc_nonnull(ptr: NonNull<u8>, layout: Layout) {
 /// # Safety
 ///
 /// See [`GlobalAlloc::realloc`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعيد حجز ذاكرة بالمخصص العام.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 #[must_use = "losing the pointer will leak memory"]
 #[inline]
@@ -309,6 +339,12 @@ unsafe fn realloc_nonnull(ptr: NonNull<u8>, layout: Layout, new_size: usize) -> 
 ///     dealloc(ptr, layout);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحجز ذاكرة مهيأة بأصفار بالمخصص العام.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 #[must_use = "losing the pointer will leak memory"]
 #[inline]
@@ -661,6 +697,12 @@ unsafe extern "Rust" {
 /// [`take_alloc_error_hook`]: ../../std/alloc/fn.take_alloc_error_hook.html
 /// [The panic handler]: https://doc.rust-lang.org/reference/runtime.html#the-panic_handler-attribute
 /// [no_std]: https://doc.rust-lang.org/reference/names/preludes.html#the-no_std-attribute
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبلّغ عن خطأ في حجز الذاكرة.
+///
+/// </div>
 #[stable(feature = "global_alloc", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_alloc_error", issue = "92523")]
 #[cfg(not(no_global_oom_handling))]

@@ -77,6 +77,12 @@
 //!
 //! [`String`]: crate::string::String
 //! [`CStr`]: core::ffi::CStr
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات متعلقة بالربط مع لغات أخرى (FFI).
+//!
+//! </div>
 
 #![stable(feature = "alloc_ffi", since = "1.64.0")]
 

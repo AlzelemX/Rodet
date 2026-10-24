@@ -34,6 +34,12 @@ impl Error {
     /// // creating an error without payload (and without memory allocation)
     /// let eof_error = Error::from(ErrorKind::UnexpectedEof);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خطأ إدخال وإخراج جديدًا من نوع خطأ معروف وحمولة خطأ عشوائية.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "io_error_new")]
@@ -69,6 +75,12 @@ impl Error {
     /// // errors can also be created from other errors
     /// let custom_error2 = Error::other(custom_error);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خطأ إدخال وإخراج جديدًا من حمولة خطأ عشوائية (النوع `Other`).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "io_error_other", since = "1.74.0")]
     #[rustc_allow_incoherent_impl]
@@ -109,6 +121,12 @@ impl Error {
     ///     print_error(Error::new(ErrorKind::Other, "oh no!"));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Error` ويرجع الخطأ الداخلي (إن وُجد).
+    ///
+    /// </div>
     #[stable(feature = "io_error_inner", since = "1.3.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline]
@@ -201,6 +219,12 @@ impl Error {
     /// assert!(io_error.raw_os_error().is_none());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الخطأ المخصص داخل الـ `Box` إلى `E`.
+    ///
+    /// </div>
     #[stable(feature = "io_error_downcast", since = "1.79.0")]
     #[rustc_allow_incoherent_impl]
     pub fn downcast<E>(self) -> result::Result<E, Self>
@@ -228,6 +252,12 @@ impl Error {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl From<crate::ffi::NulError> for Error {
     /// Converts a [`crate::ffi::NulError`] into a [`Error`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `crate::ffi::NulError` إلى `Error`.
+    ///
+    /// </div>
     fn from(_: crate::ffi::NulError) -> Error {
         const_error!(ErrorKind::InvalidInput, "data provided contains a nul byte")
     }
@@ -239,6 +269,12 @@ impl From<crate::collections::TryReserveError> for Error {
     ///
     /// `TryReserveError` won't be available as the error `source()`,
     /// but this may change in the future.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `TryReserveError` إلى خطأ من النوع `ErrorKind::OutOfMemory`.
+    ///
+    /// </div>
     fn from(_: crate::collections::TryReserveError) -> Error {
         // ErrorData::Custom allocates, which isn't great for handling OOM errors.
         ErrorKind::OutOfMemory.into()

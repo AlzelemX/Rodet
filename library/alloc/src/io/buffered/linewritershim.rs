@@ -139,6 +139,12 @@ impl<'a, W: ?Sized + Write> Write for LineWriterShim<'a, W> {
     /// Because this function attempts to send completed lines to the underlying
     /// writer, it will also flush the existing buffer if it ends with a
     /// newline, even if the incoming data does not contain any newlines.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بيانات في هذا الكاتب مع التخزين حسب الأسطر.
+    ///
+    /// </div>
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         let newline_idx = match memchr::memrchr(b'\n', buf) {
             // If there are no new newlines (that is, if this write is less than
@@ -248,6 +254,12 @@ impl<'a, W: ?Sized + Write> Write for LineWriterShim<'a, W> {
     /// simply write the first non-empty buffer with `write`. This way, we
     /// get the benefits of more granular partial-line handling without losing
     /// anything in efficiency
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بيانات متجهة في هذا الكاتب مع التخزين حسب الأسطر.
+    ///
+    /// </div>
     fn write_vectored(&mut self, bufs: &[IoSlice<'_>]) -> io::Result<usize> {
         // If there's no specialized behavior for write_vectored, just use
         // write. This has the benefit of more granular partial-line handling.
@@ -293,6 +305,12 @@ impl<'a, W: ?Sized + Write> Write for LineWriterShim<'a, W> {
     /// Because this function attempts to send completed lines to the underlying
     /// writer, it will also flush the existing buffer if it contains any
     /// newlines, even if the incoming data does not contain any newlines.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب بيانات في هذا الكاتب مع التخزين حسب الأسطر.
+    ///
+    /// </div>
     fn write_all(&mut self, buf: &[u8]) -> io::Result<()> {
         match memchr::memrchr(b'\n', buf) {
             // If there are no new newlines (that is, if this write is less than

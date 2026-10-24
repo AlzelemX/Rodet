@@ -52,6 +52,12 @@ use crate::vec::Vec;
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `BufRead` نوع قارئ (`Read`) فيه مخزن داخلي، فيسمح بطرق قراءة إضافية (مثل القراءة سطرًا سطرًا).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoBufRead")]
 pub trait BufRead: Read {
@@ -89,6 +95,12 @@ pub trait BufRead: Read {
     /// stdin.consume(length);
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى المخزن الداخلي، ويملؤه ببيانات جديدة إذا كان فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn fill_buf(&mut self) -> Result<&[u8]>;
 
@@ -106,6 +118,12 @@ pub trait BufRead: Read {
     /// that method's example includes an example of `consume()`.
     ///
     /// [`fill_buf`]: BufRead::fill_buf
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم عددًا `amount` من البايتات في المخزن الداخلي كمقروءة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn consume(&mut self, amount: usize);
 
@@ -140,6 +158,12 @@ pub trait BufRead: Read {
     /// }
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل بقيت بيانات للقراءة.
+    ///
+    /// </div>
     #[unstable(feature = "buf_read_has_data_left", issue = "86423")]
     fn has_data_left(&mut self) -> Result<bool> {
         self.fill_buf().map(|b| !b.is_empty())
@@ -201,6 +225,12 @@ pub trait BufRead: Read {
     /// assert_eq!(num_bytes, 0);
     /// assert_eq!(buf, b"");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ كل البايتات في `buf` حتى البايت الفاصل `byte` أو نهاية الملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn read_until(&mut self, byte: u8, buf: &mut Vec<u8>) -> Result<usize> {
         default_read_until(self, byte, buf)
@@ -268,6 +298,12 @@ pub trait BufRead: Read {
     ///     .expect("reading from cursor won't fail");
     /// assert_eq!(num_bytes, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتخطى كل البايتات حتى البايت الفاصل `byte` أو نهاية الملف.
+    ///
+    /// </div>
     #[stable(feature = "bufread_skip_until", since = "1.83.0")]
     fn skip_until(&mut self, byte: u8) -> Result<usize> {
         default_skip_until(self, byte)
@@ -338,6 +374,12 @@ pub trait BufRead: Read {
     /// assert_eq!(num_bytes, 0);
     /// assert_eq!(buf, "");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ البايتات حتى سطر جديد (البايت `0xA`) ويضيفها إلى نهاية الـ `String` المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn read_line(&mut self, buf: &mut String) -> Result<usize> {
         // Note that we are not calling the `.read_until` method here, but
@@ -379,6 +421,12 @@ pub trait BufRead: Read {
     /// assert_eq!(split_iter.next(), Some(b"dolor".to_vec()));
     /// assert_eq!(split_iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على محتويات هذا القارئ مقسومة عند البايت `byte`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn split(self, byte: u8) -> Split<Self>
     where
@@ -418,6 +466,12 @@ pub trait BufRead: Read {
     /// # Errors
     ///
     /// Each line of the iterator has the same error semantics as [`BufRead::read_line`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أسطر هذا القارئ.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn lines(self) -> Lines<Self>
     where

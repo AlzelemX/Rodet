@@ -66,6 +66,12 @@ use crate::vec::Vec;
 /// [`TcpStream::write`]: ../../std/net/struct.TcpStream.html#method.write
 /// [`TcpStream`]: ../../std/net/struct.TcpStream.html
 /// [`flush`]: BufWriter::flush
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغلّف كاتبًا ويخزن مخرجاته مؤقتًا (أسرع عند الكتابات الصغيرة الكثيرة).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct BufWriter<W: ?Sized + Write> {
     // The buffer. Avoid using this like a normal `Vec` in common code paths.
@@ -93,6 +99,12 @@ impl<W: Write> BufWriter<W> {
     /// # #[expect(unused_mut)]
     /// let mut buffer = BufWriter::new(TcpStream::connect("127.0.0.1:34254").unwrap());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BufWriter<W>` جديدًا بسعة المخزن الافتراضية (حاليًا 8 KiB).
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn new(inner: W) -> BufWriter<W> {
@@ -126,6 +138,12 @@ impl<W: Write> BufWriter<W> {
     /// # #[expect(unused_mut)]
     /// let mut buffer = BufWriter::with_capacity(100, stream);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `BufWriter<W>` جديدًا بسعة لا تقل عن السعة المحددة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn with_capacity(capacity: usize, inner: W) -> BufWriter<W> {
@@ -152,6 +170,12 @@ impl<W: Write> BufWriter<W> {
     /// // unwrap the TcpStream and flush the buffer
     /// let stream = buffer.into_inner().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك هذا الـ `BufWriter<W>` ويرجع الكاتب الأساسي (بعد تفريغ المخزن).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_inner(mut self) -> Result<W, IntoInnerError<BufWriter<W>>> {
         match self.flush_buf() {
@@ -182,6 +206,12 @@ impl<W: Write> BufWriter<W> {
     /// assert_eq!(recovered_writer.len(), 0);
     /// assert_eq!(&buffered_data.unwrap(), b"ata");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك هذا الـ `BufWriter<W>` ويرجع الكاتب الأساسي وأي بيانات مخزنة لم تُكتب.
+    ///
+    /// </div>
     #[stable(feature = "bufwriter_into_parts", since = "1.56.0")]
     pub fn into_parts(self) -> (W, Result<Vec<u8>, WriterPanicked>) {
         let mut this = ManuallyDrop::new(self);
@@ -306,6 +336,12 @@ impl<W: ?Sized + Write> BufWriter<W> {
     /// // we can use reference just like buffer
     /// let reference = buffer.get_ref();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى الكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_ref(&self) -> &W {
         &self.inner
@@ -326,6 +362,12 @@ impl<W: ?Sized + Write> BufWriter<W> {
     /// // we can use reference just like buffer
     /// let reference = buffer.get_mut();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الكاتب الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn get_mut(&mut self) -> &mut W {
         &mut self.inner
@@ -344,6 +386,12 @@ impl<W: ?Sized + Write> BufWriter<W> {
     /// // See how many bytes are currently buffered
     /// let bytes_buffered = buf_writer.buffer().len();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى البيانات المخزنة داخليًا.
+    ///
+    /// </div>
     #[stable(feature = "bufreader_buffer", since = "1.37.0")]
     pub fn buffer(&self) -> &[u8] {
         &self.buf
@@ -378,6 +426,12 @@ impl<W: ?Sized + Write> BufWriter<W> {
     /// // Calculate how many bytes can be written without flushing
     /// let without_flush = capacity - buf_writer.buffer().len();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات التي يتسع لها المخزن الداخلي بدون تفريغ.
+    ///
+    /// </div>
     #[stable(feature = "buffered_io_capacity", since = "1.46.0")]
     pub fn capacity(&self) -> usize {
         self.buf.capacity()
@@ -517,6 +571,12 @@ impl<W: ?Sized + Write> BufWriter<W> {
 /// # #[cfg(not(panic = "unwind"))]
 /// # fn main() {}
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يرجع للبيانات المخزنة من `BufWriter::into_parts` إذا توقف الكاتب الأساسي بـ panic سابقًا.
+///
+/// </div>
 pub struct WriterPanicked {
     buf: Vec<u8>,
 }
@@ -524,6 +584,12 @@ pub struct WriterPanicked {
 impl WriterPanicked {
     /// Returns the perhaps-unwritten data.  Some of this data may have been written by the
     /// panicking call(s) to the underlying writer, so simply writing it again is not a good idea.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البيانات التي ربما لم تُكتب.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "bufwriter_into_parts", since = "1.56.0")]
     pub fn into_inner(self) -> Vec<u8> {
@@ -701,6 +767,12 @@ impl<W: ?Sized + Write + Seek> Seek for BufWriter<W> {
     /// Seek to the offset, in bytes, in the underlying writer.
     ///
     /// Seeking always writes out the internal buffer before seeking.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع (بالبايتات) في الكاتب الأساسي.
+    ///
+    /// </div>
     fn seek(&mut self, pos: SeekFrom) -> io::Result<u64> {
         self.flush_buf()?;
         self.get_mut().seek(pos)

@@ -1,4 +1,10 @@
 //! An implementation of SipHash.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق SipHash.
+//!
+//! </div>
 
 #![allow(deprecated)] // the types in this module are deprecated
 
@@ -25,6 +31,12 @@ pub struct SipHasher13 {
 /// An implementation of SipHash 2-4.
 ///
 /// See: <https://github.com/veorq/SipHash>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق SipHash 2-4.
+///
+/// </div>
 #[unstable(feature = "hashmap_internals", issue = "none")]
 #[derive(Debug, Clone, Default)]
 struct SipHasher24 {
@@ -43,6 +55,12 @@ struct SipHasher24 {
 /// Although the SipHash algorithm is considered to be generally strong,
 /// it is not intended for cryptographic purposes. As such, all
 /// cryptographic uses of this implementation are _strongly discouraged_.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق SipHash 2-4.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.13.0", note = "use `std::hash::DefaultHasher` instead")]
 #[derive(Debug, Clone, Default)]
@@ -99,6 +117,12 @@ macro_rules! compress {
 ///
 /// Safety: this performs unchecked indexing of `$buf` at
 /// `$i..$i+size_of::<$int_ty>()`, so that must be in-bounds.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ عددًا من النوع المطلوب من تسلسل بايتات بترتيب LE.
+///
+/// </div>
 macro_rules! load_int_le {
     ($buf:expr, $i:expr, $int_ty:ident) => {{
         debug_assert!($i + size_of::<$int_ty>() <= $buf.len());
@@ -145,6 +169,12 @@ unsafe fn u8to64_le(buf: &[u8], start: usize, len: usize) -> u64 {
 
 impl SipHasher {
     /// Creates a new `SipHasher` with the two initial keys set to 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `SipHasher` جديدًا بمفتاحين أوليين قيمتهما 0.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(since = "1.13.0", note = "use `std::hash::DefaultHasher` instead")]
@@ -154,6 +184,12 @@ impl SipHasher {
     }
 
     /// Creates a `SipHasher` that is keyed off the provided keys.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `SipHasher` بالمفاتيح المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(since = "1.13.0", note = "use `std::hash::DefaultHasher` instead")]
@@ -165,6 +201,12 @@ impl SipHasher {
 
 impl SipHasher13 {
     /// Creates a new `SipHasher13` with the two initial keys set to 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `SipHasher13` جديدًا بمفتاحين أوليين قيمتهما 0.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hashmap_internals", issue = "none")]
     #[rustc_const_unstable(feature = "const_default", issue = "143894")]
@@ -173,6 +215,12 @@ impl SipHasher13 {
     }
 
     /// Creates a `SipHasher13` that is keyed off the provided keys.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `SipHasher13` بالمفاتيح المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "hashmap_internals", issue = "none")]
     #[rustc_const_unstable(feature = "const_default", issue = "143894")]

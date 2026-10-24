@@ -1,4 +1,10 @@
 //! [`CString`] and its related types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! `CString` والأنواع المرتبطة به.
+//!
+//! </div>
 
 use core::borrow::Borrow;
 use core::ffi::{CStr, c_char};
@@ -102,6 +108,12 @@ use crate::vec::Vec;
 /// documentation of `CString` before use, as improper ownership management
 /// of `CString` instances can lead to invalid memory accesses, memory leaks,
 /// and other memory errors.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يمثل نصًا مملوكًا متوافقًا مع C، ينتهي بصفر ولا يحتوي أصفارًا في وسطه.
+///
+/// </div>
 #[derive(PartialEq, PartialOrd, Eq, Ord, Hash, Clone)]
 #[rustc_diagnostic_item = "cstring_type"]
 #[rustc_insignificant_dtor]
@@ -128,6 +140,12 @@ pub struct CString {
 ///
 /// let _: NulError = CString::new(b"f\0oo".to_vec()).unwrap_err();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني أنه وُجد بايت صفري في الوسط.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "alloc_c_string", since = "1.64.0")]
 pub struct NulError(usize, Vec<u8>);
@@ -153,6 +171,12 @@ enum FromBytesWithNulErrorKind {
 ///
 /// let _: FromVecWithNulError = CString::from_vec_with_nul(b"f\0oo".to_vec()).unwrap_err();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني أن البايت الصفري ليس في الموضع المتوقع.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "alloc_c_string", since = "1.64.0")]
 pub struct FromVecWithNulError {
@@ -178,6 +202,12 @@ impl FromVecWithNulError {
     ///
     /// assert_eq!(&bytes[..], value.unwrap_err().as_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة البايتات (`u8`) التي حاولنا تحويلها إلى `CString`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "cstring_from_vec_with_nul", since = "1.58.0")]
     pub fn as_bytes(&self) -> &[u8] {
@@ -204,6 +234,12 @@ impl FromVecWithNulError {
     ///
     /// assert_eq!(bytes, value.unwrap_err().into_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البايتات التي حاولنا تحويلها إلى `CString`.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "cstring_from_vec_with_nul", since = "1.58.0")]
     pub fn into_bytes(self) -> Vec<u8> {
@@ -219,6 +255,12 @@ impl FromVecWithNulError {
 ///
 /// This `struct` is created by [`CString::into_string()`]. See
 /// its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ يعني أن UTF-8 غير صالح عند تحويل `CString` إلى `String`.
+///
+/// </div>
 #[derive(Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "alloc_c_string", since = "1.64.0")]
 pub struct IntoStringError {
@@ -254,6 +296,12 @@ impl CString {
     /// This function will return an error if the supplied bytes contain an
     /// internal 0 byte. The [`NulError`] returned will contain the bytes as well as
     /// the position of the nul byte.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص C جديدًا من حاوية بايتات.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn new<T: Into<Vec<u8>>>(t: T) -> Result<CString, NulError> {
         trait SpecNewImpl {
@@ -338,6 +386,12 @@ impl CString {
     ///     let c_string = CString::from_vec_unchecked(raw);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نص C باستهلاك متجه بايتات، بدون التحقق من وجود أصفار في الوسط (غير آمن).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub unsafe fn from_vec_unchecked(v: Vec<u8>) -> Self {
@@ -401,6 +455,12 @@ impl CString {
     ///     let c_string = CString::from_raw(raw);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعيد ملكية `CString` نُقل إلى C عبر `CString::into_raw` (غير آمن).
+    ///
+    /// </div>
     #[must_use = "call `drop(from_raw(ptr))` if you intend to drop the `CString`"]
     #[stable(feature = "cstr_memory", since = "1.4.0")]
     pub unsafe fn from_raw(ptr: *mut c_char) -> CString {
@@ -453,6 +513,12 @@ impl CString {
     ///     let _ = CString::from_raw(ptr);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `CString` وينقل ملكية النص إلى مستدعٍ بلغة C.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "cstr_memory", since = "1.4.0")]
@@ -478,6 +544,12 @@ impl CString {
     /// let err = cstring.into_string().expect_err("we provided bytes that are invalid UTF-8, so `into_string` should fail");
     /// assert_eq!(err.utf8_error().valid_up_to(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `CString` إلى `String` إذا كان UTF-8 صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "cstring_into", since = "1.7.0")]
     pub fn into_string(self) -> Result<String, IntoStringError> {
         String::from_utf8(self.into_bytes()).map_err(|e| IntoStringError {
@@ -502,6 +574,12 @@ impl CString {
     /// let bytes = c_string.into_bytes();
     /// assert_eq!(bytes, vec![b'f', b'o', b'o']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `CString` ويرجع مخزن البايتات الأساسي.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "cstring_into", since = "1.7.0")]
     pub fn into_bytes(self) -> Vec<u8> {
@@ -523,6 +601,12 @@ impl CString {
     /// let bytes = c_string.into_bytes_with_nul();
     /// assert_eq!(bytes, vec![b'f', b'o', b'o', b'\0']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `CString::into_bytes()` لكن المتجه المُرجَع يحتوي الصفر الأخير.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "cstring_into", since = "1.7.0")]
     pub fn into_bytes_with_nul(self) -> Vec<u8> {
@@ -545,6 +629,12 @@ impl CString {
     /// let bytes = c_string.as_bytes();
     /// assert_eq!(bytes, &[b'f', b'o', b'o']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا الـ `CString` كشريحة بايتات.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -565,6 +655,12 @@ impl CString {
     /// let bytes = c_string.as_bytes_with_nul();
     /// assert_eq!(bytes, &[b'f', b'o', b'o', b'\0']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `CString::as_bytes()` لكن الشريحة المُرجَعة تحتوي الصفر الأخير.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -584,6 +680,12 @@ impl CString {
     /// assert_eq!(cstr,
     ///            CStr::from_bytes_with_nul(b"foo\0").expect("we provided bytes that has one NUL byte exactly at the end, so CStr::from_bytes_with_nul should not fail"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `CStr` تحتوي النص كاملًا.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "as_c_str", since = "1.20.0")]
@@ -602,6 +704,12 @@ impl CString {
     /// let boxed = c_string.into_boxed_c_str();
     /// assert_eq!(boxed.to_bytes_with_nul(), b"foo\0");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `CString` إلى `CStr` داخل `Box`.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "into_boxed_c_str", since = "1.20.0")]
     pub fn into_boxed_c_str(self) -> Box<CStr> {
@@ -638,6 +746,12 @@ impl CString {
     ///     unsafe { CString::from_vec_unchecked(b"abc".to_vec()) }
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<u8>` إلى `CString` بدون التحقق من شروطه (غير آمن).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "cstring_from_vec_with_nul", since = "1.58.0")]
     pub unsafe fn from_vec_with_nul_unchecked(v: Vec<u8>) -> Self {
@@ -683,6 +797,12 @@ impl CString {
     /// // No nul byte
     /// let _: FromVecWithNulError = CString::from_vec_with_nul(b"abc".to_vec()).unwrap_err();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل `Vec<u8>` إلى `CString`.
+    ///
+    /// </div>
     #[stable(feature = "cstring_from_vec_with_nul", since = "1.58.0")]
     pub fn from_vec_with_nul(v: Vec<u8>) -> Result<Self, FromVecWithNulError> {
         let nul_pos = memchr::memchr(0, &v);
@@ -730,6 +850,12 @@ impl ops::Deref for CString {
 
 /// Delegates to the [`CStr`] implementation of [`fmt::Debug`],
 /// showing invalid UTF-8 as hex escapes.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحيل إلى تطبيق `fmt::Debug` لـ `CStr`، ويعرض UTF-8 غير الصالح كتهريبات ست عشرية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl fmt::Debug for CString {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -742,6 +868,12 @@ impl From<CString> for Vec<u8> {
     /// Converts a [`CString`] into a <code>[Vec]<[u8]></code>.
     ///
     /// The conversion consumes the [`CString`], and removes the terminating NUL byte.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `Vec<u8>`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: CString) -> Vec<u8> {
         s.into_bytes()
@@ -751,6 +883,12 @@ impl From<CString> for Vec<u8> {
 #[stable(feature = "cstr_default", since = "1.10.0")]
 impl Default for CString {
     /// Creates an empty `CString`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CString` فارغًا.
+    ///
+    /// </div>
     fn default() -> CString {
         let a: &CStr = Default::default();
         a.to_owned()
@@ -769,6 +907,12 @@ impl Borrow<CStr> for CString {
 impl<'a> From<Cow<'a, CStr>> for CString {
     /// Converts a `Cow<'a, CStr>` into a `CString`, by copying the contents if they are
     /// borrowed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'a, CStr>` إلى `CString`، وينسخ المحتوى إذا كان مستعارًا.
+    ///
+    /// </div>
     #[inline]
     fn from(s: Cow<'a, CStr>) -> Self {
         s.into_owned()
@@ -779,6 +923,12 @@ impl<'a> From<Cow<'a, CStr>> for CString {
 impl From<&CStr> for Box<CStr> {
     /// Converts a `&CStr` into a `Box<CStr>`,
     /// by copying the contents into a newly allocated [`Box`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&CStr` إلى `Box<CStr>` بنسخ المحتوى إلى `Box` جديد.
+    ///
+    /// </div>
     fn from(s: &CStr) -> Box<CStr> {
         Box::clone_from_ref(s)
     }
@@ -788,6 +938,12 @@ impl From<&CStr> for Box<CStr> {
 impl From<&mut CStr> for Box<CStr> {
     /// Converts a `&mut CStr` into a `Box<CStr>`,
     /// by copying the contents into a newly allocated [`Box`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut CStr` إلى `Box<CStr>` بنسخ المحتوى إلى `Box` جديد.
+    ///
+    /// </div>
     fn from(s: &mut CStr) -> Box<CStr> {
         Self::from(&*s)
     }
@@ -797,6 +953,12 @@ impl From<&mut CStr> for Box<CStr> {
 impl From<Cow<'_, CStr>> for Box<CStr> {
     /// Converts a `Cow<'a, CStr>` into a `Box<CStr>`,
     /// by copying the contents if they are borrowed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Cow<'a, CStr>` إلى `Box<CStr>`، وينسخ المحتوى إذا كان مستعارًا.
+    ///
+    /// </div>
     #[inline]
     fn from(cow: Cow<'_, CStr>) -> Box<CStr> {
         match cow {
@@ -809,6 +971,12 @@ impl From<Cow<'_, CStr>> for Box<CStr> {
 #[stable(feature = "c_string_from_box", since = "1.18.0")]
 impl From<Box<CStr>> for CString {
     /// Converts a <code>[Box]<[CStr]></code> into a [`CString`] without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<CStr>` إلى `CString` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: Box<CStr>) -> CString {
         let raw = Box::into_raw(s) as *mut [u8];
@@ -821,6 +989,12 @@ impl From<Box<CStr>> for CString {
 impl From<Vec<NonZero<u8>>> for CString {
     /// Converts a <code>[Vec]<[NonZero]<[u8]>></code> into a [`CString`] without
     /// copying nor checking for inner nul bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Vec<NonZero<u8>>` إلى `CString` بدون نسخ أو فحص.
+    ///
+    /// </div>
     #[inline]
     fn from(v: Vec<NonZero<u8>>) -> CString {
         // Transmute `Vec<NonZero<u8>>` to `Vec<u8>`.
@@ -844,6 +1018,12 @@ impl FromStr for CString {
     /// Converts a string `s` into a [`CString`].
     ///
     /// This method is equivalent to [`CString::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل النص `s` إلى `CString`.
+    ///
+    /// </div>
     #[inline]
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::new(s)
@@ -857,6 +1037,12 @@ impl TryFrom<CString> for String {
     /// Converts a [`CString`] into a [`String`] if it contains valid UTF-8 data.
     ///
     /// This method is equivalent to [`CString::into_string`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `String` إذا كان UTF-8 صالحًا.
+    ///
+    /// </div>
     #[inline]
     fn try_from(value: CString) -> Result<Self, Self::Error> {
         value.into_string()
@@ -874,6 +1060,12 @@ impl<A: Allocator + Clone> Clone for Box<CStr, A> {
 #[stable(feature = "box_from_c_string", since = "1.20.0")]
 impl From<CString> for Box<CStr> {
     /// Converts a [`CString`] into a <code>[Box]<[CStr]></code> without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `Box<CStr>` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: CString) -> Box<CStr> {
         s.into_boxed_c_str()
@@ -883,6 +1075,12 @@ impl From<CString> for Box<CStr> {
 #[stable(feature = "cow_from_cstr", since = "1.28.0")]
 impl<'a> From<CString> for Cow<'a, CStr> {
     /// Converts a [`CString`] into an owned [`Cow`] without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `Cow` مملوك بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: CString) -> Cow<'a, CStr> {
         Cow::Owned(s)
@@ -892,6 +1090,12 @@ impl<'a> From<CString> for Cow<'a, CStr> {
 #[stable(feature = "cow_from_cstr", since = "1.28.0")]
 impl<'a> From<&'a CStr> for Cow<'a, CStr> {
     /// Converts a [`CStr`] into a borrowed [`Cow`] without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CStr` إلى `Cow` مستعار بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a CStr) -> Cow<'a, CStr> {
         Cow::Borrowed(s)
@@ -901,6 +1105,12 @@ impl<'a> From<&'a CStr> for Cow<'a, CStr> {
 #[stable(feature = "cow_from_cstr", since = "1.28.0")]
 impl<'a> From<&'a CString> for Cow<'a, CStr> {
     /// Converts a `&`[`CString`] into a borrowed [`Cow`] without copying or allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&CString` إلى `Cow` مستعار بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a CString) -> Cow<'a, CStr> {
         Cow::Borrowed(s.as_c_str())
@@ -912,6 +1122,12 @@ impl<'a> From<&'a CString> for Cow<'a, CStr> {
 impl From<CString> for Arc<CStr> {
     /// Converts a [`CString`] into an <code>[Arc]<[CStr]></code> by moving the [`CString`]
     /// data into a new [`Arc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `Arc<CStr>` بنقل البيانات إلى مخزن `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: CString) -> Arc<CStr> {
         let arc: Arc<[u8]> = Arc::from(s.into_inner());
@@ -925,6 +1141,12 @@ impl From<CString> for Arc<CStr> {
 impl From<&CStr> for Arc<CStr> {
     /// Converts a `&CStr` into a `Arc<CStr>`,
     /// by copying the contents into a newly allocated [`Arc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&CStr` إلى `Arc<CStr>` بنسخ المحتوى إلى `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &CStr) -> Arc<CStr> {
         let arc: Arc<[u8]> = Arc::from(s.to_bytes_with_nul());
@@ -938,6 +1160,12 @@ impl From<&CStr> for Arc<CStr> {
 impl From<&mut CStr> for Arc<CStr> {
     /// Converts a `&mut CStr` into a `Arc<CStr>`,
     /// by copying the contents into a newly allocated [`Arc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut CStr` إلى `Arc<CStr>` بنسخ المحتوى إلى `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut CStr) -> Arc<CStr> {
         Arc::from(&*s)
@@ -948,6 +1176,12 @@ impl From<&mut CStr> for Arc<CStr> {
 impl From<CString> for Rc<CStr> {
     /// Converts a [`CString`] into an <code>[Rc]<[CStr]></code> by moving the [`CString`]
     /// data into a new [`Rc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CString` إلى `Rc<CStr>` بنقل البيانات إلى مخزن `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: CString) -> Rc<CStr> {
         let rc: Rc<[u8]> = Rc::from(s.into_inner());
@@ -960,6 +1194,12 @@ impl From<CString> for Rc<CStr> {
 impl From<&CStr> for Rc<CStr> {
     /// Converts a `&CStr` into a `Rc<CStr>`,
     /// by copying the contents into a newly allocated [`Rc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&CStr` إلى `Rc<CStr>` بنسخ المحتوى إلى `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &CStr) -> Rc<CStr> {
         let rc: Rc<[u8]> = Rc::from(s.to_bytes_with_nul());
@@ -972,6 +1212,12 @@ impl From<&CStr> for Rc<CStr> {
 impl From<&mut CStr> for Rc<CStr> {
     /// Converts a `&mut CStr` into a `Rc<CStr>`,
     /// by copying the contents into a newly allocated [`Rc`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&mut CStr` إلى `Rc<CStr>` بنسخ المحتوى إلى `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut CStr) -> Rc<CStr> {
         Rc::from(&*s)
@@ -984,6 +1230,12 @@ impl Default for Rc<CStr> {
     /// Creates an empty CStr inside an Rc
     ///
     /// This may or may not share an allocation with other Rcs on the same thread.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `CStr` فارغًا داخل `Rc`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         Rc::from(c"")
@@ -1012,6 +1264,12 @@ impl NulError {
     /// let nul_error = CString::new("foo bar\0").unwrap_err();
     /// assert_eq!(nul_error.nul_position(), 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع البايت الصفري الذي سبب فشل `CString::new`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn nul_position(&self) -> usize {
@@ -1029,6 +1287,12 @@ impl NulError {
     /// let nul_error = CString::new("foo\0bar").unwrap_err();
     /// assert_eq!(nul_error.into_vec(), b"foo\0bar");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الخطأ ويرجع متجه البايتات الذي سببه.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_vec(self) -> Vec<u8> {
@@ -1060,6 +1324,12 @@ impl fmt::Display for FromVecWithNulError {
 impl IntoStringError {
     /// Consumes this error, returning original [`CString`] which generated the
     /// error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الخطأ ويرجع الـ `CString` الأصلي الذي سببه.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "cstring_into", since = "1.7.0")]
     pub fn into_cstring(self) -> CString {
@@ -1067,6 +1337,12 @@ impl IntoStringError {
     }
 
     /// Access the underlying UTF-8 error that was the cause of this error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع خطأ UTF-8 الأساسي الذي سبب هذا الخطأ.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "cstring_into", since = "1.7.0")]
     pub fn utf8_error(&self) -> Utf8Error {
@@ -1108,6 +1384,12 @@ impl ToOwned for CStr {
 impl From<&CStr> for CString {
     /// Converts a <code>&[CStr]</code> into a [`CString`]
     /// by copying the contents into a new allocation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `&CStr` إلى `CString` بنسخ المحتوى إلى ذاكرة جديدة.
+    ///
+    /// </div>
     fn from(s: &CStr) -> CString {
         s.to_owned()
     }
@@ -1207,6 +1489,12 @@ impl CStr {
     ///     Cow::Owned(String::from("Hello �World")) as Cow<'_, str>
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `CStr` إلى `Cow<str>`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1227,6 +1515,12 @@ impl CStr {
     ///
     /// assert_eq!(boxed.into_c_string(), c_string);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<CStr>` إلى `CString` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "into_boxed_c_str", since = "1.20.0")]

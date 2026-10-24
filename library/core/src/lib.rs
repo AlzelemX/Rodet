@@ -42,6 +42,12 @@
 //!   compiler. This is often mapped to GCC's personality function, but crates
 //!   which do not trigger a panic can be assured that this function is never
 //!   called. The `lang` attribute is called `eh_personality`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مكتبة Rust الأساسية (core): الأساس الذي لا يحتاج نظام تشغيل.
+//!
+//! </div>
 
 #![stable(feature = "core", since = "1.6.0")]
 #![doc(
@@ -208,6 +214,12 @@ pub use crate::macros::{assert_matches, debug_assert_matches};
 
 #[unstable(feature = "derive_from", issue = "144889")]
 /// Unstable module containing the unstable `From` derive macro.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// وحدة غير مستقرة فيها ماكرو derive `From`.
+///
+/// </div>
 pub mod from {
     #[unstable(feature = "derive_from", issue = "144889")]
     pub use crate::macros::builtin::From;
