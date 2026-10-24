@@ -1,6 +1,12 @@
 //! SIMD compiler intrinsics.
 //!
 //! In this module, a "vector" is any `repr(simd)` type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال المترجم الداخلية لـ SIMD.
+//!
+//! </div>
 
 pub mod scalable;
 
@@ -13,6 +19,12 @@ use crate::marker::ConstParamTy;
 /// # Safety
 ///
 /// `idx` must be in-bounds of the vector.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يدرج عنصرًا في متجه ويرجع المتجه المحدّث.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_insert<T, U>(x: T, idx: u32, val: U) -> T;
@@ -24,6 +36,12 @@ pub const unsafe fn simd_insert<T, U>(x: T, idx: u32, val: U) -> T;
 /// # Safety
 ///
 /// `idx` must be const and in-bounds of the vector.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج عنصرًا من متجه.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_extract<T, U>(x: T, idx: u32) -> U;
@@ -37,6 +55,12 @@ pub const unsafe fn simd_extract<T, U>(x: T, idx: u32) -> U;
 /// # Safety
 ///
 /// `idx` must be in-bounds of the vector.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يدرج عنصرًا في متجه ويرجع المتجه المحدّث.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub const unsafe fn simd_insert_dyn<T, U>(x: T, idx: u32, val: U) -> T;
@@ -50,6 +74,12 @@ pub const unsafe fn simd_insert_dyn<T, U>(x: T, idx: u32, val: U) -> T;
 /// # Safety
 ///
 /// `idx` must be in-bounds of the vector.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج عنصرًا من متجه.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub const unsafe fn simd_extract_dyn<T, U>(x: T, idx: u32) -> U;
@@ -57,6 +87,12 @@ pub const unsafe fn simd_extract_dyn<T, U>(x: T, idx: u32) -> U;
 /// Creates a vector where every lane has the provided value.
 ///
 /// `T` must be a vector with element type `U`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ متجهًا كل خاناته تحمل القيمة المعطاة.
+///
+/// </div>
 #[rustc_nounwind]
 #[rustc_intrinsic]
 pub const unsafe fn simd_splat<T, U>(value: U) -> T;
@@ -65,6 +101,12 @@ pub const unsafe fn simd_splat<T, U>(value: U) -> T;
 ///
 /// `T` must be a vector of integers or floats.
 /// For integers, wrapping arithmetic is used.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع متجهَي simd عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_add<T>(x: T, y: T) -> T;
@@ -73,6 +115,12 @@ pub const unsafe fn simd_add<T>(x: T, y: T) -> T;
 ///
 /// `T` must be a vector of integers or floats.
 /// For integers, wrapping arithmetic is used.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطرح `rhs` من `lhs` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_sub<T>(lhs: T, rhs: T) -> T;
@@ -81,6 +129,12 @@ pub const unsafe fn simd_sub<T>(lhs: T, rhs: T) -> T;
 ///
 /// `T` must be a vector of integers or floats.
 /// For integers, wrapping arithmetic is used.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضرب متجهَي simd عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_mul<T>(x: T, y: T) -> T;
@@ -92,6 +146,12 @@ pub const unsafe fn simd_mul<T>(x: T, y: T) -> T;
 /// # Safety
 /// For integers, `rhs` must not contain any zero elements.
 /// Additionally for signed integers, `<int>::MIN / -1` is undefined behavior.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقسم `lhs` على `rhs` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_div<T>(lhs: T, rhs: T) -> T;
@@ -103,6 +163,12 @@ pub const unsafe fn simd_div<T>(lhs: T, rhs: T) -> T;
 /// # Safety
 /// For integers, `rhs` must not contain any zero elements.
 /// Additionally for signed integers, `<int>::MIN / -1` is undefined behavior.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع باقي قسمة متجهين عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_rem<T>(lhs: T, rhs: T) -> T;
@@ -116,6 +182,12 @@ pub const unsafe fn simd_rem<T>(lhs: T, rhs: T) -> T;
 /// # Safety
 ///
 /// Each element of `rhs` must be in `0..<int>::BITS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يزيح المتجه لليسار عنصرًا بعنصر؛ الفيضان سلوك غير معرّف.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_shl<T>(lhs: T, rhs: T) -> T;
@@ -129,6 +201,12 @@ pub const unsafe fn simd_shl<T>(lhs: T, rhs: T) -> T;
 /// # Safety
 ///
 /// Each element of `rhs` must be in `0..<int>::BITS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يزيح المتجه لليمين عنصرًا بعنصر؛ الفيضان سلوك غير معرّف.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_shr<T>(lhs: T, rhs: T) -> T;
@@ -146,6 +224,12 @@ pub const unsafe fn simd_shr<T>(lhs: T, rhs: T) -> T;
 /// # Safety
 ///
 /// Each element of `shift` must be in `0..<int>::BITS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إزاحة قمعية للمتجه لليسار عنصرًا بعنصر؛ الفيضان سلوك غير معرّف.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_funnel_shl<T>(a: T, b: T, shift: T) -> T;
@@ -163,6 +247,12 @@ pub const unsafe fn simd_funnel_shl<T>(a: T, b: T, shift: T) -> T;
 /// # Safety
 ///
 /// Each element of `shift` must be in `0..<int>::BITS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إزاحة قمعية للمتجه لليمين عنصرًا بعنصر؛ الفيضان سلوك غير معرّف.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_funnel_shr<T>(a: T, b: T, shift: T) -> T;
@@ -175,6 +265,12 @@ pub const unsafe fn simd_funnel_shr<T>(a: T, b: T, shift: T) -> T;
 /// ring over `GF(2)`.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب الضرب بدون حمل.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_carryless_mul<T>(a: T, b: T) -> T;
@@ -182,6 +278,12 @@ pub unsafe fn simd_carryless_mul<T>(a: T, b: T) -> T;
 /// "And"s vectors elementwise.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "و" (AND) بين المتجهات عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_and<T>(x: T, y: T) -> T;
@@ -189,6 +291,12 @@ pub const unsafe fn simd_and<T>(x: T, y: T) -> T;
 /// "Ors" vectors elementwise.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو" (OR) بين المتجهات عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_or<T>(x: T, y: T) -> T;
@@ -196,6 +304,12 @@ pub const unsafe fn simd_or<T>(x: T, y: T) -> T;
 /// "Exclusive ors" vectors elementwise.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو الحصرية" (XOR) بين المتجهات عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_xor<T>(x: T, y: T) -> T;
@@ -217,6 +331,12 @@ pub const unsafe fn simd_xor<T>(x: T, y: T) -> T;
 /// * Not be `NaN`
 /// * Not be infinite
 /// * Be representable in the return type, after truncating off its fractional part
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل نوع متجه رقميًا عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_cast<T, U>(x: T) -> U;
@@ -231,6 +351,12 @@ pub const unsafe fn simd_cast<T, U>(x: T) -> U;
 /// When casting floats to integers, the result is truncated.
 /// When casting integers to floats, the result is rounded.
 /// Otherwise, truncates or extends the value, maintaining the sign for signed integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل نوع متجه رقميًا عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_as<T, U>(x: T) -> U;
@@ -239,6 +365,12 @@ pub const unsafe fn simd_as<T, U>(x: T) -> U;
 ///
 /// `T` must be a vector of integers or floats.
 /// For integers, wrapping arithmetic is used.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعكس إشارة متجه عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_neg<T>(x: T) -> T;
@@ -246,6 +378,12 @@ pub const unsafe fn simd_neg<T>(x: T) -> T;
 /// Returns absolute value of a vector, elementwise.
 ///
 /// `T` must be a vector of floating-point primitive types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع القيمة المطلقة لمتجه عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_fabs<T>(x: T) -> T;
@@ -259,6 +397,12 @@ pub const unsafe fn simd_fabs<T>(x: T) -> T;
 /// If one of the arguments is NaN (quiet or signaling), then the other argument is returned. If
 /// both arguments are NaN, returns NaN. If the inputs compare equal (such as for the case of `+0.0`
 /// and `-0.0`), either input may be returned non-deterministically.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأصغر من متجهين عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_minimum_number_nsz<T>(x: T, y: T) -> T;
@@ -272,6 +416,12 @@ pub const unsafe fn simd_minimum_number_nsz<T>(x: T, y: T) -> T;
 /// If one of the arguments is NaN (quiet or signaling), then the other argument is returned. If
 /// both arguments are NaN, returns NaN. If the inputs compare equal (such as for the case of `+0.0`
 /// and `-0.0`), either input may be returned non-deterministically.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأكبر من متجهين عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_maximum_number_nsz<T>(x: T, y: T) -> T;
@@ -283,6 +433,12 @@ pub const unsafe fn simd_maximum_number_nsz<T>(x: T, y: T) -> T;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر تساوي متجهين عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_eq<T, U>(x: T, y: T) -> U;
@@ -294,6 +450,12 @@ pub const unsafe fn simd_eq<T, U>(x: T, y: T) -> U;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر عدم تساوي متجهين عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_ne<T, U>(x: T, y: T) -> U;
@@ -305,6 +467,12 @@ pub const unsafe fn simd_ne<T, U>(x: T, y: T) -> U;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر هل `x` أصغر من `y` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_lt<T, U>(x: T, y: T) -> U;
@@ -316,6 +484,12 @@ pub const unsafe fn simd_lt<T, U>(x: T, y: T) -> U;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر هل `x` أصغر من أو يساوي `y` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_le<T, U>(x: T, y: T) -> U;
@@ -327,6 +501,12 @@ pub const unsafe fn simd_le<T, U>(x: T, y: T) -> U;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر هل `x` أكبر من `y` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_gt<T, U>(x: T, y: T) -> U;
@@ -338,6 +518,12 @@ pub const unsafe fn simd_gt<T, U>(x: T, y: T) -> U;
 /// `U` must be a vector of integers with the same number of elements and element size as `T`.
 ///
 /// Returns `0` for false and `!0` for true.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر هل `x` أكبر من أو يساوي `y` عنصرًا بعنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_ge<T, U>(x: T, y: T) -> U;
@@ -354,6 +540,12 @@ pub const unsafe fn simd_ge<T, U>(x: T, y: T) -> U;
 /// Returns a new vector such that element `i` is selected from `xy[idx[i]]`, where `xy`
 /// is the concatenation of `x` and `y`. It is a compile-time error if `idx[i]` is out-of-bounds
 /// of `xy`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يخلط عناصر متجهين حسب فهارس ثابتة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_shuffle<T, U, V>(x: T, y: T, idx: U) -> V;
@@ -375,6 +567,12 @@ pub const unsafe fn simd_shuffle<T, U, V>(x: T, y: T, idx: U) -> V;
 /// [`ptr::read`][crate::ptr::read] (e.g. aligned to the element type).
 ///
 /// `mask` must only contain `0` or `!0` values.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ من متجه مؤشرات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_gather<T, U, V>(val: T, ptr: U, mask: V) -> T;
@@ -399,20 +597,50 @@ pub const unsafe fn simd_gather<T, U, V>(val: T, ptr: U, mask: V) -> T;
 /// [`ptr::write`][crate::ptr::write] (e.g. aligned to the element type).
 ///
 /// `mask` must only contain `0` or `!0` values.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب إلى متجه مؤشرات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_scatter<T, U, V>(val: T, ptr: U, mask: V);
 
 /// A type for alignment options for SIMD masked load/store intrinsics.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع لخيارات المحاذاة في دوال القراءة والكتابة المقنّعة لـ SIMD.
+///
+/// </div>
 #[derive(Debug, ConstParamTy, PartialEq, Eq)]
 pub enum SimdAlign {
     // These values must match the compiler's `SimdAlign` defined in
     // `rustc_middle/src/ty/consts/int.rs`!
     /// No alignment requirements on the pointer
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا متطلبات محاذاة على المؤشر.
+    ///
+    /// </div>
     Unaligned = 0,
     /// The pointer must be aligned to the element type of the SIMD vector
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب أن يكون المؤشر محاذى لنوع عنصر متجه SIMD.
+    ///
+    /// </div>
     Element = 1,
     /// The pointer must be aligned to the SIMD vector type
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجب أن يكون المؤشر محاذى لنوع متجه SIMD.
+    ///
+    /// </div>
     Vector = 2,
 }
 
@@ -437,6 +665,12 @@ pub enum SimdAlign {
 /// by [`ptr::read`][crate::ptr::read].
 ///
 /// `mask` must only contain `0` or `!0` values.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ من متجه مؤشرات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_masked_load<V, U, T, const ALIGN: SimdAlign>(mask: V, ptr: U, val: T)
@@ -462,6 +696,12 @@ pub const unsafe fn simd_masked_load<V, U, T, const ALIGN: SimdAlign>(mask: V, p
 /// by [`ptr::write`][crate::ptr::write].
 ///
 /// `mask` must only contain `0` or `!0` values.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب إلى متجه مؤشرات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_masked_store<V, U, T, const ALIGN: SimdAlign>(mask: V, ptr: U, val: T);
@@ -469,6 +709,12 @@ pub const unsafe fn simd_masked_store<V, U, T, const ALIGN: SimdAlign>(mask: V, 
 /// Adds two simd vectors elementwise, with saturation.
 ///
 /// `T` must be a vector of integer primitive types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع متجهَي simd عنصرًا بعنصر مع التشبّع.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_saturating_add<T>(x: T, y: T) -> T;
@@ -478,6 +724,12 @@ pub const unsafe fn simd_saturating_add<T>(x: T, y: T) -> T;
 /// `T` must be a vector of integer primitive types.
 ///
 /// Subtract `rhs` from `lhs`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطرح متجهَي simd عنصرًا بعنصر مع التشبّع.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_saturating_sub<T>(lhs: T, rhs: T) -> T;
@@ -489,6 +741,12 @@ pub const unsafe fn simd_saturating_sub<T>(lhs: T, rhs: T) -> T;
 /// `U` must be the element type of `T`.
 ///
 /// Starting with the value `y`, add the elements of `x` and accumulate.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع عناصر المتجه من اليسار لليمين.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_add_ordered<T, U>(x: T, y: U) -> U;
@@ -499,6 +757,12 @@ pub const unsafe fn simd_reduce_add_ordered<T, U>(x: T, y: U) -> U;
 /// `T` must be a vector of integers or floats.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجمع عناصر المتجه بأي ترتيب.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_reduce_add_unordered<T, U>(x: T) -> U;
@@ -510,6 +774,12 @@ pub unsafe fn simd_reduce_add_unordered<T, U>(x: T) -> U;
 /// `U` must be the element type of `T`.
 ///
 /// Starting with the value `y`, multiply the elements of `x` and accumulate.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضرب عناصر المتجه من اليسار لليمين.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_mul_ordered<T, U>(x: T, y: U) -> U;
@@ -520,6 +790,12 @@ pub const unsafe fn simd_reduce_mul_ordered<T, U>(x: T, y: U) -> U;
 /// `T` must be a vector of integers or floats.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يضرب عناصر المتجه بأي ترتيب.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_reduce_mul_unordered<T, U>(x: T) -> U;
@@ -530,6 +806,12 @@ pub unsafe fn simd_reduce_mul_unordered<T, U>(x: T) -> U;
 ///
 /// # Safety
 /// `x` must contain only `0` or `!0`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل كل قيم القناع صحيحة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_all<T>(x: T) -> bool;
@@ -540,6 +822,12 @@ pub const unsafe fn simd_reduce_all<T>(x: T) -> bool;
 ///
 /// # Safety
 /// `x` must contain only `0` or `!0`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل أي قيمة في القناع صحيحة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_any<T>(x: T) -> bool;
@@ -549,6 +837,12 @@ pub const unsafe fn simd_reduce_any<T>(x: T) -> bool;
 /// `T` must be a vector of integers.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أكبر عنصر في المتجه.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_max<T, U>(x: T) -> U;
@@ -558,6 +852,12 @@ pub const unsafe fn simd_reduce_max<T, U>(x: T) -> U;
 /// `T` must be a vector of integers.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أصغر عنصر في المتجه.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_min<T, U>(x: T) -> U;
@@ -567,6 +867,12 @@ pub const unsafe fn simd_reduce_min<T, U>(x: T) -> U;
 /// `T` must be a vector of integers.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "و" منطقية بين كل العناصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_and<T, U>(x: T) -> U;
@@ -576,6 +882,12 @@ pub const unsafe fn simd_reduce_and<T, U>(x: T) -> U;
 /// `T` must be a vector of integers.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو" منطقية بين كل العناصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_or<T, U>(x: T) -> U;
@@ -585,6 +897,12 @@ pub const unsafe fn simd_reduce_or<T, U>(x: T) -> U;
 /// `T` must be a vector of integers.
 ///
 /// `U` must be the element type of `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// "أو الحصرية" بين كل العناصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_reduce_xor<T, U>(x: T) -> U;
@@ -622,6 +940,12 @@ pub const unsafe fn simd_reduce_xor<T, U>(x: T) -> U;
 ///
 /// # Safety
 /// `x` must contain only `0` and `!0`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختصر متجه أعداد صحيحة إلى قناع بتات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_bitmask<T, U>(x: T) -> U;
@@ -638,6 +962,12 @@ pub const unsafe fn simd_bitmask<T, U>(x: T) -> U;
 ///
 /// # Safety
 /// `mask` must only contain `0` and `!0`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختار عناصر حسب قناع.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_select<M, T>(mask: M, if_true: T, if_false: T) -> T;
@@ -654,6 +984,12 @@ pub const unsafe fn simd_select<M, T>(mask: M, if_true: T, if_false: T) -> T;
 /// The remaining bits of the mask are ignored.
 ///
 /// The bitmask bit order matches `simd_bitmask`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختار عناصر حسب قناع بتات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_select_bitmask<M, T>(m: M, yes: T, no: T) -> T;
@@ -666,6 +1002,12 @@ pub const unsafe fn simd_select_bitmask<M, T>(m: M, yes: T, no: T) -> T;
 /// `U` must be a vector of `isize` or `usize` with the same number of elements as `T`.
 ///
 /// Operates as if by `<ptr>::wrapping_offset`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب الإزاحة من متجه مؤشرات عنصرًا بعنصر، مع احتمال الالتفاف.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_arith_offset<T, U>(ptr: T, offset: U) -> T;
@@ -673,6 +1015,12 @@ pub const unsafe fn simd_arith_offset<T, U>(ptr: T, offset: U) -> T;
 /// Casts a vector of pointers.
 ///
 /// `T` and `U` must be vectors of pointers with the same number of elements.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل نوع متجه مؤشرات.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_cast_ptr<T, U>(ptr: T) -> U;
@@ -682,6 +1030,12 @@ pub const unsafe fn simd_cast_ptr<T, U>(ptr: T) -> U;
 /// `T` must be a vector of pointers.
 ///
 /// `U` must be a vector of `usize` with the same length as `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكشف متجه مؤشرات كمتجه عناوين.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_expose_provenance<T, U>(ptr: T) -> U;
@@ -691,6 +1045,12 @@ pub unsafe fn simd_expose_provenance<T, U>(ptr: T) -> U;
 /// `T` must be a vector of `usize`.
 ///
 /// `U` must be a vector of pointers, with the same length as `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ متجه مؤشرات من متجه عناوين.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_with_exposed_provenance<T, U>(addr: T) -> U;
@@ -698,6 +1058,12 @@ pub const unsafe fn simd_with_exposed_provenance<T, U>(addr: T) -> U;
 /// Swaps bytes of each element.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبدّل ترتيب بايتات كل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_bswap<T>(x: T) -> T;
@@ -705,6 +1071,12 @@ pub const unsafe fn simd_bswap<T>(x: T) -> T;
 /// Reverses bits of each element.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعكس بتات كل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_bitreverse<T>(x: T) -> T;
@@ -712,6 +1084,12 @@ pub const unsafe fn simd_bitreverse<T>(x: T) -> T;
 /// Counts the leading zeros of each element.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعدّ الأصفار البادئة في كل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_ctlz<T>(x: T) -> T;
@@ -719,6 +1097,12 @@ pub const unsafe fn simd_ctlz<T>(x: T) -> T;
 /// Counts the number of ones in each element.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعدّ الآحاد في كل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_ctpop<T>(x: T) -> T;
@@ -726,6 +1110,12 @@ pub const unsafe fn simd_ctpop<T>(x: T) -> T;
 /// Counts the trailing zeros of each element.
 ///
 /// `T` must be a vector of integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعدّ الأصفار اللاحقة في كل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_cttz<T>(x: T) -> T;
@@ -733,6 +1123,12 @@ pub const unsafe fn simd_cttz<T>(x: T) -> T;
 /// Rounds up each element to the next highest integer-valued float.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرّب كل عنصر للأعلى إلى أقرب عدد صحيح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_ceil<T>(x: T) -> T;
@@ -740,6 +1136,12 @@ pub const unsafe fn simd_ceil<T>(x: T) -> T;
 /// Rounds down each element to the next lowest integer-valued float.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرّب كل عنصر للأسفل إلى أقرب عدد صحيح.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_floor<T>(x: T) -> T;
@@ -748,6 +1150,12 @@ pub const unsafe fn simd_floor<T>(x: T) -> T;
 /// Ties are resolved by rounding away from 0.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرّب كل عنصر إلى أقرب عدد صحيح؛ عند المنتصف يقرّب بعيدًا عن الصفر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_round<T>(x: T) -> T;
@@ -756,6 +1164,12 @@ pub const unsafe fn simd_round<T>(x: T) -> T;
 /// Ties are resolved by rounding to the number with an even least significant digit
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرّب كل عنصر إلى أقرب عدد صحيح؛ عند المنتصف يقرّب إلى العدد الزوجي.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_round_ties_even<T>(x: T) -> T;
@@ -764,6 +1178,12 @@ pub const unsafe fn simd_round_ties_even<T>(x: T) -> T;
 /// In other words, non-integer values are truncated towards zero.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الجزء الصحيح من كل عنصر (يحذف الكسر باتجاه الصفر).
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_trunc<T>(x: T) -> T;
@@ -771,6 +1191,12 @@ pub const unsafe fn simd_trunc<T>(x: T) -> T;
 /// Takes the square root of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب الجذر التربيعي لكل عنصر.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_fsqrt<T>(x: T) -> T;
@@ -778,6 +1204,12 @@ pub unsafe fn simd_fsqrt<T>(x: T) -> T;
 /// Computes `(x*y) + z` for each element, but without any intermediate rounding.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب `(x*y) + z` لكل عنصر بدون تقريب وسيط.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_fma<T>(x: T, y: T, z: T) -> T;
@@ -793,6 +1225,12 @@ pub const unsafe fn simd_fma<T>(x: T, y: T, z: T) -> T;
 /// and others do not.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب `(x*y) + z` لكل عنصر، إما بعملية مدمجة أو بعمليتين (غير محدد).
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub const unsafe fn simd_relaxed_fma<T>(x: T, y: T, z: T) -> T;
@@ -800,6 +1238,12 @@ pub const unsafe fn simd_relaxed_fma<T>(x: T, y: T, z: T) -> T;
 // Computes the sine of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_fsin<T>(a: T) -> T;
@@ -807,6 +1251,12 @@ pub unsafe fn simd_fsin<T>(a: T) -> T;
 // Computes the cosine of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_fcos<T>(a: T) -> T;
@@ -814,6 +1264,12 @@ pub unsafe fn simd_fcos<T>(a: T) -> T;
 // Computes the exponential function of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_fexp<T>(a: T) -> T;
@@ -821,6 +1277,12 @@ pub unsafe fn simd_fexp<T>(a: T) -> T;
 // Computes 2 raised to the power of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_fexp2<T>(a: T) -> T;
@@ -828,6 +1290,12 @@ pub unsafe fn simd_fexp2<T>(a: T) -> T;
 // Computes the base 10 logarithm of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_flog10<T>(a: T) -> T;
@@ -835,6 +1303,12 @@ pub unsafe fn simd_flog10<T>(a: T) -> T;
 // Computes the base 2 logarithm of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_flog2<T>(a: T) -> T;
@@ -842,6 +1316,12 @@ pub unsafe fn simd_flog2<T>(a: T) -> T;
 // Computes the natural logarithm of each element.
 ///
 /// `T` must be a vector of floats.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجب أن يكون `T` متجه أعداد عشرية.
+///
+/// </div>
 #[rustc_intrinsic]
 #[rustc_nounwind]
 pub unsafe fn simd_flog<T>(a: T) -> T;

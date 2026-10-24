@@ -2,6 +2,12 @@
 //!
 //! This are all methods operating on [`TypeId`](core::any::TypeId) which is the
 //! entry point to all compile time reflection.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال داخلية للانعكاس وقت الترجمة.
+//!
+//! </div>
 
 use crate::ptr;
 
@@ -15,6 +21,12 @@ use crate::ptr;
 /// backends only see an evaluated constant.
 ///
 /// The stabilized version of this intrinsic is [`core::any::TypeId::of`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع معرّفًا فريدًا عالميًا للنوع المحدد.
+///
+/// </div>
 #[rustc_nounwind]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_intrinsic]
@@ -24,6 +36,12 @@ pub fn type_id<T: ?Sized>() -> crate::any::TypeId;
 /// Compute the type information of a concrete type.
 /// It can only be called at compile time, the backends do
 /// not implement it.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب معلومات النوع لنوع محدد؛ يُستدعى وقت الترجمة فقط.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -34,6 +52,12 @@ pub fn type_id_type_of(_id: crate::any::TypeId) -> crate::mem::type_info::Type;
 /// data is opaque and cannot be inspected directly.
 ///
 /// The stabilized version of this intrinsic is the [PartialEq] impl for [`core::any::TypeId`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختبر (وقت الترجمة) هل نسختا `TypeId` تمثلان نفس النوع.
+///
+/// </div>
 #[rustc_nounwind]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_intrinsic]
@@ -50,6 +74,12 @@ pub const fn type_id_eq(a: crate::any::TypeId, b: crate::any::TypeId) -> bool {
 /// Check if a type represented by a `TypeId` implements a trait represented by a `TypeId`.
 /// It can only be called at compile time, the backends do
 /// not implement it. If it implements the trait the dyn metadata gets returned for vtable access.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل النوع الممثَّل بـ `TypeId` يطبّق trait ممثَّلًا بـ `TypeId`؛ وقت الترجمة فقط.
+///
+/// </div>
 pub fn type_id_vtable(
     _id: crate::any::TypeId,
     _trait: crate::any::TypeId,
@@ -63,6 +93,12 @@ pub fn type_id_vtable(
 /// backends only see an evaluated constant.
 ///
 /// The stabilized version of this intrinsic is [`core::any::type_name`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع شريحة نص ثابتة فيها اسم النوع.
+///
+/// </div>
 #[rustc_nounwind]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_intrinsic]
@@ -72,6 +108,12 @@ pub fn type_name<T: ?Sized>() -> &'static str;
 /// Returns whether the type represented by this `TypeId` is a signed integer.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::is_signed`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع هل النوع الممثَّل بهذا الـ `TypeId` عدد صحيح بإشارة.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -80,6 +122,12 @@ pub fn type_id_is_signed(_id: crate::any::TypeId) -> bool;
 /// Gets the length of the array represented by this `TypeId`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::array_len`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع طول المصفوفة الممثَّلة بهذا الـ `TypeId`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -88,6 +136,12 @@ pub fn type_id_array_len(_id: crate::any::TypeId) -> usize;
 /// Gets the type of each element of the array or slice represented by this `TypeId`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::element_ty`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع نوع عناصر المصفوفة أو الشريحة الممثَّلة بهذا الـ `TypeId`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -96,6 +150,12 @@ pub fn type_id_element_ty(_id: crate::any::TypeId) -> Option<crate::any::TypeId>
 /// Gets the size of the type represented by this `TypeId`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::size`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع حجم النوع الممثَّل بهذا الـ `TypeId`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -104,6 +164,12 @@ pub fn type_id_size_of(_id: crate::any::TypeId) -> Option<usize>;
 /// Gets the number of variants of the type represented by this `TypeId`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::variants`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع عدد متغيرات النوع الممثَّل بهذا الـ `TypeId`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -114,6 +180,12 @@ pub fn type_id_variants(_id: crate::any::TypeId) -> usize;
 /// The more user-friendly version of this intrinsic is [`core::mem::type_info::VariantId::name`].
 ///
 /// [`TypeId`]: crate::any::TypeId
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع اسم المتغير الممثَّل بالـ `TypeId` الأساسي و`variant_idx`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -126,6 +198,12 @@ pub fn type_id_variant_name(_base: crate::any::TypeId, _variant_index: usize) ->
 /// [`core::mem::type_info::VariantId::non_exhaustive`].
 ///
 /// [`TypeId`]: crate::any::TypeId
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true` إذا كان المتغير الممثَّل بالـ `TypeId` و`variant_idx` غير شامل (non exhaustive).
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -134,12 +212,24 @@ pub fn type_id_variant_non_exhaustive(base: crate::any::TypeId, variant: usize) 
 /// Gets the number of fields at the given `variant_index` represented by this `TypeId`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::fields`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع عدد الحقول في المتغير `variant_index` للنوع الممثَّل بهذا الـ `TypeId`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
 pub fn type_id_fields(_id: crate::any::TypeId, _variant_index: usize) -> usize;
 
 /// Checks whether this type is non-exhaustive.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتحقق هل هذا النوع غير شامل (non exhaustive).
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -147,6 +237,12 @@ pub fn type_id_non_exhaustive(_id: crate::any::TypeId) -> bool;
 
 /// Returns the list of generic args on this type.
 /// Only meaningful for Adts, closures, ... Everything else returns an empty slice.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قائمة المعاملات العامة لهذا النوع (لها معنى للـ ADT والدوال المغلقة فقط).
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -157,6 +253,12 @@ pub fn type_id_generics(_id: crate::any::TypeId) -> &'static [crate::mem::type_i
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::field`].
 ///
 /// [`FieldRepresentingType`]: crate::field::FieldRepresentingType
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `TypeId` الخاص بـ `FieldRepresentingType` عند الفهرس المعطى في هذا النوع.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -200,6 +302,12 @@ pub fn type_id_points_mutably(_id: crate::any::TypeId) -> bool;
 /// When called on something else this returns `None`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::function_ptr`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا كان الـ `TypeId` يمثّل مؤشر دالة يرجع `core::mem::type_info::FnPtr`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]

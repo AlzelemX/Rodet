@@ -67,6 +67,12 @@ use crate::{error, fmt, mem, result};
 ///     Ok(buffer)
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع `Result` مخصص لعمليات الإدخال والإخراج.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(search_unbox)]
 pub type Result<T> = result::Result<T, Error>;
@@ -82,6 +88,12 @@ pub type Result<T> = result::Result<T, Error>;
 /// [Read]: ../../std/io/trait.Read.html
 /// [Write]: crate::io::Write
 /// [Seek]: crate::io::Seek
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ لعمليات الإدخال والإخراج في `Read` و`Write` و`Seek` وما يرتبط بها.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_has_incoherent_inherent_impls]
 pub struct Error {
@@ -188,6 +200,12 @@ pub struct SimpleMessage {
 ///     Err(FAIL)
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ خطأ إدخال وإخراج جديدًا من نوع خطأ معروف ونص ثابت.
+///
+/// </div>
 #[rustc_macro_transparency = "semiopaque"]
 #[unstable(feature = "io_const_error", issue = "133448")]
 #[allow_internal_unstable(core_io, hint_must_use, io_const_error_internals)]
@@ -199,6 +217,12 @@ pub macro const_error($kind:expr, $message:expr $(,)?) {
 
 /// Intended for use for errors not exposed to the user, where allocating onto
 /// the heap (for normal construction via Error::new) is too costly.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// للأخطاء التي لا تُعرض للمستخدم، حيث يكون الحجز في الـ heap غير مرغوب.
+///
+/// </div>
 #[stable(feature = "io_error_from_errorkind", since = "1.14.0")]
 impl From<ErrorKind> for Error {
     /// Converts an [`ErrorKind`] into an [`Error`].
@@ -214,6 +238,12 @@ impl From<ErrorKind> for Error {
     /// let error = Error::from(not_found);
     /// assert_eq!("entity not found", format!("{error}"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ErrorKind` إلى `Error`.
+    ///
+    /// </div>
     #[inline]
     fn from(kind: ErrorKind) -> Error {
         Error { repr: Repr::new_simple(kind) }
@@ -313,6 +343,12 @@ impl Error {
     ///     print_os_error(&Error::new(ErrorKind::Other, "oh no!"));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع خطأ نظام التشغيل الذي يمثله هذا الخطأ (إن وُجد).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -352,6 +388,12 @@ impl Error {
     ///     print_error(&Error::new(ErrorKind::Other, "oh no!"));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى الخطأ الداخلي الذي يغلفه هذا الخطأ (إن وُجد).
+    ///
+    /// </div>
     #[stable(feature = "io_error_inner", since = "1.3.0")]
     #[must_use]
     #[inline]
@@ -427,6 +469,12 @@ impl Error {
     ///     print_error(&change_error(Error::new(ErrorKind::Other, MyError::new())));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الخطأ الداخلي الذي يغلفه هذا الخطأ (إن وُجد).
+    ///
+    /// </div>
     #[stable(feature = "io_error_inner", since = "1.3.0")]
     #[must_use]
     #[inline]
@@ -466,6 +514,12 @@ impl Error {
     ///     print_error(Error::new(ErrorKind::AddrInUse, "oh no!"));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نوع الخطأ (`ErrorKind`) المقابل لهذا الخطأ.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -731,6 +785,12 @@ impl CustomOwner {
 /// ensure maximum portability.
 ///
 /// [`into`]: Into::into
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع رموز أخطاء نظام التشغيل الخام.
+///
+/// </div>
 #[unstable(feature = "raw_os_error_ty", issue = "107792")]
 pub type RawOsError = cfg_select! {
     target_os = "uefi" => usize,
@@ -761,6 +821,12 @@ pub type RawOsError = cfg_select! {
 /// tests more robust. In particular, if you want to verify that your code does
 /// produce an unrecognized error kind, the robust solution is to check for all
 /// the recognized error kinds and fail in those cases.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قائمة بالفئات العامة لأخطاء الإدخال والإخراج.
+///
+/// </div>
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "io_errorkind")]
@@ -768,65 +834,173 @@ pub type RawOsError = cfg_select! {
 #[non_exhaustive]
 pub enum ErrorKind {
     /// An entity was not found, often a file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لم يُعثر على الشيء، غالبًا ملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     NotFound,
     /// The operation lacked the necessary privileges to complete.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العملية لا تملك الصلاحيات اللازمة لإكمالها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     PermissionDenied,
     /// The connection was refused by the remote server.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الخادم البعيد رفض الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     ConnectionRefused,
     /// The connection was reset by the remote server.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الخادم البعيد أعاد ضبط الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     ConnectionReset,
     /// The remote host is not reachable.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا يمكن الوصول إلى الجهاز البعيد.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     HostUnreachable,
     /// The network containing the remote host is not reachable.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا يمكن الوصول إلى الشبكة التي فيها الجهاز البعيد.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     NetworkUnreachable,
     /// The connection was aborted (terminated) by the remote server.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الخادم البعيد ألغى (أنهى) الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     ConnectionAborted,
     /// The network operation failed because it was not connected yet.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// فشلت عملية الشبكة لأنه لم يتم الاتصال بعد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     NotConnected,
     /// A socket address could not be bound because the address is already in
     /// use elsewhere.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا يمكن ربط عنوان المقبس لأن العنوان مستخدم في مكان آخر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     AddrInUse,
     /// A nonexistent interface was requested or the requested address was not
     /// local.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طُلبت واجهة غير موجودة أو العنوان المطلوب ليس محليًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     AddrNotAvailable,
     /// The system's networking is down.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// شبكة النظام متوقفة.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     NetworkDown,
     /// The operation failed because a pipe was closed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// فشلت العملية لأن الأنبوب (pipe) أُغلق.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     BrokenPipe,
     /// An entity already exists, often a file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الشيء موجود مسبقًا، غالبًا ملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     AlreadyExists,
     /// The operation needs to block to complete, but the blocking operation was
     /// requested to not occur.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العملية تحتاج الانتظار لتكتمل، لكن طُلب عدم الانتظار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     WouldBlock,
     /// A filesystem object is, unexpectedly, not a directory.
     ///
     /// For example, a filesystem path was specified where one of the intermediate directory
     /// components was, in fact, a plain file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كائن نظام الملفات ليس مجلدًا (على عكس المتوقع).
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     NotADirectory,
     /// The filesystem object is, unexpectedly, a directory.
     ///
     /// A directory was specified when a non-directory was expected.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كائن نظام الملفات مجلد (على عكس المتوقع).
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     IsADirectory,
     /// A non-empty directory was specified where an empty directory was expected.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حُدد مجلد غير فارغ في مكان يُتوقع فيه مجلد فارغ.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     DirectoryNotEmpty,
     /// The filesystem or storage medium is read-only, but a write operation was attempted.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نظام الملفات أو وسيط التخزين للقراءة فقط، لكن حدثت محاولة كتابة.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     ReadOnlyFilesystem,
     /// Loop in the filesystem or IO subsystem; often, too many levels of symbolic links.
@@ -836,15 +1010,33 @@ pub enum ErrorKind {
     ///
     /// On Unix this is usually the result of a symbolic link loop; or, of exceeding the
     /// system-specific limit on the depth of symlink traversal.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حلقة في نظام الملفات؛ غالبًا مستويات كثيرة جدًا من الروابط الرمزية.
+    ///
+    /// </div>
     #[unstable(feature = "io_error_more", issue = "86442")]
     FilesystemLoop,
     /// Stale network file handle.
     ///
     /// With some network filesystems, notably NFS, an open file (or directory) can be invalidated
     /// by problems with the network or server.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مقبض ملف شبكي منتهي الصلاحية.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     StaleNetworkFileHandle,
     /// A parameter was incorrect.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// معامل غير صحيح.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     InvalidInput,
     /// Data not valid for the operation were encountered.
@@ -857,9 +1049,21 @@ pub enum ErrorKind {
     /// `InvalidData` if the file's contents are not valid UTF-8.
     ///
     /// [`InvalidInput`]: ErrorKind::InvalidInput
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// وُجدت بيانات غير صالحة لهذه العملية.
+    ///
+    /// </div>
     #[stable(feature = "io_invalid_data", since = "1.2.0")]
     InvalidData,
     /// The I/O operation's timeout expired, causing it to be canceled.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// انتهت مهلة عملية الإدخال والإخراج فأُلغيت.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     TimedOut,
     /// An error returned when an operation could not be completed because a
@@ -871,20 +1075,44 @@ pub enum ErrorKind {
     ///
     /// [write]: crate::io::Write::write
     /// [`Ok(0)`]: Ok
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// خطأ يُرجَع عندما لا تكتمل العملية لأن `write` أرجعت `Ok(0)`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     WriteZero,
     /// The underlying storage (typically, a filesystem) is full.
     ///
     /// This does not include out of quota errors.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// وسيط التخزين (غالبًا نظام الملفات) ممتلئ.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     StorageFull,
     /// Seek on unseekable file.
     ///
     /// Seeking was attempted on an open file handle which is not suitable for seeking - for
     /// example, on Unix, a named pipe opened with `File::open`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// محاولة تنقل في ملف لا يدعم التنقل.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     NotSeekable,
     /// Filesystem quota or some other kind of quota was exceeded.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تم تجاوز حصة نظام الملفات أو حصة أخرى.
+    ///
+    /// </div>
     #[stable(feature = "io_error_quota_exceeded", since = "1.85.0")]
     QuotaExceeded,
     /// File larger than allowed or supported.
@@ -892,15 +1120,33 @@ pub enum ErrorKind {
     /// This might arise from a hard limit of the underlying filesystem or file access API, or from
     /// an administratively imposed resource limitation.  Simple disk full, and out of quota, have
     /// their own errors.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الملف أكبر من المسموح أو المدعوم.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     FileTooLarge,
     /// Resource is busy.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المورد مشغول.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     ResourceBusy,
     /// Executable file is busy.
     ///
     /// An attempt was made to write to a file which is also in use as a running program.  (Not all
     /// operating systems detect this situation.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الملف التنفيذي مشغول.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     ExecutableFileBusy,
     /// Deadlock (avoided).

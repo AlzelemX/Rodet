@@ -70,6 +70,12 @@ use crate::io::{self, ErrorKind, IoSlice, SeekFrom, Write};
 ///     assert_eq!(&buff.get_ref()[5..15], &[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Cursor` يغلّف مخزنًا في الذاكرة ويعطيه تطبيقًا لـ `Seek` (التنقل في الموضع).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug, Default, Eq, PartialEq)]
 pub struct Cursor<T> {
@@ -96,6 +102,12 @@ impl<T> Cursor<T> {
     /// # fn force_inference(_: &Cursor<Vec<u8>>) {}
     /// # force_inference(&buff);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Cursor` جديدًا يغلّف المخزن المعطى في الذاكرة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
     pub const fn new(inner: T) -> Cursor<T> {
@@ -115,6 +127,12 @@ impl<T> Cursor<T> {
     ///
     /// let vec = buff.into_inner();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الـ `Cursor` ويرجع القيمة الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn into_inner(self) -> T {
         self.inner
@@ -133,6 +151,12 @@ impl<T> Cursor<T> {
     ///
     /// let reference = buff.get_ref();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة الأساسية في هذا الـ `Cursor`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
     pub const fn get_ref(&self) -> &T {
@@ -155,6 +179,12 @@ impl<T> Cursor<T> {
     ///
     /// let reference = buff.get_mut();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الأساسية في هذا الـ `Cursor`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_mut_cursor", since = "1.86.0")]
     pub const fn get_mut(&mut self) -> &mut T {
@@ -180,6 +210,12 @@ impl<T> Cursor<T> {
     /// buff.seek(SeekFrom::Current(-1)).unwrap();
     /// assert_eq!(buff.position(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع الحالي لهذا الـ `Cursor`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
     pub const fn position(&self) -> u64 {
@@ -203,6 +239,12 @@ impl<T> Cursor<T> {
     /// buff.set_position(4);
     /// assert_eq!(buff.position(), 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد موضع هذا الـ `Cursor`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_mut_cursor", since = "1.86.0")]
     pub const fn set_position(&mut self, pos: u64) {
@@ -239,6 +281,12 @@ where
     /// buff.set_position(6);
     /// assert_eq!(buff.split(), ([1, 2, 3, 4, 5].as_slice(), [].as_slice()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة الأساسية عند موضع الـ `Cursor` ويرجع القسمين.
+    ///
+    /// </div>
     #[unstable(feature = "cursor_split", issue = "86369")]
     pub fn split(&self) -> (&[u8], &[u8]) {
         let slice = self.inner.as_ref();
@@ -270,6 +318,12 @@ where
     /// buff.set_position(6);
     /// assert_eq!(buff.split_mut(), ([1, 2, 3, 4, 5].as_mut_slice(), [].as_mut_slice()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة الأساسية عند موضع الـ `Cursor` ويرجع القسمين قابلين للتعديل.
+    ///
+    /// </div>
     #[unstable(feature = "cursor_split", issue = "86369")]
     pub fn split_mut(&mut self) -> (&mut [u8], &mut [u8]) {
         let slice = self.inner.as_mut();

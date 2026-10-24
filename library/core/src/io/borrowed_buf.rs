@@ -26,6 +26,12 @@ use crate::slice;
 /// The lifetime `'data` is a bound on the lifetime of the underlying elements.
 ///
 /// The type is most commonly used to manage bytes, but can manage any type of elements.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مخزن مستعار لعناصر غير مهيأة في البداية، يُملأ تدريجيًا.
+///
+/// </div>
 pub struct BorrowedBuf<'data, T> {
     /// The buffer's underlying elements.
     buf: &'data mut [MaybeUninit<T>],
@@ -58,6 +64,12 @@ impl Debug for BorrowedBufDebug {
 }
 
 /// Creates a new `BorrowedBuf` from a fully initialized slice.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `BorrowedBuf` جديدًا من شريحة مهيأة بالكامل.
+///
+/// </div>
 impl<'data, T: Copy> From<&'data mut [T]> for BorrowedBuf<'data, T> {
     #[inline]
     fn from(slice: &'data mut [T]) -> BorrowedBuf<'data, T> {
@@ -71,6 +83,12 @@ impl<'data, T: Copy> From<&'data mut [T]> for BorrowedBuf<'data, T> {
 }
 
 /// Creates a new `BorrowedBuf` from an uninitialized buffer.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `BorrowedBuf` جديدًا من مخزن غير مهيأ.
+///
+/// </div>
 impl<'data, T: Copy> From<&'data mut [MaybeUninit<T>]> for BorrowedBuf<'data, T> {
     #[inline]
     fn from(buf: &'data mut [MaybeUninit<T>]) -> BorrowedBuf<'data, T> {
@@ -81,6 +99,12 @@ impl<'data, T: Copy> From<&'data mut [MaybeUninit<T>]> for BorrowedBuf<'data, T>
 /// Creates a new `BorrowedBuf` from a cursor.
 ///
 /// Use `BorrowedCursor::with_unfilled_buf` instead for a safer alternative.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `BorrowedBuf` جديدًا من مؤشر (cursor).
+///
+/// </div>
 impl<'data, T: Copy> From<BorrowedCursor<'data, T>> for BorrowedBuf<'data, T> {
     #[inline]
     fn from(buf: BorrowedCursor<'data, T>) -> BorrowedBuf<'data, T> {
@@ -99,18 +123,36 @@ impl<'data, T: Copy> From<BorrowedCursor<'data, T>> for BorrowedBuf<'data, T> {
 
 impl<'data, T> BorrowedBuf<'data, T> {
     /// Returns the total capacity of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع السعة الكلية للمخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn capacity(&self) -> usize {
         self.buf.len()
     }
 
     /// Returns the length of the filled part of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول الجزء المملوء من المخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn len(&self) -> usize {
         self.filled
     }
 
     /// Returns `true` if the buffer is initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المخزن مهيأً.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub fn is_init(&self) -> bool {
@@ -120,6 +162,12 @@ impl<'data, T> BorrowedBuf<'data, T> {
 
 impl<'data, T: Copy> BorrowedBuf<'data, T> {
     /// Returns a shared reference to the filled portion of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى الجزء المملوء من المخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn filled(&self) -> &[T] {
         // SAFETY: We only slice the filled part of the buffer, which is always valid
@@ -130,6 +178,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     }
 
     /// Returns a mutable reference to the filled portion of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الجزء المملوء من المخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn filled_mut(&mut self) -> &mut [T] {
         // SAFETY: We only slice the filled part of the buffer, which is always valid
@@ -140,6 +194,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     }
 
     /// Returns a shared reference to the filled portion of the buffer with its original lifetime.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى الجزء المملوء بعمره الأصلي.
+    ///
+    /// </div>
     #[inline]
     pub fn into_filled(self) -> &'data [T] {
         // SAFETY: We only slice the filled part of the buffer, which is always valid
@@ -150,6 +210,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     }
 
     /// Returns a mutable reference to the filled portion of the buffer with its original lifetime.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى الجزء المملوء بعمره الأصلي.
+    ///
+    /// </div>
     #[inline]
     pub fn into_filled_mut(self) -> &'data mut [T] {
         // SAFETY: We only slice the filled part of the buffer, which is always valid
@@ -160,6 +226,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     }
 
     /// Returns a cursor over the unfilled part of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا (cursor) على الجزء غير المملوء من المخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn unfilled<'this>(&'this mut self) -> BorrowedCursor<'this, T> {
         let borrowed_buf = NonNull::from_mut(self);
@@ -169,6 +241,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     /// Clears the buffer, resetting the filled region to empty.
     ///
     /// The contents of the buffer are not modified.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ المخزن ويعيد الجزء المملوء فارغًا.
+    ///
+    /// </div>
     #[inline]
     pub fn clear(&mut self) -> &mut Self {
         self.filled = 0;
@@ -180,6 +258,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
     /// # Safety
     ///
     /// All the elements of the buffer must be initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يؤكد أن الجزء غير المملوء من المخزن مهيأ.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub unsafe fn set_init(&mut self) -> &mut Self {
@@ -203,6 +287,12 @@ impl<'data, T: Copy> BorrowedBuf<'data, T> {
 ///
 /// The lifetime `'a` is a bound on the lifetime of the underlying buffer (which means it is a bound
 /// on the elements in that buffer by transitivity).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عرض قابل للكتابة للجزء غير المملوء من `BorrowedBuf`.
+///
+/// </div>
 pub struct BorrowedCursor<'a, T> {
     /// The start of the elements of the buffer this cursor was created from.
     /// Safety invariant: this points to the start of the *whole* buffer of `*borrowed_buf` and is
@@ -312,12 +402,24 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     ///
     /// Since a cursor maintains unique access to its underlying buffer, the borrowed cursor is
     /// not accessible while the new cursor exists.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعيد استعارة هذا المؤشر بنسخه بعمر أقصر.
+    ///
+    /// </div>
     #[inline]
     pub fn reborrow<'this>(&'this mut self) -> BorrowedCursor<'this, T> {
         BorrowedCursor { buf: self.buf, borrowed_buf: self.borrowed_buf }
     }
 
     /// Returns the available space in the cursor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المساحة المتاحة في المؤشر.
+    ///
+    /// </div>
     #[inline]
     pub fn capacity(&self) -> usize {
         self.buf_len() - self.filled()
@@ -326,12 +428,24 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// Returns the number of elements written to the `BorrowedBuf` this cursor was created from.
     ///
     /// In particular, the count returned is shared by all reborrows of the cursor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر المكتوبة في الـ `BorrowedBuf` الذي أُنشئ منه هذا المؤشر.
+    ///
+    /// </div>
     #[inline]
     pub fn written(&self) -> usize {
         self.filled()
     }
 
     /// Returns `true` if the buffer is initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المخزن مهيأً.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub fn is_init(&self) -> bool {
@@ -343,6 +457,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// # Safety
     ///
     /// All the elements of the cursor must be initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعلّم المخزن كمهيأ بالكامل.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub unsafe fn set_init(&mut self) {
@@ -355,6 +475,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// # Safety
     ///
     /// The caller must not uninitialize any elements of the cursor if it is initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى المؤشر كاملًا.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn as_mut(&mut self) -> &mut [MaybeUninit<T>] {
         self.unfilled_slice()
@@ -372,6 +498,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// # Panics
     ///
     /// Panics if there are less than `n` elements initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم المؤشر بتأكيد أن `n` عنصر قد مُلئت.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub fn advance_checked(&mut self, n: usize) -> &mut Self {
@@ -393,6 +525,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// # Safety
     ///
     /// The caller must ensure that the first `n` elements of the cursor have been initialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم المؤشر بتأكيد أن `n` عنصر قد مُلئت.
+    ///
+    /// </div>
     #[inline]
     pub unsafe fn advance(&mut self, n: usize) -> &mut Self {
         // SAFETY: the caller guarantees that the first `n` elements of the cursor are initialized.
@@ -405,6 +543,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     /// # Panics
     ///
     /// Panics if `self.capacity()` is less than `buf.len()`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف عناصر إلى المؤشر ويقدّم الموضع داخل المخزن.
+    ///
+    /// </div>
     #[inline]
     pub fn append(&mut self, buf: &[T]) {
         assert!(self.capacity() >= buf.len());
@@ -427,6 +571,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
     ///
     /// Panics if the `BorrowedBuf` given to the closure is replaced by another
     /// one.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يشغّل الدالة المغلقة المعطاة مع `BorrowedBuf` فيه الجزء غير المملوء من المؤشر.
+    ///
+    /// </div>
     pub fn with_unfilled_buf<R>(&mut self, f: impl FnOnce(&mut BorrowedBuf<'_, T>) -> R) -> R {
         let mut buf = BorrowedBuf::from(self.reborrow());
         let prev_ptr = buf.buf as *const _;
@@ -457,6 +607,12 @@ impl<'a, T: Copy> BorrowedCursor<'a, T> {
 impl<'a, T: Default + Copy> BorrowedCursor<'a, T> {
     /// Initializes all elements in the cursor with their default value and
     /// returns them.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ كل العناصر في المؤشر بقيمتها الافتراضية ويرجعها.
+    ///
+    /// </div>
     #[unstable(feature = "borrowed_buf_init", issue = "160476")]
     #[inline]
     pub fn ensure_init(&mut self) -> &mut [T] {
