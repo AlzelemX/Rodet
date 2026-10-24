@@ -360,8 +360,14 @@ def arabic_block(arabic, indent, marker):
         if line.strip().startswith("```"):
             in_code = not in_code
             body.append(line)
-        elif in_code or not line.strip() or line.lstrip().startswith(("-", "*", "#", "|", ">")) or re.match(r"^\s*\d+\.", line):
+        elif in_code or not line.strip() or line.lstrip().startswith(("#", "|", ">")):
             body.append(line)
+        elif m := re.match(r"^(\s*)([-*+]|\d+\.)\s+", line):
+            # A list item: wrap it, later lines indented under its text.
+            lead = m.group(0)
+            pad = " " * len(lead)
+            parts = wrap(line[len(lead):], width - len(lead))
+            body.extend([lead + parts[0]] + [pad + w for w in parts[1:]])
         else:
             # Keep the indent of a list item's later lines.
             lead = line[: len(line) - len(line.lstrip())]

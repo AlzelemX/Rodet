@@ -1793,7 +1793,7 @@ impl<T, A: Allocator> VecDeque<T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]

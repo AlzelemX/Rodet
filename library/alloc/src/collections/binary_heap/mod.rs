@@ -1625,7 +1625,7 @@ impl<T, A: Allocator> BinaryHeap<T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -1955,7 +1955,7 @@ impl<T, A: Allocator> IntoIter<T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -2072,7 +2072,7 @@ impl<T, A: Allocator> IntoIterSorted<T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -2133,7 +2133,7 @@ impl<T, A: Allocator> Drain<'_, T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -2202,7 +2202,7 @@ impl<'a, T: Ord, A: Allocator> DrainSorted<'a, T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يرجع مرجعًا إلى مخصص الذاكرة (allocator) المستخدم.
+    /// يرجع مرجعًا إلى المُخصِّص الأساسي.
     ///
     /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
