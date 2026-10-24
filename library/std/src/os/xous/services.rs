@@ -90,6 +90,12 @@ mod ns {
 /// Note that this is different from connecting to a server by address. Server
 /// addresses are always 16 bytes long, whereas server names are arbitrary-length
 /// strings up to 64 bytes in length.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول الاتصال بخادم بالاسم؛ إذا لم يكن موجودًا ينتظر حتى يُنشأ.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn connect(name: &str) -> Option<Connection> {
     ns::connect_with_name(name)
@@ -101,6 +107,12 @@ pub fn connect(name: &str) -> Option<Connection> {
 /// Note that this is different from connecting to a server by address. Server
 /// addresses are always 16 bytes long, whereas server names are arbitrary-length
 /// strings.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول الاتصال بخادم بالاسم؛ إذا لم يكن موجودًا يرجع `None` فورًا.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub fn try_connect(name: &str) -> Option<Connection> {
     ns::try_connect_with_name(name)

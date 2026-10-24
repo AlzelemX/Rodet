@@ -50,6 +50,12 @@
 //! [`collect`]: crate::iter::Iterator::collect
 //! [U+FFFD]: char::REPLACEMENT_CHARACTER
 //! [`std::ffi`]: crate::ffi
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Windows لأنواع وحدة `std::ffi`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -62,6 +68,12 @@ use crate::sys::os_str::Buf;
 use crate::sys::{AsInner, FromInner};
 
 /// Windows-specific extensions to [`OsString`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `OsString`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub impl(self) trait OsStringExt {
     /// Creates an `OsString` from a potentially ill-formed UTF-16 slice of
@@ -94,6 +106,12 @@ impl OsStringExt for OsString {
 }
 
 /// Windows-specific extensions to [`OsStr`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `OsStr`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub impl(self) trait OsStrExt {
     /// Re-encodes an `OsStr` as a wide character sequence, i.e., potentially
@@ -131,6 +149,12 @@ impl OsStrExt for OsStr {
 }
 
 /// Iterator returned by [`OsStrExt::encode_wide`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المكرر الذي ترجعه `OsStrExt::encode_wide`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Clone)]
 pub struct EncodeWide<'a> {

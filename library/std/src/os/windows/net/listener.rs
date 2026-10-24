@@ -45,6 +45,12 @@ use crate::{fmt, io};
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تمثّل خادم مقبس نطاق يونكس.
+///
+/// </div>
 pub struct UnixListener(Socket);
 
 impl fmt::Debug for UnixListener {
@@ -75,6 +81,12 @@ impl UnixListener {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnixListener` جديدًا مربوطًا بالمقبس المحدد.
+    ///
+    /// </div>
     pub fn bind<P: AsRef<Path>>(path: P) -> io::Result<UnixListener> {
         let socket_addr = SocketAddr::from_pathname(path)?;
         Self::bind_addr(&socket_addr)
@@ -105,6 +117,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnixListener` جديدًا مربوطًا بعنوان المقبس المحدد.
+    ///
+    /// </div>
     pub fn bind_addr(socket_addr: &SocketAddr) -> io::Result<UnixListener> {
         startup();
         let inner = Socket::new(AF_UNIX as _, SOCK_STREAM)?;
@@ -140,6 +158,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقبل اتصالًا واردًا جديدًا على هذا المستمع.
+    ///
+    /// </div>
     pub fn accept(&self) -> io::Result<(UnixStream, SocketAddr)> {
         let mut storage = SOCKADDR_UN::default();
         let mut len = size_of::<SOCKADDR_UN>() as _;
@@ -223,6 +247,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المقبس في وضع عدم الانتظار (nonblocking) أو يخرجه منه.
+    ///
+    /// </div>
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
     }
@@ -245,6 +275,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR`.
+    ///
+    /// </div>
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
     }
@@ -282,6 +318,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الاتصالات الواردة.
+    ///
+    /// </div>
     pub fn incoming(&self) -> Incoming<'_> {
         Incoming { listener: self }
     }
@@ -319,6 +361,12 @@ impl UnixListener {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الاتصالات الواردة إلى `UnixListener`.
+///
+/// </div>
 pub struct Incoming<'a> {
     listener: &'a UnixListener,
 }

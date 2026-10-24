@@ -1,4 +1,10 @@
 //! Windows-specific primitives.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أساسيات خاصة بـ Windows.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 

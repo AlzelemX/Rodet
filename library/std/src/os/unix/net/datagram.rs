@@ -59,6 +59,12 @@ const MSG_NOSIGNAL: core::ffi::c_int = 0x0;
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس datagram يونكس.
+///
+/// </div>
 #[stable(feature = "unix_socket", since = "1.10.0")]
 pub struct UnixDatagram(Socket);
 
@@ -94,6 +100,12 @@ impl UnixDatagram {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبس datagram يونكس مربوطًا بالمسار المعطى.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn bind<P: AsRef<Path>>(path: P) -> io::Result<UnixDatagram> {
         unsafe {
@@ -127,6 +139,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبس datagram يونكس مربوطًا بعنوان.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
     pub fn bind_addr(socket_addr: &SocketAddr) -> io::Result<UnixDatagram> {
         unsafe {
@@ -156,6 +174,12 @@ impl UnixDatagram {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبس datagram يونكس غير مربوط بأي عنوان.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn unbound() -> io::Result<UnixDatagram> {
         let inner = Socket::new(libc::AF_UNIX, libc::SOCK_DGRAM)?;
@@ -180,6 +204,12 @@ impl UnixDatagram {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ زوجًا بلا اسم من المقابس المتصلة.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn pair() -> io::Result<(UnixDatagram, UnixDatagram)> {
         let (i1, i2) = Socket::new_pair(libc::AF_UNIX, libc::SOCK_DGRAM)?;
@@ -213,6 +243,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل المقبس بعنوان المسار المحدد.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn connect<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
         unsafe {
@@ -246,6 +282,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوصل المقبس بعنوان.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
     pub fn connect_addr(&self, socket_addr: &SocketAddr) -> io::Result<()> {
         unsafe {
@@ -301,6 +343,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان هذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { libc::getsockname(self.as_raw_fd(), addr, len) })
@@ -326,6 +374,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان الطرف الآخر لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn peer_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { libc::getpeername(self.as_raw_fd(), addr, len) })
@@ -377,6 +431,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات من المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn recv_from(&self, buf: &mut [u8]) -> io::Result<(usize, SocketAddr)> {
         self.recv_from_flags(buf, 0)
@@ -399,6 +459,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات من المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn recv(&self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.read(buf)
@@ -447,6 +513,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات وبيانات مساعدة من المقبس.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn recv_vectored_with_ancillary_from(
@@ -503,6 +575,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات وبيانات مساعدة من المقبس.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn recv_vectored_with_ancillary(
@@ -532,6 +610,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات عبر المقبس إلى العنوان المحدد.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn send_to<P: AsRef<Path>>(&self, buf: &[u8], path: P) -> io::Result<usize> {
         unsafe {
@@ -570,6 +654,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات عبر المقبس إلى `SocketAddr` المحدد.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
     pub fn send_to_addr(&self, buf: &[u8], socket_addr: &SocketAddr) -> io::Result<usize> {
         unsafe {
@@ -605,6 +695,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات عبر المقبس إلى الطرف الآخر.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn send(&self, buf: &[u8]) -> io::Result<usize> {
         self.0.write(buf)
@@ -647,6 +743,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات وبيانات مساعدة عبر المقبس إلى العنوان المحدد.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn send_vectored_with_ancillary_to<P: AsRef<Path>>(
@@ -695,6 +797,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات وبيانات مساعدة عبر المقبس.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn send_vectored_with_ancillary(
@@ -746,6 +854,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة القراءة للمقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_read_timeout(&self, timeout: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(timeout, libc::SO_RCVTIMEO)
@@ -792,6 +906,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة الكتابة للمقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_write_timeout(&self, timeout: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(timeout, libc::SO_SNDTIMEO)
@@ -867,6 +987,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المقبس في وضع عدم الانتظار (nonblocking) أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
@@ -891,6 +1017,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المقبس لأغراض تصفية الشبكة.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "linux", target_os = "freebsd", target_os = "openbsd",))]
     #[unstable(feature = "unix_set_mark", issue = "96467")]
     pub fn set_mark(&self, mark: u32) -> io::Result<()> {
@@ -913,6 +1045,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR`.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -935,6 +1073,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلق نصف القراءة أو الكتابة أو كليهما من هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn shutdown(&self, how: Shutdown) -> io::Result<()> {
         self.0.shutdown(how)
@@ -1048,6 +1192,12 @@ impl AsFd for UnixDatagram {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<UnixDatagram> for OwnedFd {
     /// Takes ownership of a [`UnixDatagram`]'s socket file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف المقبس لـ `UnixDatagram`.
+    ///
+    /// </div>
     #[inline]
     fn from(unix_datagram: UnixDatagram) -> OwnedFd {
         unsafe { OwnedFd::from_raw_fd(unix_datagram.into_raw_fd()) }

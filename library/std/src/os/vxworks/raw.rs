@@ -1,4 +1,10 @@
 //! VxWorks-specific raw type definitions
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات الأنواع الخام الخاصة بـ VxWorks.
+//!
+//! </div>
 #![stable(feature = "metadata_ext", since = "1.1.0")]
 
 use crate::os::raw::c_ulong;

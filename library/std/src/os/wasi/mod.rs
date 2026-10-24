@@ -28,6 +28,12 @@
 //!
 //! [`OsStr`]: crate::ffi::OsStr
 //! [`OsString`]: crate::ffi::OsString
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `std` الخاصة بواجهة نظام WebAssembly (WASI).
+//!
+//! </div>
 
 #![cfg_attr(not(target_env = "p2"), stable(feature = "rust1", since = "1.0.0"))]
 #![cfg_attr(target_env = "p2", unstable(feature = "wasip2", issue = "none"))]

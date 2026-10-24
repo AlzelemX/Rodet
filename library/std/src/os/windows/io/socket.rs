@@ -1,4 +1,10 @@
 //! Owned and borrowed OS sockets.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مقابس نظام التشغيل المملوكة والمستعارة.
+//!
+//! </div>
 
 #![stable(feature = "io_safety", since = "1.63.0")]
 
@@ -26,6 +32,12 @@ type ValidRawSocket = core::num::niche_types::NotAllOnes<RawSocket>;
 /// This type's `.to_owned()` implementation returns another `BorrowedSocket`
 /// rather than an `OwnedSocket`. It just makes a trivial copy of the raw
 /// socket, which is then borrowed under the same lifetime.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس مستعار.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
@@ -43,6 +55,12 @@ pub struct BorrowedSocket<'socket> {
 /// so it can be used in FFI in places where a socket is passed as a consumed
 /// argument or returned as an owned value, and it never has the value
 /// `INVALID_SOCKET`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس مملوك.
+///
+/// </div>
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
 #[stable(feature = "io_safety", since = "1.63.0")]
@@ -58,6 +76,12 @@ impl BorrowedSocket<'_> {
     /// The resource pointed to by `socket` must remain open for the duration of
     /// the returned `BorrowedSocket`, and it must not have the value
     /// `INVALID_SOCKET`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `BorrowedSocket` يحمل المقبس الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[track_caller]
     #[rustc_const_stable(feature = "io_safety", since = "1.63.0")]
@@ -70,6 +94,12 @@ impl BorrowedSocket<'_> {
 impl OwnedSocket {
     /// Creates a new `OwnedSocket` instance that shares the same underlying
     /// object as the existing `OwnedSocket` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedSocket` جديدًا يشارك نفس الكائن الأساسي مع الـ `OwnedSocket` الحالي.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone(&self) -> io::Result<Self> {
         self.as_socket().try_clone_to_owned()
@@ -98,6 +128,12 @@ impl OwnedSocket {
 impl BorrowedSocket<'_> {
     /// Creates a new `OwnedSocket` instance that shares the same underlying
     /// object as the existing `BorrowedSocket` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedSocket` جديدًا يشارك نفس الكائن الأساسي مع الـ `BorrowedSocket` الحالي.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone_to_owned(&self) -> io::Result<OwnedSocket> {
         let mut info = unsafe { mem::zeroed::<sys::c::WSAPROTOCOL_INFOW>() };
@@ -216,9 +252,21 @@ impl fmt::Debug for OwnedSocket {
 }
 
 /// A trait to borrow the socket from an underlying object.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة المقبس من كائن.
+///
+/// </div>
 #[stable(feature = "io_safety", since = "1.63.0")]
 pub trait AsSocket {
     /// Borrows the socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير المقبس.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     fn as_socket(&self) -> BorrowedSocket<'_>;
 }
@@ -252,6 +300,12 @@ impl<T: AsSocket> AsSocket for &mut T {
 /// impl MyTrait for Box<UdpSocket> {}
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق يسمح بتطبيق traits تتطلب `AsSocket` على `Arc`.
+///
+/// </div>
 impl<T: AsSocket> AsSocket for crate::sync::Arc<T> {
     #[inline]
     fn as_socket(&self) -> BorrowedSocket<'_> {
@@ -313,6 +367,12 @@ impl AsSocket for crate::net::TcpStream {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::net::TcpStream> for OwnedSocket {
     /// Takes ownership of a [`TcpStream`](crate::net::TcpStream)'s socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبس `TcpStream`.
+    ///
+    /// </div>
     #[inline]
     fn from(tcp_stream: crate::net::TcpStream) -> OwnedSocket {
         unsafe { OwnedSocket::from_raw_socket(tcp_stream.into_raw_socket()) }
@@ -338,6 +398,12 @@ impl AsSocket for crate::net::TcpListener {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::net::TcpListener> for OwnedSocket {
     /// Takes ownership of a [`TcpListener`](crate::net::TcpListener)'s socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبس `TcpListener`.
+    ///
+    /// </div>
     #[inline]
     fn from(tcp_listener: crate::net::TcpListener) -> OwnedSocket {
         unsafe { OwnedSocket::from_raw_socket(tcp_listener.into_raw_socket()) }
@@ -363,6 +429,12 @@ impl AsSocket for crate::net::UdpSocket {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::net::UdpSocket> for OwnedSocket {
     /// Takes ownership of a [`UdpSocket`](crate::net::UdpSocket)'s underlying socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية المقبس الأساسي لـ `UdpSocket`.
+    ///
+    /// </div>
     #[inline]
     fn from(udp_socket: crate::net::UdpSocket) -> OwnedSocket {
         unsafe { OwnedSocket::from_raw_socket(udp_socket.into_raw_socket()) }

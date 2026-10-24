@@ -1,6 +1,12 @@
 //! Windows-specific extensions to primitives in the [`std::thread`] module.
 //!
 //! [`std::thread`]: crate::thread
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Windows لأنواع وحدة `std::thread`.
+//!
+//! </div>
 
 #![stable(feature = "thread_extensions", since = "1.9.0")]
 

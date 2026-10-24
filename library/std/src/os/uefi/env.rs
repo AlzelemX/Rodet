@@ -85,6 +85,12 @@ pub fn system_table() -> NonNull<c_void> {
 /// Gets the ImageHandle Pointer.
 ///
 /// Note: This function panics if the System Table or Image Handle is not initialized.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشر الـ ImageHandle.
+///
+/// </div>
 pub fn image_handle() -> NonNull<c_void> {
     try_image_handle().unwrap()
 }
@@ -92,6 +98,12 @@ pub fn image_handle() -> NonNull<c_void> {
 /// Gets the BootServices Pointer.
 ///
 /// This function also checks if `ExitBootServices` has already been called.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مؤشر الـ BootServices.
+///
+/// </div>
 pub fn boot_services() -> Option<NonNull<c_void>> {
     if BOOT_SERVICES_FLAG.load(Ordering::Acquire) {
         let system_table: NonNull<r_efi::efi::SystemTable> = try_system_table()?.cast();

@@ -1,4 +1,10 @@
 //! Panic support in the standard library.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم الـ panic في المكتبة القياسية.
+//!
+//! </div>
 
 #![stable(feature = "std_panic", since = "1.9.0")]
 

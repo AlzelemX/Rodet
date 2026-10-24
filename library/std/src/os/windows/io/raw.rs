@@ -1,4 +1,10 @@
 //! Windows-specific extensions to general I/O primitives.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Windows لأساسيات الإدخال والإخراج.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -10,14 +16,32 @@ use crate::sys::{AsInner, FromInner, IntoInner};
 use crate::{fs, io, net, ptr, sys};
 
 /// Raw HANDLEs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقابض HANDLE خام.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type RawHandle = raw::HANDLE;
 
 /// Raw SOCKETs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقابس SOCKET خام.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type RawSocket = raw::SOCKET;
 
 /// Extracts raw handles.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج المقابض الخام.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait AsRawHandle {
     /// Extracts the raw handle.
@@ -36,11 +60,23 @@ pub trait AsRawHandle {
     /// [`Stdin`]: io::Stdin
     /// [`Stdout`]: io::Stdout
     /// [`Stderr`]: io::Stderr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج المقبض الخام.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn as_raw_handle(&self) -> RawHandle;
 }
 
 /// Constructs I/O objects from raw handles.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ كائنات إدخال وإخراج من مقابض خام.
+///
+/// </div>
 #[stable(feature = "from_raw_os", since = "1.1.0")]
 pub trait FromRawHandle {
     /// Constructs a new I/O object from the specified raw handle.
@@ -68,12 +104,24 @@ pub trait FromRawHandle {
     /// [`CloseHandle`]: https://docs.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle
     /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
     /// [io-safety]: io#io-safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ كائن إدخال وإخراج جديدًا من المقبض الخام المحدد.
+    ///
+    /// </div>
     #[stable(feature = "from_raw_os", since = "1.1.0")]
     unsafe fn from_raw_handle(handle: RawHandle) -> Self;
 }
 
 /// A trait to express the ability to consume an object and acquire ownership of
 /// its raw `HANDLE`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية استهلاك كائن وأخذ ملكية مقبض `HANDLE` الخام.
+///
+/// </div>
 #[stable(feature = "into_raw_os", since = "1.4.0")]
 pub trait IntoRawHandle {
     /// Consumes this object, returning the raw underlying handle.
@@ -85,6 +133,12 @@ pub trait IntoRawHandle {
     /// However, transferring ownership is not strictly required. Use a
     /// `Into<OwnedHandle>::into` implementation for an API which strictly
     /// transfers ownership.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الكائن ويرجع المقبض الخام الأساسي.
+    ///
+    /// </div>
     #[must_use = "losing the raw handle may leak resources"]
     #[stable(feature = "into_raw_os", since = "1.4.0")]
     fn into_raw_handle(self) -> RawHandle;
@@ -174,6 +228,12 @@ impl IntoRawHandle for fs::File {
 }
 
 /// Extracts raw sockets.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستخرج المقابس الخام.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait AsRawSocket {
     /// Extracts the raw socket.
@@ -185,11 +245,23 @@ pub trait AsRawSocket {
     ///
     /// However, borrowing is not strictly required. See [`AsSocket::as_socket`]
     /// for an API which strictly borrows a socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج المقبس الخام.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn as_raw_socket(&self) -> RawSocket;
 }
 
 /// Creates I/O objects from raw sockets.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ كائنات إدخال وإخراج من مقابس خام.
+///
+/// </div>
 #[stable(feature = "from_raw_os", since = "1.1.0")]
 pub trait FromRawSocket {
     /// Constructs a new I/O object from the specified raw socket.
@@ -212,12 +284,24 @@ pub trait FromRawSocket {
     ///
     /// [`closesocket`]: https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-closesocket
     /// [io-safety]: io#io-safety
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ كائن إدخال وإخراج جديدًا من المقبس الخام المحدد.
+    ///
+    /// </div>
     #[stable(feature = "from_raw_os", since = "1.1.0")]
     unsafe fn from_raw_socket(sock: RawSocket) -> Self;
 }
 
 /// A trait to express the ability to consume an object and acquire ownership of
 /// its raw `SOCKET`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعبّر عن إمكانية استهلاك كائن وأخذ ملكية مقبس `SOCKET` الخام.
+///
+/// </div>
 #[stable(feature = "into_raw_os", since = "1.4.0")]
 pub trait IntoRawSocket {
     /// Consumes this object, returning the raw underlying socket.
@@ -229,6 +313,12 @@ pub trait IntoRawSocket {
     /// However, transferring ownership is not strictly required. Use a
     /// `Into<OwnedSocket>::into` implementation for an API which strictly
     /// transfers ownership.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الكائن ويرجع المقبس الخام الأساسي.
+    ///
+    /// </div>
     #[must_use = "losing the raw socket may leak resources"]
     #[stable(feature = "into_raw_os", since = "1.4.0")]
     fn into_raw_socket(self) -> RawSocket;

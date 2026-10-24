@@ -1,6 +1,12 @@
 //! Unix-specific extensions to primitives in the [`std::thread`] module.
 //!
 //! [`std::thread`]: crate::thread
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بيونكس لأنواع وحدة `std::thread`.
+//!
+//! </div>
 
 #![stable(feature = "thread_extensions", since = "1.9.0")]
 
@@ -14,9 +20,21 @@ use crate::thread::JoinHandle;
 pub type RawPthread = pthread_t;
 
 /// Unix-specific extensions to [`JoinHandle`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `JoinHandle`.
+///
+/// </div>
 #[stable(feature = "thread_extensions", since = "1.9.0")]
 pub trait JoinHandleExt {
     /// Extracts the raw pthread_t without taking ownership
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج `pthread_t` الخام بدون أخذ الملكية.
+    ///
+    /// </div>
     #[stable(feature = "thread_extensions", since = "1.9.0")]
     fn as_pthread_t(&self) -> RawPthread;
 
@@ -25,6 +43,12 @@ pub trait JoinHandleExt {
     /// This function **transfers ownership** of the underlying pthread_t to
     /// the caller. Callers are then the unique owners of the pthread_t and
     /// must either detach or join the pthread_t once it's no longer needed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الخيط ويرجع `pthread_t` الخام.
+    ///
+    /// </div>
     #[stable(feature = "thread_extensions", since = "1.9.0")]
     fn into_pthread_t(self) -> RawPthread;
 }

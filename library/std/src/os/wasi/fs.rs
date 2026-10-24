@@ -1,6 +1,12 @@
 //! WASIp1-specific extensions to primitives in the [`std::fs`] module.
 //!
 //! [`std::fs`]: crate::fs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ WASIp1 لأنواع وحدة `std::fs`.
+//!
+//! </div>
 
 #![unstable(feature = "wasi_ext", issue = "71213")]
 
@@ -20,6 +26,12 @@ use crate::sys::err2io;
 use crate::sys::{AsInner, AsInnerMut};
 
 /// WASI-specific extensions to [`File`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ WASI لـ `File`.
+///
+/// </div>
 pub trait FileExt {
     /// Reads a number of bytes starting from a given offset.
     ///
@@ -32,6 +44,12 @@ pub trait FileExt {
     ///
     /// Note that similar to [`File::read`], it is not an error to return with a
     /// short read.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     fn read_at(&self, buf: &mut [u8], offset: u64) -> io::Result<usize>;
 
     /// Reads a number of bytes starting from a given offset.
@@ -45,6 +63,12 @@ pub trait FileExt {
     ///
     /// Note that similar to [`File::read_vectored`], it is not an error to
     /// return with a short read.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     fn read_vectored_at(&self, bufs: &mut [IoSliceMut<'_>], offset: u64) -> io::Result<usize>;
 
     /// Reads some bytes starting from a given offset into the buffer.
@@ -52,6 +76,12 @@ pub trait FileExt {
     /// This equivalent to the [`read_at`](FileExt::read_at) method, except that it is passed a
     /// [`BorrowedCursor`] rather than `&mut [u8]` to allow use with uninitialized buffers. The new
     /// data will be appended to any existing contents of `buf`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ بعض البايتات بدءًا من إزاحة معيّنة إلى المخزن.
+    ///
+    /// </div>
     fn read_buf_at(&self, buf: BorrowedCursor<'_, u8>, offset: u64) -> io::Result<()>;
 
     /// Reads the exact number of byte required to fill `buf` from the given offset.
@@ -81,6 +111,12 @@ pub trait FileExt {
     /// If this function returns an error, it is unspecified how many bytes it
     /// has read, but it will never read more than would be necessary to
     /// completely fill the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ العدد المطلوب بالضبط من البايتات لملء `buf` بدءًا من الإزاحة المعطاة.
+    ///
+    /// </div>
     fn read_exact_at(&self, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
             match self.read_at(buf, offset) {
@@ -111,6 +147,12 @@ pub trait FileExt {
     ///
     /// Note that similar to [`File::write`], it is not an error to return a
     /// short write.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     fn write_at(&self, buf: &[u8], offset: u64) -> io::Result<usize>;
 
     /// Writes a number of bytes starting from a given offset.
@@ -127,6 +169,12 @@ pub trait FileExt {
     ///
     /// Note that similar to [`File::write_vectored`], it is not an error to return a
     /// short write.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     fn write_vectored_at(&self, bufs: &[IoSlice<'_>], offset: u64) -> io::Result<usize>;
 
     /// Attempts to write an entire buffer starting from a given offset.
@@ -149,6 +197,12 @@ pub trait FileExt {
     /// non-[`io::ErrorKind::Interrupted`] kind that [`write_at`] returns.
     ///
     /// [`write_at`]: FileExt::write_at
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول كتابة مخزن كامل بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     fn write_all_at(&self, mut buf: &[u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
             match self.write_at(buf, offset) {
@@ -169,6 +223,12 @@ pub trait FileExt {
     /// Adjusts the flags associated with this file.
     ///
     /// This corresponds to the `fd_fdstat_set_flags` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعدّل الأعلام المرتبطة بهذا الملف.
+    ///
+    /// </div>
     #[doc(alias = "fd_fdstat_set_flags")]
     #[cfg(target_env = "p1")]
     fn fdstat_set_flags(&self, flags: u16) -> io::Result<()>;
@@ -176,6 +236,12 @@ pub trait FileExt {
     /// Adjusts the rights associated with this file.
     ///
     /// This corresponds to the `fd_fdstat_set_rights` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعدّل الصلاحيات المرتبطة بهذا الملف.
+    ///
+    /// </div>
     #[doc(alias = "fd_fdstat_set_rights")]
     #[cfg(target_env = "p1")]
     fn fdstat_set_rights(&self, rights: u64, inheriting: u64) -> io::Result<()>;
@@ -183,6 +249,12 @@ pub trait FileExt {
     /// Provides file advisory information on a file descriptor.
     ///
     /// This corresponds to the `fd_advise` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي معلومات إرشادية عن استخدام الملف لواصف الملف.
+    ///
+    /// </div>
     #[doc(alias = "fd_advise")]
     #[cfg(target_env = "p1")]
     fn advise(&self, offset: u64, len: u64, advice: u8) -> io::Result<()>;
@@ -190,6 +262,12 @@ pub trait FileExt {
     /// Forces the allocation of space in a file.
     ///
     /// This corresponds to the `fd_allocate` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرض حجز مساحة في ملف.
+    ///
+    /// </div>
     #[doc(alias = "fd_allocate")]
     #[cfg(target_env = "p1")]
     fn allocate(&self, offset: u64, len: u64) -> io::Result<()>;
@@ -197,6 +275,12 @@ pub trait FileExt {
     /// Creates a directory.
     ///
     /// This corresponds to the `path_create_directory` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مجلدًا.
+    ///
+    /// </div>
     #[doc(alias = "path_create_directory")]
     #[cfg(target_env = "p1")]
     fn create_directory<P: AsRef<Path>>(&self, dir: P) -> io::Result<()>;
@@ -204,6 +288,12 @@ pub trait FileExt {
     /// Unlinks a file.
     ///
     /// This corresponds to the `path_unlink_file` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف رابط ملف (unlink).
+    ///
+    /// </div>
     #[doc(alias = "path_unlink_file")]
     #[cfg(target_env = "p1")]
     fn remove_file<P: AsRef<Path>>(&self, path: P) -> io::Result<()>;
@@ -211,6 +301,12 @@ pub trait FileExt {
     /// Removes a directory.
     ///
     /// This corresponds to the `path_remove_directory` syscall.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف مجلدًا.
+    ///
+    /// </div>
     #[doc(alias = "path_remove_directory")]
     #[cfg(target_env = "p1")]
     fn remove_directory<P: AsRef<Path>>(&self, path: P) -> io::Result<()>;
@@ -310,8 +406,20 @@ impl FileExt for File {
 }
 
 /// WASI-specific extensions to [`OpenOptions`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ WASI لـ `OpenOptions`.
+///
+/// </div>
 pub trait OpenOptionsExt {
     /// Pass custom flags to the `flags` argument of `open`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمرر أعلامًا مخصصة إلى معامل `flags` في `open`.
+    ///
+    /// </div>
     fn custom_flags(&mut self, flags: i32) -> &mut Self;
 }
 
@@ -323,12 +431,36 @@ impl OpenOptionsExt for OpenOptions {
 }
 
 /// WASI-specific extensions to [`fs::Metadata`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ WASI لـ `fs::Metadata`.
+///
+/// </div>
 pub trait MetadataExt {
     /// Returns the `st_dev` field of the internal `filestat_t`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل `st_dev` من `filestat_t` الداخلية.
+    ///
+    /// </div>
     fn dev(&self) -> u64;
     /// Returns the `st_ino` field of the internal `filestat_t`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل `st_ino` من `filestat_t` الداخلية.
+    ///
+    /// </div>
     fn ino(&self) -> u64;
     /// Returns the `st_nlink` field of the internal `filestat_t`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل `st_nlink` من `filestat_t` الداخلية.
+    ///
+    /// </div>
     fn nlink(&self) -> u64;
 }
 
@@ -348,12 +480,36 @@ impl MetadataExt for fs::Metadata {
 ///
 /// Adds support for special WASI file types such as block/character devices,
 /// pipes, and sockets.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ WASI لـ `fs::FileType`.
+///
+/// </div>
 pub trait FileTypeExt {
     /// Returns `true` if this file type is a block device.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف جهاز كتل (block device).
+    ///
+    /// </div>
     fn is_block_device(&self) -> bool;
     /// Returns `true` if this file type is a character device.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف جهاز حروف.
+    ///
+    /// </div>
     fn is_char_device(&self) -> bool;
     /// Returns `true` if this file type is any type of socket.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف أي نوع من المقابس.
+    ///
+    /// </div>
     fn is_socket(&self) -> bool;
 }
 
@@ -370,8 +526,20 @@ impl FileTypeExt for fs::FileType {
 }
 
 /// WASI-specific extension methods for [`fs::DirEntry`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال امتداد خاصة بـ WASI لـ `fs::DirEntry`.
+///
+/// </div>
 pub trait DirEntryExt {
     /// Returns the underlying `d_ino` field of the `dirent_t`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل `d_ino` من `dirent_t`.
+    ///
+    /// </div>
     fn ino(&self) -> u64;
 }
 
@@ -384,6 +552,12 @@ impl DirEntryExt for fs::DirEntry {
 /// Creates a hard link.
 ///
 /// This corresponds to the `path_link` syscall.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا صلبًا.
+///
+/// </div>
 #[doc(alias = "path_link")]
 #[cfg(target_env = "p1")]
 pub fn link<P: AsRef<Path>, U: AsRef<Path>>(
@@ -408,6 +582,12 @@ pub fn link<P: AsRef<Path>, U: AsRef<Path>>(
 /// Renames a file or directory.
 ///
 /// This corresponds to the `path_rename` syscall.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعيد تسمية ملف أو مجلد.
+///
+/// </div>
 #[doc(alias = "path_rename")]
 #[cfg(target_env = "p1")]
 pub fn rename<P: AsRef<Path>, U: AsRef<Path>>(
@@ -430,6 +610,12 @@ pub fn rename<P: AsRef<Path>, U: AsRef<Path>>(
 /// Creates a symbolic link.
 ///
 /// This corresponds to the `path_symlink` syscall.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا.
+///
+/// </div>
 #[doc(alias = "path_symlink")]
 #[cfg(target_env = "p1")]
 pub fn symlink<P: AsRef<Path>, U: AsRef<Path>>(
@@ -451,6 +637,12 @@ pub fn symlink<P: AsRef<Path>, U: AsRef<Path>>(
 ///
 /// This is a convenience API similar to `std::os::unix::fs::symlink` and
 /// `std::os::windows::fs::symlink_file` and `std::os::windows::fs::symlink_dir`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا.
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_symlink_path")]
 pub fn symlink_path<P: AsRef<Path>, U: AsRef<Path>>(old_path: P, new_path: U) -> io::Result<()> {
     crate::sys::fs::symlink(old_path.as_ref(), new_path.as_ref())

@@ -89,6 +89,12 @@
 //!
 //! [`BorrowedFd<'a>`]: crate::os::unix::io::BorrowedFd
 //! [io-safety]: crate::io#io-safety
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بيونكس لأساسيات الإدخال والإخراج.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

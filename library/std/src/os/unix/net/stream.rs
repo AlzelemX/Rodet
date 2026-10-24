@@ -77,6 +77,12 @@ use crate::time::Duration;
 /// Writes to the underlying socket in `SOCK_STREAM` mode are made with `MSG_NOSIGNAL` flag.
 /// This suppresses the emission of the  `SIGPIPE` signal when writing to disconnected socket.
 /// In some cases getting a `SIGPIPE` would trigger process termination.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس مجرى (stream) يونكس.
+///
+/// </div>
 #[stable(feature = "unix_socket", since = "1.10.0")]
 pub struct UnixStream(pub(super) Socket);
 
@@ -112,6 +118,12 @@ impl UnixStream {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتصل بالمقبس المسمّى بـ `path`.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn connect<P: AsRef<Path>>(path: P) -> io::Result<UnixStream> {
         unsafe {
@@ -147,6 +159,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتصل بالمقبس المحدد بالعنوان `address`.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
     pub fn connect_addr(socket_addr: &SocketAddr) -> io::Result<UnixStream> {
         unsafe {
@@ -178,6 +196,12 @@ impl UnixStream {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ زوجًا بلا اسم من المقابس المتصلة.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn pair() -> io::Result<(UnixStream, UnixStream)> {
         let (i1, i2) = Socket::new_pair(libc::AF_UNIX, libc::SOCK_STREAM)?;
@@ -228,6 +252,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف المحلي من هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { libc::getsockname(self.as_raw_fd(), addr, len) })
@@ -247,6 +277,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف البعيد من هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn peer_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { libc::getpeername(self.as_raw_fd(), addr, len) })
@@ -267,6 +303,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع بيانات اعتماد الطرف الآخر لمقبس نطاق يونكس هذا.
+    ///
+    /// </div>
     #[unstable(feature = "peer_credentials_unix_socket", issue = "42839")]
     #[cfg(any(
         target_os = "android",
@@ -323,6 +365,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة القراءة للمقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_read_timeout(&self, timeout: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(timeout, libc::SO_RCVTIMEO)
@@ -368,6 +416,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة الكتابة للمقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_write_timeout(&self, timeout: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(timeout, libc::SO_SNDTIMEO)
@@ -442,6 +496,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المقبس في وضع عدم الانتظار (nonblocking) أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
@@ -466,6 +526,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المقبس لأغراض تصفية الشبكة.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "linux", target_os = "freebsd", target_os = "openbsd",))]
     #[unstable(feature = "unix_set_mark", issue = "96467")]
     pub fn set_mark(&self, mark: u32) -> io::Result<()> {
@@ -491,6 +557,12 @@ impl UnixStream {
     ///
     /// # Platform specific
     /// On Redox this always returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR`.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -602,6 +674,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات وبيانات مساعدة من المقبس.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn recv_vectored_with_ancillary(
@@ -651,6 +729,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات وبيانات مساعدة عبر المقبس.
+    ///
+    /// </div>
     #[cfg(any(doc, target_os = "android", target_os = "linux", target_os = "cygwin"))]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn send_vectored_with_ancillary(
@@ -778,6 +862,12 @@ impl AsFd for UnixStream {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<UnixStream> for OwnedFd {
     /// Takes ownership of a [`UnixStream`]'s socket file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف المقبس لـ `UnixStream`.
+    ///
+    /// </div>
     #[inline]
     fn from(unix_stream: UnixStream) -> OwnedFd {
         unsafe { OwnedFd::from_raw_fd(unix_stream.into_raw_fd()) }

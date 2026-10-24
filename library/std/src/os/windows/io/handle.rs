@@ -1,4 +1,10 @@
 //! Owned and borrowed OS handles.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مقابض (handles) نظام التشغيل المملوكة والمستعارة.
+//!
+//! </div>
 
 #![stable(feature = "io_safety", since = "1.63.0")]
 
@@ -32,6 +38,12 @@ use crate::{fmt, fs, io, ptr, sys};
 ///
 /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
 /// [the current process handle]: https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess#remarks
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض مستعار.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(transparent)]
 #[stable(feature = "io_safety", since = "1.63.0")]
@@ -61,6 +73,12 @@ pub struct BorrowedHandle<'handle> {
 ///
 /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
 /// [the current process handle]: https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess#remarks
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبض مملوك.
+///
+/// </div>
 #[repr(transparent)]
 #[stable(feature = "io_safety", since = "1.63.0")]
 pub struct OwnedHandle {
@@ -84,6 +102,12 @@ pub struct OwnedHandle {
 /// If this holds a non-null handle, it will close the handle on drop.
 ///
 /// [the current process handle]: https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess#remarks
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع FFI للمقابض في القيم المُرجعة حيث `NULL` يعني خطأ.
+///
+/// </div>
 #[repr(transparent)]
 #[stable(feature = "io_safety", since = "1.63.0")]
 #[derive(Debug)]
@@ -103,6 +127,12 @@ pub struct HandleOrNull(RawHandle);
 /// `-1`, that value is interpreted to mean `INVALID_HANDLE_VALUE`.
 ///
 /// If holds a handle other than `INVALID_HANDLE_VALUE`, it will close the handle on drop.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع FFI للمقابض في القيم المُرجعة حيث `INVALID_HANDLE_VALUE` يعني خطأ.
+///
+/// </div>
 #[repr(transparent)]
 #[stable(feature = "io_safety", since = "1.63.0")]
 #[derive(Debug)]
@@ -145,6 +175,12 @@ impl BorrowedHandle<'_> {
     /// detached from processes, or when `windows_subsystem` is used.
     ///
     /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `BorrowedHandle` يحمل المقبض الخام المعطى.
+    ///
+    /// </div>
     #[inline]
     #[rustc_const_stable(feature = "io_safety", since = "1.63.0")]
     #[stable(feature = "io_safety", since = "1.63.0")]
@@ -184,6 +220,12 @@ impl Drop for HandleOrNull {
 impl OwnedHandle {
     /// Creates a new `OwnedHandle` instance that shares the same underlying
     /// object as the existing `OwnedHandle` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedHandle` جديدًا يشارك نفس الكائن الأساسي مع الـ `OwnedHandle` الحالي.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone(&self) -> io::Result<Self> {
         self.as_handle().try_clone_to_owned()
@@ -193,6 +235,12 @@ impl OwnedHandle {
 impl BorrowedHandle<'_> {
     /// Creates a new `OwnedHandle` instance that shares the same underlying
     /// object as the existing `BorrowedHandle` instance.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `OwnedHandle` جديدًا يشارك نفس الكائن الأساسي مع الـ `BorrowedHandle` الحالي.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     pub fn try_clone_to_owned(&self) -> io::Result<OwnedHandle> {
         self.duplicate(0, false, sys::c::DUPLICATE_SAME_ACCESS)
@@ -261,6 +309,12 @@ impl Drop for HandleOrInvalid {
 
 /// This is the error type used by [`HandleOrNull`] when attempting to convert
 /// into a handle, to indicate that the value is null.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي يستخدمه `HandleOrNull` عند التحويل إلى مقبض إذا كانت القيمة فارغة.
+///
+/// </div>
 // The empty field prevents constructing this, and allows extending it in the future.
 #[stable(feature = "io_safety", since = "1.63.0")]
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -279,6 +333,12 @@ impl crate::error::Error for NullHandleError {}
 /// This is the error type used by [`HandleOrInvalid`] when attempting to
 /// convert into a handle, to indicate that the value is
 /// `INVALID_HANDLE_VALUE`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي يستخدمه `HandleOrInvalid` عند التحويل إلى مقبض إذا كانت القيمة غير صالحة.
+///
+/// </div>
 // The empty field prevents constructing this, and allows extending it in the future.
 #[stable(feature = "io_safety", since = "1.63.0")]
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -342,6 +402,12 @@ impl HandleOrNull {
     /// Windows APIs use null for errors; see [here] for the full story.
     ///
     /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من `Self` من `RawHandle` أرجعته واجهة Windows تستخدم null للدلالة على الخطأ.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     #[inline]
     pub unsafe fn from_raw_handle(handle: RawHandle) -> Self {
@@ -369,6 +435,12 @@ impl HandleOrInvalid {
     /// `INVALID_HANDLE_VALUE` for errors; see [here] for the full story.
     ///
     /// [here]: https://devblogs.microsoft.com/oldnewthing/20040302-00/?p=40443
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة من `Self` من `RawHandle` أرجعته واجهة Windows تستخدم `INVALID_HANDLE_VALUE` للخطأ.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     #[inline]
     pub unsafe fn from_raw_handle(handle: RawHandle) -> Self {
@@ -419,6 +491,12 @@ macro_rules! impl_is_terminal {
 impl_is_terminal!(BorrowedHandle<'_>, OwnedHandle);
 
 /// A trait to borrow the handle from an underlying object.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait لاستعارة المقبض من كائن.
+///
+/// </div>
 #[stable(feature = "io_safety", since = "1.63.0")]
 pub trait AsHandle {
     /// Borrows the handle.
@@ -435,6 +513,12 @@ pub trait AsHandle {
     /// let borrowed_handle: BorrowedHandle<'_> = f.as_handle();
     /// # Ok::<(), io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعير المقبض.
+    ///
+    /// </div>
     #[stable(feature = "io_safety", since = "1.63.0")]
     fn as_handle(&self) -> BorrowedHandle<'_>;
 }
@@ -468,6 +552,12 @@ impl<T: AsHandle + ?Sized> AsHandle for &mut T {
 /// impl MyTrait for Box<File> {}
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// هذا التطبيق يسمح بتطبيق traits تتطلب `AsHandle` على `Arc`.
+///
+/// </div>
 impl<T: AsHandle + ?Sized> AsHandle for crate::sync::Arc<T> {
     #[inline]
     fn as_handle(&self) -> BorrowedHandle<'_> {
@@ -529,6 +619,12 @@ impl AsHandle for fs::File {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<fs::File> for OwnedHandle {
     /// Takes ownership of a [`File`](fs::File)'s underlying file handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض الملف الأساسي لـ `File`.
+    ///
+    /// </div>
     #[inline]
     fn from(file: fs::File) -> OwnedHandle {
         file.into_inner().into_inner().into_inner()
@@ -538,6 +634,12 @@ impl From<fs::File> for OwnedHandle {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<OwnedHandle> for fs::File {
     /// Returns a [`File`](fs::File) that takes ownership of the given handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `File` يأخذ ملكية المقبض المعطى.
+    ///
+    /// </div>
     #[inline]
     fn from(owned: OwnedHandle) -> Self {
         Self::from_inner(FromInner::from_inner(FromInner::from_inner(owned)))
@@ -603,6 +705,12 @@ impl AsHandle for crate::process::ChildStdin {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStdin> for OwnedHandle {
     /// Takes ownership of a [`ChildStdin`](crate::process::ChildStdin)'s file handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض الملف لـ `ChildStdin`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stdin: crate::process::ChildStdin) -> OwnedHandle {
         unsafe { OwnedHandle::from_raw_handle(child_stdin.into_raw_handle()) }
@@ -620,6 +728,12 @@ impl AsHandle for crate::process::ChildStdout {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStdout> for OwnedHandle {
     /// Takes ownership of a [`ChildStdout`](crate::process::ChildStdout)'s file handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض الملف لـ `ChildStdout`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stdout: crate::process::ChildStdout) -> OwnedHandle {
         unsafe { OwnedHandle::from_raw_handle(child_stdout.into_raw_handle()) }
@@ -637,6 +751,12 @@ impl AsHandle for crate::process::ChildStderr {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStderr> for OwnedHandle {
     /// Takes ownership of a [`ChildStderr`](crate::process::ChildStderr)'s file handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض الملف لـ `ChildStderr`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stderr: crate::process::ChildStderr) -> OwnedHandle {
         unsafe { OwnedHandle::from_raw_handle(child_stderr.into_raw_handle()) }

@@ -7,19 +7,43 @@
 use libc::{gid_t, pid_t, uid_t};
 
 /// Credentials for a UNIX process for credentials passing.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بيانات اعتماد عملية يونكس لتمريرها.
+///
+/// </div>
 #[unstable(feature = "peer_credentials_unix_socket", issue = "42839")]
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct UCred {
     /// The UID part of the peer credential. This is the effective UID of the process at the domain
     /// socket's endpoint.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جزء UID من بيانات اعتماد الطرف الآخر: معرّف المستخدم الفعّال للعملية في طرف المقبس.
+    ///
+    /// </div>
     pub uid: uid_t,
     /// The GID part of the peer credential. This is the effective GID of the process at the domain
     /// socket's endpoint.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جزء GID من بيانات اعتماد الطرف الآخر: معرّف المجموعة الفعّال للعملية في طرف المقبس.
+    ///
+    /// </div>
     pub gid: gid_t,
     /// The PID part of the peer credential. This field is optional because the PID part of the
     /// peer credentials is not supported on every platform. On platforms where the mechanism to
     /// discover the PID exists, this field will be populated to the PID of the process at the
     /// domain socket's endpoint. Otherwise, it will be set to None.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جزء PID من بيانات اعتماد الطرف الآخر؛ اختياري لأنه غير مدعوم على كل المنصات.
+    ///
+    /// </div>
     pub pid: Option<pid_t>,
 }
 

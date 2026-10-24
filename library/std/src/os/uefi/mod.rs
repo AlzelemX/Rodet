@@ -1,4 +1,10 @@
 //! Platform-specific extensions to `std` for UEFI.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `std` الخاصة بمنصة UEFI.
+//!
+//! </div>
 
 #![unstable(feature = "uefi_std", issue = "100499")]
 #![doc(cfg(target_os = "uefi"))]

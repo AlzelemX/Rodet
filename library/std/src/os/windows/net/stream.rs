@@ -36,6 +36,12 @@ use crate::{fmt, io};
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس مجرى (stream) يونكس.
+///
+/// </div>
 pub struct UnixStream(pub(super) Socket);
 impl fmt::Debug for UnixStream {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -68,6 +74,12 @@ impl UnixStream {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتصل بالمقبس المسمّى بـ `path`.
+    ///
+    /// </div>
     pub fn connect<P: AsRef<Path>>(path: P) -> io::Result<UnixStream> {
         let socket_addr = SocketAddr::from_pathname(path)?;
         Self::connect_addr(&socket_addr)
@@ -98,6 +110,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ````
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتصل بالمقبس المحدد بالعنوان `address`.
+    ///
+    /// </div>
     pub fn connect_addr(socket_addr: &SocketAddr) -> io::Result<UnixStream> {
         startup();
         let inner = Socket::new(AF_UNIX as _, SOCK_STREAM)?;
@@ -126,6 +144,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف المحلي من هذا الاتصال.
+    ///
+    /// </div>
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { getsockname(self.0.as_raw(), addr, len) })
     }
@@ -145,6 +169,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف البعيد من هذا الاتصال.
+    ///
+    /// </div>
     pub fn peer_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { getpeername(self.0.as_raw(), addr, len) })
     }
@@ -191,6 +221,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المقبس في وضع عدم الانتظار (nonblocking) أو يخرجه منه.
+    ///
+    /// </div>
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
     }
@@ -236,6 +272,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة القراءة للمقبس.
+    ///
+    /// </div>
     pub fn set_read_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(dur, SO_RCVTIMEO)
     }
@@ -282,6 +324,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد مهلة الكتابة للمقبس.
+    ///
+    /// </div>
     pub fn set_write_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_timeout(dur, SO_SNDTIMEO)
     }
@@ -333,6 +381,12 @@ impl UnixStream {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR`.
+    ///
+    /// </div>
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
     }

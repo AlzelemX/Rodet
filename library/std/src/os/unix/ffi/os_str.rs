@@ -7,6 +7,12 @@ use crate::sys::{AsInner, FromInner, IntoInner};
 // Keep this in mind when applying changes to this file that only apply to `unix`.
 
 /// Platform-specific extensions to [`OsString`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بالمنصة لـ `OsString`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub impl(self) trait OsStringExt {
     /// Creates an [`OsString`] from a byte vector.
@@ -35,6 +41,12 @@ impl OsStringExt for OsString {
 }
 
 /// Platform-specific extensions to [`OsStr`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بالمنصة لـ `OsStr`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub impl(self) trait OsStrExt {
     #[stable(feature = "rust1", since = "1.0.0")]

@@ -1,4 +1,10 @@
 //! Unix-specific networking functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف شبكات خاصة بيونكس.
+//!
+//! </div>
 
 #![allow(irrefutable_let_patterns)]
 #![stable(feature = "unix_socket", since = "1.10.0")]

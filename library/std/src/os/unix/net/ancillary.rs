@@ -204,6 +204,12 @@ impl<'a, T> Iterator for AncillaryDataIter<'a, T> {
 pub struct SocketCred(());
 
 /// Unix credential.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بيانات اعتماد يونكس.
+///
+/// </div>
 #[cfg(any(target_os = "android", target_os = "linux", target_os = "cygwin"))]
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 #[derive(Clone)]
@@ -225,6 +231,12 @@ impl SocketCred {
     /// Creates a Unix credential struct.
     ///
     /// PID, UID and GID is set to 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بنية بيانات اعتماد يونكس.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     #[must_use]
     pub fn new() -> SocketCred {
@@ -232,12 +244,24 @@ impl SocketCred {
     }
 
     /// Set the PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف العملية (PID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_pid(&mut self, pid: libc::pid_t) {
         self.0.pid = pid;
     }
 
     /// Gets the current PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف العملية (PID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_pid(&self) -> libc::pid_t {
@@ -245,12 +269,24 @@ impl SocketCred {
     }
 
     /// Set the UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المستخدم (UID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_uid(&mut self, uid: libc::uid_t) {
         self.0.uid = uid;
     }
 
     /// Gets the current UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم (UID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_uid(&self) -> libc::uid_t {
@@ -258,12 +294,24 @@ impl SocketCred {
     }
 
     /// Set the GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المجموعة (GID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_gid(&mut self, gid: libc::gid_t) {
         self.0.gid = gid;
     }
 
     /// Gets the current GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة (GID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_gid(&self) -> libc::gid_t {
@@ -276,6 +324,12 @@ impl SocketCred {
     /// Creates a Unix credential struct.
     ///
     /// PID, UID and GID is set to 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بنية بيانات اعتماد يونكس.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     #[must_use]
     pub fn new() -> SocketCred {
@@ -292,12 +346,24 @@ impl SocketCred {
     }
 
     /// Set the PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف العملية (PID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_pid(&mut self, pid: libc::pid_t) {
         self.0.sc_pid = pid;
     }
 
     /// Gets the current PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف العملية (PID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_pid(&self) -> libc::pid_t {
@@ -305,12 +371,24 @@ impl SocketCred {
     }
 
     /// Set the UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المستخدم (UID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_uid(&mut self, uid: libc::uid_t) {
         self.0.sc_euid = uid;
     }
 
     /// Gets the current UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم (UID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_uid(&self) -> libc::uid_t {
@@ -318,12 +396,24 @@ impl SocketCred {
     }
 
     /// Set the GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المجموعة (GID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_gid(&mut self, gid: libc::gid_t) {
         self.0.sc_egid = gid;
     }
 
     /// Gets the current GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة (GID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_gid(&self) -> libc::gid_t {
@@ -336,6 +426,12 @@ impl SocketCred {
     /// Creates a Unix credential struct.
     ///
     /// PID, UID and GID is set to 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بنية بيانات اعتماد يونكس.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn new() -> SocketCred {
         SocketCred(libc::sockcred {
@@ -350,12 +446,24 @@ impl SocketCred {
     }
 
     /// Set the PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف العملية (PID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_pid(&mut self, pid: libc::pid_t) {
         self.0.sc_pid = pid;
     }
 
     /// Gets the current PID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف العملية (PID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_pid(&self) -> libc::pid_t {
@@ -363,12 +471,24 @@ impl SocketCred {
     }
 
     /// Set the UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المستخدم (UID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_uid(&mut self, uid: libc::uid_t) {
         self.0.sc_uid = uid;
     }
 
     /// Gets the current UID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم (UID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_uid(&self) -> libc::uid_t {
@@ -376,12 +496,24 @@ impl SocketCred {
     }
 
     /// Set the GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معرّف المجموعة (GID).
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn set_gid(&mut self, gid: libc::gid_t) {
         self.0.sc_gid = gid;
     }
 
     /// Gets the current GID.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة (GID) الحالي.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn get_gid(&self) -> libc::gid_t {
@@ -392,6 +524,12 @@ impl SocketCred {
 /// This control message contains file descriptors.
 ///
 /// The level is equal to `SOL_SOCKET` and the type is equal to `SCM_RIGHTS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رسالة التحكم هذه تحتوي واصفات ملفات.
+///
+/// </div>
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub struct ScmRights<'a>(AncillaryDataIter<'a, RawFd>);
 
@@ -418,6 +556,12 @@ pub struct ScmCredentials<'a>(AncillaryDataIter<'a, ()>);
 /// This control message contains unix credentials.
 ///
 /// The level is equal to `SOL_SOCKET` and the type is equal to `SCM_CREDENTIALS` or `SCM_CREDS`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رسالة التحكم هذه تحتوي بيانات اعتماد يونكس.
+///
+/// </div>
 #[cfg(any(target_os = "android", target_os = "linux", target_os = "cygwin"))]
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub struct ScmCredentials<'a>(AncillaryDataIter<'a, libc::ucred>);
@@ -448,6 +592,12 @@ impl<'a> Iterator for ScmCredentials<'a> {
 }
 
 /// The error type which is returned from parsing the type a control message.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ المُرجَع عند تحليل نوع رسالة تحكم.
+///
+/// </div>
 #[non_exhaustive]
 #[derive(Debug)]
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
@@ -456,6 +606,12 @@ pub enum AncillaryError {
 }
 
 /// This enum represent one control message of variable type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يمثّل رسالة تحكم واحدة من نوع متغير.
+///
+/// </div>
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub enum AncillaryData<'a> {
     ScmRights(ScmRights<'a>),
@@ -532,6 +688,12 @@ impl<'a> AncillaryData<'a> {
 }
 
 /// This struct is used to iterate through the control messages.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تُستخدم للتكرار على رسائل التحكم.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 pub struct Messages<'a> {
@@ -610,6 +772,12 @@ impl<'a> Iterator for Messages<'a> {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية بيانات مساعدة (ancillary) لمقبس يونكس.
+///
+/// </div>
 #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
 #[derive(Debug)]
 pub struct SocketAncillary<'a> {
@@ -637,12 +805,24 @@ impl<'a> SocketAncillary<'a> {
     /// let mut ancillary_buffer = [0; 128];
     /// let mut ancillary = SocketAncillary::new(&mut ancillary_buffer[..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بيانات مساعدة بالمخزن المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn new(buffer: &'a mut [u8]) -> Self {
         SocketAncillary { buffer, length: 0, truncated: false }
     }
 
     /// Returns the capacity of the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع سعة المخزن.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn capacity(&self) -> usize {
@@ -650,6 +830,12 @@ impl<'a> SocketAncillary<'a> {
     }
 
     /// Returns `true` if the ancillary data is empty.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت البيانات المساعدة فارغة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn is_empty(&self) -> bool {
@@ -657,6 +843,12 @@ impl<'a> SocketAncillary<'a> {
     }
 
     /// Returns the number of used bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات المستخدمة.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn len(&self) -> usize {
@@ -664,6 +856,12 @@ impl<'a> SocketAncillary<'a> {
     }
 
     /// Returns the iterator of the control messages.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على رسائل التحكم.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn messages(&self) -> Messages<'_> {
         Messages { buffer: &self.buffer[..self.length], current: None }
@@ -699,6 +897,12 @@ impl<'a> SocketAncillary<'a> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكون `true` إذا قُصّت البيانات المساعدة أثناء عملية استقبال.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn truncated(&self) -> bool {
@@ -740,6 +944,12 @@ impl<'a> SocketAncillary<'a> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف واصفات ملفات إلى البيانات المساعدة.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn add_fds(&mut self, fds: &[RawFd]) -> bool {
         self.truncated = false;
@@ -759,6 +969,12 @@ impl<'a> SocketAncillary<'a> {
     /// Technically, that means this operation adds a control message with the level `SOL_SOCKET`
     /// and type `SCM_CREDENTIALS`, `SCM_CREDS`, or `SCM_CREDS2`.
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف بيانات اعتماد إلى البيانات المساعدة.
+    ///
+    /// </div>
     #[cfg(any(
         doc,
         target_os = "android",
@@ -833,6 +1049,12 @@ impl<'a> SocketAncillary<'a> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ البيانات المساعدة ويحذف كل القيم.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_ancillary_data", issue = "76915")]
     pub fn clear(&mut self) {
         self.length = 0;

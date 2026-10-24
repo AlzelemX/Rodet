@@ -28,6 +28,12 @@
 //!
 //! [`OsStr`]: crate::ffi::OsStr
 //! [`OsString`]: crate::ffi::OsString
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `std` الخاصة بمنصات يونكس.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![doc(cfg(unix))]

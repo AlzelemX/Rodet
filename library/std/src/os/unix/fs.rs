@@ -1,6 +1,12 @@
 //! Unix-specific extensions to primitives in the [`std::fs`] module.
 //!
 //! [`std::fs`]: crate::fs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بيونكس لأنواع وحدة `std::fs`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -30,6 +36,12 @@ pub use dirs::MediaDirsExt;
 pub use dirs::{HomeDirsExt, XdgDirs};
 
 /// Unix-specific extensions to [`fs::File`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::File`.
+///
+/// </div>
 #[stable(feature = "file_offset", since = "1.15.0")]
 pub trait FileExt {
     /// Reads a number of bytes starting from a given offset.
@@ -64,6 +76,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     #[stable(feature = "file_offset", since = "1.15.0")]
     fn read_at(&self, buf: &mut [u8], offset: u64) -> io::Result<usize>;
 
@@ -72,6 +90,12 @@ pub trait FileExt {
     /// Data is copied to fill each buffer in order, with the final buffer
     /// written to possibly being only partially filled. This method must behave
     /// equivalently to a single call to read with concatenated buffers.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `read_at` لكنه يقرأ إلى شريحة مخازن.
+    ///
+    /// </div>
     #[unstable(feature = "unix_file_vectored_at", issue = "89517")]
     fn read_vectored_at(&self, bufs: &mut [io::IoSliceMut<'_>], offset: u64) -> io::Result<usize> {
         io::default_read_vectored(|b| self.read_at(b, offset), bufs)
@@ -123,6 +147,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ العدد المطلوب بالضبط من البايتات لملء `buf` بدءًا من الإزاحة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "rw_exact_all_at", since = "1.33.0")]
     fn read_exact_at(&self, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
@@ -172,6 +202,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ بعض البايتات بدءًا من إزاحة معيّنة إلى المخزن.
+    ///
+    /// </div>
     #[unstable(feature = "read_buf_at", issue = "140771")]
     fn read_buf_at(&self, buf: BorrowedCursor<'_, u8>, offset: u64) -> io::Result<()> {
         io::default_read_buf(|b| self.read_at(b, offset), buf)
@@ -209,6 +245,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ العدد المطلوب بالضبط من البايتات لملء المخزن بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     #[unstable(feature = "read_buf_at", issue = "140771")]
     #[doc(alias("read_exact_buf_at"))]
     fn read_buf_exact_at(
@@ -295,6 +337,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب عددًا من البايتات بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     #[stable(feature = "file_offset", since = "1.15.0")]
     fn write_at(&self, buf: &[u8], offset: u64) -> io::Result<usize>;
 
@@ -303,6 +351,12 @@ pub trait FileExt {
     /// Data is copied from each buffer in order, with the final buffer read
     /// from possibly being only partially consumed. This method must behave as
     /// a call to `write_at` with the buffers concatenated would.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `write_at` لكنه يكتب من شريحة مخازن.
+    ///
+    /// </div>
     #[unstable(feature = "unix_file_vectored_at", issue = "89517")]
     fn write_vectored_at(&self, bufs: &[io::IoSlice<'_>], offset: u64) -> io::Result<usize> {
         io::default_write_vectored(|b| self.write_at(b, offset), bufs)
@@ -345,6 +399,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول كتابة مخزن كامل بدءًا من إزاحة معيّنة.
+    ///
+    /// </div>
     #[stable(feature = "rw_exact_all_at", since = "1.33.0")]
     fn write_all_at(&self, mut buf: &[u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
@@ -458,17 +518,41 @@ impl FileExt for fs::File {
 /// permissions.set_mode(other_mode);
 /// assert_eq!(permissions.mode(), other_mode);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::Permissions`.
+///
+/// </div>
 #[stable(feature = "fs_ext", since = "1.1.0")]
 pub trait PermissionsExt {
     /// Returns the mode permission bits
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع بتات صلاحيات الوضع (mode).
+    ///
+    /// </div>
     #[stable(feature = "fs_ext", since = "1.1.0")]
     fn mode(&self) -> u32;
 
     /// Sets the mode permission bits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد بتات صلاحيات الوضع (mode).
+    ///
+    /// </div>
     #[stable(feature = "fs_ext", since = "1.1.0")]
     fn set_mode(&mut self, mode: u32);
 
     /// Creates a new instance from the given mode permission bits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ نسخة جديدة من بتات صلاحيات الوضع المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "fs_ext", since = "1.1.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "permissions_from_mode")]
     fn from_mode(mode: u32) -> Self;
@@ -490,6 +574,12 @@ impl PermissionsExt for Permissions {
 }
 
 /// Unix-specific extensions to [`fs::OpenOptions`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::OpenOptions`.
+///
+/// </div>
 #[stable(feature = "fs_ext", since = "1.1.0")]
 pub trait OpenOptionsExt {
     /// Sets the mode bits that a new file will be created with.
@@ -513,6 +603,12 @@ pub trait OpenOptionsExt {
     /// let file = options.open("foo.txt");
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد بتات الوضع التي سيُنشأ بها الملف الجديد.
+    ///
+    /// </div>
     #[stable(feature = "fs_ext", since = "1.1.0")]
     fn mode(&mut self, mode: u32) -> &mut Self;
 
@@ -539,6 +635,12 @@ pub trait OpenOptionsExt {
     /// let file = options.open("foo.txt");
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمرر أعلامًا مخصصة إلى معامل `flags` في `open`.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn custom_flags(&mut self, flags: i32) -> &mut Self;
 }
@@ -557,6 +659,12 @@ impl OpenOptionsExt for OpenOptions {
 }
 
 /// Unix-specific extensions to [`fs::Metadata`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Returns the ID of the device containing the file.
@@ -575,6 +683,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز الذي يحتوي الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn dev(&self) -> u64;
     /// Returns the inode number.
@@ -621,6 +735,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الصلاحيات المطبقة على هذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn mode(&self) -> u32;
     /// Returns the number of hard links pointing to this file.
@@ -639,6 +759,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الروابط الصلبة التي تشير إلى هذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn nlink(&self) -> u64;
     /// Returns the user ID of the owner of this file.
@@ -657,6 +783,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المستخدم مالك هذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn uid(&self) -> u32;
     /// Returns the group ID of the owner of this file.
@@ -675,6 +807,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف المجموعة المالكة لهذا الملف.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn gid(&self) -> u32;
     /// Returns the device ID of this file (if it is a special one).
@@ -693,6 +831,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف الجهاز لهذا الملف (إذا كان ملفًا خاصًا).
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn rdev(&self) -> u64;
     /// Returns the total size of this file in bytes.
@@ -711,6 +855,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحجم الكلي لهذا الملف بالبايتات.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn size(&self) -> u64;
     /// Returns the last access time of the file, in seconds since Unix Epoch.
@@ -755,6 +905,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت وصول للملف، بالنانوثانية بعد `atime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn atime_nsec(&self) -> i64;
     /// Returns the last modification time of the file, in seconds since Unix Epoch.
@@ -799,6 +955,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تعديل للملف، بالنانوثانية بعد `mtime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn mtime_nsec(&self) -> i64;
     /// Returns the last status change time of the file, in seconds since Unix Epoch.
@@ -843,6 +1005,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر وقت تغيير لحالة الملف، بالنانوثانية بعد `ctime`.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn ctime_nsec(&self) -> i64;
     /// Returns the block size for filesystem I/O.
@@ -861,6 +1029,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم الكتلة لإدخال وإخراج نظام الملفات.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn blksize(&self) -> u64;
     /// Returns the number of blocks allocated to the file, in 512-byte units.
@@ -881,6 +1055,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الكتل المحجوزة للملف، بوحدات 512 بايت.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn blocks(&self) -> u64;
     #[cfg(target_os = "vxworks")]
@@ -948,6 +1128,12 @@ impl MetadataExt for fs::Metadata {
 ///
 /// Adds support for special Unix file types such as block/character devices,
 /// pipes, and sockets.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::FileType`.
+///
+/// </div>
 #[stable(feature = "file_type_ext", since = "1.5.0")]
 pub trait FileTypeExt {
     /// Returns `true` if this file type is a block device.
@@ -967,6 +1153,12 @@ pub trait FileTypeExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف جهاز كتل (block device).
+    ///
+    /// </div>
     #[stable(feature = "file_type_ext", since = "1.5.0")]
     fn is_block_device(&self) -> bool;
     /// Returns `true` if this file type is a char device.
@@ -986,6 +1178,12 @@ pub trait FileTypeExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف جهاز حروف (char device).
+    ///
+    /// </div>
     #[stable(feature = "file_type_ext", since = "1.5.0")]
     fn is_char_device(&self) -> bool;
     /// Returns `true` if this file type is a fifo.
@@ -1005,6 +1203,12 @@ pub trait FileTypeExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف أنبوبًا مسمّى (fifo).
+    ///
+    /// </div>
     #[stable(feature = "file_type_ext", since = "1.5.0")]
     fn is_fifo(&self) -> bool;
     /// Returns `true` if this file type is a socket.
@@ -1024,6 +1228,12 @@ pub trait FileTypeExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان نوع الملف مقبسًا (socket).
+    ///
+    /// </div>
     #[stable(feature = "file_type_ext", since = "1.5.0")]
     fn is_socket(&self) -> bool;
 }
@@ -1045,6 +1255,12 @@ impl FileTypeExt for fs::FileType {
 }
 
 /// Unix-specific extension methods for [`fs::DirEntry`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال امتداد خاصة بيونكس لـ `fs::DirEntry`.
+///
+/// </div>
 #[stable(feature = "dir_entry_ext", since = "1.1.0")]
 pub trait DirEntryExt {
     /// Returns the underlying `d_ino` field in the contained `dirent`
@@ -1066,6 +1282,12 @@ pub trait DirEntryExt {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل `d_ino` من بنية `dirent` الداخلية.
+    ///
+    /// </div>
     #[stable(feature = "dir_entry_ext", since = "1.1.0")]
     fn ino(&self) -> u64;
 }
@@ -1078,6 +1300,12 @@ impl DirEntryExt for fs::DirEntry {
 }
 
 /// Unix-specific extension methods for [`fs::DirEntry`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دوال امتداد خاصة بيونكس لـ `fs::DirEntry`.
+///
+/// </div>
 #[unstable(feature = "dir_entry_ext2", issue = "85573")]
 pub impl(self) trait DirEntryExt2 {
     /// Returns a reference to the underlying `OsStr` of this entry's filename.
@@ -1139,6 +1367,12 @@ pub fn symlink<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::Resu
 }
 
 /// Unix-specific extensions to [`fs::DirBuilder`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بيونكس لـ `fs::DirBuilder`.
+///
+/// </div>
 #[stable(feature = "dir_builder", since = "1.6.0")]
 pub trait DirBuilderExt {
     /// Sets the mode to create new directories with. This option defaults to
@@ -1154,6 +1388,12 @@ pub trait DirBuilderExt {
     /// let mut builder = DirBuilder::new();
     /// builder.mode(0o755);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد الوضع الذي تُنشأ به المجلدات الجديدة؛ الافتراضي 0o777.
+    ///
+    /// </div>
     #[stable(feature = "dir_builder", since = "1.6.0")]
     fn mode(&mut self, mode: u32) -> &mut Self;
 }
@@ -1193,6 +1433,12 @@ impl DirBuilderExt for fs::DirBuilder {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر المالك والمجموعة للمسار المحدد.
+///
+/// </div>
 #[stable(feature = "unix_chown", since = "1.73.0")]
 pub fn chown<P: AsRef<Path>>(dir: P, uid: Option<u32>, gid: Option<u32>) -> io::Result<()> {
     sys::fs::chown(dir.as_ref(), uid.unwrap_or(u32::MAX), gid.unwrap_or(u32::MAX))
@@ -1214,6 +1460,12 @@ pub fn chown<P: AsRef<Path>>(dir: P, uid: Option<u32>, gid: Option<u32>) -> io::
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر المالك والمجموعة للملف الذي يشير إليه واصف الملف المفتوح.
+///
+/// </div>
 #[stable(feature = "unix_chown", since = "1.73.0")]
 pub fn fchown<F: AsFd>(fd: F, uid: Option<u32>, gid: Option<u32>) -> io::Result<()> {
     sys::fs::fchown(fd.as_fd().as_raw_fd(), uid.unwrap_or(u32::MAX), gid.unwrap_or(u32::MAX))
@@ -1235,6 +1487,12 @@ pub fn fchown<F: AsFd>(fd: F, uid: Option<u32>, gid: Option<u32>) -> io::Result<
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر المالك والمجموعة للمسار المحدد بدون اتباع الروابط الرمزية.
+///
+/// </div>
 #[stable(feature = "unix_chown", since = "1.73.0")]
 pub fn lchown<P: AsRef<Path>>(dir: P, uid: Option<u32>, gid: Option<u32>) -> io::Result<()> {
     sys::fs::lchown(dir.as_ref(), uid.unwrap_or(u32::MAX), gid.unwrap_or(u32::MAX))
@@ -1260,6 +1518,12 @@ pub fn lchown<P: AsRef<Path>>(dir: P, uid: Option<u32>, gid: Option<u32>) -> io:
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغيّر المجلد الجذر للعملية الحالية إلى المسار المحدد.
+///
+/// </div>
 #[stable(feature = "unix_chroot", since = "1.56.0")]
 #[cfg(not(target_os = "fuchsia"))]
 pub fn chroot<P: AsRef<Path>>(dir: P) -> io::Result<()> {
@@ -1298,6 +1562,12 @@ pub fn chroot<P: AsRef<Path>>(dir: P) -> io::Result<()> {
 /// # Ok(())
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ ملف FIFO خاصًا في المسار المحدد بالوضع المحدد.
+///
+/// </div>
 #[unstable(feature = "unix_mkfifo", issue = "139324")]
 pub fn mkfifo<P: AsRef<Path>>(path: P, permissions: Permissions) -> io::Result<()> {
     sys::fs::mkfifo(path.as_ref(), permissions.mode())

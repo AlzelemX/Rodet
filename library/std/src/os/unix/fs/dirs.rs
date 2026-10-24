@@ -32,6 +32,12 @@ pub struct ExtraMediaDirs {
 /// follow along with any legacy path compatibility you might need to support.
 ///
 /// [xdg-basedir]: https://specifications.freedesktop.org/basedir/
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ XDG لـ `fs::HomeDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_home_dirs", issue = "162082")]
 pub impl(self) trait HomeDirsExt: Sized {
     /// Load the user directory paths according to the
@@ -165,6 +171,12 @@ pub impl(self) trait HomeDirsExt: Sized {
 /// follow along with any legacy path compatibility you might need to support.
 ///
 /// [xdg-user-dirs]: https://www.freedesktop.org/wiki/Software/xdg-user-dirs/
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ XDG لـ `fs::MediaDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_media_dirs", issue = "162083")]
 pub impl(self) trait MediaDirsExt: Sized {
     /// Load the user directory paths according to the [xdg-user-dirs] tool.

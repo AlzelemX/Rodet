@@ -107,6 +107,12 @@ impl FromRawFd for process::Stdio {
 impl From<OwnedFd> for process::Stdio {
     /// Takes ownership of a file descriptor and returns a [`Stdio`](process::Stdio)
     /// that can attach a stream to it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف ويرجع `Stdio` يمكنه ربط مجرى به.
+    ///
+    /// </div>
     #[inline]
     fn from(fd: OwnedFd) -> process::Stdio {
         let fd = sys::fd::FileDesc::from_inner(fd);
@@ -174,6 +180,12 @@ impl AsFd for crate::process::ChildStdin {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStdin> for OwnedFd {
     /// Takes ownership of a [`ChildStdin`](crate::process::ChildStdin)'s file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف الملف لـ `ChildStdin`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stdin: crate::process::ChildStdin) -> OwnedFd {
         child_stdin.into_inner().into_inner()
@@ -184,6 +196,12 @@ impl From<crate::process::ChildStdin> for OwnedFd {
 ///
 /// The provided file descriptor must point to a pipe
 /// with the `CLOEXEC` flag set.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStdin` من الـ `OwnedFd` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedFd> for process::ChildStdin {
     #[inline]
@@ -204,6 +222,12 @@ impl AsFd for crate::process::ChildStdout {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStdout> for OwnedFd {
     /// Takes ownership of a [`ChildStdout`](crate::process::ChildStdout)'s file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف الملف لـ `ChildStdout`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stdout: crate::process::ChildStdout) -> OwnedFd {
         child_stdout.into_inner().into_inner()
@@ -214,6 +238,12 @@ impl From<crate::process::ChildStdout> for OwnedFd {
 ///
 /// The provided file descriptor must point to a pipe
 /// with the `CLOEXEC` flag set.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStdout` من الـ `OwnedFd` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedFd> for process::ChildStdout {
     #[inline]
@@ -234,6 +264,12 @@ impl AsFd for crate::process::ChildStderr {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<crate::process::ChildStderr> for OwnedFd {
     /// Takes ownership of a [`ChildStderr`](crate::process::ChildStderr)'s file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف الملف لـ `ChildStderr`.
+    ///
+    /// </div>
     #[inline]
     fn from(child_stderr: crate::process::ChildStderr) -> OwnedFd {
         child_stderr.into_inner().into_inner()
@@ -244,6 +280,12 @@ impl From<crate::process::ChildStderr> for OwnedFd {
 ///
 /// The provided file descriptor must point to a pipe
 /// with the `CLOEXEC` flag set.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStderr` من الـ `OwnedFd` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedFd> for process::ChildStderr {
     #[inline]

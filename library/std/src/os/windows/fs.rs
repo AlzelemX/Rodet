@@ -1,6 +1,12 @@
 //! Windows-specific extensions to primitives in the [`std::fs`] module.
 //!
 //! [`std::fs`]: crate::fs
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Windows لأنواع وحدة `std::fs`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -19,6 +25,12 @@ pub use dirs::HomeDirsExt;
 pub use dirs::MediaDirsExt;
 
 /// Windows-specific extensions to [`fs::File`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::File`.
+///
+/// </div>
 #[stable(feature = "file_offset", since = "1.15.0")]
 pub trait FileExt {
     /// Seeks to a given position and reads a number of bytes.
@@ -54,6 +66,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويقرأ عددًا من البايتات.
+    ///
+    /// </div>
     #[stable(feature = "file_offset", since = "1.15.0")]
     fn seek_read(&self, buf: &mut [u8], offset: u64) -> io::Result<usize>;
 
@@ -101,6 +119,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويقرأ العدد المطلوب بالضبط من البايتات لملء `buf`.
+    ///
+    /// </div>
     #[unstable(feature = "seek_read_exact_seek_write_all", issue = "162868")]
     fn seek_read_exact(&self, mut buf: &mut [u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
@@ -150,6 +174,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويقرأ بعض البايتات إلى المخزن.
+    ///
+    /// </div>
     #[unstable(feature = "read_buf_at", issue = "140771")]
     fn seek_read_buf(&self, buf: BorrowedCursor<'_, u8>, offset: u64) -> io::Result<()> {
         io::default_read_buf(|b| self.seek_read(b, offset), buf)
@@ -189,6 +219,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويقرأ العدد المطلوب بالضبط من البايتات لملء `buf`.
+    ///
+    /// </div>
     #[unstable(feature = "seek_read_exact_seek_write_all", issue = "162868")]
     fn seek_read_buf_exact(
         &self,
@@ -241,6 +277,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويكتب عددًا من البايتات.
+    ///
+    /// </div>
     #[stable(feature = "file_offset", since = "1.15.0")]
     fn seek_write(&self, buf: &[u8], offset: u64) -> io::Result<usize>;
 
@@ -281,6 +323,12 @@ pub trait FileExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى موضع معيّن ويحاول كتابة مخزن كامل.
+    ///
+    /// </div>
     #[unstable(feature = "seek_read_exact_seek_write_all", issue = "162868")]
     fn seek_write_all(&self, mut buf: &[u8], mut offset: u64) -> io::Result<()> {
         while !buf.is_empty() {
@@ -315,6 +363,12 @@ impl FileExt for fs::File {
 }
 
 /// Windows-specific extensions to [`fs::OpenOptions`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::OpenOptions`.
+///
+/// </div>
 // WARNING: This trait is not sealed. DON'T add any new methods!
 // Add them to OpenOptionsExt2 instead.
 #[stable(feature = "open_options_ext", since = "1.10.0")]
@@ -340,6 +394,12 @@ pub trait OpenOptionsExt {
     /// ```
     ///
     /// [`CreateFile`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل معامل `dwDesiredAccess` في استدعاء `CreateFile` بالقيمة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn access_mode(&mut self, access: u32) -> &mut Self;
 
@@ -369,6 +429,12 @@ pub trait OpenOptionsExt {
     /// ```
     ///
     /// [`CreateFile`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل معامل `dwShareMode` في استدعاء `CreateFile` بالقيمة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn share_mode(&mut self, val: u32) -> &mut Self;
 
@@ -401,6 +467,12 @@ pub trait OpenOptionsExt {
     ///
     /// [`CreateFile`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea
     /// [`CreateFile2`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد أعلامًا إضافية لمعامل `dwFileFlags` في استدعاء `CreateFile2`.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn custom_flags(&mut self, flags: u32) -> &mut Self;
 
@@ -440,6 +512,12 @@ pub trait OpenOptionsExt {
     ///
     /// [`CreateFile`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea
     /// [`CreateFile2`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معامل `dwFileAttributes` في استدعاء `CreateFile2` بالقيمة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn attributes(&mut self, val: u32) -> &mut Self;
 
@@ -487,6 +565,12 @@ pub trait OpenOptionsExt {
     /// [`CreateFile2`]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2
     /// [Impersonation Levels]:
     ///     https://docs.microsoft.com/en-us/windows/win32/api/winnt/ne-winnt-security_impersonation_level
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد معامل `dwSecurityQosFlags` في استدعاء `CreateFile2` بالقيمة المحددة.
+    ///
+    /// </div>
     #[stable(feature = "open_options_ext", since = "1.10.0")]
     fn security_qos_flags(&mut self, flags: u32) -> &mut Self;
 }
@@ -577,6 +661,12 @@ impl OpenOptionsExt2 for OpenOptions {
 /// permissions.set_file_attributes(new_file_attr);
 /// assert_eq!(permissions.file_attributes(), new_file_attr);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::Permissions` تبين خصائص ملفات Windows المضبوطة.
+///
+/// </div>
 #[unstable(feature = "windows_permissions_ext", issue = "152956")]
 pub impl(self) trait PermissionsExt {
     /// Returns the file attribute bits.
@@ -614,6 +704,12 @@ impl PermissionsExt for fs::Permissions {
 ///
 /// [`BY_HANDLE_FILE_INFORMATION`]:
 ///     https://docs.microsoft.com/windows/win32/api/fileapi/ns-fileapi-by_handle_file_information
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::Metadata`.
+///
+/// </div>
 #[stable(feature = "metadata_ext", since = "1.1.0")]
 pub trait MetadataExt {
     /// Returns the value of the `dwFileAttributes` field of this metadata.
@@ -639,6 +735,12 @@ pub trait MetadataExt {
     ///
     /// [File Attribute Constants]:
     ///     https://docs.microsoft.com/windows/win32/fileio/file-attribute-constants
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `dwFileAttributes` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn file_attributes(&self) -> u32;
 
@@ -669,6 +771,12 @@ pub trait MetadataExt {
     /// ```
     ///
     /// [`FILETIME`]: https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `ftCreationTime` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn creation_time(&self) -> u64;
 
@@ -705,6 +813,12 @@ pub trait MetadataExt {
     /// ```
     ///
     /// [`FILETIME`]: https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `ftLastAccessTime` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn last_access_time(&self) -> u64;
 
@@ -739,6 +853,12 @@ pub trait MetadataExt {
     /// ```
     ///
     /// [`FILETIME`]: https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `ftLastWriteTime` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn last_write_time(&self) -> u64;
 
@@ -761,6 +881,12 @@ pub trait MetadataExt {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقول `nFileSize` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[stable(feature = "metadata_ext", since = "1.1.0")]
     fn file_size(&self) -> u64;
 
@@ -770,6 +896,12 @@ pub trait MetadataExt {
     /// This will return `None` if the `Metadata` instance was created from a
     /// call to `DirEntry::metadata`. If this `Metadata` was created by using
     /// `fs::metadata` or `File::metadata`, then this will return `Some`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `dwVolumeSerialNumber` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "windows_by_handle", issue = "63010")]
     fn volume_serial_number(&self) -> Option<u32>;
 
@@ -779,6 +911,12 @@ pub trait MetadataExt {
     /// This will return `None` if the `Metadata` instance was created from a
     /// call to `DirEntry::metadata`. If this `Metadata` was created by using
     /// `fs::metadata` or `File::metadata`, then this will return `Some`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقل `nNumberOfLinks` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "windows_by_handle", issue = "63010")]
     fn number_of_links(&self) -> Option<u32>;
 
@@ -788,6 +926,12 @@ pub trait MetadataExt {
     /// This will return `None` if the `Metadata` instance was created from a
     /// call to `DirEntry::metadata`. If this `Metadata` was created by using
     /// `fs::metadata` or `File::metadata`, then this will return `Some`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقول `nFileIndex` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "windows_by_handle", issue = "63010")]
     fn file_index(&self) -> Option<u64>;
 
@@ -799,6 +943,12 @@ pub trait MetadataExt {
     /// This will return `None` if `Metadata` instance was created from a call to
     /// `DirEntry::metadata` or if the `target_vendor` is outside the current platform
     /// support for this api.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الحقول `ChangeTime` من هذه البيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "windows_change_time", issue = "121478")]
     fn change_time(&self) -> Option<u64>;
 }
@@ -837,6 +987,12 @@ impl MetadataExt for Metadata {
 /// Windows-specific extensions to [`fs::FileType`].
 ///
 /// On Windows, a symbolic link knows whether it is a file or directory.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::FileType`.
+///
+/// </div>
 #[stable(feature = "windows_file_type_ext", since = "1.64.0")]
 pub impl(self) trait FileTypeExt {
     /// Returns `true` if this file type is a symbolic link that is also a directory.
@@ -858,6 +1014,12 @@ impl FileTypeExt for fs::FileType {
 }
 
 /// Windows-specific extensions to [`fs::FileTimes`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::FileTimes`.
+///
+/// </div>
 #[stable(feature = "file_set_times", since = "1.75.0")]
 pub impl(self) trait FileTimesExt {
     /// Set the creation time of a file.
@@ -908,6 +1070,12 @@ impl FileTimesExt for fs::FileTimes {
 /// the process as an administrator.
 ///
 /// [symlink-security]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا جديدًا إلى ملف (ليس مجلدًا).
+///
+/// </div>
 #[doc(alias = "CreateSymbolicLink", alias = "CreateSymbolicLinkW")]
 #[stable(feature = "symlink", since = "1.1.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_symlink_file")]
@@ -950,6 +1118,12 @@ pub fn symlink_file<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io:
 /// the process as an administrator.
 ///
 /// [symlink-security]: https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ رابطًا رمزيًا جديدًا إلى مجلد.
+///
+/// </div>
 #[doc(alias = "CreateSymbolicLink", alias = "CreateSymbolicLinkW")]
 #[stable(feature = "symlink", since = "1.1.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "fs_symlink_dir")]
@@ -964,6 +1138,12 @@ pub fn symlink_dir<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::
 /// The `original` path must be a directory or a link to a directory, otherwise the junction point will be broken.
 ///
 /// If either path is not a local file path then this will fail.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نقطة وصل (junction point).
+///
+/// </div>
 #[unstable(feature = "junction_point", issue = "121709")]
 pub fn junction_point<P: AsRef<Path>, Q: AsRef<Path>>(original: P, link: Q) -> io::Result<()> {
     sys::fs::junction_point(original.as_ref(), link.as_ref())

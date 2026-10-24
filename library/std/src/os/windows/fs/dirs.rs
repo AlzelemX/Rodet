@@ -4,6 +4,12 @@ use crate::path::PathBuf;
 use crate::{env, io};
 
 /// Windows-specific extensions to [`fs::HomeDirs`](HomeDirs).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::HomeDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_home_dirs", issue = "162082")]
 pub impl(self) trait HomeDirsExt: Sized {
     /// Load the known user folder paths from environment variables.
@@ -100,6 +106,12 @@ pub impl(self) trait HomeDirsExt: Sized {
 }
 
 /// Windows-specific extensions to [`fs::MediaDirs`](MediaDirs).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `fs::MediaDirs`.
+///
+/// </div>
 #[unstable(feature = "fs_media_dirs", issue = "162083")]
 pub impl(self) trait MediaDirsExt: Sized {
     /// Load the known user folder paths using the [Known Folders] API.
@@ -232,6 +244,12 @@ mod sys {
     use crate::{ptr, slice};
 
     /// Retrieve a known folder path from the Windows API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مسار مجلد معروف من واجهة Windows.
+    ///
+    /// </div>
     pub fn get_known_folder_path(id: &c::GUID) -> io::Result<Option<PathBuf>> {
         // Get the known folder path. hToken = NULL requests the current user
         // scope, and we set KF_FLAG_DONT_VERIFY because it's a bit faster and

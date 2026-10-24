@@ -92,6 +92,12 @@ impl SocketAddr {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا العنوان إذا كان عنوان مسار (`pathname`).
+    ///
+    /// </div>
     pub fn as_pathname(&self) -> Option<&Path> {
         if let AddressKind::Pathname(path) = self.address() { Some(path) } else { None }
     }
@@ -127,6 +133,12 @@ impl SocketAddr {
     ///
     /// assert!(SocketAddr::from_pathname("/path/with/\0/bytes").is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوانًا من العائلة `AF_UNIX` بالمسار المعطى.
+    ///
+    /// </div>
     pub fn from_pathname<P>(path: P) -> io::Result<SocketAddr>
     where
         P: AsRef<Path>,
@@ -166,6 +178,12 @@ impl SocketAddr {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان بلا اسم.
+    ///
+    /// </div>
     pub fn is_unnamed(&self) -> bool {
         matches!(self.address(), AddressKind::Unnamed)
     }

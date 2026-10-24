@@ -3,6 +3,12 @@ pub(crate) use memoryflags::*;
 
 #[stable(feature = "rust1", since = "1.0.0")]
 /// Indicates a particular syscall number as used by the Xous kernel.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبين رقم استدعاء نظام معيّن كما تستخدمه نواة Xous.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(usize)]
 pub enum Syscall {
@@ -27,6 +33,12 @@ pub enum Syscall {
 #[stable(feature = "rust1", since = "1.0.0")]
 /// Copies of these invocation types here for when we're running
 /// in environments without libxous.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخ من أنواع الاستدعاء هذه للبيئات التي لا يوجد فيها libxous.
+///
+/// </div>
 #[derive(Copy, Clone)]
 #[repr(usize)]
 pub enum SyscallResult {
@@ -45,6 +57,12 @@ pub enum SyscallResult {
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Copy, Clone)]
 /// A list of all known errors that may be returned by the Xous kernel.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قائمة بكل الأخطاء المعروفة التي قد ترجعها نواة Xous.
+///
+/// </div>
 #[repr(usize)]
 pub enum Error {
     NoError = 0,
@@ -189,6 +207,12 @@ pub(crate) enum InvokeType {
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug, Copy, Clone)]
 /// A representation of a connection to a Xous service.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تمثيل لاتصال بخدمة Xous.
+///
+/// </div>
 pub struct Connection(u32);
 
 #[stable(feature = "rust1", since = "1.0.0")]

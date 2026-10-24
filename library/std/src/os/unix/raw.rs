@@ -1,4 +1,10 @@
 //! Unix-specific primitives available on all unix platforms.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أساسيات خاصة بيونكس متاحة على كل منصات يونكس.
+//!
+//! </div>
 
 #![stable(feature = "raw_ext", since = "1.1.0")]
 #![deprecated(

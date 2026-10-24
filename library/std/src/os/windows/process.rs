@@ -1,6 +1,12 @@
 //! Windows-specific extensions to primitives in the [`std::process`] module.
 //!
 //! [`std::process`]: crate::process
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات خاصة بـ Windows لأنواع وحدة `std::process`.
+//!
+//! </div>
 
 #![stable(feature = "process_extensions", since = "1.2.0")]
 
@@ -25,6 +31,12 @@ impl FromRawHandle for process::Stdio {
 impl From<OwnedHandle> for process::Stdio {
     /// Takes ownership of a handle and returns a [`Stdio`](process::Stdio)
     /// that can attach a stream to it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض ويرجع `Stdio` يمكنه ربط مجرى به.
+    ///
+    /// </div>
     fn from(handle: OwnedHandle) -> process::Stdio {
         let handle = sys::handle::Handle::from_inner(handle);
         let io = sys::process::Stdio::Handle(handle);
@@ -58,6 +70,12 @@ impl IntoRawHandle for process::Child {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<process::Child> for OwnedHandle {
     /// Takes ownership of a [`Child`](process::Child)'s process handle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية مقبض العملية لـ `Child`.
+    ///
+    /// </div>
     fn from(child: process::Child) -> OwnedHandle {
         child.into_inner().into_handle().into_inner()
     }
@@ -112,6 +130,12 @@ impl IntoRawHandle for process::ChildStderr {
 ///
 /// The provided handle must be asynchronous, as reading and
 /// writing from and to it is implemented using asynchronous APIs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStdin` من الـ `OwnedHandle` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedHandle> for process::ChildStdin {
     fn from(handle: OwnedHandle) -> process::ChildStdin {
@@ -125,6 +149,12 @@ impl From<OwnedHandle> for process::ChildStdin {
 ///
 /// The provided handle must be asynchronous, as reading and
 /// writing from and to it is implemented using asynchronous APIs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStdout` من الـ `OwnedHandle` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedHandle> for process::ChildStdout {
     fn from(handle: OwnedHandle) -> process::ChildStdout {
@@ -138,6 +168,12 @@ impl From<OwnedHandle> for process::ChildStdout {
 ///
 /// The provided handle must be asynchronous, as reading and
 /// writing from and to it is implemented using asynchronous APIs.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `ChildStderr` من الـ `OwnedHandle` المعطى.
+///
+/// </div>
 #[stable(feature = "child_stream_from_fd", since = "1.74.0")]
 impl From<OwnedHandle> for process::ChildStderr {
     fn from(handle: OwnedHandle) -> process::ChildStderr {
@@ -148,6 +184,12 @@ impl From<OwnedHandle> for process::ChildStderr {
 }
 
 /// Windows-specific extensions to [`process::ExitStatus`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `process::ExitStatus`.
+///
+/// </div>
 #[stable(feature = "exit_status_from", since = "1.12.0")]
 pub impl(self) trait ExitStatusExt {
     /// Creates a new `ExitStatus` from the raw underlying `u32` return value of
@@ -164,6 +206,12 @@ impl ExitStatusExt for process::ExitStatus {
 }
 
 /// Windows-specific extensions to the [`process::Command`] builder.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لباني `process::Command`.
+///
+/// </div>
 #[stable(feature = "windows_process_extensions", since = "1.16.0")]
 pub impl(self) trait CommandExt {
     /// Sets the [process creation flags][1] to be passed to `CreateProcess`.
@@ -469,6 +517,12 @@ impl ChildExt for process::Child {
 }
 
 /// Windows-specific extensions to [`process::ExitCode`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// امتدادات خاصة بـ Windows لـ `process::ExitCode`.
+///
+/// </div>
 #[stable(feature = "windows_process_exit_code_from", since = "CURRENT_RUSTC_VERSION")]
 pub impl(self) trait ExitCodeExt {
     /// Creates a new `ExitCode` from the raw underlying `u32` return value of
@@ -491,6 +545,12 @@ impl ExitCodeExt for process::ExitCode {
 /// A wrapper around windows [`ProcThreadAttributeList`][1].
 ///
 /// [1]: <https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف حول `ProcThreadAttributeList` في Windows.
+///
+/// </div>
 #[derive(Debug)]
 #[unstable(feature = "windows_process_extensions_raw_attribute", issue = "114854")]
 pub struct ProcThreadAttributeList<'a> {
@@ -501,6 +561,12 @@ pub struct ProcThreadAttributeList<'a> {
 #[unstable(feature = "windows_process_extensions_raw_attribute", issue = "114854")]
 impl<'a> ProcThreadAttributeList<'a> {
     /// Creates a new builder for constructing a [`ProcThreadAttributeList`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ بانيًا جديدًا لبناء `ProcThreadAttributeList`.
+    ///
+    /// </div>
     pub fn build() -> ProcThreadAttributeListBuilder<'a> {
         ProcThreadAttributeListBuilder::new()
     }
@@ -520,6 +586,12 @@ impl<'a> Drop for ProcThreadAttributeList<'a> {
     /// underlying attribute list.
     ///
     /// [1]: <https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف قائمة الخصائص.
+    ///
+    /// </div>
     fn drop(&mut self) {
         let lp_attribute_list =
             self.attribute_list.as_mut_ptr().cast::<sys::c::_PROC_THREAD_ATTRIBUTE_LIST>();
@@ -528,6 +600,12 @@ impl<'a> Drop for ProcThreadAttributeList<'a> {
 }
 
 /// Builder for constructing a [`ProcThreadAttributeList`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// باني لبناء `ProcThreadAttributeList`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[unstable(feature = "windows_process_extensions_raw_attribute", issue = "114854")]
 pub struct ProcThreadAttributeListBuilder<'a> {
@@ -563,6 +641,12 @@ impl<'a> ProcThreadAttributeListBuilder<'a> {
     /// proper attribute values are used.
     ///
     /// [1]: <https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute#parameters>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خاصية في قائمة الخصائص.
+    ///
+    /// </div>
     pub fn attribute<T>(self, attribute: usize, value: &'a T) -> Self {
         unsafe {
             self.raw_attribute(attribute, ptr::addr_of!(*value).cast::<c_void>(), size_of::<T>())
@@ -647,6 +731,12 @@ impl<'a> ProcThreadAttributeListBuilder<'a> {
     /// # child.kill()?;
     /// # Ok::<(), std::io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط خاصية خامًا في قائمة الخصائص.
+    ///
+    /// </div>
     pub unsafe fn raw_attribute<T>(
         mut self,
         attribute: usize,
@@ -666,6 +756,12 @@ impl<'a> ProcThreadAttributeListBuilder<'a> {
     ///
     /// Returns an error if the maximum number of attributes is exceeded
     /// or if there is an I/O error during initialization.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينهي بناء الـ `ProcThreadAttributeList`.
+    ///
+    /// </div>
     pub fn finish(&self) -> io::Result<ProcThreadAttributeList<'a>> {
         // To initialize our ProcThreadAttributeList, we need to determine
         // how many bytes to allocate for it. The Windows API simplifies this

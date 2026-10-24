@@ -89,6 +89,12 @@ enum AddressKind<'a> {
 /// };
 /// let addr = socket.local_addr().expect("`UnixListener::local_addr` should not fail");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان مرتبط بمقبس يونكس.
+///
+/// </div>
 #[derive(Clone)]
 #[stable(feature = "unix_socket", since = "1.10.0")]
 pub struct SocketAddr {
@@ -168,6 +174,12 @@ impl SocketAddr {
     ///
     /// assert!(SocketAddr::from_pathname("/path/with/\0/bytes").is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوانًا من العائلة `AF_UNIX` بالمسار المعطى.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_creation", since = "1.61.0")]
     pub fn from_pathname<P>(path: P) -> io::Result<SocketAddr>
     where
@@ -207,6 +219,12 @@ impl SocketAddr {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان بلا اسم.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn is_unnamed(&self) -> bool {
@@ -245,6 +263,12 @@ impl SocketAddr {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا العنوان إذا كان عنوان مسار (`pathname`).
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     #[must_use]
     pub fn as_pathname(&self) -> Option<&Path> {

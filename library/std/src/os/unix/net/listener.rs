@@ -37,6 +37,12 @@ use crate::{fmt, io, mem};
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تمثّل خادم مقبس نطاق يونكس.
+///
+/// </div>
 #[stable(feature = "unix_socket", since = "1.10.0")]
 pub struct UnixListener(Socket);
 
@@ -69,6 +75,12 @@ impl UnixListener {
     ///     }
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnixListener` جديدًا مربوطًا بالمقبس المحدد.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn bind<P: AsRef<Path>>(path: P) -> io::Result<UnixListener> {
         unsafe {
@@ -134,6 +146,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnixListener` جديدًا مربوطًا بعنوان المقبس المحدد.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket_abstract", since = "1.70.0")]
     pub fn bind_addr(socket_addr: &SocketAddr) -> io::Result<UnixListener> {
         unsafe {
@@ -176,6 +194,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقبل اتصالًا واردًا جديدًا على هذا المستمع.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn accept(&self) -> io::Result<(UnixStream, SocketAddr)> {
         let mut storage: libc::sockaddr_un = unsafe { mem::zeroed() };
@@ -259,6 +283,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع المقبس في وضع عدم الانتظار (nonblocking) أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
@@ -284,6 +314,12 @@ impl UnixListener {
     ///
     /// # Platform specific
     /// On Redox this always returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR`.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -321,6 +357,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الاتصالات الواردة.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn incoming(&self) -> Incoming<'_> {
         Incoming { listener: self }
@@ -370,6 +412,12 @@ impl From<OwnedFd> for UnixListener {
 #[stable(feature = "io_safety", since = "1.63.0")]
 impl From<UnixListener> for OwnedFd {
     /// Takes ownership of a [`UnixListener`]'s socket file descriptor.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ ملكية واصف ملف المقبس لـ `UnixListener`.
+    ///
+    /// </div>
     #[inline]
     fn from(listener: UnixListener) -> OwnedFd {
         listener.0.into_inner().into_inner()
@@ -417,6 +465,12 @@ impl<'a> IntoIterator for &'a UnixListener {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الاتصالات الواردة إلى `UnixListener`.
+///
+/// </div>
 #[derive(Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "unix_socket", since = "1.10.0")]
