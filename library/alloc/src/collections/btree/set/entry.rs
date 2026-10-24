@@ -223,7 +223,7 @@ impl<'a, T: Ord, A: AllocatorClone> Entry<'a, T, A> {
     ///
     /// <div lang="ar" dir="rtl">
     ///
-    /// يضع قيمة المدخل ويرجع `OccupiedEntry`.
+    /// يضبط قيمة المدخل ويرجع `OccupiedEntry`.
     ///
     /// </div>
     #[inline]
