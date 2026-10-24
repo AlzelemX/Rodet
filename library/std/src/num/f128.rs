@@ -3,6 +3,12 @@
 //! *[See also the `f128` primitive type](primitive@f128).*
 //!
 //! Mathematically significant numbers are provided in the `consts` sub-module.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت النوع العشري رباعي الدقة `f128`.
+//!
+//! </div>
 
 #![unstable(feature = "f128", issue = "116909")]
 #![doc(test(attr(feature(cfg_target_has_reliable_f16_f128), expect(internal_features))))]
@@ -308,6 +314,12 @@ impl f128 {
     /// assert!(abs_difference <= f128::EPSILON);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجذر التكعيبي للرقم.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]

@@ -1,5 +1,11 @@
 //! Platform-specific, assembly instructions to avoid
 //! intermediate rounding on architectures with FPUs.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعليمات تجميع خاصة بالنظام لتجنب التقريب الوسيط على المعماريات التي فيها FPU.
+//!
+//! </div>
 
 pub(super) use fpu_precision::set_precision;
 

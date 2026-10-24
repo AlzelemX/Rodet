@@ -1,4 +1,10 @@
 //! Implementation of the Eisel-Lemire algorithm.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق خوارزمية Eisel-Lemire.
+//!
+//! </div>
 
 use dec2flt::common::BiasedFp;
 use dec2flt::table::{LARGEST_POWER_OF_FIVE, POWER_OF_FIVE_128, SMALLEST_POWER_OF_FIVE};
@@ -23,6 +29,12 @@ use crate::num::imp::{Float, dec2flt};
 /// at a Gigabyte per Second" in section 5, "Fast Algorithm", and
 /// section 6, "Exact Numbers And Ties", available online:
 /// <https://arxiv.org/abs/2101.11408.pdf>.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحسب w * 10^q باستخدام تمثيل عشري بدقة ممتدة.
+///
+/// </div>
 pub fn compute_float<F: Float>(q: i64, mut w: u64) -> BiasedFp {
     let fp_zero = BiasedFp::zero_pow2(0);
     let fp_inf = BiasedFp::zero_pow2(F::INFINITE_POWER);

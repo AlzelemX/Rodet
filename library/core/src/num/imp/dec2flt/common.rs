@@ -1,4 +1,10 @@
 //! Common utilities, for internal use only.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات مشتركة للاستخدام الداخلي فقط.
+//!
+//! </div>
 
 /// Helper methods to process immutable bytes.
 pub(crate) trait ByteSlice {
@@ -65,16 +71,40 @@ pub(crate) fn is_8digits(v: u64) -> bool {
 
 /// A custom 64-bit floating point type, representing `m * 2^p`.
 /// p is biased, so it be directly shifted into the exponent bits.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع عشري 64-bit خاص يمثل `m * 2^p`، والأس p منحاز ليُزاح مباشرة إلى بتات الأس.
+///
+/// </div>
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
 pub struct BiasedFp {
     /// The significant digits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الأرقام المعنوية.
+    ///
+    /// </div>
     pub m: u64,
     /// The biased, binary exponent.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الأس الثنائي المنحاز.
+    ///
+    /// </div>
     pub p_biased: i32,
 }
 
 impl BiasedFp {
     /// Represent `0 ^ p`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يمثل `0 ^ p`.
+    ///
+    /// </div>
     #[inline]
     pub const fn zero_pow2(p_biased: i32) -> Self {
         Self { m: 0, p_biased }

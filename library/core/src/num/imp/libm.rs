@@ -3,6 +3,12 @@
 //!
 //! The functions in the root of this module are "guaranteed" to be available; see the
 //! `full_availability` module in compiler-builtins for details.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ربط بدوال الرياضيات من `libm` النظام أو مكتبة `libm`.
+//!
+//! </div>
 
 // SAFETY: These symbols have standard interfaces in C and are defined by `libm`, or are
 // provided by `compiler-builtins` on unsupported platforms.

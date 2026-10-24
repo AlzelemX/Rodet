@@ -105,6 +105,12 @@ use crate::sync::Once;
 /// }
 ///
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة مزامنة يُكتب فيها مرة واحدة فقط (مناسبة للقيم العامة التي تُهيأ مرة).
+///
+/// </div>
 #[stable(feature = "once_cell", since = "1.70.0")]
 pub struct OnceLock<#[rustc_assert_variance(invariant)] T> {
     // FIXME(nonpoison_once): switch to nonpoison version once it is available
@@ -133,6 +139,12 @@ pub struct OnceLock<#[rustc_assert_variance(invariant)] T> {
 
 impl<T> OnceLock<T> {
     /// Creates a new uninitialized cell.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة غير مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "once_cell", since = "1.70.0")]
@@ -163,6 +175,12 @@ impl<T> OnceLock<T> {
     /// // Already initialized, so this closure never runs.
     /// assert_eq!(CELL.get_or_init(|| panic!("Kaboom!")), &1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "once_lock_new_init", issue = "159860")]
@@ -178,6 +196,12 @@ impl<T> OnceLock<T> {
     ///
     /// Returns `None` if the cell is uninitialized, or being initialized.
     /// This method never blocks.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة، إن كانت مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -197,6 +221,12 @@ impl<T> OnceLock<T> {
     /// This method never blocks. Since it borrows the `OnceLock` mutably,
     /// it is statically guaranteed that no active borrows to the `OnceLock`
     /// exist, including from other threads.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة، إن كانت مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn get_mut(&mut self) -> Option<&mut T> {
@@ -226,6 +256,12 @@ impl<T> OnceLock<T> {
     ///     assert_eq!(result, &2);
     /// })
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى تُهيأ الخلية.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_wait", since = "1.86.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -261,6 +297,12 @@ impl<T> OnceLock<T> {
     ///     assert_eq!(CELL.get(), Some(&92));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ محتوى الخلية بـ `value`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -301,6 +343,12 @@ impl<T> OnceLock<T> {
     ///     assert_eq!(CELL.get(), Some(&92));
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ محتوى الخلية بـ `value` إذا لم تكن مهيأة، ثم يرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_try_insert", issue = "116693")]
     #[rustc_should_not_be_called_on_const_items]
@@ -340,6 +388,12 @@ impl<T> OnceLock<T> {
     /// let value = cell.get_or_init(|| unreachable!());
     /// assert_eq!(value, &92);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -381,6 +435,12 @@ impl<T> OnceLock<T> {
     /// let value = cell.get_mut_or_init(|| unreachable!());
     /// assert_eq!(*value, 94);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_get_mut", issue = "121641")]
     pub fn get_mut_or_init<F>(&mut self, f: F) -> &mut T
@@ -421,6 +481,12 @@ impl<T> OnceLock<T> {
     /// assert_eq!(value, Ok(&92));
     /// assert_eq!(cell.get(), Some(&92))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة. إذا فشلت `f()` يرجع خطأً.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_try", issue = "109737")]
     #[rustc_should_not_be_called_on_const_items]
@@ -473,6 +539,13 @@ impl<T> OnceLock<T> {
     /// *value.unwrap() += 2;
     /// assert_eq!(cell.get(), Some(&1236))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة. إذا فشلت
+    /// `f()` يرجع خطأً.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_get_mut", issue = "121641")]
     pub fn get_mut_or_try_init<F, E>(&mut self, f: F) -> Result<&mut T, E>
@@ -502,6 +575,12 @@ impl<T> OnceLock<T> {
     /// cell.set("hello".to_string()).unwrap();
     /// assert_eq!(cell.into_inner(), Some("hello".to_string()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `OnceLock` ويرجع القيمة التي بداخله، أو `None` إذا لم تكن مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn into_inner(mut self) -> Option<T> {
@@ -528,6 +607,12 @@ impl<T> OnceLock<T> {
     /// assert_eq!(cell.take(), Some("hello".to_string()));
     /// assert_eq!(cell.get(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من هذا الـ `OnceLock` ويعيده إلى حالة غير مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn take(&mut self) -> Option<T> {
@@ -605,6 +690,12 @@ impl<T> OnceLock<T> {
     /// let value = unsafe { cell.get_unchecked() };
     /// assert_eq!(*value, 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة بدون التحقق من تهيئتها (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_lazy_lock_get_unchecked", issue = "162716")]
     pub unsafe fn get_unchecked(&self) -> &T {
@@ -634,6 +725,12 @@ impl<T> OnceLock<T> {
     ///
     /// assert_eq!(*cell.get().unwrap(), 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة بدون التحقق من تهيئتها (غير آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_lazy_lock_get_unchecked", issue = "162716")]
     pub unsafe fn get_unchecked_mut(&mut self) -> &mut T {
@@ -671,6 +768,12 @@ const impl<T> Default for OnceLock<T> {
     ///     assert_eq!(OnceLock::<()>::new(), OnceLock::default());
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة غير مهيأة.
+    ///
+    /// </div>
     #[inline]
     fn default() -> OnceLock<T> {
         OnceLock::new()
@@ -714,6 +817,12 @@ impl<T> From<T> for OnceLock<T> {
     /// Ok(())
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة محتواها `value`.
+    ///
+    /// </div>
     #[inline]
     fn from(value: T) -> Self {
         OnceLock {
@@ -746,6 +855,12 @@ impl<T: PartialEq> PartialEq for OnceLock<T> {
     ///
     /// assert!(OnceLock::<u32>::new() == OnceLock::<u32>::new());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المساواة بين `OnceLock` اثنين.
+    ///
+    /// </div>
     #[inline]
     fn eq(&self, other: &OnceLock<T>) -> bool {
         self.get() == other.get()

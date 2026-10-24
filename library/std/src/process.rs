@@ -2160,6 +2160,12 @@ impl From<io::Stderr> for Stdio {
     /// #     test().unwrap();
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوجّه stdout/stderr الأمر إلى stderr الخاص بنا.
+    ///
+    /// </div>
     fn from(inherit: io::Stderr) -> Stdio {
         Stdio::from_inner(inherit.into())
     }

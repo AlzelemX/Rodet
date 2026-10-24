@@ -187,6 +187,12 @@
 //! [`Layout`]: crate::alloc::Layout
 //! [`Layout::for_value(&*value)`]: crate::alloc::Layout::for_value
 //! [valid]: ptr#safety
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النوع `Box<T>` لحجز القيم في الـ heap.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -298,6 +304,12 @@ impl<T: ?Sized> From<BoxRaw<T>> for NonNull<T> {
 /// A pointer type that uniquely owns a heap allocation of type `T`.
 ///
 /// See the [module-level documentation](../../std/boxed/index.html) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر يملك حصريًا قيمة من النوع `T` محجوزة في الـ heap.
+///
+/// </div>
 #[lang = "owned_box"]
 #[fundamental]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -359,6 +371,12 @@ impl<T> Box<T> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في الـ heap ويضع `x` فيها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline(always)]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -387,6 +405,12 @@ impl<T> Box<T> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -418,6 +442,12 @@ impl<T> Box<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ، وذاكرته مملوءة بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[inline]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
@@ -433,6 +463,13 @@ impl<T> Box<T> {
     /// does the same as <code>[Box::into_pin]\([Box::new]\(x))</code>. Consider using
     /// [`into_pin`](Box::into_pin) if you already have a `Box<T>`, or if you want to
     /// construct a (pinned) `Box` in a different way than with [`Box::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Box<T>>` جديدًا. إذا لم يطبّق `T` الـ `Unpin`، يُثبَّت `x` في الذاكرة ولا يمكن
+    /// نقله.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "pin", since = "1.33.0")]
     #[must_use]
@@ -457,6 +494,12 @@ impl<T> Box<T> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في الـ heap ويضع `x` فيها، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new(x: T) -> Result<Self, AllocError> {
@@ -479,6 +522,12 @@ impl<T> Box<T> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ في الـ heap، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_uninit() -> Result<Box<mem::MaybeUninit<T>>, AllocError> {
@@ -504,6 +553,12 @@ impl<T> Box<T> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ وذاكرته مملوءة بأصفار، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_zeroed() -> Result<Box<mem::MaybeUninit<T>>, AllocError> {
@@ -526,6 +581,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في المخصص المعطى ويضع `x` فيها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[must_use]
@@ -555,6 +616,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في المخصص المعطى ويضع `x` فيها، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_in(x: T, alloc: A) -> Result<Self, AllocError> {
@@ -580,6 +647,12 @@ impl<T, A: Allocator> Box<T, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ في المخصص المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[cfg(not(no_global_oom_handling))]
     #[must_use]
@@ -611,6 +684,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// assert_eq!(*five, 5);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ في المخصص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_uninit_in(alloc: A) -> Result<Box<mem::MaybeUninit<T>, A>, AllocError> {
         let ptr = if T::IS_ZST {
@@ -643,6 +722,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ وذاكرته مملوءة بأصفار في المخصص المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[cfg(not(no_global_oom_handling))]
     #[must_use]
@@ -678,6 +763,13 @@ impl<T, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` جديدًا محتواه غير مهيأ وذاكرته مملوءة بأصفار في المخصص المعطى، ويرجع خطأً إذا فشل
+    /// الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     pub fn try_new_zeroed_in(alloc: A) -> Result<Box<mem::MaybeUninit<T>, A>, AllocError> {
         let ptr = if T::IS_ZST {
@@ -706,6 +798,12 @@ impl<T, A: Allocator> Box<T, A> {
     ///
     /// let x = Box::pin_in(1, System);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Box<T, A>>` جديدًا. إذا لم يطبّق `T` الـ `Unpin`، يُثبَّت `x` في الذاكرة.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[must_use]
@@ -720,6 +818,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// Converts a `Box<T>` into a `Box<[T]>`
     ///
     /// This conversion does not allocate on the heap and happens in place.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<T>` إلى `Box<[T]>`.
+    ///
+    /// </div>
     #[unstable(feature = "box_into_boxed_slice", issue = "71582")]
     pub fn into_boxed_slice(boxed: Self) -> Box<[T], A> {
         let (raw, alloc) = Box::into_raw_with_allocator(boxed);
@@ -738,6 +842,12 @@ impl<T, A: Allocator> Box<T, A> {
     ///
     /// assert_eq!(Box::into_inner(c), 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويرجع القيمة التي بداخله.
+    ///
+    /// </div>
     #[unstable(feature = "box_into_inner", issue = "80437")]
     #[inline]
     pub fn into_inner(boxed: Self) -> T {
@@ -763,6 +873,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// let c = Box::write(uninit, 6);
     /// assert_eq!(*c, 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` بدون تحرير ذاكرته، ويرجع القيمة و`Box` للذاكرة غير المهيأة التي كانت فيها.
+    ///
+    /// </div>
     #[stable(feature = "box_take", since = "1.100.0")]
     pub fn take(boxed: Self) -> (T, Box<mem::MaybeUninit<T>, A>) {
         // SAFETY: Reading out an initialised value & leaving behind a
@@ -790,6 +906,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// let new = Box::map(b, |i| i + 7);
     /// assert_eq!(*new, 14);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل القيمة داخل الـ `Box`، ويعيد استخدام الذاكرة إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "smart_pointer_map", since = "1.100.0")]
     pub fn map<U>(this: Self, f: impl FnOnce(T) -> U) -> Box<U, A> {
@@ -828,6 +950,12 @@ impl<T, A: Allocator> Box<T, A> {
     /// let new = Box::try_map(b, u32::try_from).unwrap();
     /// assert_eq!(*new, 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل القيمة داخل الـ `Box`، ويعيد استخدام الذاكرة إن أمكن.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "smart_pointer_try_map", issue = "144419")]
     pub fn try_map<R>(
@@ -872,6 +1000,12 @@ impl<T: ?Sized + CloneToUninit> Box<T> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في الـ heap وينسخ `src` إليها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     #[must_use]
@@ -895,6 +1029,12 @@ impl<T: ?Sized + CloneToUninit> Box<T> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في الـ heap وينسخ `src` إليها، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -920,6 +1060,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في المخصص المعطى وينسخ `src` إليها.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
@@ -950,6 +1096,12 @@ impl<T: ?Sized + CloneToUninit, A: Allocator> Box<T, A> {
     /// ```
     ///
     /// [memory layout]: self#memory-layout
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحجز ذاكرة في المخصص المعطى وينسخ `src` إليها، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "clone_from_ref", issue = "149075")]
     //#[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
@@ -1001,6 +1153,12 @@ impl<T> Box<[T]> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[must_use]
@@ -1025,6 +1183,12 @@ impl<T> Box<[T]> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ وذاكرتها مملوءة بأصفار.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[stable(feature = "new_zeroed_alloc", since = "1.92.0")]
     #[must_use]
@@ -1051,6 +1215,12 @@ impl<T> Box<[T]> {
     /// assert_eq!(*values, [1, 2, 3]);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_uninit_slice(len: usize) -> Result<Box<[mem::MaybeUninit<T>]>, AllocError> {
@@ -1089,6 +1259,13 @@ impl<T> Box<[T]> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ وذاكرتها مملوءة بأصفار، ويرجع خطأً إذا فشل
+    /// الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_zeroed_slice(len: usize) -> Result<Box<[mem::MaybeUninit<T>]>, AllocError> {
@@ -1128,6 +1305,12 @@ impl<T, A: Allocator> Box<[T], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ في المخصص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[must_use]
@@ -1156,6 +1339,12 @@ impl<T, A: Allocator> Box<[T], A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ وذاكرتها مملوءة بأصفار في المخصص المعطى.
+    ///
+    /// </div>
     #[cfg(not(no_global_oom_handling))]
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[must_use]
@@ -1184,6 +1373,12 @@ impl<T, A: Allocator> Box<[T], A> {
     /// assert_eq!(*values, [1, 2, 3]);
     /// # Ok::<(), std::alloc::AllocError>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ في المخصص المعطى، ويرجع خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_uninit_slice_in(
@@ -1227,6 +1422,13 @@ impl<T, A: Allocator> Box<[T], A> {
     /// ```
     ///
     /// [zeroed]: mem::MaybeUninit::zeroed
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ شريحة جديدة داخل `Box` محتواها غير مهيأ وذاكرتها مملوءة بأصفار في المخصص المعطى، ويرجع
+    /// خطأً إذا فشل الحجز.
+    ///
+    /// </div>
     #[unstable(feature = "allocator_ext", issue = "163177", implied_by = "allocator_api")]
     #[inline]
     pub fn try_new_zeroed_slice_in(
@@ -1265,6 +1467,12 @@ impl<T, A: Allocator> Box<[T], A> {
     ///
     /// let box_array: Box<[i32; 3]> = box_slice.into_array().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة داخل `Box` إلى مصفوفة داخل `Box`.
+    ///
+    /// </div>
     #[unstable(feature = "alloc_slice_into_array", issue = "148082")]
     #[inline]
     pub fn into_array<const N: usize>(self) -> Result<Box<[T; N], A>, Self> {
@@ -1304,6 +1512,12 @@ impl<T, A: Allocator> Box<mem::MaybeUninit<T>, A> {
     ///
     /// assert_eq!(*five, 5)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Box<T, A>` (بافتراض أن المحتوى مهيأ).
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
     #[inline(always)]
@@ -1339,6 +1553,12 @@ impl<T, A: Allocator> Box<mem::MaybeUninit<T>, A> {
     ///     assert_eq!(*x, i);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب القيمة ويحوّل إلى `Box<T, A>`.
+    ///
+    /// </div>
     #[stable(feature = "box_uninit_write", since = "1.87.0")]
     #[inline]
     pub fn write(mut boxed: Self, value: T) -> Box<T, A> {
@@ -1375,6 +1595,12 @@ impl<T, A: Allocator> Box<[mem::MaybeUninit<T>], A> {
     ///
     /// assert_eq!(*values, [1, 2, 3])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى `Box<[T], A>` (بافتراض أن المحتوى مهيأ).
+    ///
+    /// </div>
     #[stable(feature = "new_uninit", since = "1.82.0")]
     #[inline]
     pub unsafe fn assume_init(self) -> Box<[T], A> {
@@ -1436,6 +1662,12 @@ impl<T: ?Sized> Box<T> {
     ///
     /// [memory layout]: self#memory-layout
     /// [considerations for unsafe code]: self#considerations-for-unsafe-code
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` من مؤشر خام.
+    ///
+    /// </div>
     #[stable(feature = "box_raw", since = "1.4.0")]
     #[inline]
     #[must_use = "call `drop(Box::from_raw(ptr))` if you intend to drop the `Box`"]
@@ -1496,6 +1728,12 @@ impl<T: ?Sized> Box<T> {
     ///
     /// [memory layout]: self#memory-layout
     /// [considerations for unsafe code]: self#considerations-for-unsafe-code
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` من مؤشر `NonNull`.
+    ///
+    /// </div>
     #[stable(feature = "box_vec_non_null", since = "1.99.0")]
     #[inline]
     #[must_use = "call `drop(Box::from_non_null(ptr))` if you intend to drop the `Box`"]
@@ -1557,6 +1795,12 @@ impl<T: ?Sized> Box<T> {
     ///
     /// [memory layout]: self#memory-layout
     /// [`deallocate`]: Allocator::deallocate
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويرجع مؤشرًا خامًا.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "box_raw", since = "1.4.0")]
     #[inline]
@@ -1624,6 +1868,12 @@ impl<T: ?Sized> Box<T> {
     ///
     /// [memory layout]: self#memory-layout
     /// [`deallocate`]: Allocator::deallocate
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويرجع مؤشر `NonNull`.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "box_vec_non_null", since = "1.99.0")]
     #[inline]
@@ -1693,6 +1943,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     ///
     /// [memory layout]: self#memory-layout
     /// [considerations for unsafe code]: self#considerations-for-unsafe-code
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` من مؤشر خام في المخصص المعطى.
+    ///
+    /// </div>
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[inline]
     pub unsafe fn from_raw_in(raw: *mut T, alloc: A) -> Self {
@@ -1752,6 +2008,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     ///
     /// [memory layout]: self#memory-layout
     /// [considerations for unsafe code]: self#considerations-for-unsafe-code
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box` من مؤشر `NonNull` في المخصص المعطى.
+    ///
+    /// </div>
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[inline]
     pub unsafe fn from_non_null_in(raw: NonNull<T>, alloc: A) -> Self {
@@ -1807,6 +2069,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     ///
     /// [memory layout]: self#memory-layout
     /// [`deallocate`]: Allocator::deallocate
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويرجع مؤشرًا خامًا والمخصص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_heap", issue = "79597")]
@@ -1871,6 +2139,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     ///
     /// [memory layout]: self#memory-layout
     /// [`deallocate`]: Allocator::deallocate
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويرجع مؤشر `NonNull` والمخصص.
+    ///
+    /// </div>
     #[must_use = "losing the pointer will leak memory"]
     #[stable(feature = "allocator_api", since = "1.100.0")]
     #[inline]
@@ -1911,6 +2185,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     /// [`as_mut_ptr`]: Self::as_mut_ptr
     /// [`as_ptr`]: Self::as_ptr
     /// [`as_non_null`]: Self::as_non_null
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا قابلًا للتعديل إلى محتوى الـ `Box`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "box_as_ptr", since = "1.98.0")]
     #[rustc_never_returns_null_ptr]
@@ -1960,6 +2240,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     /// [`as_mut_ptr`]: Self::as_mut_ptr
     /// [`as_ptr`]: Self::as_ptr
     /// [`as_non_null`]: Self::as_non_null
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى محتوى الـ `Box`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "box_as_ptr", since = "1.98.0")]
     #[rustc_never_returns_null_ptr]
@@ -2004,6 +2290,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     /// [`as_mut_ptr`]: Self::as_mut_ptr
     /// [`as_ptr`]: Self::as_ptr
     /// [`as_non_null`]: Self::as_non_null
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر `NonNull` إلى محتوى الـ `Box`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "box_as_non_null", issue = "157345")]
     #[rustc_as_ptr]
@@ -2074,6 +2366,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     /// # // use -Zmiri-disable-leak-check instead of unleaking in tests meant to leak.
     /// # drop(unsafe { Box::from_raw(static_ref) });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Box` ويتركه بدون تحرير، ويرجع مرجعًا قابلًا للتعديل `&'a mut T`.
+    ///
+    /// </div>
     #[stable(feature = "box_leak", since = "1.26.0")]
     #[inline]
     pub fn leak<'a>(b: Self) -> &'a mut T
@@ -2116,6 +2414,12 @@ impl<T: ?Sized, A: Allocator> Box<T, A> {
     /// let foo = Box::new(());
     /// let bar = Pin::from(foo);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<T>` إلى `Pin<Box<T>>`. إذا لم يطبّق `T` الـ `Unpin`، يُثبَّت المحتوى في الذاكرة.
+    ///
+    /// </div>
     #[stable(feature = "box_into_pin", since = "1.63.0")]
     pub fn into_pin(boxed: Self) -> Pin<Self>
     where
@@ -2155,6 +2459,12 @@ unsafe impl<#[may_dangle] T: ?Sized, A: Allocator> Drop for Box<T, A> {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: Default> Default for Box<T> {
     /// Creates a `Box<T>`, with the `Default` value for `T`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Box<T>` بالقيمة الافتراضية لـ `T`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         let mut x: Box<mem::MaybeUninit<T>> = Box::new_uninit();
@@ -2177,6 +2487,12 @@ impl<T: Default> Default for Box<T> {
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T> Default for Box<[T]> {
     /// Creates an empty `[T]` inside a `Box`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `[T]` فارغة داخل `Box`.
+    ///
+    /// </div>
     #[inline]
     fn default() -> Self {
         let ptr: BoxRaw<[T]> = BoxRaw::<[T; 0]>::dangling();
@@ -2235,6 +2551,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Box<T, A> {
     /// // But they are unique objects
     /// assert_ne!(&*x as *const i32, &*y as *const i32);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Box` جديدًا فيه نسخة (`clone()`) من محتوى هذا الـ `Box`.
+    ///
+    /// </div>
     #[inline]
     fn clone(&self) -> Self {
         // Pre-allocate memory to allow writing the cloned value directly.
@@ -2263,6 +2585,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Box<T, A> {
     /// // And no allocation occurred
     /// assert_eq!(yp, &*y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ محتوى `source` إلى `self` بدون حجز ذاكرة جديدة.
+    ///
+    /// </div>
     #[inline]
     fn clone_from(&mut self, source: &Self) {
         (**self).clone_from(&(**source));
@@ -2295,6 +2623,12 @@ impl<T: Clone, A: Allocator + Clone> Clone for Box<[T], A> {
     /// // And no allocation occurred
     /// assert_eq!(yp, &*y);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ محتوى `source` إلى `self` بدون حجز ذاكرة جديدة، بشرط أن يكون لهما نفس الطول.
+    ///
+    /// </div>
     fn clone_from(&mut self, source: &Self) {
         if self.len() == source.len() {
             self.clone_from_slice(source);

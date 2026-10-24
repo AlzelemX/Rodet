@@ -2,20 +2,44 @@ use crate::num::imp::libm::complex::*;
 use crate::ops::{Add, Div, Mul, Neg, Sub};
 
 /// A complex number.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عدد مركب.
+///
+/// </div>
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[unstable(feature = "complex_numbers", issue = "154023")]
 #[repr(C)]
 #[lang = "complex"]
 pub struct Complex<T> {
     /// The real component.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الجزء الحقيقي.
+    ///
+    /// </div>
     pub re: T,
     /// The imaginary component.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الجزء التخيلي.
+    ///
+    /// </div>
     pub im: T,
 }
 
 #[unstable(feature = "complex_numbers", issue = "154023")]
 impl<T> Complex<T> {
     /// Create a new complex number from a real and imaginary component.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عددًا مركبًا جديدًا من جزء حقيقي وجزء تخيلي.
+    ///
+    /// </div>
     #[must_use]
     pub const fn new(re: T, im: T) -> Complex<T> {
         Complex { re, im }
@@ -38,6 +62,12 @@ where
     ///
     /// The conjugate of `a + bi` is `a - bi`: the imaginary component is negated.
     /// Geometrically, this is a reflection across the real axis.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المرافق المركب للعدد المركب.
+    ///
+    /// </div>
     #[must_use]
     pub fn conjugate(self) -> Self {
         Complex { re: self.re, im: -self.im }
@@ -52,6 +82,12 @@ impl<T: Neg> Neg for Complex<T> {
     ///
     /// The negation of `a + bi` is `-a - bi`: both components are negated.
     /// Geometrically this is a rotation of 180°.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفي (يعكس إشارة) عددًا مركبًا.
+    ///
+    /// </div>
     fn neg(self) -> Self::Output {
         Complex::new(-self.re, -self.im)
     }

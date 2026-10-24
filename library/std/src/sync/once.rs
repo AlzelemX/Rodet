@@ -2,6 +2,12 @@
 //!
 //! This primitive is meant to be used to run one-time initialization. An
 //! example use case would be for initializing an FFI library.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أداة "تهيئة مرة واحدة".
+//!
+//! </div>
 
 use crate::fmt;
 use crate::panic::{RefUnwindSafe, UnwindSafe};
@@ -31,6 +37,12 @@ use crate::sys::sync as sys;
 ///
 /// [`OnceLock<T>`]: crate::sync::OnceLock
 /// [`LazyLock<T, F>`]: crate::sync::LazyLock
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أداة مزامنة منخفضة المستوى لتنفيذ شيء مرة واحدة فقط على مستوى البرنامج.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Once {
     inner: sys::Once,
@@ -44,6 +56,12 @@ impl RefUnwindSafe for Once {}
 
 /// State yielded to [`Once::call_once_force()`]’s closure parameter. The state
 /// can be used to query the poison status of the [`Once`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الحالة المعطاة لإغلاق `Once::call_once_force()`، ويمكن استخدامها لمعرفة هل الـ `Once` مسمَّم.
+///
+/// </div>
 #[stable(feature = "once_poison", since = "1.51.0")]
 pub struct OnceState {
     pub(crate) inner: sys::OnceState,
@@ -66,6 +84,12 @@ pub(crate) enum OnceExclusiveState {
 ///
 /// static START: Once = ONCE_INIT;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة التهيئة لقيم `Once` الثابتة (static).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
     since = "1.38.0",
@@ -77,6 +101,12 @@ pub const ONCE_INIT: Once = Once::new();
 
 impl Once {
     /// Creates a new `Once` value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Once` جديدًا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_new", since = "1.2.0")]
     #[rustc_const_stable(feature = "const_once_new", since = "1.32.0")]
@@ -150,6 +180,13 @@ impl Once {
     /// is guaranteed to never skip panics within `f`.
     ///
     /// [poison]: struct.Mutex.html#poisoning
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ دالة التهيئة مرة واحدة فقط. يُنفَّذ الإغلاق إذا كانت هذه أول مرة تُستدعى فيها
+    /// `call_once`، وإلا لا يُنفَّذ.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[track_caller]
@@ -211,6 +248,12 @@ impl Once {
     /// // once any success happens, we stop propagating the poison
     /// INIT.call_once(|| {});
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `call_once()` لكنه يتجاهل التسميم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_poison", since = "1.51.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -268,6 +311,12 @@ impl Once {
     /// assert!(handle.join().is_err());
     /// assert_eq!(INIT.is_completed(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا اكتمل استدعاء `call_once()` بنجاح.
+    ///
+    /// </div>
     #[stable(feature = "once_is_completed", since = "1.43.0")]
     #[inline]
     pub fn is_completed(&self) -> bool {
@@ -297,6 +346,12 @@ impl Once {
     /// If this [`Once`] has been poisoned because an initialization closure has
     /// panicked, this method will also panic. Use [`wait_force`](Self::wait_force)
     /// if this behavior is not desired.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى تكتمل التهيئة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_wait", since = "1.86.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -311,6 +366,12 @@ impl Once {
     ///
     /// If this [`Once`] has been poisoned, this function blocks until it
     /// becomes completed, unlike [`Once::wait()`], which panics in this case.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى تكتمل التهيئة، مع تجاهل التسميم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_wait", since = "1.86.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -393,6 +454,13 @@ impl OnceState {
     /// INIT.call_once_force(|state| {
     ///     assert!(!state.is_poisoned());
     /// });
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الـ `Once` مسمَّمًا قبل استدعاء الإغلاق المعطى لـ
+    /// `Once::call_once_force()`.
+    ///
+    /// </div>
     #[stable(feature = "once_poison", since = "1.51.0")]
     #[inline]
     pub fn is_poisoned(&self) -> bool {

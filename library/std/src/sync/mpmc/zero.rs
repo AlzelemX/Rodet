@@ -1,6 +1,12 @@
 //! Zero-capacity channel.
 //!
 //! This kind of channel is also known as *rendezvous* channel.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قناة بسعة صفر.
+//!
+//! </div>
 
 use super::context::Context;
 use super::error::*;
@@ -74,6 +80,12 @@ struct Inner {
 }
 
 /// Zero-capacity channel.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قناة بسعة صفر.
+///
+/// </div>
 pub(crate) struct Channel<T> {
     /// Inner representation of the channel.
     inner: Mutex<Inner>,
@@ -330,6 +342,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is disconnected.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     pub(crate) fn is_disconnected(&self) -> bool {
         let inner = self.inner.lock().unwrap();
         inner.is_disconnected

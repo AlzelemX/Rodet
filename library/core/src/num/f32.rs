@@ -8,6 +8,12 @@
 //! (as distinct from those defined in the `consts` sub-module),
 //! new code should instead use the associated constants
 //! defined directly on the `f32` type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت النوع العشري أحادي الدقة `f32`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![expect(clippy::approx_constant, reason = "this module defines f32 constants")]
@@ -30,6 +36,12 @@ use crate::{cfg_select, intrinsics, mem};
 /// // intended way
 /// let r = f32::RADIX;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أساس التمثيل الداخلي لـ `f32`. استخدم `f32::RADIX` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `RADIX` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_radix"]
@@ -48,6 +60,12 @@ pub const RADIX: u32 = f32::RADIX;
 /// // intended way
 /// let d = f32::MANTISSA_DIGITS;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عدد الأرقام المعنوية بالأساس 2. استخدم `f32::MANTISSA_DIGITS` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
     since = "1.99.0",
@@ -69,6 +87,12 @@ pub const MANTISSA_DIGITS: u32 = f32::MANTISSA_DIGITS;
 /// // intended way
 /// let d = f32::DIGITS;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// العدد التقريبي للأرقام المعنوية بالأساس 10. استخدم `f32::DIGITS` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `DIGITS` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_digits"]
@@ -91,6 +115,12 @@ pub const DIGITS: u32 = f32::DIGITS;
 /// // intended way
 /// let e = f32::EPSILON;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة إبسيلون الآلة لـ `f32`. استخدم `f32::EPSILON` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `EPSILON` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_epsilon"]
@@ -109,6 +139,12 @@ pub const EPSILON: f32 = f32::EPSILON;
 /// // intended way
 /// let min = f32::MIN;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أصغر قيمة `f32` منتهية. استخدم `f32::MIN` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MIN` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_min"]
@@ -127,6 +163,12 @@ pub const MIN: f32 = f32::MIN;
 /// // intended way
 /// let min = f32::MIN_POSITIVE;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أصغر قيمة `f32` موجبة طبيعية. استخدم `f32::MIN_POSITIVE` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
     since = "1.99.0",
@@ -148,6 +190,12 @@ pub const MIN_POSITIVE: f32 = f32::MIN_POSITIVE;
 /// // intended way
 /// let max = f32::MAX;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أكبر قيمة `f32` منتهية. استخدم `f32::MAX` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MAX` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_max"]
@@ -166,6 +214,12 @@ pub const MAX: f32 = f32::MAX;
 /// // intended way
 /// let min = f32::MIN_EXP;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أصغر أس طبيعي ممكن للعدد 2 زائد واحد. استخدم `f32::MIN_EXP` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MIN_EXP` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_min_exp"]
@@ -184,6 +238,12 @@ pub const MIN_EXP: i32 = f32::MIN_EXP;
 /// // intended way
 /// let max = f32::MAX_EXP;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أكبر أس ممكن للعدد 2. استخدم `f32::MAX_EXP` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MAX_EXP` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_max_exp"]
@@ -202,6 +262,12 @@ pub const MAX_EXP: i32 = f32::MAX_EXP;
 /// // intended way
 /// let min = f32::MIN_10_EXP;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أصغر أس طبيعي ممكن للعدد 10. استخدم `f32::MIN_10_EXP` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MIN_10_EXP` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_min_10_exp"]
@@ -220,6 +286,12 @@ pub const MIN_10_EXP: i32 = f32::MIN_10_EXP;
 /// // intended way
 /// let max = f32::MAX_10_EXP;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أكبر أس ممكن للعدد 10. استخدم `f32::MAX_10_EXP` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `MAX_10_EXP` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_max_10_exp"]
@@ -238,6 +310,12 @@ pub const MAX_10_EXP: i32 = f32::MAX_10_EXP;
 /// // intended way
 /// let nan = f32::NAN;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ليس رقمًا (NaN). استخدم `f32::NAN` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `NAN` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_nan"]
@@ -256,6 +334,12 @@ pub const NAN: f32 = f32::NAN;
 /// // intended way
 /// let inf = f32::INFINITY;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اللانهاية (∞). استخدم `f32::INFINITY` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.99.0", note = "replaced by the `INFINITY` associated constant on `f32`")]
 #[rustc_diagnostic_item = "f32_legacy_const_infinity"]
@@ -274,6 +358,12 @@ pub const INFINITY: f32 = f32::INFINITY;
 /// // intended way
 /// let ninf = f32::NEG_INFINITY;
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// سالب اللانهاية (−∞). استخدم `f32::NEG_INFINITY` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(
     since = "1.99.0",
@@ -283,120 +373,288 @@ pub const INFINITY: f32 = f32::INFINITY;
 pub const NEG_INFINITY: f32 = f32::NEG_INFINITY;
 
 /// Basic mathematical constants.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ثوابت رياضية أساسية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "f32_consts_mod"]
 pub mod consts {
     // FIXME: replace with mathematical constants from cmath.
 
     /// Archimedes' constant (π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت أرخميدس (π).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const PI: f32 = 3.14159265358979323846264338327950288_f32;
 
     /// The full circle constant (τ)
     ///
     /// Equal to 2π.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت الدائرة الكاملة (τ = 2π).
+    ///
+    /// </div>
     #[stable(feature = "tau_constant", since = "1.47.0")]
     pub const TAU: f32 = 6.28318530717958647692528676655900577_f32;
 
     /// The golden ratio (φ)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النسبة الذهبية (φ).
+    ///
+    /// </div>
     #[doc(alias = "phi")]
     #[stable(feature = "euler_gamma_golden_ratio", since = "1.94.0")]
     pub const GOLDEN_RATIO: f32 = 1.618033988749894848204586834365638118_f32;
 
     /// The Euler-Mascheroni constant (γ)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت أويلر-ماسكيروني (γ).
+    ///
+    /// </div>
     #[stable(feature = "euler_gamma_golden_ratio", since = "1.94.0")]
     pub const EULER_GAMMA: f32 = 0.577215664901532860606512090082402431_f32;
 
     /// π/2
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/2
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_PI_2: f32 = 1.57079632679489661923132169163975144_f32;
 
     /// π/3
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/3
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_PI_3: f32 = 1.04719755119659774615421446109316763_f32;
 
     /// π/4
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/4
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_PI_4: f32 = 0.785398163397448309615660845819875721_f32;
 
     /// π/6
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/6
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_PI_6: f32 = 0.52359877559829887307710723054658381_f32;
 
     /// π/8
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/8
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_PI_8: f32 = 0.39269908169872415480783042290993786_f32;
 
     /// 1/π
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/π
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_1_PI: f32 = 0.318309886183790671537767526745028724_f32;
 
     /// 1/sqrt(π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(π)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_PI: f32 = 0.564189583547756286948079451560772586_f32;
 
     /// 1/sqrt(2π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(2π)
+    ///
+    /// </div>
     #[doc(alias = "FRAC_1_SQRT_TAU")]
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_2PI: f32 = 0.398942280401432677939946059934381868_f32;
 
     /// 2/π
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 2/π
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_2_PI: f32 = 0.636619772367581343075535053490057448_f32;
 
     /// 2/sqrt(π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 2/sqrt(π)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_2_SQRT_PI: f32 = 1.12837916709551257389615890312154517_f32;
 
     /// sqrt(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(2) (الجذر التربيعي لـ 2)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const SQRT_2: f32 = 1.41421356237309504880168872420969808_f32;
 
     /// 1/sqrt(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(2)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const FRAC_1_SQRT_2: f32 = 0.707106781186547524400844362104849039_f32;
 
     /// sqrt(3)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(3)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const SQRT_3: f32 = 1.732050807568877293527446341505872367_f32;
 
     /// 1/sqrt(3)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(3)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_3: f32 = 0.577350269189625764509148780501957456_f32;
 
     /// sqrt(5)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(5)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const SQRT_5: f32 = 2.23606797749978969640917366873127623_f32;
 
     /// 1/sqrt(5)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(5)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_5: f32 = 0.44721359549995793928183473374625524_f32;
 
     /// Euler's number (e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد أويلر (e).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const E: f32 = 2.71828182845904523536028747135266250_f32;
 
     /// log<sub>2</sub>(e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>2</sub>(e)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const LOG2_E: f32 = 1.44269504088896340735992468100189214_f32;
 
     /// log<sub>2</sub>(10)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>2</sub>(10)
+    ///
+    /// </div>
     #[stable(feature = "extra_log_consts", since = "1.43.0")]
     pub const LOG2_10: f32 = 3.32192809488736234787031942948939018_f32;
 
     /// log<sub>10</sub>(e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>10</sub>(e)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const LOG10_E: f32 = 0.434294481903251827651128918916605082_f32;
 
     /// log<sub>10</sub>(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>10</sub>(2)
+    ///
+    /// </div>
     #[stable(feature = "extra_log_consts", since = "1.43.0")]
     pub const LOG10_2: f32 = 0.301029995663981195213738894724493027_f32;
 
     /// ln(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ln(2) (اللوغاريتم الطبيعي لـ 2)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const LN_2: f32 = 0.693147180559945309417232121458176568_f32;
 
     /// ln(10)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ln(10) (اللوغاريتم الطبيعي لـ 10)
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const LN_10: f32 = 2.30258509299404568401799145468436421_f32;
 }
@@ -404,10 +662,22 @@ pub mod consts {
 #[doc(test(attr(allow(unused_features))))]
 impl f32 {
     /// The radix or base of the internal representation of `f32`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أساس التمثيل الداخلي لـ `f32`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const RADIX: u32 = 2;
 
     /// The size of this float type in bits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حجم هذا النوع العشري بالبتات.
+    ///
+    /// </div>
     #[unstable(feature = "float_bits_const", issue = "151073")]
     pub const BITS: u32 = 32;
 
@@ -415,6 +685,12 @@ impl f32 {
     ///
     /// Note that the size of the mantissa in the bitwise representation is one
     /// smaller than this since the leading 1 is not stored explicitly.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد الأرقام المعنوية بالأساس 2.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MANTISSA_DIGITS: u32 = 24;
 
@@ -426,6 +702,12 @@ impl f32 {
     /// Equal to floor(log<sub>10</sub>&nbsp;2<sup>[`MANTISSA_DIGITS`]&nbsp;&minus;&nbsp;1</sup>).
     ///
     /// [`MANTISSA_DIGITS`]: f32::MANTISSA_DIGITS
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العدد التقريبي للأرقام المعنوية بالأساس 10.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const DIGITS: u32 = 6;
 
@@ -437,6 +719,12 @@ impl f32 {
     ///
     /// [Machine epsilon]: https://en.wikipedia.org/wiki/Machine_epsilon
     /// [`MANTISSA_DIGITS`]: f32::MANTISSA_DIGITS
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قيمة إبسيلون الآلة لـ `f32`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     #[rustc_diagnostic_item = "f32_epsilon"]
     pub const EPSILON: f32 = 1.1920929e-07_f32;
@@ -446,6 +734,12 @@ impl f32 {
     /// Equal to &minus;[`MAX`].
     ///
     /// [`MAX`]: f32::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر قيمة `f32` منتهية.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MIN: f32 = -3.4028235e+38_f32;
     /// Smallest positive normal `f32` value.
@@ -453,6 +747,12 @@ impl f32 {
     /// Equal to 2<sup>[`MIN_EXP`]&nbsp;&minus;&nbsp;1</sup>.
     ///
     /// [`MIN_EXP`]: f32::MIN_EXP
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر قيمة `f32` موجبة طبيعية.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MIN_POSITIVE: f32 = 1.1754944e-38_f32;
     /// Largest finite `f32` value.
@@ -462,6 +762,12 @@ impl f32 {
     ///
     /// [`MANTISSA_DIGITS`]: f32::MANTISSA_DIGITS
     /// [`MAX_EXP`]: f32::MAX_EXP
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر قيمة `f32` منتهية.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MAX: f32 = 3.4028235e+38_f32;
 
@@ -472,6 +778,12 @@ impl f32 {
     /// for a significand bounded by 0.5 ≤ x < 1 (i.e. the C definition).
     /// In other words, all normal numbers representable by this type are
     /// greater than or equal to 0.5&nbsp;×&nbsp;2<sup><i>MIN_EXP</i></sup>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر أس طبيعي ممكن للعدد 2 زائد واحد (حسب تعريف IEEE).
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MIN_EXP: i32 = -125;
     /// One greater than the maximum possible power of 2 exponent
@@ -481,6 +793,12 @@ impl f32 {
     /// for a significand bounded by 0.5 ≤ x < 1 (i.e. the C definition).
     /// In other words, all numbers representable by this type are
     /// strictly less than 2<sup><i>MAX_EXP</i></sup>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر أس ممكن للعدد 2 زائد واحد (حسب تعريف IEEE).
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MAX_EXP: i32 = 128;
 
@@ -489,6 +807,12 @@ impl f32 {
     /// Equal to ceil(log<sub>10</sub>&nbsp;[`MIN_POSITIVE`]).
     ///
     /// [`MIN_POSITIVE`]: f32::MIN_POSITIVE
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر <i>x</i> يكون فيه 10<sup><i>x</i></sup> طبيعيًا.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MIN_10_EXP: i32 = -37;
     /// Maximum <i>x</i> for which 10<sup><i>x</i></sup> is normal.
@@ -496,6 +820,12 @@ impl f32 {
     /// Equal to floor(log<sub>10</sub>&nbsp;[`MAX`]).
     ///
     /// [`MAX`]: f32::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر <i>x</i> يكون فيه 10<sup><i>x</i></sup> طبيعيًا.
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const MAX_10_EXP: i32 = 38;
 
@@ -511,14 +841,32 @@ impl f32 {
     /// that the quiet/signaling bit being set to 1 indicates a quiet NaN). Beyond that, nothing is
     /// guaranteed about the specific bit pattern chosen here: both payload and sign are arbitrary.
     /// The concrete bit pattern may change across Rust versions and target platforms.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ليس رقمًا (NaN).
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     #[rustc_diagnostic_item = "f32_nan"]
     #[allow(clippy::eq_op, clippy::zero_divided_by_zero)]
     pub const NAN: f32 = 0.0_f32 / 0.0_f32;
     /// Infinity (∞).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اللانهاية (∞).
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const INFINITY: f32 = 1.0_f32 / 0.0_f32;
     /// Negative infinity (−∞).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// سالب اللانهاية (−∞).
+    ///
+    /// </div>
     #[stable(feature = "assoc_int_consts", since = "1.43.0")]
     pub const NEG_INFINITY: f32 = -1.0_f32 / 0.0_f32;
 
@@ -547,6 +895,12 @@ impl f32 {
     /// assert_eq!((max_exact_int + 1) as f32, (max_exact_int + 2) as f32);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر عدد صحيح يمكن تمثيله بالضبط في `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "float_exact_integer_constants", issue = "152466")]
     pub const MAX_EXACT_INTEGER: i32 = (1 << Self::MANTISSA_DIGITS) - 1;
 
@@ -577,6 +931,12 @@ impl f32 {
     /// assert_eq!((min_exact_int - 1) as f32, (min_exact_int - 2) as f32);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر عدد صحيح يمكن تمثيله بالضبط في `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "float_exact_integer_constants", issue = "152466")]
     pub const MIN_EXACT_INTEGER: i32 = -Self::MAX_EXACT_INTEGER;
 
@@ -599,6 +959,12 @@ impl f32 {
     /// assert_eq!(f32::from_bits(a_bits ^ sign_mask), -a);
     /// assert_eq!(sign_mask, (-0.0f32).to_bits());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البت المستخدم لترميز إشارة `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const SIGN_MASK: u32 = 0x8000_0000;
 
@@ -619,6 +985,12 @@ impl f32 {
     /// assert_eq!(get_exp(2.0), 1);
     /// assert_eq!(get_exp(4.0), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البتات المستخدمة لترميز أس `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const EXPONENT_MASK: u32 = 0x7f80_0000;
 
@@ -641,6 +1013,12 @@ impl f32 {
     /// assert_eq!(f32::MAX.to_bits() & f32::MANTISSA_MASK, f32::MANTISSA_MASK);
     /// assert_eq!(f32::MIN.to_bits() & f32::MANTISSA_MASK, f32::MANTISSA_MASK);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البتات المستخدمة لترميز الجزء المعنوي لـ `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const MANTISSA_MASK: u32 = 0x007f_ffff;
 
@@ -659,6 +1037,12 @@ impl f32 {
     /// assert!(nan.is_nan());
     /// assert!(!f.is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه القيمة NaN.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -683,6 +1067,12 @@ impl f32 {
     /// assert!(inf.is_infinite());
     /// assert!(neg_inf.is_infinite());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه القيمة لانهاية موجبة أو سالبة، و`false` في غير ذلك.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -708,6 +1098,12 @@ impl f32 {
     /// assert!(!inf.is_finite());
     /// assert!(!neg_inf.is_finite());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن هذا الرقم لانهائيًا ولا NaN.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -736,6 +1132,12 @@ impl f32 {
     /// assert!(lower_than_min.is_subnormal());
     /// ```
     /// [subnormal]: https://en.wikipedia.org/wiki/Denormal_number
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الرقم دون الطبيعي (subnormal).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "is_subnormal", since = "1.53.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -763,6 +1165,12 @@ impl f32 {
     /// assert!(!lower_than_min.is_normal());
     /// ```
     /// [subnormal]: https://en.wikipedia.org/wiki/Denormal_number
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن الرقم صفرًا ولا لانهائيًا ولا دون الطبيعي ولا NaN.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -784,6 +1192,12 @@ impl f32 {
     /// assert_eq!(num.classify(), FpCategory::Normal);
     /// assert_eq!(inf.classify(), FpCategory::Infinite);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع فئة الرقم العشري. إذا كنت ستختبر خاصية واحدة، فالدالة الخاصة بها أسرع عادةً.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
     #[must_use]
@@ -820,6 +1234,13 @@ impl f32 {
     /// assert!(f.is_sign_positive());
     /// assert!(!g.is_sign_positive());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت إشارة `self` موجبة، بما في ذلك `+0.0` وقيم NaN ببت إشارة موجب
+    /// واللانهاية الموجبة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -845,6 +1266,13 @@ impl f32 {
     /// assert!(!f.is_sign_negative());
     /// assert!(g.is_sign_negative());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت إشارة `self` سالبة، بما في ذلك `-0.0` وقيم NaN ببت إشارة سالب
+    /// واللانهاية السالبة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_classify", since = "1.83.0")]
@@ -882,6 +1310,12 @@ impl f32 {
     /// [`INFINITY`]: Self::INFINITY
     /// [`MIN`]: Self::MIN
     /// [`MAX`]: Self::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أصغر رقم أكبر من `self`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "nextUp")]
     #[stable(feature = "float_next_up_down", since = "1.86.0")]
@@ -934,6 +1368,12 @@ impl f32 {
     /// [`INFINITY`]: Self::INFINITY
     /// [`MIN`]: Self::MIN
     /// [`MAX`]: Self::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أكبر رقم أصغر من `self`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "nextDown")]
     #[stable(feature = "float_next_up_down", since = "1.86.0")]
@@ -967,6 +1407,12 @@ impl f32 {
     ///
     /// assert!(abs_difference <= f32::EPSILON);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب مقلوب الرقم، `1/x`.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -991,6 +1437,12 @@ impl f32 {
     /// # #[cfg(any(not(target_arch = "x86"), target_feature = "sse2"))]
     /// assert!(abs_difference <= f32::EPSILON);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من راديان إلى درجات.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "f32_deg_rad_conversions", since = "1.7.0")]
@@ -1019,6 +1471,12 @@ impl f32 {
     ///
     /// assert!(abs_difference <= f32::EPSILON);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من درجات إلى راديان.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "f32_deg_rad_conversions", since = "1.7.0")]
@@ -1051,6 +1509,12 @@ impl f32 {
     /// assert_eq!(x.max(y), y);
     /// assert_eq!(x.max(f32::NAN), x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأكبر من الرقمين، مع تجاهل NaN.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the comparison, without modifying either input"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -1078,6 +1542,12 @@ impl f32 {
     /// assert_eq!(x.min(y), x);
     /// assert_eq!(x.min(f32::NAN), x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأصغر من الرقمين، مع تجاهل NaN.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the comparison, without modifying either input"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -1106,6 +1576,12 @@ impl f32 {
     /// assert_eq!(x.maximum(y), y);
     /// assert!(x.maximum(f32::NAN).is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأكبر من الرقمين، مع نشر NaN (إذا كان أحدهما NaN تكون النتيجة NaN).
+    ///
+    /// </div>
     #[must_use = "this returns the result of the comparison, without modifying either input"]
     #[unstable(feature = "float_minimum_maximum", issue = "91079")]
     #[inline]
@@ -1133,6 +1609,12 @@ impl f32 {
     /// assert_eq!(x.minimum(y), x);
     /// assert!(x.minimum(f32::NAN).is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأصغر من الرقمين، مع نشر NaN.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the comparison, without modifying either input"]
     #[unstable(feature = "float_minimum_maximum", issue = "91079")]
     #[inline]
@@ -1151,6 +1633,12 @@ impl f32 {
     /// assert_eq!(1f32.midpoint(4.0), 2.5);
     /// assert_eq!((-5.5f32).midpoint(8.0), 1.25);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "average")]
     #[stable(feature = "num_midpoint", since = "1.85.0")]
@@ -1209,6 +1697,13 @@ impl f32 {
     /// * Not be `NaN`
     /// * Not be infinite
     /// * Be representable in the return type `Int`, after truncating off its fractional part
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، بافتراض أن القيمة منتهية وتتسع في ذلك النوع (غير
+    /// آمن).
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "float_approx_unchecked_to", since = "1.44.0")]
@@ -1233,6 +1728,12 @@ impl f32 {
     /// let x = 1.5_f32;
     /// assert_eq!(x.cast::<f64>(), 1.5_f64);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى النوع العشري المستهدف، مع التقريب حسب معيار IEEE 754.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1257,6 +1758,12 @@ impl f32 {
     /// assert_eq!((-1.0_f32).to_int_saturating::<u8>(), 0);
     /// assert_eq!(f32::NAN.to_int_saturating::<u8>(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، مع التشبع عند حدود النوع وتحويل `NaN` إلى صفر.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1278,6 +1785,13 @@ impl f32 {
     /// assert_eq!(256.0_f32.to_int_checked::<u8>(), None);
     /// assert_eq!(f32::NAN.to_int_checked::<u8>(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، ويرجع `None` إذا كانت القيمة `NaN` أو لانهائية
+    /// أو لا تتسع.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1302,6 +1816,12 @@ impl f32 {
     ///
     /// assert_eq!(255.5_f32.to_int_strict::<u8>(), 255);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح (ويتوقف بـ panic إذا لم تتسع).
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1332,6 +1852,12 @@ impl f32 {
     /// assert_eq!((12.5f32).to_bits(), 0x41480000);
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام إلى `u32`.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "float_bits_conv", since = "1.20.0")]
@@ -1379,6 +1905,12 @@ impl f32 {
     /// let v = f32::from_bits(0x41480000);
     /// assert_eq!(v, 12.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام من `u32`.
+    ///
+    /// </div>
     #[stable(feature = "float_bits_conv", since = "1.20.0")]
     #[rustc_const_stable(feature = "const_float_bits_conv", since = "1.83.0")]
     #[must_use]
@@ -1402,6 +1934,12 @@ impl f32 {
     /// let bytes = 12.5f32.to_be_bytes();
     /// assert_eq!(bytes, [0x41, 0x48, 0x00, 0x00]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب big-endian (ترتيب الشبكة).
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
@@ -1423,6 +1961,12 @@ impl f32 {
     /// let bytes = 12.5f32.to_le_bytes();
     /// assert_eq!(bytes, [0x00, 0x00, 0x48, 0x41]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب little-endian.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
@@ -1457,6 +2001,12 @@ impl f32 {
     ///     }
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب الجهاز.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
@@ -1477,6 +2027,12 @@ impl f32 {
     /// let value = f32::from_be_bytes([0x41, 0x48, 0x00, 0x00]);
     /// assert_eq!(value, 12.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب big-endian.
+    ///
+    /// </div>
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
     #[rustc_const_stable(feature = "const_float_bits_conv", since = "1.83.0")]
     #[must_use]
@@ -1496,6 +2052,12 @@ impl f32 {
     /// let value = f32::from_le_bytes([0x00, 0x00, 0x48, 0x41]);
     /// assert_eq!(value, 12.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب little-endian.
+    ///
+    /// </div>
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
     #[rustc_const_stable(feature = "const_float_bits_conv", since = "1.83.0")]
     #[must_use]
@@ -1526,6 +2088,12 @@ impl f32 {
     /// });
     /// assert_eq!(value, 12.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب الجهاز.
+    ///
+    /// </div>
     #[stable(feature = "float_to_from_bytes", since = "1.40.0")]
     #[rustc_const_stable(feature = "const_float_bits_conv", since = "1.83.0")]
     #[must_use]
@@ -1593,6 +2161,12 @@ impl f32 {
     ///         .all(|(a, b)| a.to_bits() == b.to_bits()))
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الترتيب بين `self` و`other` (ترتيب كلي يشمل NaN).
+    ///
+    /// </div>
     #[stable(feature = "total_cmp", since = "1.62.0")]
     #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
     #[must_use]
@@ -1656,6 +2230,12 @@ impl f32 {
     /// // This is definitely a negative zero.
     /// assert!((-1.0f32).clamp(-0.0, 1.0).is_sign_negative());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر القيمة ضمن مجال معيّن، إلا إذا كانت NaN.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "clamp", since = "1.50.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -1699,6 +2279,12 @@ impl f32 {
     /// assert_eq!(2.0f32.clamp_magnitude(3.0), 2.0);
     /// assert_eq!((-2.0f32).clamp_magnitude(3.0), -2.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر هذا الرقم ضمن مدى متماثل حول الصفر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "clamp_magnitude", issue = "148519")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1734,6 +2320,12 @@ impl f32 {
     /// assert_eq!(5.0f32.clamp_to(7.0..), 7.0);
     /// assert!(f32::NAN.clamp_to(1.0..=2.0).is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر القيمة ضمن مدى معيّن، إلا إذا كانت NaN.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[unstable(feature = "clamp_to", issue = "147781")]
@@ -1759,6 +2351,12 @@ impl f32 {
     ///
     /// assert!(f32::NAN.abs().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب القيمة المطلقة لـ `self`.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -1783,6 +2381,12 @@ impl f32 {
     ///
     /// assert!(f32::NAN.signum().is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقمًا يمثل إشارة `self` (1.0 أو -1.0 أو NaN).
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_float_methods", since = "1.85.0")]
@@ -1817,6 +2421,12 @@ impl f32 {
     ///
     /// assert!(f32::NAN.copysign(1.0).is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقمًا بمقدار `self` وإشارة `sign`.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     #[stable(feature = "copysign", since = "1.35.0")]
@@ -1828,6 +2438,12 @@ impl f32 {
     /// Float addition that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمع عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "float_algebraic", since = "1.98.0")]
     #[rustc_const_stable(feature = "float_algebraic", since = "1.98.0")]
@@ -1839,6 +2455,12 @@ impl f32 {
     /// Float subtraction that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرح عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "float_algebraic", since = "1.98.0")]
     #[rustc_const_stable(feature = "float_algebraic", since = "1.98.0")]
@@ -1850,6 +2472,12 @@ impl f32 {
     /// Float multiplication that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "float_algebraic", since = "1.98.0")]
     #[rustc_const_stable(feature = "float_algebraic", since = "1.98.0")]
@@ -1861,6 +2489,12 @@ impl f32 {
     /// Float division that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قسمة عشرية تسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "float_algebraic", since = "1.98.0")]
     #[rustc_const_stable(feature = "float_algebraic", since = "1.98.0")]
@@ -1872,6 +2506,12 @@ impl f32 {
     /// Float remainder that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// باقي قسمة عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "float_algebraic", since = "1.98.0")]
     #[rustc_const_stable(feature = "float_algebraic", since = "1.98.0")]
@@ -1913,6 +2553,12 @@ impl f32 {
     /// ```
     ///
     /// [`mul_add`]: ../std/primitive.f32.html#method.mul_add
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب `(self * a) + b` بتقريب غير محدد.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[doc(alias = "fmuladd")]
     #[unstable(feature = "float_mul_add_relaxed", issue = "151770")]
@@ -1937,6 +2583,12 @@ impl f32 {
     /// assert_eq!(x.nan_to(0.0f32), 2.0f32);
     /// assert_eq!(y.nan_to(0.0f32), f32::INFINITY);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `self` إذا لم تكن القيمة NaN، وإلا يرجع `replacement`.
+    ///
+    /// </div>
     #[must_use = "method returns a new float and does not mutate the original value"]
     #[unstable(feature = "float_nan_to", issue = "161248")]
     #[rustc_const_unstable(feature = "float_nan_to", issue = "161248")]
@@ -1950,6 +2602,12 @@ impl f32 {
 ///
 /// _The standalone functions in this module are for testing only.
 /// They will be stabilized as inherent methods._
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيقات تجريبية لدوال الأرقام العشرية في `core`.
+///
+/// </div>
 #[unstable(feature = "core_float_math", issue = "137578")]
 pub mod math {
     use crate::intrinsics;
@@ -1977,6 +2635,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::floor`]: ../../../std/primitive.f32.html#method.floor
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `floor` في `core`. انظر `f32::floor` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "core_float_math", issue = "137578")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2004,6 +2668,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::ceil`]: ../../../std/primitive.f32.html#method.ceil
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `ceil` في `core`. انظر `f32::ceil` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "ceiling")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2038,6 +2708,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::round`]: ../../../std/primitive.f32.html#method.round
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `round` في `core`. انظر `f32::round` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "core_float_math", issue = "137578")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2070,6 +2746,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::round_ties_even`]: ../../../std/primitive.f32.html#method.round_ties_even
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `round_ties_even` في `core`. انظر `f32::round_ties_even` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "core_float_math", issue = "137578")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2099,6 +2781,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::trunc`]: ../../../std/primitive.f32.html#method.trunc
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `trunc` في `core`. انظر `f32::trunc` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "truncate")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2129,6 +2817,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::fract`]: ../../../std/primitive.f32.html#method.fract
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `fract` في `core`. انظر `f32::fract` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "core_float_math", issue = "137578")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2174,6 +2868,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::mul_add`]: ../../../std/primitive.f32.html#method.mul_add
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `mul_add` في `core`. انظر `f32::mul_add` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "fmaf", alias = "fusedMultiplyAdd")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2203,6 +2903,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::div_euclid`]: ../../../std/primitive.f32.html#method.div_euclid
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `div_euclid` في `core`. انظر `f32::div_euclid` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "core_float_math", issue = "137578")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -2237,6 +2943,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::rem_euclid`]: ../../../std/primitive.f32.html#method.rem_euclid
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `rem_euclid` في `core`. انظر `f32::rem_euclid` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "modulo", alias = "mod")]
     #[unstable(feature = "core_float_math", issue = "137578")]
@@ -2266,6 +2978,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::powi`]: ../../../std/primitive.f32.html#method.powi
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `powi` في `core`. انظر `f32::powi` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "core_float_math", issue = "137578")]
@@ -2295,6 +3013,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::sqrt`]: ../../../std/primitive.f32.html#method.sqrt
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `sqrt` في `core`. انظر `f32::sqrt` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "squareRoot")]
     #[unstable(feature = "core_float_math", issue = "137578")]
@@ -2326,6 +3050,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::abs_sub`]: ../../../std/primitive.f32.html#method.abs_sub
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `abs_sub` في `core`. انظر `f32::abs_sub` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[deprecated(
@@ -2371,6 +3101,12 @@ pub mod math {
     /// It will be stabilized as an inherent method._
     ///
     /// [`f32::cbrt`]: ../../../std/primitive.f32.html#method.cbrt
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة تجريبية من `cbrt` في `core`. انظر `f32::cbrt` للتفاصيل.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "core_float_math", issue = "137578")]

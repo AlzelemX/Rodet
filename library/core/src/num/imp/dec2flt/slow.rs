@@ -1,4 +1,10 @@
 //! Slow, fallback algorithm for cases the Eisel-Lemire algorithm cannot round.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! خوارزمية بديلة بطيئة للحالات التي لا تستطيع Eisel-Lemire تقريبها.
+//!
+//! </div>
 
 use dec2flt::common::BiasedFp;
 use dec2flt::decimal_seq::{DecimalSeq, parse_decimal_seq};

@@ -1,4 +1,10 @@
 //! Numeric traits used for internal implementations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits رقمية للتطبيقات الداخلية.
+//!
+//! </div>
 
 #![doc(hidden)]
 #![unstable(
@@ -11,11 +17,23 @@ use crate::num::FpCategory;
 use crate::{f64, fmt, ops};
 
 /// Lossy `as` casting between two types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل `as` يفقد الدقة بين نوعين.
+///
+/// </div>
 pub trait CastInto<T: Copy>: Copy {
     fn cast(self) -> T;
 }
 
 /// Collection of traits that allow us to be generic over integer size.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مجموعة traits تسمح بالعمل العام على أحجام الأعداد الصحيحة.
+///
+/// </div>
 pub trait Int:
     Sized
     + Clone
@@ -160,6 +178,12 @@ pub trait Float:
 #[doc(hidden)]
 pub trait FloatExt: Float {
     /// Performs a raw transmutation from an integer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام من عدد صحيح.
+    ///
+    /// </div>
     fn from_u64_bits(v: u64) -> Self;
 
     /// Returns the mantissa, exponent and sign as integers.
@@ -172,6 +196,12 @@ pub trait FloatExt: Float {
     /// with the explicit bit set but otherwise unshifted
     ///
     /// `s` is only ever +/-1.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء المعنوي والأس والإشارة كأعداد صحيحة.
+    ///
+    /// </div>
     fn integer_decode(self) -> (u64, i16, i8) {
         let bits = self.to_bits();
         let sign: i8 = if bits >> (Self::BITS - 1) == Self::Int::ZERO { 1 } else { -1 };

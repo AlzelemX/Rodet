@@ -627,6 +627,12 @@ macro_rules! wrapping_int_impl {
             ///
             /// assert_eq!(n.count_ones(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الآحاد في التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[doc(alias = "popcount")]
             #[doc(alias = "popcnt")]
@@ -649,6 +655,12 @@ macro_rules! wrapping_int_impl {
             ///
             #[doc = concat!("assert_eq!(Wrapping(!0", stringify!($t), ").count_zeros(), 0);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -671,6 +683,12 @@ macro_rules! wrapping_int_impl {
             ///
             /// assert_eq!(n.trailing_zeros(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في نهاية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -699,6 +717,12 @@ macro_rules! wrapping_int_impl {
             ///
             /// assert_eq!(n.rotate_left(32), m);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات إلى اليسار بمقدار `n`، ويعيد البتات الخارجة إلى نهاية العدد (تدوير).
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -727,6 +751,12 @@ macro_rules! wrapping_int_impl {
             ///
             /// assert_eq!(n.rotate_right(4), m);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات إلى اليمين بمقدار `n`، ويعيد البتات الخارجة إلى بداية العدد (تدوير).
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -753,6 +783,12 @@ macro_rules! wrapping_int_impl {
             /// assert_eq!(m, Wrapping(0b01010101_00000000));
             /// assert_eq!(m, Wrapping(21760));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس ترتيب بايتات العدد.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -811,6 +847,12 @@ macro_rules! wrapping_int_impl {
             #[doc = concat!("    assert_eq!(<Wrapping<", stringify!($t), ">>::from_be(n), n.swap_bytes())")]
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من big endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use]
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
@@ -839,6 +881,12 @@ macro_rules! wrapping_int_impl {
             #[doc = concat!("    assert_eq!(<Wrapping<", stringify!($t), ">>::from_le(n), n.swap_bytes())")]
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من little endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use]
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
@@ -956,6 +1004,12 @@ macro_rules! wrapping_int_impl_signed {
             ///
             /// assert_eq!(n.leading_zeros(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -1082,6 +1136,12 @@ macro_rules! wrapping_int_impl_unsigned {
             ///
             /// assert_eq!(n.leading_zeros(), 2);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]

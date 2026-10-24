@@ -222,6 +222,12 @@ use crate::sys::sync as sys;
 /// assert_eq!(*res_mutex.lock().unwrap(), 800);
 /// ```
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قفل استبعاد متبادل (mutex) لحماية البيانات المشتركة بين الـ threads.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Mutex")]
 pub struct Mutex<#[rustc_assert_variance(invariant)] T: ?Sized> {
@@ -234,6 +240,12 @@ pub struct Mutex<#[rustc_assert_variance(invariant)] T: ?Sized> {
 /// the owned `T` from the `Mutex` via [`into_inner`].
 ///
 /// [`into_inner`]: Mutex::into_inner
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `T` يجب أن يكون `Send` ليكون `Mutex` هو `Send`، لأنه يمكن أخذ `T` المملوك عبر `into_inner`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 unsafe impl<T: ?Sized + Send> Send for Mutex<T> {}
 
@@ -253,6 +265,13 @@ unsafe impl<T: ?Sized + Send> Send for Mutex<T> {}
 /// to one thread at a time if `T` is not `Sync`.
 ///
 /// [`Rc`]: crate::rc::Rc
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `T` يجب أن يكون `Send` ليكون `Mutex` هو `Sync`. هذا يضمن الوصول الآمن من عدة threads بدون سباقات
+/// بيانات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 unsafe impl<T: ?Sized + Send> Sync for Mutex<T> {}
 
@@ -267,6 +286,12 @@ unsafe impl<T: ?Sized + Send> Sync for Mutex<T> {}
 ///
 /// [`lock`]: Mutex::lock
 /// [`try_lock`]: Mutex::try_lock
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق RAII لـ "قفل محدود النطاق": عند حذف هذه البنية (خروجها من النطاق) يُفتح القفل.
+///
+/// </div>
 #[must_use = "if unused the Mutex will immediately unlock"]
 #[must_not_suspend = "holding a MutexGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -288,11 +313,24 @@ pub struct MutexGuard<
 /// release mutex locks on the same thread they were acquired.
 /// For this reason, [`MutexGuard`] must not implement `Send` to prevent it being dropped from
 /// another thread.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `MutexGuard` ليس `Send` لضمان التوافق مع كل الأنظمة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: ?Sized> !Send for MutexGuard<'_, T> {}
 
 /// `T` must be `Sync` for a [`MutexGuard<T>`] to be `Sync`
 /// because it is possible to get a `&T` from `&MutexGuard` (via `Deref`).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `T` يجب أن يكون `Sync` ليكون `MutexGuard<T>` هو `Sync`، لأنه يمكن الحصول على `&T` من
+/// `&MutexGuard`.
+///
+/// </div>
 #[stable(feature = "mutexguard", since = "1.19.0")]
 unsafe impl<T: ?Sized + Sync> Sync for MutexGuard<'_, T> {}
 
@@ -314,6 +352,13 @@ unsafe impl<T: ?Sized + Sync> Sync for MutexGuard<'_, T> {}
 /// [`map`]: MutexGuard::map
 /// [`filter_map`]: MutexGuard::filter_map
 /// [`Condvar`]: crate::sync::Condvar
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حارس mutex بأسلوب RAII ترجعه `MutexGuard::map`، يشير إلى جزء من البيانات المحمية. يُفتح القفل
+/// عند حذفه.
+///
+/// </div>
 #[must_use = "if unused the Mutex will immediately unlock"]
 #[must_not_suspend = "holding a MappedMutexGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -350,6 +395,12 @@ impl<T> Mutex<T> {
     ///
     /// let mutex = Mutex::new(0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ mutex جديدًا مفتوحًا وجاهزًا للاستخدام.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_locks", since = "1.63.0")]
     #[inline]
@@ -375,6 +426,12 @@ impl<T> Mutex<T> {
     ///
     /// assert_eq!(mutex.get_cloned().unwrap(), 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة بنسخها.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     pub fn get_cloned(&self) -> Result<T, PoisonError<()>>
     where
@@ -406,6 +463,12 @@ impl<T> Mutex<T> {
     /// mutex.set(11).unwrap();
     /// assert_eq!(mutex.get_cloned().unwrap(), 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع القيمة الموجودة.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn set(&self, value: T) -> Result<(), PoisonError<T>> {
@@ -444,6 +507,12 @@ impl<T> Mutex<T> {
     /// assert_eq!(mutex.replace(11).unwrap(), 7);
     /// assert_eq!(mutex.get_cloned().unwrap(), 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة بـ `value`، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn replace(&self, value: T) -> LockResult<T> {
@@ -491,6 +560,12 @@ impl<T: ?Sized> Mutex<T> {
     /// }).join().expect("`thread::spawn` should not fail");
     /// assert_eq!(*mutex.lock().unwrap(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القفل، وينتظر الـ thread الحالي حتى يتمكن من ذلك.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn lock(&self) -> LockResult<MutexGuard<'_, T>> {
@@ -540,6 +615,12 @@ impl<T: ?Sized> Mutex<T> {
     /// }).join().expect("`thread::spawn` should not fail");
     /// assert_eq!(*mutex.lock().unwrap(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول أخذ هذا القفل (بدون انتظار).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn try_lock(&self) -> TryLockResult<MutexGuard<'_, T>> {
@@ -573,6 +654,12 @@ impl<T: ?Sized> Mutex<T> {
     /// }).join();
     /// assert_eq!(mutex.is_poisoned(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل الـ mutex مسمَّم.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sync_poison", since = "1.2.0")]
     pub fn is_poisoned(&self) -> bool {
@@ -610,6 +697,12 @@ impl<T: ?Sized> Mutex<T> {
     /// assert_eq!(mutex.is_poisoned(), false);
     /// assert_eq!(*x, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يزيل حالة التسميم عن الـ mutex.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "mutex_unpoison", since = "1.77.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -633,6 +726,12 @@ impl<T: ?Sized> Mutex<T> {
     /// let mutex = Mutex::new(0);
     /// assert_eq!(mutex.into_inner().unwrap(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الـ mutex ويرجع البيانات التي بداخله.
+    ///
+    /// </div>
     #[stable(feature = "mutex_into_inner", since = "1.6.0")]
     pub fn into_inner(self) -> LockResult<T>
     where
@@ -666,6 +765,12 @@ impl<T: ?Sized> Mutex<T> {
     /// ```
     ///
     /// [`forget()`]: mem::forget
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[stable(feature = "mutex_get_mut", since = "1.6.0")]
     pub fn get_mut(&mut self) -> LockResult<&mut T> {
         let data = self.data.get_mut();
@@ -678,6 +783,12 @@ impl<T: ?Sized> Mutex<T> {
     /// the user's responsibility to ensure that any reads and writes through it
     /// are properly synchronized to avoid data races, and that it is not read
     /// or written through after the mutex is dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى البيانات.
+    ///
+    /// </div>
     #[unstable(feature = "mutex_data_ptr", issue = "140368")]
     pub const fn data_ptr(&self) -> *mut T {
         self.data.get()
@@ -688,6 +799,12 @@ impl<T: ?Sized> Mutex<T> {
 impl<T> From<T> for Mutex<T> {
     /// Creates a new mutex in an unlocked state ready for use.
     /// This is equivalent to [`Mutex::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ mutex جديدًا مفتوحًا وجاهزًا للاستخدام. مثل `Mutex::new`.
+    ///
+    /// </div>
     fn from(t: T) -> Self {
         Mutex::new(t)
     }
@@ -696,6 +813,12 @@ impl<T> From<T> for Mutex<T> {
 #[stable(feature = "mutex_default", since = "1.10.0")]
 impl<T: Default> Default for Mutex<T> {
     /// Creates a `Mutex<T>`, with the `Default` value for T.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Mutex<T>` بالقيمة الافتراضية لـ T.
+    ///
+    /// </div>
     fn default() -> Mutex<T> {
         Mutex::new(Default::default())
     }
@@ -787,6 +910,12 @@ impl<'a, T: ?Sized> MutexGuard<'a, T> {
     /// This is an associated function that needs to be used as
     /// `MutexGuard::map(...)`. A method would interfere with methods of the
     /// same name on the contents of the `MutexGuard` used through `Deref`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedMutexGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     pub fn map<U, F>(orig: Self, f: F) -> MappedMutexGuard<'a, U>
     where
@@ -817,6 +946,13 @@ impl<'a, T: ?Sized> MutexGuard<'a, T> {
     /// This is an associated function that needs to be used as
     /// `MutexGuard::filter_map(...)`. A method would interfere with methods of the
     /// same name on the contents of the `MutexGuard` used through `Deref`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedMutexGuard` لجزء من البيانات المستعارة. ويُرجع الحارس الأصلي كـ `Err(...)` إذا
+    /// أرجع الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     pub fn filter_map<U, F>(orig: Self, f: F) -> Result<MappedMutexGuard<'a, U>, Self>
     where
@@ -894,6 +1030,12 @@ impl<'a, T: ?Sized> MappedMutexGuard<'a, T> {
     /// This is an associated function that needs to be used as
     /// `MappedMutexGuard::map(...)`. A method would interfere with methods of the
     /// same name on the contents of the `MutexGuard` used through `Deref`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedMutexGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     pub fn map<U, F>(mut orig: Self, f: F) -> MappedMutexGuard<'a, U>
     where
@@ -924,6 +1066,13 @@ impl<'a, T: ?Sized> MappedMutexGuard<'a, T> {
     /// This is an associated function that needs to be used as
     /// `MappedMutexGuard::filter_map(...)`. A method would interfere with methods of the
     /// same name on the contents of the `MutexGuard` used through `Deref`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedMutexGuard` لجزء من البيانات المستعارة. ويُرجع الحارس الأصلي كـ `Err(...)` إذا
+    /// أرجع الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     pub fn filter_map<U, F>(mut orig: Self, f: F) -> Result<MappedMutexGuard<'a, U>, Self>
     where

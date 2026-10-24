@@ -1,5 +1,11 @@
 //! These functions compute the integer logarithm of their type, assuming
 //! that someone has already checked that the value is strictly positive.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال تحسب اللوغاريتم الصحيح لنوعها، بافتراض أن القيمة موجبة تمامًا.
+//!
+//! </div>
 
 use crate::num::NonZero;
 

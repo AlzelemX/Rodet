@@ -1,4 +1,10 @@
 //! The 16-bit brain floating-point type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نوع الأرقام العشرية 16-bit من نوع brain floating-point (bf16).
+//!
+//! </div>
 
 #![unstable(feature = "f16b", issue = "160630")]
 
@@ -17,6 +23,12 @@ use crate::{fmt, mem};
 /// more information.
 ///
 /// [wikipedia]: https://en.wikipedia.org/wiki/Bfloat16_floating-point_format
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة عشرية 16-bit من نوع brain floating-point.
+///
+/// </div>
 #[lang = "f16b"]
 #[doc(alias = "bf16")] // what hardware often names it
 #[doc(alias = "bfloat")] // LLVM's name
@@ -71,6 +83,12 @@ impl f16b {
     /// assert_eq!(f32::from(v), 12.5);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام من `u16`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f16b", issue = "160630")]
@@ -97,6 +115,12 @@ impl f16b {
     /// assert_eq!(f16b::from_bits(0x4148).to_bits(), 0x4148);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام إلى `u16`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f16b", issue = "160630")]
     #[must_use = "this returns the result of the operation, without modifying the original"]

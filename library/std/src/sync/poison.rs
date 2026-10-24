@@ -56,6 +56,12 @@
 //! methods available on it, there is no separate `nonpoison` and `poison` version.
 //!
 //! [`Once`]: crate::sync::Once
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات مزامنة تستخدم التسميم (poisoning).
+//!
+//! </div>
 
 #[stable(feature = "rust1", since = "1.0.0")]
 pub use self::condvar::Condvar;
@@ -190,6 +196,12 @@ pub(crate) struct Guard {
 /// ```
 /// [`Mutex`]: crate::sync::Mutex
 /// [`RwLock`]: crate::sync::RwLock
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع خطأ قد يرجع عند أخذ قفل، إذا كان thread آخر قد توقف بـ panic وهو ممسك به.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct PoisonError<T> {
     data: T,
@@ -206,14 +218,33 @@ pub struct PoisonError<T> {
 /// [`try_write`]: crate::sync::RwLock::try_write
 /// [`Mutex`]: crate::sync::Mutex
 /// [`RwLock`]: crate::sync::RwLock
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأخطاء الممكنة عند محاولة أخذ قفل بـ `try_lock` على `Mutex` أو `try_read`/`try_write` على
+/// `RwLock`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum TryLockError<T> {
     /// The lock could not be acquired because another thread failed while holding
     /// the lock.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر أخذ القفل لأن thread آخر فشل (panic) وهو ممسك به.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Poisoned(#[stable(feature = "rust1", since = "1.0.0")] PoisonError<T>),
     /// The lock could not be acquired at this time because the operation would
     /// otherwise block.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر أخذ القفل الآن لأن العملية كانت ستنتظر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     WouldBlock,
 }
@@ -228,6 +259,12 @@ pub enum TryLockError<T> {
 /// lock method.
 ///
 /// [`into_inner`]: PoisonError::into_inner
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اسم مستعار لنتيجة دالة قفل قد تكون مسمَّمة.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type LockResult<T> = Result<T, PoisonError<T>>;
 
@@ -236,6 +273,12 @@ pub type LockResult<T> = Result<T, PoisonError<T>>;
 /// For more information, see [`LockResult`]. A `TryLockResult` doesn't
 /// necessarily hold the associated guard in the [`Err`] type as the lock might not
 /// have been acquired for other reasons.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اسم مستعار لنتيجة دالة قفل لا تنتظر.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub type TryLockResult<Guard> = Result<Guard, TryLockError<Guard>>;
 
@@ -263,6 +306,12 @@ impl<T> PoisonError<T> {
     /// or [`RwLock::read`](crate::sync::RwLock::read).
     ///
     /// This method may panic if std was built with `panic="abort"`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PoisonError`.
+    ///
+    /// </div>
     #[doc(auto_cfg = false)]
     #[cfg(panic = "unwind")]
     #[stable(feature = "sync_poison", since = "1.2.0")]
@@ -276,6 +325,12 @@ impl<T> PoisonError<T> {
     /// or [`RwLock::read`](crate::sync::RwLock::read).
     ///
     /// This method may panic if std was built with `panic="abort"`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PoisonError`.
+    ///
+    /// </div>
     #[doc(auto_cfg = false)]
     #[cfg(not(panic = "unwind"))]
     #[stable(feature = "sync_poison", since = "1.2.0")]
@@ -308,6 +363,12 @@ impl<T> PoisonError<T> {
     /// let data = p_err.into_inner();
     /// println!("recovered {} items", data.len());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك خطأ التسميم ويرجع البيانات المرتبطة.
+    ///
+    /// </div>
     #[stable(feature = "sync_poison", since = "1.2.0")]
     pub fn into_inner(self) -> T {
         self.data
@@ -315,6 +376,12 @@ impl<T> PoisonError<T> {
 
     /// Reaches into this error indicating that a lock is poisoned, returning a
     /// reference to the associated data.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى البيانات المرتبطة بخطأ التسميم.
+    ///
+    /// </div>
     #[stable(feature = "sync_poison", since = "1.2.0")]
     pub fn get_ref(&self) -> &T {
         &self.data
@@ -322,6 +389,12 @@ impl<T> PoisonError<T> {
 
     /// Reaches into this error indicating that a lock is poisoned, returning a
     /// mutable reference to the associated data.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات المرتبطة بخطأ التسميم.
+    ///
+    /// </div>
     #[stable(feature = "sync_poison", since = "1.2.0")]
     pub fn get_mut(&mut self) -> &mut T {
         &mut self.data

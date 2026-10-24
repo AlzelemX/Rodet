@@ -1,6 +1,12 @@
 //! A single-producer, single-consumer (oneshot) channel.
 //!
 //! This is an experimental module, so the API will likely change.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قناة لمرسل واحد ومستقبل واحد ولرسالة واحدة (oneshot).
+//!
+//! </div>
 
 use crate::sync::mpmc;
 use crate::sync::mpsc::{RecvError, SendError};
@@ -32,6 +38,12 @@ use crate::{error, fmt};
 /// println!("{:?}", receiver.recv().unwrap());
 /// // `receiver` is consumed by `recv`, so we cannot use it anymore.
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قناة oneshot جديدة، ويرجع طرفي الإرسال والاستقبال.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "oneshot_channel", issue = "143674")]
 pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
@@ -80,6 +92,12 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
 ///
 /// let reply = receiver.try_recv().unwrap();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الإرسال في قناة oneshot.
+///
+/// </div>
 #[unstable(feature = "oneshot_channel", issue = "143674")]
 pub struct Sender<T> {
     /// The `oneshot` channel is simply a wrapper around a `mpmc` channel.
@@ -114,6 +132,12 @@ impl<T> Sender<T> {
     ///
     /// assert_eq!(rx.recv().unwrap(), 4);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرسال قيمة عبر هذه القناة. يفشل فقط إذا حُذف `Receiver<T>` المقابل.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn send(self, t: T) -> Result<(), SendError<T>> {
         self.inner.send(t)
@@ -128,6 +152,12 @@ impl<T> Sender<T> {
     ///
     /// A return value of `false` does not guarantee that a later call to [`send`](Self::send) will
     /// succeed. The receiver may be dropped immediately after this method returns.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا حُذف `Receiver` المقابل.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn is_closed(&self) -> bool {
         self.inner.is_disconnected()
@@ -183,6 +213,12 @@ impl<T> fmt::Debug for Sender<T> {
 ///     let reply = receiver.try_recv().unwrap();
 /// });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الاستقبال في قناة oneshot.
+///
+/// </div>
 #[unstable(feature = "oneshot_channel", issue = "143674")]
 pub struct Receiver<T> {
     /// The `oneshot` channel is simply a wrapper around a `mpmc` channel.
@@ -217,6 +253,12 @@ impl<T> Receiver<T> {
     /// // This will block until the message arrives.
     /// println!("{}", rx.recv().unwrap());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل القيمة من طرف الإرسال، وينتظر حتى تصل.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn recv(self) -> Result<T, RecvError> {
         self.inner.recv()
@@ -242,6 +284,12 @@ impl<T> Receiver<T> {
     ///
     /// Polling this method in a loop just to wait for a value wastes CPU time. Use
     /// [`recv`](Self::recv) or [`recv_timeout`](Self::recv_timeout) instead.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Ok(true)` إذا أرسل المرسِل قيمة عبر القناة.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn is_ready(&self) -> Result<bool, RecvError> {
         // Sending consumes and drops the sender after writing the value, so the channel is ready
@@ -290,6 +338,12 @@ impl<T> Receiver<T> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرجاع قيمة منتظرة على هذا المستقبِل بدون انتظار.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn try_recv(self) -> Result<T, TryRecvError<T>> {
         self.inner.try_recv().map_err(|err| match err {
@@ -323,6 +377,12 @@ impl<T> Receiver<T> {
     ///     Err(oneshot::RecvTimeoutError::Disconnected) => println!("Sender dropped!"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة، ويرجع خطأً إذا حُذف `Sender` المقابل أو تجاوز الانتظار `timeout`.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn recv_timeout(self, timeout: Duration) -> Result<T, RecvTimeoutError<T>> {
         self.inner.recv_timeout(timeout).map_err(|err| match err {
@@ -356,6 +416,12 @@ impl<T> Receiver<T> {
     ///     Err(oneshot::RecvTimeoutError::Disconnected) => println!("Sender dropped!"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة، ويرجع خطأً إذا حُذف `Sender` المقابل أو وصل الموعد `deadline`.
+    ///
+    /// </div>
     #[unstable(feature = "oneshot_channel", issue = "143674")]
     pub fn recv_deadline(self, deadline: Instant) -> Result<T, RecvTimeoutError<T>> {
         self.inner.recv_deadline(deadline).map_err(|err| match err {
@@ -381,14 +447,32 @@ impl<T> fmt::Debug for Receiver<T> {
 /// See the documentation for [`try_recv`] for more information on how to use this error.
 ///
 /// [`try_recv`]: Receiver::try_recv
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه الدالة `try_recv`.
+///
+/// </div>
 #[unstable(feature = "oneshot_channel", issue = "143674")]
 pub enum TryRecvError<T> {
     /// The [`Sender`] has not sent a message yet, but it might in the future (as it has not yet
     /// disconnected). This variant contains the [`Receiver`] that [`try_recv`](Receiver::try_recv)
     /// took ownership over.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المرسِل لم يرسل رسالة بعد، لكنه قد يرسل لاحقًا (لم ينقطع). تحتوي هذه الحالة الـ `Receiver`.
+    ///
+    /// </div>
     Empty(Receiver<T>),
     /// The corresponding [`Sender`] half of this channel has become disconnected, and there will
     /// never be any more data sent over the channel.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف الإرسال المقابل انقطع، ولن تُرسل أي بيانات أخرى.
+    ///
+    /// </div>
     Disconnected,
 }
 
@@ -429,15 +513,33 @@ pub enum TryRecvError<T> {
 ///
 /// send_failure.join().unwrap_err();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `recv_timeout` أو `recv_deadline`.
+///
+/// </div>
 #[unstable(feature = "oneshot_channel", issue = "143674")]
 pub enum RecvTimeoutError<T> {
     /// The [`Sender`] has not sent a message yet, but it might in the future (as it has not yet
     /// disconnected). This variant contains the [`Receiver`] that either
     /// [`recv_timeout`](Receiver::recv_timeout) or [`recv_deadline`](Receiver::recv_deadline) took
     /// ownership over.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المرسِل لم يرسل رسالة بعد، لكنه قد يرسل لاحقًا. تحتوي هذه الحالة الـ `Receiver`.
+    ///
+    /// </div>
     Timeout(Receiver<T>),
     /// The corresponding [`Sender`] half of this channel has become disconnected, and there will
     /// never be any more data sent over the channel.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف الإرسال المقابل انقطع، ولن تُرسل أي بيانات أخرى.
+    ///
+    /// </div>
     Disconnected,
 }
 
@@ -468,6 +570,12 @@ impl<T> From<RecvError> for TryRecvError<T> {
     /// This conversion always returns `TryRecvError::Disconnected`.
     ///
     /// No data is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `RecvError` إلى `TryRecvError`.
+    ///
+    /// </div>
     fn from(err: RecvError) -> TryRecvError<T> {
         match err {
             RecvError => TryRecvError::Disconnected,
@@ -502,6 +610,12 @@ impl<T> From<RecvError> for RecvTimeoutError<T> {
     /// This conversion always returns `RecvTimeoutError::Disconnected`.
     ///
     /// No data is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `RecvError` إلى `RecvTimeoutError`.
+    ///
+    /// </div>
     fn from(err: RecvError) -> RecvTimeoutError<T> {
         match err {
             RecvError => RecvTimeoutError::Disconnected,

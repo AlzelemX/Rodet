@@ -38,6 +38,12 @@ use crate::sys::sync as sys;
 ///     assert_eq!(*w, 6);
 /// } // write lock is dropped here
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قفل قراءة-كتابة (عدة قراء أو كاتب واحد)، بدون تتبع التسميم.
+///
+/// </div>
 #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "NonPoisonRwLock")]
 pub struct RwLock<#[rustc_assert_variance(invariant)] T: ?Sized> {
@@ -65,6 +71,12 @@ unsafe impl<T: ?Sized + Send + Sync> Sync for RwLock<T> {}
 ///
 /// [`read`]: RwLock::read
 /// [`try_read`]: RwLock::try_read
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية RAII تحرر صلاحية القراءة المشتركة عند حذفها.
+///
+/// </div>
 #[must_use = "if unused the RwLock will immediately unlock"]
 #[must_not_suspend = "holding a RwLockReadGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -100,6 +112,12 @@ unsafe impl<T: ?Sized + Sync> Sync for RwLockReadGuard<'_, T> {}
 ///
 /// [`write`]: RwLock::write
 /// [`try_write`]: RwLock::try_write
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية RAII تحرر صلاحية الكتابة الحصرية عند حذفها.
+///
+/// </div>
 #[must_use = "if unused the RwLock will immediately unlock"]
 #[must_not_suspend = "holding a RwLockWriteGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -129,6 +147,12 @@ unsafe impl<T: ?Sized + Sync> Sync for RwLockWriteGuard<'_, T> {}
 ///
 /// [`map`]: RwLockReadGuard::map
 /// [`filter_map`]: RwLockReadGuard::filter_map
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية RAII تحرر صلاحية القراءة المشتركة عند حذفها، وتشير إلى جزء من البيانات المحمية.
+///
+/// </div>
 #[must_use = "if unused the RwLock will immediately unlock"]
 #[must_not_suspend = "holding a MappedRwLockReadGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -166,6 +190,12 @@ unsafe impl<T: ?Sized + Sync> Sync for MappedRwLockReadGuard<'_, T> {}
 ///
 /// [`map`]: RwLockWriteGuard::map
 /// [`filter_map`]: RwLockWriteGuard::filter_map
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية RAII تحرر صلاحية الكتابة الحصرية عند حذفها، وتشير إلى جزء من البيانات المحمية.
+///
+/// </div>
 #[must_use = "if unused the RwLock will immediately unlock"]
 #[must_not_suspend = "holding a MappedRwLockWriteGuard across suspend \
                       points can cause deadlocks, delays, \
@@ -213,6 +243,12 @@ impl<T> RwLock<T> {
     ///
     /// let lock = RwLock::new(5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RwLock<T>` جديدًا مفتوحًا.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     #[inline]
     pub const fn new(t: T) -> RwLock<T> {
@@ -233,6 +269,12 @@ impl<T> RwLock<T> {
     ///
     /// assert_eq!(lock.get_cloned(), 7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة بنسخها.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn get_cloned(&self) -> T
@@ -258,6 +300,12 @@ impl<T> RwLock<T> {
     /// lock.set(11);
     /// assert_eq!(lock.get_cloned(), 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع القيمة الموجودة.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn set(&self, value: T) {
@@ -285,6 +333,12 @@ impl<T> RwLock<T> {
     /// assert_eq!(lock.replace(11), 7);
     /// assert_eq!(lock.get_cloned(), 11);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستبدل القيمة الموجودة بـ `value`، ويرجع القيمة القديمة.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn replace(&self, value: T) -> T {
@@ -329,6 +383,12 @@ impl<T: ?Sized> RwLock<T> {
     ///     let r = c_lock.read();
     /// }).join().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا الـ `RwLock` للقراءة المشتركة، وينتظر حتى يتمكن من ذلك.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn read(&self) -> RwLockReadGuard<'_, T> {
@@ -368,6 +428,12 @@ impl<T: ?Sized> RwLock<T> {
     ///     Err(_) => unreachable!(),
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول قفل هذا الـ `RwLock` للقراءة المشتركة (بدون انتظار).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn try_read(&self) -> TryLockResult<RwLockReadGuard<'_, T>> {
@@ -403,6 +469,12 @@ impl<T: ?Sized> RwLock<T> {
     ///
     /// assert!(lock.try_read().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل هذا الـ `RwLock` للكتابة الحصرية، وينتظر حتى يتمكن من ذلك.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn write(&self) -> RwLockWriteGuard<'_, T> {
@@ -444,6 +516,12 @@ impl<T: ?Sized> RwLock<T> {
     ///
     /// assert!(lock.try_write().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول قفل هذا الـ `RwLock` للكتابة الحصرية (بدون انتظار).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn try_write(&self) -> TryLockResult<RwLockWriteGuard<'_, T>> {
@@ -468,6 +546,12 @@ impl<T: ?Sized> RwLock<T> {
     /// }
     /// assert_eq!(lock.into_inner(), "modified");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا الـ `RwLock` ويرجع البيانات التي بداخله.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn into_inner(self) -> T
     where
@@ -494,6 +578,12 @@ impl<T: ?Sized> RwLock<T> {
     /// *lock.get_mut() = 10;
     /// assert_eq!(*lock.read(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn get_mut(&mut self) -> &mut T {
         self.data.get_mut()
@@ -505,6 +595,12 @@ impl<T: ?Sized> RwLock<T> {
     /// the user's responsibility to ensure that any reads and writes through it
     /// are properly synchronized to avoid data races, and that it is not read
     /// or written through after the lock is dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى البيانات.
+    ///
+    /// </div>
     #[unstable(feature = "rwlock_data_ptr", issue = "140368")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub const fn data_ptr(&self) -> *mut T {
@@ -530,6 +626,12 @@ impl<T: ?Sized> RwLock<T> {
     ///
     /// assert_eq!(result, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل للقراءة ويعطي الإغلاق المعطى مرجعًا إلى البيانات.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn with<F, R>(&self, f: F) -> R
@@ -564,6 +666,12 @@ impl<T: ?Sized> RwLock<T> {
     /// assert_eq!(*rwlock.read(), 5);
     /// assert_eq!(result, 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقفل للكتابة ويعطي الإغلاق المعطى مرجعًا قابلًا للتعديل إلى البيانات.
+    ///
+    /// </div>
     #[unstable(feature = "lock_value_accessors", issue = "133407")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn with_mut<F, R>(&self, f: F) -> R
@@ -593,6 +701,12 @@ impl<T: ?Sized + fmt::Debug> fmt::Debug for RwLock<T> {
 #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
 impl<T: Default> Default for RwLock<T> {
     /// Creates a new `RwLock<T>`, with the `Default` value for T.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RwLock<T>` جديدًا بالقيمة الافتراضية لـ T.
+    ///
+    /// </div>
     fn default() -> RwLock<T> {
         RwLock::new(Default::default())
     }
@@ -602,6 +716,12 @@ impl<T: Default> Default for RwLock<T> {
 impl<T> From<T> for RwLock<T> {
     /// Creates a new instance of an `RwLock<T>` which is unlocked.
     /// This is equivalent to [`RwLock::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `RwLock<T>` جديدًا مفتوحًا. مثل `RwLock::new`.
+    ///
+    /// </div>
     fn from(t: T) -> Self {
         RwLock::new(t)
     }
@@ -635,6 +755,12 @@ impl<'rwlock, T: ?Sized> RwLockReadGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockReadGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn map<U, F>(orig: Self, f: F) -> MappedRwLockReadGuard<'rwlock, U>
@@ -665,6 +791,13 @@ impl<'rwlock, T: ?Sized> RwLockReadGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockReadGuard` لجزء من البيانات. ويُرجع الحارس الأصلي كـ `Err(...)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn filter_map<U, F>(orig: Self, f: F) -> Result<MappedRwLockReadGuard<'rwlock, U>, Self>
@@ -762,6 +895,12 @@ impl<'rwlock, T: ?Sized> RwLockWriteGuard<'rwlock, T> {
     /// # let final_check = rw.read();
     /// # assert_eq!(*final_check, 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يخفّض `RwLockWriteGuard` المقفل للكتابة إلى `RwLockReadGuard` للقراءة.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn downgrade(s: Self) -> RwLockReadGuard<'rwlock, T> {
         let lock = s.lock;
@@ -790,6 +929,12 @@ impl<'rwlock, T: ?Sized> RwLockWriteGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockWriteGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn map<U, F>(orig: Self, f: F) -> MappedRwLockWriteGuard<'rwlock, U>
@@ -820,6 +965,13 @@ impl<'rwlock, T: ?Sized> RwLockWriteGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockWriteGuard` لجزء من البيانات. ويُرجع الحارس الأصلي كـ `Err(...)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn filter_map<U, F>(orig: Self, f: F) -> Result<MappedRwLockWriteGuard<'rwlock, U>, Self>
@@ -860,6 +1012,12 @@ impl<'rwlock, T: ?Sized> MappedRwLockReadGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockReadGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn map<U, F>(orig: Self, f: F) -> MappedRwLockReadGuard<'rwlock, U>
@@ -890,6 +1048,13 @@ impl<'rwlock, T: ?Sized> MappedRwLockReadGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockReadGuard` لجزء من البيانات. ويُرجع الحارس الأصلي كـ `Err(...)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn filter_map<U, F>(orig: Self, f: F) -> Result<MappedRwLockReadGuard<'rwlock, U>, Self>
@@ -926,6 +1091,12 @@ impl<'rwlock, T: ?Sized> MappedRwLockWriteGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockWriteGuard` لجزء من البيانات المستعارة، مثل حالة enum.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn map<U, F>(mut orig: Self, f: F) -> MappedRwLockWriteGuard<'rwlock, U>
@@ -956,6 +1127,13 @@ impl<'rwlock, T: ?Sized> MappedRwLockWriteGuard<'rwlock, T> {
     /// # Panics
     ///
     /// If the closure panics, the guard will be dropped (unlocked).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MappedRwLockWriteGuard` لجزء من البيانات. ويُرجع الحارس الأصلي كـ `Err(...)` إذا أرجع
+    /// الإغلاق `None`.
+    ///
+    /// </div>
     #[unstable(feature = "mapped_lock_guards", issue = "117108")]
     // #[unstable(feature = "nonpoison_rwlock", issue = "134645")]
     pub fn filter_map<U, F>(

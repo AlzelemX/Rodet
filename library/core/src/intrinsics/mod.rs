@@ -1890,6 +1890,12 @@ pub unsafe fn float_to_int_unchecked<Float: bounds::FloatPrimitive, Int: Copy>(v
 /// Float addition that allows optimizations based on algebraic rules.
 ///
 /// Stabilized as [`f16::algebraic_add`], [`f32::algebraic_add`], [`f64::algebraic_add`] and [`f128::algebraic_add`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// جمع عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1898,6 +1904,12 @@ pub const fn fadd_algebraic<T: bounds::FloatPrimitive>(a: T, b: T) -> T;
 /// Float subtraction that allows optimizations based on algebraic rules.
 ///
 /// Stabilized as [`f16::algebraic_sub`], [`f32::algebraic_sub`], [`f64::algebraic_sub`] and [`f128::algebraic_sub`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرح عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1906,6 +1918,12 @@ pub const fn fsub_algebraic<T: bounds::FloatPrimitive>(a: T, b: T) -> T;
 /// Float multiplication that allows optimizations based on algebraic rules.
 ///
 /// Stabilized as [`f16::algebraic_mul`], [`f32::algebraic_mul`], [`f64::algebraic_mul`] and [`f128::algebraic_mul`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ضرب عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1914,6 +1932,12 @@ pub const fn fmul_algebraic<T: bounds::FloatPrimitive>(a: T, b: T) -> T;
 /// Float division that allows optimizations based on algebraic rules.
 ///
 /// Stabilized as [`f16::algebraic_div`], [`f32::algebraic_div`], [`f64::algebraic_div`] and [`f128::algebraic_div`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قسمة عشرية تسمح بتحسينات مبنية على القواعد الجبرية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]
@@ -1922,6 +1946,12 @@ pub const fn fdiv_algebraic<T: bounds::FloatPrimitive>(a: T, b: T) -> T;
 /// Float remainder that allows optimizations based on algebraic rules.
 ///
 /// Stabilized as [`f16::algebraic_rem`], [`f32::algebraic_rem`], [`f64::algebraic_rem`] and [`f128::algebraic_rem`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// باقي قسمة عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+///
+/// </div>
 #[rustc_intrinsic_const_stable_indirect]
 #[rustc_nounwind]
 #[rustc_intrinsic]

@@ -8,21 +8,57 @@
 //! by Nigel Tao and Ken Thompson. A detailed description of the
 //! algorithm can be found in "ParseNumberF64 by Simple Decimal Conversion",
 //! available online: <https://nigeltao.github.io/blog/2020/parse-number-f64-simple.html>.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نوع عشري بدقة عشوائية تستخدمه الخوارزميات البديلة.
+//!
+//! </div>
 
 use dec2flt::common::{ByteSlice, is_8digits};
 
 use crate::num::imp::dec2flt;
 
 /// A decimal floating-point number, represented as a sequence of decimal digits.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رقم عشري ممثَّل كتسلسل من الأرقام العشرية.
+///
+/// </div>
 #[derive(Clone, Debug, PartialEq)]
 pub struct DecimalSeq {
     /// The number of significant digits in the decimal.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد الأرقام المعنوية.
+    ///
+    /// </div>
     pub num_digits: usize,
     /// The offset of the decimal point in the significant digits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// موضع الفاصلة العشرية بين الأرقام المعنوية.
+    ///
+    /// </div>
     pub decimal_point: i32,
     /// If the number of significant digits stored in the decimal is truncated.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل عدد الأرقام المعنوية المخزنة مقصوص.
+    ///
+    /// </div>
     pub truncated: bool,
     /// Buffer of the raw digits, in the range [0, 9].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مخزن الأرقام الخام، في المدى [0, 9].
+    ///
+    /// </div>
     pub digits: [u8; Self::MAX_DIGITS],
 }
 
@@ -57,6 +93,12 @@ impl DecimalSeq {
     ///
     /// In Python:
     ///     `-emin + p2 + math.floor((emin+ 1)*math.log(2, b)-math.log(1-2**(-p2), b))`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى عدد أرقام لازم للتقريب بدون التباس إلى رقم عشري 64-bit.
+    ///
+    /// </div>
     pub const MAX_DIGITS: usize = 768;
 
     /// The max decimal digits that can be exactly represented in a 64-bit integer.
@@ -75,6 +117,12 @@ impl DecimalSeq {
     }
 
     /// Trim trailing zeros from the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الأصفار من نهاية المخزن.
+    ///
+    /// </div>
     // FIXME(tgross35): this could be `.rev().position()` if perf is okay
     pub fn trim(&mut self) {
         // All of the following calls to `DecimalSeq::trim` can't panic because:
@@ -219,6 +267,12 @@ impl DecimalSeq {
 }
 
 /// Parse a big integer representation of the float as a decimal.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقرأ تمثيل عدد صحيح كبير للرقم العشري.
+///
+/// </div>
 pub fn parse_decimal_seq(mut s: &[u8]) -> DecimalSeq {
     let mut d = DecimalSeq::default();
     let start = s;

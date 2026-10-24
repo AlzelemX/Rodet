@@ -51,6 +51,12 @@ where
     /// can also be written more concisely using <code>[Box::pin]\(x)</code>.
     /// This `From` implementation is useful if you already have a `Box<T>`, or you are
     /// constructing a (pinned) `Box` in a different way than with [`Box::new`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<T>` إلى `Pin<Box<T>>`. إذا لم يطبّق `T` الـ `Unpin`، يُثبَّت المحتوى في الذاكرة.
+    ///
+    /// </div>
     fn from(boxed: Box<T, A>) -> Self {
         Box::into_pin(boxed)
     }

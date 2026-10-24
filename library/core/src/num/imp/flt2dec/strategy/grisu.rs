@@ -4,6 +4,12 @@
 //!
 //! [^1]: Florian Loitsch. 2010. Printing floating-point numbers quickly and
 //!   accurately with integers. SIGPLAN Not. 45, 6 (June 2010), 233-243.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تكييف لخوارزمية Grisu3 لطباعة الأرقام العشرية بسرعة ودقة باستخدام الأعداد الصحيحة.
+//!
+//! </div>
 
 use flt2dec::{Decoded, MAX_SIG_DIGITS, round_up};
 
@@ -164,6 +170,12 @@ pub fn max_pow10_no_more_than(x: u32) -> (u8, u32) {
 /// The shortest mode implementation for Grisu.
 ///
 /// It returns `None` when it would return an inexact representation otherwise.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الأقصر لـ Grisu.
+///
+/// </div>
 pub fn format_shortest_opt<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],
@@ -453,6 +465,12 @@ pub fn format_shortest_opt<'a>(
 /// The shortest mode implementation for Grisu with Dragon fallback.
 ///
 /// This should be used for most cases.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الأقصر لـ Grisu مع الرجوع إلى Dragon.
+///
+/// </div>
 pub fn format_shortest<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],
@@ -470,6 +488,12 @@ pub fn format_shortest<'a>(
 /// The exact and fixed mode implementation for Grisu.
 ///
 /// It returns `None` when it would return an inexact representation otherwise.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الدقيق والثابت لـ Grisu.
+///
+/// </div>
 pub fn format_exact_opt<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],
@@ -762,6 +786,12 @@ pub fn format_exact_opt<'a>(
 /// The exact and fixed mode implementation for Grisu with Dragon fallback.
 ///
 /// This should be used for most cases.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الدقيق والثابت لـ Grisu مع الرجوع إلى Dragon.
+///
+/// </div>
 pub fn format_exact<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],

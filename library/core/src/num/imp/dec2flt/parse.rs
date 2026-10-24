@@ -1,4 +1,10 @@
 //! Functions to parse floating-point numbers.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال لقراءة الأرقام العشرية.
+//!
+//! </div>
 
 use dec2flt::common::{ByteSlice, is_8digits};
 use dec2flt::decimal::Decimal;
@@ -186,6 +192,12 @@ fn parse_partial_number(mut s: &[u8]) -> Option<(Decimal, usize)> {
 /// Try to parse a non-special floating point number,
 /// as well as two slices with integer and fractional parts
 /// and the parsed exponent.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحاول قراءة رقم عشري عادي، مع شريحتين للجزء الصحيح والكسري والأس المقروء.
+///
+/// </div>
 pub fn parse_number(s: &[u8]) -> Option<Decimal> {
     if let Some((float, rest)) = parse_partial_number(s) {
         if rest == s.len() {

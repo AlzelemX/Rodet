@@ -349,6 +349,12 @@ enum SenderFlavor<T> {
     List(counter::Sender<list::Channel<T>>),
 
     /// Zero-capacity channel.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة بسعة صفر.
+    ///
+    /// </div>
     Zero(counter::Sender<zero::Channel<T>>),
 }
 
@@ -676,6 +682,12 @@ impl<T> Sender<T> {
     ///
     /// assert_eq!(tx1.capacity(), Some(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت القناة محدودة السعة، يرجع سعتها.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn capacity(&self) -> Option<usize> {
         match &self.flavor {
@@ -700,6 +712,12 @@ impl<T> Sender<T> {
     /// assert!(tx1.same_channel(&tx1));
     /// assert!(!tx1.same_channel(&tx2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المرسِلان ينتميان لنفس القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn same_channel(&self, other: &Sender<T>) -> bool {
         match (&self.flavor, &other.flavor) {
@@ -728,6 +746,12 @@ impl<T> Sender<T> {
     /// drop(rx);
     /// assert!(tx.is_disconnected());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_disconnected(&self) -> bool {
         match &self.flavor {
@@ -807,6 +831,12 @@ impl<T> fmt::Debug for Sender<T> {
 /// rx_thread_1.join().unwrap();
 /// rx_thread_2.join().unwrap();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الاستقبال في قناة Rust (`channel` أو `sync_channel`). يمكن لعدة threads مشاركته بنسخه.
+///
+/// </div>
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "MpmcReceiver")]
 pub struct Receiver<T> {
@@ -842,6 +872,12 @@ pub struct Receiver<T> {
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على رسائل `Receiver`، تنشئه `iter`.
+///
+/// </div>
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 #[derive(Debug)]
 pub struct Iter<'a, T: 'a> {
@@ -889,6 +925,12 @@ pub struct Iter<'a, T: 'a> {
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يحاول إعطاء كل القيم المنتظرة في `Receiver`، تنشئه `try_iter`.
+///
+/// </div>
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 #[derive(Debug)]
 pub struct TryIter<'a, T: 'a> {
@@ -925,6 +967,12 @@ pub struct TryIter<'a, T: 'a> {
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على رسائل `Receiver`، تنشئه `into_iter`.
+///
+/// </div>
 #[unstable(feature = "mpmc_channel", issue = "126840")]
 #[derive(Debug)]
 pub struct IntoIter<T> {
@@ -998,6 +1046,12 @@ enum ReceiverFlavor<T> {
     List(counter::Receiver<list::Channel<T>>),
 
     /// Zero-capacity channel.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناة بسعة صفر.
+    ///
+    /// </div>
     Zero(counter::Receiver<zero::Channel<T>>),
 }
 
@@ -1042,6 +1096,12 @@ impl<T> Receiver<T> {
     ///
     /// assert!(receiver.try_recv().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول استقبال رسالة من القناة بدون انتظار.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn try_recv(&self) -> Result<T, TryRecvError> {
         match &self.flavor {
@@ -1108,6 +1168,12 @@ impl<T> Receiver<T> {
     /// assert_eq!(Ok(3), recv.recv());
     /// assert_eq!(Err(RecvError), recv.recv());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn recv(&self) -> Result<T, RecvError> {
         match &self.flavor {
@@ -1176,6 +1242,12 @@ impl<T> Receiver<T> {
     ///     Err(mpmc::RecvTimeoutError::Timeout)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة أو تجاوز الانتظار `timeout`.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn recv_timeout(&self, timeout: Duration) -> Result<T, RecvTimeoutError> {
         match Instant::now().checked_add(timeout) {
@@ -1243,6 +1315,12 @@ impl<T> Receiver<T> {
     ///     Err(mpmc::RecvTimeoutError::Timeout)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة أو وصل الموعد `deadline`.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn recv_deadline(&self, deadline: Instant) -> Result<T, RecvTimeoutError> {
         match &self.flavor {
@@ -1290,6 +1368,13 @@ impl<T> Receiver<T> {
     /// assert_eq!(iter.next(), Some(3));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يحاول إعطاء كل القيم المنتظرة، ويرجع `None` إذا لم يبق شيء أو انقطعت القناة. لا
+    /// يتوقف المكرر أبدًا بـ panic ولا ينتظر.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn try_iter(&self) -> TryIter<'_, T> {
         TryIter { rx: self }
@@ -1434,6 +1519,12 @@ impl<T> Receiver<T> {
     ///
     /// assert_eq!(recv.capacity(), Some(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت القناة محدودة السعة، يرجع سعتها.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn capacity(&self) -> Option<usize> {
         match &self.flavor {
@@ -1458,6 +1549,12 @@ impl<T> Receiver<T> {
     /// assert!(rx1.same_channel(&rx1));
     /// assert!(!rx1.same_channel(&rx2));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المستقبِلان ينتميان لنفس القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn same_channel(&self, other: &Receiver<T>) -> bool {
         match (&self.flavor, &other.flavor) {
@@ -1493,6 +1590,12 @@ impl<T> Receiver<T> {
     /// assert_eq!(iter.next(), Some(3));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتظر الرسائل، ولا يتوقف أبدًا بـ panic. يرجع `None` عند انقطاع القناة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn iter(&self) -> Iter<'_, T> {
         Iter { rx: self }
@@ -1516,6 +1619,12 @@ impl<T> Receiver<T> {
     /// drop(tx);
     /// assert!(rx.is_disconnected());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     #[unstable(feature = "mpmc_channel", issue = "126840")]
     pub fn is_disconnected(&self) -> bool {
         match &self.flavor {

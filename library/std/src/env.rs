@@ -1350,6 +1350,12 @@ pub mod consts {
     // tidy-alphabetical-end
     ///
     /// </details>
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نص يصف نظام التشغيل المستخدم. مثلًا: `"linux"` أو `"freebsd"`.
+    ///
+    /// </div>
     #[stable(feature = "env", since = "1.0.0")]
     pub const OS: &str = os::OS;
 

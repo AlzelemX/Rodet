@@ -113,6 +113,12 @@ impl<T: ?Sized> CovariantUnsafeCell<T> {
     ///
     /// assert_eq!(*c.get_mut(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[inline(always)]
     #[unstable(feature = "covariant_unsafe_cell", issue = "159735")]
     #[rustc_const_unstable(feature = "covariant_unsafe_cell", issue = "159735")]

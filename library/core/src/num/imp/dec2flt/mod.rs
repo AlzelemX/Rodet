@@ -79,6 +79,12 @@
 //!
 //! This gives `m * 2^p` for the binary floating-point number, with `w * 10^q` as the decimal
 //! equivalent.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تحويل نصوص الأرقام العشرية إلى أرقام عشرية ثنائية بمعيار IEEE 754.
+//!
+//! </div>
 
 #![doc(hidden)]
 #![unstable(
@@ -114,6 +120,12 @@ mod table;
 #[doc(hidden)]
 pub trait Lemire: FloatExt {
     /// Maximum exponent for a fast path case, or `⌊(SIG_BITS+1)/log2(5)⌋`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى أس لحالة المسار السريع.
+    ///
+    /// </div>
     // assuming FLT_EVAL_METHOD = 0
     const MAX_EXPONENT_FAST_PATH: i64 = {
         let log2_5 = f64::consts::LOG2_10 - 1.0;
@@ -121,23 +133,53 @@ pub trait Lemire: FloatExt {
     };
 
     /// Minimum exponent for a fast path case, or `-⌊(SIG_BITS+1)/log2(5)⌋`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر أس لحالة المسار السريع.
+    ///
+    /// </div>
     const MIN_EXPONENT_FAST_PATH: i64 = -Self::MAX_EXPONENT_FAST_PATH;
 
     /// Maximum exponent that can be represented for a disguised-fast path case.
     /// This is `MAX_EXPONENT_FAST_PATH + ⌊(SIG_BITS+1)/log2(10)⌋`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى أس يمكن تمثيله لحالة المسار السريع المقنَّع.
+    ///
+    /// </div>
     const MAX_EXPONENT_DISGUISED_FAST_PATH: i64 =
         Self::MAX_EXPONENT_FAST_PATH + (Self::SIG_TOTAL_BITS as f64 / f64::consts::LOG2_10) as i64;
 
     /// Maximum mantissa for the fast-path (`1 << 53` for f64).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى جزء معنوي للمسار السريع (`1 << 53` لـ f64).
+    ///
+    /// </div>
     const MAX_MANTISSA_FAST_PATH: u64 = 1 << Self::SIG_TOTAL_BITS;
 
     /// Gets a small power-of-ten for fast-path multiplication.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قوة صغيرة للعدد 10 للضرب في المسار السريع.
+    ///
+    /// </div>
     fn pow10_fast_path(exponent: usize) -> Self;
 
     /// Converts integer into float through an as cast.
     /// This is only called in the fast-path algorithm, and therefore
     /// will not lose precision, since the value will always have
     /// only if the value is <= Self::MAX_MANTISSA_FAST_PATH.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل عددًا صحيحًا إلى رقم عشري بـ `as`. يُستدعى فقط في المسار السريع فلا تضيع الدقة.
+    ///
+    /// </div>
     fn from_u64(v: u64) -> Self;
 }
 
@@ -207,6 +249,12 @@ fn biased_fp_to_float<F: FloatExt>(x: BiasedFp) -> F {
 }
 
 /// Converts a decimal string into a floating point number.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل نصًا عشريًا إلى رقم عشري.
+///
+/// </div>
 #[inline(always)] // Will be inlined into a function with `#[inline(never)]`, see above
 pub fn dec2flt<F: Lemire>(s: &str) -> Result<F, ParseFloatError> {
     let mut s = s.as_bytes();

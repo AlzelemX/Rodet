@@ -3,6 +3,12 @@
 //!
 //! [^1]: Burger, R. G. and Dybvig, R. K. 1996. Printing floating-point numbers
 //!   quickly and accurately. SIGPLAN Not. 31, 5 (May. 1996), 108-116.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ترجمة شبه مباشرة إلى Rust لخوارزمية Dragon لطباعة الأرقام العشرية بسرعة ودقة.
+//!
+//! </div>
 
 use flt2dec::estimator::estimate_scaling_factor;
 use flt2dec::{Decoded, MAX_SIG_DIGITS, round_up};
@@ -133,6 +139,12 @@ fn div_rem_upto_16<'a>(
 }
 
 /// The shortest mode implementation for Dragon.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الأقصر لـ Dragon.
+///
+/// </div>
 pub fn format_shortest<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],
@@ -293,6 +305,12 @@ pub fn format_shortest<'a>(
 }
 
 /// The exact and fixed mode implementation for Dragon.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق النمط الدقيق والثابت لـ Dragon.
+///
+/// </div>
 pub fn format_exact<'a>(
     d: &Decoded,
     buf: &'a mut [MaybeUninit<u8>],

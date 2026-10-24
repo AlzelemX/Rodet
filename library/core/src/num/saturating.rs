@@ -604,6 +604,12 @@ macro_rules! saturating_int_impl {
             ///
             /// assert_eq!(n.count_ones(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الآحاد في التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[doc(alias = "popcount")]
             #[doc(alias = "popcnt")]
@@ -624,6 +630,12 @@ macro_rules! saturating_int_impl {
             ///
             #[doc = concat!("assert_eq!(Saturating(!0", stringify!($t), ").count_zeros(), 0);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -644,6 +656,12 @@ macro_rules! saturating_int_impl {
             ///
             /// assert_eq!(n.trailing_zeros(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في نهاية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -720,6 +738,12 @@ macro_rules! saturating_int_impl {
             /// assert_eq!(m, Saturating(0b01010101_00000000));
             /// assert_eq!(m, Saturating(21760));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس ترتيب بايتات العدد.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -774,6 +798,12 @@ macro_rules! saturating_int_impl {
             #[doc = concat!("    assert_eq!(<Saturating<", stringify!($t), ">>::from_be(n), n.swap_bytes())")]
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من big endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -800,6 +830,12 @@ macro_rules! saturating_int_impl {
             #[doc = concat!("    assert_eq!(<Saturating<", stringify!($t), ">>::from_le(n), n.swap_bytes())")]
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من little endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -908,6 +944,12 @@ macro_rules! saturating_int_impl_signed {
             ///
             /// assert_eq!(n.leading_zeros(), 3);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -1034,6 +1076,12 @@ macro_rules! saturating_int_impl_unsigned {
             ///
             /// assert_eq!(n.leading_zeros(), 2);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]

@@ -8,6 +8,12 @@
 //! (as distinct from those defined in the `consts` sub-module),
 //! new code should instead use the associated constants
 //! defined directly on the `f32` type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت النوع العشري أحادي الدقة `f32`.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![allow(missing_docs)]
@@ -100,6 +106,12 @@ impl f32 {
     /// assert_eq!(i.round(), 4.0);
     /// assert_eq!(j.round(), 5.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقرب عدد صحيح إلى `self`. إذا كانت القيمة في المنتصف تمامًا يقرّب بعيدًا عن `0.0`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -127,6 +139,12 @@ impl f32 {
     /// assert_eq!(h.round_ties_even(), 4.0);
     /// assert_eq!(i.round_ties_even(), 4.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقرب عدد صحيح. إذا كانت القيمة في المنتصف يقرّب إلى العدد الزوجي.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "round_ties_even", since = "1.77.0")]
@@ -152,6 +170,12 @@ impl f32 {
     /// assert_eq!(g.trunc(), 3.0);
     /// assert_eq!(h.trunc(), -3.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الصحيح من `self` (يحذف الكسر بالتقريب نحو الصفر).
+    ///
+    /// </div>
     #[doc(alias = "truncate")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -177,6 +201,12 @@ impl f32 {
     /// assert!(abs_difference_x <= f32::EPSILON);
     /// assert!(abs_difference_y <= f32::EPSILON);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الكسري من `self`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -219,6 +249,12 @@ impl f32 {
     /// // Different rounding with the non-fused multiply and add.
     /// assert_eq!(one_plus_eps * one_minus_eps + minus_one, 0.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب وجمع مدمجان: يحسب `(self * a) + b` بخطأ تقريب واحد فقط، فالنتيجة أدق.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[doc(alias = "fmaf", alias = "fusedMultiplyAdd")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -251,6 +287,12 @@ impl f32 {
     /// assert_eq!(a.div_euclid(-b), -1.0); // 7.0 >= -4.0 * -1.0
     /// assert_eq!((-a).div_euclid(-b), 2.0); // -7.0 >= -4.0 * 2.0
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب القسمة الإقليدية، المقابلة لـ `rem_euclid`.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
@@ -288,6 +330,12 @@ impl f32 {
     /// // limitation due to round-off error
     /// assert!((-f32::EPSILON).rem_euclid(3.0) != 0.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب أصغر باقٍ غير سالب لقسمة `self` على `rhs`.
+    ///
+    /// </div>
     #[doc(alias = "modulo", alias = "mod")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -323,6 +371,12 @@ impl f32 {
     /// assert_eq!(f32::powi(f32::NAN, 0), 1.0);
     /// assert_eq!(f32::powi(0.0, 0), 1.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرفع الرقم إلى أس صحيح.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -383,6 +437,12 @@ impl f32 {
     /// assert!(negative.sqrt().is_nan());
     /// assert!(negative_zero.sqrt() == negative_zero);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجذر التربيعي للرقم.
+    ///
+    /// </div>
     #[doc(alias = "squareRoot")]
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -644,6 +704,12 @@ impl f32 {
     ///
     /// assert!(abs_difference <= 1e-6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجذر التكعيبي للرقم.
+    ///
+    /// </div>
     #[rustc_allow_incoherent_impl]
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[stable(feature = "rust1", since = "1.0.0")]

@@ -4,14 +4,32 @@
 //! become poisoned when a thread panics while holding a guard.
 //!
 //! [`poison`]: super::poison
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أقفال متزامنة بدون تسميم (poisoning).
+//!
+//! </div>
 
 use crate::fmt;
 
 /// A type alias for the result of a nonblocking locking method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اسم مستعار لنتيجة دالة قفل لا تنتظر.
+///
+/// </div>
 #[unstable(feature = "sync_nonpoison", issue = "134645")]
 pub type TryLockResult<Guard> = Result<Guard, WouldBlock>;
 
 /// A lock could not be acquired at this time because the operation would otherwise block.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعذّر أخذ القفل الآن لأن العملية كانت ستنتظر.
+///
+/// </div>
 #[unstable(feature = "sync_nonpoison", issue = "134645")]
 pub struct WouldBlock;
 

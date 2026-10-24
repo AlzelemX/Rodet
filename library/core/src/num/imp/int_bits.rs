@@ -61,6 +61,12 @@
 //!     ########
 //! ........ABCDEFGH
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيقات `uN::extract_bits` و`uN::deposit_bits`.
+//!
+//! </div>
 
 macro_rules! uint_impl {
     ($U:ident) => {

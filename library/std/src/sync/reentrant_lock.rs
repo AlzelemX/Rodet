@@ -46,6 +46,12 @@ use crate::thread::{ThreadId, current_id};
 /// });
 /// ```
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قفل استبعاد متبادل يمكن أخذه أكثر من مرة من نفس الـ thread.
+///
+/// </div>
 // # Implementation details
 //
 // The 'owner' field tracks which thread has locked the mutex.
@@ -202,6 +208,12 @@ impl<T: RefUnwindSafe + ?Sized> RefUnwindSafe for ReentrantLock<T> {}
 /// the trait would violate Rust’s reference aliasing rules. Use interior
 /// mutability (usually [`RefCell`](crate::cell::RefCell)) in order to mutate
 /// the guarded data.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق RAII لـ "قفل محدود النطاق" لقفل يمكن إعادة أخذه. يُفتح القفل عند حذفه.
+///
+/// </div>
 #[must_use = "if unused the ReentrantLock will immediately unlock"]
 #[unstable(feature = "reentrant_lock", issue = "121440")]
 pub struct ReentrantLockGuard<
@@ -229,6 +241,12 @@ impl<T> ReentrantLock<T> {
     ///
     /// let lock = ReentrantLock::new(0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ قفلًا جديدًا مفتوحًا جاهزًا للاستخدام.
+    ///
+    /// </div>
     pub const fn new(t: T) -> ReentrantLock<T> {
         ReentrantLock {
             mutex: sys::Mutex::new(),
@@ -250,6 +268,12 @@ impl<T> ReentrantLock<T> {
     /// let lock = ReentrantLock::new(0);
     /// assert_eq!(lock.into_inner(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك هذا القفل ويرجع البيانات التي بداخله.
+    ///
+    /// </div>
     pub fn into_inner(self) -> T {
         self.data
     }
@@ -281,6 +305,12 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// }).join().expect("`thread::spawn` should not fail");
     /// assert_eq!(lock.lock().get(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القفل، وينتظر الـ thread الحالي حتى يتمكن من ذلك.
+    ///
+    /// </div>
     pub fn lock(&self) -> ReentrantLockGuard<'_, T> {
         let this_thread = current_id();
         // Safety: We only touch lock_count when we own the inner mutex.
@@ -315,6 +345,12 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// *lock.get_mut() = 10;
     /// assert_eq!(*lock.lock(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     pub fn get_mut(&mut self) -> &mut T {
         &mut self.data
     }
@@ -325,6 +361,12 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// Otherwise, an RAII guard is returned.
     ///
     /// This function does not block.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول أخذ هذا القفل (بدون انتظار).
+    ///
+    /// </div>
     // FIXME maybe make it a public part of the API?
     #[unstable(issue = "none", feature = "std_internals")]
     #[doc(hidden)]
@@ -354,6 +396,12 @@ impl<T: ?Sized> ReentrantLock<T> {
     /// the user's responsibility to ensure that any reads through it are
     /// properly synchronized to avoid data races, and that it is not read
     /// through after the lock is dropped.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى البيانات.
+    ///
+    /// </div>
     #[unstable(feature = "reentrant_lock_data_ptr", issue = "140368")]
     pub const fn data_ptr(&self) -> *const T {
         &raw const self.data

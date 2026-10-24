@@ -624,6 +624,12 @@ impl<T> Channel<T> {
     }
 
     /// Returns `true` if the channel is disconnected.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     pub(crate) fn is_disconnected(&self) -> bool {
         self.tail.index.load(Ordering::SeqCst) & MARK_BIT != 0
     }

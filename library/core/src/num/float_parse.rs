@@ -1,4 +1,10 @@
 //! User-facing API for float parsing.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! واجهة المستخدم لقراءة الأرقام العشرية من النصوص.
+//!
+//! </div>
 
 use crate::error::Error;
 use crate::fmt;
@@ -58,6 +64,12 @@ macro_rules! from_str_float_impl {
             /// representable floating-point number to the number represented
             /// by `src` (following the same rules for rounding as for the
             /// results of primitive operations).
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل نصًا بالأساس 10 إلى رقم عشري. يقبل أسًّا عشريًا اختياريًا.
+            ///
+            /// </div>
             // We add the `#[inline(never)]` attribute, since its content will
             // be filled with that of `dec2flt`, which has #[inline(always)].
             // Since `dec2flt` is generic, a normal inline attribute on this function
@@ -106,6 +118,12 @@ impl FromStr for f16 {
 ///     println!("Failed conversion to f64: {e}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ قد يرجع عند قراءة رقم عشري من نص.
+///
+/// </div>
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct ParseFloatError {

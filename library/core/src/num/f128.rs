@@ -8,6 +8,12 @@
 //! (as distinct from those defined in the `consts` sub-module),
 //! new code should instead use the associated constants
 //! defined directly on the `f128` type.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت النوع العشري رباعي الدقة `f128`.
+//!
+//! </div>
 
 #![unstable(feature = "f128", issue = "116909")]
 #![expect(clippy::approx_constant, reason = "this module defines f128 constants")]
@@ -18,63 +24,141 @@ use crate::panic::const_assert;
 use crate::{intrinsics, mem};
 
 /// Basic mathematical constants.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ثوابت رياضية أساسية.
+///
+/// </div>
 #[unstable(feature = "f128", issue = "116909")]
 #[rustc_diagnostic_item = "f128_consts_mod"]
 pub mod consts {
     // FIXME: replace with mathematical constants from cmath.
 
     /// Archimedes' constant (π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت أرخميدس (π).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const PI: f128 = 3.14159265358979323846264338327950288419716939937510582097494_f128;
 
     /// The full circle constant (τ)
     ///
     /// Equal to 2π.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت الدائرة الكاملة (τ = 2π).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const TAU: f128 = 6.28318530717958647692528676655900576839433879875021164194989_f128;
 
     /// The golden ratio (φ)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النسبة الذهبية (φ).
+    ///
+    /// </div>
     #[doc(alias = "phi")]
     #[unstable(feature = "f128", issue = "116909")]
     pub const GOLDEN_RATIO: f128 =
         1.61803398874989484820458683436563811772030917980576286213545_f128;
 
     /// The Euler-Mascheroni constant (γ)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ثابت أويلر-ماسكيروني (γ).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const EULER_GAMMA: f128 =
         0.577215664901532860606512090082402431042159335939923598805767_f128;
 
     /// π/2
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/2
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_PI_2: f128 = 1.57079632679489661923132169163975144209858469968755291048747_f128;
 
     /// π/3
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/3
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_PI_3: f128 = 1.04719755119659774615421446109316762806572313312503527365831_f128;
 
     /// π/4
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/4
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_PI_4: f128 = 0.785398163397448309615660845819875721049292349843776455243736_f128;
 
     /// π/6
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/6
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_PI_6: f128 = 0.523598775598298873077107230546583814032861566562517636829157_f128;
 
     /// π/8
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// π/8
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_PI_8: f128 = 0.392699081698724154807830422909937860524646174921888227621868_f128;
 
     /// 1/π
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/π
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_1_PI: f128 = 0.318309886183790671537767526745028724068919291480912897495335_f128;
 
     /// 1/sqrt(π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(π)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     // Also, #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_PI: f128 =
         0.564189583547756286948079451560772585844050629328998856844086_f128;
 
     /// 1/sqrt(2π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(2π)
+    ///
+    /// </div>
     #[doc(alias = "FRAC_1_SQRT_TAU")]
     #[unstable(feature = "f128", issue = "116909")]
     // Also, #[unstable(feature = "more_float_constants", issue = "146939")]
@@ -82,70 +166,160 @@ pub mod consts {
         0.398942280401432677939946059934381868475858631164934657665926_f128;
 
     /// 2/π
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 2/π
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_2_PI: f128 = 0.636619772367581343075535053490057448137838582961825794990669_f128;
 
     /// 2/sqrt(π)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 2/sqrt(π)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_2_SQRT_PI: f128 =
         1.12837916709551257389615890312154517168810125865799771368817_f128;
 
     /// sqrt(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(2) (الجذر التربيعي لـ 2)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const SQRT_2: f128 = 1.41421356237309504880168872420969807856967187537694807317668_f128;
 
     /// 1/sqrt(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(2)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_1_SQRT_2: f128 =
         0.707106781186547524400844362104849039284835937688474036588340_f128;
 
     /// sqrt(3)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(3)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     // Also, #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const SQRT_3: f128 = 1.73205080756887729352744634150587236694280525381038062805581_f128;
 
     /// 1/sqrt(3)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(3)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     // Also, #[unstable(feature = "more_float_constants", issue = "146939")]
     pub const FRAC_1_SQRT_3: f128 =
         0.577350269189625764509148780501957455647601751270126876018602_f128;
 
     /// sqrt(5)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// sqrt(5)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     // Also, #[unstable(feature = "f128", issue = "116909")]
     pub const SQRT_5: f128 = 2.23606797749978969640917366873127623544061835961152572427089_f128;
 
     /// 1/sqrt(5)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// 1/sqrt(5)
+    ///
+    /// </div>
     #[unstable(feature = "more_float_constants", issue = "146939")]
     // Also, #[unstable(feature = "f128", issue = "116909")]
     pub const FRAC_1_SQRT_5: f128 =
         0.447213595499957939281834733746255247088123671922305144854179_f128;
 
     /// Euler's number (e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد أويلر (e).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const E: f128 = 2.71828182845904523536028747135266249775724709369995957496697_f128;
 
     /// log<sub>2</sub>(10)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>2</sub>(10)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LOG2_10: f128 = 3.32192809488736234787031942948939017586483139302458061205476_f128;
 
     /// log<sub>2</sub>(e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>2</sub>(e)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LOG2_E: f128 = 1.44269504088896340735992468100189213742664595415298593413545_f128;
 
     /// log<sub>10</sub>(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>10</sub>(2)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LOG10_2: f128 = 0.301029995663981195213738894724493026768189881462108541310427_f128;
 
     /// log<sub>10</sub>(e)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// log<sub>10</sub>(e)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LOG10_E: f128 = 0.434294481903251827651128918916605082294397005803666566114454_f128;
 
     /// ln(2)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ln(2) (اللوغاريتم الطبيعي لـ 2)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LN_2: f128 = 0.693147180559945309417232121458176568075500134360255254120680_f128;
 
     /// ln(10)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ln(10) (اللوغاريتم الطبيعي لـ 10)
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const LN_10: f128 = 2.30258509299404568401799145468436420760110148862877297603333_f128;
 }
@@ -156,10 +330,22 @@ pub mod consts {
 )))]
 impl f128 {
     /// The radix or base of the internal representation of `f128`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أساس التمثيل الداخلي لـ `f128`.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const RADIX: u32 = 2;
 
     /// The size of this float type in bits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حجم هذا النوع العشري بالبتات.
+    ///
+    /// </div>
     // #[unstable(feature = "f128", issue = "116909")]
     #[unstable(feature = "float_bits_const", issue = "151073")]
     pub const BITS: u32 = 128;
@@ -168,6 +354,12 @@ impl f128 {
     ///
     /// Note that the size of the mantissa in the bitwise representation is one
     /// smaller than this since the leading 1 is not stored explicitly.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عدد الأرقام المعنوية بالأساس 2.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MANTISSA_DIGITS: u32 = 113;
 
@@ -179,6 +371,12 @@ impl f128 {
     /// Equal to floor(log<sub>10</sub>&nbsp;2<sup>[`MANTISSA_DIGITS`]&nbsp;&minus;&nbsp;1</sup>).
     ///
     /// [`MANTISSA_DIGITS`]: f128::MANTISSA_DIGITS
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// العدد التقريبي للأرقام المعنوية بالأساس 10.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const DIGITS: u32 = 33;
 
@@ -190,6 +388,12 @@ impl f128 {
     ///
     /// [Machine epsilon]: https://en.wikipedia.org/wiki/Machine_epsilon
     /// [`MANTISSA_DIGITS`]: f128::MANTISSA_DIGITS
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قيمة إبسيلون الآلة لـ `f128` (الفرق بين 1.0 وأصغر رقم أكبر منه).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_diagnostic_item = "f128_epsilon"]
     pub const EPSILON: f128 = 1.92592994438723585305597794258492732e-34_f128;
@@ -199,6 +403,12 @@ impl f128 {
     /// Equal to &minus;[`MAX`].
     ///
     /// [`MAX`]: f128::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر قيمة `f128` منتهية.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MIN: f128 = -1.18973149535723176508575932662800702e+4932_f128;
     /// Smallest positive normal `f128` value.
@@ -206,6 +416,12 @@ impl f128 {
     /// Equal to 2<sup>[`MIN_EXP`]&nbsp;&minus;&nbsp;1</sup>.
     ///
     /// [`MIN_EXP`]: f128::MIN_EXP
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر قيمة `f128` موجبة طبيعية.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MIN_POSITIVE: f128 = 3.36210314311209350626267781732175260e-4932_f128;
     /// Largest finite `f128` value.
@@ -215,6 +431,12 @@ impl f128 {
     ///
     /// [`MANTISSA_DIGITS`]: f128::MANTISSA_DIGITS
     /// [`MAX_EXP`]: f128::MAX_EXP
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر قيمة `f128` منتهية.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MAX: f128 = 1.18973149535723176508575932662800702e+4932_f128;
 
@@ -225,6 +447,12 @@ impl f128 {
     /// for a significand bounded by 0.5 ≤ x < 1 (i.e. the C definition).
     /// In other words, all normal numbers representable by this type are
     /// greater than or equal to 0.5&nbsp;×&nbsp;2<sup><i>MIN_EXP</i></sup>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر أس طبيعي ممكن للعدد 2 زائد واحد (حسب تعريف IEEE).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MIN_EXP: i32 = -16_381;
     /// One greater than the maximum possible power of 2 exponent
@@ -234,6 +462,12 @@ impl f128 {
     /// for a significand bounded by 0.5 ≤ x < 1 (i.e. the C definition).
     /// In other words, all numbers representable by this type are
     /// strictly less than 2<sup><i>MAX_EXP</i></sup>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر أس ممكن للعدد 2 زائد واحد (حسب تعريف IEEE).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MAX_EXP: i32 = 16_384;
 
@@ -242,6 +476,12 @@ impl f128 {
     /// Equal to ceil(log<sub>10</sub>&nbsp;[`MIN_POSITIVE`]).
     ///
     /// [`MIN_POSITIVE`]: f128::MIN_POSITIVE
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر <i>x</i> يكون فيه 10<sup><i>x</i></sup> طبيعيًا.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MIN_10_EXP: i32 = -4_931;
     /// Maximum <i>x</i> for which 10<sup><i>x</i></sup> is normal.
@@ -249,6 +489,12 @@ impl f128 {
     /// Equal to floor(log<sub>10</sub>&nbsp;[`MAX`]).
     ///
     /// [`MAX`]: f128::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر <i>x</i> يكون فيه 10<sup><i>x</i></sup> طبيعيًا.
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const MAX_10_EXP: i32 = 4_932;
 
@@ -264,16 +510,34 @@ impl f128 {
     /// that the quiet/signaling bit being set to 1 indicates a quiet NaN). Beyond that, nothing is
     /// guaranteed about the specific bit pattern chosen here: both payload and sign are arbitrary.
     /// The concrete bit pattern may change across Rust versions and target platforms.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ليس رقمًا (NaN).
+    ///
+    /// </div>
     #[allow(clippy::eq_op)]
     #[rustc_diagnostic_item = "f128_nan"]
     #[unstable(feature = "f128", issue = "116909")]
     pub const NAN: f128 = 0.0_f128 / 0.0_f128;
 
     /// Infinity (∞).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اللانهاية (∞).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const INFINITY: f128 = 1.0_f128 / 0.0_f128;
 
     /// Negative infinity (−∞).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// سالب اللانهاية (−∞).
+    ///
+    /// </div>
     #[unstable(feature = "f128", issue = "116909")]
     pub const NEG_INFINITY: f128 = -1.0_f128 / 0.0_f128;
 
@@ -304,6 +568,12 @@ impl f128 {
     /// assert_eq!((max_exact_int + 1) as f128, (max_exact_int + 2) as f128);
     /// # }}
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر عدد صحيح يمكن تمثيله بالضبط في `f128`، بدون أن يتحول عدد صحيح آخر لنفس القيمة.
+    ///
+    /// </div>
     // #[unstable(feature = "f128", issue = "116909")]
     #[unstable(feature = "float_exact_integer_constants", issue = "152466")]
     pub const MAX_EXACT_INTEGER: i128 = (1 << Self::MANTISSA_DIGITS) - 1;
@@ -337,6 +607,12 @@ impl f128 {
     /// assert_eq!((min_exact_int - 1) as f128, (min_exact_int - 2) as f128);
     /// # }}
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر عدد صحيح يمكن تمثيله بالضبط في `f128`، بدون أن يتحول عدد صحيح آخر لنفس القيمة.
+    ///
+    /// </div>
     // #[unstable(feature = "f128", issue = "116909")]
     #[unstable(feature = "float_exact_integer_constants", issue = "152466")]
     pub const MIN_EXACT_INTEGER: i128 = -Self::MAX_EXACT_INTEGER;
@@ -363,6 +639,12 @@ impl f128 {
     /// assert_eq!(sign_mask, (-0.0f128).to_bits());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البت المستخدم لترميز إشارة `f128`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const SIGN_MASK: u128 = 0x8000_0000_0000_0000_0000_0000_0000_0000;
 
@@ -386,6 +668,12 @@ impl f128 {
     /// assert_eq!(get_exp(4.0), 2);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البتات المستخدمة لترميز أس `f128`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const EXPONENT_MASK: u128 = 0x7fff_0000_0000_0000_0000_0000_0000_0000;
 
@@ -411,6 +699,12 @@ impl f128 {
     /// assert_eq!(f128::MIN.to_bits() & f128::MANTISSA_MASK, f128::MANTISSA_MASK);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قناع البتات المستخدمة لترميز الجزء المعنوي (mantissa) لـ `f128`.
+    ///
+    /// </div>
     #[unstable(feature = "float_masks", issue = "154064")]
     pub const MANTISSA_MASK: u128 = 0x0000_ffff_ffff_ffff_ffff_ffff_ffff_ffff;
 
@@ -433,6 +727,12 @@ impl f128 {
     /// assert!(!f.is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه القيمة NaN.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -460,6 +760,12 @@ impl f128 {
     /// assert!(neg_inf.is_infinite());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت هذه القيمة لانهاية موجبة أو سالبة، و`false` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -485,6 +791,12 @@ impl f128 {
     /// assert!(!neg_inf.is_finite());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن هذا الرقم لانهائيًا ولا NaN.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -518,6 +830,12 @@ impl f128 {
     /// ```
     ///
     /// [subnormal]: https://en.wikipedia.org/wiki/Denormal_number
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الرقم دون الطبيعي (subnormal).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -548,6 +866,12 @@ impl f128 {
     /// ```
     ///
     /// [subnormal]: https://en.wikipedia.org/wiki/Denormal_number
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن الرقم صفرًا ولا لانهائيًا ولا دون الطبيعي ولا NaN.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -572,6 +896,12 @@ impl f128 {
     /// assert_eq!(inf.classify(), FpCategory::Infinite);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع فئة الرقم العشري. إذا كنت ستختبر خاصية واحدة، فالدالة الخاصة بها أسرع عادةً.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use]
@@ -605,6 +935,13 @@ impl f128 {
     /// assert!(f.is_sign_positive());
     /// assert!(!g.is_sign_positive());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت إشارة `self` موجبة، بما في ذلك `+0.0` وقيم NaN ببت إشارة موجب
+    /// واللانهاية الموجبة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -631,6 +968,13 @@ impl f128 {
     /// assert!(!f.is_sign_negative());
     /// assert!(g.is_sign_negative());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت إشارة `self` سالبة، بما في ذلك `-0.0` وقيم NaN ببت إشارة سالب
+    /// واللانهاية السالبة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -672,6 +1016,12 @@ impl f128 {
     /// [`INFINITY`]: Self::INFINITY
     /// [`MIN`]: Self::MIN
     /// [`MAX`]: Self::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أصغر رقم أكبر من `self`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "nextUp")]
     #[unstable(feature = "f128", issue = "116909")]
@@ -727,6 +1077,12 @@ impl f128 {
     /// [`INFINITY`]: Self::INFINITY
     /// [`MIN`]: Self::MIN
     /// [`MAX`]: Self::MAX
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أكبر رقم أصغر من `self`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "nextDown")]
     #[unstable(feature = "f128", issue = "116909")]
@@ -763,6 +1119,12 @@ impl f128 {
     /// assert!(abs_difference <= f128::EPSILON);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب مقلوب الرقم، `1/x`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -789,6 +1151,12 @@ impl f128 {
     /// assert!(abs_difference <= f128::EPSILON);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من راديان إلى درجات.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -820,6 +1188,12 @@ impl f128 {
     /// assert!(abs_difference <= 1e-30);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من درجات إلى راديان.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -854,6 +1228,12 @@ impl f128 {
     /// assert_eq!(x.max(f128::NAN), x);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأكبر من الرقمين، مع تجاهل NaN.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -885,6 +1265,12 @@ impl f128 {
     /// assert_eq!(x.min(f128::NAN), x);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأصغر من الرقمين، مع تجاهل NaN.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -917,6 +1303,12 @@ impl f128 {
     /// assert!(x.maximum(f128::NAN).is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأكبر من الرقمين، مع نشر NaN (إذا كان أحدهما NaN تكون النتيجة NaN).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     // #[unstable(feature = "float_minimum_maximum", issue = "91079")]
@@ -949,6 +1341,12 @@ impl f128 {
     /// assert!(x.minimum(f128::NAN).is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأصغر من الرقمين، مع نشر NaN.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     // #[unstable(feature = "float_minimum_maximum", issue = "91079")]
@@ -972,6 +1370,12 @@ impl f128 {
     /// assert_eq!((-5.5f128).midpoint(8.0), 1.25);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "average")]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1017,6 +1421,13 @@ impl f128 {
     /// * Not be `NaN`
     /// * Not be infinite
     /// * Be representable in the return type `Int`, after truncating off its fractional part
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، بافتراض أن القيمة منتهية وتتسع في ذلك النوع (غير
+    /// آمن).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -1042,6 +1453,12 @@ impl f128 {
     /// assert_eq!(x.cast::<f64>(), 1.5_f64);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى النوع العشري المستهدف، مع التقريب حسب معيار IEEE 754.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
     #[inline]
@@ -1065,6 +1482,12 @@ impl f128 {
     /// assert_eq!(f128::NAN.to_int_saturating::<u8>(), 0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، مع التشبع عند حدود النوع وتحويل `NaN` إلى صفر.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
     #[inline]
@@ -1086,6 +1509,13 @@ impl f128 {
     /// assert_eq!(f128::NAN.to_int_checked::<u8>(), None);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح، ويرجع `None` إذا كانت القيمة `NaN` أو لانهائية
+    /// أو لا تتسع.
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
     #[inline]
@@ -1111,6 +1541,12 @@ impl f128 {
     /// assert_eq!(4.6_f128.to_int_strict::<u8>(), 4);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرّب نحو الصفر ويحوّل إلى أي نوع عدد صحيح (ويتوقف بـ panic إذا لم تتسع).
+    ///
+    /// </div>
     #[unstable(feature = "float_conversions", issue = "159913")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
     #[inline]
@@ -1141,6 +1577,12 @@ impl f128 {
     /// assert_eq!((12.5f128).to_bits(), 0x40029000000000000000000000000000);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام إلى `u128`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -1188,6 +1630,12 @@ impl f128 {
     /// assert_eq!(v, 12.5);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تحويل خام من `u128`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1216,6 +1664,12 @@ impl f128 {
     ///      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب big-endian (ترتيب الشبكة).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -1241,6 +1695,12 @@ impl f128 {
     ///      0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x02, 0x40]
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب little-endian.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -1277,6 +1737,12 @@ impl f128 {
     ///     }
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تمثيل هذا الرقم العشري في الذاكرة كمصفوفة بايتات بترتيب الجهاز.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "this returns the result of the operation, without modifying the original"]
@@ -1302,6 +1768,12 @@ impl f128 {
     /// assert_eq!(value, 12.5);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب big-endian.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1327,6 +1799,12 @@ impl f128 {
     /// assert_eq!(value, 12.5);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب little-endian.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1362,6 +1840,12 @@ impl f128 {
     /// assert_eq!(value, 12.5);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ رقمًا عشريًا من تمثيله كمصفوفة بايتات بترتيب الجهاز.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1430,6 +1914,12 @@ impl f128 {
     ///         .for_each(|(a, b)| assert_eq!(a.to_bits(), b.to_bits()))
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الترتيب بين `self` و`other` (ترتيب كلي يشمل NaN).
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1497,6 +1987,12 @@ impl f128 {
     /// assert!((-1.0f128).clamp(-0.0, 1.0).is_sign_negative());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر القيمة ضمن مجال معيّن، إلا إذا كانت NaN.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[must_use = "method returns a new number and does not mutate the original value"]
@@ -1542,6 +2038,12 @@ impl f128 {
     /// assert_eq!((-2.0f128).clamp_magnitude(3.0), -2.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر هذا الرقم ضمن مدى متماثل حول الصفر.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "clamp_magnitude", issue = "148519")]
     #[rustc_const_unstable(feature = "clamp_magnitude", issue = "148519")]
@@ -1580,6 +2082,12 @@ impl f128 {
     /// assert!(f128::NAN.clamp_to(1.0..=2.0).is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحصر القيمة ضمن مدى معيّن، إلا إذا كانت NaN.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[unstable(feature = "clamp_to", issue = "147781")]
@@ -1609,6 +2117,12 @@ impl f128 {
     /// assert!(f128::NAN.abs().is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب القيمة المطلقة لـ `self`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1637,6 +2151,12 @@ impl f128 {
     /// assert!(f128::NAN.signum().is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقمًا يمثل إشارة `self` (1.0 أو -1.0 أو NaN).
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1675,6 +2195,12 @@ impl f128 {
     /// assert!(f128::NAN.copysign(1.0).is_nan());
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقمًا بمقدار `self` وإشارة `sign`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1686,6 +2212,12 @@ impl f128 {
     /// Float addition that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمع عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1697,6 +2229,12 @@ impl f128 {
     /// Float subtraction that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرح عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1708,6 +2246,12 @@ impl f128 {
     /// Float multiplication that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1719,6 +2263,12 @@ impl f128 {
     /// Float division that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قسمة عشرية تسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1730,6 +2280,12 @@ impl f128 {
     /// Float remainder that allows optimizations based on algebraic rules.
     ///
     /// See [algebraic operators](primitive@f32#algebraic-operators) for more info.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// باقي قسمة عشري يسمح بتحسينات مبنية على القواعد الجبرية.
+    ///
+    /// </div>
     #[must_use = "method returns a new number and does not mutate the original value"]
     #[unstable(feature = "f128", issue = "116909")]
     #[rustc_const_unstable(feature = "f128", issue = "116909")]
@@ -1757,6 +2313,12 @@ impl f128 {
     /// assert_eq!(y.nan_to(0.0f128), f128::INFINITY);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `self` إذا لم تكن القيمة NaN، وإلا يرجع `replacement`.
+    ///
+    /// </div>
     #[must_use = "method returns a new float and does not mutate the original value"]
     #[unstable(feature = "float_nan_to", issue = "161248")]
     #[rustc_const_unstable(feature = "float_nan_to", issue = "161248")]
@@ -1794,6 +2356,12 @@ impl f128 {
     /// assert_eq!(h.floor(), -4.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أكبر عدد صحيح أصغر من أو يساوي `self` (التقريب للأسفل).
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1820,6 +2388,12 @@ impl f128 {
     /// assert_eq!(g.ceil(), 4.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أصغر عدد صحيح أكبر من أو يساوي `self` (التقريب للأعلى).
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "ceiling")]
     #[rustc_allow_incoherent_impl]
@@ -1854,6 +2428,12 @@ impl f128 {
     /// assert_eq!(j.round(), 5.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقرب عدد صحيح إلى `self`. إذا كانت القيمة في المنتصف تمامًا يقرّب بعيدًا عن `0.0`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1885,6 +2465,12 @@ impl f128 {
     /// assert_eq!(i.round_ties_even(), 4.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقرب عدد صحيح. إذا كانت القيمة في المنتصف يقرّب إلى العدد الزوجي.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1914,6 +2500,12 @@ impl f128 {
     /// assert_eq!(h.trunc(), -3.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الصحيح من `self` (يحذف الكسر بالتقريب نحو الصفر).
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "truncate")]
     #[rustc_allow_incoherent_impl]
@@ -1943,6 +2535,12 @@ impl f128 {
     /// assert!(abs_difference_y <= f128::EPSILON);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الكسري من `self`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -1989,6 +2587,12 @@ impl f128 {
     /// assert_eq!(one_plus_eps * one_minus_eps + minus_one, 0.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب وجمع مدمجان: يحسب `(self * a) + b` بخطأ تقريب واحد فقط، فالنتيجة أدق.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[doc(alias = "fmaf128", alias = "fusedMultiplyAdd")]
@@ -2028,6 +2632,12 @@ impl f128 {
     /// );
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب `(self * a) + b` بتقريب غير محدد.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[doc(alias = "fmuladd")]
@@ -2063,6 +2673,12 @@ impl f128 {
     /// assert_eq!((-a).div_euclid(-b), 2.0); // -7.0 >= -4.0 * 2.0
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب القسمة الإقليدية، المقابلة لـ `rem_euclid`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -2108,6 +2724,12 @@ impl f128 {
     /// assert!((-f128::EPSILON).rem_euclid(3.0) != 0.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب أصغر باقٍ غير سالب لقسمة `self` على `rhs`.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[doc(alias = "modulo", alias = "mod")]
@@ -2148,6 +2770,12 @@ impl f128 {
     /// assert_eq!(f128::powi(0.0, 0), 1.0);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرفع الرقم إلى أس صحيح.
+    ///
+    /// </div>
     #[inline]
     #[rustc_allow_incoherent_impl]
     #[unstable(feature = "f128", issue = "116909")]
@@ -2181,6 +2809,12 @@ impl f128 {
     /// assert!(negative_zero.sqrt() == negative_zero);
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجذر التربيعي للرقم.
+    ///
+    /// </div>
     #[inline]
     #[doc(alias = "squareRoot")]
     #[rustc_allow_incoherent_impl]

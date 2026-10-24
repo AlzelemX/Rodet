@@ -39,6 +39,12 @@ pub struct OnceCell<#[rustc_assert_variance(invariant)] T> {
 
 impl<T> OnceCell<T> {
     /// Creates a new uninitialized cell.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة غير مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "once_cell", since = "1.70.0")]
@@ -65,6 +71,12 @@ impl<T> OnceCell<T> {
     /// assert_eq!(cell.set(String::from("puppy")), Err(String::from("puppy")));
     /// assert_eq!(cell.get(), Some(&"kitty".to_string()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ خلية جديدة مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "once_cell_new_init", issue = "159859")]
@@ -75,6 +87,12 @@ impl<T> OnceCell<T> {
     /// Gets the reference to the underlying value.
     ///
     /// Returns `None` if the cell is uninitialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة، إن كانت مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn get(&self) -> Option<&T> {
@@ -85,6 +103,12 @@ impl<T> OnceCell<T> {
     /// Gets the mutable reference to the underlying value.
     ///
     /// Returns `None` if the cell is uninitialized.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة، إن كانت مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     pub fn get_mut(&mut self) -> Option<&mut T> {
@@ -111,6 +135,12 @@ impl<T> OnceCell<T> {
     ///
     /// assert!(cell.get().is_some());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ محتوى الخلية بـ `value`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -144,6 +174,12 @@ impl<T> OnceCell<T> {
     ///
     /// assert!(cell.get().is_some());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يهيئ محتوى الخلية بـ `value` إذا لم تكن مهيأة، ثم يرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_try_insert", issue = "116693")]
     #[rustc_should_not_be_called_on_const_items]
@@ -182,6 +218,12 @@ impl<T> OnceCell<T> {
     /// let value = cell.get_or_init(|| unreachable!());
     /// assert_eq!(value, &92);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "once_cell", since = "1.70.0")]
     #[rustc_should_not_be_called_on_const_items]
@@ -219,6 +261,12 @@ impl<T> OnceCell<T> {
     /// let value = cell.get_mut_or_init(|| unreachable!());
     /// assert_eq!(*value, 94);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "once_cell_get_mut", issue = "121641")]
     pub fn get_mut_or_init<F>(&mut self, f: F) -> &mut T
@@ -258,6 +306,12 @@ impl<T> OnceCell<T> {
     /// assert_eq!(value, Ok(&92));
     /// assert_eq!(cell.get(), Some(&92))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة. إذا فشلت `f()` يرجع خطأً.
+    ///
+    /// </div>
     #[unstable(feature = "once_cell_try", issue = "109737")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn get_or_try_init<F, E>(&self, f: F) -> Result<&T, E>
@@ -299,6 +353,13 @@ impl<T> OnceCell<T> {
     /// *value += 2;
     /// assert_eq!(cell.get(), Some(&1236))
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى محتوى الخلية، ويهيئها بـ `f()` إذا لم تكن مهيأة. إذا فشلت
+    /// `f()` يرجع خطأً.
+    ///
+    /// </div>
     #[unstable(feature = "once_cell_get_mut", issue = "121641")]
     pub fn get_mut_or_try_init<F, E>(&mut self, f: F) -> Result<&mut T, E>
     where

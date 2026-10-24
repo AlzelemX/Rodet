@@ -45,6 +45,12 @@ use crate::time::{Duration, Instant};
 ///
 /// [`poison::Mutex`]: crate::sync::poison::Mutex
 /// [`poison::Condvar`]: crate::sync::poison::Condvar
+///
+/// <div lang="ar" dir="rtl">
+///
+/// متغير شرط (Condition Variable) لانتظار حدث بين الـ threads.
+///
+/// </div>
 #[unstable(feature = "nonpoison_condvar", issue = "134645")]
 pub struct Condvar {
     inner: sys::Condvar,
@@ -61,6 +67,12 @@ impl Condvar {
     ///
     /// let condvar = Condvar::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ متغير شرط جديدًا جاهزًا للانتظار والإشعار.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     #[must_use]
     #[inline]
@@ -119,6 +131,12 @@ impl Condvar {
     ///     cvar.wait(&mut started);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى يصل إشعار لمتغير الشرط هذا.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn wait<T>(&self, guard: &mut MutexGuard<'_, T>) {
         unsafe {
@@ -170,6 +188,12 @@ impl Condvar {
     /// let mut guard = lock.lock();
     /// cvar.wait_while(&mut guard, |pending| { *pending });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى يصبح الشرط المعطى false.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn wait_while<T, F>(&self, guard: &mut MutexGuard<'_, T>, mut condition: F)
     where
@@ -243,6 +267,12 @@ impl Condvar {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إشعارًا على متغير الشرط هذا، مع مهلة محددة.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn wait_timeout<T>(
         &self,
@@ -313,6 +343,12 @@ impl Condvar {
     /// }
     /// // access the locked mutex via guard
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إشعارًا على متغير الشرط هذا، مع مهلة محددة.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn wait_timeout_while<T, F>(
         &self,
@@ -378,6 +414,12 @@ impl Condvar {
     ///     cvar.wait(&mut started);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ thread واحدًا منتظرًا على متغير الشرط هذا.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn notify_one(&self) {
         self.inner.notify_one()
@@ -422,6 +464,12 @@ impl Condvar {
     ///     cvar.wait(&mut started);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ كل الـ threads المنتظرة على متغير الشرط هذا.
+    ///
+    /// </div>
     #[unstable(feature = "nonpoison_condvar", issue = "134645")]
     pub fn notify_all(&self) {
         self.inner.notify_all()
@@ -438,6 +486,12 @@ impl fmt::Debug for Condvar {
 #[unstable(feature = "nonpoison_condvar", issue = "134645")]
 impl Default for Condvar {
     /// Creates a `Condvar` which is ready to be waited on and notified.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Condvar` جاهزًا للانتظار والإشعار.
+    ///
+    /// </div>
     fn default() -> Condvar {
         Condvar::new()
     }

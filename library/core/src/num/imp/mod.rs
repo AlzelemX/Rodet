@@ -1,4 +1,10 @@
 //! Numeric routines, separate from API.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال رقمية منفصلة عن الواجهة.
+//!
+//! </div>
 
 // These modules are public only for testing.
 #[cfg(not(no_fp_fmt_parse))]

@@ -136,6 +136,12 @@
 //!
 //! println!("completed");
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات اتصال: طابور FIFO بعدة مرسلين ومستقبل واحد (mpsc).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -176,6 +182,12 @@ use crate::{error, fmt};
 /// println!("Waiting...");
 /// println!("{}", recv.recv().unwrap()); // Received after 2 seconds
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الاستقبال في قناة Rust (`channel` أو `sync_channel`). يملكه thread واحد فقط.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "MpscReceiver")]
 pub struct Receiver<T> {
@@ -217,6 +229,12 @@ impl<T> !Sync for Receiver<T> {}
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على رسائل `Receiver`، تنشئه `iter`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 pub struct Iter<'a, T: 'a> {
@@ -262,6 +280,12 @@ pub struct Iter<'a, T: 'a> {
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يحاول إعطاء كل القيم المنتظرة في `Receiver`، تنشئه `try_iter`.
+///
+/// </div>
 #[stable(feature = "receiver_try_iter", since = "1.15.0")]
 #[derive(Debug)]
 pub struct TryIter<'a, T: 'a> {
@@ -296,6 +320,12 @@ pub struct TryIter<'a, T: 'a> {
 ///     println!("Got: {x}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر مالك على رسائل `Receiver`، تنشئه `into_iter`.
+///
+/// </div>
 #[stable(feature = "receiver_into_iter", since = "1.1.0")]
 #[derive(Debug)]
 pub struct IntoIter<T> {
@@ -335,6 +365,12 @@ pub struct IntoIter<T> {
 ///
 /// assert_eq!(3, msg + msg2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الإرسال في قناة Rust غير المتزامنة `channel`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "MpscSender")]
 pub struct Sender<T> {
@@ -395,6 +431,12 @@ unsafe impl<T: Send> Sync for Sender<T> {}
 ///
 /// println!("message {msg} received");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف الإرسال في قناة Rust المتزامنة `sync_channel`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct SyncSender<T> {
     inner: mpmc::Sender<T>,
@@ -409,6 +451,12 @@ unsafe impl<T: Send> Send for SyncSender<T> {}
 /// A **send** operation can only fail if the receiving end of a channel is
 /// disconnected, implying that the data could never be received. The error
 /// contains the data being sent as a payload so it can be recovered.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `Sender::send` أو `SyncSender::send` على القنوات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub struct SendError<T>(#[stable(feature = "rust1", since = "1.0.0")] pub T);
@@ -420,6 +468,12 @@ pub struct SendError<T>(#[stable(feature = "rust1", since = "1.0.0")] pub T);
 /// messages will ever be received.
 ///
 /// [`recv`]: Receiver::recv
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `recv` على `Receiver`.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct RecvError;
@@ -429,16 +483,34 @@ pub struct RecvError;
 /// a [`sync_channel`].
 ///
 /// [`try_recv`]: Receiver::try_recv
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأسباب الممكنة لعدم إرجاع `try_recv` بيانات. يحدث مع `channel` و`sync_channel`.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum TryRecvError {
     /// This **channel** is currently empty, but the **Sender**(s) have not yet
     /// disconnected, so data may yet become available.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القناة فارغة حاليًا، لكن المرسلين لم ينقطعوا بعد، فقد تصل بيانات.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Empty,
 
     /// The **channel**'s sending half has become disconnected, and there will
     /// never be any more data received on it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف الإرسال في القناة انقطع، ولن تصل أي بيانات أخرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Disconnected,
 }
@@ -448,15 +520,33 @@ pub enum TryRecvError {
 /// a [`sync_channel`].
 ///
 /// [`recv_timeout`]: Receiver::recv_timeout
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأخطاء الممكنة التي منعت `recv_timeout` من إرجاع بيانات.
+///
+/// </div>
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 #[stable(feature = "mpsc_recv_timeout", since = "1.12.0")]
 pub enum RecvTimeoutError {
     /// This **channel** is currently empty, but the **Sender**(s) have not yet
     /// disconnected, so data may yet become available.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// القناة فارغة حاليًا، لكن المرسلين لم ينقطعوا بعد، فقد تصل بيانات.
+    ///
+    /// </div>
     #[stable(feature = "mpsc_recv_timeout", since = "1.12.0")]
     Timeout,
     /// The **channel**'s sending half has become disconnected, and there will
     /// never be any more data received on it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف الإرسال في القناة انقطع، ولن تصل أي بيانات أخرى.
+    ///
+    /// </div>
     #[stable(feature = "mpsc_recv_timeout", since = "1.12.0")]
     Disconnected,
 }
@@ -465,6 +555,12 @@ pub enum RecvTimeoutError {
 /// [`try_send`] method.
 ///
 /// [`try_send`]: SyncSender::try_send
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النتائج الخاطئة الممكنة للدالة `try_send`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub enum TrySendError<T> {
@@ -474,11 +570,23 @@ pub enum TrySendError<T> {
     /// If this is a buffered channel, then the buffer is full at this time. If
     /// this is not a buffered channel, then there is no [`Receiver`] available to
     /// acquire the data.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تعذّر إرسال البيانات في `sync_channel` لأن الإرسال يتطلب الانتظار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Full(#[stable(feature = "rust1", since = "1.0.0")] T),
 
     /// This [`sync_channel`]'s receiving half has disconnected, so the data could not be
     /// sent. The data is returned back to the callee in this case.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف الاستقبال في هذه الـ `sync_channel` انقطع، فتعذّر الإرسال. وتُرجع البيانات للمرسل.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Disconnected(#[stable(feature = "rust1", since = "1.0.0")] T),
 }
@@ -654,6 +762,12 @@ impl<T> Sender<T> {
     /// drop(rx);
     /// assert!(tx.is_disconnected());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     #[unstable(feature = "mpsc_is_disconnected", issue = "153668")]
     pub fn is_disconnected(&self) -> bool {
         self.inner.is_disconnected()
@@ -667,6 +781,12 @@ impl<T> Clone for Sender<T> {
     /// Note, be aware of the lifetime of the sender because all senders
     /// (including the original) need to be dropped in order for
     /// [`Receiver::recv`] to stop blocking.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ المرسِل لإرسال الرسائل من threads أخرى.
+    ///
+    /// </div>
     fn clone(&self) -> Sender<T> {
         Sender { inner: self.inner.clone() }
     }
@@ -723,6 +843,12 @@ impl<T> SyncSender<T> {
     /// let msg = receiver.recv().unwrap();
     /// assert_eq!(1, msg);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل قيمة على هذه القناة المتزامنة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn send(&self, t: T) -> Result<(), SendError<T>> {
         self.inner.send(t)
@@ -781,6 +907,12 @@ impl<T> SyncSender<T> {
     /// handle1.join().unwrap();
     /// handle2.join().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرسال قيمة على هذه القناة بدون انتظار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn try_send(&self, t: T) -> Result<(), TrySendError<T>> {
         self.inner.try_send(t)
@@ -844,6 +976,12 @@ impl<T> Receiver<T> {
     ///
     /// assert!(receiver.try_recv().is_err());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول إرجاع قيمة منتظرة على هذا المستقبِل بدون انتظار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn try_recv(&self) -> Result<T, TryRecvError> {
         self.inner.try_recv()
@@ -903,6 +1041,12 @@ impl<T> Receiver<T> {
     /// assert_eq!(Ok(3), recv.recv());
     /// assert_eq!(Err(RecvError), recv.recv());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn recv(&self) -> Result<T, RecvError> {
         self.inner.recv()
@@ -963,6 +1107,12 @@ impl<T> Receiver<T> {
     ///     Err(mpsc::RecvTimeoutError::Timeout)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة أو تجاوز الانتظار `timeout`.
+    ///
+    /// </div>
     #[stable(feature = "mpsc_recv_timeout", since = "1.12.0")]
     pub fn recv_timeout(&self, timeout: Duration) -> Result<T, RecvTimeoutError> {
         self.inner.recv_timeout(timeout)
@@ -1024,6 +1174,12 @@ impl<T> Receiver<T> {
     ///     Err(mpsc::RecvTimeoutError::Timeout)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر قيمة على هذا المستقبِل، ويرجع خطأً إذا انقطعت القناة أو وصل الموعد `deadline`.
+    ///
+    /// </div>
     #[unstable(feature = "deadline_api", issue = "46316")]
     pub fn recv_deadline(&self, deadline: Instant) -> Result<T, RecvTimeoutError> {
         self.inner.recv_deadline(deadline)
@@ -1052,6 +1208,12 @@ impl<T> Receiver<T> {
     /// assert_eq!(iter.next(), Some(3));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتظر الرسائل، ولا يتوقف أبدًا بـ panic. يرجع `None` عند انقطاع القناة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn iter(&self) -> Iter<'_, T> {
         Iter { rx: self }
@@ -1093,6 +1255,13 @@ impl<T> Receiver<T> {
     /// assert_eq!(iter.next(), Some(3));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يحاول إعطاء كل القيم المنتظرة، ويرجع `None` إذا لم يبق شيء أو انقطعت القناة. لا
+    /// يتوقف المكرر أبدًا بـ panic ولا ينتظر.
+    ///
+    /// </div>
     #[stable(feature = "receiver_try_iter", since = "1.15.0")]
     pub fn try_iter(&self) -> TryIter<'_, T> {
         TryIter { rx: self }
@@ -1116,6 +1285,12 @@ impl<T> Receiver<T> {
     /// drop(tx);
     /// assert!(rx.is_disconnected());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت القناة مقطوعة.
+    ///
+    /// </div>
     #[unstable(feature = "mpsc_is_disconnected", issue = "153668")]
     pub fn is_disconnected(&self) -> bool {
         self.inner.is_disconnected()
@@ -1224,6 +1399,12 @@ impl<T> From<SendError<T>> for TrySendError<T> {
     /// This conversion always returns a `TrySendError::Disconnected` containing the data in the `SendError<T>`.
     ///
     /// No data is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `SendError<T>` إلى `TrySendError<T>`.
+    ///
+    /// </div>
     fn from(err: SendError<T>) -> TrySendError<T> {
         match err {
             SendError(t) => TrySendError::Disconnected(t),
@@ -1261,6 +1442,12 @@ impl From<RecvError> for TryRecvError {
     /// This conversion always returns `TryRecvError::Disconnected`.
     ///
     /// No data is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `RecvError` إلى `TryRecvError`.
+    ///
+    /// </div>
     fn from(err: RecvError) -> TryRecvError {
         match err {
             RecvError => TryRecvError::Disconnected,
@@ -1288,6 +1475,12 @@ impl From<RecvError> for RecvTimeoutError {
     /// This conversion always returns `RecvTimeoutError::Disconnected`.
     ///
     /// No data is allocated on the heap.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `RecvError` إلى `RecvTimeoutError`.
+    ///
+    /// </div>
     fn from(err: RecvError) -> RecvTimeoutError {
         match err {
             RecvError => RecvTimeoutError::Disconnected,

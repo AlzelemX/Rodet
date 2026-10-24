@@ -1,4 +1,10 @@
 //! Waking mechanism for threads blocked on channel operations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! آلية إيقاظ الـ threads المنتظرة على عمليات القناة.
+//!
+//! </div>
 
 use super::context::Context;
 use super::select::{Operation, Selected};

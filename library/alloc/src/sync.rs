@@ -7,6 +7,12 @@
 //! **Note**: This module is only available on platforms that support atomic
 //! loads and stores of pointers. This may be detected at compile time using
 //! `#[cfg(target_has_atomic = "ptr")]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مؤشرات عد المراجع الآمنة بين الـ threads (`Arc`).
+//!
+//! </div>
 
 #[unstable(feature = "unique_rc_arc", issue = "112566")]
 pub use crate::rcs::arc::UniqueArc;

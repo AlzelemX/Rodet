@@ -3,6 +3,12 @@
 //! *[See also the `f16` primitive type](primitive@f16).*
 //!
 //! Mathematically significant numbers are provided in the `consts` sub-module.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ثوابت النوع العشري نصف الدقة `f16`.
+//!
+//! </div>
 
 #![unstable(feature = "f16", issue = "116909")]
 #![doc(test(attr(feature(cfg_target_has_reliable_f16_f128), expect(internal_features))))]

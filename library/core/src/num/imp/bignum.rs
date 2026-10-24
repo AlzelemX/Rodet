@@ -8,6 +8,12 @@
 //! In principle it is possible to have multiple bignum types for different
 //! inputs, but we don't do so to avoid the code bloat. Each bignum is still
 //! tracked for the actual usages, so it normally doesn't matter.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق خاص للأعداد بدقة عشوائية (bignum).
+//!
+//! </div>
 
 // This module is only for dec2flt and flt2dec, and only public because of coretests.
 // It is not intended to ever be stabilized.
@@ -20,13 +26,33 @@
 #![macro_use]
 
 /// Arithmetic operations required by bignums.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// العمليات الحسابية التي تحتاجها الأعداد الكبيرة.
+///
+/// </div>
 pub trait FullOps: Sized {
     /// Returns `(carry', v')` such that `carry' * 2^W + v' = self * other + other2 + carry`,
     /// where `W` is the number of bits in `Self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `(carry', v')` بحيث `carry' * 2^W + v' = self * other + other2 + carry`، حيث `W` عدد
+    /// بتات `Self`.
+    ///
+    /// </div>
     fn full_mul_add(self, other: Self, other2: Self, carry: Self) -> (Self /* carry */, Self);
 
     /// Returns `(quo, rem)` such that `borrow * 2^W + self = quo * other + rem`
     /// and `0 <= rem < other`, where `W` is the number of bits in `Self`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `(quo, rem)` بحيث `borrow * 2^W + self = quo * other + rem` و`0 <= rem < other`، حيث
+    /// `W` عدد بتات `Self`.
+    ///
+    /// </div>
     fn full_div_rem(self, other: Self, borrow: Self)
     -> (Self /* quotient */, Self /* remainder */);
 }
@@ -77,6 +103,12 @@ macro_rules! define_bignum {
         ///
         /// All operations available to bignums panic in the case of overflows.
         /// The caller is responsible to use large enough bignum types.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// عدد صحيح بدقة عشوائية (حتى حد معيّن) محجوز في المكدس.
+        ///
+        /// </div>
         pub struct $name {
             /// One plus the offset to the maximum "digit" in use.
             /// This does not decrease, so be aware of the computation order.
@@ -89,6 +121,12 @@ macro_rules! define_bignum {
 
         impl $name {
             /// Makes a bignum from one digit.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ عددًا كبيرًا من رقم واحد.
+            ///
+            /// </div>
             pub fn from_small(v: $ty) -> $name {
                 let mut base = [0; $n];
                 base[0] = v;
@@ -96,6 +134,12 @@ macro_rules! define_bignum {
             }
 
             /// Makes a bignum from `u64` value.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ عددًا كبيرًا من قيمة `u64`.
+            ///
+            /// </div>
             pub fn from_u64(mut v: u64) -> $name {
                 let mut base = [0; $n];
                 let mut sz = 0;
@@ -110,12 +154,25 @@ macro_rules! define_bignum {
             /// Returns the internal digits as a slice `[a, b, c, ...]` such that the numeric
             /// value is `a + b * 2^W + c * 2^(2W) + ...` where `W` is the number of bits in
             /// the digit type.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع الأرقام الداخلية كشريحة `[a, b, c, ...]` بحيث القيمة
+            /// `a + b * 2^W + c * 2^(2W) + ...`.
+            ///
+            /// </div>
             pub fn digits(&self) -> &[$ty] {
                 &self.base[..self.size]
             }
 
             /// Returns the `i`-th bit where bit 0 is the least significant one.
             /// In other words, the bit with weight `2^i`.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع البت رقم `i` حيث البت 0 هو الأقل أهمية، أي البت ذو الوزن `2^i`.
+            ///
+            /// </div>
             pub fn get_bit(&self, i: usize) -> u8 {
                 let digitbits = <$ty>::BITS as usize;
                 let d = i / digitbits;
@@ -124,12 +181,24 @@ macro_rules! define_bignum {
             }
 
             /// Returns `true` if the bignum is zero.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` إذا كان العدد الكبير صفرًا.
+            ///
+            /// </div>
             pub fn is_zero(&self) -> bool {
                 self.digits().iter().all(|&v| v == 0)
             }
 
             /// Returns the number of bits necessary to represent this value. Note that zero
             /// is considered to need 0 bits.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد البتات اللازمة لتمثيل هذه القيمة. الصفر يحتاج 0 بت.
+            ///
+            /// </div>
             pub fn bit_length(&self) -> usize {
                 let digitbits = <$ty>::BITS as usize;
                 let digits = self.digits();
@@ -143,6 +212,12 @@ macro_rules! define_bignum {
             }
 
             /// Adds `other` to itself and returns its own mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضيف `other` إلى نفسه ويرجع مرجعًا قابلًا للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn add<'a>(&'a mut self, other: &$name) -> &'a mut $name {
                 use crate::{cmp, iter};
 
@@ -178,6 +253,12 @@ macro_rules! define_bignum {
             }
 
             /// Subtracts `other` from itself and returns its own mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يطرح `other` من نفسه ويرجع مرجعًا قابلًا للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn sub<'a>(&'a mut self, other: &$name) -> &'a mut $name {
                 use crate::{cmp, iter};
 
@@ -195,6 +276,12 @@ macro_rules! define_bignum {
 
             /// Multiplies itself by a digit-sized `other` and returns its own
             /// mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب نفسه في `other` بحجم رقم واحد ويرجع مرجعًا قابلًا للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn mul_small(&mut self, other: $ty) -> &mut $name {
                 let mut sz = self.size;
                 let mut carry = 0;
@@ -212,6 +299,12 @@ macro_rules! define_bignum {
             }
 
             /// Multiplies itself by `2^bits` and returns its own mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب نفسه في `2^bits` ويرجع مرجعًا قابلًا للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn mul_pow2(&mut self, bits: usize) -> &mut $name {
                 let digitbits = <$ty>::BITS as usize;
                 let digits = bits / digitbits;
@@ -251,6 +344,12 @@ macro_rules! define_bignum {
             }
 
             /// Multiplies itself by `5^e` and returns its own mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب نفسه في `5^e` ويرجع مرجعًا قابلًا للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn mul_pow5(&mut self, mut e: usize) -> &mut $name {
                 use crate::num::imp::bignum::SMALL_POW5;
 
@@ -279,6 +378,13 @@ macro_rules! define_bignum {
             /// Multiplies itself by a number described by `other[0] + other[1] * 2^W +
             /// other[2] * 2^(2W) + ...` (where `W` is the number of bits in the digit type)
             /// and returns its own mutable reference.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب نفسه في عدد ممثَّل بـ `other[0] + other[1] * 2^W + ...` ويرجع مرجعًا قابلًا
+            /// للتعديل إلى نفسه.
+            ///
+            /// </div>
             pub fn mul_digits<'a>(&'a mut self, other: &[$ty]) -> &'a mut $name {
                 // the internal routine. works best when aa.len() <= bb.len().
                 fn mul_inner(ret: &mut [$ty; $n], aa: &[$ty], bb: &[$ty]) -> usize {
@@ -320,6 +426,12 @@ macro_rules! define_bignum {
 
             /// Divides itself by a digit-sized `other` and returns its own
             /// mutable reference *and* the remainder.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقسم نفسه على `other` بحجم رقم واحد ويرجع مرجعًا قابلًا للتعديل إلى نفسه *و*الباقي.
+            ///
+            /// </div>
             pub fn div_rem_small(&mut self, other: $ty) -> (&mut $name, $ty) {
                 use crate::num::imp::bignum::FullOps;
 
@@ -384,12 +496,24 @@ macro_rules! define_bignum {
 }
 
 /// the digit type for `Big32x40`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الرقم لـ `Big32x40`.
+///
+/// </div>
 pub type Digit32 = u32;
 
 #[cfg(any(target_pointer_width = "16", target_pointer_width = "32"))]
 define_bignum!(Big32x40: type=Digit32, n=40);
 
 /// The digit type for `Big64x20`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الرقم لـ `Big64x20`.
+///
+/// </div>
 pub type Digit64 = u64;
 
 #[cfg(target_pointer_width = "64")]

@@ -148,6 +148,12 @@ macro_rules! midpoint_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(4), 2);")]
         #[doc = concat!("assert_eq!(1", stringify!($SelfT), ".midpoint(4), 2);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+        ///
+        /// </div>
         #[stable(feature = "num_midpoint", since = "1.85.0")]
         #[rustc_const_stable(feature = "num_midpoint", since = "1.85.0")]
         #[must_use = "this returns the result of the operation, \
@@ -177,6 +183,12 @@ macro_rules! midpoint_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(-7), -3);")]
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(7), 3);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+        ///
+        /// </div>
         #[stable(feature = "num_midpoint_signed", since = "1.87.0")]
         #[rustc_const_stable(feature = "num_midpoint_signed", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \
@@ -207,6 +219,12 @@ macro_rules! midpoint_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(4), 2);")]
         #[doc = concat!("assert_eq!(1", stringify!($SelfT), ".midpoint(4), 2);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+        ///
+        /// </div>
         #[stable(feature = "num_midpoint", since = "1.85.0")]
         #[rustc_const_stable(feature = "num_midpoint", since = "1.85.0")]
         #[must_use = "this returns the result of the operation, \
@@ -234,6 +252,12 @@ macro_rules! midpoint_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(-7), -3);")]
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".midpoint(7), 3);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+        ///
+        /// </div>
         #[stable(feature = "num_midpoint_signed", since = "1.87.0")]
         #[rustc_const_stable(feature = "num_midpoint_signed", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \

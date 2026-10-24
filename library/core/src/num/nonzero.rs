@@ -746,6 +746,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_leading_trailing_zeros", since = "1.53.0")]
             #[rustc_const_stable(feature = "nonzero_leading_trailing_zeros", since = "1.53.0")]
             #[must_use = "this returns the result of the operation, \
@@ -776,6 +782,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الأصفار في نهاية التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_leading_trailing_zeros", since = "1.53.0")]
             #[rustc_const_stable(feature = "nonzero_leading_trailing_zeros", since = "1.53.0")]
             #[must_use = "this returns the result of the operation, \
@@ -923,6 +935,12 @@ macro_rules! nonzero_integer {
             /// # }
             /// ```
             ///
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع عدد الآحاد في التمثيل الثنائي لـ `self`.
+            ///
+            /// </div>
             #[stable(feature = "non_zero_count_ones", since = "1.86.0")]
             #[rustc_const_stable(feature = "non_zero_count_ones", since = "1.86.0")]
             #[doc(alias = "popcount")]
@@ -957,6 +975,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات إلى اليسار بمقدار `n`، ويعيد البتات الخارجة إلى نهاية العدد (تدوير).
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -988,6 +1012,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات إلى اليمين بمقدار `n`، ويعيد البتات الخارجة إلى بداية العدد (تدوير).
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -1015,6 +1045,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس ترتيب بايتات العدد.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -1043,6 +1079,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس ترتيب بتات العدد: الأقل أهمية يصبح الأكثر أهمية، وهكذا.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -1077,6 +1119,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من big endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use]
             #[inline(always)]
@@ -1110,6 +1158,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل عددًا من little endian إلى ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use]
             #[inline(always)]
@@ -2049,6 +2103,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب نقطة المنتصف (المتوسط) بين `self` و`rhs`.
+        ///
+        /// </div>
         #[stable(feature = "num_midpoint", since = "1.85.0")]
         #[rustc_const_stable(feature = "num_midpoint", since = "1.85.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2602,6 +2662,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         ///
         #[doc = concat!("assert_eq!(n.cast_unsigned(), NonZero::<", stringify!($Uint), ">::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع نمط بتات `self` مفسَّرًا كعدد صحيح بدون إشارة بنفس الحجم.
+        ///
+        /// </div>
         #[stable(feature = "integer_sign_cast", since = "1.87.0")]
         #[rustc_const_stable(feature = "integer_sign_cast", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \

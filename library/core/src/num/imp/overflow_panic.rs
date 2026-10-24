@@ -1,6 +1,12 @@
 //! Functions for panicking on overflow.
 //!
 //! In particular, these are used by the `strict_` methods on integers.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال للتوقف (panic) عند تجاوز الحد.
+//!
+//! </div>
 
 #[cold]
 #[track_caller]

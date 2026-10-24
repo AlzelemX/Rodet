@@ -47,6 +47,12 @@ macro_rules! uint_impl {
         /// ```
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX, ", stringify!($MaxV), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أكبر قيمة يمكن تمثيلها بهذا النوع.
+        ///
+        /// </div>
         #[stable(feature = "assoc_int_consts", since = "1.43.0")]
         pub const MAX: Self = !0;
 
@@ -57,6 +63,12 @@ macro_rules! uint_impl {
         /// ```
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::BITS, ", stringify!($BITS), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// حجم هذا النوع بالبتات.
+        ///
+        /// </div>
         #[stable(feature = "int_bits_const", since = "1.53.0")]
         pub const BITS: u32 = Self::MAX.count_ones();
 
@@ -74,6 +86,12 @@ macro_rules! uint_impl {
         #[doc = concat!("let zero = 0", stringify!($SelfT), ";")]
         /// assert_eq!(zero.count_ones(), 0);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الآحاد في التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[doc(alias = "popcount")]
@@ -118,6 +136,12 @@ macro_rules! uint_impl {
         /// let small = 1;
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::count_zeros(small), ", stringify!($BITS_MINUS_ONE) ,");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الأصفار في التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -144,6 +168,12 @@ macro_rules! uint_impl {
         #[doc = concat!("let max = ", stringify!($SelfT),"::MAX;")]
         /// assert_eq!(max.leading_zeros(), 0);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الأصفار في بداية التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[doc = concat!("[`ilog2`]: ", stringify!($SelfT), "::ilog2")]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
@@ -169,6 +199,12 @@ macro_rules! uint_impl {
         #[doc = concat!("let max = ", stringify!($SelfT),"::MAX;")]
         #[doc = concat!("assert_eq!(max.trailing_zeros(), 0);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الأصفار في نهاية التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -192,6 +228,12 @@ macro_rules! uint_impl {
         #[doc = concat!("let max = ", stringify!($SelfT),"::MAX;")]
         #[doc = concat!("assert_eq!(max.leading_ones(), ", stringify!($BITS), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الآحاد في بداية التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[stable(feature = "leading_trailing_ones", since = "1.46.0")]
         #[rustc_const_stable(feature = "leading_trailing_ones", since = "1.46.0")]
         #[must_use = "this returns the result of the operation, \
@@ -216,6 +258,12 @@ macro_rules! uint_impl {
         #[doc = concat!("let max = ", stringify!($SelfT),"::MAX;")]
         #[doc = concat!("assert_eq!(max.trailing_ones(), ", stringify!($BITS), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع عدد الآحاد في نهاية التمثيل الثنائي لـ `self`.
+        ///
+        /// </div>
         #[stable(feature = "leading_trailing_ones", since = "1.46.0")]
         #[rustc_const_stable(feature = "leading_trailing_ones", since = "1.46.0")]
         #[must_use = "this returns the result of the operation, \
@@ -257,6 +305,12 @@ macro_rules! uint_impl {
         /// assert_eq!(n.isolate_highest_one(), 0b_01000000);
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".isolate_highest_one(), 0);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `self` مع إبقاء أعلى بت مضبوط فقط، أو `0` إذا كانت القيمة `0`.
+        ///
+        /// </div>
         #[stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
         #[rustc_const_stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
         #[must_use = "this returns the result of the operation, \
@@ -277,6 +331,12 @@ macro_rules! uint_impl {
         /// assert_eq!(n.isolate_lowest_one(), 0b_00000100);
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".isolate_lowest_one(), 0);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `self` مع إبقاء أدنى بت مضبوط فقط، أو `0` إذا كانت القيمة `0`.
+        ///
+        /// </div>
         #[stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
         #[rustc_const_stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
         #[must_use = "this returns the result of the operation, \
@@ -299,6 +359,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(0b1_0000_", stringify!($SelfT), ".highest_one(), Some(4));")]
         #[doc = concat!("assert_eq!(0b1_1111_", stringify!($SelfT), ".highest_one(), Some(4));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع موضع أعلى بت قيمته واحد في `self`، أو `None` إذا كانت `self` صفرًا.
+        ///
+        /// </div>
         #[stable(feature = "int_lowest_highest_one", since = "1.97.0")]
         #[rustc_const_stable(feature = "int_lowest_highest_one", since = "1.97.0")]
         #[must_use = "this returns the result of the operation, \
@@ -322,6 +388,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(0b1_0000_", stringify!($SelfT), ".lowest_one(), Some(4));")]
         #[doc = concat!("assert_eq!(0b1_1111_", stringify!($SelfT), ".lowest_one(), Some(0));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع موضع أدنى بت قيمته واحد في `self`، أو `None` إذا كانت `self` صفرًا.
+        ///
+        /// </div>
         #[stable(feature = "int_lowest_highest_one", since = "1.97.0")]
         #[rustc_const_stable(feature = "int_lowest_highest_one", since = "1.97.0")]
         #[must_use = "this returns the result of the operation, \
@@ -465,6 +537,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(n.rotate_left(", $rot, "), m);")]
         #[doc = concat!("assert_eq!(n.rotate_left(1024), n);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يزيح البتات إلى اليسار بمقدار `n`، ويعيد البتات الخارجة إلى نهاية العدد (تدوير).
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -494,6 +572,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(n.rotate_right(", $rot, "), m);")]
         #[doc = concat!("assert_eq!(n.rotate_right(1024), n);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يزيح البتات إلى اليمين بمقدار `n`، ويعيد البتات الخارجة إلى بداية العدد (تدوير).
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -758,6 +842,12 @@ macro_rules! uint_impl {
         ///
         #[doc = concat!("assert_eq!(m, ", $swapped, ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يعكس ترتيب بايتات العدد.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -815,6 +905,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(m, ", $reversed, ");")]
         #[doc = concat!("assert_eq!(0, 0", stringify!($SelfT), ".reverse_bits());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يعكس ترتيب بتات العدد: الأقل أهمية يصبح الأكثر أهمية، وهكذا.
+        ///
+        /// </div>
         #[stable(feature = "reverse_bits", since = "1.37.0")]
         #[rustc_const_stable(feature = "reverse_bits", since = "1.37.0")]
         #[must_use = "this returns the result of the operation, \
@@ -840,6 +936,12 @@ macro_rules! uint_impl {
         #[doc = concat!("    assert_eq!(", stringify!($SelfT), "::from_be(n), n.swap_bytes())")]
         /// }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل عددًا من big endian إلى ترتيب بايتات النظام المستهدف.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use]
@@ -867,6 +969,12 @@ macro_rules! uint_impl {
         #[doc = concat!("    assert_eq!(", stringify!($SelfT), "::from_le(n), n.swap_bytes())")]
         /// }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل عددًا من little endian إلى ترتيب بايتات النظام المستهدف.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_math", since = "1.32.0")]
         #[must_use]
@@ -940,6 +1048,12 @@ macro_rules! uint_impl {
         /// # Examples
         ///
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع مع التحقق. يحسب `self + rhs`، ويرجع `None` إذا تجاوز الحد.
+        ///
+        /// </div>
         #[doc = concat!(
             "assert_eq!((", stringify!($SelfT), "::MAX - 2).checked_add(1), ",
             "Some(", stringify!($SelfT), "::MAX - 1));"
@@ -987,6 +1101,12 @@ macro_rules! uint_impl {
         /// ```should_panic
         #[doc = concat!("let _ = (", stringify!($SelfT), "::MAX - 2).strict_add(3);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع صارم. يحسب `self + rhs`، ويتوقف (panic) إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1014,6 +1134,12 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_add`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع بدون تحقق. يحسب `self + rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_add`]: ", stringify!($SelfT), "::checked_add")]
         #[doc = concat!("[`wrapping_add`]: ", stringify!($SelfT), "::wrapping_add")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
@@ -1102,6 +1228,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(1", stringify!($SelfT), ".checked_sub(1), Some(0));")]
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".checked_sub(1), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح مع التحقق. يحسب `self - rhs`، ويرجع `None` إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1141,6 +1273,12 @@ macro_rules! uint_impl {
         /// ```should_panic
         #[doc = concat!("let _ = 0", stringify!($SelfT), ".strict_sub(1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح صارم. يحسب `self - rhs`، ويتوقف (panic) إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1193,6 +1331,12 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_sub`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح بدون تحقق. يحسب `self - rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_sub`]: ", stringify!($SelfT), "::checked_sub")]
         #[doc = concat!("[`wrapping_sub`]: ", stringify!($SelfT), "::wrapping_sub")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
@@ -1345,6 +1489,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".checked_mul(1), Some(5));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.checked_mul(2), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب مع التحقق. يحسب `self * rhs`، ويرجع `None` إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1375,6 +1525,12 @@ macro_rules! uint_impl {
         /// ``` should_panic
         #[doc = concat!("let _ = ", stringify!($SelfT), "::MAX.strict_mul(2);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب صارم. يحسب `self * rhs`، ويتوقف (panic) إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1402,6 +1558,12 @@ macro_rules! uint_impl {
         /// i.e. when [`checked_mul`] would return `None`.
         ///
         /// [`unwrap_unchecked`]: option/enum.Option.html#method.unwrap_unchecked
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب بدون تحقق. يحسب `self * rhs` بافتراض أنه لا يتجاوز الحد (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_mul`]: ", stringify!($SelfT), "::checked_mul")]
         #[doc = concat!("[`wrapping_mul`]: ", stringify!($SelfT), "::wrapping_mul")]
         #[stable(feature = "unchecked_math", since = "1.79.0")]
@@ -1583,6 +1745,12 @@ macro_rules! uint_impl {
         #[doc = concat!("assert_eq!(64", stringify!($SelfT), ".div_exact(32), Some(2));")]
         #[doc = concat!("assert_eq!(65", stringify!($SelfT), ".div_exact(2), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قسمة بدون باقٍ. يحسب `self / rhs`، ويرجع `None` إذا كان `self % rhs != 0`.
+        ///
+        /// </div>
         #[unstable(
             feature = "exact_div",
             issue = "139911",
@@ -1605,6 +1773,12 @@ macro_rules! uint_impl {
         ///
         /// This results in undefined behavior when `rhs == 0` or `self % rhs != 0`,
         /// i.e. when [`checked_div_exact`](Self::checked_div_exact) would return `None`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قسمة بدون باقٍ وبدون تحقق. يحسب `self / rhs` (غير آمن).
+        ///
+        /// </div>
         #[unstable(
             feature = "exact_div",
             issue = "139911",

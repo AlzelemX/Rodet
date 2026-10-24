@@ -130,6 +130,12 @@ pub mod decoder;
 pub mod estimator;
 
 /// Digit-generation algorithms.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خوارزميات توليد الأرقام.
+///
+/// </div>
 pub mod strategy {
     pub mod dragon;
     pub mod grisu;
@@ -140,6 +146,12 @@ pub mod strategy {
 /// It is a bit non-trivial to derive, but this is one plus the maximal number of
 /// significant decimal digits from formatting algorithms with the shortest result.
 /// The exact formula is `ceil(# bits in mantissa * log_10 2 + 1)`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أصغر حجم مخزن لازم للنمط الأقصر.
+///
+/// </div>
 pub const MAX_SIG_DIGITS: usize = 17;
 
 /// When `d` contains decimal digits, increase the last digit and propagate carry.
@@ -305,11 +317,29 @@ fn digits_to_exp_str<'a>(
 }
 
 /// Sign formatting options.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خيارات تنسيق الإشارة.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Sign {
     /// Prints `-` for any negative value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبع `-` لأي قيمة سالبة.
+    ///
+    /// </div>
     Minus, // -inf -1 -0  0  1  inf nan
     /// Prints `-` for any negative value, or `+` otherwise.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبع `-` لأي قيمة سالبة، و`+` في غير ذلك.
+    ///
+    /// </div>
     MinusPlus, // -inf -1 -0 +0 +1 +inf nan
 }
 
@@ -354,6 +384,13 @@ fn determine_sign(sign: Sign, decoded: &FullDecoded, negative: bool) -> &'static
 /// The byte buffer should be at least `MAX_SIG_DIGITS` bytes long.
 /// There should be at least 4 parts available, due to the worst case like
 /// `[+][0.][0000][2][0000]` with `frac_digits = 10`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسّق الرقم العشري بالشكل العشري مع عدد أدنى من الأرقام الكسرية، ويخزن النتيجة في مصفوفة الأجزاء
+/// المعطاة.
+///
+/// </div>
 pub fn to_shortest_str<'a, T, F>(
     mut format_shortest: F,
     v: T,
@@ -428,6 +465,13 @@ where
 /// The byte buffer should be at least `MAX_SIG_DIGITS` bytes long.
 /// There should be at least 6 parts available, due to the worst case like
 /// `[+][1][.][2345][e][-][6]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسّق الرقم العشري بالشكل العشري أو الأسّي حسب الأس الناتج، ويخزن النتيجة في مصفوفة الأجزاء
+/// المعطاة.
+///
+/// </div>
 pub fn to_shortest_exp_str<'a, T, F>(
     mut format_shortest: F,
     v: T,
@@ -522,6 +566,12 @@ fn estimate_max_buf_len(exp: i16) -> usize {
 /// (The tipping point for `f64` is about 800, so 1000 bytes should be enough.)
 /// There should be at least 6 parts available, due to the worst case like
 /// `[+][1][.][2345][e][-][6]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسّق الرقم العشري بالشكل الأسّي بعدد محدد بالضبط من الأرقام الكسرية.
+///
+/// </div>
 pub fn to_exact_exp_str<'a, T, F>(
     mut format_exact: F,
     v: T,
@@ -600,6 +650,12 @@ where
 /// (The tipping point for `f64` is about 800, and 1000 bytes should be enough.)
 /// There should be at least 4 parts available, due to the worst case like
 /// `[+][0.][0000][2][0000]` with `frac_digits = 10`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسّق الرقم العشري بالشكل العشري بعدد محدد بالضبط من الأرقام الكسرية.
+///
+/// </div>
 pub fn to_exact_fixed_str<'a, T, F>(
     mut format_exact: F,
     v: T,

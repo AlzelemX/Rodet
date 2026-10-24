@@ -41,6 +41,12 @@ use crate::time::{Duration, Instant};
 ///     started = cvar.wait(started).unwrap();
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// متغير شرط (Condition Variable) لانتظار حدث بين الـ threads.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Condvar {
     inner: sys::Condvar,
@@ -57,6 +63,12 @@ impl Condvar {
     ///
     /// let condvar = Condvar::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ متغير شرط جديدًا جاهزًا للانتظار والإشعار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_locks", since = "1.63.0")]
     #[must_use]
@@ -120,6 +132,12 @@ impl Condvar {
     ///     started = cvar.wait(started).unwrap();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى يصل إشعار لمتغير الشرط هذا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn wait<'a, T>(&self, guard: MutexGuard<'a, T>) -> LockResult<MutexGuard<'a, T>> {
@@ -177,6 +195,12 @@ impl Condvar {
     /// // As long as the value inside the `Mutex<bool>` is `true`, we wait.
     /// let _guard = cvar.wait_while(lock.lock().unwrap(), |pending| { *pending }).unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقف الـ thread الحالي حتى يصبح الشرط المعطى false.
+    ///
+    /// </div>
     #[stable(feature = "wait_until", since = "1.42.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn wait_while<'a, T, F>(
@@ -246,6 +270,12 @@ impl Condvar {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إشعارًا على متغير الشرط هذا، مع مهلة محددة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     #[deprecated(since = "1.6.0", note = "replaced by `std::sync::Condvar::wait_timeout`")]
@@ -318,6 +348,12 @@ impl Condvar {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إشعارًا على متغير الشرط هذا، مع مهلة محددة.
+    ///
+    /// </div>
     #[stable(feature = "wait_timeout", since = "1.5.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn wait_timeout<'a, T>(
@@ -385,6 +421,12 @@ impl Condvar {
     /// }
     /// // access the locked mutex via result.0
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتظر إشعارًا على متغير الشرط هذا، مع مهلة محددة.
+    ///
+    /// </div>
     #[stable(feature = "wait_timeout_until", since = "1.42.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn wait_timeout_while<'a, T, F>(
@@ -446,6 +488,12 @@ impl Condvar {
     ///     started = cvar.wait(started).unwrap();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ thread واحدًا منتظرًا على متغير الشرط هذا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn notify_one(&self) {
@@ -487,6 +535,12 @@ impl Condvar {
     ///     started = cvar.wait(started).unwrap();
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوقظ كل الـ threads المنتظرة على متغير الشرط هذا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_should_not_be_called_on_const_items]
     pub fn notify_all(&self) {
@@ -504,6 +558,12 @@ impl fmt::Debug for Condvar {
 #[stable(feature = "condvar_default", since = "1.10.0")]
 impl Default for Condvar {
     /// Creates a `Condvar` which is ready to be waited on and notified.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Condvar` جاهزًا للانتظار والإشعار.
+    ///
+    /// </div>
     fn default() -> Condvar {
         Condvar::new()
     }

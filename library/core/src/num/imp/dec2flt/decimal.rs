@@ -1,4 +1,10 @@
 //! Representation of a float as the significant digits and exponent.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تمثيل رقم عشري بأرقامه المعنوية وأسّه.
+//!
+//! </div>
 
 use dec2flt::Lemire;
 use dec2flt::fpu::set_precision;
@@ -25,6 +31,12 @@ const INT_POW10: [u64; 16] = [
 ];
 
 /// A floating point number with up to 64 bits of mantissa and an `i64` exponent.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رقم عشري بجزء معنوي حتى 64 بت وأس من النوع `i64`.
+///
+/// </div>
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Decimal {
     pub exponent: i64,
@@ -53,6 +65,12 @@ impl Decimal {
     ///
     /// There is an exception: disguised fast-path cases, where we can shift
     /// powers-of-10 from the exponent to the significant digits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول تحويل الرقم إلى تمثيل عشري دقيق باستخدام أعداد وأرقام عشرية بحجم الآلة.
+    ///
+    /// </div>
     pub fn try_fast_path<F: Lemire>(&self) -> Option<F> {
         // Here we need to work around <https://github.com/rust-lang/rust/issues/114479>.
         // The fast path crucially depends on arithmetic being rounded to the correct number of bits

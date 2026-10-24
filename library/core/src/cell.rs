@@ -429,6 +429,12 @@ impl<T> Cell<T> {
     ///
     /// c.set(10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع القيمة الموجودة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_cell_traits", issue = "147787")]
@@ -638,6 +644,12 @@ impl<T: ?Sized> Cell<T> {
     ///
     /// assert_eq!(c.get(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cell_get_mut", since = "1.11.0")]
     #[rustc_const_stable(feature = "const_cell", since = "1.88.0")]
@@ -1339,6 +1351,12 @@ impl<T: ?Sized> RefCell<T> {
     ///
     /// assert_eq!(c, RefCell::new(6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "cell_get_mut", since = "1.11.0")]
     #[rustc_const_unstable(feature = "const_ref_cell", issue = "137844")]
@@ -2464,6 +2482,12 @@ impl<T: ?Sized> UnsafeCell<T> {
     ///
     /// assert_eq!(*c.get_mut(), 6);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "unsafe_cell_get_mut", since = "1.50.0")]
     #[rustc_const_stable(feature = "const_unsafecell_get_mut", since = "1.83.0")]
@@ -2658,6 +2682,12 @@ impl<T: ?Sized> SyncUnsafeCell<T> {
     ///
     /// This call borrows the `SyncUnsafeCell` mutably (at compile-time) which
     /// guarantees that we possess the only reference.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات (بدون قفل، لأن الاستعارة تضمن الحصرية).
+    ///
+    /// </div>
     #[inline]
     pub const fn get_mut(&mut self) -> &mut T {
         self.value.get_mut()

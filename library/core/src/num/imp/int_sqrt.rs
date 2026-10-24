@@ -8,6 +8,12 @@
 //! [1]: <https://web.archive.org/web/20230511212802/https://inria.hal.science/inria-00072854v1/file/RR-3805.pdf>
 //! "Paul Zimmermann. Karatsuba Square Root. \[Research Report\] RR-3805,
 //! INRIA. 1999, pp.8. (inria-00072854)"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال تستخدم خوارزمية Karatsuba لحساب الجذر التربيعي الصحيح للأعداد الصحيحة الأساسية.
+//!
+//! </div>
 
 /// This array stores the [integer square roots](
 /// https://en.wikipedia.org/wiki/Integer_square_root) and remainders of each
@@ -44,6 +50,12 @@ pub(in crate::num) const fn u8(n: u8) -> u8 {
 /// Generates a `u*` function that returns the [integer square root](
 /// https://en.wikipedia.org/wiki/Integer_square_root) of any input of
 /// a specific unsigned integer type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يولّد دالة `u*` ترجع الجذر التربيعي الصحيح لأي قيمة من نوع عدد صحيح بدون إشارة.
+///
+/// </div>
 macro_rules! unsigned_fn {
     ($UnsignedT:ident, $HalfBitsT:ident, $stages:ident) => {
         /// Returns the [integer square root](
@@ -105,6 +117,12 @@ macro_rules! unsigned_fn {
 /// # Safety
 ///
 /// `$n` must be nonzero.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يولّد المرحلة الأولى من الحساب بعد التوحيد.
+///
+/// </div>
 macro_rules! first_stage {
     ($original_bits:literal, $n:ident) => {{
         debug_assert!($n != 0, "`$n` is  zero in `first_stage!`.");
@@ -141,6 +159,12 @@ macro_rules! first_stage {
 /// # Safety
 ///
 /// `$s` must be nonzero.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يولّد مرحلة وسطى من الحساب.
+///
+/// </div>
 macro_rules! middle_stage {
     ($original_bits:literal, $ty:ty, $n:ident, $s:ident, $r:ident) => {{
         debug_assert!($s != 0, "`$s` is  zero in `middle_stage!`.");
@@ -196,6 +220,12 @@ macro_rules! middle_stage {
 /// # Safety
 ///
 /// `$s` must be nonzero.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يولّد المرحلة الأخيرة من الحساب قبل إلغاء التوحيد.
+///
+/// </div>
 macro_rules! last_stage {
     ($ty:ty, $n:ident, $s:ident, $r:ident) => {{
         debug_assert!($s != 0, "`$s` is  zero in `last_stage!`.");
