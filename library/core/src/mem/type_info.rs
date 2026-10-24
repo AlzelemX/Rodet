@@ -1,5 +1,11 @@
 //! MVP for exposing compile-time information about types in a
 //! runtime or const-eval processable way.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نسخة أولية لإتاحة معلومات الأنواع وقت الترجمة.
+//!
+//! </div>
 
 use crate::any::TypeId;
 use crate::marker::PointeeSized;
@@ -7,16 +13,34 @@ use crate::ptr::DynMetadata;
 use crate::{fmt, intrinsics};
 
 /// Compile-time type information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات النوع وقت الترجمة.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[lang = "type_info"]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct Type {
     /// Per-type information
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// معلومات خاصة بكل نوع.
+    ///
+    /// </div>
     pub kind: TypeKind,
 }
 
 /// Info of a trait implementation, you can retrieve the vtable with [Self::get_vtable]
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات تطبيق trait.
+///
+/// </div>
 #[derive(Debug, PartialEq, Eq)]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct TraitImpl<T: PointeeSized> {
@@ -25,6 +49,12 @@ pub struct TraitImpl<T: PointeeSized> {
 
 impl<T: PointeeSized> TraitImpl<T> {
     /// Gets the raw vtable for type reflection mapping
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جدول الدوال الخام.
+    ///
+    /// </div>
     pub const fn get_vtable(&self) -> DynMetadata<T> {
         self.vtable
     }
@@ -33,6 +63,12 @@ impl<T: PointeeSized> TraitImpl<T> {
 impl TypeId {
     /// Compute the type information of a concrete type.
     /// It can only be called at compile time.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب معلومات نوع فعلي. يُستدعى وقت الترجمة فقط.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -50,6 +86,12 @@ impl Type {
     /// the `TypeId`s (transitively) obtained from this function will
     /// be able to break invariants that other `TypeId` consuming crates
     /// may have assumed to hold.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معلومات نوع المعامل العام.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     pub const fn of<T: ?Sized>() -> Self {
@@ -62,6 +104,12 @@ impl Type {
 ///
 /// This is identical to [TypeId::of] but without the static lifetime bound. It will be removed
 /// in the future.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `TypeId` لمعامل النوع العام.
+///
+/// </div>
 #[must_use]
 #[unstable(feature = "type_info", issue = "146922")]
 #[rustc_const_unstable(feature = "type_info", issue = "146922")]
@@ -70,62 +118,188 @@ pub const fn of<T: ?Sized>() -> TypeId {
 }
 
 /// Compile-time type information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات النوع وقت الترجمة.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub enum TypeKind {
     /// Tuples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// صفوف.
+    ///
+    /// </div>
     Tuple,
     /// Arrays.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مصفوفات.
+    ///
+    /// </div>
     Array,
     /// Slices.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// شرائح.
+    ///
+    /// </div>
     Slice,
     /// Dynamic Traits.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// traits ديناميكية.
+    ///
+    /// </div>
     DynTrait(DynTrait),
     /// Structs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// structs.
+    ///
+    /// </div>
     Struct,
     /// Enums.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// enums.
+    ///
+    /// </div>
     Enum,
     /// Unions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// unions.
+    ///
+    /// </div>
     Union,
     /// Primitive boolean type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع المنطقي الأساسي.
+    ///
+    /// </div>
     Bool,
     /// Primitive character type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الحرف الأساسي.
+    ///
+    /// </div>
     Char,
     /// Primitive signed and unsigned integer type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أنواع الأعداد الصحيحة بإشارة وبدون إشارة.
+    ///
+    /// </div>
     Int,
     /// Primitive floating-point type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الأرقام العشرية الأساسي.
+    ///
+    /// </div>
     Float,
     /// String slice type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع شريحة النص.
+    ///
+    /// </div>
     Str(Str),
     /// References.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مراجع.
+    ///
+    /// </div>
     Reference,
     /// Pointers.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مؤشرات.
+    ///
+    /// </div>
     Pointer,
     /// Function pointers.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مؤشرات دوال.
+    ///
+    /// </div>
     FnPtr,
     /// FIXME(#146922): add all the common types
     /// non exhaustive list:
     /// - Never
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أنواع أخرى.
+    ///
+    /// </div>
     Other,
 }
 
 /// Compile-time type information about dynamic traits.
 /// FIXME(#146922): Add super traits and generics
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن traits ديناميكية.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct DynTrait {
     /// The predicates of  a dynamic trait.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// شروط trait ديناميكي.
+    ///
+    /// </div>
     pub predicates: &'static [DynTraitPredicate],
 }
 
 /// Compile-time type information about a dynamic trait predicate.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن شرط trait ديناميكي.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct DynTraitPredicate {
     /// The type of the trait as a dynamic trait type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الـ trait كنوع trait ديناميكي.
+    ///
+    /// </div>
     pub trait_ty: Trait,
 }
 

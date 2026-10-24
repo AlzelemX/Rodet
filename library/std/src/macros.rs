@@ -3,6 +3,12 @@
 //! This module contains a set of macros which are exported from the standard
 //! library. Each macro is available for use when linking against the standard
 //! library.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ماكروهات المكتبة القياسية.
+//!
+//! </div>
 // ignore-tidy-file-dbg
 
 #[cfg(test)]
@@ -78,6 +84,12 @@ macro_rules! panic {
 ///
 /// io::stdout().flush().unwrap();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع في الإخراج القياسي (`print!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "print_macro")]
@@ -135,6 +147,12 @@ macro_rules! print {
 /// let local_variable = "some";
 /// println!("format {local_variable} arguments");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع في الإخراج القياسي مع سطر جديد (`println!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "println_macro")]
@@ -175,6 +193,12 @@ macro_rules! println {
 /// let name = "out!";
 /// out!("{name} works like println!: {} + {} = {}", 1, 2, 1 + 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع في الإخراج القياسي مع سطر جديد (`out!`) — **خاص بـ Rust++ فقط**.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rustpp_out_macro", since = "CURRENT_RUSTC_VERSION")]
 #[allow_internal_unstable(print_internals, format_args_nl)]
@@ -215,6 +239,12 @@ macro_rules! out {
 /// ```
 /// eprint!("Error: Could not complete task");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع في مجرى الأخطاء القياسي (`eprint!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "eprint", since = "1.19.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "eprint_macro")]
@@ -253,6 +283,12 @@ macro_rules! eprint {
 /// ```
 /// eprintln!("Error: Could not complete task");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع في مجرى الأخطاء القياسي مع سطر جديد (`eprintln!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "eprint", since = "1.19.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "eprintln_macro")]
@@ -390,6 +426,12 @@ macro_rules! eprintln {
 /// [stderr]: https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)
 /// [`debug!`]: https://docs.rs/log/*/log/macro.debug.html
 /// [`log`]: https://crates.io/crates/log
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبع قيمة تعبير ويرجعها، للتنقيح السريع (`dbg!`).
+///
+/// </div>
 #[macro_export]
 #[cfg_attr(not(test), rustc_diagnostic_item = "dbg_macro")]
 #[stable(feature = "dbg_macro", since = "1.32.0")]
@@ -484,6 +526,12 @@ macro_rules! repetition_utils {
 /// [`HashMap`]: crate::collections::HashMap
 /// [`HashMap::insert`]: crate::collections::HashMap::insert
 /// [`HashMap::with_capacity`]: crate::collections::HashMap::with_capacity
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `HashMap` يحتوي الوسائط.
+///
+/// </div>
 #[macro_export]
 #[allow_internal_unstable(hash_map_internals)]
 #[unstable(feature = "hash_map_macro", issue = "144032")]

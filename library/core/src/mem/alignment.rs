@@ -10,6 +10,12 @@ use crate::{cmp, fmt, hash, mem, num};
 ///
 /// Note that particularly large alignments, while representable in this type,
 /// are likely not to be supported by actual allocators and linkers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يخزن `usize` هو قوة للعدد 2، فيمثل محاذاة ممكنة.
+///
+/// </div>
 #[unstable(feature = "ptr_alignment_type", issue = "102070")]
 #[derive(Copy)]
 #[derive_const(Clone, PartialEq, Eq)]
@@ -42,6 +48,12 @@ impl Alignment {
     ///
     /// assert_eq!(Alignment::MIN.as_usize(), 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر محاذاة ممكنة، وهي 1.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     pub const MIN: Self = Self::new(1).unwrap();
 
@@ -49,6 +61,12 @@ impl Alignment {
     ///
     /// This provides the same numerical value as [`align_of`],
     /// but in an `Alignment` instead of a `usize`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المحاذاة لنوع.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     #[must_use]
@@ -95,6 +113,12 @@ impl Alignment {
     /// ```
     ///
     /// [type-layout]: ../../reference/type-layout.html#r-layout.primitive
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقل محاذاة يتطلبها الـ ABI لنوع القيمة التي يشير إليها `val`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
@@ -151,6 +175,12 @@ impl Alignment {
     /// that is, the above assertion does not pass on all platforms.)
     ///
     /// [type-layout]: ../../reference/type-layout.html#r-layout.primitive
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أقل محاذاة يتطلبها الـ ABI لنوع القيمة التي يشير إليها `val`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
@@ -165,6 +195,12 @@ impl Alignment {
     /// not a power of two.
     ///
     /// Note that `0` is not a power of two, nor a valid alignment.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Alignment` من `usize`، أو يرجع `None` إذا لم يكن قوة للعدد 2.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn new(align: usize) -> Option<Self> {
@@ -184,6 +220,12 @@ impl Alignment {
     ///
     /// Equivalently, it must be `1 << exp` for some `exp` in `0..usize::BITS`.
     /// It must *not* be zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Alignment` من `usize` هو قوة للعدد 2 (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     #[track_caller]
@@ -200,6 +242,12 @@ impl Alignment {
     }
 
     /// Returns the alignment as a [`usize`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المحاذاة كـ `usize`.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn as_usize(self) -> usize {
@@ -210,6 +258,12 @@ impl Alignment {
     }
 
     /// Returns the alignment as a <code>[NonZero]<[usize]></code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المحاذاة كـ `NonZero<usize>`.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[deprecated(
         since = "1.96.0",
@@ -222,6 +276,12 @@ impl Alignment {
     }
 
     /// Returns the alignment as a <code>[NonZero]<[usize]></code>.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المحاذاة كـ `NonZero<usize>`.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn as_nonzero_usize(self) -> NonZero<usize> {
@@ -247,6 +307,12 @@ impl Alignment {
     /// assert_eq!(Alignment::of::<u8>().log2(), 0);
     /// assert_eq!(Alignment::new(1024).unwrap().log2(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع لوغاريتم المحاذاة بالأساس 2.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn log2(self) -> u32 {
@@ -277,6 +343,12 @@ impl Alignment {
     /// assert_eq!(four.mask(Alignment::of::<Align4>().mask()), four);
     /// assert_ne!(one.mask(Alignment::of::<Align4>().mask()), one);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قناع بتات يمكن استخدامه لمطابقة هذه المحاذاة.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_alignment_type", issue = "102070")]
     #[inline]
     pub const fn mask(self) -> usize {
@@ -364,6 +436,12 @@ impl hash::Hash for Alignment {
 }
 
 /// Returns [`Alignment::MIN`], which is valid for any type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `Alignment::MIN`، الصالحة لأي نوع.
+///
+/// </div>
 #[unstable(feature = "ptr_alignment_type", issue = "102070")]
 #[rustc_const_unstable(feature = "const_default", issue = "143894")]
 const impl Default for Alignment {

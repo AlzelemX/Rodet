@@ -3,6 +3,12 @@
 //! Rust types can be classified in various useful ways according to
 //! their intrinsic properties. These classifications are represented
 //! as traits.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits وأنواع أساسية تمثل خصائص الأنواع (`Copy` و`Send` و`Sized` وغيرها).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -52,6 +58,12 @@ use crate::pin::UnsafePinned;
 ///         u32,
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق trait علامة لعدة أنواع معًا.
+///
+/// </div>
 macro marker_impls {
     ( $(#[$($meta:tt)*])* $Trait:ident for $({$($bounds:tt)*})? $T:ty $(, $($rest:tt)*)? ) => {
         $(#[$($meta)*])* impl< $($($bounds)*)? > $Trait for $T {}
@@ -83,6 +95,12 @@ macro marker_impls {
 /// [`Rc`]: ../../std/rc/struct.Rc.html
 /// [arc]: ../../std/sync/struct.Arc.html
 /// [ub]: ../../reference/behavior-considered-undefined.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يمكن نقلها بين الـ threads (`Send`).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "Send"]
 #[diagnostic::on_unimplemented(
@@ -140,6 +158,12 @@ unsafe impl<T: Sync + PointeeSized> Send for &T {}
 /// ```
 ///
 /// [trait object]: ../../book/ch17-02-trait-objects.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع ذات الحجم الثابت المعروف وقت الترجمة.
+///
+/// </div>
 #[doc(alias = "?", alias = "?Sized")]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[lang = "sized"]
@@ -160,6 +184,12 @@ pub trait Sized: MetaSized {
 }
 
 /// Types with a size that can be determined from pointer metadata.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يمكن معرفة حجمها من بيانات المؤشر الوصفية.
+///
+/// </div>
 #[unstable(feature = "sized_hierarchy", issue = "144404")]
 #[lang = "meta_sized"]
 #[diagnostic::on_unimplemented(
@@ -177,6 +207,12 @@ pub trait MetaSized: PointeeSized {
 }
 
 /// Types that may or may not have a size.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي قد يكون لها حجم أو لا.
+///
+/// </div>
 #[unstable(feature = "sized_hierarchy", issue = "144404")]
 #[lang = "pointee_sized"]
 #[diagnostic::on_unimplemented(
@@ -228,6 +264,12 @@ pub trait PointeeSized {
 /// [RFC982]: https://rust-lang.github.io/rfcs/0982-dst-coercion.html
 /// [nomicon-coerce]: ../../nomicon/coercions.html
 /// [^1]: Formerly known as *object safe*.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يمكن تحويلها إلى نوع حجمه متغير.
+///
+/// </div>
 #[unstable(feature = "unsize", issue = "18598")]
 #[lang = "unsize"]
 #[rustc_deny_explicit_impl]
@@ -251,6 +293,12 @@ pub trait Unsize<T: PointeeSized>: PointeeSized {
 /// comparing const values of this type; that operation will recursively compare all fields
 /// (including private fields), even if that behavior differs from `PartialEq`. This can make it
 /// semver-breaking to add further private fields to a type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مطلوب للثوابت المستخدمة في مطابقة الأنماط.
+///
+/// </div>
 #[unstable(feature = "structural_match", issue = "31434")]
 #[diagnostic::on_unimplemented(message = "the type `{Self}` does not `#[derive(PartialEq)]`")]
 #[lang = "structural_peq"]
@@ -448,6 +496,12 @@ marker_impls! {
 /// [`String`]: ../../std/string/struct.String.html
 /// [`size_of::<T>`]: size_of
 /// [impls]: #implementors
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي يمكن مضاعفة قيمها بنسخ البتات فقط (تُنسخ تلقائيًا بدل النقل).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[lang = "copy"]
 #[rustc_diagnostic_item = "Copy"]
@@ -456,6 +510,12 @@ pub trait Copy: Clone {
 }
 
 /// Derive macro generating an impl of the trait `Copy`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Copy`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics, derive_clone_copy_internals)]
@@ -484,6 +544,12 @@ marker_impls! {
 impl Copy for ! {}
 
 /// Shared references can be copied, but mutable references *cannot*!
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المراجع المشتركة يمكن نسخها، لكن المراجع القابلة للتعديل *لا يمكن*!
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl<T: PointeeSized> Copy for &T {}
 
@@ -806,6 +872,12 @@ impl<T: PointeeSized> !Sync for *mut T {}
 /// * `align_of::<PhantomData<T>>() == 1`
 ///
 /// [drop check]: Drop#drop-check
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع بحجم صفر يُستخدم لتعليم أشياء "تتصرف كأنها" تملك `T`.
+///
+/// </div>
 #[lang = "phantom_data"]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct PhantomData<T: PointeeSized>;
@@ -872,6 +944,12 @@ impl<T: PointeeSized> StructuralPartialEq for PhantomData<T> {}
 /// between `DiscriminantKind::Discriminant` and `mem::Discriminant`.
 ///
 /// [`mem::Discriminant`]: crate::mem::Discriminant
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait داخلي في المترجم يبيّن نوع مميِّزات الـ enum.
+///
+/// </div>
 #[unstable(
     feature = "discriminant_kind",
     issue = "none",
@@ -883,6 +961,12 @@ impl<T: PointeeSized> StructuralPartialEq for PhantomData<T> {}
 pub trait DiscriminantKind {
     /// The type of the discriminant, which must satisfy the trait
     /// bounds required by `mem::Discriminant`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع المميِّز.
+    ///
+    /// </div>
     #[lang = "discriminant_type"]
     type Discriminant: Clone + Copy + Debug + Eq + PartialEq + Hash + Send + Sync + Unpin;
 }
@@ -899,6 +983,12 @@ pub trait DiscriminantKind {
 ///
 /// This trait is a core part of the language, it is just expressed as a trait in libcore for
 /// convenience. Do *not* implement it for other types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لمعرفة هل يحتوي النوع `UnsafeCell` داخليًا (بدون إشارة غير مباشرة) (`Freeze`).
+///
+/// </div>
 // FIXME: Eventually this trait should become `#[rustc_deny_explicit_impl]`.
 // That requires porting the impls below to native internal impls.
 #[lang = "freeze"]
@@ -923,6 +1013,12 @@ marker_impls! {
 ///
 /// This is part of [RFC 3467](https://rust-lang.github.io/rfcs/3467-unsafe-pinned.html), and is
 /// tracked by [#125735](https://github.com/rust-lang/rust/issues/125735).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لمعرفة هل يحتوي النوع `UnsafePinned` داخليًا.
+///
+/// </div>
 #[lang = "unsafe_unpin"]
 #[unstable(feature = "unsafe_unpin", issue = "125735")]
 pub unsafe auto trait UnsafeUnpin {}
@@ -1005,6 +1101,12 @@ marker_impls! {
 /// [`pin` module]: crate::pin "pin module"
 /// [section about `Unpin`]: crate::pin#unpin "pin module docs about unpin"
 /// [`unsafe`]: ../../std/keyword.unsafe.html "keyword unsafe"
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الأنواع التي لا تحتاج أي ضمانات تثبيت (`Unpin`).
+///
+/// </div>
 #[stable(feature = "pin", since = "1.33.0")]
 #[diagnostic::on_unimplemented(
     note = "consider using the `pin!` macro\nconsider using `Box::pin` if you need to access the pinned value outside of the current scope",
@@ -1016,6 +1118,12 @@ pub auto trait Unpin {}
 /// A marker type which does not implement `Unpin`.
 ///
 /// If a type contains a `PhantomPinned`, it will not implement `Unpin` by default.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع علامة لا يطبّق `Unpin`.
+///
+/// </div>
 //
 // FIXME(unsafe_pinned): This is *not* a stable guarantee we want to make, at least not yet.
 // Note that for backwards compatibility with the new [`UnsafePinned`] wrapper type, placing this
@@ -1054,6 +1162,12 @@ marker_impls! {
 ///
 /// This should be used for `[const]` bounds,
 /// as non-const bounds will always hold for every type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة للأنواع التي يمكن حذفها.
+///
+/// </div>
 #[unstable(feature = "const_destruct", issue = "133214")]
 #[rustc_const_unstable(feature = "const_destruct", issue = "133214")]
 #[lang = "destruct"]
@@ -1066,6 +1180,12 @@ pub const trait Destruct: PointeeSized {}
 ///
 /// The implementation of this trait is built-in and cannot be implemented
 /// for any user type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة لأنواع الصفوف.
+///
+/// </div>
 #[unstable(feature = "tuple_trait", issue = "157987")]
 #[lang = "tuple_trait"]
 #[diagnostic::on_unimplemented(message = "`{Self}` is not a tuple")]
@@ -1084,6 +1204,12 @@ struct HackGcaAdtsFeature;
 /// const BAR<const N: usize>: usize = gca!(N);
 /// const FOO<const N: usize>: usize = gca!(BAR::<N>);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ وسيطًا ثابتًا ممثَّلًا مباشرة.
+///
+/// </div>
 #[rustc_builtin_macro(gca)]
 // HACK: abuse implied_by, this should be enabled if gca_min_const_items or gca_adts is enabled,
 // neither one is more particularly special than the other
@@ -1101,6 +1227,12 @@ macro_rules! gca {
 /// derived (`StructuralPartialEq`). There's a hard-coded check in the compiler ensuring
 /// that all fields are also `ConstParamTy`, which implies that recursively, all fields
 /// are `StructuralPartialEq`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة للأنواع التي يمكن استخدامها كأنواع لمعاملات `const` العامة.
+///
+/// </div>
 #[lang = "const_param_ty"]
 #[unstable(feature = "const_param_ty_trait", issue = "95174", implied_by = "unsized_const_params")]
 #[diagnostic::on_unimplemented(message = "`{Self}` can't be used as a const parameter type")]
@@ -1111,6 +1243,12 @@ macro_rules! gca {
 pub trait ConstParamTy_: StructuralPartialEq + Eq {}
 
 /// Derive macro generating an impl of the trait `ConstParamTy`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `ConstParamTy`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[allow_internal_unstable(const_param_ty_trait)]
 #[unstable(feature = "min_adt_const_params", issue = "154042", implied_by = "adt_const_params")]
@@ -1332,6 +1470,12 @@ marker_impls! {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يجعل مؤشرًا ذكيًا قابلًا للاستخدام مع كائنات الـ trait.
+///
+/// </div>
 #[rustc_builtin_macro(CoercePointee, attributes(pointee))]
 #[allow_internal_unstable(dispatch_from_dyn, coerce_unsized, unsize, coerce_pointee_validated)]
 #[rustc_diagnostic_item = "CoercePointee"]
@@ -1355,6 +1499,12 @@ pub trait CoercePointeeValidated {
 
 /// Allows value to be reborrowed as exclusive, creating a copy of the value
 /// that disables the source for reads and writes for the lifetime of the copy.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسمح بإعادة استعارة قيمة بشكل حصري.
+///
+/// </div>
 #[lang = "reborrow"]
 #[unstable(feature = "reborrow", issue = "145612")]
 pub trait Reborrow {
@@ -1362,6 +1512,12 @@ pub trait Reborrow {
 }
 
 /// Derive macro generating an impl of the trait `Reborrow`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Reborrow`.
+///
+/// </div>
 #[rustc_builtin_macro(Reborrow)]
 #[allow_internal_unstable(reborrow)]
 #[unstable(feature = "reborrow", issue = "145612")]
@@ -1371,6 +1527,12 @@ pub macro Reborrow($item:item) {
 
 /// Allows reborrowable value to be reborrowed as shared, creating a copy
 /// that disables the source for writes for the lifetime of the copy.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسمح بإعادة استعارة قيمة بشكل مشترك.
+///
+/// </div>
 #[lang = "coerce_shared"]
 #[unstable(feature = "reborrow", issue = "145612")]
 pub trait CoerceShared<Target: Copy>: Reborrow {
@@ -1380,6 +1542,12 @@ pub trait CoerceShared<Target: Copy>: Reborrow {
 /// Derive macro generating an impl of the trait `CoerceShared`.
 ///
 /// The shared target type must be specified with `#[coerce_shared(Target)]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `CoerceShared`.
+///
+/// </div>
 #[rustc_builtin_macro(CoerceShared, attributes(coerce_shared))]
 #[allow_internal_unstable(reborrow)]
 #[unstable(feature = "reborrow", issue = "145612")]

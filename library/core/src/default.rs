@@ -1,4 +1,10 @@
 //! The `Default` trait for types with a default value.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الـ trait `Default` للأنواع التي لها قيمة افتراضية.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -101,6 +107,12 @@ use crate::ascii::Char as AsciiChar;
 ///     bar: f32,
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعطي النوع قيمة افتراضية مفيدة (`T::default()`).
+///
+/// </div>
 #[rustc_diagnostic_item = "Default"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_default", issue = "143894")]
@@ -140,6 +152,12 @@ pub const trait Default: Sized {
 }
 
 /// Derive macro generating an impl of the trait `Default`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Default`.
+///
+/// </div>
 #[rustc_builtin_macro(Default, attributes(default))]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics)]

@@ -37,4 +37,10 @@ pub mod unicode_data;
 /// [Section 3.1 (Version Numbering)] of the Unicode Standard.
 ///
 /// [Section 3.1 (Version Numbering)]: https://www.unicode.org/versions/latest/core-spec/chapter-3/#G49512
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة يونيكود التي تعتمد عليها دوال `char` و`str`.
+///
+/// </div>
 pub const UNICODE_VERSION: (u8, u8, u8) = unicode_data::UNICODE_VERSION;

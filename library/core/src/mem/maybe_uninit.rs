@@ -346,6 +346,12 @@ use crate::{fmt, intrinsics, ptr, slice};
 ///
 /// [bytes]: ../../reference/memory-model.html#bytes
 /// [provenance]: crate::ptr#provenance
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع غلاف لإنشاء قيم من `T` غير مهيأة.
+///
+/// </div>
 #[stable(feature = "maybe_uninit", since = "1.36.0")]
 // Lang item so we can wrap other types in it. This is useful for coroutines.
 #[lang = "maybe_uninit"]
@@ -399,6 +405,12 @@ impl<T> MaybeUninit<T> {
     /// ```
     ///
     /// [`assume_init`]: MaybeUninit::assume_init
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MaybeUninit<T>` جديدًا مهيأً بالقيمة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit", since = "1.36.0")]
     #[must_use = "use `forget` to avoid running Drop code"]
@@ -421,6 +433,12 @@ impl<T> MaybeUninit<T> {
     ///
     /// let v: MaybeUninit<String> = MaybeUninit::uninit();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MaybeUninit<T>` جديدًا غير مهيأ.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit", since = "1.36.0")]
     #[must_use]
@@ -472,6 +490,13 @@ impl<T> MaybeUninit<T> {
     /// // Inside a pair, we create a `NotZero` that does not have a valid discriminant.
     /// // This is undefined behavior. ⚠️
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `MaybeUninit<T>` جديدًا غير مهيأ وذاكرته مملوءة بأصفار. يعتمد على `T` هل هذا يعني تهيئة
+    /// صحيحة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_diagnostic_item = "maybe_uninit_zeroed"]
@@ -568,6 +593,12 @@ impl<T> MaybeUninit<T> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة الـ `MaybeUninit<T>`.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "maybe_uninit_write", since = "1.55.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_write", since = "1.85.0")]
@@ -610,6 +641,12 @@ impl<T> MaybeUninit<T> {
     ///
     /// (Notice that the rules around references to uninitialized data are not finalized yet, but
     /// until they are, it is advisable to avoid them.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا إلى القيمة. القراءة منه قبل التهيئة سلوك غير معرَّف.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_as_ptr", since = "1.59.0")]
     #[rustc_as_ptr]
@@ -652,6 +689,12 @@ impl<T> MaybeUninit<T> {
     ///
     /// (Notice that the rules around references to uninitialized data are not finalized yet, but
     /// until they are, it is advisable to avoid them.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا قابلًا للتعديل إلى القيمة. القراءة منه قبل التهيئة سلوك غير معرَّف.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_as_mut_ptr", since = "1.83.0")]
     #[rustc_as_ptr]
@@ -714,6 +757,12 @@ impl<T> MaybeUninit<T> {
     /// ```
     ///
     /// See the [type-level documentation][#examples] for more examples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة من حاوية `MaybeUninit<T>` (غير آمن: يجب أن تكون مهيأة).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit", since = "1.36.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_assume_init_by_value", since = "1.59.0")]
     #[inline(always)]
@@ -787,6 +836,12 @@ impl<T> MaybeUninit<T> {
     /// // We now created two copies of the same vector, leading to a double-free ⚠️ when
     /// // they both get dropped!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ القيمة من حاوية `MaybeUninit<T>` (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_extra", since = "1.60.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_assume_init_read", since = "1.75.0")]
     #[inline(always)]
@@ -821,6 +876,12 @@ impl<T> MaybeUninit<T> {
     /// behavior.
     ///
     /// [`assume_init`]: MaybeUninit::assume_init
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيمة الموجودة في مكانها (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_extra", since = "1.60.0")]
     #[rustc_const_unstable(feature = "const_drop_in_place", issue = "109342")]
     pub const unsafe fn assume_init_drop(&mut self)
@@ -888,6 +949,12 @@ impl<T> MaybeUninit<T> {
     ///     //^^^^^^^^^^^^^^^ Reference to an uninitialized `Cell<bool>`: UB!
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة الموجودة (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_ref", since = "1.55.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_assume_init_ref", since = "1.59.0")]
     #[inline(always)]
@@ -1005,6 +1072,12 @@ impl<T> MaybeUninit<T> {
     ///     foo.assume_init()
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الموجودة (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_ref", since = "1.55.0")]
     #[rustc_const_stable(feature = "const_maybe_uninit_assume_init", since = "1.84.0")]
     #[inline(always)]
@@ -1042,6 +1115,12 @@ impl<T> MaybeUninit<T> {
     ///
     /// assert_eq!(array, [0, 1, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيم من مصفوفة حاويات `MaybeUninit` (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_array_assume_init", issue = "96097")]
     #[inline(always)]
     #[track_caller]
@@ -1074,6 +1153,12 @@ impl<T> MaybeUninit<T> {
     /// let bytes = unsafe { uninit_bytes.assume_init_ref() };
     /// assert_eq!(bytes, val.to_ne_bytes());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا الـ `MaybeUninit` كشريحة بايتات قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_as_bytes", issue = "93092")]
     pub const fn as_bytes(&self) -> &[MaybeUninit<u8>] {
         // SAFETY: MaybeUninit<u8> is always valid, even for padding bytes
@@ -1105,6 +1190,12 @@ impl<T> MaybeUninit<T> {
     /// let val2 = unsafe { uninit.assume_init() };
     /// assert_eq!(val2, 0x123456cd);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا الـ `MaybeUninit` كشريحة بايتات قابلة للتعديل قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_as_bytes", issue = "93092")]
     pub const fn as_bytes_mut(&mut self) -> &mut [MaybeUninit<u8>] {
         // SAFETY: MaybeUninit<u8> is always valid, even for padding bytes
@@ -1158,6 +1249,12 @@ impl<T> [MaybeUninit<T>] {
     /// ```
     ///
     /// [`write_clone_of_slice`]: slice::write_clone_of_slice
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ العناصر من `src` إلى `self`، ويرجع مرجعًا قابلًا للتعديل إلى المحتوى المهيأ الآن.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_write_slice", since = "1.93.0")]
     #[rustc_const_stable(feature = "maybe_uninit_write_slice", since = "1.93.0")]
     pub const fn write_copy_of_slice(&mut self, src: &[T]) -> &mut [T]
@@ -1219,6 +1316,12 @@ impl<T> [MaybeUninit<T>] {
     /// ```
     ///
     /// [`write_copy_of_slice`]: slice::write_copy_of_slice
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستنسخ العناصر من `src` إلى `self`، ويرجع مرجعًا قابلًا للتعديل إلى المحتوى المهيأ الآن.
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_write_slice", since = "1.93.0")]
     pub fn write_clone_of_slice(&mut self, src: &[T]) -> &mut [T]
     where
@@ -1272,6 +1375,12 @@ impl<T> [MaybeUninit<T>] {
     /// let initialized = buf.write_filled(1);
     /// assert_eq!(initialized, &mut [1; 10]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ الشريحة بنسخ من `value`، ويرجع مرجعًا قابلًا للتعديل إلى المحتوى المهيأ الآن.
+    ///
+    /// </div>
     #[doc(alias = "memset")]
     #[unstable(feature = "maybe_uninit_fill", issue = "117428")]
     pub fn write_filled(&mut self, value: T) -> &mut [T]
@@ -1306,6 +1415,12 @@ impl<T> [MaybeUninit<T>] {
     /// let initialized = buf.write_with(|idx| idx + 1);
     /// assert_eq!(initialized, &mut [1, 2, 3, 4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ الشريحة بعناصر يرجعها استدعاء إغلاق لكل موضع.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_fill", issue = "117428")]
     pub fn write_with<F>(&mut self, mut f: F) -> &mut [T]
     where
@@ -1343,6 +1458,12 @@ impl<T> [MaybeUninit<T>] {
     /// let initialized = buf.write_default();
     /// assert_eq!(initialized, &mut [0, 0, 0, 0, 0]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ الشريحة بعناصر يرجعها `Default::default` لكل موضع.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_fill", issue = "117428")]
     pub fn write_default(&mut self) -> &mut [T]
     where
@@ -1449,6 +1570,12 @@ impl<T> [MaybeUninit<T>] {
     /// assert_eq!(remainder.len(), 0);
     /// assert_eq!(iter.as_slice(), &[4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ الشريحة بعناصر من مكرر حتى تمتلئ أو ينتهي المكرر.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_fill", issue = "117428")]
     pub fn write_iter<I>(&mut self, it: I) -> (&mut [T], &mut [MaybeUninit<T>])
     where
@@ -1491,6 +1618,12 @@ impl<T> [MaybeUninit<T>] {
     /// let val2 = u16::from_ne_bytes(bytes[2..4].try_into().unwrap());
     /// assert_eq!(&[val1, val2], &[0x1234u16, 0x5678u16]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذا الـ `MaybeUninit` كشريحة بايتات قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_as_bytes", issue = "93092")]
     pub const fn as_bytes(&self) -> &[MaybeUninit<u8>] {
         // SAFETY: MaybeUninit<u8> is always valid, even for padding bytes
@@ -1521,6 +1654,12 @@ impl<T> [MaybeUninit<T>] {
     ///     assert_eq!(vals, &[0x1234u16, 0x5678u16]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع محتوى هذه الشريحة كشريحة بايتات قابلة للتعديل قد تكون غير مهيأة.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_as_bytes", issue = "93092")]
     pub const fn as_bytes_mut(&mut self) -> &mut [MaybeUninit<u8>] {
         // SAFETY: MaybeUninit<u8> is always valid, even for padding bytes
@@ -1548,6 +1687,12 @@ impl<T> [MaybeUninit<T>] {
     /// requirement the compiler knows about it is that the data pointer must be
     /// non-null. Dropping such a `Vec<T>` however will cause undefined
     /// behaviour.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيم الموجودة في مكانها (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_slice", since = "1.93.0")]
     #[inline(always)]
     #[rustc_const_unstable(feature = "const_drop_in_place", issue = "109342")]
@@ -1570,6 +1715,12 @@ impl<T> [MaybeUninit<T>] {
     /// Calling this when the content is not yet fully initialized causes undefined
     /// behavior: it is up to the caller to guarantee that every `MaybeUninit<T>` in
     /// the slice really is in an initialized state.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة الموجودة (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_slice", since = "1.93.0")]
     #[rustc_const_stable(feature = "maybe_uninit_slice", since = "1.93.0")]
     #[inline(always)]
@@ -1589,6 +1740,12 @@ impl<T> [MaybeUninit<T>] {
     /// behavior: it is up to the caller to guarantee that every `MaybeUninit<T>` in the
     /// slice really is in an initialized state. For instance, `.assume_init_mut()` cannot
     /// be used to initialize a `MaybeUninit` slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الموجودة (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "maybe_uninit_slice", since = "1.93.0")]
     #[rustc_const_stable(feature = "maybe_uninit_slice", since = "1.93.0")]
     #[inline(always)]
@@ -1610,6 +1767,12 @@ impl<T, const N: usize> MaybeUninit<[T; N]> {
     ///
     /// let data: [MaybeUninit<u8>; 1000] = MaybeUninit::uninit().transpose();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب `MaybeUninit<[T; N]>` إلى `[MaybeUninit<T>; N]`.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_uninit_array_transpose", issue = "96097")]
     #[inline]
     pub const fn transpose(self) -> [MaybeUninit<T>; N] {
@@ -1680,6 +1843,12 @@ impl<T, const N: usize> [MaybeUninit<T>; N] {
     /// let data = [MaybeUninit::<u8>::uninit(); 1000];
     /// let data: MaybeUninit<[u8; 1000]> = data.transpose();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقلب `[MaybeUninit<T>; N]` إلى `MaybeUninit<[T; N]>`.
+    ///
+    /// </div>
     #[unstable(feature = "maybe_uninit_uninit_array_transpose", issue = "96097")]
     #[inline]
     pub const fn transpose(self) -> MaybeUninit<[T; N]> {

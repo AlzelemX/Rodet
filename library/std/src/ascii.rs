@@ -146,6 +146,12 @@ pub trait AsciiExt {
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
     ///
     /// [`to_ascii_uppercase`]: AsciiExt::to_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الحرف إلى حرف ASCII كبير في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii", since = "1.9.0")]
     fn make_ascii_uppercase(&mut self);
 
@@ -163,6 +169,12 @@ pub trait AsciiExt {
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
     ///
     /// [`to_ascii_lowercase`]: AsciiExt::to_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الحرف إلى حرف ASCII صغير في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii", since = "1.9.0")]
     fn make_ascii_lowercase(&mut self);
 }

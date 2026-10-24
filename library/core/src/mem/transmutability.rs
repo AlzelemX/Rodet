@@ -82,6 +82,12 @@ use crate::marker::ConstParamTy_;
 /// of `repr(C)`, alone, does not carry a safety invariant of SemVer stability.
 /// Furthermore, stability does not imply portability. For example, the size of
 /// `usize` is stable, but not portable.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن `Src` يمكن تحويله إلى `Self` بـ transmute.
+///
+/// </div>
 #[unstable(feature = "transmutability", issue = "99571")]
 #[unstable_feature_bound(transmutability)]
 #[lang = "transmute_trait"]
@@ -145,6 +151,12 @@ where
 ///
 /// When `false`, the respective proof obligation belongs to the compiler. When
 /// `true`, the onus of the safety proof belongs to the programmer.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// افتراضات الإثبات القابلة للضبط لـ `TransmuteFrom`.
+///
+/// </div>
 #[unstable(feature = "transmutability", issue = "99571")]
 #[lang = "transmute_opts"]
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
@@ -189,6 +201,12 @@ pub struct Assume {
     ///
     /// assert!(matches!(maybe_dst, Some(&u16::MAX) | None));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عندما تكون `false`، لا يُطبَّق `TransmuteFrom` للتحويلات التي قد تخالف شروط محاذاة المراجع.
+    ///
+    /// </div>
     pub alignment: bool,
 
     /// When `false`, [`TransmuteFrom`] is not implemented for transmutations
@@ -196,6 +214,12 @@ pub struct Assume {
     ///
     /// When `true`, [`TransmuteFrom`] assumes that *you* have ensured that
     /// references in the transmuted value do not outlive their referents.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عندما تكون `false`، لا يُطبَّق `TransmuteFrom` للتحويلات التي تطيل أعمار المراجع.
+    ///
+    /// </div>
     pub lifetimes: bool,
 
     /// When `false`, [`TransmuteFrom`] is not implemented for transmutations
@@ -245,6 +269,13 @@ pub struct Assume {
     ///
     /// assert!(matches!(maybe_dst, Some(EvenU8 { val: 42 })));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عندما تكون `false`، لا يُطبَّق `TransmuteFrom` للتحويلات التي قد تخالف شروط أمان المكتبة
+    /// للنوع الهدف.
+    ///
+    /// </div>
     pub safety: bool,
 
     /// When `false`, [`TransmuteFrom`] is not implemented for transmutations
@@ -285,6 +316,13 @@ pub struct Assume {
     ///
     /// assert_eq!(maybe_dst, Some(true));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عندما تكون `false`، لا يُطبَّق `TransmuteFrom` للتحويلات التي قد تخالف صحة البتات للنوع
+    /// الهدف.
+    ///
+    /// </div>
     pub validity: bool,
 }
 
@@ -296,6 +334,12 @@ impl Assume {
     /// With this, [`TransmuteFrom`] does not assume you have ensured any safety
     /// obligations are met, and relies only upon its own analysis to (dis)prove
     /// transmutability.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بهذا لا يفترض `TransmuteFrom` أنك ضمنت أي شروط أمان.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const NOTHING: Self =
         Self { alignment: false, lifetimes: false, safety: false, validity: false };
@@ -303,24 +347,48 @@ impl Assume {
     /// With this, [`TransmuteFrom`] assumes only that you have ensured that
     /// references in the transmuted value satisfy the alignment requirements of
     /// their referent types. See [`Assume::alignment`] for examples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بهذا يفترض `TransmuteFrom` فقط أنك ضمنت شروط محاذاة المراجع.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const ALIGNMENT: Self = Self { alignment: true, ..Self::NOTHING };
 
     /// With this, [`TransmuteFrom`] assumes only that you have ensured that
     /// references in the transmuted value do not outlive their referents. See
     /// [`Assume::lifetimes`] for examples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بهذا يفترض `TransmuteFrom` فقط أنك ضمنت ألا تعيش المراجع أطول مما تشير إليه.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const LIFETIMES: Self = Self { lifetimes: true, ..Self::NOTHING };
 
     /// With this, [`TransmuteFrom`] assumes only that you have ensured that
     /// undefined behavior does not arise from using the transmuted value. See
     /// [`Assume::safety`] for examples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بهذا يفترض `TransmuteFrom` فقط أنك ضمنت عدم حدوث سلوك غير معرَّف.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const SAFETY: Self = Self { safety: true, ..Self::NOTHING };
 
     /// With this, [`TransmuteFrom`] assumes only that you have ensured that the
     /// value being transmuted is a bit-valid instance of the transmuted value.
     /// See [`Assume::validity`] for examples.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بهذا يفترض `TransmuteFrom` فقط أنك ضمنت أن القيمة صالحة البتات.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const VALIDITY: Self = Self { validity: true, ..Self::NOTHING };
 
@@ -371,6 +439,12 @@ impl Assume {
     ///     try_transmute_ref::<_, _, { Assume::NOTHING }>(src)
     /// };
     ///```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج افتراضات `self` و`other_assumptions`.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const fn and(self, other_assumptions: Self) -> Self {
         Self {
@@ -395,6 +469,12 @@ impl Assume {
     ///     Assume::ALIGNMENT,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف `other_assumptions` من افتراضات `self`.
+    ///
+    /// </div>
     #[unstable(feature = "transmutability", issue = "99571")]
     pub const fn but_not(self, other_assumptions: Self) -> Self {
         Self {

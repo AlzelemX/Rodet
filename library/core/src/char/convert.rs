@@ -1,4 +1,10 @@
 //! Character conversions.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تحويلات الأحرف.
+//!
+//! </div>
 
 use crate::char::TryFromCharError;
 use crate::error::Error;
@@ -100,6 +106,12 @@ const impl From<char> for u128 {
 /// the same value, failing if the code point is greater than U+00FF.
 ///
 /// See [`impl From<u8> for char`](char#impl-From<u8>-for-char) for details on the encoding.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `char` رمزه من U+0000 إلى U+00FF إلى بايت بنفس القيمة، ويفشل إذا كان الرمز أكبر من U+00FF.
+///
+/// </div>
 #[stable(feature = "u8_from_char", since = "1.59.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl TryFrom<char> for u8 {
@@ -130,6 +142,12 @@ const impl TryFrom<char> for u8 {
 /// with the same value, failing if the code point is greater than U+FFFF.
 ///
 /// This corresponds to the UCS-2 encoding, as specified in ISO/IEC 10646:2003.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `char` رمزه من U+0000 إلى U+FFFF إلى `u16` بنفس القيمة، ويفشل إذا كان أكبر من U+FFFF.
+///
+/// </div>
 #[stable(feature = "u16_from_char", since = "1.74.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl TryFrom<char> for u16 {
@@ -162,6 +180,12 @@ const impl TryFrom<char> for u16 {
 ///
 /// Generally speaking, this conversion can be seen as obtaining the character's corresponding
 /// UTF-32 code point to the extent representable by pointer addresses.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `char` إلى `usize` بنفس القيمة، ويفشل إذا لم يمكن تمثيل القيمة.
+///
+/// </div>
 #[stable(feature = "usize_try_from_char", since = "1.94.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl TryFrom<char> for usize {
@@ -212,6 +236,12 @@ const impl TryFrom<char> for usize {
 /// `ascii`, `iso-8859-1`, and `windows-1252` are all aliases
 /// for a superset of Windows-1252 that fills the remaining blanks with corresponding
 /// C0 and C1 control codes.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل بايتًا في `0x00..=0xFF` إلى `char` رمزه بنفس القيمة.
+///
+/// </div>
 #[stable(feature = "char_convert", since = "1.13.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 const impl From<u8> for char {
@@ -234,6 +264,12 @@ const impl From<u8> for char {
 /// An error which can be returned when parsing a char.
 ///
 /// This `struct` is created when using the [`char::from_str`] method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ قد يرجع عند قراءة حرف من نص.
+///
+/// </div>
 #[stable(feature = "char_from_str", since = "1.20.0")]
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ParseCharError {
@@ -313,6 +349,12 @@ const impl TryFrom<u32> for char {
 ///
 /// This `struct` is created by the [`char::try_from<u32>`](char#impl-TryFrom<u32>-for-char) method.
 /// See its documentation for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي يرجع عند فشل التحويل من `u32` إلى `char`.
+///
+/// </div>
 #[stable(feature = "try_from", since = "1.34.0")]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct CharTryFromError(());

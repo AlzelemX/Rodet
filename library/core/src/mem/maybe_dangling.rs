@@ -66,6 +66,12 @@ use crate::{mem, ptr};
 /// [`into_inner`]: MaybeDangling::into_inner
 /// [`as_ref`]: MaybeDangling::as_ref
 /// [`ManuallyDrop`]: crate::mem::ManuallyDrop
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسمح للمراجع و`Box` المغلَّفة بأن تكون معلقة.
+///
+/// </div>
 #[repr(transparent)]
 #[rustc_pub_transparent]
 #[derive(Debug, Copy, Clone, Default)]
@@ -74,6 +80,12 @@ pub struct MaybeDangling<P: ?Sized>(P);
 
 impl<P: ?Sized> MaybeDangling<P> {
     /// Wraps a value in a `MaybeDangling`, allowing it to dangle.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلّف قيمة في `MaybeDangling` ويسمح لها بأن تكون معلقة.
+    ///
+    /// </div>
     #[rustc_no_writable]
     pub const fn new(x: P) -> Self
     where
@@ -85,6 +97,12 @@ impl<P: ?Sized> MaybeDangling<P> {
     /// Returns a reference to the inner value.
     ///
     /// Note that this is UB if the inner value is currently dangling.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى القيمة الداخلية.
+    ///
+    /// </div>
     pub const fn as_ref(&self) -> &P {
         &self.0
     }
@@ -92,6 +110,12 @@ impl<P: ?Sized> MaybeDangling<P> {
     /// Returns a mutable reference to the inner value.
     ///
     /// Note that this is UB if the inner value is currently dangling.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة الداخلية.
+    ///
+    /// </div>
     pub const fn as_mut(&mut self) -> &mut P {
         &mut self.0
     }
@@ -99,6 +123,12 @@ impl<P: ?Sized> MaybeDangling<P> {
     /// Extracts the value from the `MaybeDangling` container.
     ///
     /// Note that this is UB if the inner value is currently dangling.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة من حاوية `MaybeDangling`.
+    ///
+    /// </div>
     pub const fn into_inner(self) -> P
     where
         P: Sized,

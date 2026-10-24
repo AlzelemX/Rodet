@@ -113,6 +113,12 @@ use crate::ops::ControlFlow;
 ///     R::from_output(accum)
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// المعامل `?` وكتل `try {}`.
+///
+/// </div>
 #[unstable(feature = "try_trait_v2", issue = "84277", old_name = "try_trait")]
 #[rustc_on_unimplemented(
     on(
@@ -359,6 +365,12 @@ where
 /// `Result<T, E>: Try<Output = T, Residual = Result<!, E>>`,
 /// and in the other direction,
 /// `<Result<!, E> as Residual<T>>::TryType = Result<T, E>`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يسمح بالحصول على النوع القياسي الذي يطبّق `Try` وبقيته (residual) هذا النوع.
+///
+/// </div>
 #[unstable(feature = "try_trait_v2_residual", issue = "91285")]
 #[rustc_const_unstable(feature = "const_try_residual", issue = "91285")]
 pub const trait Residual<O>: Sized {
@@ -372,6 +384,12 @@ pub const trait Residual<O>: Sized {
 /// depends on the residual type `R` and the output type of the block `O`,
 /// but importantly not on the contextual type the way it would be if
 /// we called `<_ as FromResidual>::from_residual(r)` directly.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم في كتل `try {}` ليعتمد نوع ناتج `?` على نوع البقية `R` ونوع ناتج الكتلة `O`.
+///
+/// </div>
 #[unstable(feature = "try_trait_v2_residual", issue = "91285")]
 #[rustc_const_unstable(feature = "const_try_residual", issue = "91285")]
 // needs to be `pub` to avoid `private type` errors
@@ -458,6 +476,12 @@ const impl<T: [const] Destruct> Residual<T> for NeverShortCircuitResidual {
 
 /// Implement `FromResidual<Yeet<T>>` on your type to enable
 /// `do yeet expr` syntax in functions returning your type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طبّق `FromResidual<Yeet<T>>` على نوعك لتفعيل صيغة `do yeet expr`.
+///
+/// </div>
 #[unstable(feature = "try_trait_v2_yeet", issue = "96374")]
 #[derive(Debug)]
 pub struct Yeet<T>(pub T);

@@ -16,6 +16,12 @@
 //! This module is the home of the iterator implementations for the iterators
 //! implemented on `char`, as well as some useful constants and conversion
 //! functions that convert various types to `char`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات للنوع الأساسي `char`.
+//!
+//! </div>
 
 #![allow(non_snake_case)]
 #![stable(feature = "rust1", since = "1.0.0")]
@@ -92,12 +98,24 @@ const MAX_THREE_B: u32 = 0x10000;
 */
 
 /// The highest valid code point a `char` can have, `'\u{10FFFF}'`. Use [`char::MAX`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أكبر رمز صالح لـ `char`. استخدم `char::MAX` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "TBD", note = "replaced by the `MAX` associated constant on `char`")]
 pub const MAX: char = char::MAX;
 
 /// `U+FFFD REPLACEMENT CHARACTER` (�) is used in Unicode to represent a
 /// decoding error. Use [`char::REPLACEMENT_CHARACTER`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حرف الاستبدال (�). استخدم `char::REPLACEMENT_CHARACTER` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "decode_utf16", since = "1.9.0")]
 #[deprecated(
     since = "TBD",
@@ -107,6 +125,12 @@ pub const REPLACEMENT_CHARACTER: char = char::REPLACEMENT_CHARACTER;
 
 /// The version of [Unicode](https://www.unicode.org/) that the Unicode parts of
 /// `char` and `str` methods are based on. Use [`char::UNICODE_VERSION`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة يونيكود المستخدمة. استخدم `char::UNICODE_VERSION` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "unicode_version", since = "1.45.0")]
 #[deprecated(
     since = "TBD",
@@ -116,6 +140,12 @@ pub const UNICODE_VERSION: (u8, u8, u8) = char::UNICODE_VERSION;
 
 /// Creates an iterator over the UTF-16 encoded code points in `iter`, returning
 /// unpaired surrogates as `Err`s. Use [`char::decode_utf16`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ مكررًا على رموز UTF-16. استخدم `char::decode_utf16` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "decode_utf16", since = "1.9.0")]
 #[deprecated(since = "TBD", note = "replaced by the `decode_utf16` method on `char`")]
 #[inline]
@@ -124,6 +154,12 @@ pub fn decode_utf16<I: IntoIterator<Item = u16>>(iter: I) -> DecodeUtf16<I::Into
 }
 
 /// Converts a `u32` to a `char`. Use [`char::from_u32`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `u32` إلى `char`. استخدم `char::from_u32` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_char_convert", since = "1.67.0")]
 #[deprecated(since = "TBD", note = "replaced by the `from_u32` method on `char`")]
@@ -135,6 +171,12 @@ pub const fn from_u32(i: u32) -> Option<char> {
 
 /// Converts a `u32` to a `char`, ignoring validity. Use [`char::from_u32_unchecked`]
 /// instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل `u32` إلى `char` بدون تحقق. استخدم `char::from_u32_unchecked` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "char_from_unchecked", since = "1.5.0")]
 #[rustc_const_stable(feature = "const_char_from_u32_unchecked", since = "1.81.0")]
 #[deprecated(since = "TBD", note = "replaced by the `from_u32_unchecked` method on `char`")]
@@ -146,6 +188,12 @@ pub const unsafe fn from_u32_unchecked(i: u32) -> char {
 }
 
 /// Converts a digit in the given radix to a `char`. Use [`char::from_digit`] instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل رقمًا بالأساس المعطى إلى `char`. استخدم `char::from_digit` بدلًا منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_char_convert", since = "1.67.0")]
 #[deprecated(since = "TBD", note = "replaced by the `from_digit` method on `char`")]
@@ -162,6 +210,12 @@ pub const fn from_digit(num: u32, radix: u32) -> Option<char> {
 /// its documentation for more.
 ///
 /// [`escape_unicode`]: char::escape_unicode
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي تهريب يونيكود الست عشري للحرف.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct EscapeUnicode(EscapeIterInner<10, AlwaysEscaped>);
@@ -228,6 +282,12 @@ impl fmt::Display for EscapeUnicode {
 /// its documentation for more.
 ///
 /// [`escape_default`]: char::escape_default
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي رمز التهريب الحرفي لـ `char`.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct EscapeDefault(EscapeIterInner<10, AlwaysEscaped>);
@@ -305,6 +365,12 @@ impl fmt::Display for EscapeDefault {
 /// documentation for more.
 ///
 /// [`escape_debug`]: char::escape_debug
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يعطي رمز التهريب الحرفي لـ `char`.
+///
+/// </div>
 #[stable(feature = "char_escape_debug", since = "1.20.0")]
 #[derive(Clone, Debug)]
 pub struct EscapeDebug(EscapeIterInner<10, MaybeEscaped>);
@@ -641,6 +707,12 @@ impl fmt::Display for CaseMappingIter {
 }
 
 /// The error type returned when a checked char conversion fails.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي يرجع عند فشل تحويل حرف مع التحقق.
+///
+/// </div>
 #[stable(feature = "u8_from_char", since = "1.59.0")]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct TryFromCharError(pub(crate) ());
@@ -664,13 +736,37 @@ impl Error for TryFromCharError {}
 /// the most significant bit represents whether the case
 /// conceptually starts as uppercase, while the least significant bit
 /// represents whether it conceptually ends as uppercase.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// حالة حرف له حالة، كما ترجعها `char::case`.
+///
+/// </div>
 #[unstable(feature = "titlecase", issue = "153892")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum CharCase {
     /// Lowercase. Corresponds to the `Lowercase` Unicode property.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// صغير. يقابل خاصية يونيكود `Lowercase`.
+    ///
+    /// </div>
     Lower = 0b00,
     /// Titlecase. Corresponds to the `Titlecase_Letter` Unicode general category.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنواني. يقابل فئة يونيكود `Titlecase_Letter`.
+    ///
+    /// </div>
     Title = 0b10,
     /// Uppercase. Corresponds to the `Uppercase` Unicode property.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// كبير. يقابل خاصية يونيكود `Uppercase`.
+    ///
+    /// </div>
     Upper = 0b11,
 }

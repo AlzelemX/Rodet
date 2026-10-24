@@ -27,6 +27,12 @@
 //! [`enum`]: ../../std/keyword.enum.html
 //! [`ptr`]: crate::ptr
 //! [`unsafe`]: ../../std/keyword.unsafe.html
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال أساسية للتعامل مع الذاكرة والقيم والأنواع.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -183,6 +189,12 @@ pub mod type_info;
 /// [`Box::into_raw`]: ../../std/boxed/struct.Box.html#method.into_raw
 /// [`mem::drop`]: drop
 /// [ub]: ../../reference/behavior-considered-undefined.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يأخذ ملكية القيمة و"ينساها" **بدون تشغيل دالة الهدم**.
+///
+/// </div>
 #[inline]
 #[rustc_const_stable(feature = "const_forget", since = "1.46.0")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -220,6 +232,12 @@ pub const fn forget<T>(t: T) {
 /// [#111942]: https://github.com/rust-lang/rust/issues/111942
 /// [#68304]: https://github.com/rust-lang/rust/issues/68304
 /// [#71170]: https://github.com/rust-lang/rust/pull/71170
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `forget`، لكنه يقبل أيضًا القيم غير معروفة الحجم.
+///
+/// </div>
 #[inline]
 #[unstable(feature = "forget_unsized", issue = "none")]
 pub fn forget_unsized<T: ?Sized>(t: T) {
@@ -366,6 +384,12 @@ pub fn forget_unsized<T: ?Sized>(t: T) {
 /// [`Box<T>`]: ../../std/boxed/struct.Box.html
 /// [`Option<&T>`]: crate::option::Option
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع حجم نوع بالبايتات.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -402,6 +426,12 @@ pub const fn size_of<T>() -> usize {
 /// ```
 ///
 /// [`size_of::<T>()`]: size_of
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع حجم القيمة المشار إليها بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -459,6 +489,12 @@ pub const fn size_of_val<T: ?Sized>(val: &T) -> usize {
 /// let y: &[u8] = &x;
 /// assert_eq!(13, unsafe { mem::size_of_val_raw(y) });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع حجم القيمة المشار إليها بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "layout_for_ptr", since = "1.99.0")]
@@ -484,6 +520,12 @@ pub const unsafe fn size_of_val_raw<T: ?Sized>(val: *const T) -> usize {
 ///
 /// assert_eq!(4, mem::min_align_of::<i32>());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أقل محاذاة يتطلبها الـ ABI لنوع، بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -507,6 +549,12 @@ pub fn min_align_of<T>() -> usize {
 ///
 /// assert_eq!(4, mem::min_align_of_val(&5i32));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أقل محاذاة يتطلبها الـ ABI لنوع القيمة التي يشير إليها `val`، بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -534,6 +582,12 @@ pub fn min_align_of_val<T: ?Sized>(val: &T) -> usize {
 /// that is, the above assertion does not pass on all platforms.)
 ///
 /// [type-layout]: ../../reference/type-layout.html#r-layout.primitive
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أقل محاذاة يتطلبها الـ ABI لنوع، بالبايتات.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -574,6 +628,12 @@ pub const fn align_of<T>() -> usize {
 /// ```
 ///
 /// [type-layout]: ../../reference/type-layout.html#r-layout.primitive
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أقل محاذاة يتطلبها الـ ABI لنوع القيمة التي يشير إليها `val`، بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -633,6 +693,12 @@ pub const fn align_of_val<T: ?Sized>(val: &T) -> usize {
 /// that is, the above assertion does not pass on all platforms.)
 ///
 /// [type-layout]: ../../reference/type-layout.html#r-layout.primitive
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أقل محاذاة يتطلبها الـ ABI لنوع القيمة التي يشير إليها `val`، بالبايتات.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "layout_for_ptr", since = "1.99.0")]
@@ -698,6 +764,12 @@ pub const unsafe fn align_of_val_raw<T: ?Sized>(val: *const T) -> usize {
 ///     }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع `true` إذا كان حذف قيم النوع `T` مهمًا (له دالة هدم).
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "needs_drop", since = "1.21.0")]
@@ -748,6 +820,12 @@ pub const fn needs_drop<T: ?Sized>() -> bool {
 /// let _x: &i32 = unsafe { mem::zeroed() }; // Undefined behavior!
 /// let _y: fn() = unsafe { mem::zeroed() }; // And again!
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قيمة النوع `T` الممثلة ببايتات كلها أصفار (غير آمن).
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -785,6 +863,12 @@ pub const unsafe fn zeroed<T>() -> T {
 /// [uninit]: MaybeUninit::uninit
 /// [assume_init]: MaybeUninit::assume_init
 /// [inv]: MaybeUninit#initialization-invariant
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتجاوز فحوص التهيئة بالتظاهر بإنتاج قيمة `T` بدون فعل شيء (قديم وخطير).
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[deprecated(since = "1.39.0", note = "use `mem::MaybeUninit` instead")]
@@ -825,6 +909,12 @@ pub unsafe fn uninitialized<T>() -> T {
 /// assert_eq!(42, x);
 /// assert_eq!(5, y);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يبدّل القيمتين في موضعين قابلين للتعديل.
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_swap", since = "1.85.0")]
@@ -890,6 +980,12 @@ pub const fn swap<T>(x: &mut T, y: &mut T) {
 /// assert_eq!(buffer.get_and_reset(), vec![0, 1]);
 /// assert_eq!(buffer.buf.len(), 0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستبدل `dest` بالقيمة الافتراضية لـ `T`، ويرجع القيمة السابقة.
+///
+/// </div>
 #[inline]
 #[stable(feature = "mem_take", since = "1.40.0")]
 #[rustc_const_unstable(feature = "const_default", issue = "143894")]
@@ -955,6 +1051,12 @@ pub const fn take<T: [const] Default>(dest: &mut T) -> T {
 /// assert_eq!(buffer.replace_index(0, 2), 0);
 /// assert_eq!(buffer.buf[0], 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينقل `src` إلى `dest`، ويرجع القيمة السابقة.
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "if you don't need the old value, you can just assign the new value directly"]
@@ -1040,6 +1142,12 @@ pub const fn replace<T>(dest: &mut T, src: T) -> T {
 /// ```
 ///
 /// [`RefCell`]: crate::cell::RefCell
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتخلص من قيمة (يحذفها فورًا).
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_destruct", issue = "133214")]
@@ -1066,6 +1174,12 @@ where
 /// let result_from_ffi_function: Result<(), &i32> = Err(&1);
 /// let result_copied: Result<(), i32> = result_from_ffi_function.map_err(copy);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينسخ قيمة بالبتات.
+///
+/// </div>
 #[inline]
 #[unstable(feature = "mem_copy_fn", issue = "98262")]
 pub const fn copy<T: Copy>(x: &T) -> T {
@@ -1139,6 +1253,12 @@ pub const fn copy<T: Copy>(x: &T) -> T {
 ///     u32::from_ne_bytes(*bytes.first_chunk().unwrap()),
 /// );
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يفسّر `src` كأنه من النوع `&Dst`، ثم يقرأه بدون نقل القيمة (غير آمن).
+///
+/// </div>
 #[inline]
 #[must_use]
 #[track_caller]
@@ -1212,6 +1332,12 @@ pub const unsafe fn transmute_copy<Src: ?Sized, Dst>(src: &Src) -> Dst {
 /// // OK because the destination is allowed to be partially initialized.
 /// let _: std::mem::MaybeUninit<u16> = unsafe { transmute_prefix(123_u8) };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `transmute`، لكنه يهيئ فقط "البادئة المشتركة" من بايتات الوجهة.
+///
+/// </div>
 #[unstable(feature = "transmute_prefix", issue = "155079")]
 #[rustc_no_writable]
 pub const unsafe fn transmute_prefix<Src, Dst>(src: Src) -> Dst {
@@ -1267,6 +1393,12 @@ pub const unsafe fn transmute_prefix<Src, Dst>(src: Src) -> Dst {
 ///
 /// unsafe { transmute_neo::<u32, u16>(123) };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة جديدة من `transmute`.
+///
+/// </div>
 #[unstable(feature = "transmute_neo", issue = "155079")]
 #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
 #[inline]
@@ -1282,6 +1414,12 @@ pub const unsafe fn transmute_neo<Src, Dst>(src: Src) -> Dst {
 /// Opaque type representing the discriminant of an enum.
 ///
 /// See the [`discriminant`] function in this module for more information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مخفي يمثل مميِّز enum.
+///
+/// </div>
 #[stable(feature = "discriminant_value", since = "1.21.0")]
 pub struct Discriminant<T>(<T as DiscriminantKind>::Discriminant);
 
@@ -1415,6 +1553,12 @@ impl<T> fmt::Debug for Discriminant<T> {
 /// // ⚠️ This is undefined behavior. Don't do this. ⚠️
 /// // assert_eq!(0, unsafe { std::mem::transmute::<_, u8>(std::mem::discriminant(&unit_like)) });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع قيمة تعرّف حالة الـ enum في `v` بشكل فريد.
+///
+/// </div>
 #[stable(feature = "discriminant_value", since = "1.21.0")]
 #[rustc_const_stable(feature = "const_discriminant", since = "1.75.0")]
 #[rustc_diagnostic_item = "mem_discriminant"]
@@ -1449,6 +1593,12 @@ pub const fn discriminant<T>(v: &T) -> Discriminant<T> {
 /// assert_eq!(mem::variant_count::<Option<!>>(), 2);
 /// assert_eq!(mem::variant_count::<Result<!, !>>(), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع عدد حالات الـ enum من النوع `T`.
+///
+/// </div>
 #[inline(always)]
 #[must_use]
 #[unstable(feature = "variant_count", issue = "73662")]
@@ -1659,6 +1809,12 @@ impl<T> SizedTypeProperties for T {}
 /// [dynamically sized]: https://doc.rust-lang.org/reference/dynamically-sized-types.html
 /// [`offset_of_enum`]: https://doc.rust-lang.org/nightly/unstable-book/language-features/offset-of-enum.html
 /// [`offset_of_slice`]: https://doc.rust-lang.org/nightly/unstable-book/language-features/offset-of-slice.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتوسع إلى إزاحة حقل بالبايتات من بداية النوع.
+///
+/// </div>
 #[stable(feature = "offset_of", since = "1.77.0")]
 #[diagnostic::on_unmatched_args(
     note = "this macro expects a container type and a (nested) field path, like `offset_of!(Type, field)`"
@@ -1708,6 +1864,12 @@ pub macro offset_of($Container:ty, $($fields:expr)+ $(,)?) {
 /// ```
 ///
 /// [inhabited]: https://doc.rust-lang.org/reference/glossary.html#inhabited
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قيمة جديدة من النوع `T` الذي حجمه صفر.
+///
+/// </div>
 #[stable(feature = "mem_conjure_zst", since = "1.100.0")]
 #[rustc_const_stable(feature = "mem_conjure_zst", since = "1.100.0")]
 #[rustc_allow_const_fn_unstable(const_type_name)] // type_name() called only at run time

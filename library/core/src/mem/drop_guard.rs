@@ -27,6 +27,12 @@ use crate::ops::{Deref, DerefMut};
 ///     // "Chashu likes tuna!!!"
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يغلّف قيمة ويشغّل إغلاقًا عند حذفها.
+///
+/// </div>
 #[stable(feature = "drop_guard", since = "1.100.0")]
 #[doc(alias = "ScopeGuard")]
 #[doc(alias = "defer")]
@@ -54,6 +60,12 @@ where
     /// let value = String::from("Chashu likes tuna");
     /// let guard = DropGuard::new(value, |s| println!("{s}"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `DropGuard` جديدًا.
+    ///
+    /// </div>
     #[stable(feature = "drop_guard", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_drop_guard", issue = "none")]
     #[must_use]
@@ -79,6 +91,12 @@ where
     /// let guard = DropGuard::new(value, |s| println!("{s}"));
     /// assert_eq!(DropGuard::dismiss(guard), "Nori likes chicken");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `DropGuard` ويرجع القيمة بدون تشغيل الإغلاق.
+    ///
+    /// </div>
     #[stable(feature = "drop_guard", since = "1.100.0")]
     #[rustc_const_unstable(feature = "const_drop_guard", issue = "none")]
     #[inline]

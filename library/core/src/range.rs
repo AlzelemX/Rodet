@@ -216,6 +216,13 @@ const impl<T> RangeBounds<T> for Range<T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..end` with `(Bound::Included(start), Bound::Excluded(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..end`.
+///
+/// </div>
 #[stable(feature = "new_range_api", since = "1.96.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for Range<&T> {
@@ -415,6 +422,13 @@ const impl<T> RangeBounds<T> for RangeInclusive<T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..=end` with `(Bound::Included(start), Bound::Included(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..=end`.
+///
+/// </div>
 #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeInclusive<&T> {
@@ -623,6 +637,13 @@ const impl<T> RangeBounds<T> for RangeFrom<T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..` with `(Bound::Included(start), Bound::Unbounded)`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..`.
+///
+/// </div>
 #[stable(feature = "new_range_from_api", since = "1.96.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeFrom<&T> {

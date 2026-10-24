@@ -35,6 +35,12 @@ macro_rules! panic {
 ///
 /// assert_eq!(a, b, "we are testing addition with {} and {}", a, b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرين متساويان (باستخدام `PartialEq`)، ويتوقف (panic) إذا لم يكونا كذلك.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "assert_eq_macro"]
@@ -92,6 +98,12 @@ macro_rules! assert_eq {
 ///
 /// assert_ne!(a, b, "we are testing that the values are not equal");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرين غير متساويين (باستخدام `PartialEq`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "assert_ne", since = "1.13.0")]
 #[rustc_diagnostic_item = "assert_ne_macro"]
@@ -166,6 +178,12 @@ macro_rules! assert_ne {
 /// assert_matches!(a, Some(x) if x > 100);
 /// // assert_matches!(a, Some(x) if x < 100); // panics
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرًا يطابق النمط المعطى.
+///
+/// </div>
 #[stable(feature = "assert_matches", since = "1.96.0")]
 #[allow_internal_unstable(panic_internals)]
 #[rustc_macro_transparency = "semiopaque"]
@@ -230,6 +248,12 @@ pub macro assert_matches {
 ///     _ => { "Behind every successful diet is an unwatched pizza" }
 /// };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختار كودًا وقت الترجمة حسب شروط `cfg`.
+///
+/// </div>
 #[stable(feature = "cfg_select", since = "1.95.0")]
 #[doc(alias = "cfg_if", alias = "cfg-if")]
 #[rustc_diagnostic_item = "cfg_select"]
@@ -282,6 +306,12 @@ pub macro cfg_select($($tt:tt)*) {
 /// let a = 3; let b = 27;
 /// debug_assert!(a + b == 30, "a = {}, b = {}", a, b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرًا منطقيًا قيمته `true` وقت التشغيل.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "debug_assert_macro"]
@@ -314,6 +344,12 @@ macro_rules! debug_assert {
 /// let b = 1 + 2;
 /// debug_assert_eq!(a, b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرين متساويان.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "debug_assert_eq_macro"]
@@ -344,6 +380,12 @@ macro_rules! debug_assert_eq {
 /// let b = 2;
 /// debug_assert_ne!(a, b);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرين غير متساويين.
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "assert_ne", since = "1.13.0")]
 #[rustc_diagnostic_item = "debug_assert_ne_macro"]
@@ -395,6 +437,12 @@ macro_rules! debug_assert_ne {
 /// debug_assert_matches!(a, Some(x) if x > 100);
 /// // debug_assert_matches!(a, Some(x) if x < 100); // panics
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يتأكد أن تعبيرًا يطابق النمط المعطى.
+///
+/// </div>
 #[stable(feature = "assert_matches", since = "1.96.0")]
 #[allow_internal_unstable(assert_matches)]
 #[rustc_macro_transparency = "semiopaque"]
@@ -423,6 +471,12 @@ pub macro debug_assert_matches($($arg:tt)*) {
 /// let bar = Some(4);
 /// assert!(matches!(bar, Some(x) if x > 2));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع هل يطابق التعبير المعطى النمط المعطى (`matches!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "matches_macro", since = "1.42.0")]
 #[rustc_diagnostic_item = "matches_macro"]
@@ -500,6 +554,12 @@ macro_rules! matches {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يفك نتيجة أو يمرر خطأها (الماكرو القديم `try!`، استخدم `?`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[deprecated(since = "1.39.0", note = "use the `?` operator instead")]
@@ -601,6 +661,12 @@ macro_rules! r#try {
 /// let mut m = Example{};
 /// write!(&mut m, "Hello World").expect("Writing to `Example` should succeed");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب بيانات منسَّقة في مخزن (`write!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "write_macro"]
@@ -639,6 +705,12 @@ macro_rules! write {
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب بيانات منسَّقة في مخزن مع سطر جديد في النهاية (`writeln!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "writeln_macro"]
@@ -708,6 +780,12 @@ macro_rules! writeln {
 ///     unreachable!("The loop should always return");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن هذا الكود لا يمكن الوصول إليه (`unreachable!`).
+///
+/// </div>
 #[macro_export]
 #[rustc_builtin_macro(unreachable)]
 #[allow_internal_unstable(edition_panic)]
@@ -795,6 +873,12 @@ macro_rules! unreachable {
 ///     s.bar();
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن الكود غير مطبَّق، ويتوقف (panic) برسالة "not implemented".
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "unimplemented_macro"]
@@ -876,6 +960,12 @@ macro_rules! unimplemented {
 ///     // We aren't even using baz() or qux(), so this is fine.
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن الكود لم يكتمل بعد (`todo!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "todo_macro", since = "1.40.0")]
 #[rustc_diagnostic_item = "todo_macro"]
@@ -930,6 +1020,12 @@ pub(crate) mod builtin {
     /// #[cfg(not(any(feature = "foo", feature = "bar")))]
     /// compile_error!("Either feature \"foo\" or \"bar\" must be enabled for this crate.");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجعل الترجمة تفشل برسالة الخطأ المعطاة عند الوصول إليه.
+    ///
+    /// </div>
     #[stable(feature = "compile_error_macro", since = "1.20.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -995,6 +1091,12 @@ pub(crate) mod builtin {
     ///
     /// [extended]: ../reference/destructors.html#temporary-lifetime-extension
     /// [Reference]: ../reference/destructors.html#extending-based-on-expressions
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُنشئ الوسائط لماكروهات تنسيق النصوص الأخرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_diagnostic_item = "format_args_macro"]
     #[allow_internal_unsafe]
@@ -1011,6 +1113,12 @@ pub(crate) mod builtin {
     /// This macro is used by the panic macros for the `const_panic` feature.
     ///
     /// This macro will be removed once `format_args` is allowed in const contexts.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `format_args`، لكن يمكن استخدامه في بعض السياقات الثابتة.
+    ///
+    /// </div>
     #[unstable(feature = "const_format_args", issue = "none")]
     #[allow_internal_unstable(fmt_internals, fmt_arguments_from_str)]
     #[rustc_builtin_macro]
@@ -1069,6 +1177,12 @@ pub(crate) mod builtin {
     /// ```text
     /// error: what's that?!
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ متغير بيئة وقت الترجمة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1102,6 +1216,12 @@ pub(crate) mod builtin {
     /// let key: Option<&'static str> = option_env!("SECRET_KEY");
     /// println!("the secret key might be: {key:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ متغير بيئة وقت الترجمة إن وُجد (يرجع `Option`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1130,6 +1250,12 @@ pub(crate) mod builtin {
     /// assert_eq!(s, b"ABCDEF");
     /// # }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج قيمًا حرفية في شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "concat_bytes", issue = "87555")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1152,6 +1278,12 @@ pub(crate) mod builtin {
     /// let s = concat!("test", 10, 'b', true);
     /// assert_eq!(s, "test10btrue");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدمج قيمًا حرفية في شريحة نص ثابتة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[rustc_diagnostic_item = "macro_concat"]
@@ -1178,6 +1310,12 @@ pub(crate) mod builtin {
     /// let current_line = line!();
     /// println!("defined on line: {current_line}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتوسع إلى رقم السطر الذي استُدعي فيه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1217,6 +1355,12 @@ pub(crate) mod builtin {
     /// assert_eq!(a, b);
     /// assert_ne!(b, c);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتوسع إلى رقم العمود الذي استُدعي فيه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1255,6 +1399,12 @@ pub(crate) mod builtin {
     /// let this_file = file!();
     /// println!("defined in file: {this_file}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتوسع إلى اسم الملف الذي استُدعي فيه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1279,6 +1429,12 @@ pub(crate) mod builtin {
     /// let one_plus_one = stringify!(1 + 1);
     /// assert_eq!(one_plus_one, "1 + 1");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل وسائطه إلى نص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1320,6 +1476,12 @@ pub(crate) mod builtin {
     /// ```
     ///
     /// Compiling 'main.rs' and running the resulting binary will print "adiós".
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمّن ملفًا بترميز UTF-8 كنص.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1360,6 +1522,12 @@ pub(crate) mod builtin {
     /// ```
     ///
     /// Compiling 'main.rs' and running the resulting binary will print "adiós".
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمّن ملفًا كمرجع إلى مصفوفة بايتات.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1385,6 +1553,12 @@ pub(crate) mod builtin {
     ///
     /// test::foo();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتوسع إلى نص يمثل مسار الوحدة الحالية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1418,6 +1592,12 @@ pub(crate) mod builtin {
     ///     "unix-directory"
     /// };
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب تركيبات منطقية من إعدادات الترجمة وقت الترجمة (`cfg!`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1487,6 +1667,12 @@ pub(crate) mod builtin {
     ///
     /// Compiling 'main.rs' and running the resulting binary will print
     /// "🙈🙊🙉🙈🙊🙉".
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقرأ ملفًا كتعبير أو عنصر حسب السياق (`include!`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1555,6 +1741,12 @@ pub(crate) mod builtin {
     /// while the shadow(s) of the output(s) will contain the derivatives. Forward mode is generally
     /// more efficient if we have more output floats marked as `Dual` than input floats.
     /// Related information can also be found under the term "Vector-Jacobian product" (VJP).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم الاشتقاق التلقائي الأمامي لتوليد دالة جديدة تحسب المشتقة.
+    ///
+    /// </div>
     #[unstable(feature = "autodiff", issue = "124509")]
     #[allow_internal_unstable(rustc_attrs)]
     #[allow_internal_unstable(core_intrinsics)]
@@ -1628,6 +1820,12 @@ pub(crate) mod builtin {
     /// output floats.
     ///
     /// Related information can also be found under the term "Jacobian-Vector Product" (JVP).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم الاشتقاق التلقائي العكسي لتوليد دالة جديدة تحسب المشتقة.
+    ///
+    /// </div>
     #[unstable(feature = "autodiff", issue = "124509")]
     #[allow_internal_unstable(rustc_attrs)]
     #[allow_internal_unstable(core_intrinsics)]
@@ -1670,6 +1868,12 @@ pub(crate) mod builtin {
     ///     *c = a[0] + b[0];
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُطبَّق على دالة ليولّد تعريفين: غلافًا للمضيف ونواة للجهاز.
+    ///
+    /// </div>
     #[unstable(feature = "gpu_offload", issue = "131513")]
     #[allow_internal_unstable(rustc_attrs)]
     #[allow_internal_unstable(core_intrinsics)]
@@ -1725,6 +1929,12 @@ pub(crate) mod builtin {
     /// let a = 3; let b = 27;
     /// assert!(a + b == 30, "a = {}, b = {}", a, b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتأكد أن تعبيرًا منطقيًا قيمته `true` وقت التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     #[macro_export]
@@ -1741,6 +1951,12 @@ pub(crate) mod builtin {
     }
 
     /// Prints passed tokens into the standard output.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبع الرموز الممرَّرة في الإخراج القياسي.
+    ///
+    /// </div>
     #[unstable(
         feature = "log_syntax",
         issue = "29598",
@@ -1755,6 +1971,12 @@ pub(crate) mod builtin {
     }
 
     /// Enables or disables tracing functionality used for debugging other macros.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفعّل أو يعطّل تتبع الماكروهات للتنقيح.
+    ///
+    /// </div>
     #[unstable(
         feature = "trace_macros",
         issue = "29598",
@@ -1772,6 +1994,12 @@ pub(crate) mod builtin {
     /// See [the reference] for more info.
     ///
     /// [the reference]: ../reference/attributes/derive.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية لتطبيق ماكروهات derive.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_builtin_macro]
     pub macro derive($item:item) {
@@ -1784,6 +2012,12 @@ pub(crate) mod builtin {
     /// See [the reference] for more info.
     ///
     /// [the reference]: ../../../reference/attributes/derive.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية لتطبيق ماكروهات derive لتطبيق traits في سياق ثابت.
+    ///
+    /// </div>
     #[unstable(feature = "derive_const", issue = "118304")]
     #[rustc_builtin_macro]
     pub macro derive_const($item:item) {
@@ -1795,6 +2029,12 @@ pub(crate) mod builtin {
     /// See [the reference] for more info.
     ///
     /// [the reference]: ../../../reference/attributes/testing.html#the-test-attribute
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على دالة ليجعلها اختبار وحدة (`#[test]`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[allow_internal_unstable(test, rustc_attrs, coverage_attribute)]
     #[rustc_builtin_macro]
@@ -1803,6 +2043,12 @@ pub(crate) mod builtin {
     }
 
     /// Attribute macro applied to a function to turn it into a benchmark test.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على دالة ليجعلها اختبار أداء.
+    ///
+    /// </div>
     #[unstable(
         feature = "test",
         issue = "50297",
@@ -1815,6 +2061,12 @@ pub(crate) mod builtin {
     }
 
     /// An implementation detail of the `#[test]` and `#[bench]` macros.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تفصيل داخلي لماكروهات `#[test]` و`#[bench]`.
+    ///
+    /// </div>
     #[unstable(
         feature = "custom_test_frameworks",
         issue = "50297",
@@ -1829,6 +2081,12 @@ pub(crate) mod builtin {
     /// Attribute macro applied to a static to register it as a global allocator.
     ///
     /// See also [`std::alloc::GlobalAlloc`](../../../std/alloc/trait.GlobalAlloc.html).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على static ليسجله كمخصص ذاكرة عام.
+    ///
+    /// </div>
     #[stable(feature = "global_allocator", since = "1.28.0")]
     #[allow_internal_unstable(rustc_attrs, ptr_alignment_type)]
     #[rustc_builtin_macro]
@@ -1841,6 +2099,12 @@ pub(crate) mod builtin {
     /// The attribute carries an argument token-tree which is
     /// eventually parsed as a unary closure expression that is
     /// invoked on a reference to the return value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على دالة ليعطيها شرطًا لاحقًا (post-condition).
+    ///
+    /// </div>
     #[unstable(feature = "contracts", issue = "128044")]
     #[allow_internal_unstable(contracts_internals)]
     #[rustc_builtin_macro]
@@ -1853,6 +2117,12 @@ pub(crate) mod builtin {
     /// The attribute carries an argument token-tree which is
     /// eventually parsed as an boolean expression with access to the
     /// function's formal parameters
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على دالة ليعطيها شرطًا مسبقًا (precondition).
+    ///
+    /// </div>
     #[unstable(feature = "contracts", issue = "128044")]
     #[allow_internal_unstable(contracts_internals)]
     #[rustc_builtin_macro]
@@ -1863,6 +2133,12 @@ pub(crate) mod builtin {
     /// Attribute macro applied to a function to register it as a handler for allocation failure.
     ///
     /// See also [`std::alloc::handle_alloc_error`](../../../std/alloc/fn.handle_alloc_error.html).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو خاصية يُطبَّق على دالة ليسجلها كمعالج لفشل حجز الذاكرة.
+    ///
+    /// </div>
     #[unstable(feature = "alloc_error_handler", issue = "51540")]
     #[allow_internal_unstable(rustc_attrs)]
     #[rustc_builtin_macro]
@@ -1871,6 +2147,12 @@ pub(crate) mod builtin {
     }
 
     /// Keeps the item it's applied to if the passed path is accessible, and removes it otherwise.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُبقي العنصر إذا كان المسار المعطى متاحًا، ويحذفه في غير ذلك.
+    ///
+    /// </div>
     #[unstable(
         feature = "cfg_accessible",
         issue = "64797",
@@ -1882,6 +2164,12 @@ pub(crate) mod builtin {
     }
 
     /// Expands all `#[cfg]` and `#[cfg_attr]` attributes in the code fragment it's applied to.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوسّع كل خصائص `#[cfg]` و`#[cfg_attr]` في جزء الكود الذي يُطبَّق عليه.
+    ///
+    /// </div>
     #[unstable(
         feature = "cfg_eval",
         issue = "82679",
@@ -1896,6 +2184,12 @@ pub(crate) mod builtin {
     /// to an item with a body. This list will be used in that body to define opaque
     /// types' hidden types.
     /// Can only be applied to things that have bodies.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي قائمة أسماء مستعارة لأنواع مخفية لعنصر له جسم، ليعرّفها فيه.
+    ///
+    /// </div>
     #[unstable(
         feature = "type_alias_impl_trait",
         issue = "63063",
@@ -1907,6 +2201,12 @@ pub(crate) mod builtin {
     }
 
     /// Unstable placeholder for type ascription.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنصر نائب غير مستقر لتحديد النوع.
+    ///
+    /// </div>
     #[allow_internal_unstable(builtin_syntax)]
     #[unstable(
         feature = "type_ascription",
@@ -1919,6 +2219,12 @@ pub(crate) mod builtin {
     }
 
     /// Unstable placeholder for deref patterns.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنصر نائب غير مستقر لأنماط إزالة المرجع.
+    ///
+    /// </div>
     #[allow_internal_unstable(builtin_syntax)]
     #[unstable(
         feature = "deref_patterns",
@@ -1932,6 +2238,12 @@ pub(crate) mod builtin {
 
     /// Derive macro generating an impl of the trait `From`.
     /// Currently, it can only be used on single-field structs.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ماكرو derive يولّد تطبيقًا للـ trait `From`. يعمل حاليًا على structs بحقل واحد فقط.
+    ///
+    /// </div>
     // Note that the macro is in a different module than the `From` trait,
     // to avoid triggering an unstable feature being used if someone imports
     // `std::convert::From`.
@@ -1943,6 +2255,12 @@ pub(crate) mod builtin {
 
     /// Externally Implementable Item: Defines an attribute macro that can override the item
     /// this is applied to.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنصر قابل للتطبيق خارجيًا: يعرّف ماكرو خاصية يمكنه استبدال العنصر الذي يُطبَّق عليه.
+    ///
+    /// </div>
     #[unstable(feature = "extern_item_impls", issue = "125418")]
     #[rustc_builtin_macro]
     #[allow_internal_unstable(eii_internals, decl_macro, rustc_attrs)]
@@ -1952,6 +2270,12 @@ pub(crate) mod builtin {
 
     /// Unsafely Externally Implementable Item: Defines an unsafe attribute macro that can override
     /// the item this is applied to.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنصر قابل للتطبيق خارجيًا وغير آمن.
+    ///
+    /// </div>
     #[unstable(feature = "extern_item_impls", issue = "125418")]
     #[rustc_builtin_macro]
     #[allow_internal_unstable(eii_internals, decl_macro, rustc_attrs)]
@@ -1960,6 +2284,12 @@ pub(crate) mod builtin {
     }
 
     /// Impl detail of EII
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تفصيل داخلي لـ EII.
+    ///
+    /// </div>
     #[unstable(feature = "eii_internals", issue = "none")]
     #[rustc_builtin_macro]
     pub macro eii_declaration($item:item) {

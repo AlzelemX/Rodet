@@ -1,4 +1,10 @@
 //! impl char {}
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! impl char {}
+//!
+//! </div>
 
 #![expect(clippy::manual_is_ascii_check, reason = "this module implements various is_ascii checks")]
 
@@ -38,6 +44,12 @@ impl char {
     /// let value_at_min = u32::from(char::MIN);
     /// assert_eq!(char::from_u32(value_at_min), Some('\0'));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر رمز صالح لـ `char`، وهو `'\0'`.
+    ///
+    /// </div>
     #[stable(feature = "char_min", since = "1.83.0")]
     pub const MIN: char = '\0';
 
@@ -70,16 +82,34 @@ impl char {
     /// assert_eq!(char::from_u32(value_at_max), Some('\u{10FFFF}'));
     /// assert_eq!(char::from_u32(value_at_max + 1), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر رمز صالح لـ `char`، وهو `'\u{10FFFF}'`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_consts", since = "1.52.0")]
     pub const MAX: char = '\u{10FFFF}';
 
     /// The maximum number of bytes required to [encode](char::encode_utf8) a `char` to
     /// UTF-8 encoding.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى عدد بايتات لازم لترميز `char` بـ UTF-8.
+    ///
+    /// </div>
     #[stable(feature = "char_max_len_assoc", since = "1.93.0")]
     pub const MAX_LEN_UTF8: usize = 4;
 
     /// The maximum number of two-byte units required to [encode](char::encode_utf16) a `char`
     /// to UTF-16 encoding.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أقصى عدد وحدات ثنائية البايت لازم لترميز `char` بـ UTF-16.
+    ///
+    /// </div>
     #[stable(feature = "char_max_len_assoc", since = "1.93.0")]
     pub const MAX_LEN_UTF16: usize = 2;
 
@@ -88,6 +118,12 @@ impl char {
     ///
     /// It can occur, for example, when giving ill-formed UTF-8 bytes to
     /// [`String::from_utf8_lossy`](../std/string/struct.String.html#method.from_utf8_lossy).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// `U+FFFD` حرف الاستبدال (�): يُستخدم في يونيكود لتمثيل خطأ فك الترميز.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_consts", since = "1.52.0")]
     pub const REPLACEMENT_CHARACTER: char = '\u{FFFD}';
 
@@ -106,6 +142,12 @@ impl char {
     /// [Section 3.1 (Version Numbering)] of the Unicode Standard.
     ///
     /// [Section 3.1 (Version Numbering)]: https://www.unicode.org/versions/latest/core-spec/chapter-3/#G49512
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نسخة يونيكود التي تعتمد عليها دوال `char` و`str`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_consts", since = "1.52.0")]
     pub const UNICODE_VERSION: (u8, u8, u8) = crate::unicode::UNICODE_VERSION;
 
@@ -151,6 +193,12 @@ impl char {
     ///     "𝄞mus�ic�"
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مكررًا على رموز UTF-16 في `iter`، ويرجع الرموز البديلة غير المزدوجة كـ `Err`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_funcs", since = "1.52.0")]
     #[inline]
     pub fn decode_utf16<I: IntoIterator<Item = u16>>(iter: I) -> DecodeUtf16<I::IntoIter> {
@@ -195,6 +243,12 @@ impl char {
     ///
     /// assert_eq!(None, c);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `u32` إلى `char`، ويرجع `None` إذا لم يكن رمزًا صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_funcs", since = "1.52.0")]
     #[rustc_const_stable(feature = "const_char_convert", since = "1.67.0")]
     #[must_use]
@@ -236,6 +290,12 @@ impl char {
     ///
     /// assert_eq!('❤', c);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `u32` إلى `char` بدون التحقق من الصلاحية (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_funcs", since = "1.52.0")]
     #[rustc_const_stable(feature = "const_char_from_u32_unchecked", since = "1.81.0")]
     #[must_use]
@@ -288,6 +348,12 @@ impl char {
     /// // this panics
     /// let _c = char::from_digit(1, 37);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل رقمًا بالأساس المعطى إلى `char`.
+    ///
+    /// </div>
     #[stable(feature = "assoc_char_funcs", since = "1.52.0")]
     #[rustc_const_stable(feature = "const_char_convert", since = "1.67.0")]
     #[must_use]
@@ -343,6 +409,12 @@ impl char {
     /// // this panics
     /// '1'.is_digit(1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل `char` رقم بالأساس المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_char_classify", since = "1.87.0")]
     #[expect(clippy::to_digit_is_some, reason = "implements is_digit")]
@@ -400,6 +472,12 @@ impl char {
     /// // this panics
     /// let _ = '1'.to_digit(1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `char` إلى رقم بالأساس المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_char_convert", since = "1.67.0")]
     #[rustc_diagnostic_item = "char_to_digit"]
@@ -464,6 +542,12 @@ impl char {
     /// ```
     /// assert_eq!('❤'.escape_unicode().to_string(), "\\u{2764}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي تهريب يونيكود الست عشري للحرف كأحرف.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped char as an iterator, \
                   without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -542,6 +626,12 @@ impl char {
     /// ```
     /// assert_eq!('\n'.escape_debug().to_string(), "\\n");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي رمز التهريب الحرفي للحرف كأحرف.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped char as an iterator, \
                   without modifying the original"]
     #[stable(feature = "char_escape_debug", since = "1.20.0")]
@@ -598,6 +688,12 @@ impl char {
     /// ```
     /// assert_eq!('"'.escape_default().to_string(), "\\\"");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي رمز التهريب الحرفي للحرف كأحرف.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped char as an iterator, \
                   without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -658,6 +754,12 @@ impl char {
     /// // ... just like the &str
     /// assert_eq!(len, tokyo.len());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات التي يحتاجها هذا الحرف بترميز UTF-8.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_char_len_utf", since = "1.52.0")]
     #[inline]
@@ -690,6 +792,12 @@ impl char {
     /// let len = '💣'.len_utf16();
     /// assert_eq!(len, 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد وحدات 16-bit التي يحتاجها هذا الحرف بترميز UTF-16.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_char_len_utf", since = "1.52.0")]
     #[inline]
@@ -728,6 +836,12 @@ impl char {
     /// // this panics
     /// 'ß'.encode_utf8(&mut b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرمّز هذا الحرف بـ UTF-8 في مخزن البايتات المعطى، ويرجع الجزء الذي يحتوي الحرف المرمَّز.
+    ///
+    /// </div>
     #[stable(feature = "unicode_encode_char", since = "1.15.0")]
     #[rustc_const_stable(feature = "const_char_encode_utf8", since = "1.83.0")]
     #[inline]
@@ -764,6 +878,12 @@ impl char {
     /// // this panics
     /// '𝕊'.encode_utf16(&mut b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرمّز هذا الحرف بـ UTF-16 في مخزن `u16` المعطى، ويرجع الجزء الذي يحتوي الحرف المرمَّز.
+    ///
+    /// </div>
     #[stable(feature = "unicode_encode_char", since = "1.15.0")]
     #[rustc_const_stable(feature = "const_char_encode_utf16", since = "1.84.0")]
     #[inline]
@@ -792,6 +912,12 @@ impl char {
     /// // love is many things, but it is not alphabetic
     /// assert!(!c.is_alphabetic());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `Alphabetic` (حرف أبجدي، ويشمل الحروف العربية).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -823,6 +949,12 @@ impl char {
     /// assert!('a'.is_cased());
     /// assert!(!'京'.is_cased());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف حالة (كبير أو صغير أو عنواني).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "titlecase", issue = "153892")]
     #[inline]
@@ -852,6 +984,12 @@ impl char {
     /// assert_eq!('ǅ'.case(), Some(CharCase::Title));
     /// assert_eq!('中'.case(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حالة هذا الحرف: كبير أو صغير أو عنواني، أو `None`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "titlecase", issue = "153892")]
     #[inline]
@@ -897,6 +1035,12 @@ impl char {
     /// const CAPITAL_DELTA_IS_LOWERCASE: bool = 'Δ'.is_lowercase();
     /// assert!(!CAPITAL_DELTA_IS_LOWERCASE);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `Lowercase` (حرف صغير).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_unicode_case_lookup", since = "1.84.0")]
@@ -933,6 +1077,12 @@ impl char {
     /// assert!(!'中'.is_titlecase());
     /// assert!(!' '.is_titlecase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الحرف من فئة الحروف العنوانية (titlecase).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "titlecase", issue = "153892")]
     #[inline]
@@ -973,6 +1123,12 @@ impl char {
     /// const CAPITAL_DELTA_IS_UPPERCASE: bool = 'Δ'.is_uppercase();
     /// assert!(CAPITAL_DELTA_IS_UPPERCASE);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `Uppercase` (حرف كبير).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_unicode_case_lookup", since = "1.84.0")]
@@ -1018,6 +1174,12 @@ impl char {
     /// assert!(!'藏'.is_numeric());
     /// assert!(!'三'.is_numeric());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الحرف من إحدى الفئات العامة للأرقام.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -1048,6 +1210,12 @@ impl char {
     /// assert!('و'.is_alphanumeric());
     /// assert!('藏'.is_alphanumeric());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الحرف أبجديًا أو رقميًا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -1081,6 +1249,12 @@ impl char {
     ///
     /// assert!(!'越'.is_whitespace());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `White_Space` (مسافة بيضاء).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_char_classify", since = "1.87.0")]
@@ -1114,6 +1288,12 @@ impl char {
     /// assert!('\u{9C}'.is_control()); // STRING TERMINATOR
     /// assert!(!'q'.is_control());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الحرف من فئة رموز التحكم.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_is_control", since = "1.97.0")]
@@ -1142,6 +1322,12 @@ impl char {
     /// [specified]: https://www.unicode.org/reports/tr44/#GC_Values_Table
     /// [`UnicodeData.txt`]: https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا الحرف من فئة الاستخدام الخاص.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "char_unassigned_private_use", issue = "158322")]
     #[inline]
@@ -1216,6 +1402,12 @@ impl char {
     /// // so we shouldn't rely on the current status
     /// /* assert!(!'\u{7AAAA}'.is_assigned()); */
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان ليونيكود معنى معيّن لهذا الحرف حسب `UNICODE_VERSION`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "char_unassigned_private_use", issue = "158322")]
     #[inline]
@@ -1261,6 +1453,12 @@ impl char {
     /// assert!(!'\0'.is_default_ignorable());
     /// assert!(!'q'.is_default_ignorable());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `Default_Ignorable_Code_Point`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "default_ignorable", issue = "160583")]
     #[inline]
@@ -1294,6 +1492,12 @@ impl char {
     /// [specified]: https://www.unicode.org/reports/tr44/#Case_Ignorable
     /// [`DerivedCoreProperties.txt`]: https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt
     /// [`to_lowercase()`]: Self::to_lowercase()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان لهذا الحرف خاصية `Case_Ignorable`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[unstable(feature = "case_ignorable", issue = "154848")]
@@ -1418,6 +1622,12 @@ impl char {
     /// holds across languages.
     ///
     /// [`SpecialCasing.txt`]: https://www.unicode.org/Public/UCD/latest/ucd/SpecialCasing.txt
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي النسخة الصغيرة من هذا الحرف كحرف أو أكثر.
+    ///
+    /// </div>
     #[must_use = "this returns the lowercased character as a new iterator, \
                   without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1597,6 +1807,12 @@ impl char {
     /// holds across languages.
     ///
     /// [`to_uppercase()`]: Self::to_uppercase()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي النسخة العنوانية من هذا الحرف كحرف أو أكثر.
+    ///
+    /// </div>
     #[must_use = "this returns the titlecased character as a new iterator, \
                   without modifying the original"]
     #[unstable(feature = "titlecase", issue = "153892")]
@@ -1707,6 +1923,12 @@ impl char {
     /// holds across languages.
     ///
     /// [`to_titlecase()`]: Self::to_titlecase()
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي النسخة الكبيرة من هذا الحرف كحرف أو أكثر.
+    ///
+    /// </div>
     #[must_use = "this returns the uppercased character as a new iterator, \
                   without modifying the original"]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -1811,6 +2033,12 @@ impl char {
     /// holds across languages.
     ///
     /// [normalization]: https://www.unicode.org/faq/normalization.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي طي حالة هذا الحرف كحرف أو أكثر.
+    ///
+    /// </div>
     #[must_use = "this returns the case-folded character as a new iterator, \
                   without modifying the original"]
     #[unstable(feature = "casefold", issue = "157000")]
@@ -1832,6 +2060,12 @@ impl char {
     /// assert_eq!(ascii.to_u32(), 97_u32);
     /// assert_eq!(heart.to_u32(), 0x2764_u32);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة رمز الحرف كـ `u32`.
+    ///
+    /// </div>
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
     #[unstable(feature = "char_to_u32", issue = "158938")]
@@ -1873,6 +2107,12 @@ impl char {
     /// This is preferred to [`Self::is_ascii`] when you're passing the value
     /// along to something else that can take [`ascii::Char`] rather than
     /// needing to check again for itself whether the value is in ASCII.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some` إذا كانت القيمة ضمن مدى ASCII، أو `None`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -1891,6 +2131,12 @@ impl char {
     /// # Safety
     ///
     /// This char must be within the ASCII range, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الحرف إلى حرف ASCII بدون التحقق من صحته (غير آمن).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -2035,6 +2281,12 @@ impl char {
     /// ```
     ///
     /// [`to_ascii_uppercase()`]: #method.to_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الحرف إلى حرف ASCII كبير في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -2061,6 +2313,12 @@ impl char {
     /// ```
     ///
     /// [`to_ascii_lowercase()`]: #method.to_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الحرف إلى حرف ASCII صغير في مكانه.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]

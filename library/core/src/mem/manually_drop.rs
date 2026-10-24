@@ -148,6 +148,12 @@ use crate::ptr;
 /// [`mem::zeroed`]: crate::mem::zeroed
 /// [`MaybeUninit<T>`]: crate::mem::MaybeUninit
 /// [`MaybeUninit`]: crate::mem::MaybeUninit
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف يمنع المترجم من استدعاء دالة الهدم لـ `T` تلقائيًا. بدون أي تكلفة.
+///
+/// </div>
 #[stable(feature = "manually_drop", since = "1.20.0")]
 #[lang = "manually_drop"]
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -172,6 +178,12 @@ impl<T> ManuallyDrop<T> {
     /// # // use -Zmiri-disable-leak-check instead of unleaking in tests meant to leak.
     /// # let _ = ManuallyDrop::into_inner(x);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلّف قيمة لتُحذف يدويًا.
+    ///
+    /// </div>
     #[must_use = "if you don't need the wrapper, you can use `mem::forget` instead"]
     #[stable(feature = "manually_drop", since = "1.20.0")]
     #[rustc_const_stable(feature = "const_manually_drop", since = "1.32.0")]
@@ -192,6 +204,12 @@ impl<T> ManuallyDrop<T> {
     /// let x = ManuallyDrop::new(Box::new(()));
     /// let _: Box<()> = ManuallyDrop::into_inner(x); // This drops the `Box`.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة من حاوية `ManuallyDrop`.
+    ///
+    /// </div>
     #[stable(feature = "manually_drop", since = "1.20.0")]
     #[rustc_const_stable(feature = "const_manually_drop", since = "1.32.0")]
     #[inline(always)]
@@ -214,6 +232,12 @@ impl<T> ManuallyDrop<T> {
     /// leaving the state of this container unchanged.
     /// It is your responsibility to ensure that this `ManuallyDrop` is not used again.
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ القيمة من حاوية `ManuallyDrop<T>` (غير آمن).
+    ///
+    /// </div>
     #[must_use = "if you don't need the value, you can use `ManuallyDrop::drop` instead"]
     #[stable(feature = "manually_drop_take", since = "1.42.0")]
     #[rustc_const_unstable(feature = "const_manually_drop_take", issue = "148773")]
@@ -248,6 +272,12 @@ impl<T: ?Sized> ManuallyDrop<T> {
     /// uphold those guarantees without assistance from the compiler.
     ///
     /// [pinned]: crate::pin
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف القيمة الموجودة يدويًا (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "manually_drop", since = "1.20.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_drop_in_place", issue = "109342")]

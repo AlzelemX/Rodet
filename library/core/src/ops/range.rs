@@ -877,6 +877,12 @@ pub enum Bound<T> {
 
 impl<T> Bound<T> {
     /// Converts from `&Bound<T>` to `Bound<&T>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&Bound<T>` إلى `Bound<&T>`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "bound_as_ref_shared", since = "1.65.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -889,6 +895,12 @@ impl<T> Bound<T> {
     }
 
     /// Converts from `&mut Bound<T>` to `Bound<&mut T>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل من `&mut Bound<T>` إلى `Bound<&mut T>`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "bound_as_ref", issue = "80996")]
     pub const fn as_mut(&mut self) -> Bound<&mut T> {
@@ -920,6 +932,13 @@ impl<T> Bound<T> {
     ///
     /// assert_eq!(unbounded_string.map(|s| s.len()), Unbounded);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Bound<T>` إلى `Bound<U>` بتطبيق دالة على القيمة (في `Included` و`Excluded`)، ويرجع
+    /// حدًا من نفس النوع.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "bound_map", since = "1.77.0")]
     pub fn map<U, F: FnOnce(T) -> U>(self, f: F) -> Bound<U> {
@@ -945,6 +964,12 @@ impl<T: Copy> Bound<&T> {
     /// assert_eq!((1..12).start_bound(), Included(&1));
     /// assert_eq!((1..12).start_bound().copied(), Included(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Bound<&T>` إلى `Bound<T>` بنسخ (copy) محتوى الحد.
+    ///
+    /// </div>
     #[unstable(feature = "bound_copied", issue = "145966")]
     #[must_use]
     pub const fn copied(self) -> Bound<T> {
@@ -971,6 +996,12 @@ impl<T: Clone> Bound<&T> {
     /// assert_eq!(Included(&a1), (a2..).start_bound());
     /// assert_eq!(Included(a3), (a4..).start_bound().cloned());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Bound<&T>` إلى `Bound<T>` باستنساخ (clone) محتوى الحد.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "bound_cloned", since = "1.55.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -988,6 +1019,13 @@ impl<T: Clone> Bound<&T> {
 
 /// `RangeBounds` is implemented by Rust's built-in range types, produced
 /// by range syntax like `..`, `a..`, `..b`, `..=c`, `d..e`, or `f..=g`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `RangeBounds` تطبّقه أنواع المدى المدمجة في Rust، التي تنتجها صيغ مثل `..` و`a..` و`..b` و`..=c`
+/// و`d..e` و`f..=g`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_diagnostic_item = "RangeBounds"]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -1132,6 +1170,12 @@ pub const trait RangeBounds<T: ?Sized> {
 ///
 /// `IntoBounds` is implemented by Rust’s built-in range types, produced
 /// by range syntax like `..`, `a..`, `..b`, `..=c`, `d..e`, or `f..=g`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لتحويل مدى إلى حدي البداية والنهاية، مع استهلاك المدى.
+///
+/// </div>
 #[unstable(feature = "range_into_bounds", issue = "136903")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 pub const trait IntoBounds<T>: [const] RangeBounds<T> {
@@ -1396,6 +1440,13 @@ const impl<'a, T: ?Sized + 'a> RangeBounds<T> for (Bound<&'a T>, Bound<&'a T>) {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..` with `(Bound::Included(start), Bound::Unbounded)`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeFrom<&T> {
@@ -1413,6 +1464,13 @@ const impl<T> RangeBounds<T> for RangeFrom<&T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `..end` with `(Bound::Unbounded, Bound::Excluded(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `..end`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeTo<&T> {
@@ -1430,6 +1488,13 @@ const impl<T> RangeBounds<T> for RangeTo<&T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..end` with `(Bound::Included(start), Bound::Excluded(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..end`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for Range<&T> {
@@ -1447,6 +1512,13 @@ const impl<T> RangeBounds<T> for Range<&T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `start..=end` with `(Bound::Included(start), Bound::Included(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `start..=end`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeInclusive<&T> {
@@ -1464,6 +1536,13 @@ const impl<T> RangeBounds<T> for RangeInclusive<&T> {
 /// If you need to use this implementation where `T` is unsized,
 /// consider using the `RangeBounds` impl for a 2-tuple of [`Bound<&T>`][Bound],
 /// i.e. replace `..=end` with `(Bound::Unbounded, Bound::Included(end))`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا احتجت هذا التطبيق و`T` غير معروف الحجم، استخدم تطبيق `RangeBounds` لصف من `Bound<&T>` بدلًا
+/// من `..=end`.
+///
+/// </div>
 #[stable(feature = "collections_range", since = "1.28.0")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 const impl<T> RangeBounds<T> for RangeToInclusive<&T> {
@@ -1477,14 +1556,38 @@ const impl<T> RangeBounds<T> for RangeToInclusive<&T> {
 
 /// An internal helper for `split_off` functions indicating
 /// which end a `OneSidedRange` is bounded on.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مساعد داخلي لدوال `split_off` يبيّن من أي طرف يُحد `OneSidedRange`.
+///
+/// </div>
 #[unstable(feature = "one_sided_range", issue = "69780")]
 #[allow(missing_debug_implementations)]
 pub enum OneSidedRangeBound {
     /// The range is bounded inclusively from below and is unbounded above.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المدى محدود من الأسفل وشامل، وبلا حد من الأعلى.
+    ///
+    /// </div>
     StartInclusive,
     /// The range is bounded exclusively from above and is unbounded below.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المدى محدود من الأعلى وغير شامل، وبلا حد من الأسفل.
+    ///
+    /// </div>
     End,
     /// The range is bounded inclusively from above and is unbounded below.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المدى محدود من الأعلى وشامل، وبلا حد من الأسفل.
+    ///
+    /// </div>
     EndInclusive,
 }
 
@@ -1494,6 +1597,12 @@ pub enum OneSidedRangeBound {
 ///
 /// Types that implement `OneSidedRange<T>` must return `Bound::Unbounded`
 /// from one of `RangeBounds::start_bound` or `RangeBounds::end_bound`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `OneSidedRange` تطبّقه أنواع المدى المحدودة من طرف واحد، مثل `a..` و`..b` و`..=c`.
+///
+/// </div>
 #[unstable(feature = "one_sided_range", issue = "69780")]
 #[rustc_const_unstable(feature = "const_range", issue = "none")]
 pub const trait OneSidedRange<T>: RangeBounds<T> {

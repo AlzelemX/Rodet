@@ -1,4 +1,10 @@
 //! UTF-8 and UTF-16 decoding iterators
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! مكررات فك ترميز UTF-8 وUTF-16.
+//!
+//! </div>
 
 use crate::error::Error;
 use crate::fmt;
@@ -10,6 +16,12 @@ use crate::iter::FusedIterator;
 /// documentation for more.
 ///
 /// [`decode_utf16`]: char::decode_utf16
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يفك رموز UTF-16 من مكرر قيم `u16`.
+///
+/// </div>
 #[stable(feature = "decode_utf16", since = "1.9.0")]
 #[derive(Clone, Debug)]
 pub struct DecodeUtf16<I>
@@ -23,6 +35,12 @@ where
 /// An error that can be returned when decoding UTF-16 code points.
 ///
 /// This `struct` is created when using the [`DecodeUtf16`] type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ قد يرجع عند فك رموز UTF-16.
+///
+/// </div>
 #[stable(feature = "decode_utf16", since = "1.9.0")]
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub struct DecodeUtf16Error {
@@ -111,6 +129,12 @@ impl<I: Iterator<Item = u16> + FusedIterator> FusedIterator for DecodeUtf16<I> {
 
 impl DecodeUtf16Error {
     /// Returns the unpaired surrogate which caused this error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الرمز البديل غير المزدوج الذي سبب الخطأ.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "decode_utf16", since = "1.9.0")]
     pub fn unpaired_surrogate(&self) -> u16 {

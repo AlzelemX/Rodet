@@ -31,6 +31,12 @@ use crate::marker::{PointeeSized, Unsize};
 /// [dst-coerce]: https://rust-lang.github.io/rfcs/0982-dst-coercion.html
 /// [unsize]: crate::marker::Unsize
 /// [nomicon-coerce]: ../../nomicon/coercions.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعني أن هذا مؤشر أو غلاف لمؤشر يمكن تحويل ما يشير إليه إلى نوع غير معروف الحجم.
+///
+/// </div>
 #[unstable(feature = "coerce_unsized", issue = "18598")]
 #[lang = "coerce_unsized"]
 pub trait CoerceUnsized<T: PointeeSized>: Sized {
@@ -117,6 +123,12 @@ impl<T: PointeeSized + Unsize<U>, U: PointeeSized> CoerceUnsized<*const U> for *
 /// ```
 ///
 /// [^1]: Formerly known as *object safety*.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `DispatchFromDyn` يُستخدم في فحوص التوافق مع dyn لضمان إمكانية الاستدعاء الديناميكي.
+///
+/// </div>
 #[unstable(feature = "dispatch_from_dyn", issue = "none")]
 #[lang = "dispatch_from_dyn"]
 pub trait DispatchFromDyn<T>: Sized {

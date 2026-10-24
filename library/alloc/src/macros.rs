@@ -34,6 +34,12 @@
 /// be mindful of side effects.
 ///
 /// [`Vec`]: crate::vec::Vec
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `Vec` يحتوي الوسائط (`vec!`).
+///
+/// </div>
 #[cfg(not(no_global_oom_handling))]
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -105,6 +111,12 @@ macro_rules! vec {
 /// let (x, y) = (1, 2);
 /// format!("{x} + {y} = 3");                    // => "1 + 2 = 3"
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `String` بإدراج قيم تعابير وقت التشغيل (`format!`).
+///
+/// </div>
 #[macro_export]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[allow_internal_unstable(hint_must_use, liballoc_internals)]
