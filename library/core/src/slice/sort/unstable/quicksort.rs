@@ -1,4 +1,10 @@
 //! This module contains an unstable quicksort and two partition implementations.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق quicksort غير مستقر وتطبيقان للتقسيم.
+//!
+//! </div>
 
 #[cfg(not(feature = "optimize_for_size"))]
 use crate::mem;

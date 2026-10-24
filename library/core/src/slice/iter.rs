@@ -1,4 +1,10 @@
 //! Definitions of a bunch of iterators for `[T]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات مجموعة من المكررات للنوع `[T]`.
+//!
+//! </div>
 
 #[macro_use] // import iterator! and forward_iterator!
 mod macros;
@@ -61,6 +67,12 @@ impl<'a, T> IntoIterator for &'a mut [T] {
 ///
 /// [`iter`]: slice::iter
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على شريحة غير قابلة للتعديل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[rustc_diagnostic_item = "SliceIter"]
@@ -193,6 +205,12 @@ impl<T> AsRef<[T]> for Iter<'_, T> {
 ///
 /// [`iter_mut`]: slice::iter_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على شريحة قابلة للتعديل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct IterMut<'a, T: 'a> {
@@ -358,6 +376,12 @@ impl<'a, T> IterMut<'a, T> {
     /// // Now `as_mut_slice` returns "[2, 5]":
     /// assert_eq!(iter.as_mut_slice(), &mut [2, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض البيانات الأساسية كشريحة جزئية قابلة للتعديل من البيانات الأصلية.
+    ///
+    /// </div>
     #[must_use]
     // FIXME: Uncomment the `AsMut<[T]>` impl when this gets stabilized.
     #[unstable(feature = "slice_iter_mut_as_mut_slice", issue = "93079")]
@@ -412,6 +436,12 @@ pub(super) trait SplitIter: DoubleEndedIterator {
 ///
 /// [`split`]: slice::split
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق دالة الشرط.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct Split<'a, T: 'a, P>
@@ -440,6 +470,12 @@ impl<'a, T: 'a, P: FnMut(&T) -> bool> Split<'a, T, P> {
     /// assert!(split.next().is_some());
     /// assert_eq!(split.as_slice(), &[3,4,5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة فيها العناصر التي لم يعالجها التقسيم بعد.
+    ///
+    /// </div>
     #[unstable(feature = "split_as_slice", issue = "96137")]
     pub fn as_slice(&self) -> &'a [T] {
         if self.finished { &[] } else { self.v }
@@ -568,6 +604,12 @@ impl<T, P> FusedIterator for Split<'_, T, P> where P: FnMut(&T) -> bool {}
 ///
 /// [`split_inclusive`]: slice::split_inclusive
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط. على عكس `Split`، يحتوي العنصر المطابق في نهاية الجزء.
+///
+/// </div>
 #[stable(feature = "split_inclusive", since = "1.51.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct SplitInclusive<'a, T: 'a, P>
@@ -689,6 +731,12 @@ impl<T, P> FusedIterator for SplitInclusive<'_, T, P> where P: FnMut(&T) -> bool
 ///
 /// [`split_mut`]: slice::split_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الأجزاء القابلة للتعديل المفصولة بعناصر تحقق `pred`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct SplitMut<'a, T: 'a, P>
@@ -818,6 +866,13 @@ impl<T, P> FusedIterator for SplitMut<'_, T, P> where P: FnMut(&T) -> bool {}
 ///
 /// [`split_inclusive_mut`]: slice::split_inclusive_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الأجزاء القابلة للتعديل المفصولة بعناصر تحقق `pred`، ويحتوي العنصر المطابق في نهاية
+/// الجزء.
+///
+/// </div>
 #[stable(feature = "split_inclusive", since = "1.51.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct SplitInclusiveMut<'a, T: 'a, P>
@@ -945,6 +1000,12 @@ impl<T, P> FusedIterator for SplitInclusiveMut<'_, T, P> where P: FnMut(&T) -> b
 ///
 /// [`rsplit`]: slice::rsplit
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط، بدءًا من نهاية الشريحة.
+///
+/// </div>
 #[stable(feature = "slice_rsplit", since = "1.27.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RSplit<'a, T: 'a, P>
@@ -1042,6 +1103,12 @@ impl<T, P> FusedIterator for RSplit<'_, T, P> where P: FnMut(&T) -> bool {}
 ///
 /// [`rsplit_mut`]: slice::rsplit_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الأجزاء القابلة للتعديل المفصولة بعناصر تحقق `pred`، بدءًا من نهاية الشريحة.
+///
+/// </div>
 #[stable(feature = "slice_rsplit", since = "1.27.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RSplitMut<'a, T: 'a, P>
@@ -1168,6 +1235,12 @@ impl<T, I: SplitIter<Item = T>> Iterator for GenericSplitN<I> {
 ///
 /// [`splitn`]: slice::splitn
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط، بعدد تقسيمات محدود.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct SplitN<'a, T: 'a, P>
@@ -1212,6 +1285,12 @@ where
 ///
 /// [`rsplitn`]: slice::rsplitn
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط، بعدد تقسيمات محدود، بدءًا من النهاية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RSplitN<'a, T: 'a, P>
@@ -1252,6 +1331,12 @@ where
 ///
 /// [`splitn_mut`]: slice::splitn_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط، بعدد تقسيمات محدود.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct SplitNMut<'a, T: 'a, P>
@@ -1293,6 +1378,12 @@ where
 ///
 /// [`rsplitn_mut`]: slice::rsplitn_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مفصولة بعناصر تحقق الشرط، بعدد تقسيمات محدود، بدءًا من النهاية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct RSplitNMut<'a, T: 'a, P>
@@ -1341,6 +1432,12 @@ forward_iterator! { RSplitNMut: T, &'a mut [T] }
 ///
 /// [`windows`]: slice::windows
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على نوافذ متداخلة بطول `size`.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -1490,6 +1587,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for Windows<'a, T> {
 ///
 /// [`chunks`]: slice::chunks
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع غير متداخلة (`chunk_size` عنصر في كل مرة)، بدءًا من البداية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -1666,6 +1769,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for Chunks<'a, T> {
 ///
 /// [`chunks_mut`]: slice::chunks_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع قابلة للتعديل غير متداخلة، بدءًا من البداية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -1853,6 +1962,12 @@ unsafe impl<T> Sync for ChunksMut<'_, T> where T: Sync {}
 /// [`chunks_exact`]: slice::chunks_exact
 /// [`remainder`]: ChunksExact::remainder
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع غير متداخلة (`chunk_size` عنصر في كل مرة)، بدءًا من البداية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "chunks_exact", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -1889,6 +2004,12 @@ impl<'a, T> ChunksExact<'a, T> {
     /// assert_eq!(iter.next(), None);
     /// assert_eq!(iter.remainder(), &['m'][..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع ما تبقى من الشريحة الأصلية ولن يعطيه المكرر (على الأكثر `chunk_size-1` عنصر).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "chunks_exact", since = "1.31.0")]
     pub fn remainder(&self) -> &'a [T] {
@@ -2023,6 +2144,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for ChunksExact<'a, T> {
 /// [`chunks_exact_mut`]: slice::chunks_exact_mut
 /// [`into_remainder`]: ChunksExactMut::into_remainder
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع قابلة للتعديل غير متداخلة، بدءًا من البداية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "chunks_exact", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2052,6 +2179,12 @@ impl<'a, T> ChunksExactMut<'a, T> {
     /// Returns the remainder of the original slice that is not going to be
     /// returned by the iterator. The returned slice has at most `chunk_size-1`
     /// elements.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع ما تبقى من الشريحة الأصلية ولن يعطيه المكرر (على الأكثر `chunk_size-1` عنصر).
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "chunks_exact", since = "1.31.0")]
     pub fn into_remainder(self) -> &'a mut [T] {
@@ -2191,6 +2324,12 @@ unsafe impl<T> Sync for ChunksExactMut<'_, T> where T: Sync {}
 ///
 /// [`array_windows`]: slice::array_windows
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر نوافذ على الشريحة في قطع متداخلة (`N` عنصر في كل مرة)، بدءًا من البداية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "array_windows", since = "1.94.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2321,6 +2460,12 @@ unsafe impl<T, const N: usize> TrustedRandomAccessNoCoerce for ArrayWindows<'_, 
 ///
 /// [`rchunks`]: slice::rchunks
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع غير متداخلة، بدءًا من النهاية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rchunks", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2481,6 +2626,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for RChunks<'a, T> {
 ///
 /// [`rchunks_mut`]: slice::rchunks_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع قابلة للتعديل غير متداخلة، بدءًا من النهاية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rchunks", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2663,6 +2814,12 @@ unsafe impl<T> Sync for RChunksMut<'_, T> where T: Sync {}
 /// [`rchunks_exact`]: slice::rchunks_exact
 /// [`remainder`]: RChunksExact::remainder
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع غير متداخلة، بدءًا من النهاية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rchunks", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2698,6 +2855,12 @@ impl<'a, T> RChunksExact<'a, T> {
     /// assert_eq!(iter.next(), None);
     /// assert_eq!(iter.remainder(), &['l'][..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع ما تبقى من الشريحة الأصلية ولن يعطيه المكرر (على الأكثر `chunk_size-1` عنصر).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
@@ -2840,6 +3003,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for RChunksExact<'a, T> {
 /// [`rchunks_exact_mut`]: slice::rchunks_exact_mut
 /// [`into_remainder`]: RChunksExactMut::into_remainder
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع قابلة للتعديل غير متداخلة، بدءًا من النهاية.
+///
+/// </div>
 #[derive(Debug)]
 #[stable(feature = "rchunks", since = "1.31.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
@@ -2867,6 +3036,12 @@ impl<'a, T> RChunksExactMut<'a, T> {
     /// Returns the remainder of the original slice that is not going to be
     /// returned by the iterator. The returned slice has at most `chunk_size-1`
     /// elements.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع ما تبقى من الشريحة الأصلية ولن يعطيه المكرر (على الأكثر `chunk_size-1` عنصر).
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
@@ -3026,6 +3201,12 @@ unsafe impl<'a, T> TrustedRandomAccessNoCoerce for IterMut<'a, T> {
 ///
 /// [`chunk_by`]: slice::chunk_by
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع غير متداخلة يفصلها شرط.
+///
+/// </div>
 #[stable(feature = "slice_group_by", since = "1.77.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct ChunkBy<'a, T: 'a, P> {
@@ -3134,6 +3315,12 @@ impl<'a, T: 'a + fmt::Debug, P> fmt::Debug for ChunkBy<'a, T, P> {
 ///
 /// [`chunk_by_mut`]: slice::chunk_by_mut
 /// [slices]: slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على الشريحة في قطع قابلة للتعديل غير متداخلة يفصلها شرط.
+///
+/// </div>
 #[stable(feature = "slice_group_by", since = "1.77.0")]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 pub struct ChunkByMut<'a, T: 'a, P> {

@@ -1,5 +1,11 @@
 //! This module contains the hybrid top-level loop combining bottom-up Mergesort with top-down
 //! Quicksort.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الحلقة الهجينة العليا التي تجمع Mergesort وQuicksort.
+//!
+//! </div>
 
 use crate::mem::MaybeUninit;
 use crate::slice::sort::shared::find_existing_run;
@@ -17,6 +23,12 @@ use crate::{cmp, intrinsics};
 ///
 /// This is the main loop for driftsort, which uses powersort's heuristic to
 /// determine in which order to merge runs, see below for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرتب `v` حسب دالة المقارنة `is_less`.
+///
+/// </div>
 pub fn sort<T, F: FnMut(&T, &T) -> bool>(
     v: &mut [T],
     scratch: &mut [MaybeUninit<T>],

@@ -1,4 +1,10 @@
 //! This module contains the logic for pivot selection.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! منطق اختيار المحور (pivot).
+//!
+//! </div>
 
 use crate::{hint, intrinsics};
 
@@ -9,6 +15,12 @@ const PSEUDO_MEDIAN_REC_THRESHOLD: usize = 64;
 ///
 /// This chooses a pivot by sampling an adaptive amount of points, approximating
 /// the quality of a median of sqrt(n) elements.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يختار محورًا من `v`.
+///
+/// </div>
 #[inline]
 pub fn choose_pivot<T, F: FnMut(&T, &T) -> bool>(v: &[T], is_less: &mut F) -> usize {
     // We use unsafe code and raw pointers here because we're dealing with

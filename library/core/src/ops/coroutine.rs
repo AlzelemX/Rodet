@@ -5,6 +5,12 @@ use crate::pin::Pin;
 /// This enum is returned from the `Coroutine::resume` method and indicates the
 /// possible return values of a coroutine. Currently this corresponds to either
 /// a suspension point (`Yielded`) or a termination point (`Complete`).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نتيجة استئناف coroutine.
+///
+/// </div>
 #[derive(Clone, Copy, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
 #[lang = "coroutine_state"]
 #[unstable(feature = "coroutine_trait", issue = "43122")]
@@ -15,6 +21,12 @@ pub enum CoroutineState<Y, R> {
     /// corresponds to a `yield` statement. The value provided in this variant
     /// corresponds to the expression passed to `yield` and allows coroutines to
     /// provide a value each time they yield.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الـ coroutine توقف مؤقتًا بقيمة.
+    ///
+    /// </div>
     Yielded(Y),
 
     /// The coroutine completed with a return value.
@@ -22,6 +34,12 @@ pub enum CoroutineState<Y, R> {
     /// This state indicates that a coroutine has finished execution with the
     /// provided value. Once a coroutine has returned `Complete` it is
     /// considered a programmer error to call `resume` again.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الـ coroutine اكتمل بقيمة إرجاع.
+    ///
+    /// </div>
     Complete(R),
 }
 
@@ -66,6 +84,12 @@ pub enum CoroutineState<Y, R> {
 ///
 /// [RFC 2033]: https://github.com/rust-lang/rfcs/pull/2033
 /// [unstable book]: ../../unstable-book/language-features/coroutines.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الـ trait الذي تطبّقه أنواع الـ coroutines المدمجة.
+///
+/// </div>
 #[lang = "coroutine"]
 #[unstable(feature = "coroutine_trait", issue = "43122")]
 #[fundamental]
@@ -77,6 +101,12 @@ pub trait Coroutine<R = ()> {
     /// values which are allowed to be returned each time a coroutine yields.
     /// For example an iterator-as-a-coroutine would likely have this type as
     /// `T`, the type being iterated over.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع القيمة التي يعطيها هذا الـ coroutine بـ yield.
+    ///
+    /// </div>
     #[lang = "coroutine_yield"]
     type Yield;
 
@@ -86,6 +116,12 @@ pub trait Coroutine<R = ()> {
     /// `return` statement or implicitly as the last expression of a coroutine
     /// literal. For example futures would use this as `Result<T, E>` as it
     /// represents a completed future.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع القيمة التي يرجعها هذا الـ coroutine.
+    ///
+    /// </div>
     #[lang = "coroutine_return"]
     type Return;
 
@@ -115,6 +151,12 @@ pub trait Coroutine<R = ()> {
     /// been returned previously. While coroutine literals in the language are
     /// guaranteed to panic on resuming after `Complete`, this is not guaranteed
     /// for all implementations of the `Coroutine` trait.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستأنف تنفيذ هذا الـ coroutine.
+    ///
+    /// </div>
     #[lang = "coroutine_resume"]
     fn resume(self: Pin<&mut Self>, arg: R) -> CoroutineState<Self::Yield, Self::Return>;
 }

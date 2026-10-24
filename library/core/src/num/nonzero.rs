@@ -1,4 +1,10 @@
 //! Definitions of integer that is known not to equal zero.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات أعداد صحيحة معروف أنها لا تساوي صفرًا.
+//!
+//! </div>
 
 use super::{IntErrorKind, ParseIntError, TryFromIntError};
 use crate::clone::{TrivialClone, UseCloned};
@@ -26,6 +32,12 @@ use crate::{fmt, intrinsics, ptr, slice, ub_checks};
 /// - `Option<Self::NonZeroInner>` to `Self`
 ///
 /// (And, consequently, `Self::NonZeroInner` to `Self`.)
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة للأنواع الأساسية التي يمكن أن تكون صفرًا.
+///
+/// </div>
 #[unstable(
     feature = "nonzero_internals",
     reason = "implementation detail which may disappear or be replaced at any time",
@@ -105,6 +117,13 @@ impl_zeroable_primitive!(
 /// and cannot be implemented by users. Therefore, you cannot use `NonZero<T>`
 /// with your own types, nor can you implement traits for all `NonZero<T>`,
 /// only for concrete types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قيمة معروف أنها لا تساوي صفرًا (`NonZero`)؛ تسمح بتحسين الذاكرة مثل `Option<NonZero<u32>>` بحجم
+/// `u32`.
+///
+/// </div>
 #[stable(feature = "generic_nonzero", since = "1.79.0")]
 #[repr(transparent)]
 #[rustc_nonnull_optimization_guaranteed]
@@ -489,6 +508,12 @@ where
     T: ZeroablePrimitive,
 {
     /// Creates a non-zero if the given value is not zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonZero` إذا لم تكن القيمة المعطاة صفرًا، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[stable(feature = "nonzero", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_nonzero_int_methods", since = "1.47.0")]
     #[must_use]
@@ -505,6 +530,12 @@ where
     /// # Safety
     ///
     /// The value must not be zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `NonZero` بدون التحقق من أن القيمة ليست صفرًا. إذا كانت صفرًا فهذا سلوك غير معرَّف.
+    ///
+    /// </div>
     #[stable(feature = "nonzero", since = "1.28.0")]
     #[rustc_const_stable(feature = "nonzero", since = "1.28.0")]
     #[must_use]
@@ -529,6 +560,12 @@ where
 
     /// Converts a reference to a non-zero mutable reference
     /// if the referenced value is not zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجعًا إلى مرجع `NonZero` قابل للتعديل إذا لم تكن القيمة صفرًا.
+    ///
+    /// </div>
     #[unstable(feature = "nonzero_from_mut", issue = "106290")]
     #[must_use]
     #[inline]
@@ -547,6 +584,12 @@ where
     /// # Safety
     ///
     /// The referenced value must not be zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مرجعًا قابلًا للتعديل إلى مرجع `NonZero` بدون التحقق (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "nonzero_from_mut", issue = "106290")]
     #[must_use]
     #[inline]
@@ -608,6 +651,12 @@ where
     }
 
     /// Returns the contained value as a primitive type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع القيمة الموجودة كنوع أساسي.
+    ///
+    /// </div>
     #[stable(feature = "nonzero", since = "1.28.0")]
     #[rustc_const_stable(feature = "const_nonzero_get", since = "1.34.0")]
     #[inline]
@@ -711,6 +760,12 @@ macro_rules! nonzero_integer {
         /// ```
         ///
         /// [null pointer optimization]: crate::option#representation
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذا يسمح ببعض تحسينات تخطيط الذاكرة.
+        ///
+        /// </div>
         #[$stability]
         pub type $Ty = NonZero<$Int>;
 
@@ -726,6 +781,12 @@ macro_rules! nonzero_integer {
             /// #
             #[doc = concat!("assert_eq!(NonZero::<", stringify!($Int), ">::BITS, ", stringify!($Int), "::BITS);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// حجم هذا النوع (عدد صحيح غير صفري) بالبتات.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_bits", since = "1.67.0")]
             pub const BITS: u32 = <$Int>::BITS;
 
@@ -815,6 +876,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `self` مع إبقاء أعلى بت مضبوط فقط.
+            ///
+            /// </div>
             #[stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
             #[rustc_const_stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
             #[must_use = "this returns the result of the operation, \
@@ -847,6 +914,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `self` مع إبقاء أدنى بت مضبوط فقط.
+            ///
+            /// </div>
             #[stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
             #[rustc_const_stable(feature = "isolate_most_least_significant_one", since = "1.97.0")]
             #[must_use = "this returns the result of the operation, \
@@ -863,6 +936,12 @@ macro_rules! nonzero_integer {
 
             /// Returns the index of the highest bit set to one in `self`.
             ///
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع موضع أعلى بت قيمته واحد في `self`.
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -908,6 +987,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع موضع أدنى بت قيمته واحد في `self`.
+            ///
+            /// </div>
             #[stable(feature = "int_lowest_highest_one", since = "1.97.0")]
             #[rustc_const_stable(feature = "int_lowest_highest_one", since = "1.97.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1196,6 +1281,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى big endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -1229,6 +1320,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى little endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[unstable(feature = "nonzero_bitwise", issue = "128281")]
             #[must_use = "this returns the result of the operation, \
                         without modifying the original"]
@@ -1265,6 +1362,13 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب عددين غير صفريين مع التحقق، ويرجع `None` عند تجاوز الحد. لذلك لا يمكن أن تلتف
+            /// النتيجة إلى صفر.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
             #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1304,6 +1408,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب عددين غير صفريين (مع التشبع).
+            ///
+            /// </div>
             #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
             #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1329,6 +1439,12 @@ macro_rules! nonzero_integer {
             /// # Safety
             ///
             /// This results in undefined behavior when
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يضرب عددين غير صفريين بافتراض عدم تجاوز الحد (غير آمن).
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1385,6 +1501,12 @@ macro_rules! nonzero_integer {
             /// # Some(())
             /// # }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرفع قيمة غير صفرية لأس صحيح مع التحقق، ويرجع `None` عند تجاوز الحد.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
             #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
             #[must_use = "this returns the result of the operation, \
@@ -1406,6 +1528,12 @@ macro_rules! nonzero_integer {
             }
 
             /// Raise non-zero value to an integer power.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرفع قيمة غير صفرية لأس صحيح (مع التشبع).
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1453,6 +1581,12 @@ macro_rules! nonzero_integer {
             /// Parses a non-zero integer from an ASCII-byte slice with decimal digits.
             ///
             /// The characters are expected to be an optional
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ عددًا غير صفري من شريحة بايتات ASCII بأرقام عشرية.
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1489,6 +1623,13 @@ macro_rules! nonzero_integer {
             /// #
             #[doc = concat!("assert!(NonZero::<", stringify!($Int), ">::from_ascii_bytes(b\"1 \").is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
             #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
             #[inline]
@@ -1548,6 +1689,13 @@ macro_rules! nonzero_integer {
             /// #
             #[doc = concat!("assert!(NonZero::<", stringify!($Int), ">::from_ascii_bytes_radix(b\"1 \", 10).is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
             #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
             #[inline]
@@ -1616,6 +1764,13 @@ macro_rules! nonzero_integer {
             /// #
             #[doc = concat!("assert!(NonZero::<", stringify!($Int), ">::from_str_radix(\"1 \", 10).is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[stable(feature = "nonzero_from_str_radix", since = "1.98.0")]
             #[rustc_const_stable(feature = "nonzero_from_str_radix", since = "1.98.0")]
             #[inline]
@@ -1662,6 +1817,13 @@ macro_rules! nonzero_integer {
             ///
             #[doc = concat!("assert!(NonZero::<", stringify!($Int), ">::from_str(\"1 \").is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[inline]
             fn from_str(src: &str) -> Result<Self, Self::Err> {
                 Self::from_str_radix(src, 10)
@@ -1825,6 +1987,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// #
         #[doc = concat!("assert_eq!(NonZero::<", stringify!($Int), ">::MIN.get(), 1", stringify!($Int), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أصغر قيمة يمكن تمثيلها بهذا النوع غير الصفري، وهي 1.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_min_max", since = "1.70.0")]
         pub const MIN: Self = Self::new(1).unwrap();
 
@@ -1839,6 +2007,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// #
         #[doc = concat!("assert_eq!(NonZero::<", stringify!($Int), ">::MAX.get(), ", stringify!($Int), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أكبر قيمة يمكن تمثيلها بهذا النوع غير الصفري.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_min_max", since = "1.70.0")]
         pub const MAX: Self = Self::new(<$Int>::MAX).unwrap();
 
@@ -1863,6 +2037,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يضيف عددًا بدون إشارة إلى قيمة غير صفرية مع التحقق، ويرجع `None` عند تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1902,6 +2082,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يضيف عددًا بدون إشارة إلى قيمة غير صفرية (مع التشبع).
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1944,6 +2130,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يضيف عددًا بدون إشارة إلى قيمة غير صفرية بافتراض عدم تجاوز الحد (غير آمن).
+        ///
+        /// </div>
         #[unstable(feature = "nonzero_ops", issue = "84186")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -1969,6 +2161,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         #[doc = concat!("let three = NonZero::new(3", stringify!($Int), ").unwrap();")]
         /// assert_eq!(three.div_ceil(two), two);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج قسمة `self` على `rhs` مع التقريب نحو موجب اللانهاية.
+        ///
+        /// </div>
         #[stable(feature = "unsigned_nonzero_div_ceil", since = "1.92.0")]
         #[rustc_const_stable(feature = "unsigned_nonzero_div_ceil", since = "1.92.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2006,6 +2204,13 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع أصغر قوة للعدد 2 أكبر من أو تساوي `self`، ويرجع `None` إذا كانت أكبر من أقصى قيمة
+        /// للنوع.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2043,6 +2248,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 2، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2072,6 +2283,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 10، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2143,6 +2360,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `true` فقط إذا كان `self == (1 << k)` لقيمة ما `k` (أي قوة للعدد 2).
+        ///
+        /// </div>
         #[must_use]
         #[stable(feature = "nonzero_is_power_of_two", since = "1.59.0")]
         #[rustc_const_stable(feature = "nonzero_is_power_of_two", since = "1.59.0")]
@@ -2172,6 +2395,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع الجذر التربيعي للعدد، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "isqrt", since = "1.84.0")]
         #[rustc_const_stable(feature = "isqrt", since = "1.84.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2199,6 +2428,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         ///
         #[doc = concat!("assert_eq!(n.cast_signed(), NonZero::new(-1", stringify!($Sint), ").unwrap());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع نمط بتات `self` مفسَّرًا كعدد صحيح بإشارة بنفس الحجم.
+        ///
+        /// </div>
         #[stable(feature = "integer_sign_cast", since = "1.87.0")]
         #[rustc_const_stable(feature = "integer_sign_cast", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2224,6 +2459,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع أقل عدد بتات لازم لتمثيل `self`.
+        ///
+        /// </div>
         #[stable(feature = "uint_bit_width", since = "1.97.0")]
         #[rustc_const_stable(feature = "uint_bit_width", since = "1.97.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2257,6 +2498,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// #
         #[doc = concat!("assert_eq!(NonZero::<", stringify!($Int), ">::MIN.get(), ", stringify!($Int), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أصغر قيمة يمكن تمثيلها بهذا النوع غير الصفري.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_min_max", since = "1.70.0")]
         pub const MIN: Self = Self::new(<$Int>::MIN).unwrap();
 
@@ -2275,6 +2522,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// #
         #[doc = concat!("assert_eq!(NonZero::<", stringify!($Int), ">::MAX.get(), ", stringify!($Int), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// أكبر قيمة يمكن تمثيلها بهذا النوع غير الصفري.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_min_max", since = "1.70.0")]
         pub const MAX: Self = Self::new(<$Int>::MAX).unwrap();
 
@@ -2297,6 +2550,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب القيمة المطلقة لـ self.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2328,6 +2587,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// القيمة المطلقة مع التحقق، ويرجع `None` عند تجاوز الحد. النتيجة لا يمكن أن تكون صفرًا.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2363,6 +2628,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب القيمة المطلقة لـ self مع معلومة تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2400,6 +2671,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// القيمة المطلقة المشبعة.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2432,6 +2709,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// القيمة المطلقة الدائرية.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2464,6 +2747,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب القيمة المطلقة لـ self بدون التفاف أو panic.
+        ///
+        /// </div>
         #[stable(feature = "nonzero_checked_ops", since = "1.64.0")]
         #[rustc_const_stable(feature = "const_nonzero_checked_ops", since = "1.64.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2492,6 +2781,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `true` إذا كان `self` موجبًا و`false` إذا كان سالبًا.
+        ///
+        /// </div>
         #[must_use]
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2518,6 +2813,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `true` إذا كان `self` سالبًا و`false` إذا كان موجبًا.
+        ///
+        /// </div>
         #[must_use]
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2545,6 +2846,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي مع التحقق. يحسب `-self`.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
         #[rustc_const_stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2577,6 +2884,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينفي self، مع بيان التجاوز إذا كان يساوي أصغر قيمة.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
         #[rustc_const_stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2610,6 +2923,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي مشبع. يحسب `-self` بدل تجاوز الحد.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
         #[rustc_const_stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2642,6 +2961,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         /// # Some(())
         /// # }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي دائري. يحسب `-self`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "nonzero_negation_ops", since = "1.71.0")]
         #[rustc_const_stable(feature = "nonzero_negation_ops", since = "1.71.0")]
@@ -2713,6 +3038,12 @@ macro_rules! nonzero_integer_signedness_dependent_methods {
         #[doc = concat!("    NonZero::<", stringify!($Int), ">::new(-80).unwrap(),")]
         /// );
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحصر هذا العدد ضمن مدى متماثل حول الصفر.
+        ///
+        /// </div>
         #[inline]
         #[must_use = "method returns a new number and does not mutate the original value"]
         #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]

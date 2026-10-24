@@ -31,6 +31,12 @@
 //!   `into` themselves and `from` themselves
 //!
 //! See each trait for usage examples.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits للتحويل بين الأنواع (`From` و`Into` و`AsRef` وغيرها).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -98,6 +104,12 @@ pub use num::{BoundedCastFromInt, CheckedCastFromInt};
 /// let filtered = iter.filter_map(identity).collect::<Vec<_>>();
 /// assert_eq!(vec![1, 3], filtered);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// دالة الهوية: ترجع وسيطها كما هو.
+///
+/// </div>
 #[stable(feature = "convert_id", since = "1.33.0")]
 #[rustc_const_stable(feature = "const_identity", since = "1.33.0")]
 #[inline(always)]
@@ -214,6 +226,12 @@ pub const fn identity<T>(x: T) -> T {
 /// let s = "hello".to_string();
 /// is_hello(s);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لتحويل رخيص من مرجع إلى مرجع.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "AsRef"]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -366,6 +384,12 @@ pub const trait AsRef<T: PointeeSized>: PointeeSized {
 ///
 /// Note, however, that APIs don't need to be generic. In many cases taking a `&mut [u8]` or
 /// `&mut Vec<u8>`, for example, is the better choice (callers need to pass the correct type then).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لتحويل رخيص من مرجع قابل للتعديل إلى مرجع قابل للتعديل.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_diagnostic_item = "AsMut"]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -444,6 +468,12 @@ pub const trait AsMut<T: PointeeSized>: PointeeSized {
 ///
 /// [`String`]: ../../std/string/struct.String.html
 /// [`Vec`]: ../../std/vec/struct.Vec.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل من قيمة إلى قيمة يستهلك المدخل. عكس `From`.
+///
+/// </div>
 #[rustc_diagnostic_item = "Into"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(search_unbox)]
@@ -576,6 +606,12 @@ pub const trait Into<T>: Sized {
 /// [`String`]: ../../std/string/struct.String.html
 /// [`from`]: From::from
 /// [book]: ../../book/ch09-00-error-handling.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم للتحويل من قيمة إلى قيمة مع استهلاك المدخل. مقابل `Into`.
+///
+/// </div>
 #[rustc_diagnostic_item = "From"]
 #[lang = "From"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -611,6 +647,12 @@ pub const trait From<T>: Sized {
 ///
 /// This suffers the same restrictions and reasoning as implementing
 /// [`Into`], see there for details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// محاولة تحويل تستهلك `self` وقد تفشل.
+///
+/// </div>
 #[rustc_diagnostic_item = "TryInto"]
 #[stable(feature = "try_from", since = "1.34.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -690,6 +732,12 @@ pub const trait TryInto<T>: Sized {
 /// ```
 ///
 /// [`try_from`]: TryFrom::try_from
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويلات أنواع بسيطة وآمنة قد تفشل بطريقة مضبوطة. مقابل `TryInto`.
+///
+/// </div>
 #[rustc_diagnostic_item = "TryFrom"]
 #[stable(feature = "try_from", since = "1.34.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -911,5 +959,11 @@ impl<T: ?Sized> AsMut<T> for ! {
 /// Note: Since [`!`] (the "never" type) was stabilized in Rust 1.100.0, it is
 /// preferred to use `!` directly unless targeting older Rust versions. `Infallible` may be
 /// deprecated in a future Rust version.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ للأخطاء التي لا يمكن أن تحدث أبدًا.
+///
+/// </div>
 #[stable(feature = "convert_infallible", since = "1.34.0")]
 pub type Infallible = !;

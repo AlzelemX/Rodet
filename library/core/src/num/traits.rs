@@ -2,6 +2,12 @@
 // Implementation based on `num_conv` by jhpratt, under (MIT OR Apache-2.0).
 
 /// Trait for types that this type can be truncated to
+///
+/// <div lang="ar" dir="rtl">
+///
+/// traits للأنواع الرقمية: الأنواع التي يمكن قص هذا النوع إليها.
+///
+/// </div>
 #[unstable(feature = "num_internals", reason = "internal implementation detail", issue = "none")]
 #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
 pub impl(self) const trait TruncateTarget<Target> {
@@ -16,6 +22,12 @@ pub impl(self) const trait TruncateTarget<Target> {
 }
 
 /// Trait for types that this type can be widened to
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي يمكن توسيع هذا النوع إليها.
+///
+/// </div>
 #[unstable(feature = "num_internals", reason = "internal implementation detail", issue = "none")]
 #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
 pub impl(self) const trait WidenTarget<Target> {

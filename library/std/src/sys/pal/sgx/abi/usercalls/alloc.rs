@@ -684,6 +684,12 @@ where
     }
 
     /// Returns an iterator over the slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الشريحة.
+    ///
+    /// </div>
     pub fn iter(&self) -> Iter<'_, T>
     where
         T: UserSafe, // FIXME: should be implied by [T]: UserSafe?
@@ -692,6 +698,12 @@ where
     }
 
     /// Returns an iterator that allows modifying each value.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يسمح بتعديل كل قيمة.
+    ///
+    /// </div>
     pub fn iter_mut(&mut self) -> IterMut<'_, T>
     where
         T: UserSafe, // FIXME: should be implied by [T]: UserSafe?

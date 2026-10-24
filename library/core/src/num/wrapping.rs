@@ -1,4 +1,10 @@
 //! Definitions of `Wrapping<T>`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات `Wrapping<T>`.
+//!
+//! </div>
 
 use crate::fmt;
 use crate::ops::{
@@ -36,6 +42,12 @@ use crate::ops::{
 /// # Layout
 ///
 /// `Wrapping<T>` is guaranteed to have the same layout and ABI as `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعطي حسابًا دائريًا مقصودًا على `T` (يلتف عند حدود النوع).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Default, Hash)]
 #[repr(transparent)]
@@ -580,6 +592,12 @@ macro_rules! wrapping_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Wrapping<", stringify!($t), ">>::MIN, Wrapping(", stringify!($t), "::MIN));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع أصغر قيمة يمكن تمثيلها بهذا النوع.
+            ///
+            /// </div>
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
             pub const MIN: Self = Self(<$t>::MIN);
 
@@ -595,6 +613,12 @@ macro_rules! wrapping_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Wrapping<", stringify!($t), ">>::MAX, Wrapping(", stringify!($t), "::MAX));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع أكبر قيمة يمكن تمثيلها بهذا النوع.
+            ///
+            /// </div>
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
             pub const MAX: Self = Self(<$t>::MAX);
 
@@ -610,6 +634,12 @@ macro_rules! wrapping_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Wrapping<", stringify!($t), ">>::BITS, ", stringify!($t), "::BITS);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع حجم هذا النوع بالبتات.
+            ///
+            /// </div>
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
             pub const BITS: u32 = <$t>::BITS;
 
@@ -817,6 +847,12 @@ macro_rules! wrapping_int_impl {
             /// assert_eq!(m.0 as u16, 0b10101010_00000000);
             /// assert_eq!(m, Wrapping(-22016));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس نمط بتات العدد.
+            ///
+            /// </div>
             #[stable(feature = "reverse_bits", since = "1.37.0")]
             #[rustc_const_stable(feature = "const_reverse_bits", since = "1.37.0")]
             #[must_use = "this returns the result of the operation, \
@@ -915,6 +951,12 @@ macro_rules! wrapping_int_impl {
             ///     assert_eq!(n.to_be(), n.swap_bytes())
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى big endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -944,6 +986,12 @@ macro_rules! wrapping_int_impl {
             ///     assert_eq!(n.to_le(), n.swap_bytes())
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى little endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -974,6 +1022,12 @@ macro_rules! wrapping_int_impl {
             /// assert_eq!(Wrapping(3i8).pow(5), Wrapping(-13));
             /// assert_eq!(Wrapping(3i8).pow(6), Wrapping(-39));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرفع self للأس `exp` باستخدام الرفع بالتربيع، مع بيان التجاوز.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -1038,6 +1092,12 @@ macro_rules! wrapping_int_impl_signed {
             #[doc = concat!("assert_eq!(Wrapping(", stringify!($t), "::MIN).abs(), Wrapping(", stringify!($t), "::MIN));")]
             /// assert_eq!(Wrapping(-128i8).abs().0 as u8, 128u8);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحسب القيمة المطلقة لـ `self` مع الالتفاف عند حدود النوع.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -1064,6 +1124,12 @@ macro_rules! wrapping_int_impl_signed {
             #[doc = concat!("assert_eq!(Wrapping(0", stringify!($t), ").signum(), Wrapping(0));")]
             #[doc = concat!("assert_eq!(Wrapping(-10", stringify!($t), ").signum(), Wrapping(-1));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع رقمًا يمثل إشارة `self` (-1 أو 0 أو 1).
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -1086,6 +1152,12 @@ macro_rules! wrapping_int_impl_signed {
             #[doc = concat!("assert!(Wrapping(10", stringify!($t), ").is_positive());")]
             #[doc = concat!("assert!(!Wrapping(-10", stringify!($t), ").is_positive());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` إذا كان `self` موجبًا، و`false` إذا كان صفرًا أو سالبًا.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
@@ -1107,6 +1179,12 @@ macro_rules! wrapping_int_impl_signed {
             #[doc = concat!("assert!(Wrapping(-10", stringify!($t), ").is_negative());")]
             #[doc = concat!("assert!(!Wrapping(10", stringify!($t), ").is_negative());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` إذا كان `self` سالبًا، و`false` إذا كان صفرًا أو موجبًا.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
@@ -1163,6 +1241,12 @@ macro_rules! wrapping_int_impl_unsigned {
             #[doc = concat!("assert!(Wrapping(16", stringify!($t), ").is_power_of_two());")]
             #[doc = concat!("assert!(!Wrapping(10", stringify!($t), ").is_power_of_two());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` فقط إذا كان `self == 2^k` لقيمة ما `k`.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[unstable(feature = "wrapping_int_impl", issue = "32463")]
@@ -1187,6 +1271,12 @@ macro_rules! wrapping_int_impl_unsigned {
             #[doc = concat!("assert_eq!(Wrapping(3", stringify!($t), ").next_power_of_two(), Wrapping(4));")]
             #[doc = concat!("assert_eq!(Wrapping(200_u8).next_power_of_two(), Wrapping(0));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع أصغر قوة للعدد 2 أكبر من أو تساوي `self`.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]

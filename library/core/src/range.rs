@@ -71,9 +71,21 @@ pub use crate::ops::{RangeFull, RangeTo};
 #[stable(feature = "new_range_api", since = "1.96.0")]
 pub struct Range<Idx> {
     /// The lower bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "new_range_api", since = "1.96.0")]
     pub start: Idx,
     /// The upper bound of the range (exclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للمدى (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "new_range_api", since = "1.96.0")]
     pub end: Idx,
 }
@@ -131,6 +143,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
     /// assert!(!Range::from(0.0..f32::NAN).contains(&0.5));
     /// assert!(!Range::from(f32::NAN..1.0).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "new_range_api", since = "1.96.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -163,6 +181,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
     /// assert!( Range::from(3.0..f32::NAN).is_empty());
     /// assert!( Range::from(f32::NAN..5.0).is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المدى لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "new_range_api", since = "1.96.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -251,6 +275,12 @@ const impl<T> From<legacy::Range<T>> for Range<T> {
 #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
 pub struct RangeInclusive<Idx> {
     /// The lower bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     pub start: Idx,
     /// The upper bound of the range (inclusive).
@@ -290,6 +320,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
     /// assert!(!RangeInclusive::from(0.0..=f32::NAN).contains(&0.0));
     /// assert!(!RangeInclusive::from(f32::NAN..=1.0).contains(&1.0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -322,6 +358,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
     /// assert!( RangeInclusive::from(3.0..=f32::NAN).is_empty());
     /// assert!( RangeInclusive::from(f32::NAN..=5.0).is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المدى لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[stable(feature = "new_range_inclusive_api", since = "1.95.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -489,6 +531,12 @@ const impl<T> From<legacy::RangeInclusive<T>> for RangeInclusive<T> {
 #[stable(feature = "new_range_from_api", since = "1.96.0")]
 pub struct RangeFrom<Idx> {
     /// The lower bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "new_range_from_api", since = "1.96.0")]
     pub start: Idx,
 }
@@ -540,6 +588,12 @@ impl<Idx: PartialOrd<Idx>> RangeFrom<Idx> {
     /// assert!(!RangeFrom::from(0.0..).contains(&f32::NAN));
     /// assert!(!RangeFrom::from(f32::NAN..).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "new_range_from_api", since = "1.96.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -664,6 +718,12 @@ const impl<T> From<legacy::RangeFrom<T>> for RangeFrom<T> {
 #[stable(feature = "new_range_to_inclusive_api", since = "1.96.0")]
 pub struct RangeToInclusive<Idx> {
     /// The upper bound of the range (inclusive)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "new_range_to_inclusive_api", since = "1.96.0")]
     pub last: Idx,
 }
@@ -691,6 +751,12 @@ impl<Idx: PartialOrd<Idx>> RangeToInclusive<Idx> {
     /// assert!(!(..=1.0).contains(&f32::NAN));
     /// assert!(!(..=f32::NAN).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "new_range_to_inclusive_api", since = "1.96.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]

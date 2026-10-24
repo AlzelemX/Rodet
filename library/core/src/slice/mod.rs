@@ -3,6 +3,12 @@
 //! For more details see [`std::slice`].
 //!
 //! [`std::slice`]: ../../std/slice/index.html
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! إدارة الشرائح ومعالجتها.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -25,6 +31,12 @@ use crate::{fmt, hint, ptr, range, slice};
 )]
 #[doc(hidden)]
 /// Pure Rust memchr implementation, taken from rust-memchr
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تطبيق memchr بـ Rust خالص.
+///
+/// </div>
 pub mod memchr;
 
 #[unstable(
@@ -109,6 +121,12 @@ impl<T> [T] {
     /// let a = [1, 2, 3];
     /// assert_eq!(a.len(), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد العناصر في الشريحة.
+    ///
+    /// </div>
     #[lang = "slice_len_fn"]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_len", since = "1.39.0")]
@@ -130,6 +148,12 @@ impl<T> [T] {
     /// let b: &[i32] = &[];
     /// assert!(b.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان طول الشريحة 0.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_is_empty", since = "1.39.0")]
     #[rustc_no_implicit_autorefs]
@@ -150,6 +174,12 @@ impl<T> [T] {
     /// let w: &[i32] = &[];
     /// assert_eq!(None, w.first());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أول عنصر في الشريحة، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_not_mut", since = "1.56.0")]
     #[inline]
@@ -173,6 +203,12 @@ impl<T> [T] {
     /// let y: &mut [i32] = &mut [];
     /// assert_eq!(None, y.first_mut());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى أول عنصر، أو `None` إذا كانت الشريحة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_first_last", since = "1.83.0")]
     #[inline]
@@ -193,6 +229,12 @@ impl<T> [T] {
     ///     assert_eq!(elements, &[1, 2]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أول عنصر وبقية العناصر، أو `None` إذا كانت الشريحة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "slice_splits", since = "1.5.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_not_mut", since = "1.56.0")]
     #[inline]
@@ -215,6 +257,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[3, 4, 5]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع أول عنصر وبقية العناصر، أو `None` إذا كانت الشريحة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "slice_splits", since = "1.5.0")]
     #[rustc_const_stable(feature = "const_slice_first_last", since = "1.83.0")]
     #[inline]
@@ -235,6 +283,12 @@ impl<T> [T] {
     ///     assert_eq!(elements, &[0, 1]);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر عنصر وبقية العناصر، أو `None` إذا كانت الشريحة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "slice_splits", since = "1.5.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_not_mut", since = "1.56.0")]
     #[inline]
@@ -257,6 +311,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[4, 5, 3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر عنصر وبقية العناصر، أو `None` إذا كانت الشريحة فارغة.
+    ///
+    /// </div>
     #[stable(feature = "slice_splits", since = "1.5.0")]
     #[rustc_const_stable(feature = "const_slice_first_last", since = "1.83.0")]
     #[inline]
@@ -276,6 +336,12 @@ impl<T> [T] {
     /// let w: &[i32] = &[];
     /// assert_eq!(None, w.last());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر عنصر في الشريحة، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_not_mut", since = "1.56.0")]
     #[inline]
@@ -299,6 +365,12 @@ impl<T> [T] {
     /// let y: &mut [i32] = &mut [];
     /// assert_eq!(None, y.last_mut());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى آخر عنصر في الشريحة، أو `None` إذا كانت فارغة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_first_last", since = "1.83.0")]
     #[inline]
@@ -323,6 +395,12 @@ impl<T> [T] {
     /// let w: &[i32] = &[];
     /// assert_eq!(Some(&[]), w.first_chunk::<0>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة إلى أول `N` عنصر في الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "slice_first_last_chunk", since = "1.77.0")]
@@ -353,6 +431,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.first_chunk_mut::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة قابلًا للتعديل إلى أول `N` عنصر في الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_chunk", since = "1.83.0")]
@@ -383,6 +467,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.split_first_chunk::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة إلى أول `N` عنصر وباقي الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "slice_first_last_chunk", since = "1.77.0")]
@@ -413,6 +503,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.split_first_chunk_mut::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة قابلًا للتعديل إلى أول `N` عنصر وباقي الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_chunk", since = "1.83.0")]
@@ -443,6 +539,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.split_last_chunk::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة إلى آخر `N` عنصر وباقي الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "slice_first_last_chunk", since = "1.77.0")]
@@ -474,6 +576,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.split_last_chunk_mut::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة قابلًا للتعديل إلى آخر `N` عنصر وباقي الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_chunk", since = "1.83.0")]
@@ -505,6 +613,12 @@ impl<T> [T] {
     /// let w: &[i32] = &[];
     /// assert_eq!(Some(&[]), w.last_chunk::<0>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة إلى آخر `N` عنصر في الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_slice_last_chunk", since = "1.80.0")]
@@ -535,6 +649,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, x.last_chunk_mut::<4>());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجع مصفوفة قابلًا للتعديل إلى آخر `N` عنصر في الشريحة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_first_last_chunk", since = "1.77.0")]
     #[rustc_const_stable(feature = "const_slice_first_last_chunk", since = "1.83.0")]
@@ -566,6 +686,12 @@ impl<T> [T] {
     /// assert_eq!(None, v.get(3));
     /// assert_eq!(None, v.get(0..4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى عنصر أو جزء حسب نوع الفهرس، أو `None` إذا كان خارج الحدود.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_no_implicit_autorefs]
     #[inline]
@@ -593,6 +719,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[0, 42, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى عنصر أو جزء حسب نوع الفهرس، أو `None` إذا كان خارج الحدود.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_no_implicit_autorefs]
     #[inline]
@@ -633,6 +765,12 @@ impl<T> [T] {
     ///     assert_eq!(x.get_unchecked(1), &2);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى عنصر أو جزء بدون فحص الحدود (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_no_implicit_autorefs]
     #[inline]
@@ -678,6 +816,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[1, 13, 4]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى عنصر أو جزء بدون فحص الحدود (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_no_implicit_autorefs]
     #[inline]
@@ -721,6 +865,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`as_mut_ptr`]: slice::as_mut_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا إلى ذاكرة الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_as_ptr", since = "1.32.0")]
     #[rustc_never_returns_null_ptr]
@@ -752,6 +902,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[3, 4, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا خامًا قابلًا للتعديل إلى ذاكرة الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
     #[rustc_never_returns_null_ptr]
@@ -791,6 +947,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`as_ptr`]: slice::as_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشرين الخامين اللذين يحدّان الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "slice_ptr_range", since = "1.48.0")]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
     #[inline]
@@ -834,6 +996,12 @@ impl<T> [T] {
     /// common in C++.
     ///
     /// [`as_mut_ptr`]: slice::as_mut_ptr
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المؤشرين الخامين القابلين للتعديل اللذين يحدّان الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "slice_ptr_range", since = "1.48.0")]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
     #[inline]
@@ -848,6 +1016,12 @@ impl<T> [T] {
     /// Gets a reference to the underlying array.
     ///
     /// If `N` is not exactly equal to the length of `self`, then this method returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا إلى المصفوفة الأساسية (إذا كان الطول مطابقًا).
+    ///
+    /// </div>
     #[stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[rustc_const_stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[inline]
@@ -867,6 +1041,12 @@ impl<T> [T] {
     /// Gets a mutable reference to the slice's underlying array.
     ///
     /// If `N` is not exactly equal to the length of `self`, then this method returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى المصفوفة الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[rustc_const_stable(feature = "core_slice_as_array", since = "1.93.0")]
     #[inline]
@@ -903,6 +1083,12 @@ impl<T> [T] {
     /// v.swap(2, 4);
     /// assert!(v == ["a", "b", "e", "d", "c"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل عنصرين في الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_swap", since = "1.85.0")]
     #[inline]
@@ -944,6 +1130,12 @@ impl<T> [T] {
     ///
     /// [`swap`]: slice::swap
     /// [undefined behavior]: https://doc.rust-lang.org/reference/behavior-considered-undefined.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل عنصرين في الشريحة بدون فحص الحدود (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "slice_swap_unchecked", issue = "88539")]
     #[track_caller]
     pub const unsafe fn swap_unchecked(&mut self, a: usize, b: usize) {
@@ -973,6 +1165,12 @@ impl<T> [T] {
     /// v.reverse();
     /// assert!(v == [3, 2, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعكس ترتيب عناصر الشريحة في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_reverse", since = "1.90.0")]
     #[inline]
@@ -1034,6 +1232,12 @@ impl<T> [T] {
     /// assert_eq!(iterator.next(), Some(&4));
     /// assert_eq!(iterator.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1055,6 +1259,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(x, &[3, 4, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يسمح بتعديل كل قيمة.
+    ///
+    /// </div>
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -1109,6 +1319,13 @@ impl<T> [T] {
     /// }
     /// assert_eq!(array, ['s', 't', ' ', '2', '0', '1', '5', 'u', 'R']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على كل النوافذ المتصلة بطول `size`. النوافذ متداخلة. إذا كانت الشريحة أقصر من
+    /// `size` لا يعطي شيئًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1149,6 +1366,12 @@ impl<T> [T] {
     /// [`chunks_exact`]: slice::chunks_exact
     /// [`rchunks`]: slice::rchunks
     /// [`as_chunks`]: slice::as_chunks
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من البداية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1193,6 +1416,12 @@ impl<T> [T] {
     /// [`chunks_exact_mut`]: slice::chunks_exact_mut
     /// [`rchunks_mut`]: slice::rchunks_mut
     /// [`as_chunks_mut`]: slice::as_chunks_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من البداية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1236,6 +1465,12 @@ impl<T> [T] {
     /// [`chunks`]: slice::chunks
     /// [`rchunks_exact`]: slice::rchunks_exact
     /// [`as_chunks`]: slice::as_chunks
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من البداية.
+    ///
+    /// </div>
     #[stable(feature = "chunks_exact", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1284,6 +1519,12 @@ impl<T> [T] {
     /// [`chunks_mut`]: slice::chunks_mut
     /// [`rchunks_exact_mut`]: slice::rchunks_exact_mut
     /// [`as_chunks_mut`]: slice::as_chunks_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من البداية.
+    ///
+    /// </div>
     #[stable(feature = "chunks_exact", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1331,6 +1572,12 @@ impl<T> [T] {
     /// // let chunks: &[[_; 5]] = slice.as_chunks_unchecked() // The slice length is not a multiple of 5
     /// // let chunks: &[[_; 0]] = slice.as_chunks_unchecked() // Zero-length chunks are never allowed
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر، بافتراض عدم وجود باقٍ (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1391,6 +1638,12 @@ impl<T> [T] {
     /// };
     /// assert_eq!(chunks, &[['R', 'u'], ['s', 't']]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر بدءًا من البداية، وشريحة باقٍ طولها أقل من `N`.
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1438,6 +1691,12 @@ impl<T> [T] {
     /// assert_eq!(remainder, &['l']);
     /// assert_eq!(chunks, &[['o', 'r'], ['e', 'm']]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر بدءًا من النهاية، وشريحة باقٍ طولها أقل من `N`.
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1493,6 +1752,12 @@ impl<T> [T] {
     /// // let chunks: &[[_; 5]] = slice.as_chunks_unchecked_mut() // The slice length is not a multiple of 5
     /// // let chunks: &[[_; 0]] = slice.as_chunks_unchecked_mut() // Zero-length chunks are never allowed
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر، بافتراض عدم وجود باقٍ (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1549,6 +1814,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, &[1, 1, 2, 2, 9]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر بدءًا من البداية، وشريحة باقٍ طولها أقل من `N`.
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1604,6 +1875,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, &[9, 1, 1, 2, 2]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى شريحة مصفوفات من `N` عنصر بدءًا من النهاية، وشريحة باقٍ طولها أقل من `N`.
+    ///
+    /// </div>
     #[stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[rustc_const_stable(feature = "slice_as_chunks", since = "1.88.0")]
     #[inline]
@@ -1648,6 +1925,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`windows`]: slice::windows
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على نوافذ متداخلة من `N` عنصر، بدءًا من بداية الشريحة.
+    ///
+    /// </div>
     #[stable(feature = "array_windows", since = "1.94.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1690,6 +1973,12 @@ impl<T> [T] {
     /// [`rchunks_exact`]: slice::rchunks_exact
     /// [`chunks`]: slice::chunks
     /// [`as_rchunks`]: slice::as_rchunks
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1734,6 +2023,12 @@ impl<T> [T] {
     /// [`rchunks_exact_mut`]: slice::rchunks_exact_mut
     /// [`chunks_mut`]: slice::chunks_mut
     /// [`as_rchunks_mut`]: slice::as_rchunks_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1779,6 +2074,12 @@ impl<T> [T] {
     /// [`rchunks`]: slice::rchunks
     /// [`chunks_exact`]: slice::chunks_exact
     /// [`as_rchunks`]: slice::as_rchunks
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1828,6 +2129,12 @@ impl<T> [T] {
     /// [`rchunks_mut`]: slice::rchunks_mut
     /// [`chunks_exact_mut`]: slice::chunks_exact_mut
     /// [`as_rchunks_mut`]: slice::as_rchunks_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا يعطي `chunk_size` عنصر من الشريحة في كل مرة، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rchunks", since = "1.31.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1869,6 +2176,12 @@ impl<T> [T] {
     /// assert_eq!(iter.next(), Some(&[2, 3, 4][..]));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتج مجموعات متتالية غير متداخلة من العناصر، ويستخدم الشرط للفصل بينها.
+    ///
+    /// </div>
     #[stable(feature = "slice_group_by", since = "1.77.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1911,6 +2224,12 @@ impl<T> [T] {
     /// assert_eq!(iter.next(), Some(&mut [2, 3, 4][..]));
     /// assert_eq!(iter.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتج مجموعات متتالية قابلة للتعديل غير متداخلة، ويستخدم الشرط للفصل بينها.
+    ///
+    /// </div>
     #[stable(feature = "slice_group_by", since = "1.77.0")]
     #[rustc_const_unstable(feature = "const_slice_make_iter", issue = "137737")]
     #[inline]
@@ -1955,6 +2274,12 @@ impl<T> [T] {
     ///     assert_eq!(right, []);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى جزأين عند موضع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_slice_split_at_not_mut", since = "1.71.0")]
     #[inline]
@@ -1989,6 +2314,12 @@ impl<T> [T] {
     /// right[1] = 4;
     /// assert_eq!(v, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة القابلة للتعديل إلى جزأين عند موضع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[track_caller]
@@ -2041,6 +2372,12 @@ impl<T> [T] {
     ///     assert_eq!(right, []);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى جزأين عند موضع بدون فحص الحدود (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_split_at_unchecked", since = "1.79.0")]
     #[rustc_const_stable(feature = "const_slice_split_at_unchecked", since = "1.77.0")]
     #[inline]
@@ -2095,6 +2432,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, [1, 2, 3, 4, 5, 6]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة القابلة للتعديل إلى جزأين عند موضع بدون فحص الحدود (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_split_at_unchecked", since = "1.79.0")]
     #[rustc_const_stable(feature = "const_slice_split_at_mut", since = "1.83.0")]
     #[inline]
@@ -2157,6 +2500,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, v.split_at_checked(7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى جزأين عند موضع، ويرجع `None` إذا كانت الشريحة قصيرة جدًا.
+    ///
+    /// </div>
     #[stable(feature = "split_at_checked", since = "1.80.0")]
     #[rustc_const_stable(feature = "split_at_checked", since = "1.80.0")]
     #[inline]
@@ -2196,6 +2545,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(None, v.split_at_mut_checked(7));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة القابلة للتعديل إلى جزأين عند موضع، ويرجع `None` إذا كانت قصيرة جدًا.
+    ///
+    /// </div>
     #[stable(feature = "split_at_checked", since = "1.80.0")]
     #[rustc_const_stable(feature = "const_slice_split_at_mut", since = "1.83.0")]
     #[inline]
@@ -2250,6 +2605,12 @@ impl<T> [T] {
     /// assert_eq!(iter.next().unwrap(), &[20]);
     /// assert!(iter.next().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`. العنصر المطابق لا يدخل في الأجزاء.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn split<F>(&self, pred: F) -> Split<'_, T, F>
@@ -2272,6 +2633,13 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, [1, 40, 30, 1, 60, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء قابلة للتعديل مفصولة بعناصر تحقق `pred`. العنصر المطابق لا يدخل في
+    /// الأجزاء.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn split_mut<F>(&mut self, pred: F) -> SplitMut<'_, T, F>
@@ -2308,6 +2676,12 @@ impl<T> [T] {
     /// assert_eq!(iter.next().unwrap(), &[10, 40, 33]);
     /// assert!(iter.next().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`، والعنصر المطابق في نهاية الجزء السابق.
+    ///
+    /// </div>
     #[stable(feature = "split_inclusive", since = "1.51.0")]
     #[inline]
     pub fn split_inclusive<F>(&self, pred: F) -> SplitInclusive<'_, T, F>
@@ -2332,6 +2706,13 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, [10, 40, 1, 20, 1, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء قابلة للتعديل مفصولة بعناصر تحقق `pred`، والعنصر المطابق في نهاية
+    /// الجزء السابق.
+    ///
+    /// </div>
     #[stable(feature = "split_inclusive", since = "1.51.0")]
     #[inline]
     pub fn split_inclusive_mut<F>(&mut self, pred: F) -> SplitInclusiveMut<'_, T, F>
@@ -2368,6 +2749,12 @@ impl<T> [T] {
     /// assert_eq!(it.next().unwrap(), &[]);
     /// assert_eq!(it.next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`، بدءًا من النهاية للخلف.
+    ///
+    /// </div>
     #[stable(feature = "slice_rsplit", since = "1.27.0")]
     #[inline]
     pub fn rsplit<F>(&self, pred: F) -> RSplit<'_, T, F>
@@ -2394,6 +2781,12 @@ impl<T> [T] {
     /// assert_eq!(v, [3, 400, 300, 2, 600, 1]);
     /// ```
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء قابلة للتعديل مفصولة بعناصر تحقق `pred`، بدءًا من النهاية للخلف.
+    ///
+    /// </div>
     #[stable(feature = "slice_rsplit", since = "1.27.0")]
     #[inline]
     pub fn rsplit_mut<F>(&mut self, pred: F) -> RSplitMut<'_, T, F>
@@ -2422,6 +2815,12 @@ impl<T> [T] {
     ///     println!("{group:?}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`، و`n` جزء على الأكثر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn splitn<F>(&self, n: usize, pred: F) -> SplitN<'_, T, F>
@@ -2448,6 +2847,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, [1, 40, 30, 1, 60, 50]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء قابلة للتعديل مفصولة بعناصر تحقق `pred`، و`n` جزء على الأكثر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn splitn_mut<F>(&mut self, n: usize, pred: F) -> SplitNMut<'_, T, F>
@@ -2477,6 +2882,12 @@ impl<T> [T] {
     ///     println!("{group:?}");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`، و`n` جزء على الأكثر، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rsplitn<F>(&self, n: usize, pred: F) -> RSplitN<'_, T, F>
@@ -2504,6 +2915,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(s, [1, 40, 30, 20, 60, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على أجزاء مفصولة بعناصر تحقق `pred`، و`n` جزء على الأكثر، بدءًا من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn rsplitn_mut<F>(&mut self, n: usize, pred: F) -> RSplitNMut<'_, T, F>
@@ -2530,6 +2947,12 @@ impl<T> [T] {
     /// )));
     /// assert_eq!(s.split_once(|&x| x == 0), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة عند أول عنصر يحقق الشرط المحدد.
+    ///
+    /// </div>
     #[stable(feature = "slice_split_once", since = "CURRENT_RUSTC_VERSION")]
     #[inline]
     pub fn split_once<F>(&self, pred: F) -> Option<(&[T], &[T])>
@@ -2558,6 +2981,12 @@ impl<T> [T] {
     /// )));
     /// assert_eq!(s.rsplit_once(|&x| x == 0), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة عند آخر عنصر يحقق الشرط المحدد.
+    ///
+    /// </div>
     #[stable(feature = "slice_split_once", since = "CURRENT_RUSTC_VERSION")]
     #[inline]
     pub fn rsplit_once<F>(&self, pred: F) -> Option<(&[T], &[T])>
@@ -2594,6 +3023,12 @@ impl<T> [T] {
     /// assert!(v.iter().any(|e| e == "hello")); // search with `&str`
     /// assert!(!v.iter().any(|e| e == "hi"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت الشريحة تحتوي عنصرًا بالقيمة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     #[must_use]
@@ -2625,6 +3060,12 @@ impl<T> [T] {
     /// let v: &[u8] = &[];
     /// assert!(v.starts_with(&[]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت `needle` بداية الشريحة أو تساويها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn starts_with(&self, needle: &[T]) -> bool
@@ -2656,6 +3097,12 @@ impl<T> [T] {
     /// let v: &[u8] = &[];
     /// assert!(v.ends_with(&[]));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت `needle` نهاية الشريحة أو تساويها.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn ends_with(&self, needle: &[T]) -> bool
@@ -2688,6 +3135,12 @@ impl<T> [T] {
     /// assert_eq!(b"hello".strip_prefix(prefix.as_bytes()),
     ///            Some(b"llo".as_ref()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء الشريحة بعد حذف البادئة، أو `None` إذا لم تبدأ بها.
+    ///
+    /// </div>
     #[must_use = "returns the subslice without modifying the original"]
     #[stable(feature = "slice_strip", since = "1.51.0")]
     pub fn strip_prefix<P: SlicePattern<Item = T> + ?Sized>(&self, prefix: &P) -> Option<&[T]>
@@ -2724,6 +3177,12 @@ impl<T> [T] {
     /// assert_eq!(v.strip_suffix(&[50]), None);
     /// assert_eq!(v.strip_suffix(&[50, 30]), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء الشريحة بعد حذف اللاحقة، أو `None` إذا لم تنتهِ بها.
+    ///
+    /// </div>
     #[must_use = "returns the subslice without modifying the original"]
     #[stable(feature = "slice_strip", since = "1.51.0")]
     pub fn strip_suffix<P: SlicePattern<Item = T> + ?Sized>(&self, suffix: &P) -> Option<&[T]>
@@ -2764,6 +3223,12 @@ impl<T> [T] {
     /// assert_eq!(v.strip_circumfix(&[10, 50], &[]), Some(&[40, 30][..]));
     /// assert_eq!(v.strip_circumfix(&[10, 50, 40], &[50, 40, 30]), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء الشريحة بعد حذف البادئة واللاحقة.
+    ///
+    /// </div>
     #[must_use = "returns the subslice without modifying the original"]
     #[stable(feature = "strip_circumfix", since = "1.98.0")]
     pub fn strip_circumfix<S, P>(&self, prefix: &P, suffix: &S) -> Option<&[T]>
@@ -2798,6 +3263,12 @@ impl<T> [T] {
     /// let prefix : &str = "he";
     /// assert_eq!(b"hello".trim_prefix(prefix.as_bytes()), b"llo".as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء الشريحة بعد حذف البادئة إن وُجدت.
+    ///
+    /// </div>
     #[must_use = "returns the subslice without modifying the original"]
     #[stable(feature = "trim_prefix_suffix", since = "1.100.0")]
     pub fn trim_prefix<P: SlicePattern<Item = T> + ?Sized>(&self, prefix: &P) -> &[T]
@@ -2836,6 +3307,12 @@ impl<T> [T] {
     /// assert_eq!(v.trim_suffix(&[50]), &[10, 40, 30][..]);
     /// assert_eq!(v.trim_suffix(&[50, 30]), &[10, 40, 30][..]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع جزء الشريحة بعد حذف اللاحقة إن وُجدت.
+    ///
+    /// </div>
     #[must_use = "returns the subslice without modifying the original"]
     #[stable(feature = "trim_prefix_suffix", since = "1.100.0")]
     pub fn trim_suffix<P: SlicePattern<Item = T> + ?Sized>(&self, suffix: &P) -> &[T]
@@ -2923,6 +3400,13 @@ impl<T> [T] {
     /// s.insert(idx, num);
     /// assert_eq!(s, [0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 42, 55]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا عن عنصر في هذه الشريحة. إذا لم تكن مرتبة فالنتيجة غير محددة. يرجع
+    /// `Ok(موضع)` أو `Err(موضع الإدراج)`.
+    ///
+    /// </div>
     #[rustc_const_unstable(feature = "const_binary_search", issue = "159532")]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub const fn binary_search(&self, x: &T) -> Result<usize, usize>
@@ -2974,6 +3458,12 @@ impl<T> [T] {
     /// let r = s.binary_search_by(|probe| probe.cmp(&seek));
     /// assert!(match r { Ok(1..=4) => true, _ => false, });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا في هذه الشريحة بدالة مقارنة.
+    ///
+    /// </div>
     #[rustc_const_unstable(feature = "const_binary_search", issue = "159532")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
@@ -3071,6 +3561,12 @@ impl<T> [T] {
     /// let r = s.binary_search_by_key(&1, |&(a, b)| b);
     /// assert!(match r { Ok(1..=4) => true, _ => false, });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبحث بحثًا ثنائيًا في هذه الشريحة بدالة تستخرج مفتاحًا.
+    ///
+    /// </div>
     // Lint rustdoc::broken_intra_doc_links is allowed as `slice::sort_by_key` is
     // in crate `alloc`, and as such doesn't exists yet when building `core`: #74481.
     // This breaks links when slice is displayed in core, but changing it to use relative links
@@ -3139,6 +3635,12 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا **بدون** الحفاظ على الترتيب الأصلي للعناصر المتساوية (أسرع).
+    ///
+    /// </div>
     #[stable(feature = "sort_unstable", since = "1.20.0")]
     #[inline]
     pub fn sort_unstable(&mut self)
@@ -3194,6 +3696,12 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا بدالة مقارنة، **بدون** الحفاظ على الترتيب الأصلي للعناصر المتساوية.
+    ///
+    /// </div>
     #[stable(feature = "sort_unstable", since = "1.20.0")]
     #[inline]
     pub fn sort_unstable_by<F>(&mut self, mut compare: F)
@@ -3246,6 +3754,13 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة تصاعديًا بدالة تستخرج مفتاحًا، **بدون** الحفاظ على الترتيب الأصلي للعناصر
+    /// المتساوية.
+    ///
+    /// </div>
     #[stable(feature = "sort_unstable", since = "1.20.0")]
     #[inline]
     pub fn sort_unstable_by_key<K, F>(&mut self, mut f: F)
@@ -3316,6 +3831,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`sort_unstable`]: slice::sort_unstable
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة جزئيًا تصاعديًا **بدون** الحفاظ على ترتيب العناصر المتساوية.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partial_sort_unstable", issue = "149046")]
     #[inline]
     pub fn partial_sort_unstable<R>(&mut self, range: R)
@@ -3387,6 +3908,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`sort_unstable_by`]: slice::sort_unstable_by
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة جزئيًا بدالة مقارنة **بدون** الحفاظ على ترتيب العناصر المتساوية.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partial_sort_unstable", issue = "149046")]
     #[inline]
     pub fn partial_sort_unstable_by<F, R>(&mut self, range: R, mut compare: F)
@@ -3458,6 +3985,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`sort_unstable_by_key`]: slice::sort_unstable_by_key
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب الشريحة جزئيًا بدالة تستخرج مفتاحًا **بدون** الحفاظ على ترتيب العناصر المتساوية.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partial_sort_unstable", issue = "149046")]
     #[inline]
     pub fn partial_sort_unstable_by_key<K, F, R>(&mut self, range: R, mut f: F)
@@ -3522,6 +4055,13 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعيد ترتيب الشريحة بحيث يكون العنصر في `index` في موضعه حسب الترتيب، وكل ما قبله `<=` وكل ما
+    /// بعده `>=`.
+    ///
+    /// </div>
     #[stable(feature = "slice_select_nth_unstable", since = "1.49.0")]
     #[inline]
     pub fn select_nth_unstable(&mut self, index: usize) -> (&mut [T], &mut T, &mut [T])
@@ -3587,6 +4127,12 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `select_nth_unstable` لكن بدالة مقارنة.
+    ///
+    /// </div>
     #[stable(feature = "slice_select_nth_unstable", since = "1.49.0")]
     #[inline]
     pub fn select_nth_unstable_by<F>(
@@ -3654,6 +4200,12 @@ impl<T> [T] {
     ///
     /// [ipnsort]: https://github.com/Voultapher/sort-research-rs/tree/main/ipnsort
     /// [total order]: https://en.wikipedia.org/wiki/Total_order
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `select_nth_unstable` لكن بدالة تستخرج مفتاحًا.
+    ///
+    /// </div>
     #[stable(feature = "slice_select_nth_unstable", since = "1.49.0")]
     #[inline]
     pub fn select_nth_unstable_by_key<K, F>(
@@ -3688,6 +4240,12 @@ impl<T> [T] {
     /// assert_eq!(dedup, [1, 2, 3, 2, 1]);
     /// assert_eq!(duplicates, [2, 3, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل كل العناصر المكررة المتتالية إلى نهاية الشريحة حسب `PartialEq`.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partition_dedup", issue = "54279")]
     #[inline]
     pub fn partition_dedup(&mut self) -> (&mut [T], &mut [T])
@@ -3726,6 +4284,12 @@ impl<T> [T] {
     /// assert_eq!(dedup, ["foo", "BAZ", "Bar", "baz"]);
     /// assert_eq!(duplicates, ["bar", "Foo", "BAZ"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل العناصر المتتالية "المتساوية" حسب دالة الشرط (عدا أولها) إلى نهاية الشريحة.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partition_dedup", issue = "54279")]
     #[inline]
     pub fn partition_dedup_by<F>(&mut self, mut same_bucket: F) -> (&mut [T], &mut [T])
@@ -3852,6 +4416,12 @@ impl<T> [T] {
     /// assert_eq!(dedup, [10, 20, 30, 20, 11]);
     /// assert_eq!(duplicates, [21, 30, 13]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل العناصر المتتالية التي تعطي نفس المفتاح (عدا أولها) إلى نهاية الشريحة.
+    ///
+    /// </div>
     #[unstable(feature = "slice_partition_dedup", issue = "54279")]
     #[inline]
     pub fn partition_dedup_by_key<K, F>(&mut self, mut key: F) -> (&mut [T], &mut [T])
@@ -3894,6 +4464,13 @@ impl<T> [T] {
     /// a[1..5].rotate_left(1);
     /// assert_eq!(a, ['a', 'c', 'd', 'e', 'b', 'f']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدوّر الشريحة في مكانها بحيث تنتقل أول `mid` عنصر إلى النهاية وآخر `self.len() - mid` إلى
+    /// البداية.
+    ///
+    /// </div>
     #[stable(feature = "slice_rotate", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_slice_rotate", since = "1.92.0")]
     pub const fn rotate_left(&mut self, mid: usize) {
@@ -3940,6 +4517,12 @@ impl<T> [T] {
     /// a[1..5].rotate_right(1);
     /// assert_eq!(a, ['a', 'e', 'b', 'c', 'd', 'f']);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يدوّر الشريحة في مكانها بحيث تنتقل آخر `k` عنصر إلى البداية.
+    ///
+    /// </div>
     #[stable(feature = "slice_rotate", since = "1.26.0")]
     #[rustc_const_stable(feature = "const_slice_rotate", since = "1.92.0")]
     pub const fn rotate_right(&mut self, k: usize) {
@@ -4015,6 +4598,13 @@ impl<T> [T] {
     /// assert_eq!(a.shift_left([1, 2, 3]), [9, 1, 2]);
     /// assert_eq!(a, [3]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل عناصر الشريحة `N` موضعًا لليسار، ويرجع العناصر التي "سقطت" من البداية، ويضع `inserted`
+    /// في النهاية.
+    ///
+    /// </div>
     #[unstable(feature = "slice_shift", issue = "151772")]
     pub const fn shift_left<const N: usize>(&mut self, inserted: [T; N]) -> [T; N] {
         if let Some(shift) = self.len().checked_sub(N) {
@@ -4119,6 +4709,13 @@ impl<T> [T] {
     /// assert_eq!(a.shift_right([1, 2, 3]), [2, 3, 9]);
     /// assert_eq!(a, [1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل عناصر الشريحة `N` موضعًا لليمين، ويرجع العناصر التي "سقطت" من النهاية، ويضع `inserted`
+    /// في البداية.
+    ///
+    /// </div>
     #[unstable(feature = "slice_shift", issue = "151772")]
     pub const fn shift_right<const N: usize>(&mut self, inserted: [T; N]) -> [T; N] {
         if let Some(shift) = self.len().checked_sub(N) {
@@ -4176,6 +4773,12 @@ impl<T> [T] {
     /// buf.fill(1);
     /// assert_eq!(buf, vec![1; 10]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ `self` بنسخ من `value`.
+    ///
+    /// </div>
     #[doc(alias = "memset")]
     #[stable(feature = "slice_fill", since = "1.50.0")]
     pub fn fill(&mut self, value: T)
@@ -4201,6 +4804,12 @@ impl<T> [T] {
     /// buf.fill_with(Default::default);
     /// assert_eq!(buf, vec![0; 10]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يملأ `self` بعناصر يرجعها استدعاء إغلاق مرة بعد مرة.
+    ///
+    /// </div>
     #[stable(feature = "slice_fill_with", since = "1.51.0")]
     pub fn fill_with<F>(&mut self, mut f: F)
     where
@@ -4263,6 +4872,12 @@ impl<T> [T] {
     ///
     /// [`copy_from_slice`]: slice::copy_from_slice
     /// [`split_at_mut`]: slice::split_at_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ (clone) العناصر من `src` إلى `self` (يجب أن يكون لهما نفس الطول).
+    ///
+    /// </div>
     #[stable(feature = "clone_from_slice", since = "1.7.0")]
     #[track_caller]
     #[rustc_const_unstable(feature = "const_clone", issue = "142757")]
@@ -4327,6 +4942,12 @@ impl<T> [T] {
     ///
     /// [`clone_from_slice`]: slice::clone_from_slice
     /// [`split_at_mut`]: slice::split_at_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ كل العناصر من `src` إلى `self` بسرعة (memcpy). يجب أن يكون لهما نفس الطول.
+    ///
+    /// </div>
     #[doc(alias = "memcpy")]
     #[inline]
     #[stable(feature = "copy_from_slice", since = "1.9.0")]
@@ -4364,6 +4985,12 @@ impl<T> [T] {
     ///
     /// assert_eq!(&bytes, b"Hello, Wello!");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينسخ عناصر من جزء من الشريحة إلى جزء آخر منها (memmove).
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "copy_within", since = "1.37.0")]
     #[track_caller]
@@ -4432,6 +5059,12 @@ impl<T> [T] {
     /// ```
     ///
     /// [`split_at_mut`]: slice::split_at_mut
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يبدّل كل عناصر `self` بعناصر `other`.
+    ///
+    /// </div>
     #[stable(feature = "swap_with_slice", since = "1.27.0")]
     #[rustc_const_unstable(feature = "const_swap_with_slice", issue = "142204")]
     #[track_caller]
@@ -4510,6 +5143,12 @@ impl<T> [T] {
     ///     // less_efficient_algorithm_for_bytes(suffix);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة إلى شريحة من نوع آخر، مع الحفاظ على محاذاة الأنواع (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_align_to", since = "1.30.0")]
     #[must_use]
     pub unsafe fn align_to<U>(&self) -> (&[T], &[U], &[T]) {
@@ -4575,6 +5214,13 @@ impl<T> [T] {
     ///     // less_efficient_algorithm_for_bytes(suffix);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة القابلة للتعديل إلى شريحة قابلة للتعديل من نوع آخر، مع الحفاظ على المحاذاة
+    /// (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "slice_align_to", since = "1.30.0")]
     #[must_use]
     pub unsafe fn align_to_mut<U>(&mut self) -> (&mut [T], &mut [U], &mut [T]) {
@@ -4666,6 +5312,12 @@ impl<T> [T] {
     /// let numbers: Vec<f32> = (1..101).map(|x| x as _).collect();
     /// assert_eq!(basic_simd_sum(&numbers[1..99]), 4949.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة إلى بادئة، ووسط من أنواع SIMD محاذاة، ولاحقة.
+    ///
+    /// </div>
     #[unstable(feature = "portable_simd", issue = "86656")]
     #[must_use]
     pub fn as_simd<const LANES: usize>(&self) -> (&[T], &[Simd<T, LANES>], &[T])
@@ -4701,6 +5353,12 @@ impl<T> [T] {
     /// supported.  It's possible that, in the future, those restrictions might
     /// be lifted in a way that would make it possible to see panics from this
     /// method for something like `LANES == 3`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم الشريحة القابلة للتعديل إلى بادئة، ووسط من أنواع SIMD محاذاة، ولاحقة.
+    ///
+    /// </div>
     #[unstable(feature = "portable_simd", issue = "86656")]
     #[must_use]
     pub fn as_simd_mut<const LANES: usize>(&mut self) -> (&mut [T], &mut [Simd<T, LANES>], &mut [T])
@@ -4738,6 +5396,12 @@ impl<T> [T] {
     /// assert!(empty.is_sorted());
     /// assert!(![0.0, 1.0, f32::NAN].is_sorted());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل عناصر الشريحة مرتبة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "is_sorted", since = "1.82.0")]
     #[must_use]
@@ -4782,6 +5446,12 @@ impl<T> [T] {
     /// assert!(empty.is_sorted_by(|a, b| false));
     /// assert!(empty.is_sorted_by(|a, b| true));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل عناصر الشريحة مرتبة حسب دالة المقارنة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "is_sorted", since = "1.82.0")]
     #[must_use]
     pub fn is_sorted_by<'a, F>(&'a self, mut compare: F) -> bool
@@ -4805,6 +5475,12 @@ impl<T> [T] {
     /// assert!(["c", "bb", "aaa"].is_sorted_by_key(|s| s.len()));
     /// assert!(![-2i32, -1, 0, 3].is_sorted_by_key(|n| n.abs()));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل عناصر الشريحة مرتبة حسب دالة استخراج المفتاح المعطاة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "is_sorted", since = "1.82.0")]
     #[must_use]
@@ -4924,6 +5600,12 @@ impl<T> [T] {
     /// let expected: &[char] = &['a', 'b', 'c', 'd'];
     /// assert_eq!(Some(expected), slice.split_off(..4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الجزء المقابل للمدى المعطى من الشريحة ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "method does not modify the slice if the range is out of bounds"]
     #[stable(feature = "slice_take", since = "1.87.0")]
@@ -4990,6 +5672,12 @@ impl<T> [T] {
     /// let expected: &mut [_] = &mut ['a', 'b', 'c', 'd'];
     /// assert_eq!(Some(expected), slice.split_off_mut(..4));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الجزء المقابل للمدى المعطى من الشريحة ويرجع مرجعًا قابلًا للتعديل إليه.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "method does not modify the slice if the range is out of bounds"]
     #[stable(feature = "slice_take", since = "1.87.0")]
@@ -5028,6 +5716,12 @@ impl<T> [T] {
     /// assert_eq!(slice, &['b', 'c']);
     /// assert_eq!(first, &'a');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أول عنصر من الشريحة ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_take", since = "1.87.0")]
     #[rustc_const_unstable(feature = "const_split_off_first_last", issue = "138539")]
@@ -5053,6 +5747,12 @@ impl<T> [T] {
     /// assert_eq!(slice, &['b', 'c']);
     /// assert_eq!(first, &'d');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف أول عنصر من الشريحة ويرجع مرجعًا قابلًا للتعديل إليه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_take", since = "1.87.0")]
     #[rustc_const_unstable(feature = "const_split_off_first_last", issue = "138539")]
@@ -5078,6 +5778,12 @@ impl<T> [T] {
     /// assert_eq!(slice, &['a', 'b']);
     /// assert_eq!(last, &'c');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من الشريحة ويرجع مرجعًا إليه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_take", since = "1.87.0")]
     #[rustc_const_unstable(feature = "const_split_off_first_last", issue = "138539")]
@@ -5103,6 +5809,12 @@ impl<T> [T] {
     /// assert_eq!(slice, &['a', 'b']);
     /// assert_eq!(last, &'d');
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف آخر عنصر من الشريحة ويرجع مرجعًا قابلًا للتعديل إليه.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "slice_take", since = "1.87.0")]
     #[rustc_const_unstable(feature = "const_split_off_first_last", issue = "138539")]
@@ -5160,6 +5872,12 @@ impl<T> [T] {
     ///
     /// [`get_disjoint_mut`]: slice::get_disjoint_mut
     /// [undefined behavior]: https://doc.rust-lang.org/reference/behavior-considered-undefined.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مراجع قابلة للتعديل إلى عدة مواضع معًا بدون أي فحص (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "get_many_mut", since = "1.86.0")]
     #[inline]
     #[track_caller]
@@ -5228,6 +5946,12 @@ impl<T> [T] {
     /// }
     /// assert_eq!(v, &[1, 11, 111]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مراجع قابلة للتعديل إلى عدة مواضع معًا (بشرط ألا تتداخل).
+    ///
+    /// </div>
     #[stable(feature = "get_many_mut", since = "1.86.0")]
     #[inline]
     pub fn get_disjoint_mut<I, const N: usize>(
@@ -5279,6 +6003,12 @@ impl<T> [T] {
     /// assert_eq!(arr.element_offset(ok_elm), Some(0)); // Points to element 0
     /// assert_eq!(arr.element_offset(weird_elm), None); // Points between element 0 and 1
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الموضع الذي يشير إليه مرجع عنصر.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "element_offset", since = "1.94.0")]
     pub fn element_offset(&self, element: &T) -> Option<usize> {
@@ -5333,6 +6063,12 @@ impl<T> [T] {
     /// assert_eq!(iter.next(), Some(Range { start: 4, end: 4 }));
     /// assert_eq!(iter.next(), Some(Range { start: 5, end: 6 }));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مدى المواضع الذي يشير إليه جزء من الشريحة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "substr_range", since = "1.98.0")]
     pub fn subslice_range(&self, subslice: &[T]) -> Option<core::range::Range<usize>> {
@@ -5364,6 +6100,12 @@ impl<T> [T] {
     /// This method is redundant when used directly on `&[T]`, but
     /// it helps dereferencing other "container" types to slices,
     /// for example `Box<[T]>` or `Arc<[T]>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس الشريحة `&[T]`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_slice(&self) -> &[T] {
@@ -5375,6 +6117,12 @@ impl<T> [T] {
     /// This method is redundant when used directly on `&mut [T]`, but
     /// it helps dereferencing other "container" types to slices,
     /// for example `Box<[T]>` or `MutexGuard<[T]>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس الشريحة `&mut [T]`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_mut_slice(&mut self) -> &mut [T] {
@@ -5419,6 +6167,12 @@ impl<T> [MaybeUninit<T>] {
     /// let v = allocator.try_alloc_u32(42);
     /// assert_eq!(v, Some(&mut 42));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الشريحة غير المهيأة إلى شريحة غير مهيأة من نوع آخر، مع الحفاظ على المحاذاة.
+    ///
+    /// </div>
     #[unstable(feature = "align_to_uninit_mut", issue = "139062")]
     #[inline]
     #[must_use]
@@ -5463,6 +6217,12 @@ impl<T, const N: usize> [[T; N]] {
     /// let empty_slice_of_arrays: &[[u32; 10]] = &[];
     /// assert!(empty_slice_of_arrays.as_flattened().is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ `&[[T; N]]` ويسطّحه إلى `&[T]`.
+    ///
+    /// </div>
     #[stable(feature = "slice_flatten", since = "1.80.0")]
     #[rustc_const_stable(feature = "const_slice_flatten", since = "1.87.0")]
     pub const fn as_flattened(&self) -> &[T] {
@@ -5505,6 +6265,12 @@ impl<T, const N: usize> [[T; N]] {
     /// add_5_to_all(array.as_flattened_mut());
     /// assert_eq!(array, [[6, 7, 8], [9, 10, 11], [12, 13, 14]]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يأخذ `&mut [[T; N]]` ويسطّحه إلى `&mut [T]`.
+    ///
+    /// </div>
     #[stable(feature = "slice_flatten", since = "1.80.0")]
     #[rustc_const_stable(feature = "const_slice_flatten", since = "1.87.0")]
     pub const fn as_flattened_mut(&mut self) -> &mut [T] {
@@ -5541,6 +6307,12 @@ impl [f32] {
     /// assert_eq!(&v[..8], &sorted[..8]);
     /// assert!(v[8].is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب شريحة الأرقام العشرية.
+    ///
+    /// </div>
     #[unstable(feature = "sort_floats", issue = "93396")]
     #[inline]
     pub fn sort_floats(&mut self) {
@@ -5569,6 +6341,12 @@ impl [f64] {
     /// assert_eq!(&v[..8], &sorted[..8]);
     /// assert!(v[8].is_nan());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرتب شريحة الأرقام العشرية.
+    ///
+    /// </div>
     #[unstable(feature = "sort_floats", issue = "93396")]
     #[inline]
     pub fn sort_floats(&mut self) {
@@ -5670,11 +6448,29 @@ const impl<T> Default for &mut [T] {
 /// Patterns in slices - currently, only used by `strip_prefix` and `strip_suffix`.  At a future
 /// point, we hope to generalise `core::str::Pattern` (which at the time of writing is limited to
 /// `str`) to slices, and then this trait will be replaced or abolished.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أنماط في الشرائح؛ تستخدمها حاليًا `strip_prefix` و`strip_suffix` فقط.
+///
+/// </div>
 pub trait SlicePattern {
     /// The element type of the slice being matched on.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع عناصر الشريحة التي تتم المطابقة عليها.
+    ///
+    /// </div>
     type Item;
 
     /// Currently, the consumers of `SlicePattern` need a slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مستخدمو `SlicePattern` يحتاجون شريحة حاليًا.
+    ///
+    /// </div>
     fn as_slice(&self) -> &[Self::Item];
 }
 
@@ -5738,12 +6534,30 @@ fn get_disjoint_check_valid<I: GetDisjointMutIndex, const N: usize>(
 /// assert_eq!(v.get_disjoint_mut([0, 999]), Err(GetDisjointMutError::IndexOutOfBounds));
 /// assert_eq!(v.get_disjoint_mut([1, 1]), Err(GetDisjointMutError::OverlappingIndices));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع الخطأ الذي ترجعه `get_disjoint_mut`.
+///
+/// </div>
 #[stable(feature = "get_many_mut", since = "1.86.0")]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum GetDisjointMutError {
     /// An index provided was out-of-bounds for the slice.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أحد المواضع المعطاة خارج حدود الشريحة.
+    ///
+    /// </div>
     IndexOutOfBounds,
     /// Two indices provided were overlapping.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// موضعان من المواضع المعطاة متداخلان.
+    ///
+    /// </div>
     OverlappingIndices,
 }
 
@@ -5764,6 +6578,12 @@ impl fmt::Display for GetDisjointMutError {
 ///
 /// If `is_in_bounds()` returns `true` and `is_overlapping()` returns `false`,
 /// it must be safe to index the slice with the indices.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مساعد لـ `<[T]>::get_disjoint_mut()`.
+///
+/// </div>
 #[unstable(feature = "get_disjoint_mut_helpers", issue = "none")]
 pub impl(self) unsafe trait GetDisjointMutIndex: Clone {
     /// Returns `true` if `self` is in bounds for `len` slice elements.

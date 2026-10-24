@@ -53,6 +53,12 @@ use crate::ptr::NonNull;
 /// let double = |x| x * 2;
 /// assert_eq!(call_with_one(double), 2);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة معامل الاستدعاء التي تأخذ مستقبِلًا غير قابل للتعديل (`&self`).
+///
+/// </div>
 #[lang = "fn"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_paren_sugar]
@@ -140,6 +146,12 @@ pub const trait Fn<Args: Tuple>: [const] FnMut<Args> {
 ///
 /// assert_eq!(x, 5);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة معامل الاستدعاء التي تأخذ مستقبِلًا قابلًا للتعديل (`&mut self`).
+///
+/// </div>
 #[lang = "fn_mut"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_paren_sugar]
@@ -219,6 +231,12 @@ pub const trait FnMut<Args: Tuple>: FnOnce<Args> {
 ///
 /// // `consume_and_return_x` can no longer be invoked at this point
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة معامل الاستدعاء التي تأخذ المستقبِل بالقيمة (`self`)، فيمكن استدعاؤها مرة واحدة.
+///
+/// </div>
 #[lang = "fn_once"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_paren_sugar]
@@ -314,12 +332,24 @@ mod impls {
 
 unsafe extern "C" {
     /// A type representing a pointer to a function pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع يمثل مؤشرًا إلى مؤشر دالة.
+    ///
+    /// </div>
     #[unstable(feature = "fn_static", issue = "148768")]
     #[lang = "code"]
     pub type Code;
 }
 
 /// A common trait implemented by all function pointers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مشترك تطبّقه كل مؤشرات الدوال.
+///
+/// </div>
 #[unstable(feature = "fn_static", issue = "148768")]
 #[lang = "fn_ptr_trait"]
 #[fundamental]
@@ -327,12 +357,24 @@ unsafe extern "C" {
 #[rustc_dyn_incompatible_trait]
 pub trait FnPtr: Copy {
     /// Returns the address of the function pointer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان مؤشر الدالة.
+    ///
+    /// </div>
     #[unstable(feature = "fn_static", issue = "148768")]
     fn addr(self) -> usize {
         self.as_ptr().addr().get()
     }
 
     /// Returns the function pointer as a [`NonNull<Code>`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشر الدالة كـ `NonNull<Code>`.
+    ///
+    /// </div>
     #[unstable(feature = "fn_static", issue = "148768")]
     #[lang = "fn_ptr_as_ptr"]
     fn as_ptr(self) -> NonNull<Code>;
@@ -344,6 +386,12 @@ pub trait FnPtr: Copy {
     /// The function pointer must have been obtained
     /// from an [`FnPtr::as_ptr`] call from a function
     /// pointer type that is ABI compatible.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر دالة من مؤشر `NonNull`.
+    ///
+    /// </div>
     #[unstable(feature = "fn_static", issue = "148768")]
     #[lang = "fn_ptr_from_ptr"]
     unsafe fn from_ptr(ptr: NonNull<Code>) -> Self;

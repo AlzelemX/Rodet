@@ -63,6 +63,12 @@
 /// assert_eq!(Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
 ///            Point { x: 3, y: 3 });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الجمع `+`.
+///
+/// </div>
 #[lang = "add"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -177,6 +183,12 @@ add_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f64 f128
 /// assert_eq!(Point { x: 2, y: 3 } - Point { x: 1, y: 0 },
 ///            Point { x: 1, y: 3 });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الطرح `-`.
+///
+/// </div>
 #[lang = "sub"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -311,6 +323,12 @@ sub_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f64 f128
 /// let scalar = Scalar { value: 3 };
 /// assert_eq!(vector * scalar, Vector { value: vec![6, 12, 18] });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الضرب `*`.
+///
+/// </div>
 #[lang = "mul"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -449,6 +467,12 @@ mul_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f64 f128
 /// let vector = Vector { value: vec![2f32, 4f32, 6f32] };
 /// assert_eq!(vector / scalar, Vector { value: vec![1f32, 2f32, 3f32] });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل القسمة `/`.
+///
+/// </div>
 #[lang = "div"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -482,6 +506,12 @@ macro_rules! div_impl_integer {
         ///
         /// # Panics
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذه العملية تقرّب نحو الصفر، وتحذف أي جزء كسري من النتيجة.
+        ///
+        /// </div>
         #[doc = $panic]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -558,6 +588,12 @@ div_impl_float! { f16 f32 f64 f128 }
 /// assert_eq!(SplitSlice { slice: &[0, 1, 2, 3, 4, 5, 6, 7] } % 3,
 ///            SplitSlice { slice: &[6, 7] });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل باقي القسمة `%`.
+///
+/// </div>
 #[lang = "rem"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -591,6 +627,12 @@ macro_rules! rem_impl_integer {
         ///
         /// # Panics
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// هذه العملية تحقق `n % d == n - (n / d) * d`. النتيجة لها نفس إشارة المعامل الأيسر.
+        ///
+        /// </div>
         #[doc = $panic]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -630,6 +672,12 @@ macro_rules! rem_impl_float {
         /// // The answer to both operations is 1.75
         /// assert_eq!(x % y, remainder);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// باقي قسمة رقمين عشريين.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
         const impl Rem for $t {
@@ -683,6 +731,12 @@ rem_impl_float! { f16 f32 f64 f128 }
 /// // Zero is its own negation.
 /// assert_eq!(-Sign::Zero, Sign::Zero);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل النفي الأحادي `-`.
+///
+/// </div>
 #[lang = "neg"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -756,6 +810,12 @@ neg_impl! { isize i8 i16 i32 i64 i128 f16 f32 f64 f128 }
 /// point += Point { x: 2, y: 3 };
 /// assert_eq!(point, Point { x: 3, y: 3 });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الجمع والإسناد `+=`.
+///
+/// </div>
 #[lang = "add_assign"]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -827,6 +887,12 @@ add_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f
 /// point -= Point { x: 2, y: 3 };
 /// assert_eq!(point, Point {x: 1, y: 0});
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الطرح والإسناد `-=`.
+///
+/// </div>
 #[lang = "sub_assign"]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -889,6 +955,12 @@ sub_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f
 /// frequency *= 4.0;
 /// assert_eq!(Frequency { hertz: 200.0 }, frequency);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الضرب والإسناد `*=`.
+///
+/// </div>
 #[lang = "mul_assign"]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -951,6 +1023,12 @@ mul_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f
 /// frequency /= 4.0;
 /// assert_eq!(Frequency { hertz: 50.0 }, frequency);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل القسمة والإسناد `/=`.
+///
+/// </div>
 #[lang = "div_assign"]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -1016,6 +1094,12 @@ div_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f16 f32 f
 ///
 /// println!("{} cookies remain in the cookie jar!", jar.cookies);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الباقي والإسناد `%=`.
+///
+/// </div>
 #[lang = "rem_assign"]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]

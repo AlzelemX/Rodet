@@ -4,12 +4,24 @@ use crate::marker::Tuple;
 /// An async-aware version of the [`Fn`](crate::ops::Fn) trait.
 ///
 /// All `async fn` and functions returning futures implement this trait.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة غير متزامنة من الـ trait `Fn`.
+///
+/// </div>
 #[stable(feature = "async_closure", since = "1.85.0")]
 #[rustc_paren_sugar]
 #[must_use = "async closures are lazy and do nothing unless called"]
 #[lang = "async_fn"]
 pub trait AsyncFn<Args: Tuple>: AsyncFnMut<Args> {
     /// Call the [`AsyncFn`], returning a future which may borrow from the called closure.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `AsyncFn` ويرجع future قد يستعير من الإغلاق.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     extern "rust-call" fn async_call(&self, args: Args) -> Self::CallRefFuture<'_>;
 }
@@ -17,12 +29,24 @@ pub trait AsyncFn<Args: Tuple>: AsyncFnMut<Args> {
 /// An async-aware version of the [`FnMut`](crate::ops::FnMut) trait.
 ///
 /// All `async fn` and functions returning futures implement this trait.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة غير متزامنة من الـ trait `FnMut`.
+///
+/// </div>
 #[stable(feature = "async_closure", since = "1.85.0")]
 #[rustc_paren_sugar]
 #[must_use = "async closures are lazy and do nothing unless called"]
 #[lang = "async_fn_mut"]
 pub trait AsyncFnMut<Args: Tuple>: AsyncFnOnce<Args> {
     /// Future returned by [`AsyncFnMut::async_call_mut`] and [`AsyncFn::async_call`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الـ future الذي ترجعه `AsyncFnMut::async_call_mut` و`AsyncFn::async_call`.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     #[lang = "call_ref_future"]
     type CallRefFuture<'a>: Future<Output = Self::Output>
@@ -30,6 +54,12 @@ pub trait AsyncFnMut<Args: Tuple>: AsyncFnOnce<Args> {
         Self: 'a;
 
     /// Call the [`AsyncFnMut`], returning a future which may borrow from the called closure.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `AsyncFnMut` ويرجع future قد يستعير من الإغلاق.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     extern "rust-call" fn async_call_mut(&mut self, args: Args) -> Self::CallRefFuture<'_>;
 }
@@ -37,22 +67,46 @@ pub trait AsyncFnMut<Args: Tuple>: AsyncFnOnce<Args> {
 /// An async-aware version of the [`FnOnce`](crate::ops::FnOnce) trait.
 ///
 /// All `async fn` and functions returning futures implement this trait.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة غير متزامنة من الـ trait `FnOnce`.
+///
+/// </div>
 #[stable(feature = "async_closure", since = "1.85.0")]
 #[rustc_paren_sugar]
 #[must_use = "async closures are lazy and do nothing unless called"]
 #[lang = "async_fn_once"]
 pub trait AsyncFnOnce<Args: Tuple> {
     /// Future returned by [`AsyncFnOnce::async_call_once`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الـ future الذي ترجعه `AsyncFnOnce::async_call_once`.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     #[lang = "call_once_future"]
     type CallOnceFuture: Future<Output = Self::Output>;
 
     /// Output type of the called closure's future.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع ناتج future الإغلاق المستدعى.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     #[lang = "async_fn_once_output"]
     type Output;
 
     /// Call the [`AsyncFnOnce`], returning a future which may move out of the called closure.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `AsyncFnOnce` ويرجع future قد ينقل من الإغلاق.
+    ///
+    /// </div>
     #[unstable(feature = "async_fn_traits", issue = "none")]
     extern "rust-call" fn async_call_once(self, args: Args) -> Self::CallOnceFuture;
 }

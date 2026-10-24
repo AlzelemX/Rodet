@@ -79,6 +79,12 @@ use crate::ops;
 ///
 /// [`Break`]: ControlFlow::Break
 /// [`Continue`]: ControlFlow::Continue
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لإخبار عملية هل تخرج مبكرًا أو تستمر كالمعتاد.
+///
+/// </div>
 #[stable(feature = "control_flow_enum_type", since = "1.55.0")]
 #[rustc_diagnostic_item = "ControlFlow"]
 #[must_use]
@@ -88,10 +94,22 @@ use crate::ops;
 #[derive_const(Clone, PartialEq, Eq)]
 pub enum ControlFlow<B, C = ()> {
     /// Move on to the next phase of the operation as normal.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// انتقل للمرحلة التالية من العملية كالمعتاد.
+    ///
+    /// </div>
     #[stable(feature = "control_flow_enum_type", since = "1.55.0")]
     #[lang = "Continue"]
     Continue(C),
     /// Exit the operation without running subsequent phases.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اخرج من العملية بدون تنفيذ المراحل التالية.
+    ///
+    /// </div>
     #[stable(feature = "control_flow_enum_type", since = "1.55.0")]
     #[lang = "Break"]
     Break(B),
@@ -150,6 +168,12 @@ impl<B, C> ControlFlow<B, C> {
     /// assert!(ControlFlow::<&str, i32>::Break("Stop right there!").is_break());
     /// assert!(!ControlFlow::<&str, i32>::Continue(3).is_break());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت الحالة `Break`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum_is", since = "1.59.0")]
     #[rustc_const_stable(feature = "min_const_control_flow", since = "1.95.0")]
@@ -167,6 +191,12 @@ impl<B, C> ControlFlow<B, C> {
     /// assert!(!ControlFlow::<&str, i32>::Break("Stop right there!").is_continue());
     /// assert!(ControlFlow::<&str, i32>::Continue(3).is_continue());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كانت الحالة `Continue`.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum_is", since = "1.59.0")]
     #[rustc_const_stable(feature = "min_const_control_flow", since = "1.95.0")]
@@ -185,6 +215,12 @@ impl<B, C> ControlFlow<B, C> {
     /// assert_eq!(ControlFlow::<&str, i32>::Break("Stop right there!").break_value(), Some("Stop right there!"));
     /// assert_eq!(ControlFlow::<&str, i32>::Continue(3).break_value(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow` إلى `Option`: `Some` إذا كانت `Break` و`None` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum", since = "1.83.0")]
     #[rustc_const_unstable(feature = "const_control_flow", issue = "148739")]
@@ -261,6 +297,12 @@ impl<B, C> ControlFlow<B, C> {
     /// let res = node.find(|val: &i32| *val > 3);
     /// assert_eq!(res, Ok(&5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow` إلى `Result`: `Ok` إذا كانت `Break` و`Err` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_ok", since = "1.96.0")]
     #[rustc_const_stable(feature = "control_flow_ok", since = "1.96.0")]
@@ -274,6 +316,12 @@ impl<B, C> ControlFlow<B, C> {
 
     /// Maps `ControlFlow<B, C>` to `ControlFlow<T, C>` by applying a function
     /// to the break value in case it exists.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow<B, C>` إلى `ControlFlow<T, C>` بتطبيق دالة على قيمة الخروج إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum", since = "1.83.0")]
     #[rustc_const_unstable(feature = "const_control_flow", issue = "148739")]
@@ -298,6 +346,12 @@ impl<B, C> ControlFlow<B, C> {
     /// assert_eq!(ControlFlow::<&str, i32>::Break("Stop right there!").continue_value(), None);
     /// assert_eq!(ControlFlow::<&str, i32>::Continue(3).continue_value(), Some(3));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow` إلى `Option`: `Some` إذا كانت `Continue` و`None` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum", since = "1.83.0")]
     #[rustc_const_unstable(feature = "const_control_flow", issue = "148739")]
@@ -373,6 +427,12 @@ impl<B, C> ControlFlow<B, C> {
     /// });
     /// assert_eq!(res, Err("too big value detected"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow` إلى `Result`: `Ok` إذا كانت `Continue` و`Err` في غير ذلك.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_ok", since = "1.96.0")]
     #[rustc_const_stable(feature = "control_flow_ok", since = "1.96.0")]
@@ -386,6 +446,12 @@ impl<B, C> ControlFlow<B, C> {
 
     /// Maps `ControlFlow<B, C>` to `ControlFlow<B, T>` by applying a function
     /// to the continue value in case it exists.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `ControlFlow<B, C>` إلى `ControlFlow<B, T>` بتطبيق دالة على قيمة الاستمرار إن وُجدت.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "control_flow_enum", since = "1.83.0")]
     #[rustc_const_unstable(feature = "const_control_flow", issue = "148739")]
@@ -412,6 +478,12 @@ impl<T> ControlFlow<T, T> {
     /// assert_eq!(ControlFlow::<i32, i32>::Break(1024).into_value(), 1024);
     /// assert_eq!(ControlFlow::<i32, i32>::Continue(512).into_value(), 512);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج القيمة `T` من `ControlFlow<T, T>`.
+    ///
+    /// </div>
     #[unstable(feature = "control_flow_into_value", issue = "137461")]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
     pub const fn into_value(self) -> T {

@@ -1,4 +1,10 @@
 //! Free functions to create `&[T]` and `&mut [T]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال حرة لإنشاء `&[T]` و`&mut [T]`.
+//!
+//! </div>
 
 use crate::ops::Range;
 use crate::{array, ptr, ub_checks};
@@ -115,6 +121,12 @@ use crate::{array, ptr, ub_checks};
 ///
 /// [valid]: ptr#safety
 /// [`NonNull::dangling()`]: ptr::NonNull::dangling
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ شريحة من مؤشر وطول (غير آمن).
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_slice_from_raw_parts", since = "1.64.0")]
@@ -170,6 +182,12 @@ pub const unsafe fn from_raw_parts<'a, T>(data: *const T, len: usize) -> &'a [T]
 ///
 /// [valid]: ptr#safety
 /// [`NonNull::dangling()`]: ptr::NonNull::dangling
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `from_raw_parts` لكنه يرجع شريحة قابلة للتعديل.
+///
+/// </div>
 #[inline]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_slice_from_raw_parts_mut", since = "1.83.0")]
@@ -196,6 +214,12 @@ pub const unsafe fn from_raw_parts_mut<'a, T>(data: *mut T, len: usize) -> &'a m
 }
 
 /// Converts a reference to T into a slice of length 1 (without copying).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا إلى T إلى شريحة طولها 1 (بدون نسخ).
+///
+/// </div>
 #[stable(feature = "from_ref", since = "1.28.0")]
 #[rustc_const_stable(feature = "const_slice_from_ref_shared", since = "1.63.0")]
 #[rustc_diagnostic_item = "slice_from_ref"]
@@ -205,6 +229,12 @@ pub const fn from_ref<T>(s: &T) -> &[T] {
 }
 
 /// Converts a reference to T into a slice of length 1 (without copying).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحوّل مرجعًا إلى T إلى شريحة طولها 1 (بدون نسخ).
+///
+/// </div>
 #[stable(feature = "from_ref", since = "1.28.0")]
 #[rustc_const_stable(feature = "const_slice_from_ref", since = "1.83.0")]
 #[must_use]
@@ -271,6 +301,12 @@ pub const fn from_mut<T>(s: &mut T) -> &mut [T] {
 /// ```
 ///
 /// [valid]: ptr#safety
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ شريحة من مدى مؤشرات.
+///
+/// </div>
 #[unstable(feature = "slice_from_ptr_range", issue = "89792")]
 #[rustc_const_unstable(feature = "const_slice_from_ptr_range", issue = "89792")]
 #[track_caller]
@@ -342,6 +378,12 @@ pub const unsafe fn from_ptr_range<'a, T>(range: Range<*const T>) -> &'a [T] {
 /// ```
 ///
 /// [valid]: ptr#safety
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ شريحة قابلة للتعديل من مدى مؤشرات.
+///
+/// </div>
 #[unstable(feature = "slice_from_ptr_range", issue = "89792")]
 #[rustc_const_unstable(feature = "const_slice_from_mut_ptr_range", issue = "89792")]
 pub const unsafe fn from_mut_ptr_range<'a, T>(range: Range<*mut T>) -> &'a mut [T] {

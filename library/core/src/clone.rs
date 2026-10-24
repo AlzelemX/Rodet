@@ -33,6 +33,12 @@
 //!    let copy = f.clone(); // and now we can clone it!
 //! }
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! الـ trait `Clone` للأنواع التي لا يمكن نسخها ضمنيًا.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -186,6 +192,12 @@ mod uninit;
 /// [`BTreeSet`]: ../../std/collections/struct.BTreeSet.html
 /// [`BinaryHeap`]: ../../std/collections/struct.BinaryHeap.html
 /// [impls]: #implementors
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait شائع يسمح بإنشاء نسخة من قيمة صراحةً (`.clone()`).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[lang = "clone"]
 #[rustc_diagnostic_item = "Clone"]
@@ -263,6 +275,12 @@ pub const trait Clone: Sized {
 /// # Safety
 /// `Clone::clone` must be equivalent to copying the value, otherwise calling functions
 /// such as `slice::clone_from_slice` can have undefined behaviour.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن تطبيق `Clone` مطابق لنسخ القيمة بالبتات.
+///
+/// </div>
 #[unstable(
     feature = "trivial_clone",
     reason = "this isn't part of any API guarantee",
@@ -283,6 +301,12 @@ pub const trait Clone: Sized {
 pub const unsafe trait TrivialClone: [const] Clone {}
 
 /// Derive macro generating an impl of the trait `Clone`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Clone`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics, derive_clone_copy_internals, trivial_clone)]
@@ -378,6 +402,12 @@ pub macro Clone($item:item) {
 /// received.sort();
 /// assert_eq!(received, [3, 4]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي ينشئ `Clone` فيها اسمًا آخر لنفس المورد أو الحالة المشتركة.
+///
+/// </div>
 #[unstable(feature = "share_trait", issue = "156756")]
 pub trait Share: Clone {
     /// Creates another alias to the same underlying resource or shared state.
@@ -385,6 +415,12 @@ pub trait Share: Clone {
     /// This is equivalent to calling [`Clone::clone`]. Use `share` at call
     /// sites to make aliasing intent explicit; implementors define this
     /// operation through [`Clone::clone`], not by overriding this method.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ اسمًا آخر لنفس المورد أو الحالة المشتركة.
+    ///
+    /// </div>
     #[unstable(feature = "share_trait", issue = "156756")]
     final fn share(&self) -> Self {
         Clone::clone(self)
@@ -422,6 +458,12 @@ pub trait Share: Clone {
 ///
 /// Use closures allow captured values to be automatically used.
 /// This is similar to have a closure that you would call `.use` over each captured value.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للكائنات التي يكون `Clone` فيها خفيفًا (مثل عد المراجع).
+///
+/// </div>
 #[unstable(feature = "ergonomic_clones", issue = "132290")]
 #[lang = "use_cloned"]
 pub trait UseCloned: Clone {
@@ -604,6 +646,12 @@ pub struct AssertParamIsCopy<T: Copy + PointeeSized> {
 /// [`ToOwned`]: ../../std/borrow/trait.ToOwned.html
 /// [DST]: https://doc.rust-lang.org/reference/dynamically-sized-types.html
 /// [trait object]: https://doc.rust-lang.org/reference/types/trait-object.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعميم لـ `Clone` للأنواع غير معروفة الحجم المخزنة في حاويات.
+///
+/// </div>
 #[unstable(feature = "clone_to_uninit", issue = "126799")]
 pub unsafe trait CloneToUninit {
     /// Performs copy-assignment from `self` to `dest`.
@@ -641,6 +689,12 @@ pub unsafe trait CloneToUninit {
     /// that might have already been created. (For example, if a `[Foo]` of length 3 is being
     /// cloned, and the second of the three calls to `Foo::clone()` unwinds, then the first `Foo`
     /// cloned should be dropped.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ نسخًا من `self` إلى `dest`.
+    ///
+    /// </div>
     unsafe fn clone_to_uninit(&self, dest: *mut u8);
 }
 
@@ -775,6 +829,12 @@ mod impls {
     const unsafe impl<T: PointeeSized> TrivialClone for *mut T {}
 
     /// Shared references can be cloned, but mutable references *cannot*!
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المراجع المشتركة يمكن نسخها، لكن المراجع القابلة للتعديل *لا يمكن*!
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_clone", issue = "142757")]
     const impl<T: PointeeSized> Clone for &T {
@@ -794,6 +854,12 @@ mod impls {
     impl<T: PointeeSized> Share for &T {}
 
     /// Shared references can be cloned, but mutable references *cannot*!
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المراجع المشتركة يمكن نسخها، لكن المراجع القابلة للتعديل *لا يمكن*!
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     impl<T: PointeeSized> !Clone for &mut T {}
 }

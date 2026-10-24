@@ -36,6 +36,12 @@ use crate::marker::Destruct;
 /// ```
 ///
 /// [slicing index]: crate::slice::SliceIndex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى بلا حدود (`..`).
+///
+/// </div>
 #[lang = "RangeFull"]
 #[doc(alias = "..")]
 #[derive(Copy, Hash)]
@@ -78,6 +84,12 @@ impl fmt::Debug for RangeFull {
 /// assert_eq!(arr[1.. 3], [   1, 2      ]); // This is a `Range`
 /// assert_eq!(arr[1..=3], [   1, 2, 3   ]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى نصف مفتوح يشمل البداية ولا يشمل النهاية (`start..end`).
+///
+/// </div>
 #[lang = "Range"]
 #[doc(alias = "..")]
 #[derive(Eq, Hash)]
@@ -85,9 +97,21 @@ impl fmt::Debug for RangeFull {
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Range<Idx> {
     /// The lower bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub start: Idx,
     /// The upper bound of the range (exclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للمدى (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub end: Idx,
 }
@@ -121,6 +145,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
     /// assert!(!(0.0..f32::NAN).contains(&0.5));
     /// assert!(!(f32::NAN..1.0).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -149,6 +179,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
     /// assert!( (3.0..f32::NAN).is_empty());
     /// assert!( (f32::NAN..5.0).is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المدى لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_is_empty", since = "1.47.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -194,6 +230,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
 /// assert_eq!(arr[1.. 3], [   1, 2      ]);
 /// assert_eq!(arr[1..=3], [   1, 2, 3   ]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى محدود من الأسفل فقط وشامل (`start..`).
+///
+/// </div>
 #[lang = "RangeFrom"]
 #[doc(alias = "..")]
 #[derive(Eq, Hash)]
@@ -201,6 +243,12 @@ impl<Idx: PartialOrd<Idx>> Range<Idx> {
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct RangeFrom<Idx> {
     /// The lower bound of the range (inclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub start: Idx,
 }
@@ -228,6 +276,12 @@ impl<Idx: PartialOrd<Idx>> RangeFrom<Idx> {
     /// assert!(!(0.0..).contains(&f32::NAN));
     /// assert!(!(f32::NAN..).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -278,6 +332,12 @@ impl<Idx: PartialOrd<Idx>> RangeFrom<Idx> {
 /// ```
 ///
 /// [slicing index]: crate::slice::SliceIndex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى محدود من الأعلى فقط وغير شامل (`..end`).
+///
+/// </div>
 #[lang = "RangeTo"]
 #[doc(alias = "..")]
 #[derive(Copy, Eq, Hash)]
@@ -285,6 +345,12 @@ impl<Idx: PartialOrd<Idx>> RangeFrom<Idx> {
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct RangeTo<Idx> {
     /// The upper bound of the range (exclusive).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للمدى (غير شامل).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub end: Idx,
 }
@@ -312,6 +378,12 @@ impl<Idx: PartialOrd<Idx>> RangeTo<Idx> {
     /// assert!(!(..1.0).contains(&f32::NAN));
     /// assert!(!(..f32::NAN).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -354,6 +426,12 @@ impl<Idx: PartialOrd<Idx>> RangeTo<Idx> {
 /// assert_eq!(arr[1.. 3], [   1, 2      ]);
 /// assert_eq!(arr[1..=3], [   1, 2, 3   ]); // This is a `RangeInclusive`
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى محدود من الأسفل والأعلى وشامل للطرفين (`start..=end`).
+///
+/// </div>
 #[lang = "RangeInclusive"]
 #[doc(alias = "..=")]
 #[derive(Clone, Hash)]
@@ -392,6 +470,12 @@ impl<Idx> RangeInclusive<Idx> {
     ///
     /// assert_eq!(3..=5, RangeInclusive::new(3, 5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مدى شاملًا جديدًا. مثل كتابة `start..=end`.
+    ///
+    /// </div>
     #[lang = "range_inclusive_new"]
     #[stable(feature = "inclusive_range_methods", since = "1.27.0")]
     #[inline]
@@ -419,6 +503,12 @@ impl<Idx> RangeInclusive<Idx> {
     /// ```
     /// assert_eq!((3..=5).start(), &3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحد الأدنى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "inclusive_range_methods", since = "1.27.0")]
     #[rustc_const_stable(feature = "const_inclusive_range_methods", since = "1.32.0")]
     #[inline]
@@ -444,6 +534,12 @@ impl<Idx> RangeInclusive<Idx> {
     /// ```
     /// assert_eq!((3..=5).end(), &5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحد الأعلى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "inclusive_range_methods", since = "1.27.0")]
     #[rustc_const_stable(feature = "const_inclusive_range_methods", since = "1.32.0")]
     #[inline]
@@ -461,6 +557,12 @@ impl<Idx> RangeInclusive<Idx> {
     /// ```
     /// assert_eq!((3..=5).into_inner(), (3, 5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك `RangeInclusive` إلى (الحد الأدنى، الحد الأعلى الشامل).
+    ///
+    /// </div>
     #[stable(feature = "inclusive_range_methods", since = "1.27.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_range_bounds", issue = "108082")]
@@ -533,6 +635,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
     /// // Precise field values are unspecified here
     /// assert!(!r.contains(&3) && !r.contains(&5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -570,6 +678,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
     /// // Precise field values are unspecified here
     /// assert!(r.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المدى لا يحتوي أي عنصر.
+    ///
+    /// </div>
     #[stable(feature = "range_is_empty", since = "1.47.0")]
     #[inline]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -620,6 +734,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
 /// ```
 ///
 /// [slicing index]: crate::slice::SliceIndex
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مدى محدود من الأعلى فقط وشامل (`..=end`).
+///
+/// </div>
 #[lang = "RangeToInclusive"]
 #[doc(alias = "..=")]
 #[derive(Copy, Hash)]
@@ -627,6 +747,12 @@ impl<Idx: PartialOrd<Idx>> RangeInclusive<Idx> {
 #[stable(feature = "inclusive_range", since = "1.26.0")]
 pub struct RangeToInclusive<Idx> {
     /// The upper bound of the range (inclusive)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الحد الأعلى للمدى (شامل).
+    ///
+    /// </div>
     #[stable(feature = "inclusive_range", since = "1.26.0")]
     pub end: Idx,
 }
@@ -654,6 +780,12 @@ impl<Idx: PartialOrd<Idx>> RangeToInclusive<Idx> {
     /// assert!(!(..=1.0).contains(&f32::NAN));
     /// assert!(!(..=f32::NAN).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     #[rustc_const_unstable(feature = "const_range", issue = "none")]
@@ -704,17 +836,41 @@ impl<Idx: PartialOrd<Idx>> RangeToInclusive<Idx> {
 /// ```
 ///
 /// [`BTreeMap::range`]: ../../std/collections/btree_map/struct.BTreeMap.html#method.range
+///
+/// <div lang="ar" dir="rtl">
+///
+/// طرف مدى من المفاتيح.
+///
+/// </div>
 #[stable(feature = "collections_bound", since = "1.17.0")]
 #[derive(Copy, Debug, Hash)]
 #[derive_const(Clone, Eq, PartialEq)]
 pub enum Bound<T> {
     /// An inclusive bound.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حد شامل.
+    ///
+    /// </div>
     #[stable(feature = "collections_bound", since = "1.17.0")]
     Included(#[stable(feature = "collections_bound", since = "1.17.0")] T),
     /// An exclusive bound.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حد غير شامل.
+    ///
+    /// </div>
     #[stable(feature = "collections_bound", since = "1.17.0")]
     Excluded(#[stable(feature = "collections_bound", since = "1.17.0")] T),
     /// An infinite endpoint. Indicates that there is no bound in this direction.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرف لا نهائي: لا يوجد حد في هذا الاتجاه.
+    ///
+    /// </div>
     #[stable(feature = "collections_bound", since = "1.17.0")]
     Unbounded,
 }
@@ -881,6 +1037,12 @@ pub const trait RangeBounds<T: ?Sized> {
     /// assert!(!(0.0..f32::NAN).contains(&0.5));
     /// assert!(!(f32::NAN..1.0).contains(&0.5));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان `item` داخل المدى.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "range_contains", since = "1.35.0")]
     fn contains<U>(&self, item: &U) -> bool

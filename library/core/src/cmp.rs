@@ -22,6 +22,12 @@
 //!
 //! [`max`]: Ord::max
 //! [`min`]: Ord::min
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات المقارنة والترتيب بين القيم.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -240,6 +246,12 @@ use crate::ops::ControlFlow;
 ///
 /// [`eq`]: PartialEq::eq
 /// [`ne`]: PartialEq::ne
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للمقارنة بمعامل المساواة `==`.
+///
+/// </div>
 #[lang = "eq"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(alias = "==")]
@@ -282,6 +294,12 @@ pub const trait PartialEq<Rhs: PointeeSized = Self>: PointeeSized {
 
 /// Derive macro generating an impl of the trait [`PartialEq`].
 /// The behavior of this macro is described in detail [here](PartialEq#derivable).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `PartialEq`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics, structural_match)]
@@ -345,6 +363,12 @@ pub macro PartialEq($item:item) {
 ///
 /// impl Eq for Book {}
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للمقارنات التي تمثل علاقات تكافؤ كاملة (`a == a` دائمًا).
+///
+/// </div>
 #[doc(alias = "==")]
 #[doc(alias = "!=")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -373,6 +397,12 @@ pub const trait Eq: [const] PartialEq<Self> + PointeeSized {
 
 /// Derive macro generating an impl of the trait [`Eq`].
 /// The behavior of this macro is described in detail [here](Eq#derivable).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Eq`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics, derive_eq_internals, structural_match)]
@@ -409,6 +439,12 @@ pub struct AssertParamIsEq<T: Eq + PointeeSized> {
 ///
 /// assert_eq!(2.cmp(&1), Ordering::Greater);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Ordering` نتيجة المقارنة بين قيمتين: أصغر أو يساوي أو أكبر.
+///
+/// </div>
 #[derive(Copy, Debug, Hash)]
 #[derive_const(Clone, Eq, PartialOrd, Ord, PartialEq)]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -419,12 +455,30 @@ pub struct AssertParamIsEq<T: Eq + PointeeSized> {
 #[repr(i8)]
 pub enum Ordering {
     /// An ordering where a compared value is less than another.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ترتيب تكون فيه القيمة المقارنة أصغر من الأخرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Less = -1,
     /// An ordering where a compared value is equal to another.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ترتيب تكون فيه القيمة المقارنة مساوية للأخرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Equal = 0,
     /// An ordering where a compared value is greater than another.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ترتيب تكون فيه القيمة المقارنة أكبر من الأخرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Greater = 1,
 }
@@ -447,6 +501,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_eq(), true);
     /// assert_eq!(Ordering::Greater.is_eq(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الترتيب `Equal`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -470,6 +530,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_ne(), false);
     /// assert_eq!(Ordering::Greater.is_ne(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا لم يكن الترتيب `Equal`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -489,6 +555,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_lt(), false);
     /// assert_eq!(Ordering::Greater.is_lt(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الترتيب `Less`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -508,6 +580,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_gt(), false);
     /// assert_eq!(Ordering::Greater.is_gt(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الترتيب `Greater`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -527,6 +605,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_le(), true);
     /// assert_eq!(Ordering::Greater.is_le(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الترتيب `Less` أو `Equal`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -546,6 +630,12 @@ impl Ordering {
     /// assert_eq!(Ordering::Equal.is_ge(), true);
     /// assert_eq!(Ordering::Greater.is_ge(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان الترتيب `Greater` أو `Equal`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "ordering_helpers", since = "1.53.0")]
@@ -583,6 +673,12 @@ impl Ordering {
     /// let b: &mut [_] = &mut [10, 8, 5, 2];
     /// assert!(data == b);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعكس الـ `Ordering`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "const_ordering", since = "1.48.0")]
@@ -622,6 +718,12 @@ impl Ordering {
     ///
     /// assert_eq!(result, Ordering::Less);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يربط ترتيبين: إذا كان الأول `Equal` يُستخدم الثاني.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[rustc_const_stable(feature = "const_ordering", since = "1.48.0")]
@@ -661,6 +763,12 @@ impl Ordering {
     ///
     /// assert_eq!(result, Ordering::Less);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يربط الترتيب بالدالة المعطاة: إذا كان `Equal` تُستدعى الدالة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "ordering_chaining", since = "1.17.0")]
@@ -692,6 +800,12 @@ impl Ordering {
 /// v.sort_by_key(|&num| (num > 3, Reverse(num)));
 /// assert_eq!(v, vec![3, 2, 1, 6, 5, 4]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية مساعدة لعكس الترتيب.
+///
+/// </div>
 #[derive(Copy, Debug, Hash)]
 #[derive_const(PartialEq, Eq, Default)]
 #[stable(feature = "reverse_cmp_key", since = "1.19.0")]
@@ -1035,6 +1149,12 @@ impl<K: Ord, V> Ord for KeyAndValue<K, V> {
 /// [`PartialOrd`] and [`PartialEq`] to disagree.
 ///
 /// [`cmp`]: Ord::cmp
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي لها ترتيب كلي (أي قيمتين يمكن مقارنتهما دائمًا).
+///
+/// </div>
 #[doc(alias = "<")]
 #[doc(alias = ">")]
 #[doc(alias = "<=")]
@@ -1090,6 +1210,12 @@ pub const trait Ord: [const] Eq + [const] PartialOrd<Self> + PointeeSized {
     ///
     /// assert_eq!(Equal("self").max(Equal("other")).0, "other");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقارن قيمتين ويرجع الأكبر.
+    ///
+    /// </div>
     #[stable(feature = "ord_max_min", since = "1.21.0")]
     #[inline]
     #[must_use]
@@ -1129,6 +1255,12 @@ pub const trait Ord: [const] Eq + [const] PartialOrd<Self> + PointeeSized {
     ///
     /// assert_eq!(Equal("self").min(Equal("other")).0, "self");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقارن قيمتين ويرجع الأصغر.
+    ///
+    /// </div>
     #[stable(feature = "ord_max_min", since = "1.21.0")]
     #[inline]
     #[must_use]
@@ -1205,6 +1337,12 @@ pub const trait Ord: [const] Eq + [const] PartialOrd<Self> + PointeeSized {
 
 /// Derive macro generating an impl of the trait [`Ord`].
 /// The behavior of this macro is described in detail [here](Ord#derivable).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `Ord`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics)]
@@ -1442,6 +1580,12 @@ pub macro Ord($item:item) {
 ///
 /// [`partial_cmp`]: PartialOrd::partial_cmp
 /// [`cmp`]: Ord::cmp
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للأنواع التي لها ترتيب جزئي (قد لا يمكن مقارنة بعض القيم، مثل NaN).
+///
+/// </div>
 #[lang = "partial_ord"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(alias = ">")]
@@ -1605,6 +1749,12 @@ where
 
 /// Derive macro generating an impl of the trait [`PartialOrd`].
 /// The behavior of this macro is described in detail [here](PartialOrd#derivable).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو derive يولّد تطبيقًا للـ trait `PartialOrd`.
+///
+/// </div>
 #[rustc_builtin_macro]
 #[stable(feature = "builtin_macro_prelude", since = "1.38.0")]
 #[allow_internal_unstable(core_intrinsics)]
@@ -1644,6 +1794,12 @@ pub macro PartialOrd($item:item) {
 ///
 /// assert_eq!(cmp::min(Equal("v1"), Equal("v2")).0, "v1");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن قيمتين ويرجع الأصغر.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1676,6 +1832,12 @@ pub const fn min<T: [const] Ord + [const] Destruct>(v1: T, v2: T) -> T {
 /// let result = cmp::min_by(1, -1, abs_cmp);
 /// assert_eq!(result, 1);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأصغر من قيمتين حسب دالة المقارنة المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "cmp_min_max_by", since = "1.53.0")]
@@ -1706,6 +1868,12 @@ pub const fn min_by<T: [const] Destruct, F: [const] FnOnce(&T, &T) -> Ordering>(
 /// let result = cmp::min_by_key(1, -1, |x: &i32| x.abs());
 /// assert_eq!(result, 1);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع العنصر الذي يعطي أصغر قيمة من الدالة المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "cmp_min_max_by", since = "1.53.0")]
@@ -1751,6 +1919,12 @@ where
 ///
 /// assert_eq!(cmp::max(Equal("v1"), Equal("v2")).0, "v2");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن قيمتين ويرجع الأكبر.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -1783,6 +1957,12 @@ pub const fn max<T: [const] Ord + [const] Destruct>(v1: T, v2: T) -> T {
 /// let result = cmp::max_by(1, -1, abs_cmp);
 /// assert_eq!(result, -1);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأكبر من قيمتين حسب دالة المقارنة المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "cmp_min_max_by", since = "1.53.0")]
@@ -1813,6 +1993,12 @@ pub const fn max_by<T: [const] Destruct, F: [const] FnOnce(&T, &T) -> Ordering>(
 /// let result = cmp::max_by_key(1, -1, |x: &i32| x.abs());
 /// assert_eq!(result, -1);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع العنصر الذي يعطي أكبر قيمة من الدالة المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[stable(feature = "cmp_min_max_by", since = "1.53.0")]
@@ -1863,6 +2049,12 @@ where
 ///
 /// assert_eq!(cmp::minmax(Equal("v1"), Equal("v2")).map(|v| v.0), ["v1", "v2"]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن قيمتين ويرتبهما، ويرجع الأصغر والأكبر.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "cmp_minmax", issue = "115939")]
@@ -1898,6 +2090,12 @@ where
 /// assert_eq!(min, 17);
 /// assert_eq!(max, -42);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأصغر والأكبر حسب دالة المقارنة المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "cmp_minmax", issue = "115939")]
@@ -1927,6 +2125,12 @@ where
 /// assert_eq!(min, 17);
 /// assert_eq!(max, -42);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع الأصغر والأكبر حسب دالة المفتاح المحددة.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "cmp_minmax", issue = "115939")]
@@ -1940,6 +2144,12 @@ where
 }
 
 /// Calls `mac` on lists of arguments from size `0` to `1 + count($y)`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي `mac` على قوائم وسائط من الحجم `0` حتى `1 + count($y)`.
+///
+/// </div>
 macro impl_for_tuples_up_to($mac:ident! { $($x:ident, $($y:ident,)*)? }) {
     $(impl_for_tuples_up_to! {
         $mac! { $($y,)* }
@@ -1948,6 +2158,12 @@ macro impl_for_tuples_up_to($mac:ident! { $($x:ident, $($y:ident,)*)? }) {
 }
 
 /// Calls each `mac` on lists of arguments from size zero to twelve.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي كل `mac` على قوائم وسائط من الحجم صفر حتى اثني عشر.
+///
+/// </div>
 macro impl_tuples($($mac:ident,)+) {
     $(impl_for_tuples_up_to! { $mac! { x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, } })+
 }
@@ -1962,6 +2178,12 @@ macro impl_tuples($($mac:ident,)+) {
 const trait HomogeneousTuple<T>: crate::marker::Tuple {}
 
 /// Implements [`HomogeneousTuple`] for a provided tuple.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `HomogeneousTuple` للصف المعطى.
+///
+/// </div>
 macro impl_homogeneous_tuple($($x:ident,)*) {
     #[unstable(feature = "cmp_splat_internals", issue = "160728")]
     #[rustc_const_unstable(feature = "cmp_splat_internals", issue = "160728")]
@@ -2014,6 +2236,12 @@ impl_tuples! {
 /// This function is added in its current form as an experiment in variadic functions.
 /// In a future iteration of the feature, this function may be removed in favour of
 /// making [`min`] itself variadic instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن القيم المعطاة ويرجع الأصغر.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "cmp_splat", issue = "160728")]
@@ -2037,6 +2265,12 @@ const trait SmallestArgs<T>: HomogeneousTuple<T> {
 }
 
 /// Implements [`SmallestArgs`] for a provided tuple if applicable.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `SmallestArgs` للصف المعطى إن أمكن.
+///
+/// </div>
 macro impl_smallest_args($($x:ident,)*) {
     #[unstable(feature = "cmp_splat_internals", issue = "160728")]
     #[rustc_const_unstable(feature = "cmp_splat_internals", issue = "160728")]
@@ -2097,6 +2331,12 @@ impl_tuples! {
 /// This function is added in its current form as an experiment in variadic functions.
 /// In a future iteration of the feature, this function may be removed in favour of
 /// making [`max`] itself variadic instead.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يقارن القيم المعطاة ويرجع الأكبر.
+///
+/// </div>
 #[inline]
 #[must_use]
 #[unstable(feature = "cmp_splat", issue = "160728")]
@@ -2120,6 +2360,12 @@ const trait LargestArgs<T>: HomogeneousTuple<T> {
 }
 
 /// Implements [`LargestArgs`] for a provided tuple if applicable.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `LargestArgs` للصف المعطى إن أمكن.
+///
+/// </div>
 macro impl_largest_args($($x:ident,)*) {
     #[unstable(feature = "cmp_splat_internals", issue = "160728")]
     #[rustc_const_unstable(feature = "cmp_splat_internals", issue = "160728")]
@@ -2153,6 +2399,12 @@ mod impls {
     ///
     /// NOTE: Calling this on a non-primitive type (such as `()`)
     /// leads to an infinitely-looping self-recursive implementation.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطبّق `PartialEq` للأنواع الأساسية.
+    ///
+    /// </div>
     macro_rules! impl_partial_eq_for_primitive {
         ($($t:ty)*) => ($(
             #[stable(feature = "rust1", since = "1.0.0")]

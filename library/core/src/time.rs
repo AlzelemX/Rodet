@@ -730,6 +730,12 @@ impl Duration {
     /// assert_eq!(Duration::new(100, 0).abs_diff(Duration::new(80, 0)), Duration::new(20, 0));
     /// assert_eq!(Duration::new(100, 400_000_000).abs_diff(Duration::new(110, 0)), Duration::new(9, 600_000_000));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الفرق المطلق بين `self` و`other`.
+    ///
+    /// </div>
     #[stable(feature = "duration_abs_diff", since = "1.81.0")]
     #[rustc_const_stable(feature = "duration_abs_diff", since = "1.81.0")]
     #[must_use = "this returns the result of the operation, \

@@ -1,4 +1,10 @@
 //! This module contains a branchless heapsort as fallback for unstable quicksort.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! heapsort بدون تفرعات كبديل لـ quicksort غير المستقر.
+//!
+//! </div>
 
 use crate::{cmp, intrinsics, ptr};
 

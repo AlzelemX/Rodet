@@ -135,6 +135,12 @@
 //!
 //! [`clone`]: Clone::clone
 //! [operator precedence]: ../../reference/expressions.html#expression-precedence
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! معاملات يمكن إعادة تعريفها (operator overloading).
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 

@@ -1,4 +1,10 @@
 //! This module contains a stable quicksort and partition implementation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق quicksort مستقر والتقسيم.
+//!
+//! </div>
 
 use crate::mem::MaybeUninit;
 use crate::slice::sort::shared::FreezeMarker;
@@ -12,6 +18,12 @@ use crate::{intrinsics, ptr};
 ///
 /// `limit` when initialized with `c*log(v.len())` for some c ensures we do not
 /// overflow the stack or go quadratic.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرتب `v` بشكل متداخل باستخدام quicksort.
+///
+/// </div>
 #[inline(never)]
 pub fn quicksort<T, F: FnMut(&T, &T) -> bool>(
     mut v: &mut [T],

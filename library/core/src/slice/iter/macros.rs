@@ -1,4 +1,10 @@
 //! Macros used by iterators of slice.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! ماكروهات تستخدمها مكررات الشرائح.
+//!
+//! </div>
 
 /// Convenience & performance macro for consuming the `end_or_len` field, by
 /// giving a `(&mut) usize` or `(&mut) NonNull<T>` depending whether `T` is
@@ -7,6 +13,12 @@
 /// Internally, this reads the `end` through a pointer-to-`NonNull` so that
 /// it'll get the appropriate non-null metadata in the backend without needing
 /// to call `assume` manually.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ماكرو مساعد لاستهلاك الحقل `end_or_len`.
+///
+/// </div>
 macro_rules! if_zst {
     (mut $this:ident, $len:ident => $zst_body:expr, $end:ident => $other_body:expr,) => {{
         #![allow(unused_unsafe)] // we're sometimes used within an unsafe block
@@ -485,6 +497,12 @@ macro_rules! iterator {
             #[doc = concat!("let iter: ", stringify!($name<'_, u8>), " = Default::default();")]
             /// assert_eq!(iter.len(), 0);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ مكرر شريحة فارغًا.
+            ///
+            /// </div>
             fn default() -> Self {
                 (& $( $mut_ )? []).into_iter()
             }

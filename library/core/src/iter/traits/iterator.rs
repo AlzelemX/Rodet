@@ -3320,6 +3320,12 @@ pub const trait Iterator {
     /// let a = [-3_i32, 0, 1, 5, -10];
     /// assert_eq!(a.into_iter().max_by_key(|x| x.abs()).unwrap(), -10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العنصر الذي يعطي أكبر قيمة من الدالة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "iter_cmp_by_key", since = "1.6.0")]
     #[rustc_non_const_trait_method]
@@ -3387,6 +3393,12 @@ pub const trait Iterator {
     /// let a = [-3_i32, 0, 1, 5, -10];
     /// assert_eq!(a.into_iter().min_by_key(|x| x.abs()).unwrap(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العنصر الذي يعطي أصغر قيمة من الدالة المحددة.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "iter_cmp_by_key", since = "1.6.0")]
     #[rustc_non_const_trait_method]

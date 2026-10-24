@@ -29,6 +29,12 @@
 /// assert_eq!(!Answer::Yes, Answer::No);
 /// assert_eq!(!Answer::No, Answer::Yes);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل النفي الأحادي `!`: نفي منطقي أو نفي بتات حسب النوع.
+///
+/// </div>
 #[lang = "not"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_ops", issue = "143802")]
@@ -148,6 +154,12 @@ const impl Not for ! {
 /// let expected = BooleanVector(vec![true, false, false, false]);
 /// assert_eq!(bv1 & bv2, expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل AND على البتات `&`.
+///
+/// </div>
 #[lang = "bitand"]
 #[doc(alias = "&")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -252,6 +264,12 @@ bitand_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// let expected = BooleanVector(vec![true, true, true, false]);
 /// assert_eq!(bv1 | bv2, expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل OR على البتات `|`.
+///
+/// </div>
 #[lang = "bitor"]
 #[doc(alias = "|")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -356,6 +374,12 @@ bitor_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// let expected = BooleanVector(vec![false, true, true, false]);
 /// assert_eq!(bv1 ^ bv2, expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل XOR على البتات `^`.
+///
+/// </div>
 #[lang = "bitxor"]
 #[doc(alias = "^")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -459,6 +483,12 @@ bitxor_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// assert_eq!(SpinVector { vec: vec![0, 1, 2, 3, 4] } << 2,
 ///            SpinVector { vec: vec![2, 3, 4, 0, 1] });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الإزاحة لليسار `<<`.
+///
+/// </div>
 #[lang = "shl"]
 #[doc(alias = "<<")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -582,6 +612,12 @@ shl_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
 /// assert_eq!(SpinVector { vec: vec![0, 1, 2, 3, 4] } >> 2,
 ///            SpinVector { vec: vec![3, 4, 0, 1, 2] });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الإزاحة لليمين `>>`.
+///
+/// </div>
 #[lang = "shr"]
 #[doc(alias = ">>")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -714,6 +750,12 @@ shr_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
 /// let expected = BooleanVector(vec![true, false, false, false]);
 /// assert_eq!(bv, expected);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل AND على البتات مع الإسناد `&=`.
+///
+/// </div>
 #[lang = "bitand_assign"]
 #[doc(alias = "&=")]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
@@ -789,6 +831,12 @@ bitand_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// prefs |= PersonalPreferences { likes_cats: false, likes_dogs: true };
 /// assert_eq!(prefs, PersonalPreferences { likes_cats: true, likes_dogs: true });
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل OR على البتات مع الإسناد `|=`.
+///
+/// </div>
 #[lang = "bitor_assign"]
 #[doc(alias = "|=")]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
@@ -864,6 +912,12 @@ bitor_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// personality ^= Personality { has_soul: true, likes_knitting: true };
 /// assert_eq!(personality, Personality { has_soul: true, likes_knitting: false});
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل XOR على البتات مع الإسناد `^=`.
+///
+/// </div>
 #[lang = "bitxor_assign"]
 #[doc(alias = "^=")]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
@@ -937,6 +991,12 @@ bitxor_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
 /// scalar <<= 2;
 /// assert_eq!(scalar, Scalar(16));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الإزاحة لليسار مع الإسناد `<<=`.
+///
+/// </div>
 #[lang = "shl_assign"]
 #[doc(alias = "<<=")]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]
@@ -1024,6 +1084,12 @@ shl_assign_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
 /// scalar >>= 2;
 /// assert_eq!(scalar, Scalar(4));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معامل الإزاحة لليمين مع الإسناد `>>=`.
+///
+/// </div>
 #[lang = "shr_assign"]
 #[doc(alias = ">>=")]
 #[stable(feature = "op_assign_traits", since = "1.8.0")]

@@ -1,4 +1,10 @@
 //! Definitions of `Saturating<T>`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تعريفات `Saturating<T>`.
+//!
+//! </div>
 
 use crate::fmt;
 use crate::ops::{
@@ -35,6 +41,12 @@ use crate::ops::{
 /// # Layout
 ///
 /// `Saturating<T>` is guaranteed to have the same layout and ABI as `T`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعطي حسابًا مشبعًا مقصودًا على `T` (يتوقف عند حدود النوع).
+///
+/// </div>
 #[stable(feature = "saturating_int_impl", since = "1.74.0")]
 #[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Default, Hash)]
 #[repr(transparent)]
@@ -566,6 +578,12 @@ macro_rules! saturating_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Saturating<", stringify!($t), ">>::MIN, Saturating(", stringify!($t), "::MIN));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع أصغر قيمة يمكن تمثيلها بهذا النوع.
+            ///
+            /// </div>
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
             pub const MIN: Self = Self(<$t>::MIN);
 
@@ -578,6 +596,12 @@ macro_rules! saturating_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Saturating<", stringify!($t), ">>::MAX, Saturating(", stringify!($t), "::MAX));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع أكبر قيمة يمكن تمثيلها بهذا النوع.
+            ///
+            /// </div>
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
             pub const MAX: Self = Self(<$t>::MAX);
 
@@ -590,6 +614,12 @@ macro_rules! saturating_int_impl {
             ///
             #[doc = concat!("assert_eq!(<Saturating<", stringify!($t), ">>::BITS, ", stringify!($t), "::BITS);")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع حجم هذا النوع بالبتات.
+            ///
+            /// </div>
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
             pub const BITS: u32 = <$t>::BITS;
 
@@ -688,6 +718,12 @@ macro_rules! saturating_int_impl {
             ///
             /// assert_eq!(n.rotate_left(32), m);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات لليسار بمقدار `n` مع تدوير البتات الخارجة إلى النهاية.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -714,6 +750,12 @@ macro_rules! saturating_int_impl {
             ///
             /// assert_eq!(n.rotate_right(4), m);
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يزيح البتات لليمين بمقدار `n` مع تدوير البتات الخارجة إلى البداية.
+            ///
+            /// </div>
             #[inline]
             #[must_use = "this returns the result of the operation, \
                           without modifying the original"]
@@ -771,6 +813,12 @@ macro_rules! saturating_int_impl {
             /// assert_eq!(m.0 as u16, 0b10101010_00000000);
             /// assert_eq!(m, Saturating(-22016));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يعكس نمط بتات العدد.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -862,6 +910,12 @@ macro_rules! saturating_int_impl {
             ///     assert_eq!(n.to_be(), n.swap_bytes())
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى big endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -889,6 +943,12 @@ macro_rules! saturating_int_impl {
             ///     assert_eq!(n.to_le(), n.swap_bytes())
             /// }
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يحوّل `self` إلى little endian من ترتيب بايتات النظام المستهدف.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -916,6 +976,12 @@ macro_rules! saturating_int_impl {
             /// assert_eq!(Saturating(3i8).pow(5), Saturating(127));
             /// assert_eq!(Saturating(3i8).pow(6), Saturating(127));
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرفع self للأس `exp` باستخدام الرفع بالتربيع، مع بيان التجاوز.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -973,6 +1039,13 @@ macro_rules! saturating_int_impl_signed {
             #[doc = concat!("assert_eq!(Saturating(", stringify!($t), "::MIN).abs(), Saturating(", stringify!($t), "::MIN.saturating_abs()));")]
             #[doc = concat!("assert_eq!(Saturating(", stringify!($t), "::MIN).abs(), Saturating(", stringify!($t), "::MAX));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// قيمة مطلقة مشبعة. يحسب `self.abs()`، ويرجع `MAX` إذا كان `self == MIN` بدل تجاوز
+            /// الحد.
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -997,6 +1070,12 @@ macro_rules! saturating_int_impl_signed {
             #[doc = concat!("assert_eq!(Saturating(0", stringify!($t), ").signum(), Saturating(0));")]
             #[doc = concat!("assert_eq!(Saturating(-10", stringify!($t), ").signum(), Saturating(-1));")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع رقمًا يمثل إشارة `self` (-1 أو 0 أو 1).
+            ///
+            /// </div>
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
             #[stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -1017,6 +1096,12 @@ macro_rules! saturating_int_impl_signed {
             #[doc = concat!("assert!(Saturating(10", stringify!($t), ").is_positive());")]
             #[doc = concat!("assert!(!Saturating(-10", stringify!($t), ").is_positive());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` إذا كان `self` موجبًا، و`false` إذا كان صفرًا أو سالبًا.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -1036,6 +1121,12 @@ macro_rules! saturating_int_impl_signed {
             #[doc = concat!("assert!(Saturating(-10", stringify!($t), ").is_negative());")]
             #[doc = concat!("assert!(!Saturating(10", stringify!($t), ").is_negative());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` إذا كان `self` سالبًا، و`false` إذا كان صفرًا أو موجبًا.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]
@@ -1101,6 +1192,12 @@ macro_rules! saturating_int_impl_unsigned {
             #[doc = concat!("assert!(Saturating(16", stringify!($t), ").is_power_of_two());")]
             #[doc = concat!("assert!(!Saturating(10", stringify!($t), ").is_power_of_two());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يرجع `true` فقط إذا كان `self == 2^k` لقيمة ما `k`.
+            ///
+            /// </div>
             #[must_use]
             #[inline]
             #[rustc_const_stable(feature = "saturating_int_impl", since = "1.74.0")]

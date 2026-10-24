@@ -2,6 +2,12 @@ use crate::num::{IntErrorKind, TryFromIntError};
 
 /// Supporting trait for inherent methods of `f32` and `f64` such as `to_int_unchecked`.
 /// Typically doesn’t need to be used directly.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait داعم لدوال `f32` و`f64` مثل `to_int_unchecked`. لا يُستخدم مباشرة عادةً.
+///
+/// </div>
 #[unstable(feature = "convert_float_to_int", issue = "67057")]
 pub impl(self) trait FloatToInt<Int>: Sized {
     #[unstable(feature = "convert_float_to_int", issue = "67057")]
@@ -85,6 +91,12 @@ impl_float_to_int!(f128 => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i1
 
 /// Supporting trait for the inherent `cast` method converting between float types.
 /// Typically doesn’t need to be used directly.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait داعم لدالة `cast` للتحويل بين الأنواع العشرية. لا يُستخدم مباشرة عادةً.
+///
+/// </div>
 #[unstable(feature = "float_conversions", issue = "159913")]
 pub impl(self) trait FloatToFloat<Flt>: Sized {
     #[unstable(feature = "float_conversions", issue = "159913")]
@@ -112,6 +124,12 @@ impl_float_to_float!(f64 => f16, f32, f64, f128);
 impl_float_to_float!(f128 => f16, f32, f64, f128);
 
 /// Implement `From<bool>` for integers
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `From<bool>` للأعداد الصحيحة.
+///
+/// </div>
 macro_rules! impl_from_bool {
     ($($int:ty)*) => {$(
         #[stable(feature = "from_bool", since = "1.28.0")]
@@ -141,6 +159,12 @@ impl_from_bool!(u8 u16 u32 u64 u128 usize);
 impl_from_bool!(i8 i16 i32 i64 i128 isize);
 
 /// Implement `From<$small>` for `$large`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `From<$small>` لـ `$large`.
+///
+/// </div>
 macro_rules! impl_from {
     ($small:ty => $large:ty, $(#[$attrs:meta]),+) => {
         $(#[$attrs])+
@@ -419,6 +443,12 @@ macro_rules! impl_try_from_both_bounded {
 }
 
 /// Implement `TryFrom<integer>` for `bool`
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق `TryFrom<integer>` لـ `bool`.
+///
+/// </div>
 macro_rules! impl_try_from_integer_for_bool {
     ($signedness:ident $($int:ty)+) => {$(
         #[stable(feature = "bool_try_from_int", since = "1.95.0")]
@@ -725,6 +755,12 @@ impl_nonzero_int_try_from_nonzero_int!(i128 => u8, u16, u32, u64, u128, usize);
 impl_nonzero_int_try_from_nonzero_int!(isize => u8, u16, u32, u64, u128, usize);
 
 /// Conversion between integers, wrapping around or saturating at the target type's boundaries.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل بين الأعداد الصحيحة مع الالتفاف أو التشبع عند حدود النوع المستهدف.
+///
+/// </div>
 #[unstable(feature = "integer_casts", issue = "157388")]
 #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
 pub impl(self) const trait BoundedCastFromInt<T>: Sized {
@@ -738,6 +774,12 @@ pub impl(self) const trait BoundedCastFromInt<T>: Sized {
 }
 
 /// Fallible conversion between integers.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تحويل بين الأعداد الصحيحة قد يفشل.
+///
+/// </div>
 #[unstable(feature = "integer_casts", issue = "157388")]
 #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
 pub impl(self) const trait CheckedCastFromInt<T>: Sized {

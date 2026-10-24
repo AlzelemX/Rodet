@@ -36,6 +36,12 @@ macro_rules! define_valid_range_type {
             /// # Safety
             /// Immediate language UB if `val` is not within the valid range for this
             /// type, as it violates the validity invariant.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ قيمة من هذا النوع من العدد الصحيح الأساسي بدون التحقق من صحته (غير آمن).
+            ///
+            /// </div>
             #[inline]
             pub const unsafe fn new_unchecked(val: $int) -> Self {
                 // SAFETY: Caller promised that `val` is within the valid range.

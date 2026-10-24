@@ -1,4 +1,10 @@
 //! This module contains the entry points for `slice::sort_unstable`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نقاط الدخول لـ `slice::sort_unstable`.
+//!
+//! </div>
 
 use crate::mem::SizedTypeProperties;
 use crate::ops::{Range, RangeBounds};
@@ -18,6 +24,12 @@ pub(crate) mod quicksort;
 ///
 /// Upholds all safety properties outlined here:
 /// <https://github.com/Voultapher/sort-research-rs/blob/main/writeup/sort_safety/text.md>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ترتيب غير مستقر اسمه ipnsort.
+///
+/// </div>
 #[inline(always)]
 pub fn sort<T, F>(v: &mut [T], is_less: &mut F)
 where
@@ -62,6 +74,12 @@ where
 /// 1. Every element in `v[..start]` is smaller than or equal to
 /// 2. Every element in `v[start..end]`, which is sorted, and smaller than or equal to
 /// 3. Every element in `v[end..]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ترتيب جزئي غير مستقر للمدى `start..end`، وبعده يُضمن أن:
+///
+/// </div>
 #[inline]
 pub fn partial_sort<T, F, R>(v: &mut [T], range: R, mut is_less: F)
 where

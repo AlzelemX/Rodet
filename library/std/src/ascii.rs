@@ -53,6 +53,12 @@ pub trait AsciiExt {
     ///
     /// This method is deprecated in favor of the identically-named
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة ضمن مدى ASCII.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn is_ascii(&self) -> bool;
 
@@ -72,6 +78,12 @@ pub trait AsciiExt {
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
     ///
     /// [`make_ascii_uppercase`]: AsciiExt::make_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة بحرف ASCII كبير.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[allow(deprecated)]
     fn to_ascii_uppercase(&self) -> Self::Owned;
@@ -92,6 +104,12 @@ pub trait AsciiExt {
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
     ///
     /// [`make_ascii_lowercase`]: AsciiExt::make_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة بحرف ASCII صغير.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[allow(deprecated)]
     fn to_ascii_lowercase(&self) -> Self::Owned;
@@ -105,6 +123,12 @@ pub trait AsciiExt {
     ///
     /// This method is deprecated in favor of the identically-named
     /// inherent methods on `u8`, `char`, `[u8]` and `str`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمتان متساويتان بتجاهل حالة أحرف ASCII.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn eq_ignore_ascii_case(&self, other: &Self) -> bool;
 

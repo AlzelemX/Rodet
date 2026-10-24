@@ -130,6 +130,12 @@ use crate::marker::PointeeSized;
 /// let x = DerefExample { value: 'a' };
 /// assert_eq!('a', *x);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لعمليات إزالة المرجع غير القابلة للتعديل، مثل `*v`.
+///
+/// </div>
 #[lang = "deref"]
 #[doc(alias = "*")]
 #[doc(alias = "&*")]
@@ -269,6 +275,12 @@ const impl<T: ?Sized> Deref for &mut T {
 /// *x = 'b';
 /// assert_eq!('b', x.value);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لعمليات إزالة المرجع القابلة للتعديل، مثل `*v = 1;`.
+///
+/// </div>
 #[lang = "deref_mut"]
 #[doc(alias = "*")]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -297,6 +309,12 @@ const impl<T: ?Sized> DerefMut for &mut T {
 /// idempotent, in the sense that they return the same value as far as pattern-matching
 /// is concerned. Calls to `deref`/`deref_mut` must leave the pointer itself likewise
 /// unchanged.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة غير مستقر دائمًا: يعني أن تطبيق `Deref` (و`DerefMut`) للنوع حسن السلوك.
+///
+/// </div>
 #[unstable(feature = "deref_pure_trait", issue = "87121")]
 #[lang = "deref_pure"]
 #[rustc_dyn_incompatible_trait]
@@ -371,11 +389,23 @@ unsafe impl<T: ?Sized> DerefPure for &mut T {}
 ///   }
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعني أن الـ struct يمكن استخدامه كمستقبِل للدوال، أي كنوع `self`.
+///
+/// </div>
 #[lang = "receiver"]
 #[unstable(feature = "arbitrary_self_types", issue = "44874")]
 #[rustc_dyn_incompatible_trait]
 pub trait Receiver: PointeeSized {
     /// The target type on which the method may be called.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع الهدف الذي يمكن استدعاء الدالة عليه.
+    ///
+    /// </div>
     #[rustc_diagnostic_item = "receiver_target"]
     #[lang = "receiver_target"]
     #[unstable(feature = "arbitrary_self_types", issue = "44874")]

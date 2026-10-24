@@ -1607,6 +1607,12 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = ", stringify!($SelfT), "::MIN.strict_rem_euclid(-1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// الباقي الإقليدي الصارم. يحسب `self.rem_euclid(rhs)`، ويتوقف (panic) إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1626,6 +1632,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".checked_neg(), Some(-5));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.checked_neg(), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي مع التحقق. يحسب `-self`، ويرجع `None` إذا كان `self == MIN`.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1644,6 +1656,12 @@ macro_rules! int_impl {
         #[doc = concat!("`self == ", stringify!($SelfT), "::MIN`,")]
         /// i.e. when [`checked_neg`] would return `None`.
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي بدون تحقق. يحسب `-self` بافتراض أنه لا يتجاوز الحد (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_neg`]: ", stringify!($SelfT), "::checked_neg")]
         #[stable(feature = "unchecked_neg", since = "1.93.0")]
         #[rustc_const_stable(feature = "unchecked_neg", since = "1.93.0")]
@@ -1685,6 +1703,12 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = ", stringify!($SelfT), "::MIN.strict_neg();")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي صارم. يحسب `-self`، ويتوقف (panic) إذا كان `self == MIN`.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1706,6 +1730,13 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0x1", stringify!($SelfT), ".checked_shl(129), None);")]
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".checked_shl(", stringify!($BITS_MINUS_ONE), "), Some(0));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار مع التحقق. يحسب `self << rhs`، ويرجع `None` إذا كان `rhs` أكبر من أو يساوي
+        /// عدد بتات `self`.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1741,6 +1772,13 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = 0x1", stringify!($SelfT), ".strict_shl(129);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار صارمة. يحسب `self << rhs`، ويتوقف (panic) إذا كان `rhs` أكبر من أو يساوي
+        /// عدد البتات.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1761,6 +1799,12 @@ macro_rules! int_impl {
         /// or equal to the number of bits in `self`,
         /// i.e. when [`checked_shl`] would return `None`.
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار بدون تحقق. يحسب `self << rhs` بافتراض أن `rhs` أقل من عدد البتات (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_shl`]: ", stringify!($SelfT), "::checked_shl")]
         #[stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[rustc_const_stable(feature = "unchecked_shifts", since = "1.93.0")]
@@ -1801,6 +1845,13 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-13_", stringify!($SelfT), ").unbounded_shl(", stringify!($BITS), "), 0);")]
         #[doc = concat!("assert_eq!((-13_", stringify!($SelfT), ").unbounded_shl(1).unbounded_shl(", stringify!($BITS_MINUS_ONE), "), 0);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار بلا حدود. يحسب `self << rhs` بدون تقييد قيمة `rhs` (الإزاحة الكبيرة تعطي
+        /// صفرًا).
+        ///
+        /// </div>
         #[stable(feature = "unbounded_shifts", since = "1.87.0")]
         #[rustc_const_stable(feature = "unbounded_shifts", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1834,6 +1885,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-0x2", stringify!($SelfT), ").shl_exact(", stringify!($SelfT), "::BITS - 2), Some(-0x2 << ", stringify!($SelfT), "::BITS - 2));")]
         #[doc = concat!("assert_eq!((-0x2", stringify!($SelfT), ").shl_exact(", stringify!($SelfT), "::BITS - 1), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار دقيقة. يحسب `self << rhs` طالما يمكن عكسها بدون فقد.
+        ///
+        /// </div>
         #[unstable(feature = "exact_bitshifts", issue = "144336")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -1857,6 +1914,12 @@ macro_rules! int_impl {
         /// self.leading_ones()` i.e. when
         #[doc = concat!("[`", stringify!($SelfT), "::shl_exact`]")]
         /// would return `None`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار دقيقة بدون تحقق، بافتراض أنها قابلة للعكس بدون فقد (غير آمن).
+        ///
+        /// </div>
         #[unstable(feature = "exact_bitshifts", issue = "144336")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -1885,6 +1948,13 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".checked_shr(4), Some(0x1));")]
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".checked_shr(128), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين مع التحقق. يحسب `self >> rhs`، ويرجع `None` إذا كان `rhs` أكبر من أو يساوي
+        /// عدد بتات `self`.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1920,6 +1990,13 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = 0x10", stringify!($SelfT), ".strict_shr(128);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين صارمة. يحسب `self >> rhs`، ويتوقف (panic) إذا كان `rhs` أكبر من أو يساوي
+        /// عدد البتات.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -1940,6 +2017,12 @@ macro_rules! int_impl {
         /// or equal to the number of bits in `self`,
         /// i.e. when [`checked_shr`] would return `None`.
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين بدون تحقق. يحسب `self >> rhs` بافتراض أن `rhs` أقل من عدد البتات (غير آمن).
+        ///
+        /// </div>
         #[doc = concat!("[`checked_shr`]: ", stringify!($SelfT), "::checked_shr")]
         #[stable(feature = "unchecked_shifts", since = "1.93.0")]
         #[rustc_const_stable(feature = "unchecked_shifts", since = "1.93.0")]
@@ -1982,6 +2065,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-13_", stringify!($SelfT), ").unbounded_shr(", stringify!($BITS), "), -1);")]
         #[doc = concat!("assert_eq!((-13_", stringify!($SelfT), ").unbounded_shr(1).unbounded_shr(", stringify!($BITS_MINUS_ONE), "), -1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين بلا حدود. يحسب `self >> rhs` بدون تقييد قيمة `rhs`.
+        ///
+        /// </div>
         #[stable(feature = "unbounded_shifts", since = "1.87.0")]
         #[rustc_const_stable(feature = "unbounded_shifts", since = "1.87.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2015,6 +2104,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".shr_exact(4), Some(0x1));")]
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".shr_exact(5), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين دقيقة. يحسب `self >> rhs` طالما يمكن عكسها بدون فقد.
+        ///
+        /// </div>
         #[unstable(feature = "exact_bitshifts", issue = "144336")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -2039,6 +2134,12 @@ macro_rules! int_impl {
         /// i.e. when
         #[doc = concat!("[`", stringify!($SelfT), "::shr_exact`]")]
         /// would return `None`.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين دقيقة بدون تحقق، بافتراض أنها قابلة للعكس بدون فقد (غير آمن).
+        ///
+        /// </div>
         #[unstable(feature = "exact_bitshifts", issue = "144336")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -2067,6 +2168,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-5", stringify!($SelfT), ").checked_abs(), Some(5));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.checked_abs(), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// القيمة المطلقة مع التحقق. يحسب `self.abs()`، ويرجع `None` إذا كان `self == MIN`.
+        ///
+        /// </div>
         #[stable(feature = "no_panic_abs", since = "1.13.0")]
         #[rustc_const_stable(feature = "const_checked_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2100,6 +2207,12 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = ", stringify!($SelfT), "::MIN.strict_abs();")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// القيمة المطلقة الصارمة. يحسب `self.abs()`، ويتوقف (panic) إذا كان `self == MIN`.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2124,6 +2237,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".checked_pow(0), Some(1));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.checked_pow(2), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// رفع للأس مع التحقق. يحسب `self.pow(exp)`، ويرجع `None` إذا تجاوز الحد.
+        ///
+        /// </div>
 
         #[stable(feature = "no_panic_pow", since = "1.34.0")]
         #[rustc_const_stable(feature = "const_int_pow", since = "1.50.0")]
@@ -2198,6 +2317,12 @@ macro_rules! int_impl {
         /// ```should_panic
         #[doc = concat!("let _ = ", stringify!($SelfT), "::MAX.strict_pow(2);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// رفع للأس صارم. يحسب `self.pow(exp)`، ويتوقف (panic) إذا تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[rustc_const_stable(feature = "strict_overflow_ops", since = "1.91.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2224,6 +2349,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(10", stringify!($SelfT), ".checked_isqrt(), Some(3));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع الجذر التربيعي الصحيح للعدد، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "isqrt", since = "1.84.0")]
         #[rustc_const_stable(feature = "isqrt", since = "1.84.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2266,6 +2397,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.saturating_add(100), ", stringify!($SelfT), "::MAX);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_add(-1), ", stringify!($SelfT), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع مشبع. يحسب `self + rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
 
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_saturating_int_methods", since = "1.47.0")]
@@ -2285,6 +2422,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(1", stringify!($SelfT), ".saturating_add_unsigned(2), 3);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.saturating_add_unsigned(100), ", stringify!($SelfT), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع مشبع بعدد بدون إشارة. يحسب `self + rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2309,6 +2452,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_sub(100), ", stringify!($SelfT), "::MIN);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.saturating_sub(-1), ", stringify!($SelfT), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح مشبع. يحسب `self - rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_saturating_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2327,6 +2476,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".saturating_sub_unsigned(127), -27);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_sub_unsigned(100), ", stringify!($SelfT), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح مشبع بعدد بدون إشارة. يحسب `self - rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2352,6 +2507,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_neg(), ", stringify!($SelfT), "::MAX);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.saturating_neg(), ", stringify!($SelfT), "::MIN + 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي مشبع. يحسب `-self`، ويرجع `MAX` إذا كان `self == MIN` بدل تجاوز الحد.
+        ///
+        /// </div>
 
         #[stable(feature = "saturating_neg", since = "1.45.0")]
         #[rustc_const_stable(feature = "const_saturating_int_methods", since = "1.47.0")]
@@ -2373,6 +2534,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_abs(), ", stringify!($SelfT), "::MAX);")]
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MIN + 1).saturating_abs(), ", stringify!($SelfT), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قيمة مطلقة مشبعة. يحسب `self.abs()`، ويرجع `MAX` إذا كان `self == MIN` بدل تجاوز الحد.
+        ///
+        /// </div>
 
         #[stable(feature = "saturating_neg", since = "1.45.0")]
         #[rustc_const_stable(feature = "const_saturating_int_methods", since = "1.47.0")]
@@ -2397,6 +2564,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.saturating_mul(10), ", stringify!($SelfT), "::MAX);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_mul(10), ", stringify!($SelfT), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب مشبع. يحسب `self * rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_saturating_int_methods", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2428,6 +2601,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_div(-1), ", stringify!($SelfT), "::MAX);")]
         ///
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قسمة مشبعة. يحسب `self / rhs`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "saturating_div", since = "1.58.0")]
         #[rustc_const_stable(feature = "saturating_div", since = "1.58.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2452,6 +2631,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_pow(2), ", stringify!($SelfT), "::MAX);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.saturating_pow(3), ", stringify!($SelfT), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// رفع للأس مشبع. يحسب `self.pow(exp)`، ويتوقف عند حدود النوع بدل تجاوزها.
+        ///
+        /// </div>
         #[stable(feature = "no_panic_pow", since = "1.34.0")]
         #[rustc_const_stable(feature = "const_int_pow", since = "1.50.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2474,6 +2659,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_add(27), 127);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.wrapping_add(2), ", stringify!($SelfT), "::MIN + 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع دائري (modular). يحسب `self + rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2492,6 +2683,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_add_unsigned(27), 127);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.wrapping_add_unsigned(2), ", stringify!($SelfT), "::MIN + 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// جمع دائري بعدد بدون إشارة. يحسب `self + rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2510,6 +2707,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".wrapping_sub(127), -127);")]
         #[doc = concat!("assert_eq!((-2", stringify!($SelfT), ").wrapping_sub(", stringify!($SelfT), "::MAX), ", stringify!($SelfT), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح دائري. يحسب `self - rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2528,6 +2731,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".wrapping_sub_unsigned(127), -127);")]
         #[doc = concat!("assert_eq!((-2", stringify!($SelfT), ").wrapping_sub_unsigned(", stringify!($UnsignedT), "::MAX), -1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// طرح دائري بعدد بدون إشارة. يحسب `self - rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2546,6 +2755,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(10", stringify!($SelfT), ".wrapping_mul(12), 120);")]
         /// assert_eq!(11i8.wrapping_mul(12), -124);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب دائري. يحسب `self * rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2572,6 +2787,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_div(10), 10);")]
         /// assert_eq!((-128i8).wrapping_div(-1), -128);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قسمة دائرية. يحسب `self / rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "num_wrapping", since = "1.2.0")]
         #[rustc_const_stable(feature = "const_wrapping_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2599,6 +2820,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_div_euclid(10), 10);")]
         /// assert_eq!((-128i8).wrapping_div_euclid(-1), -128);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قسمة إقليدية دائرية. يحسب `self.div_euclid(rhs)`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "euclidean_division", since = "1.38.0")]
         #[rustc_const_stable(feature = "const_euclidean_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2626,6 +2853,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_rem(10), 0);")]
         /// assert_eq!((-128i8).wrapping_rem(-1), 0);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// باقي قسمة دائري. يحسب `self % rhs`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "num_wrapping", since = "1.2.0")]
         #[rustc_const_stable(feature = "const_wrapping_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2652,6 +2885,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(100", stringify!($SelfT), ".wrapping_rem_euclid(10), 0);")]
         /// assert_eq!((-128i8).wrapping_rem_euclid(-1), 0);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// باقٍ إقليدي دائري. يحسب `self.rem_euclid(rhs)`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "euclidean_division", since = "1.38.0")]
         #[rustc_const_stable(feature = "const_euclidean_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2676,6 +2915,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-100", stringify!($SelfT), ").wrapping_neg(), 100);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.wrapping_neg(), ", stringify!($SelfT), "::MIN);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// نفي دائري. يحسب `-self`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "num_wrapping", since = "1.2.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2709,6 +2954,13 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-1_", stringify!($SelfT), ").wrapping_shl(128), -1);")]
         #[doc = concat!("assert_eq!(5_", stringify!($SelfT), ".wrapping_shl(1025), 10);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليسار بدون panic؛ تعطي `self << mask(rhs)` حيث يحذف `mask` البتات العليا من `rhs`
+        /// التي تجعل الإزاحة تتجاوز عرض النوع.
+        ///
+        /// </div>
         #[stable(feature = "num_wrapping", since = "1.2.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2746,6 +2998,13 @@ macro_rules! int_impl {
         /// assert_eq!((-128_i16).wrapping_shr(64), -128);
         #[doc = concat!("assert_eq!(10_", stringify!($SelfT), ".wrapping_shr(1025), 5);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إزاحة لليمين بدون panic؛ تعطي `self >> mask(rhs)` حيث يحذف `mask` البتات العليا من `rhs`
+        /// التي تجعل الإزاحة تتجاوز عرض النوع.
+        ///
+        /// </div>
         #[stable(feature = "num_wrapping", since = "1.2.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2774,6 +3033,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.wrapping_abs(), ", stringify!($SelfT), "::MIN);")]
         /// assert_eq!((-128i8).wrapping_abs() as u8, 128);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// قيمة مطلقة دائرية. يحسب `self.abs()`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "no_panic_abs", since = "1.13.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2798,6 +3063,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-100", stringify!($SelfT), ").unsigned_abs(), 100", stringify!($UnsignedT), ");")]
         /// assert_eq!((-128i8).unsigned_abs(), 128u8);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب القيمة المطلقة لـ `self` كعدد بدون إشارة، بدون التفاف أو panic.
+        ///
+        /// </div>
         #[stable(feature = "unsigned_abs", since = "1.51.0")]
         #[rustc_const_stable(feature = "unsigned_abs", since = "1.51.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2818,6 +3089,12 @@ macro_rules! int_impl {
         /// assert_eq!(3i8.wrapping_pow(6), -39);
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".wrapping_pow(0), 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// رفع للأس دائري. يحسب `self.pow(exp)`، ويلتف عند حدود النوع.
+        ///
+        /// </div>
         #[stable(feature = "no_panic_pow", since = "1.34.0")]
         #[rustc_const_stable(feature = "const_int_pow", since = "1.50.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2841,6 +3118,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_add(2), (7, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.overflowing_add(1), (", stringify!($SelfT), "::MIN, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` + `rhs`، ويرجع النتيجة مع قيمة منطقية تبيّن هل حدث تجاوز للحد.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2899,6 +3182,12 @@ macro_rules! int_impl {
         ///
         /// assert_eq!((sum1, sum0), (6, 8));
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` + `rhs` + `carry` ويتحقق من تجاوز الحد.
+        ///
+        /// </div>
         #[unstable(feature = "signed_bigint_helpers", issue = "151989")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -2924,6 +3213,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MIN).overflowing_add_unsigned(", stringify!($UnsignedT), "::MAX), (", stringify!($SelfT), "::MAX, false));")]
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MAX - 2).overflowing_add_unsigned(3), (", stringify!($SelfT), "::MIN, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` + `rhs` حيث `rhs` بدون إشارة، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -2947,6 +3242,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_sub(2), (3, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_sub(1), (", stringify!($SelfT), "::MAX, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` - `rhs`، ويرجع النتيجة مع قيمة منطقية تبيّن هل حدث تجاوز للحد.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3006,6 +3307,12 @@ macro_rules! int_impl {
         ///
         #[doc = concat!("assert_eq!((diff1, diff0), (10, ", stringify!($UnsignedT), "::MAX));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` - `rhs` - `borrow` ويتحقق من تجاوز الحد.
+        ///
+        /// </div>
         #[unstable(feature = "signed_bigint_helpers", issue = "151989")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -3031,6 +3338,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MAX).overflowing_sub_unsigned(", stringify!($UnsignedT), "::MAX), (", stringify!($SelfT), "::MIN, false));")]
         #[doc = concat!("assert_eq!((", stringify!($SelfT), "::MIN + 2).overflowing_sub_unsigned(3), (", stringify!($SelfT), "::MAX, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب `self` - `rhs` حيث `rhs` بدون إشارة، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[rustc_const_stable(feature = "mixed_integer_ops", since = "1.66.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3053,6 +3366,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_mul(2), (10, false));")]
         /// assert_eq!(1_000_000_000i32.overflowing_mul(10), (1410065408, true));
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب حاصل ضرب `self` في `rhs`، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3083,6 +3402,12 @@ macro_rules! int_impl {
         /// assert_eq!(5i32.carrying_mul(-2, 10), (0, 0));
         /// assert_eq!(1_000_000_000i32.carrying_mul(-10, 0), (2884901888, -3));
         /// assert_eq!(1_000_000_000i32.carrying_mul(-10, 10), (2884901898, -3));
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب "الضرب الكامل" `self * rhs + carry` بدون إمكانية تجاوز الحد.
+        ///
+        /// </div>
         #[doc = concat!("assert_eq!(",
             stringify!($SelfT), "::MAX.carrying_mul(", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX), ",
             "(", stringify!($SelfT), "::MAX.unsigned_abs() + 1, ", stringify!($SelfT), "::MAX / 2));"
@@ -3119,6 +3444,12 @@ macro_rules! int_impl {
         /// assert_eq!(5i32.carrying_mul_add(-2, 10, 10), (10, 0));
         /// assert_eq!(1_000_000_000i32.carrying_mul_add(-10, 0, 0), (2884901888, -3));
         /// assert_eq!(1_000_000_000i32.carrying_mul_add(-10, 10, 10), (2884901908, -3));
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب "الضرب الكامل" `self * rhs + carry + add` بدون إمكانية تجاوز الحد.
+        ///
+        /// </div>
         #[doc = concat!("assert_eq!(",
             stringify!($SelfT), "::MAX.carrying_mul_add(", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX, ", stringify!($SelfT), "::MAX), ",
             "(", stringify!($UnsignedT), "::MAX, ", stringify!($SelfT), "::MAX / 2));"
@@ -3148,6 +3479,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_div(2), (2, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_div(-1), (", stringify!($SelfT), "::MIN, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج قسمة `self` على `rhs`، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_overflowing_int_methods", since = "1.52.0")]
@@ -3178,6 +3515,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_div_euclid(2), (2, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_div_euclid(-1), (", stringify!($SelfT), "::MIN, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج القسمة الإقليدية `self.div_euclid(rhs)`، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "euclidean_division", since = "1.38.0")]
         #[rustc_const_stable(feature = "const_euclidean_int_methods", since = "1.52.0")]
@@ -3208,6 +3551,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_rem(2), (1, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_rem(-1), (0, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب باقي قسمة `self` على `rhs`، مع بيان تجاوز الحد.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_overflowing_int_methods", since = "1.52.0")]
@@ -3238,6 +3587,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".overflowing_rem_euclid(2), (1, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_rem_euclid(-1), (0, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// باقٍ إقليدي مع بيان التجاوز. يحسب `self.rem_euclid(rhs)`.
+        ///
+        /// </div>
         #[stable(feature = "euclidean_division", since = "1.38.0")]
         #[rustc_const_stable(feature = "const_euclidean_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3265,6 +3620,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(2", stringify!($SelfT), ".overflowing_neg(), (-2, false));")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.overflowing_neg(), (", stringify!($SelfT), "::MIN, true));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينفي self، مع بيان التجاوز إذا كان يساوي أصغر قيمة.
+        ///
+        /// </div>
         #[inline]
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
@@ -3291,6 +3652,12 @@ macro_rules! int_impl {
         /// assert_eq!(0x1i32.overflowing_shl(36), (0x10, true));
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".overflowing_shl(", stringify!($BITS_MINUS_ONE), "), (0, false));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يزيح self لليسار بمقدار `rhs` بت، مع بيان التجاوز.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3312,6 +3679,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0x10", stringify!($SelfT), ".overflowing_shr(4), (0x1, false));")]
         /// assert_eq!(0x10i32.overflowing_shr(36), (0x1, true));
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يزيح self لليمين بمقدار `rhs` بت، مع بيان التجاوز.
+        ///
+        /// </div>
         #[stable(feature = "wrapping", since = "1.7.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3363,6 +3736,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".overflowing_pow(0), (1, false));")]
         /// assert_eq!(3i8.overflowing_pow(5), (-13, true));
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرفع self للأس `exp` باستخدام الرفع بالتربيع، مع بيان التجاوز.
+        ///
+        /// </div>
         #[stable(feature = "no_panic_pow", since = "1.34.0")]
         #[rustc_const_stable(feature = "const_int_pow", since = "1.50.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3432,6 +3811,12 @@ macro_rules! int_impl {
         /// assert_eq!(x.pow(5), 32);
         #[doc = concat!("assert_eq!(0_", stringify!($SelfT), ".pow(0), 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرفع self للأس `exp` باستخدام الرفع بالتربيع، مع بيان التجاوز.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_pow", since = "1.50.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3461,6 +3846,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(10", stringify!($SelfT), ".isqrt(), 3);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع الجذر التربيعي الصحيح للعدد، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "isqrt", since = "1.84.0")]
         #[rustc_const_stable(feature = "isqrt", since = "1.84.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3502,6 +3893,12 @@ macro_rules! int_impl {
         /// assert_eq!((-a).div_euclid(b), -2); // -7 >= 4 * -2
         /// assert_eq!((-a).div_euclid(-b), 2); // -7 >= -4 * 2
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج القسمة الإقليدية لـ `self` على `rhs`.
+        ///
+        /// </div>
         #[stable(feature = "euclidean_division", since = "1.38.0")]
         #[rustc_const_stable(feature = "const_euclidean_int_methods", since = "1.52.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3594,6 +3991,12 @@ macro_rules! int_impl {
         /// assert_eq!((-a).div_floor(b), -3);
         /// assert_eq!((-a).div_floor(-b), 2);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج قسمة `self` على `rhs` مع التقريب نحو سالب اللانهاية.
+        ///
+        /// </div>
         #[unstable(feature = "int_roundings", issue = "88581")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -3636,6 +4039,12 @@ macro_rules! int_impl {
         /// assert_eq!((-a).div_ceil(b), -2);
         /// assert_eq!((-a).div_ceil(-b), 3);
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب ناتج قسمة `self` على `rhs` مع التقريب نحو موجب اللانهاية.
+        ///
+        /// </div>
         #[unstable(feature = "int_roundings", issue = "88581")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -3682,6 +4091,13 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-16_", stringify!($SelfT), ").next_multiple_of(-8), -16);")]
         #[doc = concat!("assert_eq!((-23_", stringify!($SelfT), ").next_multiple_of(-8), -24);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// إذا كان `rhs` موجبًا، يحسب أصغر قيمة أكبر من أو تساوي `self` ومن مضاعفات `rhs`. وإذا كان
+        /// سالبًا، يحسب أكبر قيمة أصغر من أو تساوي `self` ومن مضاعفاته.
+        ///
+        /// </div>
         #[unstable(feature = "int_roundings", issue = "88581")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -3728,6 +4144,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(1_", stringify!($SelfT), ".checked_next_multiple_of(0), None);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.checked_next_multiple_of(2), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// مثل `next_multiple_of` لكنه يرجع `None` إذا كان `rhs` صفرًا أو تجاوز الحد.
+        ///
+        /// </div>
         #[unstable(feature = "int_roundings", issue = "88581")]
         #[must_use = "this returns the result of the operation, \
                       without modifying the original"]
@@ -3771,6 +4193,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".ilog(5), 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بأي أساس، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3797,6 +4225,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(2", stringify!($SelfT), ".ilog2(), 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 2، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3822,6 +4256,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(10", stringify!($SelfT), ".ilog10(), 1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 10، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3850,6 +4290,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(5", stringify!($SelfT), ".checked_ilog(5), Some(1));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بأي أساس، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3877,6 +4323,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(2", stringify!($SelfT), ".checked_ilog2(), Some(1));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 2، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3901,6 +4353,12 @@ macro_rules! int_impl {
         /// ```
         #[doc = concat!("assert_eq!(10", stringify!($SelfT), ".checked_ilog10(), Some(1));")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع لوغاريتم العدد بالأساس 10، مقرَّبًا للأسفل.
+        ///
+        /// </div>
         #[stable(feature = "int_log", since = "1.67.0")]
         #[rustc_const_stable(feature = "int_log", since = "1.67.0")]
         #[must_use = "this returns the result of the operation, \
@@ -3968,6 +4426,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!((-100", stringify!($SelfT), ").abs_diff(-120), 20", stringify!($UnsignedT), ");")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MIN.abs_diff(", stringify!($SelfT), "::MAX), ", stringify!($UnsignedT), "::MAX);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحسب الفرق المطلق بين `self` و`other`.
+        ///
+        /// </div>
         #[stable(feature = "int_abs_diff", since = "1.60.0")]
         #[rustc_const_stable(feature = "int_abs_diff", since = "1.60.0")]
         #[must_use = "this returns the result of the operation, \
@@ -4007,6 +4471,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(0", stringify!($SelfT), ".signum(), 0);")]
         #[doc = concat!("assert_eq!((-10", stringify!($SelfT), ").signum(), -1);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع رقمًا يمثل إشارة `self` (-1 أو 0 أو 1).
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_sign", since = "1.47.0")]
         #[must_use = "this returns the result of the operation, \
@@ -4030,6 +4500,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert!(10", stringify!($SelfT), ".is_positive());")]
         #[doc = concat!("assert!(!(-10", stringify!($SelfT), ").is_positive());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `true` إذا كان `self` موجبًا، و`false` إذا كان صفرًا أو سالبًا.
+        ///
+        /// </div>
         #[must_use]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
@@ -4045,6 +4521,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert!((-10", stringify!($SelfT), ").is_negative());")]
         #[doc = concat!("assert!(!10", stringify!($SelfT), ".is_negative());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع `true` إذا كان `self` سالبًا، و`false` إذا كان صفرًا أو موجبًا.
+        ///
+        /// </div>
         #[must_use]
         #[stable(feature = "rust1", since = "1.0.0")]
         #[rustc_const_stable(feature = "const_int_methods", since = "1.32.0")]
@@ -4062,6 +4544,12 @@ macro_rules! int_impl {
         #[doc = concat!("let bytes = ", $swap_op, stringify!($SelfT), ".to_be_bytes();")]
         #[doc = concat!("assert_eq!(bytes, ", $be_bytes, ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع تمثيل هذا العدد في الذاكرة كمصفوفة بايتات بترتيب big-endian (ترتيب الشبكة).
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[must_use = "this returns the result of the operation, \
@@ -4082,6 +4570,12 @@ macro_rules! int_impl {
         #[doc = concat!("let bytes = ", $swap_op, stringify!($SelfT), ".to_le_bytes();")]
         #[doc = concat!("assert_eq!(bytes, ", $le_bytes, ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع تمثيل هذا العدد في الذاكرة كمصفوفة بايتات بترتيب little-endian.
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[must_use = "this returns the result of the operation, \
@@ -4116,6 +4610,12 @@ macro_rules! int_impl {
         ///     }
         /// );
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يرجع تمثيل هذا العدد في الذاكرة كمصفوفة بايتات بترتيب الجهاز.
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[allow(unnecessary_transmutes)]
@@ -4151,6 +4651,12 @@ macro_rules! int_impl {
         #[doc = concat!("    ", stringify!($SelfT), "::from_be_bytes(int_bytes.try_into().unwrap())")]
         /// }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينشئ عددًا من تمثيله كمصفوفة بايتات بترتيب big-endian.
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[must_use]
@@ -4180,6 +4686,12 @@ macro_rules! int_impl {
         #[doc = concat!("    ", stringify!($SelfT), "::from_le_bytes(int_bytes.try_into().unwrap())")]
         /// }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينشئ عددًا من تمثيله كمصفوفة بايتات بترتيب little-endian.
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[must_use]
@@ -4220,6 +4732,12 @@ macro_rules! int_impl {
         #[doc = concat!("    ", stringify!($SelfT), "::from_ne_bytes(int_bytes.try_into().unwrap())")]
         /// }
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينشئ عددًا من تمثيله في الذاكرة كمصفوفة بايتات بترتيب الجهاز.
+        ///
+        /// </div>
         #[stable(feature = "int_to_from_bytes", since = "1.32.0")]
         #[rustc_const_stable(feature = "const_int_conversion", since = "1.44.0")]
         #[allow(unnecessary_transmutes)]
@@ -4236,6 +4754,12 @@ macro_rules! int_impl {
         #[doc = concat!("[`", stringify!($SelfT), "::MIN", "`] instead.")]
         ///
         /// Returns the smallest value that can be represented by this integer type.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// الكود الجديد يُفضّل أن يستخدم الثابت المرتبط `MIN`/`MAX` بدلًا من هذه الدالة القديمة.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[inline(always)]
         #[rustc_promotable]
@@ -4250,6 +4774,12 @@ macro_rules! int_impl {
         #[doc = concat!("[`", stringify!($SelfT), "::MAX", "`] instead.")]
         ///
         /// Returns the largest value that can be represented by this integer type.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// الكود الجديد يُفضّل أن يستخدم الثابت المرتبط `MIN`/`MAX` بدلًا من هذه الدالة القديمة.
+        ///
+        /// </div>
         #[stable(feature = "rust1", since = "1.0.0")]
         #[inline(always)]
         #[rustc_promotable]
@@ -4276,6 +4806,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(80", stringify!($SelfT), ".clamp_magnitude(100), 80);")]
         #[doc = concat!("assert_eq!((-80", stringify!($SelfT), ").clamp_magnitude(100), -80);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحصر هذا العدد ضمن مدى متماثل حول الصفر.
+        ///
+        /// </div>
         #[inline]
         #[must_use = "method returns a new number and does not mutate the original value"]
         #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
@@ -4299,6 +4835,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(-120i8, (-120", stringify!($SelfT), ").truncate());")]
         /// assert_eq!(120i8, 376i32.truncate());
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يقصّ العدد إلى نوع عدد صحيح بنفس الحجم أو أصغر، ويحتفظ بالبتات الأقل أهمية.
+        ///
+        /// </div>
         #[must_use = "this returns the truncated value and does not modify the original"]
         #[unstable(feature = "integer_widen_truncate", issue = "154330")]
         #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
@@ -4321,6 +4863,12 @@ macro_rules! int_impl {
         /// assert_eq!(127i8, 376i32.saturating_truncate());
         /// assert_eq!(-128i8, (-1000i32).saturating_truncate());
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يقصّ العدد إلى نوع بنفس الحجم أو أصغر، مع التشبع عند حدود النوع بدل القص.
+        ///
+        /// </div>
         #[must_use = "this returns the truncated value and does not modify the original"]
         #[unstable(feature = "integer_widen_truncate", issue = "154330")]
         #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
@@ -4343,6 +4891,13 @@ macro_rules! int_impl {
         /// assert_eq!(None, 376i32.checked_truncate::<i8>());
         /// assert_eq!(None, (-1000i32).checked_truncate::<i8>());
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يقصّ العدد إلى نوع بنفس الحجم أو أصغر، ويرجع `None` إذا كانت القيمة خارج حدود النوع
+        /// الأصغر.
+        ///
+        /// </div>
         #[must_use = "this returns the truncated value and does not modify the original"]
         #[unstable(feature = "integer_widen_truncate", issue = "154330")]
         #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
@@ -4362,6 +4917,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(120i128, 120i8.widen());")]
         #[doc = concat!("assert_eq!(-120i128, (-120i8).widen());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يوسّع إلى نوع عدد صحيح بنفس الحجم أو أكبر، مع الحفاظ على القيمة.
+        ///
+        /// </div>
         #[must_use = "this returns the widened value and does not modify the original"]
         #[unstable(feature = "integer_widen_truncate", issue = "154330")]
         #[rustc_const_unstable(feature = "integer_widen_truncate", issue = "154330")]
@@ -4385,6 +4946,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(42u8, 42", stringify!($SelfT), ".saturating_cast());")]
         #[doc = concat!("assert_eq!(0u8, (-42", stringify!($SelfT), ").saturating_cast());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل `self` إلى النوع المستهدف، مع التشبع عند حدوده بدل تجاوزها.
+        ///
+        /// </div>
         #[must_use = "this returns the cast result and does not modify the original"]
         #[unstable(feature = "integer_casts", issue = "157388")]
         #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
@@ -4405,6 +4972,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(42u8, 42", stringify!($SelfT), ".wrapping_cast());")]
         #[doc = concat!("assert_eq!(u8::MAX - 41, (-42", stringify!($SelfT), ").wrapping_cast());")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل `self` إلى النوع المستهدف، مع الالتفاف عند حدوده.
+        ///
+        /// </div>
         #[must_use = "this returns the cast result and does not modify the original"]
         #[unstable(feature = "integer_casts", issue = "157388")]
         #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
@@ -4423,6 +4996,12 @@ macro_rules! int_impl {
         #[doc = concat!("assert_eq!(Some(42u8), 42", stringify!($SelfT), ".checked_cast());")]
         #[doc = concat!("assert_eq!((-42", stringify!($SelfT), ").checked_cast::<u8>(), None);")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل `self` إلى النوع المستهدف، ويرجع `None` إذا لم يمكن تمثيل القيمة فيه.
+        ///
+        /// </div>
         #[must_use = "this returns the cast result and does not modify the original"]
         #[unstable(feature = "integer_casts", issue = "157388")]
         #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
@@ -4451,6 +5030,12 @@ macro_rules! int_impl {
         /// #![feature(integer_casts)]
         #[doc = concat!("let _ = (-42", stringify!($SelfT), ").strict_cast::<u8>();")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل `self` إلى النوع المستهدف، ويتوقف (panic) إذا لم يمكن تمثيل القيمة فيه.
+        ///
+        /// </div>
         #[must_use = "this returns the cast result and does not modify the original"]
         #[unstable(feature = "integer_casts", issue = "157388")]
         #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]
@@ -4467,6 +5052,12 @@ macro_rules! int_impl {
         ///
         /// This results in undefined behavior if the integer value of `self` is bigger than `T::MAX`,
         /// or smaller than `T::MIN`, where `T` is the target type.
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// يحوّل `self` إلى النوع المستهدف بافتراض أن القيمة يمكن تمثيلها فيه (غير آمن).
+        ///
+        /// </div>
         #[must_use = "this returns the cast result and does not modify the original"]
         #[unstable(feature = "integer_casts", issue = "157388")]
         #[rustc_const_unstable(feature = "integer_casts", issue = "157388")]

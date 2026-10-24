@@ -1,4 +1,10 @@
 //! Numeric traits and functions for the built-in numeric types.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits ودوال رقمية للأنواع الرقمية المدمجة.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![expect(clippy::manual_is_ascii_check, reason = "this module implements various is_ascii checks")]
@@ -294,6 +300,12 @@ macro_rules! widening_mul_impl {
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.widening_mul(0_", stringify!($SelfT), "), 0);")]
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.widening_mul(", stringify!($SelfT), "::MAX), ", stringify!($SelfT), "::MAX as ", stringify!($WideT), " * ", stringify!($SelfT), "::MAX as ", stringify!($WideT), ");")]
         /// ```
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ضرب موسِّع. يحسب `self * rhs` في نوع عدد صحيح أكبر.
+        ///
+        /// </div>
         #[unstable(feature = "widening_mul", issue = "152016")]
         #[rustc_const_unstable(feature = "widening_mul", issue = "152016")]
         #[must_use = "this returns the result of the operation, \
@@ -314,6 +326,12 @@ macro_rules! widening_carryless_mul_impl {
         /// ```
         /// #![feature(uint_carryless_mul)]
         ///
+        ///
+        /// <div lang="ar" dir="rtl">
+        ///
+        /// ينفذ ضربًا موسِّعًا بدون حمل (carry-less).
+        ///
+        /// </div>
         #[doc = concat!("assert_eq!(", stringify!($SelfT), "::MAX.widening_carryless_mul(",
                                 stringify!($SelfT), "::MAX), ", stringify!($WideT), "::MAX / 3);")]
         /// ```
@@ -652,6 +670,12 @@ impl u8 {
     /// assert!(ascii.is_ascii());
     /// assert!(!non_ascii.is_ascii());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة ضمن مدى ASCII.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_u8_is_ascii", since = "1.43.0")]
@@ -662,6 +686,12 @@ impl u8 {
 
     /// If the value of this byte is within the ASCII range, returns it as an
     /// [ASCII character](ascii::Char).  Otherwise, returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت قيمة هذا البايت ضمن مدى ASCII يرجعها كحرف ASCII، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -675,6 +705,12 @@ impl u8 {
     /// # Safety
     ///
     /// This byte must be valid ASCII, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا البايت إلى حرف ASCII بدون التحقق من صحته (غير آمن).
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[inline]
@@ -705,6 +741,12 @@ impl u8 {
     /// ```
     ///
     /// [`make_ascii_uppercase`]: Self::make_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة بحرف ASCII كبير.
+    ///
+    /// </div>
     #[must_use = "to uppercase the value in-place, use `make_ascii_uppercase()`"]
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_ascii_methods_on_intrinsics", since = "1.52.0")]
@@ -730,6 +772,12 @@ impl u8 {
     /// ```
     ///
     /// [`make_ascii_lowercase`]: Self::make_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نسخة من القيمة بحرف ASCII صغير.
+    ///
+    /// </div>
     #[must_use = "to lowercase the value in-place, use `make_ascii_lowercase()`"]
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_ascii_methods_on_intrinsics", since = "1.52.0")]
@@ -757,6 +805,12 @@ impl u8 {
     ///
     /// assert!(lowercase_a.eq_ignore_ascii_case(&uppercase_a));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمتان متساويتان بتجاهل حالة أحرف ASCII.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_ascii_methods_on_intrinsics", since = "1.52.0")]
     #[expect(clippy::manual_ignore_case_cmp, reason = "implements eq_ignore_ascii_case")]
@@ -784,6 +838,12 @@ impl u8 {
     /// ```
     ///
     /// [`to_ascii_uppercase`]: Self::to_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه القيمة إلى حرف ASCII كبير في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -810,6 +870,12 @@ impl u8 {
     /// ```
     ///
     /// [`to_ascii_lowercase`]: Self::to_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه القيمة إلى حرف ASCII صغير في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -845,6 +911,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_alphabetic());
     /// assert!(!esc.is_ascii_alphabetic());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف ASCII أبجدي:
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -879,6 +951,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_uppercase());
     /// assert!(!esc.is_ascii_uppercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف ASCII كبير: من 'A' إلى 'Z'.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -913,6 +991,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_lowercase());
     /// assert!(!esc.is_ascii_lowercase());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف ASCII صغير: من 'a' إلى 'z'.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -950,6 +1034,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_alphanumeric());
     /// assert!(!esc.is_ascii_alphanumeric());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف ASCII أبجدي أو رقم:
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -984,6 +1074,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_digit());
     /// assert!(!esc.is_ascii_digit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم ASCII عشري: من '0' إلى '9'.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1016,6 +1112,12 @@ impl u8 {
     /// assert!(!percent.is_ascii_octdigit());
     /// assert!(!lf.is_ascii_octdigit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم ASCII ثماني: من '0' إلى '7'.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "is_ascii_octdigit", issue = "101288")]
     #[inline]
@@ -1052,6 +1154,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_hexdigit());
     /// assert!(!esc.is_ascii_hexdigit());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رقم ASCII ست عشري:
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1091,6 +1199,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_punctuation());
     /// assert!(!esc.is_ascii_punctuation());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة علامة ترقيم أو رمز ASCII (ليست حرفًا أو رقمًا أو مسافة أو تحكمًا):
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1129,6 +1243,12 @@ impl u8 {
     /// assert!(!lf.is_ascii_graphic());
     /// assert!(!esc.is_ascii_graphic());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف ASCII مرئي (ليس مسافة ولا تحكمًا): من '!' إلى '~'.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1183,6 +1303,13 @@ impl u8 {
     /// assert!(lf.is_ascii_whitespace());
     /// assert!(!esc.is_ascii_whitespace());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة مسافة ASCII بيضاء: مسافة، أو tab أفقي، أو سطر جديد (LF)، أو form feed، أو
+    /// رجوع العربة (CR).
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1219,6 +1346,12 @@ impl u8 {
     /// assert!(lf.is_ascii_control());
     /// assert!(esc.is_ascii_control());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة حرف تحكم ASCII: من NUL إلى U+001F، أو DELETE.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ascii_ctype_on_intrinsics", since = "1.24.0")]
     #[rustc_const_stable(feature = "const_ascii_ctype_on_intrinsics", since = "1.47.0")]
@@ -1244,6 +1377,12 @@ impl u8 {
     /// assert_eq!("\\\\", b'\\'.escape_ascii().to_string());
     /// assert_eq!("\\x9d", b'\x9d'.escape_ascii().to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتج نسخة مهرَّبة من `u8` كحرف ASCII.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped byte as an iterator, \
                   without modifying the original"]
     #[stable(feature = "inherent_ascii_escape", since = "1.60.0")]
@@ -1307,6 +1446,12 @@ impl u16 {
     /// assert!(high_surrogate.is_utf16_surrogate());
     /// assert!(!high_non_surrogate.is_utf16_surrogate());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل القيمة رمز يونيكود بديل (surrogate)، وهذه قيم غير مسموحة لـ `char`.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "utf16_extra", issue = "94919")]
     #[inline]
@@ -1550,6 +1695,12 @@ impl usize {
 /// assert_eq!(sub.classify(), FpCategory::Subnormal);
 /// assert_eq!(nan.classify(), FpCategory::Nan);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تصنيف الأرقام العشرية.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum FpCategory {
@@ -1557,17 +1708,35 @@ pub enum FpCategory {
     ///
     /// See [the documentation for `f32`](f32) for more information on the unusual properties
     /// of NaN.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// NaN (ليس رقمًا): ينتج من حسابات مثل `(-1.0).sqrt()`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Nan,
 
     /// Positive or negative infinity, which often results from dividing a nonzero number
     /// by zero.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لانهاية موجبة أو سالبة، وتنتج غالبًا من قسمة رقم غير صفري على صفر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Infinite,
 
     /// Positive or negative zero.
     ///
     /// See [the documentation for `f32`](f32) for more information on the signedness of zeroes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// صفر موجب أو سالب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Zero,
 
@@ -1579,6 +1748,12 @@ pub enum FpCategory {
     ///
     /// [`Normal`]: Self::Normal
     /// [`Zero`]: Self::Zero
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// تمثيل "دون طبيعي" (أقل دقة نسبيًا من `Normal`).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Subnormal,
 
@@ -1588,6 +1763,12 @@ pub enum FpCategory {
     /// and the largest positive normal numbers are [`f32::MAX`] and [`f64::MAX`]. (Unlike signed
     /// integers, floating point numbers are symmetric in their range, so negating any of these
     /// constants will produce their negative counterpart.)
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// رقم عشري عادي، ليس من الفئات الاستثنائية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Normal,
 }
@@ -1665,6 +1846,13 @@ macro_rules! from_str_int_impl {
             /// #
             #[doc = concat!("assert!(", stringify!($int_ty), "::from_str(\"1 \").is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[inline]
             fn from_str(src: &str) -> Result<$int_ty, ParseIntError> {
                 <$int_ty>::from_str_radix(src, 10)
@@ -1714,6 +1902,13 @@ macro_rules! from_str_int_impl {
             /// ```
             #[doc = concat!("assert!(", stringify!($int_ty), "::from_str_radix(\"1 \", 10).is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[stable(feature = "rust1", since = "1.0.0")]
             #[rustc_const_stable(feature = "const_int_from_str", since = "1.82.0")]
             #[inline]
@@ -1724,6 +1919,12 @@ macro_rules! from_str_int_impl {
             /// Parses an integer from an ASCII-byte slice with decimal digits.
             ///
             /// The characters are expected to be an optional
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام عشرية.
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1750,6 +1951,13 @@ macro_rules! from_str_int_impl {
             /// #
             #[doc = concat!("assert!(", stringify!($int_ty), "::from_ascii_bytes(b\"1 \").is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
             #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
             #[inline]
@@ -1763,6 +1971,12 @@ macro_rules! from_str_int_impl {
             /// Parses an integer from an ASCII-byte slice with digits in a given base.
             ///
             /// The characters are expected to be an optional
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// يقرأ عددًا صحيحًا من شريحة بايتات ASCII بأرقام بأساس معيّن.
+            ///
+            /// </div>
             #[doc = sign_dependent_expr!{
                 $signedness ?
                 if signed {
@@ -1798,6 +2012,13 @@ macro_rules! from_str_int_impl {
             /// #
             #[doc = concat!("assert!(", stringify!($int_ty), "::from_ascii_bytes_radix(b\"1 \", 10).is_err());")]
             /// ```
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// إشارة متبوعة بأرقام فقط. أي أحرف غير رقمية في البداية أو النهاية (بما فيها المسافات)
+            /// خطأ.
+            ///
+            /// </div>
             #[unstable(feature = "int_from_ascii", issue = "134821")]
             #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
             #[inline]

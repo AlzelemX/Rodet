@@ -20,6 +20,12 @@ const fn contains_zero_byte(x: usize) -> bool {
 }
 
 /// Returns the first index matching the byte `x` in `text`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع أول موضع يطابق البايت `x` في `text`.
+///
+/// </div>
 #[inline]
 #[must_use]
 pub const fn memchr(x: u8, text: &[u8]) -> Option<usize> {
@@ -109,6 +115,12 @@ const fn memchr_aligned(x: u8, text: &[u8]) -> Option<usize> {
 }
 
 /// Returns the last index matching the byte `x` in `text`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع آخر موضع يطابق البايت `x` في `text`.
+///
+/// </div>
 #[inline]
 #[must_use]
 pub fn memrchr(x: u8, text: &[u8]) -> Option<usize> {

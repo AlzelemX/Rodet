@@ -1,10 +1,22 @@
 //! This module contains logic for performing a merge of two sorted sub-slices.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! منطق دمج جزأين مرتبين.
+//!
+//! </div>
 
 use crate::mem::MaybeUninit;
 use crate::{cmp, ptr};
 
 /// Merges non-decreasing runs `v[..mid]` and `v[mid..]` using `scratch` as
 /// temporary storage, and stores the result into `v[..]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يدمج الجزأين المرتبين `v[..mid]` و`v[mid..]` باستخدام `scratch` كذاكرة مؤقتة.
+///
+/// </div>
 pub fn merge<T, F: FnMut(&T, &T) -> bool>(
     v: &mut [T],
     scratch: &mut [MaybeUninit<T>],

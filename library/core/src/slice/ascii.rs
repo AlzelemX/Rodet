@@ -1,4 +1,10 @@
 //! Operations on ASCII `[u8]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! عمليات على `[u8]` بأحرف ASCII.
+//!
+//! </div>
 
 use core::ascii::EscapeDefault;
 
@@ -17,6 +23,12 @@ impl [u8] {
     /// Checks if all bytes in this slice are within the ASCII range.
     ///
     /// An empty slice returns `true`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل كل البايتات في هذه الشريحة ضمن مدى ASCII.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_slice_is_ascii", since = "1.74.0")]
     #[must_use]
@@ -27,6 +39,12 @@ impl [u8] {
 
     /// If this slice [`is_ascii`](Self::is_ascii), returns it as a slice of
     /// [ASCII characters](ascii::Char), otherwise returns `None`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إذا كانت الشريحة ASCII، يرجعها كشريحة أحرف ASCII، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]
@@ -45,6 +63,12 @@ impl [u8] {
     /// # Safety
     ///
     /// Every byte in the slice must be in `0..=127`, or else this is UB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل شريحة البايتات إلى شريحة أحرف ASCII بدون التحقق من صحتها (غير آمن).
+    ///
+    /// </div>
     #[unstable(feature = "ascii_char", issue = "110998")]
     #[must_use]
     #[inline]
@@ -59,6 +83,12 @@ impl [u8] {
     ///
     /// Same as `to_ascii_lowercase(a) == to_ascii_lowercase(b)`,
     /// but without allocating and copying temporaries.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل الشريحتان متساويتان بتجاهل حالة أحرف ASCII.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_eq_ignore_ascii_case", since = "1.89.0")]
     #[must_use]
@@ -179,6 +209,12 @@ impl [u8] {
     /// [`to_ascii_uppercase`].
     ///
     /// [`to_ascii_uppercase`]: #method.to_ascii_uppercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه الشريحة إلى أحرف ASCII كبيرة في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -201,6 +237,12 @@ impl [u8] {
     /// [`to_ascii_lowercase`].
     ///
     /// [`to_ascii_lowercase`]: #method.to_ascii_lowercase
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذه الشريحة إلى أحرف ASCII صغيرة في مكانها.
+    ///
+    /// </div>
     #[stable(feature = "ascii_methods_on_intrinsics", since = "1.23.0")]
     #[rustc_const_stable(feature = "const_make_ascii", since = "1.84.0")]
     #[inline]
@@ -224,6 +266,12 @@ impl [u8] {
     /// let escaped = s.escape_ascii().to_string();
     /// assert_eq!(escaped, "0\\t\\r\\n\\'\\\"\\\\\\x9d");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا ينتج نسخة مهرَّبة من هذه الشريحة كنص ASCII.
+    ///
+    /// </div>
     #[must_use = "this returns the escaped bytes as an iterator, \
                   without modifying the original"]
     #[stable(feature = "inherent_ascii_escape", since = "1.60.0")]
@@ -247,6 +295,12 @@ impl [u8] {
     /// assert_eq!(b"  ".trim_ascii_start(), b"");
     /// assert_eq!(b"".trim_ascii_start(), b"");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة البايتات بعد حذف مسافات ASCII البيضاء من البداية.
+    ///
+    /// </div>
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[rustc_const_stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[inline]
@@ -280,6 +334,12 @@ impl [u8] {
     /// assert_eq!(b"  ".trim_ascii_end(), b"");
     /// assert_eq!(b"".trim_ascii_end(), b"");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة البايتات بعد حذف مسافات ASCII البيضاء من النهاية.
+    ///
+    /// </div>
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[rustc_const_stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[inline]
@@ -314,6 +374,12 @@ impl [u8] {
     /// assert_eq!(b"  ".trim_ascii(), b"");
     /// assert_eq!(b"".trim_ascii(), b"");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة البايتات بعد حذف مسافات ASCII البيضاء من البداية والنهاية.
+    ///
+    /// </div>
     #[stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[rustc_const_stable(feature = "byte_slice_trim_ascii", since = "1.80.0")]
     #[inline]
@@ -370,6 +436,12 @@ impl [u8] {
     /// assert_eq!(b"".split_ascii_whitespace().next(), None);
     /// assert_eq!(b"   ".split_ascii_whitespace().next(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم شريحة البايتات عند مسافات ASCII البيضاء.
+    ///
+    /// </div>
     #[must_use = "this returns the split byte slice as an iterator, without modifying the original"]
     #[unstable(feature = "u8_split_ascii_whitespace", issue = "147878")]
     #[inline]
@@ -387,6 +459,12 @@ impl [u8] {
 ///
 /// [`split_ascii_whitespace`]: slice::split_ascii_whitespace
 /// [byteslice]: prim@slice
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء شريحة البايتات، مفصولة بأي عدد من مسافات ASCII البيضاء.
+///
+/// </div>
 #[unstable(feature = "u8_split_ascii_whitespace", issue = "147878")]
 #[derive(Clone, Debug)]
 pub struct SplitAsciiWhitespace<'a> {
@@ -443,6 +521,12 @@ impl<'a> SplitAsciiWhitespace<'a> {
     /// split.by_ref().for_each(drop);
     /// assert_eq!(split.remainder(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع باقي الشريحة المقسومة.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     // This is also blocked on: https://github.com/rust-lang/rust/issues/77998
@@ -467,6 +551,12 @@ impl_fn_for_zst! {
 ///
 /// This `struct` is created by the [`slice::escape_ascii`] method. See its
 /// documentation for more information.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على النسخة المهرَّبة من شريحة بايتات.
+///
+/// </div>
 #[stable(feature = "inherent_ascii_escape", since = "1.60.0")]
 #[derive(Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]

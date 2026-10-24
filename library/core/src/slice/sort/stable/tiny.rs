@@ -1,4 +1,10 @@
 //! Binary-size optimized mergesort inspired by https://github.com/voultapher/tiny-sort-rs.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! mergesort محسَّن لحجم البرنامج.
+//!
+//! </div>
 
 use crate::mem::MaybeUninit;
 use crate::ptr;
@@ -6,6 +12,12 @@ use crate::slice::sort::stable::merge;
 
 /// Tiny recursive top-down merge sort optimized for binary size. It has no adaptiveness whatsoever,
 /// no run detection, etc.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// merge sort صغير متداخل محسَّن لحجم البرنامج.
+///
+/// </div>
 #[inline(always)]
 pub fn mergesort<T, F: FnMut(&T, &T) -> bool>(
     v: &mut [T],

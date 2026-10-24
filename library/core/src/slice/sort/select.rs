@@ -5,6 +5,12 @@
 //! The fallback algorithm used for introselect is Median of Medians using Tukey's Ninther
 //! for pivot selection. Using this as a fallback ensures O(n) worst case running time with
 //! better performance than one would get using heapsort as fallback.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تطبيق `slice::select_nth_unstable` بخوارزمية introselect.
+//!
+//! </div>
 
 use crate::cfg_select;
 use crate::mem::{self, SizedTypeProperties};

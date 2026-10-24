@@ -203,6 +203,12 @@ use crate::pin::Pin;
 /// [`PhantomData`]: crate::marker::PhantomData
 /// [drop check]: ../../nomicon/dropck.html
 /// [nomicon]: ../../nomicon/phantom-data.html#an-exception-the-special-case-of-the-standard-library-and-its-unstable-may_dangle
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كود مخصص يُنفَّذ عند حذف القيمة (دالة الهدم).
+///
+/// </div>
 #[lang = "drop"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_destruct", issue = "133214")]

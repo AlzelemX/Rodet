@@ -1,4 +1,10 @@
 //! This module contains the entry points for `slice::sort`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! نقاط الدخول لـ `slice::sort`.
+//!
+//! </div>
 
 #[cfg(not(any(feature = "optimize_for_size", target_pointer_width = "16")))]
 use crate::cmp;
@@ -25,6 +31,12 @@ pub(crate) mod tiny;
 ///
 /// Upholds all safety properties outlined here:
 /// <https://github.com/Voultapher/sort-research-rs/blob/main/writeup/sort_safety/text.md>
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ترتيب مستقر اسمه driftsort.
+///
+/// </div>
 #[inline(always)]
 pub fn sort<T, F: FnMut(&T, &T) -> bool, BufT: BufGuard<T>>(v: &mut [T], is_less: &mut F) {
     // Arrays of zero-sized types are always all-equal, and thus sorted.
@@ -138,10 +150,28 @@ fn driftsort_main<T, F: FnMut(&T, &T) -> bool, BufT: BufGuard<T>>(v: &mut [T], i
 #[doc(hidden)]
 /// Abstracts owned memory buffer, so that sort code can live in core where no allocation is
 /// possible. This trait can then be implemented in a place that has access to allocation.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تجريد لمخزن ذاكرة مملوك، ليعيش كود الترتيب في core.
+///
+/// </div>
 pub trait BufGuard<T> {
     /// Creates new buffer that holds at least `capacity` memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مخزنًا جديدًا يتسع لـ `capacity` على الأقل.
+    ///
+    /// </div>
     fn with_capacity(capacity: usize) -> Self;
     /// Returns mutable access to uninitialized memory owned by the buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع وصولًا قابلًا للتعديل إلى الذاكرة غير المهيأة في المخزن.
+    ///
+    /// </div>
     fn as_uninit_slice_mut(&mut self) -> &mut [MaybeUninit<T>];
 }
 

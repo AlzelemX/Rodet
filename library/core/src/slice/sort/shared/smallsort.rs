@@ -1,4 +1,10 @@
 //! This module contains a variety of sort implementations that are optimized for small lengths.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! خوارزميات ترتيب محسَّنة للأطوال الصغيرة.
+//!
+//! </div>
 
 use crate::mem::{self, ManuallyDrop, MaybeUninit};
 use crate::slice::sort::shared::FreezeMarker;
@@ -571,6 +577,12 @@ unsafe fn insert_tail<T, F: FnMut(&T, &T) -> bool>(begin: *mut T, tail: *mut T, 
 }
 
 /// Sort `v` assuming `v[..offset]` is already sorted.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرتب `v` بافتراض أن `v[..offset]` مرتب أصلًا.
+///
+/// </div>
 pub fn insertion_sort_shift_left<T, F: FnMut(&T, &T) -> bool>(
     v: &mut [T],
     offset: usize,
@@ -603,6 +615,12 @@ pub fn insertion_sort_shift_left<T, F: FnMut(&T, &T) -> bool>(
 
 /// SAFETY: The caller MUST guarantee that `v_base` is valid for 4 reads and
 /// `dst` is valid for 4 writes. The result will be stored in `dst[0..4]`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// أمان: يجب أن يضمن المستدعي صلاحية `v_base` لأربع قراءات و`dst` لأربع كتابات.
+///
+/// </div>
 pub unsafe fn sort4_stable<T, F: FnMut(&T, &T) -> bool>(
     v_base: *const T,
     dst: *mut T,

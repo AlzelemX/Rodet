@@ -1,4 +1,10 @@
 //! Comparison traits for `[T]`.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! traits المقارنة للنوع `[T]`.
+//!
+//! </div>
 
 use super::{from_raw_parts, memchr};
 use crate::ascii;
@@ -33,6 +39,12 @@ where
 const impl<T: [const] Eq> Eq for [T] {}
 
 /// Implements comparison of slices [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق مقارنة الشرائح بالترتيب المعجمي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl<T: [const] Ord> Ord for [T] {
@@ -53,6 +65,12 @@ const fn as_underlying(x: ControlFlow<bool>) -> u8 {
 }
 
 /// Implements comparison of slices [lexicographically](Ord#lexicographical-comparison).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطبّق مقارنة الشرائح بالترتيب المعجمي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_cmp", issue = "143800")]
 const impl<T: [const] PartialOrd> PartialOrd for [T] {

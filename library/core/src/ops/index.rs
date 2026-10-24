@@ -46,6 +46,12 @@
 /// assert_eq!(nucleotide_count[Nucleotide::G], 10);
 /// assert_eq!(nucleotide_count[Nucleotide::T], 12);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لعمليات الفهرسة (`container[index]`) في السياقات غير القابلة للتعديل.
+///
+/// </div>
 #[lang = "index"]
 #[diagnostic::on_unimplemented(
     message = "the type `{Self}` cannot be indexed by `{Idx}`",
@@ -142,6 +148,12 @@ pub const trait Index<Idx: ?Sized> {
 /// // `balance[Side::Left]`.
 /// balance[Side::Left] = Weight::Kilogram(3.0);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يُستخدم لعمليات الفهرسة (`container[index]`) في السياقات القابلة للتعديل.
+///
+/// </div>
 #[lang = "index_mut"]
 #[rustc_on_unimplemented(
     on(
