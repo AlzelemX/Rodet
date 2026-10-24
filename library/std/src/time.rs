@@ -28,6 +28,12 @@
 //! let elapsed_time = now.elapsed();
 //! println!("Running slow_function() took {} seconds.", elapsed_time.as_secs());
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قياس الزمن.
+//!
+//! </div>
 
 #![stable(feature = "time", since = "1.3.0")]
 
@@ -150,6 +156,12 @@ use crate::sys::{FromInner, IntoInner, time};
 /// [`sub`]: Instant::sub
 /// [`checked_duration_since`]: Instant::checked_duration_since
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قياس من ساعة متزايدة دائمًا (لا ترجع للخلف). مفيدة لقياس المدد مع `Duration`.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[stable(feature = "time2", since = "1.8.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "Instant")]
@@ -243,6 +255,12 @@ pub struct Instant(time::Instant);
 ///
 /// [`add`]: SystemTime::add
 /// [`UNIX_EPOCH`]: SystemTime::UNIX_EPOCH
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قياس من ساعة النظام، مفيد للتعامل مع نظام الملفات أو العمليات الأخرى.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[stable(feature = "time2", since = "1.8.0")]
 pub struct SystemTime(time::SystemTime);
@@ -265,6 +283,12 @@ pub struct SystemTime(time::SystemTime);
 ///     Err(e) => println!("SystemTimeError difference: {:?}", e.duration()),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `duration_since` و`elapsed` على `SystemTime` عندما يكون الوقت في الاتجاه المعاكس.
+///
+/// </div>
 #[derive(Clone, Debug)]
 #[stable(feature = "time2", since = "1.8.0")]
 pub struct SystemTimeError(Duration);
@@ -279,6 +303,12 @@ impl Instant {
     ///
     /// let now = Instant::now();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع لحظة تمثل "الآن".
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "time2", since = "1.8.0")]
     #[cfg_attr(not(test), rustc_diagnostic_item = "instant_now")]
@@ -309,6 +339,12 @@ impl Instant {
     /// println!("{:?}", new_now.duration_since(now));
     /// println!("{:?}", now.duration_since(new_now)); // 0ns
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي من لحظة أخرى حتى هذه، أو مدة صفرية إذا كانت تلك اللحظة بعد هذه.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn duration_since(&self, earlier: Instant) -> Duration {
@@ -335,6 +371,12 @@ impl Instant {
     /// println!("{:?}", new_now.checked_duration_since(now));
     /// println!("{:?}", now.checked_duration_since(new_now)); // None
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي من لحظة أخرى حتى هذه، أو None إذا كانت تلك اللحظة بعد هذه.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "checked_duration_since", since = "1.39.0")]
     pub fn checked_duration_since(&self, earlier: Instant) -> Option<Duration> {
@@ -356,6 +398,12 @@ impl Instant {
     /// println!("{:?}", new_now.saturating_duration_since(now));
     /// println!("{:?}", now.saturating_duration_since(new_now)); // 0ns
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي من لحظة أخرى حتى هذه، أو مدة صفرية إذا كانت تلك اللحظة بعد هذه.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "checked_duration_since", since = "1.39.0")]
     pub fn saturating_duration_since(&self, earlier: Instant) -> Duration {
@@ -383,6 +431,12 @@ impl Instant {
     /// sleep(three_secs);
     /// assert!(instant.elapsed() >= three_secs);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي منذ هذه اللحظة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn elapsed(&self) -> Duration {
@@ -392,6 +446,12 @@ impl Instant {
     /// Returns `Some(t)` where `t` is the time `self + duration` if `t` can be represented as
     /// `Instant` (which means it's inside the bounds of the underlying data structure), `None`
     /// otherwise.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(t)` حيث `t` هو `self + duration` إذا أمكن تمثيله كـ `Instant`، وإلا `None`.
+    ///
+    /// </div>
     #[stable(feature = "time_checked_add", since = "1.34.0")]
     pub fn checked_add(&self, duration: Duration) -> Option<Instant> {
         self.0.checked_add_duration(&duration).map(Instant)
@@ -400,6 +460,12 @@ impl Instant {
     /// Returns `Some(t)` where `t` is the time `self - duration` if `t` can be represented as
     /// `Instant` (which means it's inside the bounds of the underlying data structure), `None`
     /// otherwise.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(t)` حيث `t` هو `self - duration` إذا أمكن تمثيله كـ `Instant`، وإلا `None`.
+    ///
+    /// </div>
     #[stable(feature = "time_checked_add", since = "1.34.0")]
     pub fn checked_sub(&self, duration: Duration) -> Option<Instant> {
         self.0.checked_sub_duration(&duration).map(Instant)
@@ -467,6 +533,12 @@ impl Sub<Instant> for Instant {
     /// See [Monotonicity].
     ///
     /// [Monotonicity]: Instant#monotonicity
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي من لحظة أخرى حتى هذه، أو مدة صفرية إذا كانت تلك اللحظة بعد هذه.
+    ///
+    /// </div>
     fn sub(self, other: Instant) -> Duration {
         self.duration_since(other)
     }
@@ -507,6 +579,12 @@ impl SystemTime {
     ///     Err(_) => panic!("SystemTime before UNIX EPOCH!"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نقطة مرجعية في الزمن (بداية يونكس 1970-01-01) لإنشاء قيم `SystemTime` أو معرفة موقعها.
+    ///
+    /// </div>
     #[stable(feature = "assoc_unix_epoch", since = "1.28.0")]
     pub const UNIX_EPOCH: SystemTime = UNIX_EPOCH;
 
@@ -543,6 +621,12 @@ impl SystemTime {
     ///         .checked_add(configured_offset)
     ///         .unwrap_or(SystemTime::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر قيمة يمكن تمثيلها بـ `SystemTime` على هذا النظام.
+    ///
+    /// </div>
     #[unstable(feature = "time_systemtime_limits", issue = "149067")]
     pub const MAX: SystemTime = SystemTime(time::SystemTime::MAX);
 
@@ -584,6 +668,12 @@ impl SystemTime {
     ///         .checked_sub(configured_expiry)
     ///         .unwrap_or(SystemTime::MIN);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أصغر قيمة يمكن تمثيلها بـ `SystemTime` على هذا النظام.
+    ///
+    /// </div>
     #[unstable(feature = "time_systemtime_limits", issue = "149067")]
     pub const MIN: SystemTime = SystemTime(time::SystemTime::MIN);
 
@@ -596,6 +686,12 @@ impl SystemTime {
     ///
     /// let sys_time = SystemTime::now();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع وقت النظام الذي يمثل "الآن".
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn now() -> SystemTime {
@@ -626,6 +722,12 @@ impl SystemTime {
     ///     .expect("Clock may have gone backwards");
     /// println!("{difference:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الوقت المنقضي من وقت سابق.
+    ///
+    /// </div>
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn duration_since(&self, earlier: SystemTime) -> Result<Duration, SystemTimeError> {
         self.0.sub_time(&earlier.0).map_err(SystemTimeError)
@@ -656,6 +758,12 @@ impl SystemTime {
     /// sleep(one_sec);
     /// assert!(sys_time.elapsed().unwrap() >= one_sec);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الفرق بين وقت النظام هذا والوقت الحالي.
+    ///
+    /// </div>
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn elapsed(&self) -> Result<Duration, SystemTimeError> {
         SystemTime::now().duration_since(*self)
@@ -667,6 +775,12 @@ impl SystemTime {
     ///
     /// In the case that the `duration` is smaller than the time precision of the operating
     /// system, `Some(self)` will be returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(t)` حيث `t` هو `self + duration` إذا أمكن تمثيله كـ `SystemTime`، وإلا `None`.
+    ///
+    /// </div>
     #[stable(feature = "time_checked_add", since = "1.34.0")]
     pub fn checked_add(&self, duration: Duration) -> Option<SystemTime> {
         self.0.checked_add_duration(&duration).map(SystemTime)
@@ -678,6 +792,12 @@ impl SystemTime {
     ///
     /// In the case that the `duration` is smaller than the time precision of the operating
     /// system, `Some(self)` will be returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Some(t)` حيث `t` هو `self - duration` إذا أمكن تمثيله كـ `SystemTime`، وإلا `None`.
+    ///
+    /// </div>
     #[stable(feature = "time_checked_add", since = "1.34.0")]
     pub fn checked_sub(&self, duration: Duration) -> Option<SystemTime> {
         self.0.checked_sub_duration(&duration).map(SystemTime)
@@ -688,6 +808,12 @@ impl SystemTime {
     ///
     /// In the case that the `duration` is smaller than the time precision of
     /// the operating system, `self` will be returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمع مشبع لـ `SystemTime`: يحسب `self + duration` ويرجع `SystemTime::MAX` عند تجاوز الحد.
+    ///
+    /// </div>
     #[unstable(feature = "time_saturating_systemtime", issue = "151199")]
     pub fn saturating_add(&self, duration: Duration) -> SystemTime {
         self.checked_add(duration).unwrap_or(SystemTime::MAX)
@@ -698,6 +824,12 @@ impl SystemTime {
     ///
     /// In the case that the `duration` is smaller than the time precision of
     /// the operating system, `self` will be returned.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرح مشبع لـ `SystemTime`: يحسب `self - duration` ويرجع `SystemTime::MIN` عند تجاوز الحد.
+    ///
+    /// </div>
     #[unstable(feature = "time_saturating_systemtime", issue = "151199")]
     pub fn saturating_sub(&self, duration: Duration) -> SystemTime {
         self.checked_sub(duration).unwrap_or(SystemTime::MIN)
@@ -728,6 +860,12 @@ impl SystemTime {
     /// assert_eq!(now.saturating_duration_since(now), Duration::ZERO);
     /// assert!(now.duration_since(now).is_ok());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب الوقت المنقضي من وقت سابق بشكل مشبع، ويرجع `Duration::ZERO` إذا كان `earlier` لاحقًا.
+    ///
+    /// </div>
     #[unstable(feature = "time_saturating_systemtime", issue = "151199")]
     pub fn saturating_duration_since(&self, earlier: SystemTime) -> Duration {
         self.duration_since(earlier).unwrap_or(Duration::ZERO)
@@ -806,6 +944,12 @@ impl fmt::Debug for SystemTime {
 ///     Err(_) => panic!("SystemTime before UNIX EPOCH!"),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نقطة مرجعية في الزمن (بداية يونكس 1970-01-01) لإنشاء قيم `SystemTime` أو معرفة موقعها.
+///
+/// </div>
 #[stable(feature = "time2", since = "1.8.0")]
 pub const UNIX_EPOCH: SystemTime = SystemTime(time::UNIX_EPOCH);
 
@@ -831,6 +975,12 @@ impl SystemTimeError {
     ///     Err(e) => println!("SystemTimeError difference: {:?}", e.duration()),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المدة الموجبة التي تمثل كم كان وقت النظام الثاني متقدمًا عن الأول.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "time2", since = "1.8.0")]
     pub fn duration(&self) -> Duration {

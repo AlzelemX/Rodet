@@ -124,10 +124,22 @@ use crate::{io, iter, option, slice, vec};
 /// ```
 ///
 /// [`TcpStream::connect`]: crate::net::TcpStream::connect
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للكائنات التي يمكن تحويلها أو حلّها إلى عنوان `SocketAddr` واحد أو أكثر.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub trait ToSocketAddrs {
     /// Returned iterator over socket addresses which this type may correspond
     /// to.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// المكرر المُرجَع على عناوين المقابس التي قد يقابلها هذا النوع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     type Iter: Iterator<Item = SocketAddr>;
 
@@ -138,6 +150,12 @@ pub trait ToSocketAddrs {
     ///
     /// Note that this function may block the current thread while resolution is
     /// performed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الكائن إلى مكرر على عناوين `SocketAddr` المحلولة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn to_socket_addrs(&self) -> io::Result<Self::Iter>;
 }

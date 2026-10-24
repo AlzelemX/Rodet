@@ -170,6 +170,12 @@ pub fn type_id_field_representing_type(
 /// points to. When called on anything else this returns None.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::points_to`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مع مؤشر يرجع `TypeId` لما يشير إليه، وإلا يرجع None.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]
@@ -179,6 +185,12 @@ pub fn type_id_points_to(_id: crate::any::TypeId) -> Option<crate::any::TypeId>;
 /// When called on anything else this returns `false`.
 ///
 /// The more user-friendly version of this intrinsic is [`core::any::TypeId::points_mutably`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مع مؤشر يرجع هل هو قابل للتعديل، وإلا يرجع `false`.
+///
+/// </div>
 #[rustc_intrinsic]
 #[unstable(feature = "core_intrinsics", issue = "none")]
 #[rustc_comptime]

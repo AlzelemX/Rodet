@@ -77,6 +77,12 @@
 //!
 //! [`components`]: Path::components
 //! [`push`]: PathBuf::push
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! التعامل مع مسارات الملفات بشكل يعمل على كل الأنظمة.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 #![deny(unsafe_op_in_unsafe_fn)]
@@ -147,6 +153,12 @@ use crate::{cmp, fmt, fs, io, sys};
 /// assert_eq!(Disk(b'C'), get_path_prefix(r"C:\Users\Rust\Pictures\Ferris"));
 /// # }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بادئات مسارات ويندوز، مثل `C:` أو `\\server\share`.
+///
+/// </div>
 #[derive(Copy, Clone, Debug, Hash, PartialOrd, Ord, PartialEq, Eq)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum Prefix<'a> {
@@ -154,6 +166,12 @@ pub enum Prefix<'a> {
     ///
     /// Verbatim prefixes consist of `\\?\` immediately followed by the given
     /// component.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة حرفية (verbatim)، مثل `\\?\cat_pics`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Verbatim(#[stable(feature = "rust1", since = "1.0.0")] &'a OsStr),
 
@@ -162,6 +180,12 @@ pub enum Prefix<'a> {
     ///
     /// Verbatim UNC prefixes consist of `\\?\UNC\` immediately followed by the
     /// server's hostname and a share name.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة حرفية باصطلاح UNC، مثل `\\?\UNC\server\share`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     VerbatimUNC(
         #[stable(feature = "rust1", since = "1.0.0")] &'a OsStr,
@@ -172,6 +196,12 @@ pub enum Prefix<'a> {
     ///
     /// Verbatim disk prefixes consist of `\\?\` immediately followed by the
     /// drive letter and `:`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة قرص حرفية، مثل `\\?\C:`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     VerbatimDisk(#[stable(feature = "rust1", since = "1.0.0")] u8),
 
@@ -179,6 +209,12 @@ pub enum Prefix<'a> {
     ///
     /// Device namespace prefixes consist of `\\.\` (possibly using `/`
     /// instead of `\`), immediately followed by the device name.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة مساحة أسماء الأجهزة، مثل `\\.\COM42`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     DeviceNS(#[stable(feature = "rust1", since = "1.0.0")] &'a OsStr),
 
@@ -186,6 +222,12 @@ pub enum Prefix<'a> {
     /// `\\server\share`.
     ///
     /// UNC prefixes consist of the server's hostname and a share name.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة باصطلاح UNC في ويندوز، مثل `\\server\share`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     UNC(
         #[stable(feature = "rust1", since = "1.0.0")] &'a OsStr,
@@ -193,6 +235,12 @@ pub enum Prefix<'a> {
     ),
 
     /// Prefix `C:` for the given disk drive.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// البادئة `C:` لقرص معيّن.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Disk(#[stable(feature = "rust1", since = "1.0.0")] u8),
 }
@@ -231,6 +279,12 @@ impl<'a> Prefix<'a> {
     /// assert!(!UNC(OsStr::new("server"), OsStr::new("share")).is_verbatim());
     /// assert!(!Disk(b'C').is_verbatim());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل البادئة حرفية، أي تبدأ بـ `\\?\`.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
@@ -265,6 +319,12 @@ impl<'a> Prefix<'a> {
 /// assert!(path::is_separator('/')); // '/' works for both Unix and Windows
 /// assert!(!path::is_separator('❤'));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد هل الحرف أحد فواصل المسارات المسموحة على النظام الحالي.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_unstable(feature = "const_path_separators", issue = "153106")]
@@ -275,23 +335,47 @@ pub const fn is_separator(c: char) -> bool {
 /// All path separators recognized on the current platform, represented as [`char`]s; for example,
 /// this is `&['/'][..]` on Unix and `&['\\', '/'][..]` on Windows. The [primary
 /// separator](MAIN_SEPARATOR) is always element 0 of the slice.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كل فواصل المسارات على النظام الحالي كأحرف؛ مثلًا `/` على يونكس و`\` و`/` على ويندوز.
+///
+/// </div>
 #[unstable(feature = "const_path_separators", issue = "153106")]
 pub const SEPARATORS: &[char] = crate::sys::path::SEPARATORS;
 
 /// All path separators recognized on the current platform, represented as [`&str`]s; for example,
 /// this is `&["/"][..]` on Unix and `&["\\", "/"][..]` on Windows. The [primary
 /// separator](MAIN_SEPARATOR_STR) is always element 0 of the slice.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كل فواصل المسارات على النظام الحالي كنصوص.
+///
+/// </div>
 #[unstable(feature = "const_path_separators", issue = "153106")]
 pub const SEPARATORS_STR: &[&str] = crate::sys::path::SEPARATORS_STR;
 
 /// The primary separator of path components for the current platform, represented as a [`char`];
 /// for example, this is `'/'` on Unix and `'\\'` on Windows.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// فاصل المسارات الأساسي على النظام الحالي كحرف؛ `/` على يونكس و`\` على ويندوز.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "path_main_separator")]
 pub const MAIN_SEPARATOR: char = SEPARATORS[0];
 
 /// The primary separator of path components for the current platform, represented as a [`&str`];
 /// for example, this is `"/"` on Unix and `"\\"` on Windows.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// فاصل المسارات الأساسي على النظام الحالي كنص.
+///
+/// </div>
 #[stable(feature = "main_separator_str", since = "1.68.0")]
 pub const MAIN_SEPARATOR_STR: &str = SEPARATORS_STR[0];
 
@@ -439,6 +523,12 @@ enum State {
 /// [`as_os_str`]: PrefixComponent::as_os_str
 /// [`kind`]: PrefixComponent::kind
 /// [`Prefix` variant]: Component::Prefix
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تغلّف بادئة مسار ويندوز مع تمثيلها النصي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Copy, Clone, Eq, Debug)]
 pub struct PrefixComponent<'a> {
@@ -454,6 +544,12 @@ impl<'a> PrefixComponent<'a> {
     ///
     /// See [`Prefix`]'s documentation for more information on the different
     /// kinds of prefixes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع بيانات البادئة المقروءة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -462,6 +558,12 @@ impl<'a> PrefixComponent<'a> {
     }
 
     /// Returns the raw [`OsStr`] slice for this prefix.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `OsStr` الخام لهذه البادئة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -523,6 +625,12 @@ impl Hash for PrefixComponent<'_> {
 ///     Component::Normal("bar.txt".as_ref()),
 /// ]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// جزء واحد من مسار.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum Component<'a> {
@@ -532,20 +640,44 @@ pub enum Component<'a> {
     /// for more.
     ///
     /// Does not occur on Unix.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// بادئة مسار ويندوز، مثل `C:` أو `\\server\share`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Prefix(#[stable(feature = "rust1", since = "1.0.0")] PrefixComponent<'a>),
 
     /// The root directory component, appears after any prefix and before anything else.
     ///
     /// It represents a separator that designates that a path starts from root.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جزء المجلد الجذر، يأتي بعد أي بادئة وقبل أي شيء آخر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     RootDir,
 
     /// A reference to the current directory, i.e., `.`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إشارة إلى المجلد الحالي، أي `.`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     CurDir,
 
     /// A reference to the parent directory, i.e., `..`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// إشارة إلى المجلد الأب، أي `..`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     ParentDir,
 
@@ -553,6 +685,12 @@ pub enum Component<'a> {
     ///
     /// This variant is the most common one, it represents references to files
     /// or directories.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جزء عادي، مثل `a` و`b` في `a/b`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Normal(#[stable(feature = "rust1", since = "1.0.0")] &'a OsStr),
 }
@@ -569,6 +707,12 @@ impl<'a> Component<'a> {
     /// let components: Vec<_> = path.components().map(|comp| comp.as_os_str()).collect();
     /// assert_eq!(&components, &[".", "tmp", "foo", "bar.txt"]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `OsStr` الأساسية.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn as_os_str(self) -> &'a OsStr {
@@ -616,6 +760,12 @@ impl AsRef<Path> for Component<'_> {
 /// ```
 ///
 /// [`components`]: Path::components
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء (`Component`) مسار.
+///
+/// </div>
 #[derive(Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -643,6 +793,12 @@ pub struct Components<'a> {
 /// See its documentation for more.
 ///
 /// [`iter`]: Path::iter
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على أجزاء مسار كشرائح `OsStr`.
+///
+/// </div>
 #[derive(Clone)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
@@ -724,6 +880,12 @@ impl<'a> Components<'a> {
     ///
     /// assert_eq!(Path::new("foo/bar.txt"), components.as_path());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الباقي من المسار للتكرار.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn as_path(&self) -> &'a Path {
@@ -872,6 +1034,12 @@ impl<'a> Iter<'a> {
     ///
     /// assert_eq!(Path::new("foo/bar.txt"), iter.as_path());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الباقي من المسار للتكرار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -1119,6 +1287,12 @@ fn compare_components(mut left: Components<'_>, mut right: Components<'_>) -> cm
 /// ```
 ///
 /// [`ancestors`]: Path::ancestors
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر على `Path` وكل المسارات الأب له.
+///
+/// </div>
 #[derive(Copy, Clone, Debug)]
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "path_ancestors", since = "1.28.0")]
@@ -1210,6 +1384,12 @@ impl FusedIterator for Ancestors<'_> {}
 ///
 /// The behavior of `PathBuf` may be changed to a panic on such inputs
 /// in the future. [`Extend::extend`] should be used to add multi-part paths.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مسار مملوك قابل للتعديل (مثل `String` للمسارات).
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "PathBuf")]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct PathBuf {
@@ -1226,6 +1406,12 @@ impl PathBuf {
     ///
     /// let path = PathBuf::new();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -1252,6 +1438,12 @@ impl PathBuf {
     /// ```
     ///
     /// [`with_capacity`]: OsString::with_capacity
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` جديدًا بالسعة المعطاة.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[must_use]
     #[inline]
@@ -1269,6 +1461,12 @@ impl PathBuf {
     /// let p = PathBuf::from("/test");
     /// assert_eq!(Path::new("/test"), p.as_path());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى شريحة `Path`.
+    ///
+    /// </div>
     #[cfg_attr(not(test), rustc_diagnostic_item = "pathbuf_as_path")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -1290,6 +1488,12 @@ impl PathBuf {
     /// However, keep in mind that trimming the capacity may result in a reallocation and copy.
     ///
     /// [`into_boxed_path`]: Self::into_boxed_path
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `PathBuf` ويتركه بدون تحرير، ويرجع مرجعًا قابلًا للتعديل `&'a mut Path`.
+    ///
+    /// </div>
     #[stable(feature = "os_string_pathbuf_leak", since = "1.89.0")]
     #[inline]
     pub fn leak<'a>(self) -> &'a mut Path {
@@ -1333,6 +1537,12 @@ impl PathBuf {
     /// path.push("/etc");
     /// assert_eq!(path, PathBuf::from("/etc"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف `path` إلى نهاية `self` (وإذا كان مطلقًا يستبدله).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_confusables("append", "put")]
     pub fn push<P: AsRef<Path>>(&mut self, path: P) {
@@ -1439,6 +1649,12 @@ impl PathBuf {
     /// p.pop();
     /// assert_eq!(Path::new("/"), p);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقصّر `self` إلى المسار الأب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn pop(&mut self) -> bool {
         match self.parent().map(|p| p.as_u8_slice().len()) {
@@ -1476,6 +1692,12 @@ impl PathBuf {
     /// p.set_trailing_sep(false);
     /// assert!(p.has_trailing_sep());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل ينتهي المسار بفاصل.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     pub fn set_trailing_sep(&mut self, trailing_sep: bool) {
         if trailing_sep { self.push_trailing_sep() } else { self.pop_trailing_sep() }
@@ -1504,6 +1726,12 @@ impl PathBuf {
     /// p.push_trailing_sep();
     /// assert_eq!(p.as_os_str(), OsStr::new("dir/"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف فاصلًا في نهاية المسار.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     pub fn push_trailing_sep(&mut self) {
         if !self.has_trailing_sep() {
@@ -1538,6 +1766,12 @@ impl PathBuf {
     /// p.pop_trailing_sep();
     /// assert!(p.has_trailing_sep());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الفاصل من نهاية المسار، إن أمكن.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     pub fn pop_trailing_sep(&mut self) {
         self.inner.truncate(self.trim_trailing_sep().as_os_str().len());
@@ -1582,6 +1816,12 @@ impl PathBuf {
     /// buf.set_file_name("baz");
     /// assert!(buf == PathBuf::from("/../b/baz"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر اسم الملف في المسار إلى `file_name`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn set_file_name<S: AsRef<OsStr>>(&mut self, file_name: S) {
         self._set_file_name(file_name.as_ref())
@@ -1651,6 +1891,12 @@ impl PathBuf {
     /// p.set_extension("");
     /// assert_eq!(Path::new("/feel/the"), p.as_path());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر امتداد الملف إلى `extension`، أو يحذفه إذا كان فارغًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn set_extension<S: AsRef<OsStr>>(&mut self, extension: S) -> bool {
         self._set_extension(extension.as_ref())
@@ -1725,6 +1971,12 @@ impl PathBuf {
     /// p.add_extension("");
     /// assert_eq!(Path::new("/feel/the.formatted.dark"), p.as_path());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف `extension` إلى امتداد الملف.
+    ///
+    /// </div>
     #[stable(feature = "path_add_extension", since = "1.91.0")]
     pub fn add_extension<S: AsRef<OsStr>>(&mut self, extension: S) -> bool {
         self._add_extension(extension.as_ref())
@@ -1773,6 +2025,12 @@ impl PathBuf {
     /// path.as_mut_os_string().push("baz");
     /// assert_eq!(path, Path::new("/foo/barbaz"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_as_mut_os_str", since = "1.70.0")]
     #[must_use]
     #[inline]
@@ -1790,6 +2048,12 @@ impl PathBuf {
     /// let p = PathBuf::from("/the/head");
     /// let os_str = p.into_os_string();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `PathBuf` ويرجع `OsString` الداخلي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline]
@@ -1810,12 +2074,24 @@ impl PathBuf {
     /// let string = path_buf.into_string();
     /// assert_eq!(string, Ok(String::from("foo")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل الـ `PathBuf` إلى `String` إذا كان يونيكود صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "pathbuf_into_string", since = "1.98.0")]
     pub fn into_string(self) -> Result<String, PathBuf> {
         self.into_os_string().into_string().map_err(PathBuf::from)
     }
 
     /// Converts this `PathBuf` into a [boxed](Box) [`Path`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `PathBuf` إلى `Path` داخل `Box`.
+    ///
+    /// </div>
     #[stable(feature = "into_boxed_path", since = "1.20.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline]
@@ -1827,6 +2103,12 @@ impl PathBuf {
     /// Invokes [`capacity`] on the underlying instance of [`OsString`].
     ///
     /// [`capacity`]: OsString::capacity
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `capacity` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[must_use]
     #[inline]
@@ -1837,6 +2119,12 @@ impl PathBuf {
     /// Invokes [`clear`] on the underlying instance of [`OsString`].
     ///
     /// [`clear`]: OsString::clear
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `clear` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[inline]
     pub fn clear(&mut self) {
@@ -1846,6 +2134,12 @@ impl PathBuf {
     /// Invokes [`reserve`] on the underlying instance of [`OsString`].
     ///
     /// [`reserve`]: OsString::reserve
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `reserve` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[inline]
     pub fn reserve(&mut self, additional: usize) {
@@ -1855,6 +2149,12 @@ impl PathBuf {
     /// Invokes [`try_reserve`] on the underlying instance of [`OsString`].
     ///
     /// [`try_reserve`]: OsString::try_reserve
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `try_reserve` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     #[inline]
     pub fn try_reserve(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -1864,6 +2164,12 @@ impl PathBuf {
     /// Invokes [`reserve_exact`] on the underlying instance of [`OsString`].
     ///
     /// [`reserve_exact`]: OsString::reserve_exact
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `reserve_exact` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[inline]
     pub fn reserve_exact(&mut self, additional: usize) {
@@ -1873,6 +2179,12 @@ impl PathBuf {
     /// Invokes [`try_reserve_exact`] on the underlying instance of [`OsString`].
     ///
     /// [`try_reserve_exact`]: OsString::try_reserve_exact
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `try_reserve_exact` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "try_reserve_2", since = "1.63.0")]
     #[inline]
     pub fn try_reserve_exact(&mut self, additional: usize) -> Result<(), TryReserveError> {
@@ -1882,6 +2194,12 @@ impl PathBuf {
     /// Invokes [`shrink_to_fit`] on the underlying instance of [`OsString`].
     ///
     /// [`shrink_to_fit`]: OsString::shrink_to_fit
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `shrink_to_fit` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "path_buf_capacity", since = "1.44.0")]
     #[inline]
     pub fn shrink_to_fit(&mut self) {
@@ -1891,6 +2209,12 @@ impl PathBuf {
     /// Invokes [`shrink_to`] on the underlying instance of [`OsString`].
     ///
     /// [`shrink_to`]: OsString::shrink_to
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستدعي `shrink_to` على `OsString` الأساسي.
+    ///
+    /// </div>
     #[stable(feature = "shrink_to", since = "1.56.0")]
     #[inline]
     pub fn shrink_to(&mut self, min_capacity: usize) {
@@ -1926,6 +2250,12 @@ impl From<&Path> for Box<Path> {
     /// Creates a boxed [`Path`] from a reference.
     ///
     /// This will allocate and clone `path` to it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Path` داخل `Box` من مرجع.
+    ///
+    /// </div>
     fn from(path: &Path) -> Box<Path> {
         Box::clone_from_ref(path)
     }
@@ -1936,6 +2266,12 @@ impl From<&mut Path> for Box<Path> {
     /// Creates a boxed [`Path`] from a reference.
     ///
     /// This will allocate and clone `path` to it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Path` داخل `Box` من مرجع.
+    ///
+    /// </div>
     fn from(path: &mut Path) -> Box<Path> {
         Self::from(&*path)
     }
@@ -1946,6 +2282,12 @@ impl From<Cow<'_, Path>> for Box<Path> {
     /// Creates a boxed [`Path`] from a clone-on-write pointer.
     ///
     /// Converting from a `Cow::Owned` does not clone or allocate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Path` داخل `Box` من مؤشر نسخ عند الكتابة.
+    ///
+    /// </div>
     #[inline]
     fn from(cow: Cow<'_, Path>) -> Box<Path> {
         match cow {
@@ -1960,6 +2302,12 @@ impl From<Box<Path>> for PathBuf {
     /// Converts a <code>[Box]&lt;[Path]&gt;</code> into a [`PathBuf`].
     ///
     /// This conversion does not allocate or copy memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<Path>` إلى `PathBuf`.
+    ///
+    /// </div>
     #[inline]
     fn from(boxed: Box<Path>) -> PathBuf {
         boxed.into_path_buf()
@@ -1972,6 +2320,12 @@ impl From<PathBuf> for Box<Path> {
     ///
     /// This conversion currently should not allocate memory,
     /// but this behavior is not guaranteed on all platforms or in all future versions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `PathBuf` إلى `Box<Path>`.
+    ///
+    /// </div>
     #[inline]
     fn from(p: PathBuf) -> Box<Path> {
         p.into_boxed_path()
@@ -1991,6 +2345,12 @@ impl<T: ?Sized + AsRef<OsStr>> From<&T> for PathBuf {
     /// Converts a borrowed [`OsStr`] to a [`PathBuf`].
     ///
     /// Allocates a [`PathBuf`] and copies the data into it.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsStr` مستعارًا إلى `PathBuf`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &T) -> PathBuf {
         PathBuf::from(s.as_ref().to_os_string())
@@ -2002,6 +2362,12 @@ impl From<OsString> for PathBuf {
     /// Converts an [`OsString`] into a [`PathBuf`].
     ///
     /// This conversion does not allocate or copy memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `OsString` إلى `PathBuf`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: OsString) -> PathBuf {
         PathBuf { inner: s }
@@ -2013,6 +2379,12 @@ impl From<PathBuf> for OsString {
     /// Converts a [`PathBuf`] into an [`OsString`]
     ///
     /// This conversion does not allocate or copy memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `PathBuf` إلى `OsString`.
+    ///
+    /// </div>
     #[inline]
     fn from(path_buf: PathBuf) -> OsString {
         path_buf.inner
@@ -2024,6 +2396,12 @@ impl From<String> for PathBuf {
     /// Converts a [`String`] into a [`PathBuf`]
     ///
     /// This conversion does not allocate or copy memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `String` إلى `PathBuf`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: String) -> PathBuf {
         PathBuf::from(OsString::from(s))
@@ -2055,6 +2433,12 @@ impl<P: AsRef<Path>> FromIterator<P> for PathBuf {
     /// ```
     ///
     /// See documentation for [`push`](Self::push) for more details on how the path is constructed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` جديدًا من عناصر `Path` في مكرر.
+    ///
+    /// </div>
     fn from_iter<I: IntoIterator<Item = P>>(iter: I) -> PathBuf {
         let mut buf = PathBuf::new();
         buf.extend(iter);
@@ -2078,6 +2462,12 @@ impl<P: AsRef<Path>> Extend<P> for PathBuf {
     /// ```
     ///
     /// See documentation for [`push`](Self::push) for more details on how the path is constructed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوسّع `self` بعناصر `Path` من `iter`.
+    ///
+    /// </div>
     fn extend<I: IntoIterator<Item = P>>(&mut self, iter: I) {
         iter.into_iter().for_each(move |p| self.push(p.as_ref()));
     }
@@ -2134,6 +2524,12 @@ impl<'a> From<&'a Path> for Cow<'a, Path> {
     /// [`Path`].
     ///
     /// This conversion does not clone or allocate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر نسخ عند الكتابة من مرجع إلى `Path`.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &'a Path) -> Cow<'a, Path> {
         Cow::Borrowed(s)
@@ -2146,6 +2542,12 @@ impl<'a> From<PathBuf> for Cow<'a, Path> {
     /// instance of [`PathBuf`].
     ///
     /// This conversion does not clone or allocate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر نسخ عند الكتابة من `PathBuf` مملوك.
+    ///
+    /// </div>
     #[inline]
     fn from(s: PathBuf) -> Cow<'a, Path> {
         Cow::Owned(s)
@@ -2158,6 +2560,12 @@ impl<'a> From<&'a PathBuf> for Cow<'a, Path> {
     /// [`PathBuf`].
     ///
     /// This conversion does not clone or allocate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشر نسخ عند الكتابة من مرجع إلى `PathBuf`.
+    ///
+    /// </div>
     #[inline]
     fn from(p: &'a PathBuf) -> Cow<'a, Path> {
         Cow::Borrowed(p.as_path())
@@ -2169,6 +2577,12 @@ impl<'a> From<Cow<'a, Path>> for PathBuf {
     /// Converts a clone-on-write pointer to an owned path.
     ///
     /// Converting from a `Cow::Owned` does not clone or allocate.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل مؤشر نسخ عند الكتابة إلى مسار مملوك.
+    ///
+    /// </div>
     #[inline]
     fn from(p: Cow<'a, Path>) -> Self {
         p.into_owned()
@@ -2179,6 +2593,12 @@ impl<'a> From<Cow<'a, Path>> for PathBuf {
 impl From<PathBuf> for Arc<Path> {
     /// Converts a [`PathBuf`] into an <code>[Arc]<[Path]></code> by moving the [`PathBuf`] data
     /// into a new [`Arc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `PathBuf` إلى `Arc<Path>` بنقل البيانات إلى مخزن `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: PathBuf) -> Arc<Path> {
         let arc: Arc<OsStr> = Arc::from(s.into_os_string());
@@ -2189,6 +2609,12 @@ impl From<PathBuf> for Arc<Path> {
 #[stable(feature = "shared_from_slice2", since = "1.24.0")]
 impl From<&Path> for Arc<Path> {
     /// Converts a [`Path`] into an [`Arc`] by copying the [`Path`] data into a new [`Arc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `Arc` بنسخ البيانات إلى مخزن `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &Path) -> Arc<Path> {
         let arc: Arc<OsStr> = Arc::from(s.as_os_str());
@@ -2199,6 +2625,12 @@ impl From<&Path> for Arc<Path> {
 #[stable(feature = "shared_from_mut_slice", since = "1.84.0")]
 impl From<&mut Path> for Arc<Path> {
     /// Converts a [`Path`] into an [`Arc`] by copying the [`Path`] data into a new [`Arc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `Arc` بنسخ البيانات إلى مخزن `Arc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut Path) -> Arc<Path> {
         Arc::from(&*s)
@@ -2209,6 +2641,12 @@ impl From<&mut Path> for Arc<Path> {
 impl From<PathBuf> for Rc<Path> {
     /// Converts a [`PathBuf`] into an <code>[Rc]<[Path]></code> by moving the [`PathBuf`] data into
     /// a new [`Rc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `PathBuf` إلى `Rc<Path>` بنقل البيانات إلى مخزن `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: PathBuf) -> Rc<Path> {
         let rc: Rc<OsStr> = Rc::from(s.into_os_string());
@@ -2219,6 +2657,12 @@ impl From<PathBuf> for Rc<Path> {
 #[stable(feature = "shared_from_slice2", since = "1.24.0")]
 impl From<&Path> for Rc<Path> {
     /// Converts a [`Path`] into an [`Rc`] by copying the [`Path`] data into a new [`Rc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `Rc` بنسخ البيانات إلى مخزن `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &Path) -> Rc<Path> {
         let rc: Rc<OsStr> = Rc::from(s.as_os_str());
@@ -2229,6 +2673,12 @@ impl From<&Path> for Rc<Path> {
 #[stable(feature = "shared_from_mut_slice", since = "1.84.0")]
 impl From<&mut Path> for Rc<Path> {
     /// Converts a [`Path`] into an [`Rc`] by copying the [`Path`] data into a new [`Rc`] buffer.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `Rc` بنسخ البيانات إلى مخزن `Rc` جديد.
+    ///
+    /// </div>
     #[inline]
     fn from(s: &mut Path) -> Rc<Path> {
         Rc::from(&*s)
@@ -2354,6 +2804,12 @@ impl AsRef<OsStr> for PathBuf {
 /// let extension = path.extension();
 /// assert_eq!(extension, Some(OsStr::new("txt")));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// شريحة مسار (مثل `str` للمسارات).
+///
+/// </div>
 #[cfg_attr(not(test), rustc_diagnostic_item = "Path")]
 #[stable(feature = "rust1", since = "1.0.0")]
 // `Path::new` and `impl CloneToUninit for Path` current implementation relies
@@ -2370,12 +2826,24 @@ pub struct Path {
 /// See its documentation for more.
 ///
 /// [`strip_prefix`]: Path::strip_prefix
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `Path::strip_prefix` إذا لم توجد البادئة.
+///
+/// </div>
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[stable(since = "1.7.0", feature = "strip_prefix")]
 pub struct StripPrefixError(());
 
 /// An error returned from [`Path::normalize_lexically`] if a `..` parent reference
 /// would escape the path.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `Path::normalize_lexically` إذا كانت إشارة `..` ستخرج من المسار.
+///
+/// </div>
 #[unstable(feature = "normalize_lexically", issue = "134694")]
 #[derive(Debug, PartialEq)]
 #[non_exhaustive]
@@ -2414,6 +2882,12 @@ impl Path {
     /// let from_path = Path::new(&from_string);
     /// assert_eq!(from_string, from_path);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلّف شريحة نص مباشرة كشريحة `Path`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
     pub const fn new<S: [const] AsRef<OsStr> + ?Sized>(s: &S) -> &Path {
@@ -2437,6 +2911,12 @@ impl Path {
     /// let os_str = Path::new("foo.txt").as_os_str();
     /// assert_eq!(os_str, std::ffi::OsStr::new("foo.txt"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع شريحة `OsStr` الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -2458,6 +2938,12 @@ impl Path {
     /// path.as_mut_os_str().make_ascii_lowercase();
     /// assert_eq!(path, Path::new("foo.txt"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى شريحة `OsStr` الأساسية.
+    ///
+    /// </div>
     #[stable(feature = "path_as_mut_os_str", since = "1.70.0")]
     #[must_use]
     #[inline]
@@ -2481,6 +2967,12 @@ impl Path {
     /// let path = Path::new("foo.txt");
     /// assert_eq!(path.to_str(), Some("foo.txt"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `&str` إذا كان المسار يونيكود صالحًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -2509,6 +3001,12 @@ impl Path {
     ///
     /// Had `path` contained invalid unicode, the `to_string_lossy` call might
     /// have returned `"fo�.txt"`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `Cow<str>` (مع استبدال الأحرف غير الصالحة).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -2527,6 +3025,12 @@ impl Path {
     /// let path_buf = Path::new("foo.txt").to_path_buf();
     /// assert_eq!(path_buf, PathBuf::from("foo.txt"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Path` إلى `PathBuf` مملوك.
+    ///
+    /// </div>
     #[rustc_conversion_suggestion]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -2554,6 +3058,12 @@ impl Path {
     /// ```
     ///
     /// [`has_root`]: Path::has_root
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار مطلقًا، أي لا يعتمد على المجلد الحالي.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[allow(deprecated)]
@@ -2574,6 +3084,12 @@ impl Path {
     /// ```
     ///
     /// [`is_absolute`]: Path::is_absolute
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار نسبيًا، أي ليس مطلقًا.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -2601,6 +3117,12 @@ impl Path {
     ///
     /// assert!(Path::new("/etc/passwd").has_root());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان للمسار جذر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[inline]
@@ -2636,6 +3158,12 @@ impl Path {
     /// let great_grand_parent = grand_parent.and_then(Path::parent);
     /// assert_eq!(great_grand_parent, None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المسار بدون آخر جزء فيه، إن وُجد (المجلد الأب).
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[doc(alias = "dirname")]
     #[must_use]
@@ -2677,6 +3205,12 @@ impl Path {
     /// ```
     ///
     /// [`parent`]: Path::parent
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتج مكررًا على المسار وكل المسارات الأب له.
+    ///
+    /// </div>
     #[stable(feature = "path_ancestors", since = "1.28.0")]
     #[inline]
     pub fn ancestors(&self) -> Ancestors<'_> {
@@ -2703,6 +3237,12 @@ impl Path {
     /// assert_eq!(None, Path::new("foo.txt/..").file_name());
     /// assert_eq!(None, Path::new("/").file_name());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع آخر جزء في المسار (اسم الملف)، إن وُجد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[doc(alias = "basename")]
     #[must_use]
@@ -2742,6 +3282,12 @@ impl Path {
     /// let prefix = PathBuf::from("/test/");
     /// assert_eq!(path.strip_prefix(prefix), Ok(Path::new("haha/foo.txt")));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مسارًا إذا أُضيف إلى `base` يعطي `self` (أي يحذف البادئة).
+    ///
+    /// </div>
     #[stable(since = "1.7.0", feature = "path_strip_prefix")]
     pub fn strip_prefix<P>(&self, base: P) -> Result<&Path, StripPrefixError>
     where
@@ -2775,6 +3321,12 @@ impl Path {
     /// assert_eq!(path.trim_prefix("/te"), path);
     /// assert_eq!(path.trim_prefix("/haha"), path);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع المسار بعد حذف البادئة إن وُجدت.
+    ///
+    /// </div>
     #[must_use = "this returns the remaining path as a new path, without modifying the original"]
     #[stable(feature = "trim_prefix_suffix", since = "1.100.0")]
     pub fn trim_prefix<P>(&self, base: P) -> &Path
@@ -2812,6 +3364,12 @@ impl Path {
     ///
     /// assert!(!Path::new("/etc/foo.rs").starts_with("/etc/foo"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل `base` بداية `self`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn starts_with<P: AsRef<Path>>(&self, base: P) -> bool {
@@ -2840,6 +3398,12 @@ impl Path {
     /// assert!(!path.ends_with("/resolv.conf"));
     /// assert!(!path.ends_with("conf")); // use .extension() instead
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل `child` نهاية `self`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn ends_with<P: AsRef<Path>>(&self, child: P) -> bool {
@@ -2870,6 +3434,12 @@ impl Path {
     /// let path = Path::new(".");
     /// assert!(!path.is_empty());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل المسار فارغ.
+    ///
+    /// </div>
     #[stable(feature = "path_is_empty", since = "1.98.0")]
     pub fn is_empty(&self) -> bool {
         self.as_os_str().is_empty()
@@ -2901,6 +3471,12 @@ impl Path {
     ///
     /// [`Path::file_prefix`]: Path::file_prefix
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج اسم الملف بدون الامتداد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn file_stem(&self) -> Option<&OsStr> {
@@ -2936,6 +3512,12 @@ impl Path {
     ///
     /// [`Path::file_stem`]: Path::file_stem
     ///
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج بادئة اسم الملف (قبل أول نقطة).
+    ///
+    /// </div>
     #[stable(feature = "path_file_prefix", since = "1.91.0")]
     #[must_use]
     pub fn file_prefix(&self) -> Option<&OsStr> {
@@ -2961,6 +3543,12 @@ impl Path {
     /// assert_eq!("rs", Path::new("foo.rs").extension().unwrap());
     /// assert_eq!("gz", Path::new("foo.tar.gz").extension().unwrap());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخرج امتداد الملف (بدون النقطة)، إن أمكن.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn extension(&self) -> Option<&OsStr> {
@@ -2985,6 +3573,12 @@ impl Path {
     /// assert!(Path::new("dir/").has_trailing_sep());
     /// assert!(!Path::new("file.rs").has_trailing_sep());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق هل ينتهي المسار بفاصل.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     #[must_use]
     #[inline]
@@ -3010,6 +3604,12 @@ impl Path {
     /// assert!(!Path::new("dir").has_trailing_sep());
     /// assert!(Path::new("dir").with_trailing_sep().has_trailing_sep());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضمن أن ينتهي المسار بفاصل، وينشئ `PathBuf` إذا لزم.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     #[must_use]
     #[inline]
@@ -3037,6 +3637,12 @@ impl Path {
     /// assert_eq!(Path::new("/").trim_trailing_sep().as_os_str(), OsStr::new("/"));
     /// assert_eq!(Path::new("//").trim_trailing_sep().as_os_str(), OsStr::new("//"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحذف الفاصل من نهاية المسار، إن أمكن.
+    ///
+    /// </div>
     #[unstable(feature = "path_trailing_sep", issue = "142503")]
     #[must_use]
     #[inline]
@@ -3080,6 +3686,12 @@ impl Path {
     /// assert_eq!(Path::new("/etc").join("passwd"), PathBuf::from("/etc/passwd"));
     /// assert_eq!(Path::new("/etc").join("/bin/sh"), PathBuf::from("/bin/sh"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` مملوكًا بإضافة `path` إلى `self`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn join<P: AsRef<Path>>(&self, path: P) -> PathBuf {
@@ -3108,6 +3720,12 @@ impl Path {
     /// let path = Path::new("/tmp");
     /// assert_eq!(path.with_file_name("var"), PathBuf::from("/var"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` مملوكًا مثل `self` لكن باسم الملف المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     pub fn with_file_name<S: AsRef<OsStr>>(&self, file_name: S) -> PathBuf {
@@ -3152,6 +3770,12 @@ impl Path {
     /// let path = Path::new("foo");
     /// assert_eq!(path.with_extension("rs"), Path::new("foo.rs"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` مملوكًا مثل `self` لكن بالامتداد المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn with_extension<S: AsRef<OsStr>>(&self, extension: S) -> PathBuf {
         self._with_extension(extension.as_ref())
@@ -3208,6 +3832,12 @@ impl Path {
     /// let path = Path::new("/dir/..");
     /// assert_eq!(path.with_added_extension("gz"), PathBuf::from("/dir/.."));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `PathBuf` مملوكًا مثل `self` مع إضافة الامتداد.
+    ///
+    /// </div>
     #[stable(feature = "path_add_extension", since = "1.91.0")]
     pub fn with_added_extension<S: AsRef<OsStr>>(&self, extension: S) -> PathBuf {
         let mut new_path = self.to_path_buf();
@@ -3248,6 +3878,12 @@ impl Path {
     /// ```
     ///
     /// [`CurDir`]: Component::CurDir
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتج مكررًا على أجزاء (`Component`) المسار.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn components(&self) -> Components<'_> {
         let prefix = parse_prefix(self.as_os_str());
@@ -3282,6 +3918,12 @@ impl Path {
     /// assert_eq!(it.next(), Some(OsStr::new("foo.txt")));
     /// assert_eq!(it.next(), None)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتج مكررًا على أجزاء المسار كشرائح `OsStr`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[inline]
     pub fn iter(&self) -> Iter<'_> {
@@ -3305,6 +3947,12 @@ impl Path {
     ///
     /// println!("{}", path.display());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع كائنًا يطبّق `Display` لطباعة المسارات بأمان حتى لو فيها بيانات ليست يونيكود.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this does not display the path, \
                   it returns an object that can be displayed"]
@@ -3318,6 +3966,12 @@ impl Path {
     /// This method is redundant when used directly on `&Path`, but
     /// it helps dereferencing other `PathBuf`-like types to `Path`s,
     /// for example references to `Box<Path>` or `Arc<Path>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نفس المسار كـ `&Path`.
+    ///
+    /// </div>
     #[inline]
     #[unstable(feature = "str_as_str", issue = "130366")]
     pub const fn as_path(&self) -> &Path {
@@ -3340,6 +3994,12 @@ impl Path {
     /// let metadata = path.metadata().expect("the path should point to an existing file or directory");
     /// println!("{:?}", metadata.file_type());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستعلم من نظام الملفات عن معلومات ملف أو مجلد.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[inline]
     pub fn metadata(&self) -> io::Result<fs::Metadata> {
@@ -3392,6 +4052,12 @@ impl Path {
     /// let path = Path::new("/foo/test/../test/bar.rs");
     /// assert_eq!(path.canonicalize().unwrap(), PathBuf::from("/foo/test/bar.rs"));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الشكل الكامل المطلق للمسار بعد توحيد أجزائه وحل الروابط الرمزية.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[inline]
     pub fn canonicalize(&self) -> io::Result<PathBuf> {
@@ -3420,6 +4086,12 @@ impl Path {
     /// assert!(absolute.is_absolute());
     /// # Ok::<(), std::io::Error>(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يجعل المسار مطلقًا بدون الوصول إلى نظام الملفات.
+    ///
+    /// </div>
     #[unstable(feature = "path_absolute_method", issue = "153328")]
     #[inline]
     pub fn absolute(&self) -> io::Result<PathBuf> {
@@ -3442,6 +4114,12 @@ impl Path {
     ///
     /// [`path::absolute`](absolute) is an alternative that preserves `..`.
     /// Or [`Path::canonicalize`] can be used to resolve any `..` by querying the filesystem.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يوحّد المسار، بما فيه `..`، بدون الوصول إلى نظام الملفات.
+    ///
+    /// </div>
     #[unstable(feature = "normalize_lexically", issue = "134694")]
     pub fn normalize_lexically(&self) -> Result<PathBuf, NormalizeError> {
         let mut lexical = PathBuf::new();
@@ -3569,6 +4247,12 @@ impl Path {
     ///
     /// [`try_exists()`]: Self::try_exists
     /// [TOCTOU]: fs#time-of-check-to-time-of-use-toctou
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار يشير إلى شيء موجود.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[must_use]
     #[inline]
@@ -3642,6 +4326,12 @@ impl Path {
     /// it. Only using `is_file` can break workflows like `diff <( prog_a )` on
     /// a Unix-like system for example. See [`fs::File::open`] or
     /// [`fs::OpenOptions::open`] for more information.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار موجودًا ويشير إلى ملف عادي.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[must_use]
     pub fn is_file(&self) -> bool {
@@ -3669,6 +4359,12 @@ impl Path {
     /// This is a convenience function that coerces errors to false. If you want to
     /// check errors, call [`fs::metadata`] and handle its [`Result`]. Then call
     /// [`fs::Metadata::is_dir`] if it was [`Ok`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار موجودًا ويشير إلى مجلد.
+    ///
+    /// </div>
     #[stable(feature = "path_ext", since = "1.5.0")]
     #[must_use]
     pub fn is_dir(&self) -> bool {
@@ -3702,6 +4398,12 @@ impl Path {
     /// This is a convenience function that coerces errors to false. If you want to
     /// check errors, call [`fs::symlink_metadata`] and handle its [`Result`]. Then call
     /// [`fs::Metadata::is_symlink`] if it was [`Ok`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان المسار موجودًا ويشير إلى رابط رمزي.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "is_symlink", since = "1.58.0")]
     pub fn is_symlink(&self) -> bool {
@@ -3710,6 +4412,12 @@ impl Path {
 
     /// Converts a [`Box<Path>`](Box) into a [`PathBuf`] without copying or
     /// allocating.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `Box<Path>` إلى `PathBuf` بدون نسخ أو حجز.
+    ///
+    /// </div>
     #[stable(feature = "into_boxed_path", since = "1.20.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     pub fn into_path_buf(self: Box<Self>) -> PathBuf {
@@ -3765,6 +4473,12 @@ impl fmt::Debug for Path {
 ///
 /// [`Display`]: fmt::Display
 /// [`format!`]: crate::format
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية مساعدة لطباعة المسارات بأمان بـ `format!` و`{}`.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct Display<'a> {
     inner: os_str::Display<'a>,
@@ -4174,6 +4888,12 @@ impl Error for NormalizeError {}
 /// [posix-semantics]: https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16
 /// [windows-path]: https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew
 /// [cygwin-path]: https://cygwin.com/cygwin-api/func-cygwin-conv-path.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يجعل المسار مطلقًا بدون الوصول إلى نظام الملفات.
+///
+/// </div>
 #[stable(feature = "absolute_path", since = "1.79.0")]
 pub fn absolute<P: AsRef<Path>>(path: P) -> io::Result<PathBuf> {
     let path = path.as_ref();

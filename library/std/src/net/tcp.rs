@@ -59,6 +59,12 @@ use crate::time::Duration;
 /// On Unix, writes to the underlying socket in `SOCK_STREAM` mode are made with
 /// `MSG_NOSIGNAL` flag. This suppresses the emission of the  `SIGPIPE` signal when writing
 /// to disconnected socket. In some cases, getting a `SIGPIPE` would trigger process termination.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// اتصال TCP بين مقبس محلي ومقبس بعيد.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct TcpStream(net_imp::TcpStream);
 
@@ -95,6 +101,12 @@ pub struct TcpStream(net_imp::TcpStream);
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خادم TCP يستمع للاتصالات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct TcpListener(net_imp::TcpListener);
 
@@ -104,6 +116,12 @@ pub struct TcpListener(net_imp::TcpListener);
 /// See its documentation for more.
 ///
 /// [`accept`]: TcpListener::accept
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقبل (`accept`) الاتصالات على `TcpListener` بلا نهاية.
+///
+/// </div>
 #[must_use = "iterators are lazy and do nothing unless consumed"]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
@@ -117,6 +135,12 @@ pub struct Incoming<'a> {
 /// See its documentation for more.
 ///
 /// [`accept`]: TcpListener::accept
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مكرر يقبل (`accept`) الاتصالات على `TcpListener` بلا نهاية.
+///
+/// </div>
 #[derive(Debug)]
 #[unstable(feature = "tcplistener_into_incoming", issue = "88373")]
 pub struct IntoIncoming {
@@ -165,6 +189,12 @@ impl TcpStream {
     ///     println!("Couldn't connect to server...");
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفتح اتصال TCP بجهاز بعيد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn connect<A: ToSocketAddrs>(addr: A) -> io::Result<TcpStream> {
         net_imp::TcpStream::connect(addr).map(TcpStream)
@@ -181,6 +211,12 @@ impl TcpStream {
     /// single system call. It instead calls `connect` in nonblocking mode and
     /// then uses an OS-specific mechanism to await the completion of the
     /// connection request.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفتح اتصال TCP بجهاز بعيد مع مهلة.
+    ///
+    /// </div>
     #[stable(feature = "tcpstream_connect_timeout", since = "1.21.0")]
     pub fn connect_timeout(addr: &SocketAddr, timeout: Duration) -> io::Result<TcpStream> {
         net_imp::TcpStream::connect_timeout(addr, timeout).map(TcpStream)
@@ -198,6 +234,12 @@ impl TcpStream {
     /// assert_eq!(stream.peer_addr().unwrap(),
     ///            SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف البعيد في هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn peer_addr(&self) -> io::Result<SocketAddr> {
         self.0.peer_addr()
@@ -215,6 +257,12 @@ impl TcpStream {
     /// assert_eq!(stream.local_addr().unwrap().ip(),
     ///            IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس للطرف المحلي في هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         self.0.socket_addr()
@@ -242,6 +290,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// stream.shutdown(Shutdown::Both).expect("shutdown should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغلق جزء القراءة أو الكتابة أو كليهما من هذا الاتصال.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn shutdown(&self, how: Shutdown) -> io::Result<()> {
         self.0.shutdown(how)
@@ -263,6 +317,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// let stream_clone = stream.try_clone().expect("clone should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا جديدًا مستقلًا للمقبس نفسه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn try_clone(&self) -> io::Result<TcpStream> {
         self.0.duplicate().map(TcpStream)
@@ -307,6 +367,12 @@ impl TcpStream {
     /// let err = result.unwrap_err();
     /// assert_eq!(err.kind(), io::ErrorKind::InvalidInput)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط مهلة القراءة.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn set_read_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_read_timeout(dur)
@@ -351,6 +417,12 @@ impl TcpStream {
     /// let err = result.unwrap_err();
     /// assert_eq!(err.kind(), io::ErrorKind::InvalidInput)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط مهلة الكتابة.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn set_write_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_write_timeout(dur)
@@ -376,6 +448,12 @@ impl TcpStream {
     /// stream.set_read_timeout(None).expect("set_read_timeout should succeed");
     /// assert_eq!(stream.read_timeout().unwrap(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة القراءة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn read_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.read_timeout()
@@ -401,6 +479,12 @@ impl TcpStream {
     /// stream.set_write_timeout(None).expect("set_write_timeout should succeed");
     /// assert_eq!(stream.write_timeout().unwrap(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة الكتابة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn write_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.write_timeout()
@@ -423,6 +507,12 @@ impl TcpStream {
     /// let mut buf = [0; 10];
     /// let len = stream.peek(&mut buf).expect("peek should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات من الطرف البعيد بدون حذفها من الطابور، ويرجع عدد البايتات المقروءة.
+    ///
+    /// </div>
     #[stable(feature = "peek", since = "1.18.0")]
     pub fn peek(&self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.peek(buf)
@@ -448,6 +538,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// stream.set_linger(Some(Duration::from_secs(0))).expect("set_linger should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `SO_LINGER` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "tcp_linger", issue = "88494")]
     pub fn set_linger(&self, linger: Option<Duration>) -> io::Result<()> {
         self.0.set_linger(linger)
@@ -470,6 +566,12 @@ impl TcpStream {
     /// stream.set_linger(Some(Duration::from_secs(0))).expect("set_linger should succeed");
     /// assert_eq!(stream.linger().unwrap(), Some(Duration::from_secs(0)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_LINGER` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "tcp_linger", issue = "88494")]
     pub fn linger(&self) -> io::Result<Option<Duration>> {
         self.0.linger()
@@ -500,6 +602,12 @@ impl TcpStream {
     /// let stream = TcpStream::connect("127.0.0.1:8080")
     ///                        .expect("Couldn't connect to the server...");
     /// stream.set_keepalive(true).expect("set_keepalive should succeed");
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `SO_KEEPALIVE` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "tcp_keepalive", issue = "155889")]
     pub fn set_keepalive(&self, keepalive: bool) -> io::Result<()> {
         self.0.set_keepalive(keepalive)
@@ -521,6 +629,12 @@ impl TcpStream {
     /// stream.set_keepalive(true).expect("set_keepalive should succeed");
     /// assert_eq!(stream.keepalive().unwrap_or(false), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_KEEPALIVE` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "tcp_keepalive", issue = "155889")]
     pub fn keepalive(&self) -> io::Result<bool> {
         self.0.keepalive()
@@ -543,6 +657,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// stream.set_nodelay(true).expect("set_nodelay should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `TCP_NODELAY` لهذا المقبس (تعطيل خوارزمية Nagle).
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_nodelay(&self, nodelay: bool) -> io::Result<()> {
         self.0.set_nodelay(nodelay)
@@ -562,6 +682,12 @@ impl TcpStream {
     /// stream.set_nodelay(true).expect("set_nodelay should succeed");
     /// assert_eq!(stream.nodelay().unwrap_or(false), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `TCP_NODELAY` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn nodelay(&self) -> io::Result<bool> {
         self.0.nodelay()
@@ -581,6 +707,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// stream.set_ttl(100).expect("set_ttl should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_ttl(&self, ttl: u32) -> io::Result<()> {
         self.0.set_ttl(ttl)
@@ -600,6 +732,12 @@ impl TcpStream {
     /// stream.set_ttl(100).expect("set_ttl should succeed");
     /// assert_eq!(stream.ttl().unwrap_or(0), 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn ttl(&self) -> io::Result<u32> {
         self.0.ttl()
@@ -620,6 +758,12 @@ impl TcpStream {
     ///     .expect("Couldn't connect to the server...");
     /// stream.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn set_hop_limit_v6(&self, limit: u8) -> io::Result<()> {
         self.0.set_hop_limit_v6(limit)
@@ -640,6 +784,12 @@ impl TcpStream {
     /// stream.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// assert_eq!(stream.hop_limit_v6().unwrap(), 88);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn hop_limit_v6(&self) -> io::Result<u8> {
         self.0.hop_limit_v6()
@@ -660,6 +810,12 @@ impl TcpStream {
     ///                        .expect("Couldn't connect to the server...");
     /// stream.take_error().expect("No error was expected...");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -705,6 +861,12 @@ impl TcpStream {
     /// };
     /// println!("bytes: {buf:?}");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل اتصال TCP هذا إلى الوضع غير المعطِّل أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)
@@ -871,6 +1033,12 @@ impl TcpListener {
     ///
     /// let socket = TcpListener::bind("127.0.0.1:0").unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `TcpListener` جديدًا مربوطًا بالعنوان المحدد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn bind<A: ToSocketAddrs>(addr: A) -> io::Result<TcpListener> {
         net_imp::TcpListener::bind(addr).map(TcpListener)
@@ -887,6 +1055,12 @@ impl TcpListener {
     /// assert_eq!(listener.local_addr().unwrap(),
     ///            SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العنوان المحلي لهذا المستمع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         self.0.socket_addr()
@@ -906,6 +1080,12 @@ impl TcpListener {
     /// let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
     /// let listener_clone = listener.try_clone().unwrap();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا جديدًا مستقلًا للمقبس نفسه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn try_clone(&self) -> io::Result<TcpListener> {
         self.0.duplicate().map(TcpListener)
@@ -951,6 +1131,12 @@ impl TcpListener {
     ///     Err(e) => println!("couldn't get client: {e:?}"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقبل اتصالًا جديدًا واردًا من هذا المستمع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn accept(&self) -> io::Result<(TcpStream, SocketAddr)> {
         // On wasm*-unknown-unknown, `TcpStream` is uninhabited (as it's
@@ -994,6 +1180,12 @@ impl TcpListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكررًا على الاتصالات الواردة لهذا المستمع.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn incoming(&self) -> Incoming<'_> {
         Incoming { listener: self }
@@ -1030,6 +1222,12 @@ impl TcpListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا إلى مكرر على الاتصالات الواردة لهذا المستمع.
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[unstable(feature = "tcplistener_into_incoming", issue = "88373")]
     pub fn into_incoming(self) -> IntoIncoming {
@@ -1049,6 +1247,12 @@ impl TcpListener {
     /// let listener = TcpListener::bind("127.0.0.1:80").unwrap();
     /// listener.set_ttl(100).expect("set_ttl should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_ttl(&self, ttl: u32) -> io::Result<()> {
         self.0.set_ttl(ttl)
@@ -1067,6 +1271,12 @@ impl TcpListener {
     /// listener.set_ttl(100).expect("set_ttl should succeed");
     /// assert_eq!(listener.ttl().unwrap_or(0), 100);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn ttl(&self) -> io::Result<u32> {
         self.0.ttl()
@@ -1086,6 +1296,12 @@ impl TcpListener {
     /// let listener = TcpListener::bind("[::1]:12345").unwrap();
     /// listener.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn set_hop_limit_v6(&self, limit: u8) -> io::Result<()> {
         self.0.set_hop_limit_v6(limit)
@@ -1105,6 +1321,12 @@ impl TcpListener {
     /// listener.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// assert_eq!(listener.hop_limit_v6().unwrap(), 88);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn hop_limit_v6(&self) -> io::Result<u8> {
         self.0.hop_limit_v6()
@@ -1138,6 +1360,12 @@ impl TcpListener {
     /// let listener = TcpListener::bind("127.0.0.1:80").unwrap();
     /// listener.take_error().expect("`take_error` should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -1185,6 +1413,12 @@ impl TcpListener {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل اتصال TCP هذا إلى الوضع غير المعطِّل أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)

@@ -63,6 +63,12 @@ use crate::time::Duration;
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مقبس UDP.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct UdpSocket(net_imp::UdpSocket);
 
@@ -118,6 +124,12 @@ impl UdpSocket {
     ///
     /// In order to limit your view of the network the least, `bind` to
     /// [`Ipv4Addr::UNSPECIFIED`] or [`Ipv6Addr::UNSPECIFIED`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبس UDP من العنوان المعطى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn bind<A: ToSocketAddrs>(addr: A) -> io::Result<UdpSocket> {
         net_imp::UdpSocket::bind(addr).map(UdpSocket)
@@ -145,6 +157,12 @@ impl UdpSocket {
     ///                                         .expect("recv_from should succeed");
     /// let filled_buf = &mut buf[..number_of_bytes];
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل رسالة (datagram) واحدة، ويرجع عدد البايتات المقروءة والمصدر.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn recv_from(&self, buf: &mut [u8]) -> io::Result<(usize, SocketAddr)> {
         self.0.recv_from(buf)
@@ -174,6 +192,12 @@ impl UdpSocket {
     ///                                         .expect("recv_from should succeed");
     /// let filled_buf = &mut buf[..number_of_bytes];
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل رسالة واحدة بدون حذفها من الطابور، ويرجع عدد البايتات المقروءة والمصدر.
+    ///
+    /// </div>
     #[stable(feature = "peek", since = "1.18.0")]
     pub fn peek_from(&self, buf: &mut [u8]) -> io::Result<(usize, SocketAddr)> {
         self.0.peek_from(buf)
@@ -205,6 +229,12 @@ impl UdpSocket {
     /// ```
     ///
     /// [Issue #34202]: https://github.com/rust-lang/rust/issues/34202
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات على المقبس إلى العنوان المعطى، ويرجع عدد البايتات المكتوبة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn send_to<A: ToSocketAddrs>(&self, buf: &[u8], addr: A) -> io::Result<usize> {
         match addr.to_socket_addrs()?.next() {
@@ -237,6 +267,12 @@ impl UdpSocket {
     /// assert_eq!(socket.peer_addr().unwrap_err().kind(),
     ///            std::io::ErrorKind::NotConnected);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان الطرف البعيد الذي اتصل به هذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "udp_peer_addr", since = "1.40.0")]
     pub fn peer_addr(&self) -> io::Result<SocketAddr> {
         self.0.peer_addr()
@@ -253,6 +289,12 @@ impl UdpSocket {
     /// assert_eq!(socket.local_addr().unwrap(),
     ///            SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 34254)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العنوان الذي أُنشئ منه هذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         self.0.socket_addr()
@@ -272,6 +314,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("127.0.0.1:34254").expect("bind should succeed");
     /// let socket_clone = socket.try_clone().expect("try_clone should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا جديدًا مستقلًا للمقبس نفسه.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn try_clone(&self) -> io::Result<UdpSocket> {
         self.0.duplicate().map(UdpSocket)
@@ -315,6 +363,12 @@ impl UdpSocket {
     /// let err = result.unwrap_err();
     /// assert_eq!(err.kind(), io::ErrorKind::InvalidInput)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط مهلة القراءة.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn set_read_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_read_timeout(dur)
@@ -358,6 +412,12 @@ impl UdpSocket {
     /// let err = result.unwrap_err();
     /// assert_eq!(err.kind(), io::ErrorKind::InvalidInput)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط مهلة الكتابة.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn set_write_timeout(&self, dur: Option<Duration>) -> io::Result<()> {
         self.0.set_write_timeout(dur)
@@ -378,6 +438,12 @@ impl UdpSocket {
     /// socket.set_read_timeout(None).expect("set_read_timeout should succeed");
     /// assert_eq!(socket.read_timeout().unwrap(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة القراءة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn read_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.read_timeout()
@@ -398,6 +464,12 @@ impl UdpSocket {
     /// socket.set_write_timeout(None).expect("set_write_timeout should succeed");
     /// assert_eq!(socket.write_timeout().unwrap(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة الكتابة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "socket_timeout", since = "1.4.0")]
     pub fn write_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.write_timeout()
@@ -416,6 +488,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("127.0.0.1:34254").expect("bind should succeed");
     /// socket.set_broadcast(false).expect("set_broadcast should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `SO_BROADCAST` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_broadcast(&self, broadcast: bool) -> io::Result<()> {
         self.0.set_broadcast(broadcast)
@@ -434,6 +512,12 @@ impl UdpSocket {
     /// socket.set_broadcast(false).expect("set_broadcast should succeed");
     /// assert_eq!(socket.broadcast().unwrap(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_BROADCAST` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn broadcast(&self) -> io::Result<bool> {
         self.0.broadcast()
@@ -452,6 +536,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("127.0.0.1:34254").expect("bind should succeed");
     /// socket.set_multicast_loop_v4(false).expect("set_multicast_loop_v4 should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IP_MULTICAST_LOOP` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_multicast_loop_v4(&self, multicast_loop_v4: bool) -> io::Result<()> {
         self.0.set_multicast_loop_v4(multicast_loop_v4)
@@ -470,6 +560,12 @@ impl UdpSocket {
     /// socket.set_multicast_loop_v4(false).expect("set_multicast_loop_v4 should succeed");
     /// assert_eq!(socket.multicast_loop_v4().unwrap(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IP_MULTICAST_LOOP` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn multicast_loop_v4(&self) -> io::Result<bool> {
         self.0.multicast_loop_v4()
@@ -494,6 +590,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("127.0.0.1:34254").expect("bind should succeed");
     /// socket.set_multicast_ttl_v4(42).expect("set_multicast_ttl_v4 should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IP_MULTICAST_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_multicast_ttl_v4(&self, multicast_ttl_v4: u32) -> io::Result<()> {
         self.0.set_multicast_ttl_v4(multicast_ttl_v4)
@@ -512,6 +614,12 @@ impl UdpSocket {
     /// socket.set_multicast_ttl_v4(42).expect("set_multicast_ttl_v4 should succeed");
     /// assert_eq!(socket.multicast_ttl_v4().unwrap(), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IP_MULTICAST_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn multicast_ttl_v4(&self) -> io::Result<u32> {
         self.0.multicast_ttl_v4()
@@ -530,6 +638,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("[::1]:34254").expect("bind should succeed");
     /// socket.set_multicast_loop_v6(false).expect("set_multicast_loop_v6 should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IPV6_MULTICAST_LOOP` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_multicast_loop_v6(&self, multicast_loop_v6: bool) -> io::Result<()> {
         self.0.set_multicast_loop_v6(multicast_loop_v6)
@@ -548,6 +662,12 @@ impl UdpSocket {
     /// socket.set_multicast_loop_v6(false).expect("set_multicast_loop_v6 should succeed");
     /// assert_eq!(socket.multicast_loop_v6().unwrap(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IPV6_MULTICAST_LOOP` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn multicast_loop_v6(&self) -> io::Result<bool> {
         self.0.multicast_loop_v6()
@@ -566,6 +686,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("127.0.0.1:34254").expect("bind should succeed");
     /// socket.set_ttl(42).expect("set_ttl should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_ttl(&self, ttl: u32) -> io::Result<()> {
         self.0.set_ttl(ttl)
@@ -584,6 +710,12 @@ impl UdpSocket {
     /// socket.set_ttl(42).expect("set_ttl should succeed");
     /// assert_eq!(socket.ttl().unwrap(), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IP_TTL` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn ttl(&self) -> io::Result<u32> {
         self.0.ttl()
@@ -603,6 +735,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("[::1]:12345").expect("couldn't bind to address");
     /// socket.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn set_hop_limit_v6(&self, limit: u8) -> io::Result<()> {
         self.0.set_hop_limit_v6(limit)
@@ -622,6 +760,12 @@ impl UdpSocket {
     /// socket.set_hop_limit_v6(88).expect("set_hop_limit_v6 call failed");
     /// assert_eq!(socket.hop_limit_v6().unwrap(), 88);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IPV6_UNICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn hop_limit_v6(&self) -> io::Result<u8> {
         self.0.hop_limit_v6()
@@ -641,6 +785,12 @@ impl UdpSocket {
     /// let socket = UdpSocket::bind("[::1]:12345").expect("couldn't bind to address");
     /// socket.set_multicast_hop_limit_v6(88).expect("set_multicast_hop_limit_v6 call failed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط قيمة الخيار `IPV6_MULTICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn set_multicast_hop_limit_v6(&self, limit: u8) -> io::Result<()> {
         self.0.set_multicast_hop_limit_v6(limit)
@@ -660,6 +810,12 @@ impl UdpSocket {
     /// socket.set_multicast_hop_limit_v6(88).expect("set_multicast_hop_limit_v6 call failed");
     /// assert_eq!(socket.multicast_hop_limit_v6().unwrap(), 88);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `IPV6_MULTICAST_HOPS` لهذا المقبس.
+    ///
+    /// </div>
     #[unstable(feature = "ipv6_hop_limit", issue = "139166")]
     pub fn multicast_hop_limit_v6(&self) -> io::Result<u8> {
         self.0.multicast_hop_limit_v6()
@@ -672,6 +828,12 @@ impl UdpSocket {
     /// address of the local interface with which the system should join the
     /// multicast group. If it's equal to [`UNSPECIFIED`](Ipv4Addr::UNSPECIFIED)
     /// then an appropriate interface is chosen by the system.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ عملية من نوع `IP_ADD_MEMBERSHIP` (الانضمام لمجموعة multicast).
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn join_multicast_v4(&self, multiaddr: &Ipv4Addr, interface: &Ipv4Addr) -> io::Result<()> {
         self.0.join_multicast_v4(multiaddr, interface)
@@ -682,6 +844,12 @@ impl UdpSocket {
     /// This function specifies a new multicast group for this socket to join.
     /// The address must be a valid multicast address, and `interface` is the
     /// index of the interface to join/leave (or 0 to indicate any interface).
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ عملية من نوع `IPV6_ADD_MEMBERSHIP`.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn join_multicast_v6(&self, multiaddr: &Ipv6Addr, interface: u32) -> io::Result<()> {
         self.0.join_multicast_v6(multiaddr, interface)
@@ -690,6 +858,12 @@ impl UdpSocket {
     /// Executes an operation of the `IP_DROP_MEMBERSHIP` type.
     ///
     /// For more information about this option, see [`UdpSocket::join_multicast_v4`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ عملية من نوع `IP_DROP_MEMBERSHIP` (مغادرة مجموعة multicast).
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn leave_multicast_v4(&self, multiaddr: &Ipv4Addr, interface: &Ipv4Addr) -> io::Result<()> {
         self.0.leave_multicast_v4(multiaddr, interface)
@@ -698,6 +872,12 @@ impl UdpSocket {
     /// Executes an operation of the `IPV6_DROP_MEMBERSHIP` type.
     ///
     /// For more information about this option, see [`UdpSocket::join_multicast_v6`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينفذ عملية من نوع `IPV6_DROP_MEMBERSHIP`.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn leave_multicast_v6(&self, multiaddr: &Ipv6Addr, interface: u32) -> io::Result<()> {
         self.0.leave_multicast_v6(multiaddr, interface)
@@ -721,6 +901,12 @@ impl UdpSocket {
     ///     Err(error) => println!("UdpSocket.take_error failed: {error:?}"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قيمة الخيار `SO_ERROR` لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn take_error(&self) -> io::Result<Option<io::Error>> {
         self.0.take_error()
@@ -758,6 +944,13 @@ impl UdpSocket {
     /// If your first `connect` is to a loopback address, subsequent
     /// `connect`s to non-loopback addresses might fail, depending
     /// on the platform.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يربط مقبس UDP هذا بعنوان بعيد، ليمكن استخدام `send` و`recv`، ويستقبل البيانات من ذلك العنوان
+    /// فقط.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn connect<A: ToSocketAddrs>(&self, addr: A) -> io::Result<()> {
         self.0.connect(addr)
@@ -780,6 +973,12 @@ impl UdpSocket {
     /// socket.connect("127.0.0.1:8080").expect("connect should succeed");
     /// socket.send(&[0, 1, 2]).expect("send should succeed");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرسل بيانات إلى العنوان البعيد المتصل به، ويرجع عدد البايتات المكتوبة.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn send(&self, buf: &[u8]) -> io::Result<usize> {
         self.0.send(buf)
@@ -812,6 +1011,12 @@ impl UdpSocket {
     ///     Err(e) => println!("recv function failed: {e:?}"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل رسالة واحدة من العنوان البعيد المتصل به، ويرجع عدد البايتات المقروءة.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn recv(&self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.recv(buf)
@@ -852,6 +1057,12 @@ impl UdpSocket {
     ///     Err(e) => println!("peek function failed: {e:?}"),
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل رسالة واحدة من العنوان البعيد بدون حذفها من الطابور.
+    ///
+    /// </div>
     #[stable(feature = "peek", since = "1.18.0")]
     pub fn peek(&self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.peek(buf)
@@ -897,6 +1108,12 @@ impl UdpSocket {
     /// };
     /// println!("bytes: {:?}", &buf[..num_bytes_read]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينقل مقبس UDP هذا إلى الوضع غير المعطِّل أو يخرجه منه.
+    ///
+    /// </div>
     #[stable(feature = "net2_mutators", since = "1.9.0")]
     pub fn set_nonblocking(&self, nonblocking: bool) -> io::Result<()> {
         self.0.set_nonblocking(nonblocking)

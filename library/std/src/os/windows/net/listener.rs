@@ -163,6 +163,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العنوان المحلي لهذا المستمع.
+    ///
+    /// </div>
     pub fn local_addr(&self) -> io::Result<SocketAddr> {
         SocketAddr::new(|addr, len| unsafe { getsockname(self.0.as_raw(), addr, len) })
     }
@@ -186,6 +192,12 @@ impl UnixListener {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا جديدًا مستقلًا للمقبس نفسه.
+    ///
+    /// </div>
     pub fn try_clone(&self) -> io::Result<UnixListener> {
         self.0.duplicate().map(UnixListener)
     }

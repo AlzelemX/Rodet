@@ -18,6 +18,12 @@
 //! let total = ten_seconds + seven_nanos;
 //! assert_eq!(total, Duration::new(10, 7));
 //! ```
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! قياس الزمن.
+//!
+//! </div>
 
 use crate::fmt;
 use crate::iter::Sum;
@@ -75,6 +81,12 @@ const DAYS_PER_WEEK: u64 = 7;
 /// program output may appear in contexts that cannot rely on full Unicode
 /// compatibility, you may wish to format `Duration` objects yourself or use a
 /// crate to do so.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع `Duration` يمثل مدة زمنية، ويُستخدم عادةً للمهلات.
+///
+/// </div>
 #[stable(feature = "duration", since = "1.3.0")]
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 #[rustc_diagnostic_item = "Duration"]
@@ -94,6 +106,12 @@ impl Duration {
     ///
     /// assert_eq!(Duration::SECOND, Duration::from_secs(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة ثانية واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const SECOND: Duration = Duration::from_secs(1);
 
@@ -107,6 +125,12 @@ impl Duration {
     ///
     /// assert_eq!(Duration::MILLISECOND, Duration::from_millis(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة ميلي ثانية واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const MILLISECOND: Duration = Duration::from_millis(1);
 
@@ -120,6 +144,12 @@ impl Duration {
     ///
     /// assert_eq!(Duration::MICROSECOND, Duration::from_micros(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة ميكرو ثانية واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const MICROSECOND: Duration = Duration::from_micros(1);
 
@@ -133,6 +163,12 @@ impl Duration {
     ///
     /// assert_eq!(Duration::NANOSECOND, Duration::from_nanos(1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة نانو ثانية واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const NANOSECOND: Duration = Duration::from_nanos(1);
 
@@ -153,6 +189,12 @@ impl Duration {
     /// assert_eq!(week.as_secs(), 604_800);
     /// assert_eq!(week.subsec_nanos(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة أسبوع واحد.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     // Also, #[unstable(feature = "duration_constructors", issue = "120301")]
     pub const WEEK: Duration = Duration::from_weeks(1);
@@ -174,6 +216,12 @@ impl Duration {
     /// assert_eq!(day.as_secs(), 86400);
     /// assert_eq!(day.subsec_nanos(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة يوم واحد.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     // Also, #[unstable(feature = "duration_constructors", issue = "120301")]
     pub const DAY: Duration = Duration::from_days(1);
@@ -194,6 +242,12 @@ impl Duration {
     /// assert_eq!(hour.as_secs(), 3600);
     /// assert_eq!(hour.subsec_nanos(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة ساعة واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const HOUR: Duration = Duration::from_hours(1);
 
@@ -213,6 +267,12 @@ impl Duration {
     /// assert_eq!(minute.as_secs(), 60);
     /// assert_eq!(minute.subsec_nanos(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة دقيقة واحدة.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constants", issue = "57391")]
     pub const MINUTE: Duration = Duration::from_mins(1);
 
@@ -227,6 +287,12 @@ impl Duration {
     /// assert!(duration.is_zero());
     /// assert_eq!(duration.as_nanos(), 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مدة صفرية.
+    ///
+    /// </div>
     #[stable(feature = "duration_zero", since = "1.53.0")]
     pub const ZERO: Duration = Duration::from_nanos(0);
 
@@ -246,6 +312,12 @@ impl Duration {
     /// ```
     /// [`Instant`]: ../../std/time/struct.Instant.html
     /// [`SystemTime`]: ../../std/time/struct.SystemTime.html
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أكبر مدة ممكنة.
+    ///
+    /// </div>
     #[stable(feature = "duration_saturating_ops", since = "1.53.0")]
     pub const MAX: Duration = Duration::new(u64::MAX, NANOS_PER_SEC - 1);
 
@@ -267,6 +339,12 @@ impl Duration {
     ///
     /// let five_seconds = Duration::new(5, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الثواني الكاملة ونانو ثوانٍ إضافية.
+    ///
+    /// </div>
     #[stable(feature = "duration", since = "1.3.0")]
     #[inline]
     #[must_use]
@@ -297,6 +375,12 @@ impl Duration {
     /// assert_eq!(5, duration.as_secs());
     /// assert_eq!(0, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الثواني الكاملة.
+    ///
+    /// </div>
     #[stable(feature = "duration", since = "1.3.0")]
     #[must_use]
     #[inline]
@@ -317,6 +401,12 @@ impl Duration {
     /// assert_eq!(2, duration.as_secs());
     /// assert_eq!(569_000_000, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الميلي ثواني.
+    ///
+    /// </div>
     #[stable(feature = "duration", since = "1.3.0")]
     #[must_use]
     #[inline]
@@ -343,6 +433,12 @@ impl Duration {
     /// assert_eq!(1, duration.as_secs());
     /// assert_eq!(2_000, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الميكرو ثواني.
+    ///
+    /// </div>
     #[stable(feature = "duration_from_micros", since = "1.27.0")]
     #[must_use]
     #[inline]
@@ -374,6 +470,12 @@ impl Duration {
     /// assert_eq!(1, duration.as_secs());
     /// assert_eq!(123, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد النانو ثواني.
+    ///
+    /// </div>
     #[stable(feature = "duration_extras", since = "1.27.0")]
     #[must_use]
     #[inline]
@@ -405,6 +507,12 @@ impl Duration {
     /// assert_eq!(10_u64.pow(15), duration.as_secs());
     /// assert_eq!(321, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد النانو ثواني.
+    ///
+    /// </div>
     #[stable(feature = "duration_from_nanos_u128", since = "1.93.0")]
     #[rustc_const_stable(feature = "duration_from_nanos_u128", since = "1.93.0")]
     #[must_use]
@@ -442,6 +550,12 @@ impl Duration {
     /// assert_eq!(4 * 7 * 24 * 60 * 60, duration.as_secs());
     /// assert_eq!(0, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الأسابيع.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constructors", issue = "120301")]
     #[must_use]
     #[inline]
@@ -472,6 +586,12 @@ impl Duration {
     /// assert_eq!(7 * 24 * 60 * 60, duration.as_secs());
     /// assert_eq!(0, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الأيام.
+    ///
+    /// </div>
     #[unstable(feature = "duration_constructors", issue = "120301")]
     #[must_use]
     #[inline]
@@ -501,6 +621,12 @@ impl Duration {
     /// assert_eq!(6 * 60 * 60, duration.as_secs());
     /// assert_eq!(0, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الساعات.
+    ///
+    /// </div>
     #[stable(feature = "duration_constructors_lite", since = "1.91.0")]
     #[rustc_const_stable(feature = "duration_constructors_lite", since = "1.91.0")]
     #[must_use]
@@ -531,6 +657,12 @@ impl Duration {
     /// assert_eq!(10 * 60, duration.as_secs());
     /// assert_eq!(0, duration.subsec_nanos());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد الدقائق.
+    ///
+    /// </div>
     #[stable(feature = "duration_constructors_lite", since = "1.91.0")]
     #[rustc_const_stable(feature = "duration_constructors_lite", since = "1.91.0")]
     #[must_use]
@@ -559,6 +691,12 @@ impl Duration {
     /// assert!(!Duration::from_nanos(1).is_zero());
     /// assert!(!Duration::from_secs(1).is_zero());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع true إذا كانت هذه المدة صفرية.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "duration_zero", since = "1.53.0")]
     #[rustc_const_stable(feature = "duration_zero", since = "1.53.0")]
@@ -587,6 +725,12 @@ impl Duration {
     /// [`as_secs_f64`]: Duration::as_secs_f64
     /// [`as_secs_f32`]: Duration::as_secs_f32
     /// [`subsec_nanos`]: Duration::subsec_nanos
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الثواني _الكاملة_ في هذه المدة.
+    ///
+    /// </div>
     #[stable(feature = "duration", since = "1.3.0")]
     #[rustc_const_stable(feature = "duration_consts", since = "1.32.0")]
     #[must_use]
@@ -610,6 +754,12 @@ impl Duration {
     /// assert_eq!(duration.as_secs(), 5);
     /// assert_eq!(duration.subsec_millis(), 432);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الكسري من المدة بالميلي ثواني الكاملة.
+    ///
+    /// </div>
     #[stable(feature = "duration_extras", since = "1.27.0")]
     #[rustc_const_stable(feature = "duration_consts", since = "1.32.0")]
     #[must_use]
@@ -633,6 +783,12 @@ impl Duration {
     /// assert_eq!(duration.as_secs(), 1);
     /// assert_eq!(duration.subsec_micros(), 234_567);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الكسري من المدة بالميكرو ثواني الكاملة.
+    ///
+    /// </div>
     #[stable(feature = "duration_extras", since = "1.27.0")]
     #[rustc_const_stable(feature = "duration_consts", since = "1.32.0")]
     #[must_use]
@@ -656,6 +812,12 @@ impl Duration {
     /// assert_eq!(duration.as_secs(), 5);
     /// assert_eq!(duration.subsec_nanos(), 10_000_000);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الجزء الكسري من المدة بالنانو ثواني.
+    ///
+    /// </div>
     #[stable(feature = "duration", since = "1.3.0")]
     #[rustc_const_stable(feature = "duration_consts", since = "1.32.0")]
     #[must_use]
@@ -674,6 +836,12 @@ impl Duration {
     /// let duration = Duration::new(5, 730_023_852);
     /// assert_eq!(duration.as_millis(), 5_730);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العدد الكلي للميلي ثواني الكاملة في هذه المدة.
+    ///
+    /// </div>
     #[stable(feature = "duration_as_u128", since = "1.33.0")]
     #[rustc_const_stable(feature = "duration_as_u128", since = "1.33.0")]
     #[must_use]
@@ -693,6 +861,12 @@ impl Duration {
     /// let duration = Duration::new(5, 730_023_852);
     /// assert_eq!(duration.as_micros(), 5_730_023);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العدد الكلي للميكرو ثواني الكاملة في هذه المدة.
+    ///
+    /// </div>
     #[stable(feature = "duration_as_u128", since = "1.33.0")]
     #[rustc_const_stable(feature = "duration_as_u128", since = "1.33.0")]
     #[must_use]
@@ -712,6 +886,12 @@ impl Duration {
     /// let duration = Duration::new(5, 730_023_852);
     /// assert_eq!(duration.as_nanos(), 5_730_023_852);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع العدد الكلي للنانو ثواني في هذه المدة.
+    ///
+    /// </div>
     #[stable(feature = "duration_as_u128", since = "1.33.0")]
     #[rustc_const_stable(feature = "duration_as_u128", since = "1.33.0")]
     #[must_use]
@@ -756,6 +936,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 0).checked_add(Duration::new(0, 1)), Some(Duration::new(0, 1)));
     /// assert_eq!(Duration::new(1, 0).checked_add(Duration::new(u64::MAX, 0)), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمع مدد مع التحقق. يحسب `self + other`، ويرجع `None` إذا تجاوز الحد.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_ops", since = "1.16.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -789,6 +975,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 0).saturating_add(Duration::new(0, 1)), Duration::new(0, 1));
     /// assert_eq!(Duration::new(1, 0).saturating_add(Duration::new(u64::MAX, 0)), Duration::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمع مدد مشبع. يحسب `self + other`، ويرجع `Duration::MAX` إذا تجاوز الحد.
+    ///
+    /// </div>
     #[stable(feature = "duration_saturating_ops", since = "1.53.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -812,6 +1004,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 1).checked_sub(Duration::new(0, 0)), Some(Duration::new(0, 1)));
     /// assert_eq!(Duration::new(0, 0).checked_sub(Duration::new(0, 1)), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرح مدد مع التحقق. يحسب `self - other`، ويرجع `None` إذا كانت النتيجة سالبة.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_ops", since = "1.16.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -845,6 +1043,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 1).saturating_sub(Duration::new(0, 0)), Duration::new(0, 1));
     /// assert_eq!(Duration::new(0, 0).saturating_sub(Duration::new(0, 1)), Duration::ZERO);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// طرح مدد مشبع. يحسب `self - other`، ويرجع `Duration::ZERO` إذا كانت النتيجة سالبة.
+    ///
+    /// </div>
     #[stable(feature = "duration_saturating_ops", since = "1.53.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -868,6 +1072,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 500_000_001).checked_mul(2), Some(Duration::new(1, 2)));
     /// assert_eq!(Duration::new(u64::MAX - 1, 0).checked_mul(2), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب مدة مع التحقق. يحسب `self * other`، ويرجع `None` إذا تجاوز الحد.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_ops", since = "1.16.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -899,6 +1109,12 @@ impl Duration {
     /// assert_eq!(Duration::new(0, 500_000_001).saturating_mul(2), Duration::new(1, 2));
     /// assert_eq!(Duration::new(u64::MAX - 1, 0).saturating_mul(2), Duration::MAX);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ضرب مدة مشبع. يحسب `self * other`، ويرجع `Duration::MAX` إذا تجاوز الحد.
+    ///
+    /// </div>
     #[stable(feature = "duration_saturating_ops", since = "1.53.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -923,6 +1139,12 @@ impl Duration {
     /// assert_eq!(Duration::new(1, 0).checked_div(2), Some(Duration::new(0, 500_000_000)));
     /// assert_eq!(Duration::new(2, 0).checked_div(0), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قسمة مدة مع التحقق. يحسب `self / other`، ويرجع `None` إذا كان `other == 0`.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_ops", since = "1.16.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -953,6 +1175,12 @@ impl Duration {
     /// let dur = Duration::new(2, 700_000_000);
     /// assert_eq!(dur.as_secs_f64(), 2.7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الثواني في هذه المدة كـ `f64`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use]
     #[inline]
@@ -972,6 +1200,12 @@ impl Duration {
     /// let dur = Duration::new(2, 700_000_000);
     /// assert_eq!(dur.as_secs_f32(), 2.7);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الثواني في هذه المدة كـ `f32`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use]
     #[inline]
@@ -992,6 +1226,12 @@ impl Duration {
     /// let dur = Duration::new(2, 345_678_000);
     /// assert_eq!(dur.as_millis_f64(), 2_345.678);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الميلي ثواني في هذه المدة كـ `f64`.
+    ///
+    /// </div>
     #[unstable(feature = "duration_millis_float", issue = "122451")]
     #[must_use]
     #[inline]
@@ -1012,6 +1252,12 @@ impl Duration {
     /// let dur = Duration::new(2, 345_678_000);
     /// assert_eq!(dur.as_millis_f32(), 2_345.678);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الميلي ثواني في هذه المدة كـ `f32`.
+    ///
+    /// </div>
     #[unstable(feature = "duration_millis_float", issue = "122451")]
     #[must_use]
     #[inline]
@@ -1047,6 +1293,12 @@ impl Duration {
     /// let res = Duration::from_secs_f64(0.999e-9);
     /// assert_eq!(res, Duration::new(0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد ثوانٍ ممثَّل كـ `f64`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use]
     #[inline]
@@ -1084,6 +1336,12 @@ impl Duration {
     /// let res = Duration::from_secs_f32(0.999e-9);
     /// assert_eq!(res, Duration::new(0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Duration` جديدًا من عدد ثوانٍ ممثَّل كـ `f32`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use]
     #[inline]
@@ -1139,6 +1397,12 @@ impl Duration {
     /// // In the extreme, rounding can even overflow `Duration`, which panics.
     /// let _ = Duration::from_secs(u64::MAX).mul_f64(1.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضرب `Duration` في `f64`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1167,6 +1431,12 @@ impl Duration {
     /// assert_eq!(dur.mul_f32(3.14), Duration::new(8, 478_000_283));
     /// assert_eq!(dur.mul_f32(3.14e5), Duration::new(847_800, 0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضرب `Duration` في `f32`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1220,6 +1490,12 @@ impl Duration {
     /// // In the extreme, rounding can even overflow `Duration`, which panics.
     /// let _ = Duration::from_secs(u64::MAX).div_f64(1.0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `f64`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1248,6 +1524,12 @@ impl Duration {
     /// assert_eq!(dur.div_f32(3.14), Duration::new(0, 859_872_583));
     /// assert_eq!(dur.div_f32(3.14e5), Duration::new(0, 8_599));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `f32`.
+    ///
+    /// </div>
     #[stable(feature = "duration_float", since = "1.38.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1266,6 +1548,12 @@ impl Duration {
     /// let dur2 = Duration::new(5, 400_000_000);
     /// assert_eq!(dur1.div_duration_f64(dur2), 0.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `Duration` ويرجع `f64`.
+    ///
+    /// </div>
     #[stable(feature = "div_duration", since = "1.80.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1288,6 +1576,12 @@ impl Duration {
     /// let dur2 = Duration::new(5, 400_000_000);
     /// assert_eq!(dur1.div_duration_f32(dur2), 0.5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `Duration` ويرجع `f32`.
+    ///
+    /// </div>
     #[stable(feature = "div_duration", since = "1.80.0")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1312,6 +1606,12 @@ impl Duration {
     /// assert_eq!(dur.div_duration_floor(Duration::new(1, 000_000_000)), 2);
     /// assert_eq!(dur.div_duration_floor(Duration::new(0, 999_999_999)), 2);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `Duration` ويرجع `u128`، مع التقريب نحو الصفر.
+    ///
+    /// </div>
     #[unstable(feature = "duration_integer_division", issue = "149573")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1332,6 +1632,12 @@ impl Duration {
     /// assert_eq!(dur.div_duration_ceil(Duration::new(1, 000_000_000)), 2);
     /// assert_eq!(dur.div_duration_ceil(Duration::new(0, 999_999_999)), 3);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقسم `Duration` على `Duration` ويرجع `u128`، مع التقريب نحو موجب اللانهاية.
+    ///
+    /// </div>
     #[unstable(feature = "duration_integer_division", issue = "149573")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -1697,6 +2003,12 @@ impl fmt::Debug for Duration {
 ///     println!("Failed conversion to Duration: {e}");
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ قد يرجع عند تحويل رقم عشري من الثواني إلى `Duration`.
+///
+/// </div>
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[stable(feature = "duration_checked_float", since = "1.66.0")]
 pub struct TryFromFloatSecsError {
@@ -1862,6 +2174,12 @@ impl Duration {
     /// let res = Duration::try_from_secs_f32(val);
     /// assert_eq!(res, Ok(Duration::new(1, 2_929_688)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النسخة مع التحقق من `from_secs_f32`.
+    ///
+    /// </div>
     #[stable(feature = "duration_checked_float", since = "1.66.0")]
     #[inline]
     pub fn try_from_secs_f32(secs: f32) -> Result<Duration, TryFromFloatSecsError> {

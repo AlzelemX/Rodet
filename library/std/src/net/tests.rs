@@ -5,9 +5,21 @@ use crate::net::{Ipv4Addr, Ipv6Addr, SocketAddr, SocketAddrV4, SocketAddrV6, ToS
 use crate::sync::atomic::{AtomicUsize, Ordering};
 
 /// A localhost address whose port will be picked automatically by the OS.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان localhost يختار نظام التشغيل منفذه تلقائيًا.
+///
+/// </div>
 pub const LOCALHOST_IP4: SocketAddr =
     SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 0));
 /// A localhost address whose port will be picked automatically by the OS.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان localhost يختار نظام التشغيل منفذه تلقائيًا.
+///
+/// </div>
 pub const LOCALHOST_IP6: SocketAddr =
     SocketAddr::V6(SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 0, 0, 0));
 
@@ -43,6 +55,12 @@ pub fn compare_ignore_zoneid(a: &SocketAddr, b: &SocketAddr) -> bool {
 /// `Vec`: the pages are demand-zero and never written, so they stay mapped to
 /// the shared zero page and the mapping doesn't actually consume `len` bytes of
 /// physical memory.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تعيين ذاكرة مجهول للقراءة فقط من `len` بايت صفري.
+///
+/// </div>
 #[cfg(all(target_pointer_width = "64", unix))]
 pub struct ZeroedMmap {
     ptr: *mut libc::c_void,

@@ -304,31 +304,79 @@ pub struct DynTraitPredicate {
 }
 
 /// Compile-time type information about a trait.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن trait.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct Trait {
     /// The TypeId of the trait as a dynamic type
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// `TypeId` للـ trait كنوع ديناميكي.
+    ///
+    /// </div>
     pub ty: TypeId,
     /// Whether the trait is an auto trait
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل الـ trait من نوع auto.
+    ///
+    /// </div>
     pub is_auto: bool,
 }
 
 /// Compile-time type information about instantiated generics of structs, enum and union variants.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن المعاملات العامة المحددة في structs وenums وunions.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 #[lang = "type_info_generic"]
 pub enum Generic {
     /// Lifetimes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أعمار.
+    ///
+    /// </div>
     Lifetime(Lifetime),
     /// Types.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أنواع.
+    ///
+    /// </div>
     Type(GenericType),
     /// Const parameters.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// معاملات ثابتة.
+    ///
+    /// </div>
     Const(Const),
 }
 
 /// Compile-time type information about generic lifetimes.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن الأعمار العامة.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
@@ -337,24 +385,54 @@ pub struct Lifetime {
 }
 
 /// Compile-time type information about instantiated generic types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن الأنواع العامة المحددة.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct GenericType {
     /// The type itself.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النوع نفسه.
+    ///
+    /// </div>
     pub ty: TypeId,
 }
 
 /// Compile-time type information about generic const parameters.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن المعاملات الثابتة العامة.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 pub struct Const {
     /// The const's type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع الثابت.
+    ///
+    /// </div>
     pub ty: TypeId,
 }
 
 /// Compile-time type information about string slice types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معلومات وقت الترجمة عن أنواع شرائح النص.
+///
+/// </div>
 #[derive(Debug)]
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
@@ -366,6 +444,12 @@ pub struct Str {
 #[lang = "FnPtr"]
 #[unstable(feature = "type_info", issue = "146922")]
 /// Function pointer, e.g. fn(u8),
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر دالة، مثل `fn(u8)`.
+///
+/// </div>
 pub struct FnPtr {
     is_unsafe: bool,
     abi: Abi,
@@ -384,27 +468,63 @@ impl FnPtr {
     ///
     /// e.g. in `fn overload(a: u8, #[rustc_splat] b: (f32, usize))` the index is 1,
     /// and it can be called as `overload(a, 1.0, 2)`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع موضع وسيط الدالة المنشور، أو `None` إذا لم يوجد.
+    ///
+    /// </div>
     pub const fn splatted(&self) -> Option<u8> {
         if self.is_splatted { Some(self.splatted_index) } else { None }
     }
     /// Whether this function is variadic, e.g. extern "C" fn add(n: usize, mut args: ...);
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل هذه الدالة ذات وسائط متغيرة.
+    ///
+    /// </div>
     pub const fn is_variadic(&self) -> bool {
         self.variadic
     }
     /// whether this refers to an unsafe function.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هل هذه دالة غير آمنة.
+    ///
+    /// </div>
     pub const fn is_unsafe(&self) -> bool {
         self.is_unsafe
     }
     /// Returns the application binary interface. For example extern "C".
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع واجهة الـ ABI، مثل extern "C".
+    ///
+    /// </div>
     pub const fn abi(&self) -> Abi {
         self.abi
     }
     /// The types of the functions parameters
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أنواع معاملات الدالة.
+    ///
+    /// </div>
     pub const fn inputs(&self) -> &'static [TypeId] {
         self.inputs
     }
     /// List of the types returned by the function. For a function with no output
     /// specified this returns `TypeId::of<()>`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// أنواع إرجاع الدالة. إذا لم يُحدد نوع إرجاع يرجع `TypeId::of<()>`.
+    ///
+    /// </div>
     pub const fn output(&self) -> TypeId {
         self.output
     }
@@ -414,15 +534,39 @@ impl FnPtr {
 #[non_exhaustive]
 #[unstable(feature = "type_info", issue = "146922")]
 /// Abi of [FnPtr]
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ABI لمؤشر الدالة.
+///
+/// </div>
 pub enum Abi {
     /// Named abi, e.g. extern "custom", "stdcall" etc.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ABI مسمّى، مثل extern "custom" أو "stdcall".
+    ///
+    /// </div>
     Named(&'static str),
 
     /// Default
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الافتراضي.
+    ///
+    /// </div>
     #[default]
     ExternRust,
 
     /// C-calling convention
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اصطلاح استدعاء C.
+    ///
+    /// </div>
     ExternC,
 }
 
@@ -441,6 +585,12 @@ impl TypeId {
     /// assert_eq!(const { TypeId::of::<u8>().is_signed() }, false);
     /// assert_eq!(const { TypeId::of::<bool>().is_signed() }, false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان النوع عددًا صحيحًا بإشارة.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -460,6 +610,12 @@ impl TypeId {
     /// assert_eq!(const { TypeId::of::<[u32; 16]>().element_ty() }, Some(TypeId::of::<u32>()));
     /// assert_eq!(const { TypeId::of::<u8>().element_ty() }, None); // not an array or slice
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع مصفوفة أو شريحة يرجع نوع العنصر، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -479,6 +635,12 @@ impl TypeId {
     /// assert_eq!(const { TypeId::of::<[u32; 16]>().array_len() }, 16);
     /// assert_eq!(const { TypeId::of::<u8>().array_len() }, 0); // not an array
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع مصفوفة يرجع طولها، وفي غير ذلك يرجع صفرًا.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -497,6 +659,12 @@ impl TypeId {
     /// assert_eq!(const { TypeId::of::<u32>().size() }, Some(4));
     /// assert_eq!(const { TypeId::of::<[u8; 16]>().size() }, Some(16));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حجم النوع، أو `None` إذا كان غير معروف الحجم.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -523,6 +691,12 @@ impl TypeId {
     /// assert_eq!(const { TypeId::of::<Point>().variants() }, 1);
     /// assert_eq!(const { TypeId::of::<(f32, f32)>().variants() }, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد حالات النوع.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -585,6 +759,12 @@ impl TypeId {
     ///     _ = TypeId::of::<Enum>().variant(10); // error: indexing out of bounds: the len is 3 but the index is 10
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحالة في الموضع المعطى (للحصول على اسم حالة enum مثلًا).
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -649,6 +829,12 @@ impl TypeId {
     ///     _ = TypeId::of::<Enum>().fields(10); // error: indexing out of bounds: the len is 3 but the index is 10
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد الحقول في الحالة `variant_index`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -720,6 +906,12 @@ impl TypeId {
     ///     _ = TypeId::of::<Enum>().field(2, 10); // error: indexing out of bounds: the len is 3 but the index is 10
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحقل في الموضع المعطى.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -735,6 +927,12 @@ impl TypeId {
 
     /// Returns whether a type is marked with `#[non_exhaustive]`.
     /// Returns `false` for everything but adts.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل النوع معلَّم بـ `#[non_exhaustive]`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -744,6 +942,12 @@ impl TypeId {
 
     /// Returns a list of generic parameters of the type.
     /// Returns an empty slice for everything that doesn't have generics.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع قائمة المعاملات العامة للنوع.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -769,6 +973,12 @@ impl TypeId {
     ///     const { Some(TypeId::of::<i32>()) },
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع مؤشر يرجع `TypeId` لما يشير إليه، وإلا يرجع None.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -789,6 +999,12 @@ impl TypeId {
     /// assert!(!const { TypeId::of::<*const i32>().points_mutably() });
     /// assert!(const { TypeId::of::<*mut i32>().points_mutably() });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع مؤشر يرجع هل هو قابل للتعديل، وإلا يرجع `false`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -824,6 +1040,12 @@ impl TypeId {
     /// assert!(F.output() == TypeId::of::<()>());
     /// assert!(F.abi() == Abi::default());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مع مؤشر دالة يرجع `FnPtr`، وإلا يرجع `None`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -833,6 +1055,12 @@ impl TypeId {
 }
 
 /// Variant representing type ID. Representing a variant of an enum.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معرّف حالة enum.
+///
+/// </div>
 #[derive(Copy, PartialOrd, Ord, Hash)]
 #[derive_const(Clone, PartialEq, Eq)]
 #[unstable(feature = "type_info", issue = "146922")]
@@ -865,6 +1093,12 @@ impl VariantId {
     ///     "Tuple",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الحالة.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -873,6 +1107,12 @@ impl VariantId {
     }
 
     /// Returns whether this variant is marked with `#[non_exhaustive]`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل الحالة معلَّمة بـ `#[non_exhaustive]`.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -882,6 +1122,12 @@ impl VariantId {
 }
 
 /// Field representing type ID. Representing a field of a struct, tuple or enum variant.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// معرّف حقل في struct أو صف أو حالة enum.
+///
+/// </div>
 #[derive(Copy, PartialOrd, Ord, Hash)]
 #[derive_const(Clone, PartialEq, Eq)]
 #[unstable(feature = "type_info", issue = "146922")]
@@ -912,6 +1158,12 @@ impl FieldId {
     ///     TypeId::of::<u32>()
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `TypeId` لنوع الحقل الفعلي.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -934,6 +1186,12 @@ impl FieldId {
     ///     "x",
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الحقل.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]
@@ -956,6 +1214,12 @@ impl FieldId {
     ///     4,
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع إزاحة الحقل داخل النوع الذي يحتويه.
+    ///
+    /// </div>
     #[unstable(feature = "type_info", issue = "146922")]
     #[rustc_const_unstable(feature = "type_info", issue = "146922")]
     #[rustc_comptime]

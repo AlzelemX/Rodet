@@ -276,6 +276,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مقبضًا جديدًا مستقلًا للمقبس نفسه.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn try_clone(&self) -> io::Result<UnixDatagram> {
         self.0.duplicate().map(UnixDatagram)
@@ -808,6 +814,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة القراءة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn read_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.timeout(libc::SO_RCVTIMEO)
@@ -830,6 +842,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مهلة الكتابة لهذا المقبس.
+    ///
+    /// </div>
     #[stable(feature = "unix_socket", since = "1.10.0")]
     pub fn write_timeout(&self) -> io::Result<Option<Duration>> {
         self.0.timeout(libc::SO_SNDTIMEO)
@@ -944,6 +962,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل بيانات من الطرف البعيد بدون حذفها من الطابور، ويرجع عدد البايتات المقروءة.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_peek", issue = "76923")]
     pub fn peek(&self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.peek(buf)
@@ -977,6 +1001,12 @@ impl UnixDatagram {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستقبل رسالة واحدة بدون حذفها من الطابور، ويرجع عدد البايتات المقروءة والمصدر.
+    ///
+    /// </div>
     #[unstable(feature = "unix_socket_peek", issue = "76923")]
     pub fn peek_from(&self, buf: &mut [u8]) -> io::Result<(usize, SocketAddr)> {
         self.recv_from_flags(buf, libc::MSG_PEEK)

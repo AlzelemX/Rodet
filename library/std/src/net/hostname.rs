@@ -16,6 +16,12 @@ use crate::ffi::OsString;
 /// Note that platform-specific behavior [may change in the future][changes].
 ///
 /// [changes]: crate::io#platform-specific-behavior
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع اسم الجهاز (hostname).
+///
+/// </div>
 #[unstable(feature = "gethostname", issue = "135142")]
 pub fn hostname() -> crate::io::Result<OsString> {
     crate::sys::net::hostname()

@@ -19,6 +19,12 @@
 //! Rust disables inheritance of socket objects to child processes by default when possible.  For
 //! example, through the use of the `CLOEXEC` flag in UNIX systems or the `HANDLE_FLAG_INHERIT`
 //! flag on Windows.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أدوات الشبكات للاتصال عبر TCP/UDP.
+//!
+//! </div>
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
@@ -47,6 +53,12 @@ pub(crate) mod tests;
 mod udp;
 
 /// Possible values which can be passed to the [`TcpStream::shutdown`] method.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// القيم الممكنة لدالة `TcpStream::shutdown`.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum Shutdown {
@@ -55,6 +67,12 @@ pub enum Shutdown {
     /// All currently blocked and future [reads] will return <code>[Ok]\(0)</code>.
     ///
     /// [reads]: crate::io::Read "io::Read"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُغلق جزء القراءة من الـ `TcpStream`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Read,
     /// The writing portion of the [`TcpStream`] should be shut down.
@@ -62,11 +80,23 @@ pub enum Shutdown {
     /// All currently blocked and future [writes] will return an error.
     ///
     /// [writes]: crate::io::Write "io::Write"
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُغلق جزء الكتابة من الـ `TcpStream`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Write,
     /// Both the reading and the writing portions of the [`TcpStream`] should be shut down.
     ///
     /// See [`Shutdown::Read`] and [`Shutdown::Write`] for more information.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يُغلق جزءا القراءة والكتابة من الـ `TcpStream`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Both,
 }
