@@ -3,7 +3,7 @@
 import { t } from '../i18n';
 import { backend } from '../backend';
 import type { LspLocation } from '../lsp/client';
-import { basename, fileIcon, fuzzy, h, highlighted, icon, keyLabel, relativePath } from '../util';
+import { Emitter, basename, fileIcon, fuzzy, h, highlighted, icon, keyLabel, relativePath } from '../util';
 import { pathOfUri, workspace } from '../workspace';
 
 export interface PickItem {
@@ -134,13 +134,48 @@ export interface Command {
 }
 
 export const commands = new Map<string, Command>();
+export const onCommands = new Emitter<void>();
 
-export function registerCommand(command: Command) {
+/** Adds a command; returns a function that removes it again. */
+export function registerCommand(command: Command): () => void {
   commands.set(command.id, command);
+  onCommands.fire();
+  return () => {
+    if (commands.get(command.id) === command) {
+      commands.delete(command.id);
+      onCommands.fire();
+    }
+  };
 }
 
 export function runCommand(id: string) {
   commands.get(id)?.run();
+}
+
+// ---- keyboard shortcuts of the workbench (the code editor's own keys stay in Monaco) ----
+
+/** `Ctrl+Shift+P` → command id. `Ctrl` means `⌘` on macOS. */
+export const keybindings = new Map<string, string>();
+
+/** Binds a key to a command; returns a function that puts back what was bound before. */
+export function bindKey(combo: string, commandId: string): () => void {
+  const key = normalizeKey(combo);
+  const before = keybindings.get(key);
+  keybindings.set(key, commandId);
+  return () => {
+    if (keybindings.get(key) !== commandId) return;
+    if (before === undefined) keybindings.delete(key);
+    else keybindings.set(key, before);
+  };
+}
+
+/** `shift+ctrl+p` → `Ctrl+Shift+P`. */
+export function normalizeKey(combo: string) {
+  const parts = combo.split('+').map((p) => p.trim()).filter(Boolean);
+  const has = (m: string) => parts.some((p) => p.toLowerCase() === m.toLowerCase() || (m === 'Ctrl' && /^(cmd|meta)$/i.test(p)));
+  let key = parts.filter((p) => !/^(ctrl|cmd|meta|alt|shift)$/i.test(p)).pop() ?? '';
+  if (key.length === 1) key = key.toUpperCase();
+  return `${has('Ctrl') ? 'Ctrl+' : ''}${has('Alt') ? 'Alt+' : ''}${has('Shift') ? 'Shift+' : ''}${key}`;
 }
 
 export function commandPalette() {

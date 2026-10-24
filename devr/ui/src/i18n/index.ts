@@ -28,9 +28,21 @@ export const arabic = language === 'ar';
 document.documentElement.lang = language;
 document.documentElement.dataset.lang = language;
 
+/** Arabic for texts added at run time (by plugins). */
+const extra = new Map<string, string>();
+
+/** Adds Arabic translations: `{ 'Hello': 'مرحبًا' }`. Returns a function that removes them. */
+export function addTranslations(table: Record<string, string>): () => void {
+  const added = Object.entries(table).filter(([en]) => !extra.has(en));
+  for (const [en, ar] of added) extra.set(en, ar);
+  return () => {
+    for (const [en, ar] of added) if (extra.get(en) === ar) extra.delete(en);
+  };
+}
+
 /** The interface text for `english`, with `{name}` placeholders filled in. */
 export function t(english: string, vars?: Record<string, string | number>): string {
-  let text = arabic ? isolateLatin(AR[english] ?? english) : english;
+  let text = arabic ? isolateLatin(AR[english] ?? extra.get(english) ?? english) : english;
   if (vars) text = text.replace(/\{(\w+)\}/g, (m, key) => (key in vars ? String(vars[key]) : m));
   return text;
 }

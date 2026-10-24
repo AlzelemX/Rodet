@@ -8,6 +8,7 @@
 - [مرحبا يا عالم!](start/hello.md)
 - [المشاريع مع Cargo](start/cargo.md)
 - [محرر DEVR+](start/devr.md)
+    - [الإضافات](start/plugins.md)
 
 # الأساسيات
 

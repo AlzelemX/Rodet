@@ -667,3 +667,21 @@ code.inline { font-family: var(--font-code); font-size: 0.92em; background: var(
   --vscode-menu-separatorBackground: var(--border-strong);
   --vscode-widget-shadow: rgba(0, 0, 0, 0.36);
 }
+
+/* ---------------------------------------------------------------- plugins */
+
+.plugin-card { margin: 8px 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-widget); }
+.plugin-head { display: flex; align-items: center; gap: 8px; }
+.plugin-icon { color: var(--accent); }
+.plugin-title { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 6px; overflow: hidden; }
+.plugin-title b { color: var(--fg-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plugin-version { font-size: 11px; color: var(--fg-faint); }
+.plugin-desc { margin-top: 6px; color: var(--fg-muted); line-height: 1.5; }
+.plugin-meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 11px; color: var(--fg-faint); }
+.plugin-state { padding: 0 6px; border-radius: 8px; background: var(--bg-badge); color: var(--fg-strong); }
+.plugin-state.on { background: var(--success); color: #fff; }
+.plugin-state.error { background: var(--error); color: #fff; }
+.plugin-error { margin-top: 6px; font-size: 12px; color: var(--error); white-space: pre-wrap; word-break: break-word; }
+.plugin-actions { margin-top: 6px; display: flex; justify-content: flex-end; gap: 2px; }
+.plugin-page { position: absolute; inset: 0; z-index: 4; overflow: auto; background: var(--bg); }
+.plugin-page.hidden { display: none; }

@@ -19,7 +19,7 @@
 | DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
 | DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
 | Compiler messages and std docs in Arabic + English | 🟢 Done (messages 70%, std summaries 99%, full docs for the most used) | [014](notebook/014-arabic-in-the-language.md) |
-| DEVR+ extensions | 🟡 In progress | |
+| DEVR+ plugins (change anything: commands, views, themes, the whole look) | 🟢 Done | [015](notebook/015-devr-plugins.md) |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |

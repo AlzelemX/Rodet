@@ -1,0 +1,51 @@
+{
+  "id": "ocean",
+  "name": { "en": "Ocean", "ar": "المحيط" },
+  "base": "dark",
+  "colors": {
+    "--bg": "#0b1622",
+    "--bg-sidebar": "#08111b",
+    "--bg-activity": "#060d15",
+    "--bg-panel": "#08111b",
+    "--bg-tabs": "#08111b",
+    "--bg-tab": "#08111b",
+    "--bg-tab-active": "#0b1622",
+    "--bg-input": "#132436",
+    "--bg-hover": "#10202f",
+    "--bg-active": "#163049",
+    "--bg-selected": "#0f3a5c",
+    "--bg-widget": "#0d1b2a",
+    "--bg-status": "#060d15",
+    "--fg": "#c7d5e0",
+    "--fg-strong": "#ffffff",
+    "--fg-muted": "#8aa1b4",
+    "--fg-faint": "#5d7488",
+    "--border": "#14263a",
+    "--border-strong": "#1d3550",
+    "--accent": "#38bdf8",
+    "--accent-soft": "#38bdf833",
+    "--accent-fg": "#00131f"
+  },
+  "editor": {
+    "rules": [
+      { "token": "comment", "foreground": "5d7488", "fontStyle": "italic" },
+      { "token": "keyword", "foreground": "38bdf8" },
+      { "token": "string", "foreground": "a3e635" },
+      { "token": "number", "foreground": "fbbf24" },
+      { "token": "type", "foreground": "67e8f9" }
+    ],
+    "colors": {
+      "editor.background": "#0b1622",
+      "editor.foreground": "#c7d5e0",
+      "editor.lineHighlightBackground": "#10202f",
+      "editorLineNumber.foreground": "#3b556c",
+      "editorCursor.foreground": "#38bdf8",
+      "editor.selectionBackground": "#0f3a5c"
+    }
+  },
+  "terminal": {
+    "background": "#08111b",
+    "foreground": "#c7d5e0",
+    "cursor": "#38bdf8"
+  }
+}

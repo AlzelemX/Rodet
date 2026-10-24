@@ -1,0 +1,6 @@
+/* Ocean: a softer look for the whole editor (works with every theme). */
+:root { --radius: 10px; }
+.tabs-bar .tab { border-radius: 8px 8px 0 0; margin: 4px 2px 0; }
+.activitybar .activity-item.active { border-radius: 10px; background: var(--accent-soft); }
+.statusbar { border-top: 1px solid var(--accent-soft); }
+.palette, .dialog, .context-menu, .toast { border-radius: 12px; }

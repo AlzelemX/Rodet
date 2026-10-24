@@ -8,6 +8,7 @@ The editor for Rust++. How to use it: [Doc Book → The DEVR+ Editor](https://al
 | `ui/` | The editor (TypeScript, Monaco, xterm.js) |
 | `app/` | The desktop app (Tauri): one window with `ui/`, talking to `core/` |
 | `server/` | `devr-server`: the same editor in a browser, over a WebSocket |
+| `plugin-api/` | The plugin API for plugin authors (`devr.d.ts`) and example plugins |
 
 ## Work on it
 

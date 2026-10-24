@@ -142,10 +142,11 @@ export class LspClient {
     this.send({ jsonrpc: '2.0', method, params });
   }
 
-  onNotification(method: string, handler: (params: any) => void) {
+  onNotification(method: string, handler: (params: any) => void): () => void {
     let set = this.notificationHandlers.get(method);
     if (!set) this.notificationHandlers.set(method, (set = new Set()));
     set.add(handler);
+    return () => set!.delete(handler);
   }
 
   onRequest(method: string, handler: RequestHandler) {

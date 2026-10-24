@@ -2,6 +2,7 @@
 import { language, switchLanguage, t, type Language } from '../i18n';
 import { type Settings, settings, updateSettings } from '../settings';
 import { showDialog } from '../ui/notify';
+import { themeName, themes } from '../theme';
 import { h } from '../util';
 
 function row(title: string, detail: string, control: HTMLElement) {
@@ -34,12 +35,11 @@ export function openSettings() {
     setTimeout(() => switchLanguage(next), 150);
   });
   const theme = h('select', {},
-    h('option', { value: 'dark', selected: settings.theme === 'dark' }, t('Dark')),
-    h('option', { value: 'light', selected: settings.theme === 'light' }, t('Light')));
-  theme.addEventListener('change', () => updateSettings({ theme: theme.value as 'dark' | 'light' }));
+    [...themes.values()].map((th) => h('option', { value: th.id, selected: settings.theme === th.id }, themeName(th))));
+  theme.addEventListener('change', () => updateSettings({ theme: theme.value }));
   showDialog(t('Settings'), h('div.settings', {},
     row('Language', 'The language of the editor, its messages and the Doc Book. The window reloads.', lang),
-    row('Theme', 'Colors of the whole editor.', theme),
+    row('Theme', 'Colors of the whole editor. Plugins can add more.', theme),
     number('fontSize', 'Font size', 'Size of the code text.', 9, 32),
     number('tabSize', 'Tab size', 'Spaces for one indentation level.', 1, 8),
     toggle('returnMarks', 'Return marks ↩', 'Show ↩ after the value a function gives back (the last line without `;`).'),

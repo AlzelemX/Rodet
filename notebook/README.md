@@ -5,6 +5,8 @@ and after, and the date. Newest first.
 
 | # | Card | Date |
 |---|---|---|
+| 015 | [`Ctrl+Shift+X` \| DEVR+ Plugins](015-devr-plugins.md) | 2026-10-24 |
+| 014 | [`RUSTPP_LANG=ar` \| Arabic Inside The Language](014-arabic-in-the-language.md) | 2026-10-24 |
 | 013 | [`العربية` \| DEVR+ And The Doc Book In Arabic](013-arabic.md) | 2026-10-23 |
 | 012 | [`DEVR+` \| The Editor For Rust++](012-devr-editor.md) | 2026-10-23 |
 | 011 | [`rust++-analyzer` \| A Language Server That Speaks Rust++](011-rustpp-analyzer.md) | 2026-10-23 |

@@ -91,9 +91,23 @@ class Layout {
     this.sideViews.set(view.id, { view, button });
   }
 
+  removeSideView(id: string) {
+    const entry = this.sideViews.get(id);
+    if (!entry) return;
+    entry.button.remove();
+    entry.view.element.remove();
+    this.sideViews.delete(id);
+    if (this.activeSide === id) {
+      this.activeSide = null;
+      this.showSide('explorer');
+    }
+  }
+
   /** A button at the bottom of the activity bar (not a view). */
   addActivityButton(title: string, iconName: string, onclick: () => void) {
-    this.activityBottom.appendChild(h('button.activity-item', { title, onclick }, icon(iconName)));
+    const button = h('button.activity-item', { title, onclick }, icon(iconName));
+    this.activityBottom.appendChild(button);
+    return button;
   }
 
   showSide(id: string) {
@@ -134,6 +148,18 @@ class Layout {
     view.element.classList.add('panel-view');
     this.panelBody.appendChild(view.element);
     this.panelViews.set(view.id, { view, tab });
+  }
+
+  removePanelView(id: string) {
+    const entry = this.panelViews.get(id);
+    if (!entry) return;
+    entry.tab.remove();
+    entry.view.element.remove();
+    this.panelViews.delete(id);
+    if (this.activePanel === id) {
+      this.activePanel = null;
+      if (!this.panel.classList.contains('hidden')) this.showPanel('problems');
+    }
   }
 
   showPanel(id: string) {

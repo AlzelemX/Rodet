@@ -8,6 +8,7 @@
 - [Hello, World!](start/hello.md)
 - [Projects with Cargo](start/cargo.md)
 - [The DEVR+ Editor](start/devr.md)
+    - [Plugins](start/plugins.md)
 
 # The Basics
 

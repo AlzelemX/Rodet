@@ -12,6 +12,7 @@ import { layout, type PanelView } from '../ui/layout';
 import { toast } from '../ui/notify';
 import { h, icon, isWindowsPath, joinPath } from '../util';
 import { workspace } from '../workspace';
+import { currentTheme, onThemeApplied } from '../theme';
 
 interface Term {
   id: number | null;
@@ -33,7 +34,11 @@ const list = h('div.terminal-list');
 const element = h('div', {}, h('div.terminal-area', {}, host, list));
 
 function xtermTheme() {
-  const dark = settings.theme === 'dark';
+  const theme = currentTheme();
+  return { ...builtinXtermTheme(theme.base === 'dark'), ...(theme.terminal ?? {}) };
+}
+
+function builtinXtermTheme(dark: boolean) {
   return dark
     ? { background: '#181818', foreground: '#cccccc', cursor: '#e8590c', selectionBackground: '#264f78',
         black: '#000000', red: '#f14c4c', green: '#23d18b', yellow: '#f5f543', blue: '#3b8eea', magenta: '#d670d6',
@@ -250,6 +255,9 @@ export function setupTerminal() {
         // Hidden.
       }
     }
+  });
+  onThemeApplied.on(() => {
+    for (const t of terms) t.xterm.options.theme = xtermTheme();
   });
   onSettings.on(() => {
     for (const t of terms) {

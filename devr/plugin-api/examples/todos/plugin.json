@@ -1,0 +1,12 @@
+{
+  "id": "todos",
+  "name": { "en": "TODOs", "ar": "المهام" },
+  "version": "1.0.0",
+  "description": {
+    "en": "A side view with every TODO and FIXME in the project, a command to refresh it, and a count in the status bar.",
+    "ar": "لوحة جانبية بكل TODO وFIXME في المشروع، وأمر لتحديثها، وعددها في شريط الحالة."
+  },
+  "author": "DEVR+",
+  "main": "main.js",
+  "devr": "1"
+}

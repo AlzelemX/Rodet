@@ -2,7 +2,7 @@
 //!
 //! Everything the editor needs from the computer goes through [`Core::call`]:
 //! files, the Rust++ toolchain, the language server (rust++-analyzer), Cargo,
-//! terminals and search. Results come back as JSON; things that happen later
+//! terminals, search and plugins. Results come back as JSON; things that happen later
 //! (language server messages, terminal output, file changes) are sent as
 //! events through the [`EventSink`].
 //!
@@ -13,6 +13,7 @@ mod book;
 mod cargo;
 mod files;
 mod lsp;
+mod plugins;
 mod search;
 mod settings;
 mod terminal;
@@ -174,6 +175,21 @@ impl Core {
             }
 
             "updates.check" => to_json(updates::check()?)?,
+
+            "plugins.dir" => to_json(plugins::dir())?,
+            "plugins.list" => to_json(plugins::list())?,
+            "plugins.read" => Value::String(plugins::read(&parse(params)?)?),
+            "plugins.install" => Value::String(plugins::install(&parse(params)?)?),
+            "plugins.create" => to_json(plugins::create(&parse(params)?)?)?,
+            "plugins.remove" => {
+                plugins::remove(&parse::<plugins::IdParam>(params)?.id)?;
+                Value::Null
+            }
+            "plugins.dataGet" => plugins::data_get(&parse::<plugins::IdParam>(params)?.id)?,
+            "plugins.dataSet" => {
+                plugins::data_set(&parse(params)?)?;
+                Value::Null
+            }
 
             other => bail!("unknown request `{other}`"),
         })

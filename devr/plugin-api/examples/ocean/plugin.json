@@ -1,0 +1,13 @@
+{
+  "id": "ocean",
+  "name": { "en": "Ocean", "ar": "المحيط" },
+  "version": "1.0.0",
+  "description": {
+    "en": "A deep blue theme and a softer, rounded look for the whole editor. No code: only a theme and CSS.",
+    "ar": "ثيم أزرق غامق وشكل أنعم بزوايا دائرية للمحرر كله. بدون كود: ثيم وتنسيق CSS فقط."
+  },
+  "author": "DEVR+",
+  "styles": ["look.css"],
+  "themes": ["themes/ocean.json"],
+  "devr": "1"
+}

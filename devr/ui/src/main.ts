@@ -19,7 +19,7 @@ import {
 import { loadSettings, onSettings, settings, updateSettings } from './settings';
 import { layout } from './ui/layout';
 import { confirm, prompt, toast } from './ui/notify';
-import { commandPalette, quickOpen, registerCommand, runCommand, symbolPicker } from './ui/palette';
+import { commandPalette, keybindings, quickOpen, registerCommand, runCommand, symbolPicker } from './ui/palette';
 import { basename, debounce, h, isMac } from './util';
 import { cargo, newProject, setupCargo } from './views/cargo';
 import { renderWelcome, setupEditorArea } from './views/editor-area';
@@ -32,15 +32,13 @@ import { setupSymbols, symbols } from './views/symbols';
 import { newTerminal, runCargo, runTask, setupTerminal, terminalPanel } from './views/terminal';
 import { workspace } from './workspace';
 import { openBook, reloadBook } from './views/book';
+import { applyTheme, themes } from './theme';
+import { pluginsView, setupPlugins, startPlugins } from './views/plugins';
+import { pluginEditorOptions } from './plugins/api';
 
 (self as any).MonacoEnvironment = {
   getWorker: () => new EditorWorker(),
 };
-
-function applyTheme() {
-  document.documentElement.dataset.theme = settings.theme;
-  monaco.editor.setTheme(settings.theme === 'dark' ? 'devr-dark' : 'devr-light');
-}
 
 function editorOptions(): monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions {
   return {
@@ -112,6 +110,7 @@ async function main() {
   layout.addSideView(search);
   layout.addSideView(symbols);
   layout.addSideView(cargo);
+  layout.addSideView(pluginsView);
   layout.addActivityButton(t('Doc Book'), 'book', () => openBook());
   layout.addActivityButton(t('Settings (Ctrl+,)'), 'settings-gear', () => openSettings());
   layout.addPanelView(problemsPanel);
@@ -129,6 +128,7 @@ async function main() {
   setupStatusbar();
   registerCommands();
   setupKeys();
+  setupPlugins();
 
   layout.showSide('explorer');
   layout.togglePanel(false);
@@ -137,7 +137,7 @@ async function main() {
 
   onSettings.on(() => {
     applyTheme();
-    workspace.editor.updateOptions(editorOptions());
+    workspace.editor.updateOptions({ ...editorOptions(), ...pluginEditorOptions() });
     configurationChanged();
     refreshEditorFeatures();
   });
@@ -173,6 +173,8 @@ async function main() {
 
   setupWindowClose();
   checkUpdates();
+  // Plugins start once the workbench is ready, before the last folder opens.
+  await startPlugins();
 
   let last = '';
   try {
@@ -256,7 +258,7 @@ function registerCommands() {
   C({ id: 'cargo.clean', title: t('Cargo: Clean'), icon: 'trash', run: () => runCargo(['clean']) });
   C({ id: 'book.open', title: t('Help: Doc Book'), icon: 'book', run: () => openBook() });
   C({ id: 'settings', title: t('Preferences: Settings'), key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
-  C({ id: 'theme.toggle', title: t('Preferences: Toggle Dark / Light Theme'), icon: 'color-mode', run: () => updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' }) });
+  C({ id: 'theme.toggle', title: t('Preferences: Toggle Dark / Light Theme'), icon: 'color-mode', run: () => updateSettings({ theme: (themes.get(settings.theme)?.base ?? settings.theme) === 'dark' ? 'light' : 'dark' }) });
   C({ id: 'analyzer.restart', title: t('Rust++: Restart Language Server'), icon: 'refresh', run: () => restartLanguageServer() });
   C({ id: 'analyzer.menu', title: t('Rust++: Language Server Status'), icon: 'info', run: () => {
     if (lsp.state === 'error' || lsp.state === 'stopped') restartLanguageServer();
@@ -303,7 +305,7 @@ async function newFile() {
 
 /** Keyboard shortcuts of the workbench (the editor's own keys stay in Monaco). */
 function setupKeys() {
-  const bindings: Record<string, string> = {
+  const defaults: Record<string, string> = {
     'Ctrl+O': 'folder.open',
     'Ctrl+N': 'file.new',
     'Ctrl+S': 'file.save',
@@ -317,6 +319,7 @@ function setupKeys() {
     'F1': 'palette',
     'Ctrl+Shift+E': 'view.explorer',
     'Ctrl+Shift+F': 'view.search',
+    'Ctrl+Shift+X': 'view.plugins',
     'Ctrl+B': 'view.sidebar',
     'Ctrl+J': 'view.panel',
     'Ctrl+Shift+M': 'view.problems',
@@ -326,11 +329,12 @@ function setupKeys() {
     'Ctrl+Shift+B': 'cargo.build',
     'Ctrl+,': 'settings',
   };
+  for (const [combo, id] of Object.entries(defaults)) keybindings.set(combo, id);
   window.addEventListener('keydown', (e) => {
     const ctrl = isMac ? e.metaKey : e.ctrlKey;
     const key = e.key.length === 1 ? e.key.toUpperCase() : e.key;
     const combo = `${ctrl ? 'Ctrl+' : ''}${e.altKey ? 'Alt+' : ''}${e.shiftKey ? 'Shift+' : ''}${key === 'Dead' ? '`' : key}`;
-    const id = bindings[combo] ?? (e.code === 'Backquote' && ctrl ? bindings['Ctrl+`'] : undefined);
+    const id = keybindings.get(combo) ?? (e.code === 'Backquote' && ctrl ? keybindings.get('Ctrl+`') : undefined);
     if (!id) return;
     // Inside a terminal, keep Ctrl+letters for the shell (Ctrl+C, Ctrl+W…), except ours that matter.
     const inTerminal = (e.target as HTMLElement | null)?.closest?.('.xterm');

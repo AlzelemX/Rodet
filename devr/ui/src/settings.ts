@@ -6,7 +6,8 @@ import { Emitter } from './util';
 export interface Settings {
   /** The interface language (also kept in the window's storage, see i18n). */
   language?: Language;
-  theme: 'dark' | 'light';
+  /** `dark`, `light`, or the id of a theme from a plugin. */
+  theme: string;
   fontSize: number;
   fontFamily: string;
   tabSize: number;
@@ -20,6 +21,8 @@ export interface Settings {
   speedScore: boolean;
   /** Run `cargo check` on save and show the compiler's errors. */
   checkOnSave: boolean;
+  /** Ids of installed plugins that are turned off. */
+  disabledPlugins: string[];
 }
 
 export const defaults: Settings = {
@@ -35,6 +38,7 @@ export const defaults: Settings = {
   parameterHints: true,
   speedScore: true,
   checkOnSave: true,
+  disabledPlugins: [],
 };
 
 const SETTINGS_VERSION = 2;
