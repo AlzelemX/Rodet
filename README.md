@@ -8,6 +8,9 @@ more precise and easier to read and learn.
 <!-- STATUS:START -->
 <!-- Generated from STATUS.md: edit that file, not this table. -->
 
+## Note
+It's true that I use artificial intelligence, but I do things to speed up the work only, if the speed is over and it must be accurate, I do that
+
 ## Status
 
 | Feature | Status | NoteBook |
