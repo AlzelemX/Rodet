@@ -636,7 +636,7 @@ en: unlabeled `{$cf_type}` in the condition of a `while` loop
 ar: `{$cf_type}` بدون اسم في شرط حلقة `while`
 
 en: no {$item_kind} named `{$item_ident}` found for {$ty_prefix} `{$ty}`{$trait_missing_method ->\n    [true] {""}\n    *[other] {" "}in the current scope\n}
-ar: لا يوجد {$item_kind} اسمه `{$item_ident}` في {$ty_prefix} `{$ty}`{$trait_missing_method ->\n    [true] {""}\n    *[other] {" "}هنا\n    }
+ar: لا يوجد {$item_kind} بالاسم `{$item_ident}` في {$ty_prefix} `{$ty}`{$trait_missing_method ->\n    [true] {""}\n    *[other] {" "}هنا\n    }
 
 en: ...not the enclosing function body
 ar: ...وليس جسم الدالة المحيطة
@@ -2304,7 +2304,7 @@ en: you can define integration tests in a directory named `tests`
 ar: يمكنك تعريف اختبارات التكامل في مجلد اسمه `tests`
 
 en: cannot find {$ns_descr} `{$ident}` in this scope
-ar: لا يوجد {$ns_descr} اسمه `{$ident}` هنا
+ar: لا يوجد {$ns_descr} بالاسم `{$ident}` هنا
 
 en: names from parent modules are not accessible without an explicit import
 ar: الأسماء من الوحدات الأم لا يمكن الوصول إليها بدون استيراد صريح بـ `use`
@@ -2349,7 +2349,7 @@ en: imports cannot refer to {$what}
 ar: الاستيرادات لا يمكن أن تشير إلى {$what}
 
 en: cannot find {$expected} `{$ident}` in this scope
-ar: لا يوجد {$expected} اسمه `{$ident}` هنا
+ar: لا يوجد {$expected} بالاسم `{$ident}` هنا
 
 en: `Self` type implicitly declared here, by this `impl`
 ar: النوع `Self` معرَّف ضمنيًا هنا، بواسطة هذا الـ `impl`

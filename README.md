@@ -25,7 +25,8 @@ more precise and easier to read and learn.
 | rust++-analyzer (language server) | 🟢 Done | [011](notebook/011-rustpp-analyzer.md) |
 | DEVR+ editor v0.1 | 🟢 Done | [012](notebook/012-devr-editor.md) |
 | DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
-| DEVR+ extensions | 🔵 Planned | |
+| Compiler messages and std docs in Arabic + English | 🟢 Done (messages 70%, std summaries 99%, full docs for the most used) | [014](notebook/014-arabic-in-the-language.md) |
+| DEVR+ extensions | 🟡 In progress | |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |

@@ -23,9 +23,23 @@ the welcome page has an **Install Rust++** button.
 ## Arabic
 
 In the settings (`Ctrl+,`) choose **Language: العربية**. The whole editor
-switches to Arabic: menus and commands, the common compiler messages, quick
-fixes, speed tips, the descriptions of the most used standard library items,
-and this book. Code itself stays left to right.
+switches to Arabic: menus and commands, compiler messages, quick fixes, speed
+tips, the documentation of the standard library, and this book. Code itself
+stays left to right.
+
+The Arabic lives in Rust++ itself, not only in the editor:
+
+- **Compiler messages.** `rustc` and `cargo` speak Arabic when the
+  environment variable `RUSTPP_LANG` is `ar` (DEVR+ sets it for you, also in
+  its terminal). From any terminal: `RUSTPP_LANG=ar cargo build`
+  (PowerShell: `$env:RUSTPP_LANG="ar"; cargo build`). Names, types and code
+  in the messages stay as they are.
+- **Standard library docs.** Every documented item of `std`, `core` and
+  `alloc` has an Arabic explanation next to the English one, in the same doc
+  comment. `Option`, `Result`, `String`, `Vec`, `HashMap` and the print
+  macros have the whole text in Arabic, the rest a short summary for now.
+  The analyzer shows the language you chose (setting `rustpp.language`:
+  `en` or `ar`); code examples are shown in both.
 
 ## A first project
 
