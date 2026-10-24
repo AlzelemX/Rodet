@@ -18,6 +18,12 @@ use crate::{collections, fmt, panicking};
 ///
 /// `PanicInfo` has been renamed to [`PanicHookInfo`] to avoid confusion with
 /// [`core::panic::PanicInfo`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تعطي معلومات عن panic.
+///
+/// </div>
 pub type PanicInfo<'a> = PanicHookInfo<'a>;
 
 /// A struct providing information about a panic.
@@ -37,6 +43,12 @@ pub type PanicInfo<'a> = PanicHookInfo<'a>;
 /// ```
 ///
 /// [`set_hook`]: ../../std/panic/fn.set_hook.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تعطي معلومات عن panic.
+///
+/// </div>
 #[stable(feature = "panic_hook_info", since = "1.81.0")]
 #[derive(Debug)]
 pub struct PanicHookInfo<'a> {
@@ -89,6 +101,12 @@ impl<'a> PanicHookInfo<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحمولة المرتبطة بالـ panic.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
@@ -157,6 +175,12 @@ impl<'a> PanicHookInfo<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معلومات عن مكان بدء الـ panic، إن وُجدت.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
@@ -176,6 +200,12 @@ impl<'a> PanicHookInfo<'a> {
     /// It is safe for a panic handler to unwind even when this function returns
     /// false, however this will simply cause the panic handler to be called
     /// again.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل يُسمح لمعالج الـ panic بفك المكدس من مكان حدوثه.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[unstable(feature = "panic_can_unwind", issue = "92988")]

@@ -1153,36 +1153,78 @@ pub enum ErrorKind {
     ///
     /// A file locking operation would result in deadlock.  This situation is typically detected, if
     /// at all, on a best-effort basis.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// جمود متبادل (deadlock) تم تجنبه.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     Deadlock,
     /// Cross-device or cross-filesystem (hard) link or rename.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ربط (صلب) أو إعادة تسمية بين أجهزة أو أنظمة ملفات مختلفة.
+    ///
+    /// </div>
     #[stable(feature = "io_error_crosses_devices", since = "1.85.0")]
     CrossesDevices,
     /// Too many (hard) links to the same filesystem object.
     ///
     /// The filesystem does not support making so many hardlinks to the same file.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// روابط (صلبة) كثيرة جدًا لنفس كائن نظام الملفات.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     TooManyLinks,
     /// A filename was invalid.
     ///
     /// This error can also occur if a length limit for a name was exceeded.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// اسم ملف غير صالح.
+    ///
+    /// </div>
     #[stable(feature = "io_error_invalid_filename", since = "1.87.0")]
     InvalidFilename,
     /// Program argument list too long.
     ///
     /// When trying to run an external program, a system or process limit on the size of the
     /// arguments would have been exceeded.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قائمة معاملات البرنامج طويلة جدًا.
+    ///
+    /// </div>
     #[stable(feature = "io_error_a_bit_more", since = "1.83.0")]
     ArgumentListTooLong,
     /// This operation was interrupted.
     ///
     /// Interrupted operations can typically be retried.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// قوطعت هذه العملية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Interrupted,
 
     /// This operation is unsupported on this platform.
     ///
     /// This means that the operation can never succeed.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// هذه العملية غير مدعومة على هذه المنصة.
+    ///
+    /// </div>
     #[stable(feature = "unsupported_error", since = "1.53.0")]
     Unsupported,
 
@@ -1195,21 +1237,45 @@ pub enum ErrorKind {
     /// This typically means that an operation could only succeed if it read a
     /// particular number of bytes but only a smaller number of bytes could be
     /// read.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// خطأ يُرجَع عندما لا تكتمل العملية لأن نهاية الملف (EOF) وصلت مبكرًا.
+    ///
+    /// </div>
     #[stable(feature = "read_exact", since = "1.6.0")]
     UnexpectedEof,
 
     /// An operation could not be completed, because it failed
     /// to allocate enough memory.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لم تكتمل العملية لأنها فشلت في حجز ذاكرة كافية.
+    ///
+    /// </div>
     #[stable(feature = "out_of_memory_error", since = "1.54.0")]
     OutOfMemory,
 
     /// The operation was partially successful and needs to be checked
     /// later on due to not blocking.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نجحت العملية جزئيًا وتحتاج فحصًا لاحقًا لأنها لا تنتظر.
+    ///
+    /// </div>
     #[unstable(feature = "io_error_inprogress", issue = "130840")]
     InProgress,
 
     /// The process or the whole system has reached its limit on the number of
     /// open files or sockets.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// وصلت العملية أو النظام كله إلى حد عدد الملفات أو المقابس المفتوحة.
+    ///
+    /// </div>
     #[unstable(feature = "io_error_too_many_open_files", issue = "158319")]
     TooManyOpenFiles,
 
@@ -1218,6 +1284,12 @@ pub enum ErrorKind {
     /// This usually indicates a hardware or device-level failure, such as a bad
     /// disk sector or a removed device, but the operating system may also report
     /// it for other low-level I/O conditions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// خطأ إدخال وإخراج منخفض المستوى.
+    ///
+    /// </div>
     #[unstable(feature = "io_error_input_output_error", issue = "159066")]
     InputOutputError,
 
@@ -1237,6 +1309,12 @@ pub enum ErrorKind {
     /// New [`ErrorKind`]s might be added in the future for some of those.
     ///
     /// [error]: Error
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// خطأ مخصص لا يندرج تحت أي نوع آخر من أخطاء الإدخال والإخراج.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Other,
 
@@ -1382,6 +1460,12 @@ impl fmt::Display for ErrorKind {
     /// use core::io::ErrorKind;
     /// assert_eq!("entity not found", ErrorKind::NotFound.to_string());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعرض وصفًا مقروءًا لنوع الخطأ `ErrorKind`.
+    ///
+    /// </div>
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         fmt.write_str(self.as_str())
     }

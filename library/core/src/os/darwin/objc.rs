@@ -1,4 +1,10 @@
 //! Defines types and macros for Objective-C interoperability.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف أنواعًا وماكروهات للتعامل مع Objective-C.
+//!
+//! </div>
 
 #![unstable(feature = "darwin_objc", issue = "145496")]
 #![allow(nonstandard_style)]
@@ -6,6 +12,12 @@
 use crate::fmt;
 
 /// Equivalent to Objective-C’s `struct objc_class` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `struct objc_class` في Objective-C.
+///
+/// </div>
 #[repr(u8)]
 pub enum objc_class {
     #[unstable(
@@ -31,6 +43,12 @@ impl fmt::Debug for objc_class {
 }
 
 /// Equivalent to Objective-C’s `struct objc_selector` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `struct objc_selector` في Objective-C.
+///
+/// </div>
 #[repr(u8)]
 pub enum objc_selector {
     #[unstable(
@@ -56,9 +74,21 @@ impl fmt::Debug for objc_selector {
 }
 
 /// Equivalent to Objective-C’s `Class` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `Class` في Objective-C.
+///
+/// </div>
 pub type Class = *mut objc_class;
 
 /// Equivalent to Objective-C’s `SEL` type.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يعادل النوع `SEL` في Objective-C.
+///
+/// </div>
 pub type SEL = *mut objc_selector;
 
 /// Gets a reference to an Objective-C class.
@@ -74,6 +104,12 @@ pub type SEL = *mut objc_selector;
 ///
 /// let string_class = objc::class!("NSString");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مرجعًا إلى صنف (class) في Objective-C.
+///
+/// </div>
 #[allow_internal_unstable(core_os, rustc_attrs)]
 pub macro class($classname:expr) {{
     // Since static Objective-C class references actually end up with multiple definitions
@@ -102,6 +138,12 @@ pub macro class($classname:expr) {{
 /// let alloc_sel = objc::selector!("alloc");
 /// let init_sel = objc::selector!("initWithCString:encoding:");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يرجع مرجعًا إلى مُحدِّد (selector) في Objective-C.
+///
+/// </div>
 #[allow_internal_unstable(core_os, rustc_attrs)]
 pub macro selector($methname:expr) {{
     // Since static Objective-C selector references actually end up with multiple definitions

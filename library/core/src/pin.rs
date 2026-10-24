@@ -915,6 +915,12 @@
 //! [`VecDeque<T>`]: ../../std/collections/struct.VecDeque.html
 //! [VecDeque]: ../../std/collections/struct.VecDeque.html "collections::VecDeque"
 //! [`String`]: ../../std/string/struct.String.html "String"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أنواع تثبّت البيانات في مكان محدد في الذاكرة.
+//!
+//! </div>
 
 #![stable(feature = "pin", since = "1.33.0")]
 
@@ -1079,6 +1085,12 @@ pub use self::unsafe_pinned::UnsafePinned;
 /// [`Box::into_pin`]: ../../std/boxed/struct.Box.html#method.into_pin "Box::into_pin"
 /// [subtle-details]: self#subtle-details-and-the-drop-guarantee "pin subtle details"
 /// [`unsafe`]: ../../std/keyword.unsafe.html "keyword unsafe"
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مؤشر يثبّت ما يشير إليه في مكانه (لا يمكن نقله).
+///
+/// </div>
 //
 // Note: the `Clone` derive below is sound because either `Ptr: PinSafePointer`
 // or the pointee is `Unpin`.
@@ -1175,6 +1187,12 @@ impl<Ptr: Deref<Target: Unpin>> Pin<Ptr> {
     /// // pinning guarantees are actually upheld.
     /// let mut pinned: Pin<&mut u8> = Pin::new(&mut val);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Ptr>` جديدًا حول مؤشر إلى بيانات من نوع يطبّق `Unpin`.
+    ///
+    /// </div>
     #[inline(always)]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
     #[stable(feature = "pin", since = "1.33.0")]
@@ -1203,6 +1221,12 @@ impl<Ptr: Deref<Target: Unpin>> Pin<Ptr> {
     /// let r = Pin::into_inner(pinned);
     /// assert_eq!(*r, 5);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك هذا الـ `Pin<Ptr>` ويرجع المؤشر الأساسي.
+    ///
+    /// </div>
     #[inline(always)]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
@@ -1344,6 +1368,12 @@ impl<Ptr: Deref> Pin<Ptr> {
     ///
     /// [`mem::swap`]: crate::mem::swap
     /// [`pin` module docs]: self
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin<Ptr>` جديدًا حول مرجع إلى بيانات قد تطبّق `Unpin` أو لا (غير آمن).
+    ///
+    /// </div>
     #[lang = "new_unchecked"]
     #[inline(always)]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
@@ -1359,6 +1389,12 @@ impl<Ptr: Deref> Pin<Ptr> {
     /// the pointee cannot move after `Pin<Pointer<T>>` got created.
     /// "Malicious" implementations of `Pointer::Deref` are likewise
     /// ruled out by the contract of `Pin::new_unchecked`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة المثبتة التي يشير إليها هذا الـ `Pin`.
+    ///
+    /// </div>
     #[stable(feature = "pin", since = "1.33.0")]
     #[inline(always)]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1407,6 +1443,12 @@ impl<Ptr: DerefMut> Pin<Ptr> {
     ///     }
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى القيمة المثبتة التي يشير إليها هذا الـ `Pin<Ptr>`.
+    ///
+    /// </div>
     #[stable(feature = "pin", since = "1.33.0")]
     #[inline(always)]
     #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
@@ -1425,6 +1467,12 @@ impl<Ptr: DerefMut> Pin<Ptr> {
     /// move in the future, and this method does not enable the pointee to move. "Malicious"
     /// implementations of `Ptr::DerefMut` are likewise ruled out by the contract of
     /// `Pin::new_unchecked`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `Pin<&mut T>` إلى القيمة المثبتة من مؤشر `Pin` متداخل.
+    ///
+    /// </div>
     #[stable(feature = "pin_deref_mut", since = "1.84.0")]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[inline(always)]
@@ -1480,6 +1528,12 @@ impl<Ptr: DerefMut> Pin<Ptr> {
     /// ```
     ///
     /// [subtle-details]: self#subtle-details-and-the-drop-guarantee
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضع قيمة جديدة في موقع الذاكرة الذي يشير إليه الـ `Pin<Ptr>`.
+    ///
+    /// </div>
     #[stable(feature = "pin", since = "1.33.0")]
     #[inline(always)]
     pub fn set(&mut self, value: Ptr::Target)
@@ -1509,6 +1563,12 @@ impl<Ptr: Deref> Pin<Ptr> {
     ///
     /// If the underlying data is [`Unpin`], [`Pin::into_inner`] should be used
     /// instead.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك هذا الـ `Pin<Ptr>` ويرجع الـ `Ptr` الأساسي (غير آمن).
+    ///
+    /// </div>
     #[inline(always)]
     #[rustc_allow_const_fn_unstable(const_precise_live_drops)]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
@@ -1534,6 +1594,12 @@ impl<'a, T: ?Sized> Pin<&'a T> {
     /// not move out of the argument you receive to the interior function.
     ///
     /// [`pin` module]: self#projections-and-structural-pinning
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin` جديدًا بتحويل القيمة الداخلية (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "pin", since = "1.33.0")]
     pub unsafe fn map_unchecked<U, F>(self, func: F) -> Pin<&'a U>
     where
@@ -1565,6 +1631,12 @@ impl<'a, T: ?Sized> Pin<&'a T> {
     /// with the same lifetime as the reference it wraps.
     ///
     /// ["pinning projections"]: self#projections-and-structural-pinning
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا من `Pin`.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
@@ -1576,6 +1648,12 @@ impl<'a, T: ?Sized> Pin<&'a T> {
 
 impl<'a, T: ?Sized> Pin<&'a mut T> {
     /// Converts this `Pin<&mut T>` into a `Pin<&T>` with the same lifetime.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا الـ `Pin<&mut T>` إلى `Pin<&T>` بنفس العمر.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
@@ -1593,6 +1671,12 @@ impl<'a, T: ?Sized> Pin<&'a mut T> {
     /// that lives for as long as the borrow of the `Pin`, not the lifetime of
     /// the `Pin` itself. This method allows turning the `Pin` into a reference
     /// with the same lifetime as the original `Pin`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات داخل هذا الـ `Pin`.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "pin", since = "1.33.0")]
@@ -1614,6 +1698,12 @@ impl<'a, T: ?Sized> Pin<&'a mut T> {
     ///
     /// If the underlying data is `Unpin`, `Pin::get_mut` should be used
     /// instead.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل إلى البيانات داخل هذا الـ `Pin`.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "pin", since = "1.33.0")]
@@ -1637,6 +1727,12 @@ impl<'a, T: ?Sized> Pin<&'a mut T> {
     /// not move out of the argument you receive to the interior function.
     ///
     /// [`pin` module]: self#projections-and-structural-pinning
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Pin` جديدًا بتحويل القيمة الداخلية (غير آمن).
+    ///
+    /// </div>
     #[must_use = "`self` will be dropped if the result is not used"]
     #[stable(feature = "pin", since = "1.33.0")]
     pub unsafe fn map_unchecked_mut<U, F>(self, func: F) -> Pin<&'a mut U>
@@ -1659,6 +1755,12 @@ impl<T: ?Sized> Pin<&'static T> {
     ///
     /// This is safe because `T` is borrowed immutably for the `'static` lifetime, which
     /// never ends.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مثبتًا من مرجع `&'static`.
+    ///
+    /// </div>
     #[stable(feature = "pin_static_ref", since = "1.61.0")]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
     pub const fn static_ref(r: &'static T) -> Pin<&'static T> {
@@ -1673,6 +1775,12 @@ impl<T: ?Sized> Pin<&'static mut T> {
     ///
     /// This is safe because `T` is borrowed for the `'static` lifetime, which
     /// never ends.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا قابلًا للتعديل مثبتًا من مرجع ثابت قابل للتعديل.
+    ///
+    /// </div>
     #[stable(feature = "pin_static_ref", since = "1.61.0")]
     #[rustc_const_stable(feature = "const_pin", since = "1.84.0")]
     pub const fn static_mut(r: &'static mut T) -> Pin<&'static mut T> {
@@ -1710,6 +1818,12 @@ mod helper {
     /// orphan rules, the stdlib could introduce without a breaking change in a future release.
     ///
     /// See <https://github.com/rust-lang/rust/issues/85099> for the issue this fixes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مساعد يمنع الحزم الأخرى من تطبيق `DerefMut` لـ `Pin`.
+    ///
+    /// </div>
     #[repr(transparent)]
     #[unstable(feature = "pin_derefmut_internals", issue = "none")]
     #[allow(missing_debug_implementations)]
@@ -1766,6 +1880,12 @@ where
 /// would normally be possible.)
 ///
 /// [fundamental]: ../../reference/items/implementations.html#r-items.impl.trait.fundamental
+///
+/// <div lang="ar" dir="rtl">
+///
+/// النوع `Target` محصور في أنواع `Unpin` لأنه ليس آمنًا أخذ مرجع قابل للتعديل لقيمة مثبتة.
+///
+/// </div>
 #[stable(feature = "pin", since = "1.33.0")]
 #[rustc_const_unstable(feature = "const_convert", issue = "143773")]
 #[cfg(doc)]
@@ -1896,6 +2016,12 @@ where
 /// [`clone`]: Clone::clone
 /// [`Arc`]: ../../std/sync/struct.Arc.html "Arc"
 /// [`Arc::get_mut`]: ../../std/sync/struct.Arc.html#method.get_mut "Arc::get_mut"
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait يعني أن هذا مؤشر لا يسيء التصرف عند دمجه مع `Pin`.
+///
+/// </div>
 pub unsafe trait PinSafePointer: Deref + Sized {}
 
 // A pointer can only be pin safe if it does not implement certain safe traits
@@ -2135,6 +2261,12 @@ unsafe impl<P: PinSafePointer> PinSafePointer for Pin<P> {}
 /// constructor.
 ///
 /// [`Box::pin`]: ../../std/boxed/struct.Box.html#method.pin
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ `Pin<&mut T>` بتثبيت قيمة `value: T` محليًا.
+///
+/// </div>
 #[stable(feature = "pin_macro", since = "1.68.0")]
 #[rustc_macro_transparency = "semiopaque"]
 #[allow_internal_unstable(pin_macro_internals, super_let)]

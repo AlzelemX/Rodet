@@ -1,6 +1,12 @@
 //! The first version of the core prelude.
 //!
 //! See the [module-level documentation](super) for more.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! النسخة الأولى من مقدمة `core`.
+//!
+//! </div>
 
 #![stable(feature = "core_prelude", since = "1.4.0")]
 

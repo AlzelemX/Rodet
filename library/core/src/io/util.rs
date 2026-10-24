@@ -9,6 +9,12 @@ use crate::{cmp, fmt};
 ///
 /// This struct is generally created by calling [`empty()`]. Please
 /// see the documentation of [`empty()`] for more details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Empty` يتجاهل أي بيانات تُكتب فيه، ويكون فارغًا دائمًا عند القراءة منه.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[non_exhaustive]
 #[derive(Copy, Clone, Debug, Default)]
@@ -150,6 +156,12 @@ impl Seek for Empty {
 /// io::empty().read_to_string(&mut buffer).unwrap();
 /// assert!(buffer.is_empty());
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قيمة تكون دائمًا في نهاية الملف عند القراءة، وتتجاهل كل ما يُكتب فيها.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
@@ -161,6 +173,12 @@ pub const fn empty() -> Empty {
 ///
 /// This struct is generally created by calling [`repeat()`]. Please
 /// see the documentation of [`repeat()`] for more details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// قارئ يعطي نفس البايت مرارًا وتكرارًا بلا نهاية.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[non_exhaustive]
 pub struct Repeat {
@@ -197,6 +215,12 @@ impl SizeHint for Repeat {
 /// io::repeat(0b101).read_exact(&mut buffer).unwrap();
 /// assert_eq!(buffer, [0b101, 0b101, 0b101]);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ قارئًا يكرر بايتًا واحدًا بلا نهاية.
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
@@ -215,6 +239,12 @@ impl fmt::Debug for Repeat {
 ///
 /// This struct is generally created by calling [`sink()`]. Please
 /// see the documentation of [`sink()`] for more details.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// كاتب يرمي البيانات في العدم.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[non_exhaustive]
 #[derive(Copy, Clone, Debug, Default)]
@@ -315,6 +345,12 @@ impl Write for &Sink {
 /// let num_bytes = io::sink().write(&buffer).unwrap();
 /// assert_eq!(num_bytes, 5);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ كاتبًا يستهلك كل البيانات بنجاح (ويتجاهلها).
+///
+/// </div>
 #[must_use]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[rustc_const_stable(feature = "const_io_structs", since = "1.79.0")]
@@ -328,6 +364,12 @@ pub const fn sink() -> Sink {
 /// Please see the documentation of [`chain`] for more details.
 ///
 /// [`chain`]: ../../std/io/trait.Read.html#method.chain
+///
+/// <div lang="ar" dir="rtl">
+///
+/// محوّل يربط قارئين معًا.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 #[non_exhaustive]
@@ -379,6 +421,12 @@ impl<T, U> Chain<T, U> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Chain` ويرجع القارئين المغلفين.
+    ///
+    /// </div>
     #[stable(feature = "more_io_inner_methods", since = "1.20.0")]
     pub fn into_inner(self) -> (T, U) {
         (self.first, self.second)
@@ -406,6 +454,12 @@ impl<T, U> Chain<T, U> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مراجع إلى القارئين الأساسيين في هذا الـ `Chain`.
+    ///
+    /// </div>
     #[stable(feature = "more_io_inner_methods", since = "1.20.0")]
     pub fn get_ref(&self) -> (&T, &U) {
         (&self.first, &self.second)
@@ -433,6 +487,12 @@ impl<T, U> Chain<T, U> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مراجع قابلة للتعديل إلى القارئين الأساسيين في هذا الـ `Chain`.
+    ///
+    /// </div>
     #[stable(feature = "more_io_inner_methods", since = "1.20.0")]
     pub fn get_mut(&mut self) -> (&mut T, &mut U) {
         (&mut self.first, &mut self.second)
@@ -453,6 +513,12 @@ pub const fn chain<T, U>(first: T, second: U) -> Chain<T, U> {
 /// Please see the documentation of [`take`] for more details.
 ///
 /// [`take`]: ../../std/io/trait.Read.html#method.take
+///
+/// <div lang="ar" dir="rtl">
+///
+/// محوّل قارئ يحدد عدد البايتات المقروءة من القارئ الأساسي.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug)]
 #[non_exhaustive]
@@ -513,12 +579,24 @@ impl<T> Take<T> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات التي يمكن قراءتها قبل أن يرجع نهاية الملف.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     pub fn limit(&self) -> u64 {
         self.limit
     }
 
     /// Returns the number of bytes read so far.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عدد البايتات المقروءة حتى الآن.
+    ///
+    /// </div>
     #[unstable(feature = "seek_io_take_position", issue = "97227")]
     #[inline]
     pub fn position(&self) -> u64 {
@@ -548,6 +626,12 @@ impl<T> Take<T> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد عدد البايتات التي يمكن قراءتها قبل أن يرجع نهاية الملف.
+    ///
+    /// </div>
     #[stable(feature = "take_set_limit", since = "1.27.0")]
     pub fn set_limit(&mut self, limit: u64) {
         self.len = limit;
@@ -574,6 +658,12 @@ impl<T> Take<T> {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستهلك الـ `Take` ويرجع القارئ المغلف.
+    ///
+    /// </div>
     #[stable(feature = "io_take_into_inner", since = "1.15.0")]
     pub fn into_inner(self) -> T {
         self.inner

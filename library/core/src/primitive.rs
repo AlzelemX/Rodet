@@ -36,6 +36,12 @@
 //! the [extern prelude] since Edition 2018.
 //!
 //! [extern prelude]: https://doc.rust-lang.org/nightly/reference/names/preludes.html#extern-prelude
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! هذه الوحدة تعيد تصدير الأنواع الأساسية لكي لا تحجبها أنواع أخرى معرّفة بنفس الاسم.
+//!
+//! </div>
 
 #[stable(feature = "core_primitive", since = "1.43.0")]
 pub use bool;

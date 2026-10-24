@@ -1,4 +1,10 @@
 //! Platform-specific extensions to `core` for Windows platforms.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! امتدادات `core` الخاصة بمنصات Windows.
+//!
+//! </div>
 
 #![unstable(feature = "codeview_annotation", issue = "163964")]
 #![doc(cfg(windows))]
@@ -32,6 +38,12 @@ pub use crate::intrinsics::CodeViewAnnotationArgs;
 ///
 /// codeview_annotation::<Args>();
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب `T::ARGS` في ملف PDB كسجل `S_ANNOTATION`.
+///
+/// </div>
 #[inline(always)]
 #[unstable(feature = "codeview_annotation", issue = "163964")]
 pub fn codeview_annotation<T: CodeViewAnnotationArgs>() {

@@ -33,6 +33,12 @@ use crate::ptr::NonNull;
 /// Comparisons for equality and ordering are made in file, line, then column priority.
 /// Files are compared as strings, not `Path`, which could be unexpected.
 /// See [`Location::file`]'s documentation for more discussion.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية فيها معلومات عن مكان حدوث الـ panic.
+///
+/// </div>
 #[lang = "panic_location"]
 #[derive(Copy, Clone)]
 #[stable(feature = "panic_hooks", since = "1.10.0")]
@@ -176,6 +182,12 @@ impl<'a> Location<'a> {
     ///     );
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مكان الاستدعاء في الكود المصدري لمن استدعى هذه الدالة.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "track_caller", since = "1.46.0")]
     #[rustc_const_stable(feature = "const_caller_location", since = "1.79.0")]
@@ -218,6 +230,12 @@ impl<'a> Location<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الملف المصدري الذي بدأ منه الـ panic.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
     #[rustc_const_stable(feature = "const_location_fields", since = "1.79.0")]
@@ -230,6 +248,12 @@ impl<'a> Location<'a> {
     ///
     /// This is useful for interop with APIs that expect C/C++ `__FILE__` or
     /// `std::source_location::file_name`, both of which return a nul-terminated `const char*`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع اسم الملف المصدري كـ `CStr` منتهٍ بصفر.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "file_with_nul", since = "1.92.0")]
@@ -265,6 +289,12 @@ impl<'a> Location<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم السطر الذي بدأ منه الـ panic.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
     #[rustc_const_stable(feature = "const_location_fields", since = "1.79.0")]
@@ -290,6 +320,12 @@ impl<'a> Location<'a> {
     ///
     /// panic!("Normal panic");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم العمود الذي بدأ منه الـ panic.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "panic_col", since = "1.25.0")]
     #[rustc_const_stable(feature = "const_location_fields", since = "1.79.0")]

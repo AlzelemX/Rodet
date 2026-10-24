@@ -8,6 +8,12 @@
 //!   [`Ipv6Addr`] are respectively IPv4 and IPv6 addresses
 //! * [`SocketAddr`] represents socket addresses of either IPv4 or IPv6; [`SocketAddrV4`]
 //!   and [`SocketAddrV6`] are respectively IPv4 and IPv6 socket addresses
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! أساسيات الشبكات للاتصال عبر IP.
+//!
+//! </div>
 
 #![stable(feature = "ip_in_core", since = "1.77.0")]
 

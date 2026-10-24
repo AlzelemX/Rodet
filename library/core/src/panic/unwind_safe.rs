@@ -82,6 +82,12 @@ use crate::task::{Context, Poll};
 /// above, the lack of `unsafe` means it is mostly an advisory. The
 /// [`AssertUnwindSafe`] wrapper struct can be used to force this trait to be
 /// implemented for any closed over variables passed to `catch_unwind`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة تمثّل الأنواع "الآمنة عند الـ panic" في Rust.
+///
+/// </div>
 #[stable(feature = "catch_unwind", since = "1.9.0")]
 #[rustc_diagnostic_item = "unwind_safe_trait"]
 #[diagnostic::on_unimplemented(
@@ -98,6 +104,12 @@ pub auto trait UnwindSafe {}
 ///
 /// This is a "helper marker trait" used to provide impl blocks for the
 /// [`UnwindSafe`] trait, for more information see that documentation.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة للأنواع التي يُعتبر المرجع المشترك إليها آمنًا عند فك المكدس.
+///
+/// </div>
 #[stable(feature = "catch_unwind", since = "1.9.0")]
 #[rustc_diagnostic_item = "ref_unwind_safe_trait"]
 #[diagnostic::on_unimplemented(
@@ -167,6 +179,12 @@ pub auto trait RefUnwindSafe {}
 /// };
 /// // ...
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// غلاف بسيط حول نوع لتأكيد أنه آمن عند فك المكدس.
+///
+/// </div>
 #[stable(feature = "catch_unwind", since = "1.9.0")]
 pub struct AssertUnwindSafe<T>(#[stable(feature = "catch_unwind", since = "1.9.0")] pub T);
 
@@ -315,6 +333,12 @@ impl<S: AsyncIterator> AsyncIterator for AssertUnwindSafe<S> {
 
 /// If a value's type is already `UnwindSafe`,
 /// wrapping it in `AssertUnwindSafe` is never incorrect.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// إذا كان نوع القيمة `UnwindSafe` أصلًا، فتغليفها في `AssertUnwindSafe` ليس خطأً أبدًا.
+///
+/// </div>
 #[stable(feature = "from_wrapper_impls", since = "1.96.0")]
 impl<T> From<T> for AssertUnwindSafe<T>
 where

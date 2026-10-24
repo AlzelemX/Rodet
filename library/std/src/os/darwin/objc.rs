@@ -3,6 +3,12 @@
 //! This module re-exports all the items in [`core::os::darwin::objc`].
 //!
 //! [`core::os::darwin::objc`]: ../../../../core/os/darwin/objc/index.html "mod core::os::darwin::objc"
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! يعرّف أنواعًا وماكروهات للتعامل مع Objective-C.
+//!
+//! </div>
 
 #![unstable(feature = "darwin_objc", issue = "145496")]
 

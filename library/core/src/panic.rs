@@ -1,4 +1,10 @@
 //! Panic support in core.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم الـ panic في `core`.
+//!
+//! </div>
 
 #![stable(feature = "core_panic_info", since = "1.41.0")]
 
@@ -114,6 +120,12 @@ pub macro unreachable_2021 {
 /// If an unwind would be unsound, then this function should be used in order
 /// to prevent unwinds. However, note that `extern "C" fn` will automatically
 /// convert unwinds to aborts, so using this function isn't necessary for FFI.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يستدعي دالة مغلقة، ويوقف البرنامج إذا حدث فيها فك مكدس (unwind).
+///
+/// </div>
 #[unstable(feature = "abort_unwind", issue = "130338")]
 #[rustc_nounwind] // this attribute does all the actual work here
 pub fn abort_on_unwind<F: FnOnce() -> R, R>(f: F) -> R {

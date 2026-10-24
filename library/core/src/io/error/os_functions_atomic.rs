@@ -4,6 +4,12 @@
 //! we can't link to anythink here in `alloc`. Therefore, we restrict
 //! creation of `Error` from raw OS errors in `std`, and require providing
 //! a vtable of operations when creating one.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دوال تعتمد على نظام التشغيل.
+//!
+//! </div>
 
 // FIXME: replace this with externally implementable items once they are more stable
 

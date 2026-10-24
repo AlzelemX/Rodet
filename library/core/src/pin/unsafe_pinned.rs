@@ -21,6 +21,12 @@ use crate::{fmt, ptr};
 /// support aliasing mutable references.
 ///
 /// This type blocks niches the same way `UnsafeCell` does.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع يسمح بالخروج الكامل من قواعد التسمية المعتادة (aliasing).
+///
+/// </div>
 #[lang = "unsafe_pinned"]
 #[repr(transparent)]
 #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -35,6 +41,13 @@ unsafe impl<T: ?Sized + Sync> Sync for UnsafePinned<T> {}
 /// When this type is used, that almost certainly means safe APIs need to use pinning to avoid the
 /// aliases from becoming invalidated. Therefore let's mark this as `!Unpin`. You can always opt
 /// back in to `Unpin` with an `impl` block, provided your API is still sound while unpinned.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// استخدام هذا النوع يعني غالبًا أن الواجهات الآمنة يجب أن تستخدم التثبيت حتى لا تبطل الأسماء
+/// المستعارة.
+///
+/// </div>
 #[unstable(feature = "unsafe_pinned", issue = "125735")]
 impl<T: ?Sized> !Unpin for UnsafePinned<T> {}
 
@@ -48,6 +61,12 @@ impl<T> UnsafePinned<T> {
     ///
     /// All access to the inner value through `&UnsafePinned<T>` or `&mut UnsafePinned<T>` or
     /// `Pin<&mut UnsafePinned<T>>` requires `unsafe` code.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnsafePinned` جديدًا يغلف القيمة المعطاة.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -56,6 +75,12 @@ impl<T> UnsafePinned<T> {
     }
 
     /// Unwraps the value, consuming this `UnsafePinned`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفك القيمة ويستهلك هذا الـ `UnsafePinned`.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -67,6 +92,12 @@ impl<T> UnsafePinned<T> {
 
 impl<T: ?Sized> UnsafePinned<T> {
     /// Get read-write access to the contents of a pinned `UnsafePinned`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصول قراءة وكتابة لمحتوى `UnsafePinned` مثبت.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -79,6 +110,12 @@ impl<T: ?Sized> UnsafePinned<T> {
     ///
     /// You should usually be using `get_mut_pinned` instead to explicitly track the fact that this
     /// memory is "pinned" due to there being aliases.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصول قراءة وكتابة لمحتوى `UnsafePinned` (غير آمن).
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -104,6 +141,12 @@ impl<T: ?Sized> UnsafePinned<T> {
     ///     assert_eq!(ptr.read(), 1);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعطي وصولًا قابلًا للتعديل لمحتوى `UnsafePinned` مشترك.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -117,6 +160,12 @@ impl<T: ?Sized> UnsafePinned<T> {
     /// avoid the creation of temporary references.
     ///
     /// [`get`]: UnsafePinned::get
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مؤشرًا غير قابل للتعديل إلى القيمة المغلفة.
+    ///
+    /// </div>
     #[inline(always)]
     #[must_use]
     #[unstable(feature = "unsafe_pinned", issue = "125735")]
@@ -148,6 +197,12 @@ impl<T: ?Sized> UnsafePinned<T> {
 #[unstable(feature = "unsafe_pinned", issue = "125735")]
 impl<T: Default> Default for UnsafePinned<T> {
     /// Creates an `UnsafePinned`, with the `Default` value for T.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `UnsafePinned` بالقيمة الافتراضية (`Default`) لـ `T`.
+    ///
+    /// </div>
     fn default() -> Self {
         UnsafePinned::new(T::default())
     }

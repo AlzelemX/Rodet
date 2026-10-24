@@ -1,4 +1,10 @@
 //! OS-specific functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف خاصة بنظام التشغيل.
+//!
+//! </div>
 
 #![stable(feature = "os", since = "1.0.0")]
 #![allow(missing_docs, nonstandard_style, missing_debug_implementations)]

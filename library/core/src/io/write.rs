@@ -46,6 +46,12 @@ use crate::io::{Error, IoSlice, Result};
 /// `write` in a loop until its entire input has been written.
 ///
 /// [`write_all`]: Write::write_all
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait للكائنات التي تستقبل بايتات (مصبّات).
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[doc(notable_trait)]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoWrite")]
@@ -97,6 +103,12 @@ pub trait Write {
     /// ```
     ///
     /// [`Ok(n)`]: Ok
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب مخزنًا في هذا الكاتب، ويرجع عدد البايتات المكتوبة.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write(&mut self, buf: &[u8]) -> Result<usize>;
 
@@ -131,6 +143,12 @@ pub trait Write {
     /// ```
     ///
     /// [`write`]: Write::write
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// مثل `write` لكنه يكتب من شريحة مخازن.
+    ///
+    /// </div>
     #[stable(feature = "iovec", since = "1.36.0")]
     fn write_vectored(&mut self, bufs: &[IoSlice<'_>]) -> Result<usize> {
         default_write_vectored(|b| self.write(b), bufs)
@@ -146,6 +164,12 @@ pub trait Write {
     /// The default implementation returns `false`.
     ///
     /// [`write_vectored`]: Write::write_vectored
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحدد هل لهذا الكاتب تطبيق فعّال لـ `write_vectored`.
+    ///
+    /// </div>
     #[unstable(feature = "can_vector", issue = "69941")]
     fn is_write_vectored(&self) -> bool {
         false
@@ -174,6 +198,12 @@ pub trait Write {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفرّغ مجرى الإخراج هذا ليضمن وصول كل المحتوى المخزن مؤقتًا إلى وجهته.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn flush(&mut self) -> Result<()>;
 
@@ -210,6 +240,12 @@ pub trait Write {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول كتابة مخزن كامل في هذا الكاتب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write_all(&mut self, mut buf: &[u8]) -> Result<()> {
         while !buf.is_empty() {
@@ -274,6 +310,12 @@ pub trait Write {
     /// assert_eq!(writer, &[1, 2, 3, 4, 5, 6]);
     /// # Ok(()) }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول كتابة عدة مخازن في هذا الكاتب.
+    ///
+    /// </div>
     #[unstable(feature = "write_all_vectored", issue = "70436")]
     fn write_all_vectored(&mut self, mut bufs: &mut [IoSlice<'_>]) -> Result<()> {
         // Guarantee that bufs is empty if it contains no data,
@@ -327,6 +369,12 @@ pub trait Write {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكتب نصًا منسقًا في هذا الكاتب، ويرجع أي خطأ يحدث.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn write_fmt(&mut self, args: fmt::Arguments<'_>) -> Result<()> {
         if let Some(s) = args.as_statically_known_str() {
@@ -357,6 +405,12 @@ pub trait Write {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ محوّلًا "بالمرجع" لهذا الكاتب.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn by_ref(&mut self) -> &mut Self
     where

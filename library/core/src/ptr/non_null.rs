@@ -323,6 +323,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// Decompose a (possibly wide) pointer into its data pointer and metadata components.
     ///
     /// The pointer can be later reconstructed with [`NonNull::from_raw_parts`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك مؤشرًا (قد يكون عريضًا) إلى مؤشر البيانات والبيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_metadata", issue = "81513")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -364,6 +370,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`pointer::with_addr`].
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا بالعنوان المعطى ومصدر (provenance) `self`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -378,6 +390,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// For more details, see the equivalent method on a raw pointer, [`pointer::map_addr`].
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا بتحويل عنوان `self` إلى عنوان جديد، مع الحفاظ على مصدره.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -503,6 +521,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// let casted_ptr = ptr.cast::<i8>();
     /// let raw_ptr: *mut i8 = casted_ptr.as_ptr();
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى مؤشر من نوع آخر.
+    ///
+    /// </div>
     #[stable(feature = "nonnull_cast", since = "1.27.0")]
     #[rustc_const_stable(feature = "const_nonnull_cast", since = "1.36.0")]
     #[must_use = "this returns the result of the operation, \
@@ -531,6 +555,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// assert!(aligned.try_cast_aligned::<u32>().is_some());
     /// assert!(unaligned.try_cast_aligned::<u32>().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول التحويل إلى مؤشر من نوع آخر بعد التحقق من المحاذاة.
+    ///
+    /// </div>
     #[stable(feature = "pointer_try_cast_aligned", since = "CURRENT_RUSTC_VERSION")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -793,6 +823,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// let one = unsafe { ptr2_other.offset_from(ptr2) }; // Undefined Behavior! ⚠️
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، بوحدات `T`.
+    ///
+    /// </div>
     #[inline]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -814,6 +850,12 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// For non-`Sized` pointees this operation considers only the data pointers,
     /// ignoring the metadata.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، بوحدات **البايت**.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "non_null_convenience", since = "1.80.0")]
@@ -884,6 +926,12 @@ impl<T: PointeeSized> NonNull<T> {
     /// // This would be incorrect, as the pointers are not correctly ordered:
     /// // ptr1.offset_from_unsigned(ptr2)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، مع العلم أن `self` أكبر من أو يساوي `origin`.
+    ///
+    /// </div>
     #[inline]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "ptr_sub_ptr", since = "1.87.0")]
@@ -906,6 +954,13 @@ impl<T: PointeeSized> NonNull<T> {
     ///
     /// For non-`Sized` pointees this operation considers only the data pointers,
     /// ignoring the metadata.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بالبايتات بين مؤشرين في نفس الحجز، مع العلم أن `self` أكبر من أو يساوي
+    /// `origin`.
+    ///
+    /// </div>
     #[inline(always)]
     #[cfg_attr(miri, track_caller)] // even without panics, this helps for Miri backtraces
     #[stable(feature = "ptr_sub_ptr", since = "1.87.0")]

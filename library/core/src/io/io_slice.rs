@@ -32,6 +32,12 @@ cfg_select! {
 /// It is semantically a wrapper around a `&mut [u8]`, but is guaranteed to be
 /// ABI compatible with the `iovec` type on Unix platforms and `WSABUF` on
 /// Windows.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مخزن يُستخدم مع `Read::read_vectored`.
+///
+/// </div>
 #[stable(feature = "iovec", since = "1.36.0")]
 #[repr(transparent)]
 pub struct IoSliceMut<'a>(repr::IoSliceMut<'a>);
@@ -55,6 +61,12 @@ impl<'a> IoSliceMut<'a> {
     /// # Panics
     ///
     /// Panics on Windows if the slice is larger than 4GB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `IoSliceMut` جديدًا يغلّف شريحة بايتات.
+    ///
+    /// </div>
     #[stable(feature = "iovec", since = "1.36.0")]
     #[inline]
     pub fn new(buf: &'a mut [u8]) -> IoSliceMut<'a> {
@@ -83,6 +95,12 @@ impl<'a> IoSliceMut<'a> {
     /// buf.advance(3);
     /// assert_eq!(buf.deref(), [1; 5].as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم المؤشر الداخلي للشريحة.
+    ///
+    /// </div>
     #[stable(feature = "io_slice_advance", since = "1.81.0")]
     #[inline]
     pub fn advance(&mut self, n: usize) {
@@ -122,6 +140,12 @@ impl<'a> IoSliceMut<'a> {
     /// assert_eq!(bufs[0].deref(), [2; 14].as_ref());
     /// assert_eq!(bufs[1].deref(), [3; 8].as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم شريحة من الشرائح.
+    ///
+    /// </div>
     #[stable(feature = "io_slice_advance", since = "1.81.0")]
     #[inline]
     pub fn advance_slices(bufs: &mut &mut [IoSliceMut<'a>], n: usize) {
@@ -160,6 +184,12 @@ impl<'a> IoSliceMut<'a> {
     ///
     /// assert_eq!(&data, b"Abcdef");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البايتات الأساسية كشريحة قابلة للتعديل بعمرها الأصلي.
+    ///
+    /// </div>
     #[unstable(feature = "io_slice_as_bytes", issue = "132818")]
     pub const fn into_slice(self) -> &'a mut [u8] {
         self.0.into_slice()
@@ -189,6 +219,12 @@ impl<'a> DerefMut for IoSliceMut<'a> {
 /// It is semantically a wrapper around a `&[u8]`, but is guaranteed to be
 /// ABI compatible with the `iovec` type on Unix platforms and `WSABUF` on
 /// Windows.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نوع مخزن يُستخدم مع `Write::write_vectored`.
+///
+/// </div>
 #[stable(feature = "iovec", since = "1.36.0")]
 #[derive(Copy, Clone)]
 #[repr(transparent)]
@@ -213,6 +249,12 @@ impl<'a> IoSlice<'a> {
     /// # Panics
     ///
     /// Panics on Windows if the slice is larger than 4GB.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `IoSlice` جديدًا يغلّف شريحة بايتات.
+    ///
+    /// </div>
     #[stable(feature = "iovec", since = "1.36.0")]
     #[must_use]
     #[inline]
@@ -242,6 +284,12 @@ impl<'a> IoSlice<'a> {
     /// buf.advance(3);
     /// assert_eq!(buf.deref(), [1; 5].as_ref());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم المؤشر الداخلي للشريحة.
+    ///
+    /// </div>
     #[stable(feature = "io_slice_advance", since = "1.81.0")]
     #[inline]
     pub fn advance(&mut self, n: usize) {
@@ -280,6 +328,12 @@ impl<'a> IoSlice<'a> {
     /// IoSlice::advance_slices(&mut bufs, 10);
     /// assert_eq!(bufs[0].deref(), [2; 14].as_ref());
     /// assert_eq!(bufs[1].deref(), [3; 8].as_ref());
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يقدّم شريحة من الشرائح.
+    ///
+    /// </div>
     #[stable(feature = "io_slice_advance", since = "1.81.0")]
     #[inline]
     pub fn advance_slices(bufs: &mut &mut [IoSlice<'a>], n: usize) {
@@ -328,6 +382,12 @@ impl<'a> IoSlice<'a> {
     ///
     /// assert_eq!(io_slice.as_slice(), b"def");
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع البايتات الأساسية كشريحة بعمرها الأصلي.
+    ///
+    /// </div>
     #[unstable(feature = "io_slice_as_bytes", issue = "132818")]
     pub const fn as_slice(self) -> &'a [u8] {
         self.0.as_slice()

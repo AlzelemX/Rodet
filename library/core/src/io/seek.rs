@@ -24,6 +24,12 @@ use crate::io::Result;
 ///     Ok(())
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الـ trait `Seek` يعطي مؤشرًا يمكن تحريكه داخل مجرى بايتات.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "IoSeek")]
 pub trait Seek {
@@ -41,6 +47,12 @@ pub trait Seek {
     /// Seeking can fail, for example because it might involve flushing a buffer.
     ///
     /// Seeking to a negative offset is considered an error.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينتقل إلى إزاحة (بالبايتات) في المجرى.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     fn seek(&mut self, pos: SeekFrom) -> Result<u64>;
 
@@ -73,6 +85,12 @@ pub trait Seek {
     /// assert_eq!(&buf, hello);
     /// # std::io::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع إلى بداية المجرى.
+    ///
+    /// </div>
     #[stable(feature = "seek_rewind", since = "1.55.0")]
     fn rewind(&mut self) -> Result<()> {
         self.seek(SeekFrom::Start(0))?;
@@ -113,6 +131,12 @@ pub trait Seek {
     ///     Ok(())
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع طول هذا المجرى (بالبايتات).
+    ///
+    /// </div>
     #[unstable(feature = "seek_stream_len", issue = "59359")]
     fn stream_len(&mut self) -> Result<u64> {
         stream_len_default(self)
@@ -208,11 +232,23 @@ pub fn stream_len_default<T: Seek + ?Sized>(self_: &mut T) -> Result<u64> {
 /// Enumeration of possible methods to seek within an I/O object.
 ///
 /// It is used by the [`Seek`] trait.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// الطرق الممكنة للتنقل داخل كائن إدخال وإخراج.
+///
+/// </div>
 #[derive(Copy, PartialEq, Eq, Clone, Debug)]
 #[stable(feature = "rust1", since = "1.0.0")]
 #[cfg_attr(not(test), rustc_diagnostic_item = "SeekFrom")]
 pub enum SeekFrom {
     /// Sets the offset to the provided number of bytes.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط الإزاحة إلى عدد البايتات المعطى من البداية.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Start(#[stable(feature = "rust1", since = "1.0.0")] u64),
 
@@ -221,6 +257,12 @@ pub enum SeekFrom {
     ///
     /// It is possible to seek beyond the end of an object, but it's an error to
     /// seek before byte 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط الإزاحة إلى حجم الكائن زائد عدد البايتات المحدد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     End(#[stable(feature = "rust1", since = "1.0.0")] i64),
 
@@ -229,6 +271,12 @@ pub enum SeekFrom {
     ///
     /// It is possible to seek beyond the end of an object, but it's an error to
     /// seek before byte 0.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضبط الإزاحة إلى الموضع الحالي زائد عدد البايتات المحدد.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     Current(#[stable(feature = "rust1", since = "1.0.0")] i64),
 }

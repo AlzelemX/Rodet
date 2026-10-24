@@ -101,6 +101,12 @@
 //! The `NonNull<()>` seems like the only alternative, even if it's fairly odd
 //! to use a pointer type to store something that may hold an integer, some of
 //! the time.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تمثيل مضغوط للأخطاء يُستخدم على المنصات ذات المؤشرات 64 بت.
+//!
+//! </div>
 
 use core::marker::PhantomData;
 use core::num::NonZeroUsize;

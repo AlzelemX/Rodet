@@ -2,6 +2,12 @@
 //!
 //! This module is "publicly exported" through the `FromStr` implementations
 //! below.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! محلل خاص لعناوين IPv4 وIPv6 وعناوين المقابس.
+//!
+//! </div>
 
 use crate::error::Error;
 use crate::fmt;
@@ -297,6 +303,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::parse_ascii(b"127.0.0.1"), Ok(localhost_v4));
     /// assert_eq!(IpAddr::parse_ascii(b"::1"), Ok(localhost_v6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان IP من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         Parser::new(b).parse_with(|p| p.read_ip_addr(), AddrKind::Ip)
@@ -323,6 +335,12 @@ impl Ipv4Addr {
     ///
     /// assert_eq!(Ipv4Addr::parse_ascii(b"127.0.0.1"), Ok(localhost));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان IPv4 من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         // don't try to parse if too long
@@ -354,6 +372,12 @@ impl Ipv6Addr {
     ///
     /// assert_eq!(Ipv6Addr::parse_ascii(b"::1"), Ok(localhost));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان IPv6 من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         Parser::new(b).parse_with(|p| p.read_ipv6_addr(), AddrKind::Ipv6)
@@ -380,6 +404,12 @@ impl SocketAddrV4 {
     ///
     /// assert_eq!(SocketAddrV4::parse_ascii(b"127.0.0.1:8080"), Ok(socket));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان مقبس IPv4 من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         Parser::new(b).parse_with(|p| p.read_socket_addr_v4(), AddrKind::SocketV4)
@@ -406,6 +436,12 @@ impl SocketAddrV6 {
     ///
     /// assert_eq!(SocketAddrV6::parse_ascii(b"[2001:db8::1]:8080"), Ok(socket));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان مقبس IPv6 من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         Parser::new(b).parse_with(|p| p.read_socket_addr_v6(), AddrKind::SocketV6)
@@ -434,6 +470,12 @@ impl SocketAddr {
     /// assert_eq!(SocketAddr::parse_ascii(b"127.0.0.1:8080"), Ok(socket_v4));
     /// assert_eq!(SocketAddr::parse_ascii(b"[::1]:8080"), Ok(socket_v6));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحلل عنوان مقبس من شريحة بايتات.
+    ///
+    /// </div>
     #[unstable(feature = "addr_parse_ascii", issue = "101035")]
     pub fn parse_ascii(b: &[u8]) -> Result<Self, AddrParseError> {
         Parser::new(b).parse_with(|p| p.read_socket_addr(), AddrKind::Socket)
@@ -482,6 +524,12 @@ enum AddrKind {
 /// // No problem, the `panic!` message has disappeared.
 /// let _foo: SocketAddr = "127.0.0.1:8080".parse().expect("`parse` should succeed");
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ قد يُرجَع عند تحليل عنوان IP أو عنوان مقبس.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddrParseError(AddrKind);

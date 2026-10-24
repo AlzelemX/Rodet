@@ -21,6 +21,12 @@ pub trait SizeHint {
     ///
     /// Implementations *must* ensure the returned value is less than or equal to
     /// the true element count.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حدًا أدنى لعدد العناصر في هذه الحاوية.
+    ///
+    /// </div>
     fn lower_bound(&self) -> usize;
 
     /// Returns an upper bound on the number of elements this container-like item
@@ -31,6 +37,12 @@ pub trait SizeHint {
     ///
     /// Implementations *must* ensure the returned value is greater than or equal
     /// to the true element count.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع حدًا أعلى لعدد العناصر في هذه الحاوية إن أمكن تحديده، وإلا `None`.
+    ///
+    /// </div>
     fn upper_bound(&self) -> Option<usize>;
 
     /// Returns an estimate for the number of elements this container like type
@@ -40,6 +52,12 @@ pub trait SizeHint {
     /// `(self.lower_bound(), self.upper_bound())`.
     ///
     /// Without specialization, types implementing this trait will return `(0, None)`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع تقديرًا لعدد العناصر في هذه الحاوية.
+    ///
+    /// </div>
     final fn size_hint(&self) -> (usize, Option<usize>) {
         (self.lower_bound(), self.upper_bound())
     }

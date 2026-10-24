@@ -109,6 +109,12 @@ impl SizeHint for &[u8] {
 /// If the number of bytes to be written exceeds the size of the slice, write operations will
 /// return short writes: ultimately, `Ok(0)`; in this situation, `write_all` returns an error of
 /// kind `ErrorKind::WriteZero`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// `Write` مطبَّق لـ `&mut [u8]` بالنسخ إلى الشريحة والكتابة فوق بياناتها.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl Write for &mut [u8] {
     #[inline]

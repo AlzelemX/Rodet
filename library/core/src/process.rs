@@ -80,6 +80,12 @@
 /// }
 /// ```
 ///
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينهي العملية فورًا وبعنف.
+///
+/// </div>
 #[unstable(feature = "abort_immediate", issue = "154601")]
 #[rustc_const_unstable(feature = "abort_immediate", issue = "154601")]
 #[cold]
@@ -101,6 +107,12 @@ pub const fn abort_immediate() -> ! {
 ///
 /// If no debugger is attached, this will typically abort the process but may also continue
 /// execution.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يطلق نقطة توقف للمنقّح، ويوقف التنفيذ مؤقتًا إن أمكن.
+///
+/// </div>
 // NOTE: this is meant to discuss alternatives to `arch::breakpoint`. We may or may not
 // actually want to stabilize both of them.
 #[unstable(feature = "breakpoint", issue = "133724")]

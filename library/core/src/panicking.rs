@@ -20,6 +20,12 @@
 //! This module contains a few other panicking functions, but these are just the
 //! necessary lang items for the compiler. All panics are funneled through this
 //! one function. The actual symbol is declared through the `#[panic_handler]` attribute.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! دعم الـ panic لـ `core`.
+//!
+//! </div>
 
 #![allow(dead_code, missing_docs)]
 #![unstable(
@@ -49,6 +55,12 @@ compile_error!(
 /// site as much as possible (so that `panic!()` has as low an impact
 /// on (e.g.) the inlining of other functions as possible), by moving
 /// the actual formatting into this shared place.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نقطة الدخول للـ panic برسالة منسقة.
+///
+/// </div>
 // If panic=immediate-abort, inline the abort call,
 // otherwise avoid inlining because of it is cold path.
 #[cfg_attr(not(panic = "immediate-abort"), inline(never), cold)]
@@ -83,6 +95,12 @@ pub const fn panic_fmt(fmt: fmt::Arguments<'_>) -> ! {
 /// Like `panic_fmt`, but for non-unwinding panics.
 ///
 /// Has to be a separate function so that it can carry the `rustc_nounwind` attribute.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `panic_fmt` لكن للـ panic بدون فك مكدس.
+///
+/// </div>
 #[cfg_attr(not(panic = "immediate-abort"), inline(never), cold)]
 #[cfg_attr(panic = "immediate-abort", inline)]
 #[track_caller]
@@ -128,6 +146,12 @@ pub const fn panic_nounwind_fmt(fmt: fmt::Arguments<'_>, force_no_backtrace: boo
 // above.
 
 /// The underlying implementation of core's `panic!` macro when no formatting is used.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// التطبيق الأساسي لماكرو `panic!` في `core` عند عدم استخدام تنسيق.
+///
+/// </div>
 // Never inline unless panic=immediate-abort to avoid code
 // bloat at the call sites as much as possible.
 #[cfg_attr(not(panic = "immediate-abort"), inline(never), cold)]
@@ -162,6 +186,12 @@ macro_rules! panic_const {
     ($($lang:ident = $message:expr,)+) => {
         $(
             /// This is a panic called with a message that's a result of a MIR-produced Assert.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// panic يُستدعى برسالة ناتجة عن Assert ولّده MIR.
+            ///
+            /// </div>
             //
             // never inline unless panic=immediate-abort to avoid code
             // bloat at the call sites as much as possible
@@ -216,6 +246,12 @@ pub mod panic_const {
 
 /// Like `panic`, but without unwinding and track_caller to reduce the impact on codesize on the caller.
 /// If you want `#[track_caller]` for nicer errors, call `panic_nounwind_fmt` directly.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `panic` لكن بدون فك مكدس وبدون `track_caller` لتقليل حجم الكود عند المستدعي.
+///
+/// </div>
 #[cfg_attr(not(panic = "immediate-abort"), inline(never), cold)]
 #[cfg_attr(panic = "immediate-abort", inline)]
 #[lang = "panic_nounwind"] // needed by codegen for non-unwinding panics
@@ -226,6 +262,12 @@ pub const fn panic_nounwind(expr: &'static str) -> ! {
 }
 
 /// Like `panic_nounwind`, but also inhibits showing a backtrace.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// مثل `panic_nounwind` لكنه أيضًا يمنع عرض تتبع الاستدعاءات (backtrace).
+///
+/// </div>
 #[cfg_attr(not(panic = "immediate-abort"), inline(never), cold)]
 #[cfg_attr(panic = "immediate-abort", inline)]
 #[rustc_nounwind]
@@ -242,6 +284,12 @@ pub fn unreachable_display<T: fmt::Display>(x: &T) -> ! {
 
 /// This exists solely for the 2015 edition `panic!` macro to trigger
 /// a lint on `panic!(my_str_variable);`.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// موجود فقط لكي يطلق ماكرو `panic!` في إصدار 2015 تحذيرًا على `panic!(my_str_variable);`.
+///
+/// </div>
 #[inline]
 #[track_caller]
 #[rustc_diagnostic_item = "panic_str_2015"]
@@ -367,6 +415,12 @@ fn panic_in_cleanup() -> ! {
 }
 
 /// This function is used instead of panic_fmt in const eval.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تُستخدم هذه الدالة بدل `panic_fmt` عند التقييم الثابت (const eval).
+///
+/// </div>
 #[lang = "const_panic_fmt"] // needed by const-eval machine to replace calls to `panic_fmt` lang item
 #[rustc_const_stable_indirect] // must follow stable const rules since it is exposed to stable
 pub const fn const_panic_fmt(fmt: fmt::Arguments<'_>) -> ! {

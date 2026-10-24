@@ -1,4 +1,10 @@
 //! Helper module for exporting the `pattern_type` macro
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وحدة مساعدة لتصدير الماكرو `pattern_type`.
+//!
+//! </div>
 
 use crate::marker::{Freeze, PointeeSized, Unsize};
 use crate::ops::{CoerceUnsized, DispatchFromDyn};
@@ -7,6 +13,12 @@ use crate::ops::{CoerceUnsized, DispatchFromDyn};
 /// ```ignore (cannot test this from within core yet)
 /// type Positive = std::pat::pattern_type!(i32 is 1..);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ نوع نمط (pattern type).
+///
+/// </div>
 #[macro_export]
 #[rustc_builtin_macro(pattern_type)]
 #[unstable(feature = "pattern_type_macro", issue = "123646")]
@@ -19,6 +31,12 @@ macro_rules! pattern_type {
 /// A trait implemented for integer types and `char`.
 /// Useful in the future for generic pattern types, but
 /// used right now to simplify ast lowering of pattern type ranges.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait مطبَّق للأعداد الصحيحة و`char`؛ مفيد مستقبلًا لأنواع الأنماط العامة.
+///
+/// </div>
 #[unstable(feature = "pattern_type_range_trait", issue = "123646")]
 #[rustc_const_unstable(feature = "pattern_type_range_trait", issue = "123646")]
 #[diagnostic::on_unimplemented(

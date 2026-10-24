@@ -25,6 +25,12 @@ macro_rules! phantom_type {
             where T: ?Sized
         {
             /// Constructs a new instance of the variance marker.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ علامة تغاير (variance) جديدة.
+            ///
+            /// </div>
             pub const fn new() -> Self {
                 Self(PhantomData)
             }
@@ -109,6 +115,12 @@ macro_rules! phantom_lifetime {
 
         impl $name<'_> {
             /// Constructs a new instance of the variance marker.
+            ///
+            /// <div lang="ar" dir="rtl">
+            ///
+            /// ينشئ علامة تغاير (variance) جديدة.
+            ///
+            /// </div>
             pub const fn new() -> Self {
                 Self(first_token!($($inner)*)(PhantomData))
             }
@@ -142,6 +154,12 @@ phantom_lifetime! {
     /// For all `'a`, the following are guaranteed:
     /// * `size_of::<PhantomCovariantLifetime<'a>>() == 0`
     /// * `align_of::<PhantomCovariantLifetime<'a>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم عمرًا كمتغاير (covariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomCovariantLifetime<#[rustc_assert_variance(covariant)] 'a>(PhantomCovariant<&'a ()>);
@@ -159,6 +177,12 @@ phantom_lifetime! {
     /// For all `'a`, the following are guaranteed:
     /// * `size_of::<PhantomContravariantLifetime<'a>>() == 0`
     /// * `align_of::<PhantomContravariantLifetime<'a>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم عمرًا كمعاكس التغاير (contravariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomContravariantLifetime<#[rustc_assert_variance(contravariant)] 'a>(PhantomContravariant<&'a ()>);
@@ -174,6 +198,12 @@ phantom_lifetime! {
     /// For all `'a`, the following are guaranteed:
     /// * `size_of::<PhantomInvariantLifetime<'a>>() == 0`
     /// * `align_of::<PhantomInvariantLifetime<'a>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم عمرًا كثابت (invariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomInvariantLifetime<#[rustc_assert_variance(invariant)] 'a>(PhantomInvariant<&'a ()>);
@@ -195,6 +225,12 @@ phantom_type! {
     /// For all `T`, the following are guaranteed:
     /// * `size_of::<PhantomCovariant<T>>() == 0`
     /// * `align_of::<PhantomCovariant<T>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم معامل نوع كمتغاير (covariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomCovariant<#[rustc_assert_variance(covariant)] T>(PhantomData<fn() -> T>);
@@ -213,6 +249,12 @@ phantom_type! {
     /// For all `T`, the following are guaranteed:
     /// * `size_of::<PhantomContravariant<T>>() == 0`
     /// * `align_of::<PhantomContravariant<T>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم معامل نوع كمعاكس التغاير (contravariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomContravariant<#[rustc_assert_variance(contravariant)] T>(PhantomData<fn(T)>);
@@ -228,6 +270,12 @@ phantom_type! {
     /// For all `T`, the following are guaranteed:
     /// * `size_of::<PhantomInvariant<T>>() == 0`
     /// * `align_of::<PhantomInvariant<T>>() == 1`
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع بحجم صفر يعلّم معامل نوع كثابت (invariant).
+    ///
+    /// </div>
     #[rustc_pub_transparent]
     #[repr(transparent)]
     pub struct PhantomInvariant<#[rustc_assert_variance(invariant)] T>(PhantomData<fn(T) -> T>);
@@ -241,6 +289,12 @@ mod private_items {
 }
 
 /// A marker trait for phantom variance types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// trait علامة لأنواع التغاير الوهمية.
+///
+/// </div>
 pub trait Variance: private_items::PrivateItems + Default {}
 
 /// Construct a variance marker; equivalent to [`Default::default`].
@@ -277,6 +331,12 @@ pub trait Variance: private_items::PrivateItems + Default {}
 ///     return_value: variance(),
 /// };
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// ينشئ علامة تغاير؛ يعادل `Default::default`.
+///
+/// </div>
 pub const fn variance<T>() -> T
 where
     T: Variance,

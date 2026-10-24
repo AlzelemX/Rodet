@@ -1,4 +1,10 @@
 //! OS-specific functionality.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! وظائف خاصة بنظام التشغيل.
+//!
+//! </div>
 #![unstable(feature = "core_os", issue = "none")]
 #![allow(missing_docs)]
 

@@ -3,6 +3,12 @@
 //! This module is intended for users of core which do not link to std as well.
 //! This module is imported by default when `#![no_std]` is used in the same
 //! manner as the standard library's prelude.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! المقدمة (prelude) الخاصة بـ `core`.
+//!
+//! </div>
 
 // No formatting: this file is nothing but re-exports, and their order is worth preserving.
 #![cfg_attr(rustfmt, rustfmt::skip)]
@@ -14,6 +20,12 @@ pub mod v1;
 /// The 2015 version of the core prelude.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة 2015 من مقدمة `core`.
+///
+/// </div>
 #[stable(feature = "prelude_2015", since = "1.55.0")]
 pub mod rust_2015 {
     #[stable(feature = "prelude_2015", since = "1.55.0")]
@@ -24,6 +36,12 @@ pub mod rust_2015 {
 /// The 2018 version of the core prelude.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة 2018 من مقدمة `core`.
+///
+/// </div>
 #[stable(feature = "prelude_2018", since = "1.55.0")]
 pub mod rust_2018 {
     #[stable(feature = "prelude_2018", since = "1.55.0")]
@@ -34,6 +52,12 @@ pub mod rust_2018 {
 /// The 2021 version of the core prelude.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة 2021 من مقدمة `core`.
+///
+/// </div>
 #[stable(feature = "prelude_2021", since = "1.55.0")]
 pub mod rust_2021 {
     #[stable(feature = "prelude_2021", since = "1.55.0")]
@@ -52,6 +76,12 @@ pub mod rust_2021 {
 /// The 2024 version of the core prelude.
 ///
 /// See the [module-level documentation](self) for more.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نسخة 2024 من مقدمة `core`.
+///
+/// </div>
 #[stable(feature = "prelude_2024", since = "1.85.0")]
 pub mod rust_2024 {
     #[stable(feature = "rust1", since = "1.0.0")]

@@ -8,6 +8,12 @@ use crate::panic::Location;
 /// For the type used by the panic hook mechanism in `std`, see [`std::panic::PanicHookInfo`].
 ///
 /// [`std::panic::PanicHookInfo`]: ../../std/panic/struct.PanicHookInfo.html
+///
+/// <div lang="ar" dir="rtl">
+///
+/// بنية تعطي معلومات عن panic.
+///
+/// </div>
 #[lang = "panic_info"]
 #[stable(feature = "panic_hooks", since = "1.10.0")]
 #[derive(Debug)]
@@ -24,6 +30,12 @@ pub struct PanicInfo<'a> {
 /// that were given to the `panic!()` macro.
 ///
 /// See [`PanicInfo::message`].
+///
+/// <div lang="ar" dir="rtl">
+///
+/// رسالة أُعطيت للماكرو `panic!()`.
+///
+/// </div>
 #[stable(feature = "panic_info_message", since = "1.81.0")]
 pub struct PanicMessage<'a> {
     message: &'a fmt::Arguments<'a>,
@@ -56,6 +68,12 @@ impl<'a> PanicInfo<'a> {
     ///     loop {}
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// الرسالة التي أُعطيت للماكرو `panic!`.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "panic_info_message", since = "1.81.0")]
     pub fn message(&self) -> PanicMessage<'_> {
@@ -81,6 +99,12 @@ impl<'a> PanicInfo<'a> {
     ///     loop {}
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معلومات عن مكان بدء الـ panic، إن وُجدت.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
     pub fn location(&self) -> Option<&'static Location<'static>> {
@@ -99,6 +123,12 @@ impl<'a> PanicInfo<'a> {
     ///
     /// [`std::panic::PanicHookInfo`]: ../../std/panic/struct.PanicHookInfo.html
     /// [`std::panic::PanicHookInfo::payload`]: ../../std/panic/struct.PanicHookInfo.html#method.payload
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الحمولة المرتبطة بالـ panic.
+    ///
+    /// </div>
     #[deprecated(since = "1.81.0", note = "this never returns anything useful")]
     #[stable(feature = "panic_hooks", since = "1.10.0")]
     #[allow(deprecated)]
@@ -117,6 +147,12 @@ impl<'a> PanicInfo<'a> {
     /// It is safe for a panic handler to unwind even when this function returns
     /// false, however this will simply cause the panic handler to be called
     /// again.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل يُسمح لمعالج الـ panic بفك المكدس من مكان حدوثه.
+    ///
+    /// </div>
     #[must_use]
     #[unstable(feature = "panic_can_unwind", issue = "92988")]
     pub fn can_unwind(&self) -> bool {
@@ -159,6 +195,12 @@ impl<'a> PanicMessage<'a> {
     /// For most cases with placeholders, this function will return `None`.
     ///
     /// See [`fmt::Arguments::as_str`] for details.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الرسالة المنسقة إذا لم يكن فيها معاملات تُنسَّق وقت التشغيل.
+    ///
+    /// </div>
     #[stable(feature = "panic_info_message", since = "1.81.0")]
     #[rustc_const_stable(feature = "const_arguments_as_str", since = "1.84.0")]
     #[must_use]

@@ -24,14 +24,32 @@ use crate::ops::{BitAnd, BitAndAssign, BitOr, BitOrAssign, Not};
 /// assert_eq!(localhost_v4.is_ipv6(), false);
 /// assert_eq!(localhost_v4.is_ipv4(), true);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان IP، إما IPv4 أو IPv6.
+///
+/// </div>
 #[rustc_diagnostic_item = "IpAddr"]
 #[stable(feature = "ip_addr", since = "1.7.0")]
 #[derive(Copy, Clone, Eq, PartialEq, Hash, PartialOrd, Ord)]
 pub enum IpAddr {
     /// An IPv4 address.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv4.
+    ///
+    /// </div>
     #[stable(feature = "ip_addr", since = "1.7.0")]
     V4(#[stable(feature = "ip_addr", since = "1.7.0")] Ipv4Addr),
     /// An IPv6 address.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv6.
+    ///
+    /// </div>
     #[stable(feature = "ip_addr", since = "1.7.0")]
     V6(#[stable(feature = "ip_addr", since = "1.7.0")] Ipv6Addr),
 }
@@ -67,6 +85,12 @@ pub enum IpAddr {
 /// assert!("0000000.0.0.0".parse::<Ipv4Addr>().is_err()); // first octet is a zero in octal
 /// assert!("0xcb.0x0.0x71.0x00".parse::<Ipv4Addr>().is_err()); // all octets are in hex
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان IPv4.
+///
+/// </div>
 #[rustc_diagnostic_item = "Ipv4Addr"]
 #[derive(Copy)]
 #[derive_const(Clone, PartialEq, Eq)]
@@ -161,6 +185,12 @@ impl Hash for Ipv4Addr {
 /// assert_eq!("::1".parse(), Ok(localhost));
 /// assert_eq!(localhost.is_loopback(), true);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان IPv6.
+///
+/// </div>
 #[rustc_diagnostic_item = "Ipv6Addr"]
 #[derive(Copy)]
 #[derive_const(Clone, PartialEq, Eq)]
@@ -223,6 +253,12 @@ impl Hash for Ipv6Addr {
 /// [IPv6 multicast address]: Ipv6Addr
 /// [IETF RFC 7346 section 2]: https://tools.ietf.org/html/rfc7346#section-2
 /// [IETF RFC 4291 section 2.7]: https://datatracker.ietf.org/doc/html/rfc4291#section-2.7
+///
+/// <div lang="ar" dir="rtl">
+///
+/// نطاق عنوان IPv6 للبث المتعدد (multicast) كما يعرّفه RFC 7346.
+///
+/// </div>
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[unstable(feature = "ip", issue = "27709")]
 pub enum Ipv6MulticastScope {
@@ -235,40 +271,124 @@ pub enum Ipv6MulticastScope {
     )]
     Reserved0 = 0x0,
     /// Interface-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي للواجهة.
+    ///
+    /// </div>
     InterfaceLocal = 0x1,
     /// Link-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي للرابط.
+    ///
+    /// </div>
     LinkLocal = 0x2,
     /// Realm-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي للمجال.
+    ///
+    /// </div>
     RealmLocal = 0x3,
     /// Admin-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي إداري.
+    ///
+    /// </div>
     AdminLocal = 0x4,
     /// Site-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي للموقع.
+    ///
+    /// </div>
     SiteLocal = 0x5,
 
     /// Scope 6. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق 6: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     Unassigned6 = 0x6,
     /// Scope 7. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق 7: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     Unassigned7 = 0x7,
     /// Organization-Local scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق محلي للمؤسسة.
+    ///
+    /// </div>
     OrganizationLocal = 0x8,
     /// Scope 9. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق 9: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     Unassigned9 = 0x9,
     /// Scope A. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق A: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     UnassignedA = 0xA,
     /// Scope B. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق B: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     UnassignedB = 0xB,
     /// Scope C. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق C: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     UnassignedC = 0xC,
     /// Scope D. Unassigned, available for administrators
     /// to define additional multicast regions.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// النطاق D: غير مخصص، متاح للمدراء لتعريف مناطق بث متعدد إضافية.
+    ///
+    /// </div>
     UnassignedD = 0xD,
     /// Global scope.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نطاق عالمي.
+    ///
+    /// </div>
     Global = 0xE,
     /// Reserved by IETF.
     #[doc(hidden)]
@@ -294,6 +414,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)).is_unspecified(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 0)).is_unspecified(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` للعنوان الخاص "غير المحدد".
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "ip_shared", since = "1.12.0")]
     #[must_use]
@@ -324,6 +450,12 @@ impl IpAddr {
     /// let ipv6 = IpAddr::V6(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 1));
     /// assert_eq!(IpAddr::unspecified_from(ipv6), IpAddr::V6(Ipv6Addr::UNSPECIFIED));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان IP غير المحدد لنفس إصدار IP.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "addr_unspecified_from", issue = "158975")]
@@ -347,6 +479,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)).is_loopback(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 0x1)).is_loopback(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان الاسترجاع (loopback).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "ip_shared", since = "1.12.0")]
     #[must_use]
@@ -373,6 +511,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(80, 9, 12, 3)).is_global(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0, 0, 0x1c9, 0, 0, 0xafc8, 0, 0x1)).is_global(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا بدا العنوان قابلًا للتوجيه عالميًا.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -396,6 +540,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(224, 254, 0, 0)).is_multicast(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0xff00, 0, 0, 0, 0, 0, 0, 0)).is_multicast(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان بث متعدد (multicast).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "ip_shared", since = "1.12.0")]
     #[must_use]
@@ -425,6 +575,12 @@ impl IpAddr {
     ///     true
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان في نطاق مخصص للتوثيق.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -450,6 +606,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(198, 19, 255, 255)).is_benchmarking(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0x2001, 0x2, 0, 0, 0, 0, 0, 0)).is_benchmarking(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان في نطاق مخصص لقياس الأداء.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -473,6 +635,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(203, 0, 113, 6)).is_ipv4(), true);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0)).is_ipv4(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان IPv4، و`false` غير ذلك.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "ipaddr_checker", since = "1.16.0")]
     #[must_use]
@@ -494,6 +662,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V4(Ipv4Addr::new(203, 0, 113, 6)).is_ipv6(), false);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0)).is_ipv6(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان IPv6، و`false` غير ذلك.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "ipaddr_checker", since = "1.16.0")]
     #[must_use]
@@ -518,6 +692,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0x7f00, 0x1)).is_loopback(), false);
     /// assert_eq!(IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0x7f00, 0x1)).to_canonical().is_loopback(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى `IpAddr::V4` إذا كان IPv6 مُعيَّنًا من IPv4، وإلا يرجع `self` كما هو.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -543,6 +723,12 @@ impl IpAddr {
     /// assert_eq!(IpAddr::V6(Ipv6Addr::LOCALHOST).as_octets(),
     ///            &[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأعداد ذات الثماني بتات التي يتكون منها العنوان كشريحة.
+    ///
+    /// </div>
     #[unstable(feature = "ip_as_octets", issue = "137259")]
     #[inline]
     pub const fn as_octets(&self) -> &[u8] {
@@ -565,6 +751,12 @@ impl Ipv4Addr {
     ///
     /// let addr = Ipv4Addr::new(127, 0, 0, 1);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوان IPv4 جديدًا من أربع خانات (octets) كل منها ثماني بتات.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_32", since = "1.32.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -582,6 +774,12 @@ impl Ipv4Addr {
     ///
     /// assert_eq!(Ipv4Addr::BITS, 32);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حجم عنوان IPv4 بالبتات.
+    ///
+    /// </div>
     #[stable(feature = "ip_bits", since = "1.80.0")]
     pub const BITS: u32 = 32;
 
@@ -610,6 +808,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(0x12, 0x34, 0x56, 0x00), Ipv4Addr::from_bits(addr_bits));
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل عنوان IPv4 إلى `u32` بترتيب البايتات المحلي.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "ip_bits", since = "1.80.0")]
     #[stable(feature = "ip_bits", since = "1.80.0")]
     #[must_use]
@@ -630,6 +834,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::from_bits(0x12345678);
     /// assert_eq!(Ipv4Addr::new(0x12, 0x34, 0x56, 0x78), addr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `u32` بترتيب البايتات المحلي إلى عنوان IPv4.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "ip_bits", since = "1.80.0")]
     #[stable(feature = "ip_bits", since = "1.80.0")]
     #[must_use]
@@ -648,6 +858,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::LOCALHOST;
     /// assert_eq!(addr, Ipv4Addr::new(127, 0, 0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv4 يشير إلى الجهاز المحلي: `127.0.0.1`.
+    ///
+    /// </div>
     #[stable(feature = "ip_constructors", since = "1.30.0")]
     pub const LOCALHOST: Self = Ipv4Addr::new(127, 0, 0, 1);
 
@@ -663,6 +879,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::UNSPECIFIED;
     /// assert_eq!(addr, Ipv4Addr::new(0, 0, 0, 0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv4 يمثّل عنوانًا غير محدد: `0.0.0.0`.
+    ///
+    /// </div>
     #[doc(alias = "INADDR_ANY")]
     #[stable(feature = "ip_constructors", since = "1.30.0")]
     pub const UNSPECIFIED: Self = Ipv4Addr::new(0, 0, 0, 0);
@@ -677,6 +899,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::BROADCAST;
     /// assert_eq!(addr, Ipv4Addr::new(255, 255, 255, 255));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv4 يمثّل عنوان البث العام: `255.255.255.255`.
+    ///
+    /// </div>
     #[stable(feature = "ip_constructors", since = "1.30.0")]
     pub const BROADCAST: Self = Ipv4Addr::new(255, 255, 255, 255);
 
@@ -690,6 +918,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::new(127, 0, 0, 1);
     /// assert_eq!(addr.octets(), [127, 0, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأعداد الأربعة (ثماني بتات) التي يتكون منها هذا العنوان.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -708,6 +942,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::from_octets([13u8, 12u8, 11u8, 10u8]);
     /// assert_eq!(Ipv4Addr::new(13, 12, 11, 10), addr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv4Addr` من مصفوفة بايتات من أربعة عناصر.
+    ///
+    /// </div>
     #[stable(feature = "ip_from", since = "1.91.0")]
     #[rustc_const_stable(feature = "ip_from", since = "1.91.0")]
     #[must_use]
@@ -729,6 +969,12 @@ impl Ipv4Addr {
     /// let addr = Ipv4Addr::new(127, 0, 0, 1);
     /// assert_eq!(addr.as_octets(), &[127, 0, 0, 1]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأعداد الأربعة (ثماني بتات) التي يتكون منها العنوان كشريحة.
+    ///
+    /// </div>
     #[unstable(feature = "ip_as_octets", issue = "137259")]
     #[inline]
     pub const fn as_octets(&self) -> &[u8; 4] {
@@ -750,6 +996,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(0, 0, 0, 0).is_unspecified(), true);
     /// assert_eq!(Ipv4Addr::new(45, 22, 13, 197).is_unspecified(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` للعنوان الخاص "غير المحدد" (`0.0.0.0`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_32", since = "1.32.0")]
     #[stable(feature = "ip_shared", since = "1.12.0")]
     #[must_use]
@@ -772,6 +1024,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(127, 0, 0, 1).is_loopback(), true);
     /// assert_eq!(Ipv4Addr::new(45, 22, 13, 197).is_loopback(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان استرجاع (`127.0.0.0/8`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -803,6 +1061,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(192, 168, 0, 2).is_private(), true);
     /// assert_eq!(Ipv4Addr::new(192, 169, 0, 2).is_private(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوانًا خاصًا (شبكة داخلية).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -831,6 +1095,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(169, 254, 10, 65).is_link_local(), true);
     /// assert_eq!(Ipv4Addr::new(16, 89, 10, 65).is_link_local(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان محليًا للرابط (`169.254.0.0/16`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -910,6 +1180,12 @@ impl Ipv4Addr {
     ///
     /// // For a complete overview see the IANA IPv4 Special-Purpose Address Registry.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا بدا العنوان قابلًا للوصول عالميًا حسب سجل IANA للعناوين الخاصة.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -948,6 +1224,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(100, 127, 255, 255).is_shared(), true);
     /// assert_eq!(Ipv4Addr::new(100, 128, 0, 0).is_shared(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان من مساحة العناوين المشتركة في RFC 6598 (`100.64.0.0/10`).
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -975,6 +1257,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(198, 19, 255, 255).is_benchmarking(), true);
     /// assert_eq!(Ipv4Addr::new(198, 20, 0, 0).is_benchmarking(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان من النطاق `198.18.0.0/15` المحجوز لقياس أداء أجهزة الشبكة.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1011,6 +1299,12 @@ impl Ipv4Addr {
     /// // The broadcast address is not considered as reserved for future use by this implementation
     /// assert_eq!(Ipv4Addr::new(255, 255, 255, 255).is_reserved(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا العنوان محجوزًا من IANA للاستخدام المستقبلي.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1034,6 +1328,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(236, 168, 10, 65).is_multicast(), true);
     /// assert_eq!(Ipv4Addr::new(172, 16, 10, 65).is_multicast(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان بث متعدد (`224.0.0.0/4`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1056,6 +1356,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(255, 255, 255, 255).is_broadcast(), true);
     /// assert_eq!(Ipv4Addr::new(236, 168, 10, 65).is_broadcast(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان بث عام (`255.255.255.255`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1084,6 +1390,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(203, 0, 113, 6).is_documentation(), true);
     /// assert_eq!(Ipv4Addr::new(193, 34, 17, 19).is_documentation(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان في نطاق مخصص للتوثيق.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1112,6 +1424,12 @@ impl Ipv4Addr {
     ///     Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0xc000, 0x2ff)
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى عنوان IPv6 متوافق مع IPv4.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
@@ -1137,6 +1455,12 @@ impl Ipv4Addr {
     /// assert_eq!(Ipv4Addr::new(192, 0, 2, 255).to_ipv6_mapped(),
     ///            Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc000, 0x2ff));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى عنوان IPv6 مُعيَّن من IPv4.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
@@ -1335,6 +1659,12 @@ const impl From<[u8; 4]> for Ipv4Addr {
     /// let addr = Ipv4Addr::from([13u8, 12u8, 11u8, 10u8]);
     /// assert_eq!(Ipv4Addr::new(13, 12, 11, 10), addr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv4Addr` من مصفوفة بايتات من أربعة عناصر.
+    ///
+    /// </div>
     #[inline]
     fn from(octets: [u8; 4]) -> Ipv4Addr {
         Ipv4Addr { octets }
@@ -1372,6 +1702,12 @@ impl Ipv6Addr {
     ///
     /// let addr = Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوان IPv6 جديدًا من ثمانية أجزاء كل منها 16 بت.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_32", since = "1.32.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -1403,6 +1739,12 @@ impl Ipv6Addr {
     ///
     /// assert_eq!(Ipv6Addr::BITS, 128);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// حجم عنوان IPv6 بالبتات.
+    ///
+    /// </div>
     #[stable(feature = "ip_bits", since = "1.80.0")]
     pub const BITS: u32 = 128;
 
@@ -1442,6 +1784,12 @@ impl Ipv6Addr {
     ///     Ipv6Addr::from_bits(addr_bits));
     ///
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل عنوان IPv6 إلى `u128` بترتيب البايتات المحلي.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "ip_bits", since = "1.80.0")]
     #[stable(feature = "ip_bits", since = "1.80.0")]
     #[must_use]
@@ -1467,6 +1815,12 @@ impl Ipv6Addr {
     ///     ),
     ///     addr);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل `u128` بترتيب البايتات المحلي إلى عنوان IPv6.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "ip_bits", since = "1.80.0")]
     #[stable(feature = "ip_bits", since = "1.80.0")]
     #[must_use]
@@ -1488,6 +1842,12 @@ impl Ipv6Addr {
     /// let addr = Ipv6Addr::LOCALHOST;
     /// assert_eq!(addr, Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv6 يمثّل الجهاز المحلي: `::1`.
+    ///
+    /// </div>
     #[doc(alias = "IN6ADDR_LOOPBACK_INIT")]
     #[doc(alias = "in6addr_loopback")]
     #[stable(feature = "ip_constructors", since = "1.30.0")]
@@ -1505,6 +1865,12 @@ impl Ipv6Addr {
     /// let addr = Ipv6Addr::UNSPECIFIED;
     /// assert_eq!(addr, Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان IPv6 يمثّل العنوان غير المحدد: `::`.
+    ///
+    /// </div>
     #[doc(alias = "IN6ADDR_ANY_INIT")]
     #[doc(alias = "in6addr_any")]
     #[stable(feature = "ip_constructors", since = "1.30.0")]
@@ -1520,6 +1886,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).segments(),
     ///            [0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأجزاء الثمانية (16 بت) التي يتكون منها هذا العنوان.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
@@ -1560,6 +1932,12 @@ impl Ipv6Addr {
     ///     addr
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv6Addr` من مصفوفة من ثمانية عناصر كل منها 16 بت.
+    ///
+    /// </div>
     #[stable(feature = "ip_from", since = "1.91.0")]
     #[rustc_const_stable(feature = "ip_from", since = "1.91.0")]
     #[must_use]
@@ -1583,6 +1961,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).is_unspecified(), false);
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 0).is_unspecified(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` للعنوان الخاص "غير المحدد" (`::`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1607,6 +1991,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).is_loopback(), false);
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 0x1).is_loopback(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان الاسترجاع (`::1`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1680,6 +2070,12 @@ impl Ipv6Addr {
     ///
     /// // For a complete overview see the IANA IPv6 Special-Purpose Address Registry.
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا بدا العنوان قابلًا للوصول عالميًا حسب سجل IANA لعناوين IPv6 الخاصة.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1735,6 +2131,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).is_unique_local(), false);
     /// assert_eq!(Ipv6Addr::new(0xfc02, 0, 0, 0, 0, 0, 0, 0).is_unique_local(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوانًا محليًا فريدًا (`fc00::/7`).
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "ipv6_is_unique_local", since = "1.84.0")]
@@ -1764,6 +2166,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0).is_unicast(), true);
     /// assert_eq!(Ipv6Addr::new(0xff00, 0, 0, 0, 0, 0, 0, 0).is_unicast(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان بث أحادي (unicast)، أي أي عنوان ليس بثًا متعددًا.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1813,6 +2221,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0xfe80, 0, 0, 1, 0, 0, 0, 0).is_unicast_link_local(), true);
     /// assert_eq!(Ipv6Addr::new(0xfe81, 0, 0, 0, 0, 0, 0, 0).is_unicast_link_local(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان بثًا أحاديًا بنطاق محلي للرابط.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "ipv6_is_unique_local", since = "1.84.0")]
@@ -1840,6 +2254,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0).is_documentation(), true);
     /// assert_eq!(Ipv6Addr::new(0x3fff, 0, 0, 0, 0, 0, 0, 0).is_documentation(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان محجوزًا للتوثيق (`2001:db8::/32` و`3fff::/20`).
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1863,6 +2283,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc613, 0x0).is_benchmarking(), false);
     /// assert_eq!(Ipv6Addr::new(0x2001, 0x2, 0, 0, 0, 0, 0, 0).is_benchmarking(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان محجوزًا لقياس الأداء (`2001:2::/48`).
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1900,6 +2326,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0).is_unicast_global(), false);
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).is_unicast_global(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان بثًا أحاديًا قابلًا للتوجيه عالميًا.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1928,6 +2360,12 @@ impl Ipv6Addr {
     /// );
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).multicast_scope(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع نطاق البث المتعدد للعنوان إذا كان عنوان بث متعدد.
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -1971,6 +2409,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0xff00, 0, 0, 0, 0, 0, 0, 0).is_multicast(), true);
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0xc00a, 0x2ff).is_multicast(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان هذا عنوان بث متعدد (`ff00::/8`).
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(since = "1.7.0", feature = "ip_17")]
     #[must_use]
@@ -1996,6 +2440,12 @@ impl Ipv6Addr {
     ///
     /// assert_eq!(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 0).is_ipv4_mapped(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان العنوان مُعيَّنًا من IPv4 (`::ffff:0:0/96`).
+    ///
+    /// </div>
     #[unstable(feature = "ip", issue = "27709")]
     #[must_use]
     #[inline]
@@ -2023,6 +2473,12 @@ impl Ipv6Addr {
     ///            Some(Ipv4Addr::new(192, 10, 2, 255)));
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1).to_ipv4_mapped(), None);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى عنوان IPv4 إذا كان مُعيَّنًا من IPv4.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -2065,6 +2521,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1).to_ipv4(),
     ///            Some(Ipv4Addr::new(0, 0, 0, 1)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى عنوان IPv4 إذا كان متوافقًا مع IPv4 أو مُعيَّنًا منه.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_50", since = "1.50.0")]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "this returns the result of the operation, \
@@ -2091,6 +2553,13 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0x7f00, 0x1).is_loopback(), false);
     /// assert_eq!(Ipv6Addr::new(0, 0, 0, 0, 0, 0xffff, 0x7f00, 0x1).to_canonical().is_loopback(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل هذا العنوان إلى `IpAddr::V4` إذا كان مُعيَّنًا من IPv4، وإلا يرجع `self` داخل
+    /// `IpAddr::V6`.
+    ///
+    /// </div>
     #[inline]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -2111,6 +2580,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0xff00, 0, 0, 0, 0, 0, 0, 0).octets(),
     ///            [0xff, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأعداد الستة عشر (ثماني بتات) التي يتكون منها عنوان IPv6.
+    ///
+    /// </div>
     #[rustc_const_stable(feature = "const_ip_32", since = "1.32.0")]
     #[stable(feature = "ipv6_to_octets", since = "1.12.0")]
     #[must_use]
@@ -2138,6 +2613,12 @@ impl Ipv6Addr {
     ///     addr
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv6Addr` من مصفوفة بايتات من ستة عشر عنصرًا.
+    ///
+    /// </div>
     #[stable(feature = "ip_from", since = "1.91.0")]
     #[rustc_const_stable(feature = "ip_from", since = "1.91.0")]
     #[must_use]
@@ -2159,6 +2640,12 @@ impl Ipv6Addr {
     /// assert_eq!(Ipv6Addr::new(0xff00, 0, 0, 0, 0, 0, 0, 0).as_octets(),
     ///            &[255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع الأعداد الستة عشر (ثماني بتات) التي يتكون منها عنوان IPv6 كشريحة.
+    ///
+    /// </div>
     #[unstable(feature = "ip_as_octets", issue = "137259")]
     #[inline]
     pub const fn as_octets(&self) -> &[u8; 16] {
@@ -2168,6 +2655,12 @@ impl Ipv6Addr {
 
 /// Writes an Ipv6Addr, conforming to the canonical style described by
 /// [RFC 5952](https://tools.ietf.org/html/rfc5952).
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يكتب `Ipv6Addr` بالشكل القياسي الموصوف في RFC 5952.
+///
+/// </div>
 #[stable(feature = "rust1", since = "1.0.0")]
 impl fmt::Display for Ipv6Addr {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -2353,6 +2846,12 @@ const impl From<[u8; 16]> for Ipv6Addr {
     ///     addr
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv6Addr` من مصفوفة بايتات من ستة عشر عنصرًا.
+    ///
+    /// </div>
     #[inline]
     fn from(octets: [u8; 16]) -> Ipv6Addr {
         Ipv6Addr { octets }
@@ -2381,6 +2880,12 @@ const impl From<[u16; 8]> for Ipv6Addr {
     ///     addr
     /// );
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `Ipv6Addr` من مصفوفة من ثمانية عناصر كل منها 16 بت.
+    ///
+    /// </div>
     #[inline]
     fn from(segments: [u16; 8]) -> Ipv6Addr {
         let [a, b, c, d, e, f, g, h] = segments;

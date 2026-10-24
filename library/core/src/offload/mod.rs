@@ -37,6 +37,12 @@ pub use crate::offload;
 ///     args = (&mut x as *mut [f64; 256],),
 /// }
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يشغّل نواة (kernel) على جهاز offload (مثل GPU).
+///
+/// </div>
 #[macro_export]
 #[unstable(feature = "gpu_offload", issue = "131513")]
 #[allow_internal_unstable(core_intrinsics, gpu_offload)]
@@ -156,6 +162,13 @@ macro_rules! offload {
 
 /// Error returned by [`PartitioningStrategy::check_launch`] when a launch
 /// configuration is not compatible with a partitioning strategy.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// خطأ ترجعه `PartitioningStrategy::check_launch` عندما لا يتوافق إعداد التشغيل مع استراتيجية
+/// التقسيم.
+///
+/// </div>
 #[derive(Debug)]
 #[unstable(feature = "gpu_offload", issue = "131513")]
 pub struct LaunchError {
@@ -164,6 +177,12 @@ pub struct LaunchError {
 
 impl LaunchError {
     /// Creates a new [`LaunchError`] with the given message.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ `LaunchError` جديدًا بالرسالة المعطاة.
+    ///
+    /// </div>
     #[unstable(feature = "gpu_offload", issue = "131513")]
     pub const fn new(message: &'static str) -> Self {
         Self { message }
@@ -186,15 +205,39 @@ impl core::fmt::Display for LaunchError {
 /// Implementations must also implement [`check_launch`] correctly since it is soundness-critical.
 ///
 /// [`check_launch`]: PartitioningStrategy::check_launch
+///
+/// <div lang="ar" dir="rtl">
+///
+/// يحدد كيف تصل وحدات التنفيذ إلى مناطق الذاكرة.
+///
+/// </div>
 #[unstable(feature = "gpu_offload", issue = "131513")]
 pub unsafe trait PartitioningStrategy {
     /// Read-only view type for the partitioned memory region.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع العرض للقراءة فقط لمنطقة الذاكرة المقسمة.
+    ///
+    /// </div>
     type View<'a, T: 'a>;
 
     /// Mutable view type for the partitioned memory region.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// نوع العرض القابل للتعديل لمنطقة الذاكرة المقسمة.
+    ///
+    /// </div>
     type ViewMut<'a, T: 'a>;
 
     /// Returns the execution index of the current unit.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع فهرس التنفيذ للوحدة الحالية.
+    ///
+    /// </div>
     fn index() -> usize;
 
     /// Returns a read-only view of the region for the current execution context.
@@ -203,6 +246,12 @@ pub unsafe trait PartitioningStrategy {
     ///
     /// `ptr` must point to `len` valid, initialized elements of type `T`.
     /// The memory must stay valid for lifetime `'a`.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عرضًا للقراءة فقط للمنطقة في سياق التنفيذ الحالي.
+    ///
+    /// </div>
     unsafe fn get<'a, T>(ptr: NonNull<T>, len: usize) -> Option<Self::View<'a, T>>;
 
     /// Returns a mutable view of the region for the current execution context.
@@ -212,6 +261,12 @@ pub unsafe trait PartitioningStrategy {
     /// `ptr` must point to `len` valid, initialized elements of type `T`.
     /// The memory must stay valid for lifetime `'a`.
     /// The returned view must be disjoint from all other active views.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عرضًا قابلًا للتعديل للمنطقة في سياق التنفيذ الحالي.
+    ///
+    /// </div>
     unsafe fn get_mut<'a, T>(ptr: NonNull<T>, len: usize) -> Option<Self::ViewMut<'a, T>>;
 
     /// Checks that a kernel using this strategy can be launched with `len`
@@ -225,10 +280,23 @@ pub unsafe trait PartitioningStrategy {
     /// if and only if a launch is valid for arbitrary `len`, `grid` and `block` values.
     /// If there is any configuration for which this strategy would produce incorrect
     /// results or cause undefined behavior, it must return a [`LaunchError`] instead.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق أن النواة التي تستخدم هذه الاستراتيجية يمكن تشغيلها بـ `len` عنصر وإعداد `grid`
+    /// و`block`.
+    ///
+    /// </div>
     fn check_launch(len: usize, grid: [u32; 3], block: [u32; 3]) -> Result<(), LaunchError>;
 }
 
 /// A memory region bound to a partitioning strategy.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// منطقة ذاكرة مربوطة باستراتيجية تقسيم.
+///
+/// </div>
 #[derive(Debug)]
 #[unstable(feature = "gpu_offload", issue = "131513")]
 #[rustc_diagnostic_item = "offload_region"]
@@ -239,6 +307,12 @@ pub struct Region<'a, T, S: PartitioningStrategy> {
 }
 
 /// Raw representation used to build a [`Region`] from common aggregate types.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// تمثيل خام يُستخدم لبناء `Region` من أنواع تجميعية شائعة.
+///
+/// </div>
 #[derive(Debug)]
 #[unstable(feature = "gpu_offload", issue = "131513")]
 pub struct RawRegion<'a, T> {
@@ -266,6 +340,12 @@ impl<'a, T, const N: usize> From<&'a mut [T; N]> for RawRegion<'a, T> {
 #[unstable(feature = "gpu_offload", issue = "131513")]
 impl<'a, T, S: PartitioningStrategy> Region<'a, T, S> {
     /// Creates a new partitioned region from data convertible into a [`RawRegion`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ منطقة مقسمة جديدة من بيانات يمكن تحويلها إلى `RawRegion`.
+    ///
+    /// </div>
     pub fn new<D>(data: D) -> Self
     where
         D: Into<RawRegion<'a, T>>,
@@ -275,12 +355,24 @@ impl<'a, T, S: PartitioningStrategy> Region<'a, T, S> {
     }
 
     /// Returns a read-only view for the current execution context.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عرضًا للقراءة فقط لسياق التنفيذ الحالي.
+    ///
+    /// </div>
     pub fn get(&self) -> Option<S::View<'_, T>> {
         // SAFETY: `self.ptr` points to `self.len` valid elements for lifetime `'a`.
         unsafe { S::get(self.ptr, self.len) }
     }
 
     /// Returns a mutable view for the current execution context.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عرضًا قابلًا للتعديل لسياق التنفيذ الحالي.
+    ///
+    /// </div>
     pub fn get_mut(&mut self) -> Option<S::ViewMut<'_, T>> {
         // SAFETY: `self.ptr` points to `self.len` valid elements for lifetime `'a`.
         // The strategy guarantees that the returned view is disjoint.
@@ -290,12 +382,24 @@ impl<'a, T, S: PartitioningStrategy> Region<'a, T, S> {
     /// Checks that this region can be launched with the given configuration.
     ///
     /// Called automatically by the [`offload!`] macro before launching a kernel.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يتحقق أن هذه المنطقة يمكن تشغيلها بالإعداد المعطى.
+    ///
+    /// </div>
     pub fn check_launch(&self, grid: [u32; 3], block: [u32; 3]) -> Result<(), LaunchError> {
         S::check_launch(self.len, grid, block)
     }
 
     /// Reborrows the region, producing a new region that aliases the same memory with
     /// the lifetime of the borrow.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يعيد استعارة المنطقة، فينتج منطقة جديدة تشير لنفس الذاكرة بعمر الاستعارة.
+    ///
+    /// </div>
     pub fn reborrow(&mut self) -> Region<'_, T, S> {
         Region { ptr: self.ptr, len: self.len, _marker: core::marker::PhantomData }
     }
@@ -309,6 +413,12 @@ impl<'a, T, S: PartitioningStrategy> Region<'a, T, S> {
 #[unstable(feature = "gpu_offload", issue = "131513")]
 pub trait RegionLaunchCheck {
     /// Panics if the region's partitioning strategy rejects the launch.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يسبب panic إذا رفضت استراتيجية التقسيم الخاصة بالمنطقة التشغيل.
+    ///
+    /// </div>
     fn __offload_check_launch(&self, grid: [u32; 3], block: [u32; 3]);
 }
 
@@ -329,6 +439,12 @@ impl<'a, T, S: PartitioningStrategy> RegionLaunchCheck for Region<'a, T, S> {
 #[unstable(feature = "gpu_offload", issue = "131513")]
 pub trait DefaultLaunchCheck {
     /// Does nothing.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// لا يفعل شيئًا.
+    ///
+    /// </div>
     fn __offload_check_launch(&self, grid: [u32; 3], block: [u32; 3]);
 }
 

@@ -41,6 +41,12 @@ impl<T: PointeeSized> *const T {
     }
 
     /// Casts to a pointer of another type.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحوّل إلى مؤشر من نوع آخر.
+    ///
+    /// </div>
     #[stable(feature = "ptr_cast", since = "1.38.0")]
     #[rustc_const_stable(feature = "const_ptr_cast", since = "1.38.0")]
     #[rustc_diagnostic_item = "const_ptr_cast"]
@@ -65,6 +71,12 @@ impl<T: PointeeSized> *const T {
     /// assert!(aligned.try_cast_aligned::<u32>().is_some());
     /// assert!(unaligned.try_cast_aligned::<u32>().is_none());
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحاول التحويل إلى مؤشر من نوع آخر بعد التحقق من المحاذاة.
+    ///
+    /// </div>
     #[stable(feature = "pointer_try_cast_aligned", since = "CURRENT_RUSTC_VERSION")]
     #[must_use = "this returns the result of the operation, \
                   without modifying the original"]
@@ -122,6 +134,12 @@ impl<T: PointeeSized> *const T {
     /// // This dereference is UB. The pointer only has provenance for `x` but points to `y`.
     /// println!("{:?}", unsafe { &*bad });
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يستخدم قيمة العنوان في مؤشر جديد من نوع آخر.
+    ///
+    /// </div>
     #[unstable(feature = "set_ptr_value", issue = "75091")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[inline]
@@ -136,6 +154,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// This is a bit safer than `as` because it wouldn't silently change the type if the code is
     /// refactored.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر قابلية التعديل (const/mut) بدون تغيير النوع.
+    ///
+    /// </div>
     #[stable(feature = "ptr_const_cast", since = "1.65.0")]
     #[rustc_const_stable(feature = "ptr_const_cast", since = "1.65.0")]
     #[rustc_diagnostic_item = "ptr_cast_mut"]
@@ -180,6 +204,12 @@ impl<T: PointeeSized> *const T {
     /// This is an [Exposed Provenance][crate::ptr#exposed-provenance] API.
     ///
     /// [`with_exposed_provenance`]: with_exposed_provenance
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يكشف جزء "المصدر" (provenance) من المؤشر لاستخدامه لاحقًا في `with_exposed_provenance`.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "exposed_provenance", since = "1.84.0")]
     #[expect(implicit_provenance_casts, reason = "this *is* the replacement")]
@@ -198,6 +228,12 @@ impl<T: PointeeSized> *const T {
     /// `self` to the given address, and therefore has all the same capabilities and restrictions.
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا بالعنوان المعطى ومصدر (provenance) `self`.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -217,6 +253,12 @@ impl<T: PointeeSized> *const T {
     /// This is a convenience for [`with_addr`][pointer::with_addr], see that method for details.
     ///
     /// This is a [Strict Provenance][crate::ptr#strict-provenance] API.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ مؤشرًا جديدًا بتحويل عنوان `self` إلى عنوان جديد، مع الحفاظ على مصدره.
+    ///
+    /// </div>
     #[must_use]
     #[inline]
     #[stable(feature = "strict_provenance", since = "1.84.0")]
@@ -227,6 +269,12 @@ impl<T: PointeeSized> *const T {
     /// Decompose a (possibly wide) pointer into its data pointer and metadata components.
     ///
     /// The pointer can be later reconstructed with [`from_raw_parts`].
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يفكك مؤشرًا (قد يكون عريضًا) إلى مؤشر البيانات والبيانات الوصفية.
+    ///
+    /// </div>
     #[unstable(feature = "ptr_metadata", issue = "81513")]
     #[inline]
     pub const fn to_raw_parts(self) -> (*const (), <T as super::Pointee>::Metadata) {
@@ -290,6 +338,12 @@ impl<T: PointeeSized> *const T {
     ///     assert_eq!(ptr.as_ref_unchecked(), &10);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع مرجعًا مشتركًا إلى القيمة خلف المؤشر بدون فحص (غير آمن).
+    ///
+    /// </div>
     #[stable(feature = "ptr_as_ref_unchecked", since = "1.95.0")]
     #[rustc_const_stable(feature = "ptr_as_ref_unchecked", since = "1.95.0")]
     #[inline]
@@ -345,6 +399,12 @@ impl<T: PointeeSized> *const T {
     ///     assert_eq!(*ptr.offset(2) as char, '3');
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بإشارة إلى مؤشر؛ إذا صعب تحقيق شروطه فاستخدم `wrapping_offset`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -398,6 +458,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بإشارة بالبايتات إلى مؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
@@ -460,6 +526,12 @@ impl<T: PointeeSized> *const T {
     /// assert_eq!(out.as_str(), "1, 3, 5, ");
     /// # std::fmt::Result::Ok(())
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بإشارة إلى مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[stable(feature = "ptr_wrapping_offset", since = "1.16.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -482,6 +554,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بإشارة بالبايتات إلى مؤشر باستخدام حساب الالتفاف.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
@@ -614,6 +692,12 @@ impl<T: PointeeSized> *const T {
     ///     let one = ptr2_other.offset_from(ptr2); // Undefined Behavior! ⚠️
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، بوحدات `T`.
+    ///
+    /// </div>
     #[stable(feature = "ptr_offset_from", since = "1.47.0")]
     #[rustc_const_stable(feature = "const_ptr_offset_from", since = "1.65.0")]
     #[inline(always)]
@@ -637,6 +721,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation considers only the data pointers,
     /// ignoring the metadata.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، بوحدات **البايت**.
+    ///
+    /// </div>
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
     #[rustc_const_stable(feature = "const_pointer_byte_offsets", since = "1.75.0")]
@@ -703,6 +793,12 @@ impl<T: PointeeSized> *const T {
     /// // This would be incorrect, as the pointers are not correctly ordered:
     /// // ptr1.offset_from_unsigned(ptr2)
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بين مؤشرين في نفس الحجز، مع العلم أن `self` أكبر من أو يساوي `origin`.
+    ///
+    /// </div>
     #[stable(feature = "ptr_sub_ptr", since = "1.87.0")]
     #[rustc_const_stable(feature = "const_ptr_sub_ptr", since = "1.87.0")]
     #[inline]
@@ -748,6 +844,13 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation considers only the data pointers,
     /// ignoring the metadata.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يحسب المسافة بالبايتات بين مؤشرين في نفس الحجز، مع العلم أن `self` أكبر من أو يساوي
+    /// `origin`.
+    ///
+    /// </div>
     #[stable(feature = "ptr_sub_ptr", since = "1.87.0")]
     #[rustc_const_stable(feature = "const_ptr_sub_ptr", since = "1.87.0")]
     #[inline]
@@ -774,6 +877,12 @@ impl<T: PointeeSized> *const T {
     /// differently have not been explored. This method should not be used to introduce such
     /// differences, and it should also not be stabilized before we have a better understanding
     /// of this issue.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشران متساويان بشكل مضمون.
+    ///
+    /// </div>
     #[unstable(feature = "const_raw_ptr_comparison", issue = "53020")]
     #[rustc_const_unstable(feature = "const_raw_ptr_comparison", issue = "53020")]
     #[inline]
@@ -804,6 +913,12 @@ impl<T: PointeeSized> *const T {
     /// differently have not been explored. This method should not be used to introduce such
     /// differences, and it should also not be stabilized before we have a better understanding
     /// of this issue.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع هل المؤشران غير متساويين بشكل مضمون.
+    ///
+    /// </div>
     #[unstable(feature = "const_raw_ptr_comparison", issue = "53020")]
     #[rustc_const_unstable(feature = "const_raw_ptr_comparison", issue = "53020")]
     #[inline]
@@ -834,6 +949,12 @@ impl<T: PointeeSized> *const T {
     ///     assert_eq!(*ptr.add(2), b'3');
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بدون إشارة إلى مؤشر؛ إذا صعب تحقيق شروطه فاستخدم `wrapping_add`.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -886,6 +1007,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يضيف إزاحة بدون إشارة بالبايتات إلى مؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]
@@ -913,6 +1040,12 @@ impl<T: PointeeSized> *const T {
     ///     assert_eq!(*end.sub(2), b'2');
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطرح إزاحة بدون إشارة من مؤشر؛ إذا صعب تحقيق شروطه فاستخدم `wrapping_sub`.
+    ///
+    /// </div>
     #[stable(feature = "pointer_methods", since = "1.26.0")]
     #[must_use = "returns a new pointer rather than modifying its argument"]
     #[rustc_const_stable(feature = "const_ptr_offset", since = "1.61.0")]
@@ -971,6 +1104,12 @@ impl<T: PointeeSized> *const T {
     ///
     /// For non-`Sized` pointees this operation changes only the data pointer,
     /// leaving the metadata untouched.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يطرح إزاحة بدون إشارة بالبايتات من مؤشر.
+    ///
+    /// </div>
     #[must_use]
     #[inline(always)]
     #[stable(feature = "pointer_byte_offsets", since = "1.75.0")]

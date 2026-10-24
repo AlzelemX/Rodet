@@ -28,13 +28,31 @@ use crate::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 /// assert_eq!(socket.port(), 8080);
 /// assert_eq!(socket.is_ipv4(), true);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان مقبس إنترنت، إما IPv4 أو IPv6.
+///
+/// </div>
 #[derive(Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub enum SocketAddr {
     /// An IPv4 socket address.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان مقبس IPv4.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     V4(#[stable(feature = "rust1", since = "1.0.0")] SocketAddrV4),
     /// An IPv6 socket address.
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// عنوان مقبس IPv6.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     V6(#[stable(feature = "rust1", since = "1.0.0")] SocketAddrV6),
 }
@@ -76,6 +94,12 @@ pub enum SocketAddr {
 /// assert_eq!(socket.ip(), &Ipv4Addr::new(127, 0, 0, 1));
 /// assert_eq!(socket.port(), 8080);
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان مقبس IPv4.
+///
+/// </div>
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct SocketAddrV4 {
@@ -142,6 +166,12 @@ pub struct SocketAddrV4 {
 /// with_scope.set_scope_id(3);
 /// assert_eq!("[2001:db8::1%3]:8080".parse(), Ok(with_scope));
 /// ```
+///
+/// <div lang="ar" dir="rtl">
+///
+/// عنوان مقبس IPv6.
+///
+/// </div>
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[stable(feature = "rust1", since = "1.0.0")]
 pub struct SocketAddrV6 {
@@ -165,6 +195,12 @@ impl SocketAddr {
     /// assert_eq!(socket.ip(), IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)));
     /// assert_eq!(socket.port(), 8080);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوان مقبس جديدًا من عنوان IP ورقم منفذ (port).
+    ///
+    /// </div>
     #[stable(feature = "ip_addr", since = "1.7.0")]
     #[must_use]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -186,6 +222,12 @@ impl SocketAddr {
     /// let socket = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8080);
     /// assert_eq!(socket.ip(), IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "ip_addr", since = "1.7.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -208,6 +250,12 @@ impl SocketAddr {
     /// socket.set_ip(IpAddr::V4(Ipv4Addr::new(10, 10, 0, 1)));
     /// assert_eq!(socket.ip(), IpAddr::V4(Ipv4Addr::new(10, 10, 0, 1)));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -230,6 +278,12 @@ impl SocketAddr {
     /// let socket = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8080);
     /// assert_eq!(socket.port(), 8080);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -252,6 +306,12 @@ impl SocketAddr {
     /// socket.set_port(1025);
     /// assert_eq!(socket.port(), 1025);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -277,6 +337,12 @@ impl SocketAddr {
     /// assert_eq!(socket.is_ipv4(), true);
     /// assert_eq!(socket.is_ipv6(), false);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان عنوان IP في هذا الـ `SocketAddr` عنوان IPv4، و`false` غير ذلك.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "sockaddr_checker", since = "1.16.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -300,6 +366,12 @@ impl SocketAddr {
     /// assert_eq!(socket.is_ipv4(), false);
     /// assert_eq!(socket.is_ipv6(), true);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع `true` إذا كان عنوان IP في هذا الـ `SocketAddr` عنوان IPv6، و`false` غير ذلك.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "sockaddr_checker", since = "1.16.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -341,6 +413,12 @@ impl SocketAddr {
     ///     assert_eq!(v6.scope_id(), 5);
     /// }
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان المقبس غير المحدد لنفس إصدار IP.
+    ///
+    /// </div>
     #[inline]
     #[must_use]
     #[unstable(feature = "addr_unspecified_from", issue = "158975")]
@@ -369,6 +447,12 @@ impl SocketAddrV4 {
     ///
     /// let socket = SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوان مقبس جديدًا من عنوان IPv4 ورقم منفذ.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -387,6 +471,12 @@ impl SocketAddrV4 {
     /// let socket = SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080);
     /// assert_eq!(socket.ip(), &Ipv4Addr::new(127, 0, 0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -406,6 +496,12 @@ impl SocketAddrV4 {
     /// socket.set_ip(Ipv4Addr::new(192, 168, 0, 1));
     /// assert_eq!(socket.ip(), &Ipv4Addr::new(192, 168, 0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -423,6 +519,12 @@ impl SocketAddrV4 {
     /// let socket = SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), 8080);
     /// assert_eq!(socket.port(), 8080);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -442,6 +544,12 @@ impl SocketAddrV4 {
     /// socket.set_port(4242);
     /// assert_eq!(socket.port(), 4242);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -467,6 +575,12 @@ impl SocketAddrV6 {
     ///
     /// let socket = SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 8080, 0, 0);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// ينشئ عنوان مقبس جديدًا من عنوان IPv6 ورقم منفذ 16 بت والحقلين `flowinfo` و`scope_id`.
+    ///
+    /// </div>
     #[stable(feature = "rust1", since = "1.0.0")]
     #[must_use]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -485,6 +599,12 @@ impl SocketAddrV6 {
     /// let socket = SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 8080, 0, 0);
     /// assert_eq!(socket.ip(), &Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -504,6 +624,12 @@ impl SocketAddrV6 {
     /// socket.set_ip(Ipv6Addr::new(76, 45, 0, 0, 0, 0, 0, 0));
     /// assert_eq!(socket.ip(), &Ipv6Addr::new(76, 45, 0, 0, 0, 0, 0, 0));
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر عنوان IP المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -521,6 +647,12 @@ impl SocketAddrV6 {
     /// let socket = SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 8080, 0, 0);
     /// assert_eq!(socket.port(), 8080);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -540,6 +672,12 @@ impl SocketAddrV6 {
     /// socket.set_port(4242);
     /// assert_eq!(socket.port(), 4242);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر رقم المنفذ المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -567,6 +705,12 @@ impl SocketAddrV6 {
     /// let socket = SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 8080, 10, 0);
     /// assert_eq!(socket.flowinfo(), 10);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معلومات التدفق المرتبطة بهذا العنوان.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -588,6 +732,12 @@ impl SocketAddrV6 {
     /// socket.set_flowinfo(56);
     /// assert_eq!(socket.flowinfo(), 56);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر معلومات التدفق المرتبطة بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]
@@ -610,6 +760,12 @@ impl SocketAddrV6 {
     /// let socket = SocketAddrV6::new(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1), 8080, 0, 78);
     /// assert_eq!(socket.scope_id(), 78);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يرجع معرّف النطاق المرتبط بهذا العنوان.
+    ///
+    /// </div>
     #[must_use]
     #[stable(feature = "rust1", since = "1.0.0")]
     #[rustc_const_stable(feature = "const_socketaddr", since = "1.69.0")]
@@ -631,6 +787,12 @@ impl SocketAddrV6 {
     /// socket.set_scope_id(42);
     /// assert_eq!(socket.scope_id(), 42);
     /// ```
+    ///
+    /// <div lang="ar" dir="rtl">
+    ///
+    /// يغيّر معرّف النطاق المرتبط بعنوان المقبس هذا.
+    ///
+    /// </div>
     #[inline]
     #[stable(feature = "sockaddr_setters", since = "1.9.0")]
     #[rustc_const_stable(feature = "const_sockaddr_setters", since = "1.87.0")]

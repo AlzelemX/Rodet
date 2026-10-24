@@ -1,6 +1,12 @@
 //! This is a fairly simple unpacked error representation that's used on
 //! non-64bit targets, where the packed 64 bit representation wouldn't work, and
 //! would have no benefit.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! تمثيل بسيط غير مضغوط للأخطاء يُستخدم على المنصات غير 64 بت.
+//!
+//! </div>
 
 use super::{Custom, CustomOwner, ErrorData, ErrorKind, RawOsError, SimpleMessage};
 

@@ -1,4 +1,10 @@
 //! Profiling markers for compiler instrumentation.
+//!
+//! <div lang="ar" dir="rtl">
+//!
+//! علامات قياس الأداء لأدوات المترجم.
+//!
+//! </div>
 
 /// Profiling marker for move operations.
 ///
@@ -8,6 +14,12 @@
 ///
 /// The `SIZE` parameter encodes the size of the type being copied. It's the same as
 /// `size_of::<T>()`, and is only present for convenience.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة قياس أداء لعمليات النقل (move).
+///
+/// </div>
 #[unstable(feature = "profiling_marker_api", issue = "148197")]
 #[lang = "compiler_move"]
 pub fn compiler_move<T, const SIZE: usize>(_src: *const T, _dst: *mut T) {
@@ -24,6 +36,12 @@ pub fn compiler_move<T, const SIZE: usize>(_src: *const T, _dst: *mut T) {
 ///
 /// The `SIZE` parameter encodes the size of the type being copied. It's the same as
 /// `size_of::<T>()`, and is only present for convenience.
+///
+/// <div lang="ar" dir="rtl">
+///
+/// علامة قياس أداء لعمليات النسخ (copy).
+///
+/// </div>
 #[unstable(feature = "profiling_marker_api", issue = "148197")]
 #[lang = "compiler_copy"]
 pub fn compiler_copy<T, const SIZE: usize>(_src: *const T, _dst: *mut T) {
