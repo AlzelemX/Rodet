@@ -75,14 +75,17 @@ jobs:
       - name: Check the toolchain
         run: |
           set -euo pipefail
-          rodetc --version
-          rodet --version
-          # Tauri's tools run `cargo` and `rustc` by those names, so this job
-          # (only) gives Rodet's tools those names too, next to the originals.
           bin="$RUNNER_TEMP/rodet/bin"
           exe=""; [ "$RUNNER_OS" = Windows ] && exe=".exe"
-          cp "$bin/rodet$exe" "$bin/cargo$exe"
-          cp "$bin/rodetc$exe" "$bin/rustc$exe"
+          # Tauri's tools run `cargo` and `rustc` by those names, so this job
+          # (only) gives Rodet's tools those names too, next to the originals.
+          # (Releases before Silk still ship `rustc` and `cargo`.)
+          if [ -f "$bin/rodetc$exe" ]; then
+            rodetc --version
+            rodet --version
+            cp "$bin/rodet$exe" "$bin/cargo$exe"
+            cp "$bin/rodetc$exe" "$bin/rustc$exe"
+          fi
           echo "RODET_COMPAT=1" >> "$GITHUB_ENV"
           RODET_COMPAT=1 rustc --version | grep -F "(Rodet"
 
