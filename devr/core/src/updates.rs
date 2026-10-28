@@ -15,8 +15,8 @@ pub struct Updates {
     /// The newest DEVR+ release, e.g. `devr-v0.1.3`.
     pub devr_latest: Option<Release>,
     pub devr_current: String,
-    /// `rustc --version` of the installed Rodet.
-    pub rustc_version: Option<String>,
+    /// `rodetc --version` of the installed Rodet.
+    pub rodetc_version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -41,6 +41,6 @@ pub fn check() -> Result<Updates> {
         rodet_latest: releases.iter().find(|r| r.tag.contains("rodet")).cloned(),
         devr_latest: releases.iter().find(|r| r.tag.starts_with("devr-")).cloned(),
         devr_current: crate::VERSION.to_owned(),
-        rustc_version: Toolchain::find().rustc_version,
+        rodetc_version: Toolchain::find().rodetc_version,
     })
 }
