@@ -96,7 +96,8 @@ jobs:
             cp "$bin/rodetc$exe" "$bin/rustc$exe"
           fi
           echo "RODET_COMPAT=1" >> "$GITHUB_ENV"
-          RODET_COMPAT=1 rustc --version | grep -F "(Rodet"
+          # (Releases from before the new name say "Rust++".)
+          RODET_COMPAT=1 rustc --version | grep -E '\((Rodet|Rust\+\+)'
 
       - uses: actions/setup-node@v4
         with:
