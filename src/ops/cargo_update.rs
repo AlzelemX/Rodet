@@ -442,9 +442,9 @@ fn status_locking(
             write!(&mut cfg, " highest")?;
         }
 
-        if let Some(rust_version) = required_rust_version(ws) {
-            write!(&mut cfg, " Rust {rust_version}")?;
-        }
+        // SILK: the version is the compiler's compatibility version (`rust-version`),
+        // not shown, so the message stays about Rodet.
+        let _ = required_rust_version(ws);
         write!(&mut cfg, " compatible version{plural}")?;
         match (publish_age, publish_time) {
             (Some(publish_age), Some(publish_time)) => {
