@@ -740,8 +740,8 @@ where
         let first_pkg = pkgs[0];
         format!(
             "multiple packages with {} found: {}. When installing a git repository, \
-            cargo will always search the entire repo for any Cargo.toml.\n\
-            Please specify a package, e.g. `cargo install --git {} {}`.",
+            cargo will always search the entire repo for any Silk.toml.\n\
+            Please specify a package, e.g. `rodet install --git {} {}`.",
             kind,
             pkgs.iter()
                 .map(|p| p.name().as_str())

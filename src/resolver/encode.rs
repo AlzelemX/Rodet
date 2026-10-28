@@ -486,7 +486,7 @@ fn build_path_deps(
             return;
         }
         let path = match id.url().to_file_path() {
-            Ok(p) => p.join("Cargo.toml"),
+            Ok(p) => crate::util::important_paths::manifest_in(&p),
             Err(_) => return,
         };
         let Ok(pkg) = ws.load(&path) else { return };

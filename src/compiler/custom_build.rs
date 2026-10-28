@@ -385,6 +385,10 @@ fn build_work(build_runner: &mut BuildRunner<'_, '_>, unit: &Unit) -> CargoResul
         .env("HOST", &bcx.host_triple())
         .env("RUSTC", &bcx.rustc().path)
         .env("RUSTDOC", &*bcx.gctx.rustdoc()?)
+        // SILK: build scripts of crates.io packages run `$RUSTC --version` and expect
+        // `rustc 1.x.y`; Rodet's tools print that form when RODET_COMPAT is set.
+        .env("RODET_COMPAT", "1")
+        .env("RODETC", &bcx.rustc().path)
         .inherit_jobserver(&build_runner.jobserver);
 
     // Find all artifact dependencies and make their file and containing directory discoverable using environment variables.

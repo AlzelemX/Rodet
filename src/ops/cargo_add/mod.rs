@@ -1074,7 +1074,7 @@ fn infer_package_for_git_source(
                 .collect();
             names.sort_unstable();
             anyhow::bail!(
-                "multiple packages found at `{src}`:\n    {}\nTo disambiguate, run `cargo add --git {src} <package>`",
+                "multiple packages found at `{src}`:\n    {}\nTo disambiguate, run `rodet add --git {src} <package>`",
                 names
                     .iter()
                     .map(|s| s.to_string())

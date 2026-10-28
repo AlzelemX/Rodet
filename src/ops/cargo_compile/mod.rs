@@ -673,7 +673,7 @@ pub fn create_bcx<'a, 'gctx>(
                 writeln!(
                     &mut message,
                     "Either upgrade rustc or select compatible dependency versions with
-`cargo update <name>@<current-ver> --precise <compatible-ver>`
+`rodet update <name>@<current-ver> --precise <compatible-ver>`
 where `<compatible-ver>` is the latest version supporting rustc {rustc_version}",
                 )
                 .unwrap();

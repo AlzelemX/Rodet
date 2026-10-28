@@ -73,7 +73,7 @@ pub fn print_available_packages(ws: &Workspace<'_>) -> CargoResult<()> {
 
     let mut output = "\"--package <SPEC>\" requires a SPEC format value, \
         which can be any package ID specifier in the dependency graph.\n\
-        Run `cargo help pkgid` for more information about SPEC format.\n\n"
+        Run `rodet help pkgid` for more information about SPEC format.\n\n"
         .to_string();
 
     if packages.is_empty() {

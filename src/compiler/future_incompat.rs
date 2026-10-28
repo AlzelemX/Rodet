@@ -443,7 +443,7 @@ update to a newer version to see if the issue has been fixed{updated_versions}",
             format!(
                 "  - {package_spec}
   - repository: {url}
-  - detailed warning command: `cargo report future-incompatibilities --id {id} --package {package_spec}`",
+  - detailed warning command: `rodet report future-incompatibilities --id {id} --package {package_spec}`",
                 package_spec = format!("{}@{}", package_id.name(), package_id.version()),
                 url = manifest
                     .metadata()
@@ -474,7 +474,7 @@ or even helping with a fix (e.g. by creating a pull request)
         ));
         suggestions.push(
             "\
-use your own version of the dependency with the `[patch]` section in `Cargo.toml`
+use your own version of the dependency with the `[patch]` section in `Silk.toml`
 For more information, see:
 https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section"
                 .to_owned(),
@@ -511,14 +511,14 @@ https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch
                 report.push(Group::with_title(Level::HELP.secondary_title(suggestion)));
             }
             report.push(Group::with_title(Level::NOTE.secondary_title(format!(
-                "this report can be shown with `cargo report \
+                "this report can be shown with `rodet report \
              future-incompatibilities --id {}`",
                 saved_report_id
             ))));
         } else if should_display_message {
             report.push(Group::with_title(Level::NOTE.secondary_title(format!(
                 "to see what the problems were, use the option \
-             `--future-incompat-report`, or run `cargo report \
+             `--future-incompat-report`, or run `rodet report \
              future-incompatibilities --id {}`",
                 saved_report_id
             ))));

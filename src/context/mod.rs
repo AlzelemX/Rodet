@@ -536,7 +536,7 @@ impl GlobalContext {
             &self
                 .home()
                 .join("bin")
-                .join("rustc")
+                .join("rodetc")
                 .into_path_unlocked()
                 .with_extension(env::consts::EXE_EXTENSION),
             if self.cache_rustc_info {
@@ -1677,13 +1677,16 @@ impl GlobalContext {
         let mut seen_dir = HashSet::default();
 
         for current in paths::ancestors(pwd, self.search_stop_path.as_deref()) {
-            let config_root = current.join(".cargo");
-            if let Some(path) = self.get_file_path(&config_root, "config", true)? {
-                walk(&path)?;
-            }
+            // SILK: project settings live in `.rodet/config.toml`; `.cargo/` is still read.
+            for dir in [".rodet", ".cargo"] {
+                let config_root = current.join(dir);
+                if let Some(path) = self.get_file_path(&config_root, "config", true)? {
+                    walk(&path)?;
+                }
 
-            let canonical_root = config_root.canonicalize().unwrap_or(config_root);
-            seen_dir.insert(canonical_root);
+                let canonical_root = config_root.canonicalize().unwrap_or(config_root);
+                seen_dir.insert(canonical_root);
+            }
         }
 
         let canonical_home = home.canonicalize().unwrap_or(home.to_path_buf());
@@ -1809,8 +1812,24 @@ impl GlobalContext {
     /// This is intended for tools that are rustup proxies. If you need to get
     /// a tool that is not a rustup proxy, use `maybe_get_tool` instead.
     fn get_tool(&self, tool: Tool, from_config: &Option<ConfigRelativePath>) -> PathBuf {
+        // SILK: Rodet's own names come first: `$RODETC`, then `$RUSTC` and the config,
+        // then the `rodetc` next to `rodet`, then `rodetc` on PATH.
+        let rodet_str = tool.rodet_name();
+        if let Some(path) = self.maybe_get_tool(rodet_str, &None) {
+            return path;
+        }
         let tool_str = tool.as_str();
-        self.maybe_get_tool(tool_str, from_config)
+        if let Some(path) = self.maybe_get_tool(tool_str, from_config) {
+            return path;
+        }
+        let rodet_exe = Path::new(rodet_str).with_extension(env::consts::EXE_EXTENSION);
+        if let Some(path) = exe_dir().map(|dir| dir.join(&rodet_exe)).filter(|p| p.exists()) {
+            return path;
+        }
+        if paths::resolve_executable(Path::new(rodet_str)).is_ok() {
+            return PathBuf::from(rodet_str);
+        }
+        None
             .or_else(|| {
                 // This is an optimization to circumvent the rustup proxies
                 // which can have a significant performance hit. The goal here
@@ -2164,7 +2183,7 @@ fn registry_config_uncached(
     if !sid.is_remote_registry() {
         bail!(
             "{} does not support API commands.\n\
-             Check for a source-replacement in .cargo/config.",
+             Check for a source-replacement in .rodet/config.",
             sid
         );
     }
@@ -2260,13 +2279,27 @@ fn registry_name(gctx: &GlobalContext, sid: &SourceId) -> CargoResult<Option<Str
     Ok(name)
 }
 
+/// Silk's home: `$RODET_HOME`, or `~/.rodet`.
 pub fn homedir(cwd: &Path) -> Option<PathBuf> {
-    ::home::cargo_home_with_cwd(cwd)
-        .ok()
+    let home = match env::var_os("RODET_HOME").filter(|h| !h.is_empty()) {
+        Some(home) => Some(cwd.join(home)),
+        None => ::home::home_dir().map(|h| h.join(".rodet")),
+    };
+    home
+        // https://github.com/rust-lang/cargo/issues/15981
+        // This is so everything shares one spelling and
+        // isn't incorrectly seen as distinct.
         // https://github.com/rust-lang/cargo/issues/15981
         // This is so everything shares one spelling and
         // isn't incorrectly seen as distinct.
         .map(|home| paths::normalize_path(&home))
+}
+
+/// The folder of the running `rodet`; the toolchain's `rodetc` sits next to it.
+fn exe_dir() -> Option<PathBuf> {
+    let exe = env::current_exe().ok()?;
+    let exe = exe.canonicalize().unwrap_or(exe);
+    exe.parent().map(Path::to_path_buf)
 }
 
 pub fn save_credentials(
@@ -2606,6 +2639,14 @@ impl Tool {
         match self {
             Tool::Rustc => "rustc",
             Tool::Rustdoc => "rustdoc",
+        }
+    }
+
+    /// The tool's name in a Rodet toolchain.
+    fn rodet_name(&self) -> &'static str {
+        match self {
+            Tool::Rustc => "rodetc",
+            Tool::Rustdoc => "rodetdoc",
         }
     }
 }

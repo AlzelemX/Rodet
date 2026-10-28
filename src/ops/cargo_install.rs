@@ -113,8 +113,8 @@ impl<'gctx> InstallablePackage<'gctx> {
             if name == "." {
                 bail!(
                     "to install the binaries for the package in current working \
-                     directory use `cargo install --path .`. \n\
-                     use `cargo build` if you want to simply build the package."
+                     directory use `rodet install --path .`. \n\
+                     use `rodet build` if you want to simply build the package."
                 )
             }
         }
@@ -152,11 +152,11 @@ impl<'gctx> InstallablePackage<'gctx> {
                 if !src.path().is_dir() {
                     bail!(
                         "`{}` is not a directory. \
-                     --path must point to a directory containing a Cargo.toml file.",
+                     --path must point to a directory containing a Silk.toml file.",
                         src.path().display()
                     )
                 }
-                if !src.path().join("Cargo.toml").exists() {
+                if !crate::util::important_paths::manifest_in(&src.path()).exists() {
                     if from_cwd {
                         bail!(
                             "`{}` is not a crate root; specify a crate to \
@@ -166,14 +166,14 @@ impl<'gctx> InstallablePackage<'gctx> {
                         );
                     } else if src.path().join("cargo.toml").exists() {
                         bail!(
-                            "`{}` does not contain a Cargo.toml file, but found cargo.toml please try to rename it to Cargo.toml. \
-                     --path must point to a directory containing a Cargo.toml file.",
+                            "`{}` does not contain a Silk.toml file, but found cargo.toml please try to rename it to Silk.toml. \
+                     --path must point to a directory containing a Silk.toml file.",
                             src.path().display()
                         )
                     } else {
                         bail!(
-                            "`{}` does not contain a Cargo.toml file. \
-                     --path must point to a directory containing a Cargo.toml file.",
+                            "`{}` does not contain a Silk.toml file. \
+                     --path must point to a directory containing a Silk.toml file.",
                             src.path().display()
                         )
                     }
@@ -223,9 +223,9 @@ impl<'gctx> InstallablePackage<'gctx> {
             make_ws_rustc_target(gctx, &original_opts, &source_id, pkg.clone())?;
         // If we're installing in --locked mode and there's no `Cargo.lock` published
         // ie. the bin was published before https://github.com/rust-lang/cargo/pull/7026
-        if !gctx.lock_update_allowed() && !ws.root().join("Cargo.lock").exists() {
+        if !gctx.lock_update_allowed() && !ws.root().join(crate::ops::lockfile::lockfile_name(&ws)).exists() {
             gctx.shell()
-                .warn(format!("no Cargo.lock file published in {}", pkg))?;
+                .warn(format!("no Silk.lock file published in {}", pkg))?;
         }
         let pkg = if source_id.is_git() {
             // Don't use ws.current() in order to keep the package source as a git source so that
@@ -249,17 +249,17 @@ impl<'gctx> InstallablePackage<'gctx> {
         if from_cwd {
             if pkg.manifest().edition() == Edition::Edition2015 {
                 gctx.shell().warn(
-                    "using `cargo install` to install the binaries from the \
+                    "using `rodet install` to install the binaries from the \
                      package in current working directory is deprecated, \
-                     use `cargo install --path .` instead. \
-                     note: use `cargo build` if you want to simply build the package.",
+                     use `rodet install --path .` instead. \
+                     note: use `rodet build` if you want to simply build the package.",
                 )?
             } else {
                 bail!(
-                    "using `cargo install` to install the binaries from the \
+                    "using `rodet install` to install the binaries from the \
                      package in current working directory is no longer supported, \
-                     use `cargo install --path .` instead. \
-                     note: use `cargo build` if you want to simply build the package."
+                     use `rodet install --path .` instead. \
+                     note: use `rodet build` if you want to simply build the package."
                 )
             }
         };
@@ -270,8 +270,8 @@ impl<'gctx> InstallablePackage<'gctx> {
         if !opts.filter.is_specific() && !pkg.targets().iter().any(|t| t.is_bin()) {
             bail!(
                 "there is nothing to install in `{}`, because it has no binaries\n\
-                 `cargo install` is only for installing programs, and can't be used with libraries.\n\
-                 To use a library crate, add it as a dependency to a Cargo project with `cargo add`.",
+                 `rodet install` is only for installing programs, and can't be used with libraries.\n\
+                 To use a library crate, add it as a dependency to a Cargo project with `rodet add`.",
                 pkg,
             );
         }
@@ -353,7 +353,7 @@ impl<'gctx> InstallablePackage<'gctx> {
                     "default toolchain implicitly overridden{maybe_toolchain} by {source}"
                 ))
                 .element(Level::HELP.message(format!(
-                    "use `cargo +stable install` if you meant to use the stable toolchain"
+                    "use `rodet +stable install` if you meant to use the stable toolchain"
                 )))
                 .element(Level::NOTE.message(format!(
                     "rustup selects the toolchain based on the parent environment and not the \
@@ -640,7 +640,7 @@ impl<'gctx> InstallablePackage<'gctx> {
     }
 
     fn check_yanked_install(&self) -> CargoResult<()> {
-        if !self.ws.root().join("Cargo.lock").exists() {
+        if !self.ws.root().join(crate::ops::lockfile::lockfile_name(&self.ws)).exists() {
             return Ok(());
         }
         // It would be best if `source` could be passed in here to avoid a
@@ -685,7 +685,7 @@ fn make_warning_about_missing_features(binaries: &[&Target]) -> String {
 
     let additional_bins_message = if binaries.len() > max_targets_listed {
         format!(
-            "\n{} more targets also requires features not enabled. See them in the Cargo.toml file.",
+            "\n{} more targets also requires features not enabled. See them in the Silk.toml file.",
             binaries.len() - max_targets_listed
         )
     } else {

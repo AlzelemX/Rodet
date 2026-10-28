@@ -163,7 +163,7 @@ pub trait CommandExt: Sized {
         supported_mode: &'static str,
     ) -> Self {
         let msg = format!(
-            "`--{default_mode}` is the default for `cargo {command}`; instead `--{supported_mode}` is supported"
+            "`--{default_mode}` is the default for `rodet {command}`; instead `--{supported_mode}` is supported"
         );
         let value_parser = UnknownArgumentValueParser::suggest(msg);
         self._arg(
@@ -377,13 +377,13 @@ pub trait CommandExt: Sized {
     // `cargo add` has a `--path` flag to install a crate from a local path.
     fn arg_manifest_path_without_unsupported_path_tip(self) -> Self {
         self._arg(
-            opt("manifest-path", "Path to Cargo.toml")
+            opt("manifest-path", "Path to Silk.toml")
                 .short('m')
                 .value_name("PATH")
                 .help_heading(heading::MANIFEST_OPTIONS)
                 .add(clap_complete::engine::ArgValueCompleter::new(
                     clap_complete::engine::PathCompleter::any().filter(|path: &Path| {
-                        if path.file_name() == Some(OsStr::new("Cargo.toml")) {
+                        if crate::util::important_paths::is_manifest_name(path.file_name()) {
                             return true;
                         }
                         if is_embedded(path) {
@@ -872,7 +872,7 @@ Run `{cmd}` to see possible targets."
             anyhow::bail!(
                 "\"--package <SPEC>\" requires a SPEC format value, \
                 which can be any package ID specifier in the dependency graph.\n\
-                Run `cargo help pkgid` for more information about SPEC format."
+                Run `rodet help pkgid` for more information about SPEC format."
             )
         }
 
@@ -1062,7 +1062,7 @@ pub fn root_manifest(manifest_path: Option<&Path>, gctx: &GlobalContext) -> Carg
         if !path.exists() {
             anyhow::bail!("manifest path `{}` does not exist", manifest_path.display())
         } else if path.is_dir() {
-            let child_path = path.join("Cargo.toml");
+            let child_path = crate::util::important_paths::manifest_in(&path);
             let suggested_path = if child_path.exists() {
                 format!("\nhelp: {} exists", child_path.display())
             } else {
@@ -1072,15 +1072,17 @@ pub fn root_manifest(manifest_path: Option<&Path>, gctx: &GlobalContext) -> Carg
                 "manifest path `{}` is a directory but expected a file{suggested_path}",
                 manifest_path.display()
             )
-        } else if !path.ends_with("Cargo.toml") && !crate::workspace::parser::is_embedded(&path) {
+        } else if !crate::util::important_paths::is_manifest_name(path.file_name())
+            && !crate::workspace::parser::is_embedded(&path)
+        {
             if gctx.cli_unstable().script {
                 anyhow::bail!(
-                    "the manifest-path must be a path to a Cargo.toml or script file: `{}`",
+                    "the manifest-path must be a path to a Silk.toml or script file: `{}`",
                     path.display()
                 )
             } else {
                 anyhow::bail!(
-                    "the manifest-path must be a path to a Cargo.toml file: `{}`",
+                    "the manifest-path must be a path to a Silk.toml file: `{}`",
                     path.display()
                 )
             }

@@ -194,7 +194,7 @@ pub fn normalize_lib(
                 if edition == Edition::Edition2015 && package_root.join(&legacy_path).exists() {
                     warnings.push(format!(
                         "path `{}` was erroneously implicitly accepted for library `{name}`,\n\
-                     please rename the file to `src/lib.rs` or set lib.path in Cargo.toml",
+                     please rename the file to `src/lib.rs` or set lib.path in Silk.toml",
                         legacy_path.display(),
                     ));
                     lib.path = Some(PathValue(legacy_path));
@@ -327,7 +327,7 @@ pub fn normalize_bins(
                     {
                         warnings.push(format!(
                             "path `{}` was erroneously implicitly accepted for binary `{}`,\n\
-                     please set bin.path in Cargo.toml",
+                     please set bin.path in Silk.toml",
                             legacy_path.display(),
                             name_or_panic(bin)
                         ));
@@ -392,8 +392,7 @@ fn legacy_bin_path(package_root: &Path, name: &str, has_lib: bool) -> Option<Pat
         }
     }
 
-    let rel_path = Path::new("src").join("main.rs");
-    if package_root.join(&rel_path).exists() {
+    if let Some(rel_path) = find_source(package_root, Path::new("src"), "main") {
         return Some(rel_path);
     }
 
@@ -531,7 +530,7 @@ pub fn normalize_benches(
         }
         legacy_warnings.push(format!(
             "path `{}` was erroneously implicitly accepted for benchmark `{}`,\n\
-                 please set bench.path in Cargo.toml",
+                 please set bench.path in Silk.toml",
             legacy_path.display(),
             name_or_panic(bench)
         ));
@@ -704,20 +703,24 @@ fn normalize_targets_with_legacy_path(
     }
 }
 
+/// SILK: Rodet source files end in `.rd`; `.rs` is still found (crates.io packages).
+const SOURCE_EXTS: [&str; 2] = ["rd", "rs"];
+
+/// `dir/stem.rd`, or else `dir/stem.rs`, if one exists (relative to `package_root`).
+fn find_source(package_root: &Path, dir: &Path, stem: &str) -> Option<PathBuf> {
+    SOURCE_EXTS
+        .iter()
+        .map(|ext| dir.join(format!("{stem}.{ext}")))
+        .find(|p| package_root.join(p).exists())
+}
+
 fn inferred_lib(package_root: &Path) -> Option<PathBuf> {
-    let lib = Path::new("src").join("lib.rs");
-    if package_root.join(&lib).exists() {
-        Some(lib)
-    } else {
-        None
-    }
+    find_source(package_root, Path::new("src"), "lib")
 }
 
 fn inferred_bins(package_root: &Path, package_name: &str) -> Vec<(String, PathBuf)> {
-    let main = "src/main.rs";
     let mut result = Vec::new();
-    if package_root.join(main).exists() {
-        let main = PathBuf::from(main);
+    if let Some(main) = find_source(package_root, Path::new("src"), "main") {
         result.push((package_name.to_string(), main));
     }
     let default_bin_dir_name = Path::new("src").join("bin");
@@ -743,7 +746,12 @@ fn infer_from_directory(package_root: &Path, relpath: &Path) -> Vec<(String, Pat
 fn infer_any(package_root: &Path, entry: &DirEntry) -> Option<(String, PathBuf)> {
     if entry.file_type().map_or(false, |t| t.is_dir()) {
         infer_subdirectory(package_root, entry)
-    } else if entry.path().extension().and_then(|p| p.to_str()) == Some("rs") {
+    } else if entry
+        .path()
+        .extension()
+        .and_then(|p| p.to_str())
+        .is_some_and(|ext| SOURCE_EXTS.contains(&ext))
+    {
         infer_file(package_root, entry)
     } else {
         None
@@ -762,7 +770,7 @@ fn infer_file(package_root: &Path, entry: &DirEntry) -> Option<(String, PathBuf)
 
 fn infer_subdirectory(package_root: &Path, entry: &DirEntry) -> Option<(String, PathBuf)> {
     let path = entry.path();
-    let main = path.join("main.rs");
+    let main = find_source(&path, Path::new(""), "main").map(|p| path.join(p))?;
     let name = path.file_name()?.to_str()?.to_owned();
     if main.exists() {
         let main = main
@@ -833,7 +841,7 @@ fn toml_targets_and_inferred(
                             }
                             warnings.push(format!(
                                 "\
-An explicit [[{section}]] section is specified in Cargo.toml which currently
+An explicit [[{section}]] section is specified in Silk.toml which currently
 disables Cargo from automatically inferring other {target_kind_human} targets.
 This inference behavior will change in the Rust 2018 edition and the following
 files will be included as a {target_kind_human} target:
@@ -998,11 +1006,11 @@ fn target_path_not_found_error_message(
 
         let target_path_file = {
             let mut path = target_path.clone();
-            path.push(format!("{name}.rs"));
+            path.push(format!("{name}.rd"));
             path
         };
         let target_path_subdir = {
-            target_path.extend([name, "main.rs"]);
+            target_path.extend([name, "main.rd"]);
             target_path
         };
         return [target_path_file, target_path_subdir];
@@ -1097,14 +1105,16 @@ pub fn normalize_build(
     build: Option<&TomlPackageBuild>,
     package_root: &Path,
 ) -> CargoResult<Option<TomlPackageBuild>> {
-    const BUILD_RS: &str = "build.rs";
+    // SILK: `build.rd` (or `build.rs` in crates.io packages).
+    let build_rd = package_root.join("build.rd").is_file();
+    let build_name: &str = if build_rd { "build.rd" } else { "build.rs" };
     match build {
         None => {
-            // If there is a `build.rs` file next to the `Cargo.toml`, assume it is
+            // If there is a `build.rd` file next to the `Silk.toml`, assume it is
             // a build script.
-            let build_rs = package_root.join(BUILD_RS);
+            let build_rs = package_root.join(build_name);
             if build_rs.is_file() {
-                Ok(Some(TomlPackageBuild::SingleScript(BUILD_RS.to_owned())))
+                Ok(Some(TomlPackageBuild::SingleScript(build_name.to_owned())))
             } else {
                 Ok(Some(TomlPackageBuild::Auto(false)))
             }
@@ -1120,7 +1130,7 @@ pub fn normalize_build(
             Ok(Some(TomlPackageBuild::SingleScript(build)))
         }
         Some(TomlPackageBuild::Auto(true)) => {
-            Ok(Some(TomlPackageBuild::SingleScript(BUILD_RS.to_owned())))
+            Ok(Some(TomlPackageBuild::SingleScript(build_name.to_owned())))
         }
         Some(TomlPackageBuild::MultipleScript(scripts)) => {
             for script in scripts {

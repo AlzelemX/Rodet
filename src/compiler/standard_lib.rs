@@ -55,7 +55,7 @@ pub fn resolve_std<'gctx>(
     kinds: &[CompileKind],
 ) -> CargoResult<(PackageSet<'gctx>, Resolve, ResolvedFeatures)> {
     let src_path = detect_sysroot_src_path(target_data)?;
-    let std_ws_manifest_path = src_path.join("Cargo.toml");
+    let std_ws_manifest_path = crate::util::important_paths::manifest_in(&src_path);
     let gctx = ws.gctx();
     // TODO: Consider doing something to enforce --locked? Or to prevent the
     // lock file from being written, such as setting ephemeral.

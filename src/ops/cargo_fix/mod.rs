@@ -226,7 +226,7 @@ fn check_version_control(gctx: &GlobalContext, opts: &FixOptions) -> CargoResult
     }
     if !existing_vcs_repo(gctx.cwd(), gctx.cwd()) {
         bail!(
-            "no VCS found for this package and `cargo fix` can potentially \
+            "no VCS found for this package and `rodet fix` can potentially \
              perform destructive changes; if you'd like to suppress this \
              error pass `--allow-no-vcs`"
         )
@@ -283,7 +283,7 @@ fn check_version_control(gctx: &GlobalContext, opts: &FixOptions) -> CargoResult
 
     bail!(
         "the working directory of this package has uncommitted changes, and \
-         `cargo fix` can potentially perform destructive changes; if you'd \
+         `rodet fix` can potentially perform destructive changes; if you'd \
          like to suppress this error pass `--allow-dirty`, \
          or commit the changes to these files:\n\
          \n\

@@ -7,7 +7,7 @@ use std::io::prelude::*;
 use std::path::{Path, PathBuf};
 
 use crate::context::JobsConfig;
-use crate::ops::lockfile::LOCKFILE_NAME;
+use crate::ops::lockfile::lockfile_name;
 use crate::ops::registry::{RegistryOrIndex, infer_registry};
 use crate::resolver::CliFeatures;
 use crate::resolver::HasDevUnits;
@@ -259,7 +259,7 @@ fn do_package<'a>(
     if ws
         .lock_root()
         .as_path_unlocked()
-        .join(LOCKFILE_NAME)
+        .join(lockfile_name(ws))
         .exists()
         && opts.include_lockfile
     {
@@ -384,7 +384,7 @@ fn get_registry(
                 if !allowed.is_empty() && !allowed.iter().any(|a| a == &reg_name) {
                     bail!(
                         "`{}` cannot be packaged.\n\
-                         The registry `{}` is not listed in the `package.publish` value in Cargo.toml.",
+                         The registry `{}` is not listed in the `package.publish` value in Silk.toml.",
                         pkg.name(),
                         reg_name
                     );
@@ -511,7 +511,7 @@ fn build_ar_list(
             anyhow::format_err!("non-utf8 path in source directory: {}", rel_path.display())
         })?;
         match rel_str {
-            "Cargo.lock" => continue,
+            "Cargo.lock" | "Silk.lock" => continue,
             VCS_INFO_FILE | ORIGINAL_MANIFEST_FILE => anyhow::bail!(
                 "invalid inclusion of reserved file name {} in package source",
                 rel_str
@@ -531,7 +531,10 @@ fn build_ar_list(
 
     // Ensure we normalize for case insensitive filesystems (like on Windows) by removing the
     // existing entry, regardless of case, and adding in with the correct case
-    if result.remove(&UncasedAscii::new("Cargo.toml")).is_some() {
+    // SILK: a package's `Silk.toml` goes to crates.io as `Cargo.toml`.
+    let had_silk = result.remove(&UncasedAscii::new("Silk.toml")).is_some();
+    let had_cargo = result.remove(&UncasedAscii::new("Cargo.toml")).is_some();
+    if had_silk || had_cargo {
         result
             .entry(UncasedAscii::new(ORIGINAL_MANIFEST_FILE))
             .or_insert_with(Vec::new)
@@ -552,13 +555,13 @@ fn build_ar_list(
             });
     } else {
         ws.gctx().shell().warn(&format!(
-            "no `Cargo.toml` file found when packaging `{}` (note the case of the file name).",
+            "no `Silk.toml` file found when packaging `{}` (note the case of the file name).",
             pkg.name()
         ))?;
     }
 
     if include_lockfile {
-        let lockfile_path = ws.lock_root().as_path_unlocked().join(LOCKFILE_NAME);
+        let lockfile_path = ws.lock_root().as_path_unlocked().join(lockfile_name(ws));
         let lockfile_path = lockfile_path.exists().then_some(lockfile_path);
         let rel_str = "Cargo.lock";
         result
@@ -1022,7 +1025,7 @@ fn compare_resolve(
             }
         };
         let msg = format!(
-            "package `{}` added to the packaged Cargo.lock file{}",
+            "package `{}` added to the packaged Silk.lock file{}",
             pkg_id, extra
         );
         gctx.shell().note(msg)?;
@@ -1065,7 +1068,7 @@ pub fn check_yanked(
 
             if yanked {
                 let mut warning = Group::with_title(Level::WARNING.secondary_title(format!(
-                    "package `{pkg_id}` in Cargo.lock is yanked in registry `{}`",
+                    "package `{pkg_id}` in Silk.lock is yanked in registry `{}`",
                     pkg_id.source_id().display_registry_name()
                 )));
 

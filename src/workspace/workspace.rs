@@ -18,7 +18,7 @@ use crate::context::{
     CargoResolverConfig, ConfigRelativePath, FeatureUnification, IncompatibleRustVersions, Value,
 };
 use crate::ops;
-use crate::ops::lockfile::LOCKFILE_NAME;
+use crate::ops::lockfile::{LOCKFILE_NAME, SILK_LOCKFILE_NAME};
 use crate::resolver::ResolveBehavior;
 use crate::resolver::features::CliFeatures;
 use crate::sources::{CRATES_IO_INDEX, CRATES_IO_REGISTRY, PathSource, SourceConfigMap};
@@ -378,8 +378,8 @@ impl<'gctx> Workspace<'gctx> {
                             )
                         }
                     })?;
-            if !path.ends_with(LOCKFILE_NAME) {
-                bail!("the `resolver.lockfile-path` must be a path to a {LOCKFILE_NAME} file");
+            if !path.ends_with(LOCKFILE_NAME) && !path.ends_with(SILK_LOCKFILE_NAME) {
+                bail!("the `resolver.lockfile-path` must be a path to a {SILK_LOCKFILE_NAME} file");
             }
             if path.is_dir() {
                 bail!(
@@ -873,7 +873,7 @@ impl<'gctx> Workspace<'gctx> {
         };
 
         for (path, glob) in &members_paths {
-            self.find_path_deps(&path.join("Cargo.toml"), &root_manifest_path, false)
+            self.find_path_deps(&crate::util::important_paths::manifest_in(&path), &root_manifest_path, false)
                 .with_context(|| {
                     format!(
                         "failed to load manifest for workspace member `{}`\n\
@@ -890,7 +890,7 @@ impl<'gctx> Workspace<'gctx> {
         if let Some(default) = default_members_paths {
             for (path, default_member_glob) in default {
                 let normalized_path = paths::normalize_path(&path);
-                let manifest_path = normalized_path.join("Cargo.toml");
+                let manifest_path = crate::util::important_paths::manifest_in(&normalized_path);
                 if !self.members.contains(&manifest_path) {
                     // default-members are allowed to be excluded, but they
                     // still must be referred to by the original (unfiltered)
@@ -969,7 +969,7 @@ impl<'gctx> Workspace<'gctx> {
                 .map(|d| (d.source_id(), d.package_name()))
                 .filter(|(s, _)| s.is_path())
                 .filter_map(|(s, n)| s.url().to_file_path().ok().map(|p| (p, n)))
-                .map(|(p, n)| (p.join("Cargo.toml"), n))
+                .map(|(p, n)| (crate::util::important_paths::manifest_in(&p), n))
                 .collect::<Vec<_>>()
         };
         for (path, name) in candidates {
@@ -1997,7 +1997,7 @@ impl WorkspaceRootConfig {
     /// it could still be a member via path dependencies. Callers should fallback
     /// to full workspace loading when this returns `false`.
     fn is_explicitly_listed_member(&self, manifest_path: &Path) -> bool {
-        let root_manifest = self.root_dir.join("Cargo.toml");
+        let root_manifest = crate::util::important_paths::manifest_in(&self.root_dir);
         if manifest_path == root_manifest {
             return true;
         }
@@ -2202,7 +2202,7 @@ fn find_workspace_root_with_loader(
             if let Some(ws_config) = roots.get(current) {
                 if !ws_config.is_excluded(manifest_path) {
                     // Add `Cargo.toml` since ws_root is the root and not the file
-                    return Ok(Some(current.join("Cargo.toml")));
+                    return Ok(Some(crate::util::important_paths::manifest_in(&current)));
                 }
             }
         }
@@ -2230,11 +2230,9 @@ fn find_workspace_root_with_loader(
 }
 
 fn read_root_pointer(member_manifest: &Path, root_link: &str) -> PathBuf {
-    let path = member_manifest
-        .parent()
-        .unwrap()
-        .join(root_link)
-        .join("Cargo.toml");
+    let path = crate::util::important_paths::manifest_in(
+        &member_manifest.parent().unwrap().join(root_link),
+    );
     debug!("find_root - pointer {}", path.display());
     paths::normalize_path(&path)
 }
@@ -2257,7 +2255,7 @@ fn find_root_iter<'a>(
                 true
             }
         })
-        .map(|path| path.curr.join("Cargo.toml"))
+        .map(|path| crate::util::important_paths::manifest_in(&path.curr))
         .filter(|ances_manifest_path| ances_manifest_path.exists())
 }
 

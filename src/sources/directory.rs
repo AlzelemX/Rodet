@@ -130,7 +130,7 @@ impl<'gctx> DirectorySource<'gctx> {
             // flexible with the contents of vendor directories but has the
             // downside of accidentally misconfigured vendor directories
             // silently returning less crates.
-            if !path.join("Cargo.toml").exists() {
+            if !crate::util::important_paths::manifest_in(&path).exists() {
                 continue;
             }
 

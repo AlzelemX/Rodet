@@ -57,14 +57,14 @@ As there is no way to select all cargo targets that use `[dev-dependencies]`,
 they are unchecked.
 
 Examples:
-- `cargo check` will lint `[build-dependencies]` and `[dependencies]`
-- `cargo check --all-targets` will still only lint `[build-dependencies]` and `[dependencies]` and not `[dev-dependencoes]`
-- `cargo check --bin foo` will not lint `[dependencies]` even if `foo` is the only bin though `[build-dependencies]` will be checked
-- `cargo check -p foo` will not lint any dependencies tables for the `path` dependency `bar` even if `bar` only has a `[lib]`
+- `rodet check` will lint `[build-dependencies]` and `[dependencies]`
+- `rodet check --all-targets` will still only lint `[build-dependencies]` and `[dependencies]` and not `[dev-dependencoes]`
+- `rodet check --bin foo` will not lint `[dependencies]` even if `foo` is the only bin though `[build-dependencies]` will be checked
+- `rodet check -p foo` will not lint any dependencies tables for the `path` dependency `bar` even if `bar` only has a `[lib]`
 
 There can be false positives when depending on a transitive dependency to activate a feature.
 
-For false positives from pinning the version of a transitive dependency in `Cargo.toml`,
+For false positives from pinning the version of a transitive dependency in `Silk.toml`,
 move the dependency to the `target."cfg(false)".dependencies` table.
 
 ### Example

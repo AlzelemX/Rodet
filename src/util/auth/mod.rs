@@ -208,7 +208,7 @@ impl fmt::Display for AuthorizationError {
             } else {
                 ""
             };
-            write!(f, "{}, please run `cargo login{args}`", self.reason)?;
+            write!(f, "{}, please run `rodet login{args}`", self.reason)?;
             if self.supports_cargo_token_credential_provider {
                 write!(f, "\nor use environment variable CARGO_REGISTRY_TOKEN")?;
             }
@@ -224,7 +224,7 @@ impl fmt::Display for AuthorizationError {
                 let key = ConfigKey::from_str(&format!("registries.{name}.token"));
                 write!(
                     f,
-                    ", please run `cargo login --registry {name}`\n\
+                    ", please run `rodet login --registry {name}`\n\
                     or use environment variable {}",
                     key.as_env_key()
                 )?;

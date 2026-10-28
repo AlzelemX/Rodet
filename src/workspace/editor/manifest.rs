@@ -283,7 +283,7 @@ impl LocalManifest {
                 data = String::new();
             }
         }
-        let manifest = data.parse().context("unable to parse Cargo.toml")?;
+        let manifest = data.parse().context("unable to parse Silk.toml")?;
         Ok(LocalManifest {
             manifest,
             path: path.to_owned(),
@@ -695,7 +695,7 @@ pub fn str_or_1_len_table(item: &toml_edit::Item) -> bool {
 }
 
 fn parse_manifest_err() -> anyhow::Error {
-    anyhow::format_err!("unable to parse external Cargo.toml")
+    anyhow::format_err!("unable to parse external Silk.toml")
 }
 
 #[derive(Debug)]

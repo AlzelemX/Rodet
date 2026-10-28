@@ -667,7 +667,7 @@ impl<'a, 'gctx> BuildRunner<'a, 'gctx> {
                  The {} `{}` in package `{}` has the same name as the {} `{}` in package `{}`.\n\
                  Only one may be documented at once since they output to the same path.\n\
                  Consider documenting only one, renaming one, \
-                 or marking one with `doc = false` in Cargo.toml.",
+                 or marking one with `doc = false` in Silk.toml.",
                 unit.target.kind().description(),
                 unit.target.name(),
                 unit.pkg,

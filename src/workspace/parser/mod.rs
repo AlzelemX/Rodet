@@ -662,7 +662,7 @@ fn normalize_package_toml<'a>(
                 )))];
                 if !matches!(gctx.shell().verbosity(), cargo_util_terminal::Verbosity::Quiet) {
                     report.push(Group::with_title(Level::HELP.secondary_title(format!(
-                        "to pin the edition, run `cargo fix --manifest-path {}`", manifest_file.display()
+                        "to pin the edition, run `rodet fix --manifest-path {}`", manifest_file.display()
                     ))));
                 }
                 let _ = gctx.shell().print_report(&report, true);
@@ -1003,11 +1003,9 @@ fn load_inheritable_fields(
         WorkspaceConfig::Member {
             root: Some(path_to_root),
         } => {
-            let path = normalized_path
-                .parent()
-                .unwrap()
-                .join(path_to_root)
-                .join("Cargo.toml");
+            let path = crate::util::important_paths::manifest_in(
+                &normalized_path.parent().unwrap().join(path_to_root),
+            );
             let root_path = paths::normalize_path(&path);
             inheritable_from_path(gctx, root_path)
         }
@@ -3008,7 +3006,7 @@ fn warn_on_unused(unused: &BTreeSet<String>, warnings: &mut Vec<String>) {
         if TOP_LEVEL_CONFIG_KEYS.iter().any(|c| c == key) {
             write!(
                 &mut message,
-                "\nhelp: {key} is a valid .cargo/config.toml key"
+                "\nhelp: {key} is a valid .rodet/config.toml key"
             )
             .unwrap();
         }

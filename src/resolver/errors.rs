@@ -367,7 +367,7 @@ pub(super) fn activation_error(
         if dep.source_id().is_path() && dep.version_req().is_locked() {
             let _ = write!(
                 &mut hints,
-                "\nhelp: to update a path dependency's locked version, run `cargo update`",
+                "\nhelp: to update a path dependency's locked version, run `rodet update`",
             );
         }
 

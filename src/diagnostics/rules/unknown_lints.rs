@@ -36,7 +36,7 @@ Checks for unknown lints in the `[lints.cargo]` table
 ### Why is this bad?
 - The lint name could be misspelled, leading to confusion as to why it is
   not working as expected
-- The unknown lint could end up causing an error if `cargo` decides to make
+- The unknown lint could end up causing an error if `rodet` decides to make
   a lint with the same name in the future
 
 ### Example

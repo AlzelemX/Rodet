@@ -199,10 +199,10 @@ impl<'a> DiagnosticPrinter<'a> {
 If you are trying to migrate from the previous edition ({prev_edition}), the
 process requires following these steps:
 
-1. Start with `edition = \"{prev_edition}\"` in `Cargo.toml`
-2. Run `cargo fix --edition`
-3. Modify `Cargo.toml` to set `edition = \"{this_edition}\"`
-4. Run `cargo build` or `cargo test` to verify the fixes worked
+1. Start with `edition = \"{prev_edition}\"` in `Silk.toml`
+2. Run `rodet fix --edition`
+3. Modify `Silk.toml` to set `edition = \"{this_edition}\"`
+4. Run `rodet build` or `rodet test` to verify the fixes worked
 
 More details may be found at
 https://doc.rust-lang.org/edition-guide/editions/transitioning-an-existing-project-to-a-new-edition.html

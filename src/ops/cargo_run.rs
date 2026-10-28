@@ -17,7 +17,7 @@ pub fn run(
     let gctx = ws.gctx();
 
     if options.filter.contains_glob_patterns() {
-        anyhow::bail!("`cargo run` does not support glob patterns on target selection")
+        anyhow::bail!("`rodet run` does not support glob patterns on target selection")
     }
 
     // We compute the `bins` here *just for diagnosis*. The actual set of
@@ -40,7 +40,7 @@ pub fn run(
 
     if bins.is_empty() {
         if !options.filter.is_specific() {
-            anyhow::bail!("a bin target must be available for `cargo run`")
+            anyhow::bail!("a bin target must be available for `rodet run`")
         } else {
             // This will be verified in `cargo_compile`.
         }
@@ -64,14 +64,14 @@ pub fn run(
                 .collect();
             names.sort();
             anyhow::bail!(
-                "`cargo run` could not determine which binary to run. \
+                "`rodet run` could not determine which binary to run. \
                  Use the `--bin` option to specify a binary, \
                  or the `default-run` manifest key.\n\
                  available binaries: {}",
                 names.join(", ")
             )
         } else {
-            let mut message = "`cargo run` can run at most one executable, but \
+            let mut message = "`rodet run` can run at most one executable, but \
                  multiple were specified"
                 .to_owned();
             write!(&mut message, "\nhelp: available targets:")?;

@@ -1913,7 +1913,7 @@ pub(crate) fn note_ssh_config(gctx: &GlobalContext) -> CargoResult<Option<&'stat
     {
         Ok(Some(
             "
-note: `cargo`s `net.ssh.known-hosts` is not applied to `git`, check your system SSH configuration to ensure it is set there",
+note: `rodet`s `net.ssh.known-hosts` is not applied to `git`, check your system SSH configuration to ensure it is set there",
         ))
     } else {
         Ok(None)
@@ -1952,7 +1952,7 @@ pub(crate) fn note_git_config(gctx: &GlobalContext) -> CargoResult<Option<String
 
     if !fields.is_empty() {
         Ok(Some(format!("
-note: `cargo` does not apply the following config to `git`, check your git configuration to ensure they are set there
+note: `rodet` does not apply the following config to `git`, check your git configuration to ensure they are set there
     {}", fields.join("\n    "))))
     } else {
         Ok(None)

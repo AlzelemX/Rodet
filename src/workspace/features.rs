@@ -630,7 +630,7 @@ impl Features {
     ) -> CargoResult<()> {
         let nightly_features_allowed = self.nightly_features_allowed;
         let Some((slot, feature)) = self.status(feature_name) else {
-            let mut msg = format!("unknown Cargo.toml feature `{feature_name}`\n\n");
+            let mut msg = format!("unknown Silk.toml feature `{feature_name}`\n\n");
             let mut append_see_docs = true;
 
             if feature_name.contains('_') {
@@ -712,7 +712,7 @@ impl Features {
                 if self.is_local {
                     let _ = writeln!(
                         msg,
-                        "Remove the feature from Cargo.toml to remove this error."
+                        "Remove the feature from Silk.toml to remove this error."
                     );
                 } else {
                     let _ = writeln!(
@@ -772,7 +772,7 @@ impl Features {
                 let _ = writeln!(
                     msg,
                     "Consider adding `cargo-features = [\"{}\"]` \
-                     to the top of Cargo.toml (above the [package] table) \
+                     to the top of Silk.toml (above the [package] table) \
                      to tell Cargo you are opting in to use this unstable feature.",
                     feature_name
                 );
@@ -892,7 +892,7 @@ unstable_cli_options!(
     #[serde(deserialize_with = "deserialize_comma_separated_list")]
     build_std_features: Option<Vec<String>>  = ("Configure features enabled for the standard library itself when building the standard library"),
     checksum_freshness: bool = ("Use a checksum to determine if output is fresh rather than filesystem mtime"),
-    codegen_backend: bool = ("Enable the `codegen-backend` option in profiles in .cargo/config.toml file"),
+    codegen_backend: bool = ("Enable the `codegen-backend` option in profiles in .rodet/config.toml file"),
     direct_minimal_versions: bool = ("Resolve minimal dependency versions instead of maximum (direct dependencies only)"),
     dual_proc_macros: bool = ("Build proc-macros for both the host and the target"),
     feature_unification: bool = ("Enable new feature unification modes in workspaces"),
@@ -906,7 +906,7 @@ unstable_cli_options!(
     gitoxide: Option<GitoxideFeatures> = ("Use gitoxide for the given git interactions, or all of them if no argument is given"),
     hint_min_opt_level: bool = ("Enable the `hints.min-opt-level` manifest key"),
     hint_msrv: bool = ("Enable passing `package.rust-version` to rustc for lints"),
-    host_config: bool = ("Enable the `[host]` section in the .cargo/config.toml file"),
+    host_config: bool = ("Enable the `[host]` section in the .rodet/config.toml file"),
     json_target_spec: bool = ("Enable `.json` target spec files"),
     mem_stats: bool = ("Report peak memory usage per build unit in --timings output"),
     minimal_versions: bool = ("Resolve minimal dependency versions instead of maximum"),
@@ -918,21 +918,21 @@ unstable_cli_options!(
     panic_immediate_abort: bool = ("Enable setting `panic = \"immediate-abort\"` in profiles"),
     prerelease: bool = ("Allow selecting pre-release versions with `update --precise`"),
     profile_hint_mostly_unused: bool = ("Enable the `hint-mostly-unused` setting in profiles to mark a crate as mostly unused."),
-    profile_rustflags: bool = ("Enable the `rustflags` option in profiles in .cargo/config.toml file"),
-    public_dependency: bool = ("Respect a dependency's `public` field in Cargo.toml to control public/private dependencies"),
-    publish_timeout: bool = ("Enable the `publish.timeout` key in .cargo/config.toml file"),
+    profile_rustflags: bool = ("Enable the `rustflags` option in profiles in .rodet/config.toml file"),
+    public_dependency: bool = ("Respect a dependency's `public` field in Silk.toml to control public/private dependencies"),
+    publish_timeout: bool = ("Enable the `publish.timeout` key in .rodet/config.toml file"),
     root_dir: Option<PathBuf> = ("Set the root directory relative to which paths are printed (defaults to workspace root)"),
     rustc_unicode: bool = ("Enable `rustc`'s unicode error format in Cargo's error messages"),
     rustdoc_depinfo: bool = ("Use dep-info files in rustdoc rebuild detection"),
     rustdoc_map: bool = ("Allow passing external documentation mappings to rustdoc"),
     rustdoc_mergeable_info: bool = ("Use rustdoc mergeable cross-crate-info files"),
     rustdoc_scrape_examples: bool = ("Allows Rustdoc to scrape code examples from reverse-dependencies"),
-    sbom: bool = ("Enable the `sbom` option in build config in .cargo/config.toml file"),
+    sbom: bool = ("Enable the `sbom` option in build config in .rodet/config.toml file"),
     script: bool = ("Enable support for single-file, `.rs` packages"),
     section_timings: bool = ("Enable support for extended compilation sections in --timings output"),
     separate_nightlies: bool,
     skip_rustdoc_fingerprint: bool,
-    target_applies_to_host: bool = ("Enable the `target-applies-to-host` key in the .cargo/config.toml file"),
+    target_applies_to_host: bool = ("Enable the `target-applies-to-host` key in the .rodet/config.toml file"),
     unstable_options: bool = ("Allow the usage of unstable options"),
 );
 
@@ -961,12 +961,12 @@ const STABILIZED_CRATE_VERSIONS: &str = "The crate version is now \
 const STABILIZED_PACKAGE_FEATURES: &str = "Enhanced feature flag behavior is now \
     available in virtual workspaces, and `member/feature-name` syntax is also \
     always available. Other extensions require setting `resolver = \"2\"` in \
-    Cargo.toml.\n\
+    Silk.toml.\n\
     See https://doc.rust-lang.org/nightly/cargo/reference/features.html#resolver-version-2-command-line-flags \
     for more information.";
 
 const STABILIZED_FEATURES: &str = "The new feature resolver is now available \
-    by specifying `resolver = \"2\"` in Cargo.toml.\n\
+    by specifying `resolver = \"2\"` in Silk.toml.\n\
     See https://doc.rust-lang.org/nightly/cargo/reference/features.html#feature-resolver-version-2 \
     for more information.";
 
@@ -1542,18 +1542,18 @@ impl CliUnstable {
         }
         let see = format!(
             "See https://github.com/rust-lang/cargo/issues/{} for more \
-            information about the `cargo {}` command.",
+            information about the `rodet {}` command.",
             issue, command
         );
         if gctx.nightly_features_allowed {
             bail!(
-                "the `cargo {command}` command is unstable, pass `-Z {z_name}` \
+                "the `rodet {command}` command is unstable, pass `-Z {z_name}` \
                  to enable it\n\
                  {see}",
             );
         } else {
             bail!(
-                "the `cargo {}` command is unstable, and only available on the \
+                "the `rodet {}` command is unstable, and only available on the \
                  nightly channel of Cargo, but this is the `{}` channel\n\
                  {}\n\
                  {}",

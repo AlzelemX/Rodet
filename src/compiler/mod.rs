@@ -1685,7 +1685,7 @@ fn build_deps_args(
                     .elements([
                         Level::NOTE.message(format!("this might cause `{name}` to fail compilation")),
                         Level::NOTE.message("this warning might turn into a hard error in the future"),
-                        Level::HELP.message(format!("consider adding 'dylib' or 'rlib' to key 'crate-type' in `{dep_name}`'s Cargo.toml"))
+                        Level::HELP.message(format!("consider adding 'dylib' or 'rlib' to key 'crate-type' in `{dep_name}`'s Silk.toml"))
                     ])
             ], false)?;
         }

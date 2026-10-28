@@ -64,6 +64,9 @@ impl Rustc {
             .wrapped(wrapper.as_deref());
         apply_env_config(gctx, &mut cmd)?;
         cmd.env(crate::CARGO_ENV, gctx.cargo_exe()?);
+        // SILK: ask `rodetc` for the classic answer (`release: 1.x.y`), which Silk
+        // compares with packages' `rust-version`.
+        cmd.env("RODET_COMPAT", "1");
         cmd.arg("-vV");
         let verbose_version = cache.cached_output(&cmd, 0)?.0;
 

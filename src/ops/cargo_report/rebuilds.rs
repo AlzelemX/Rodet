@@ -48,7 +48,7 @@ pub fn report_rebuilds(
         let (title, note) = if let Some(id) = &opts.id {
             (
                 format!("session `{id}` not found{context}"),
-                "run `cargo report sessions` to list available sessions",
+                "run `rodet report sessions` to list available sessions",
             )
         } else {
             (

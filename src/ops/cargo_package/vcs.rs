@@ -82,7 +82,7 @@ pub fn check_repo_state(
     if !manifest_exists {
         gctx.shell().verbose(|shell| {
             shell.warn(format_args!(
-                "Cargo.toml not found at `{}` in workdir `{}`",
+                "Silk.toml not found at `{}` in workdir `{}`",
                 path.display(),
                 workdir.display()
             ))
@@ -103,7 +103,7 @@ pub fn check_repo_state(
     if manifest_is_ignored {
         gctx.shell().verbose(|shell| {
             shell.warn(format_args!(
-                "found (git) Cargo.toml ignored at `{}` in workdir `{}`",
+                "found (git) Silk.toml ignored at `{}` in workdir `{}`",
                 path.display(),
                 workdir.display()
             ))
@@ -116,7 +116,7 @@ pub fn check_repo_state(
     warn_symlink_checked_out_as_plain_text_file(gctx, src_files, &repo)?;
 
     debug!(
-        "found (git) Cargo.toml at `{}` in workdir `{}`",
+        "found (git) Silk.toml at `{}` in workdir `{}`",
         path.display(),
         workdir.display(),
     );

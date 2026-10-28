@@ -139,11 +139,11 @@ fn check_name(
                 help: to name the binary \"{name}\", use a valid package \
                 name, and set the binary name to be different from the package. \
                 This can be done by setting the binary filename to `src/bin/{name}.rs` \
-                or change the name in Cargo.toml with:\n\
+                or change the name in Silk.toml with:\n\
                 \n    \
                 [[bin]]\n    \
                 name = \"{name}\"\n    \
-                path = \"src/main.rs\"\n\
+                path = \"src/main.rd\"\n\
             ",
                 name = name
             ));
@@ -157,7 +157,7 @@ fn check_name(
 
     if restricted_names::is_keyword(name) {
         anyhow::bail!(
-            "invalid package name `{}`: it is a Rust keyword{}",
+            "invalid package name `{}`: it is a Rodet keyword{}",
             name,
             bin_help()
         );
@@ -182,13 +182,13 @@ fn check_name(
     if name == "test" {
         anyhow::bail!(
             "invalid package name `test`: \
-            it conflicts with Rust's built-in test library{}",
+            it conflicts with Rodet's built-in test library{}",
             bin_help()
         );
     }
     if ["core", "std", "alloc", "proc_macro", "proc-macro"].contains(&name) {
         shell.warn(format!(
-            "package name `{}` may be confused with the package with that name in Rust's standard library\n\
+            "package name `{}` may be confused with the package with that name in Rodet's standard library\n\
             It is recommended to use a different name to avoid problems.{}",
             name,
             bin_help()
@@ -212,7 +212,7 @@ fn check_name(
     if restricted_names::is_non_ascii_name(name) {
         shell.warn(format!(
             "invalid package name `{}`: contains non-ASCII characters\n\
-            Non-ASCII crate names are not supported by Rust.",
+            Non-ASCII crate names are not supported by Rodet.",
             name
         ))?;
     }
@@ -277,6 +277,10 @@ fn detect_source_paths_and_types(
 
     let tests = vec![
         Test {
+            proposed_path: "src/main.rd".to_string(),
+            handling: H::Bin,
+        },
+        Test {
             proposed_path: "src/main.rs".to_string(),
             handling: H::Bin,
         },
@@ -291,6 +295,10 @@ fn detect_source_paths_and_types(
         Test {
             proposed_path: format!("{}.rs", name),
             handling: H::Detect,
+        },
+        Test {
+            proposed_path: "src/lib.rd".to_string(),
+            handling: H::Lib,
         },
         Test {
             proposed_path: "src/lib.rs".to_string(),
@@ -344,7 +352,7 @@ fn detect_source_paths_and_types(
 multiple possible binary sources found:
   {}
   {}
-cannot automatically generate Cargo.toml as the main target would be ambiguous",
+cannot automatically generate Silk.toml as the main target would be ambiguous",
                     &x.relative_path,
                     &i.relative_path
                 );
@@ -370,12 +378,12 @@ cannot automatically generate Cargo.toml as the main target would be ambiguous",
 fn plan_new_source_file(bin: bool) -> SourceFileInformation {
     if bin {
         SourceFileInformation {
-            relative_path: "src/main.rs".to_string(),
+            relative_path: "src/main.rd".to_string(),
             bin: true,
         }
     } else {
         SourceFileInformation {
-            relative_path: "src/lib.rs".to_string(),
+            relative_path: "src/lib.rd".to_string(),
             bin: false,
         }
     }
@@ -410,7 +418,7 @@ pub fn new(opts: &NewOptions, gctx: &GlobalContext) -> CargoResult<()> {
     if path.exists() {
         anyhow::bail!(
             "destination `{}` already exists\n\n\
-             Use `cargo init` to initialize the directory",
+             Use `rodet init` to initialize the directory",
             path.display()
         )
     }
@@ -451,7 +459,7 @@ pub fn init(opts: &NewOptions, gctx: &GlobalContext) -> CargoResult<NewProjectKi
         if path == &home {
             anyhow::bail!(
                 "cannot create package in the home directory\n\n\
-                 help: use `cargo init <path>` to create a package in a different directory"
+                 help: use `rodet init <path>` to create a package in a different directory"
             )
         }
     }
@@ -462,10 +470,10 @@ pub fn init(opts: &NewOptions, gctx: &GlobalContext) -> CargoResult<NewProjectKi
     gctx.shell()
         .status("Creating", format!("{} package", opts.kind))?;
 
-    if path.join("Cargo.toml").exists() {
+    if crate::util::important_paths::manifest_in(&path).exists() {
         anyhow::bail!(
-            "`cargo init` cannot be run on existing Cargo packages\n\
-             help: use `cargo new` to create a package in a new subdirectory"
+            "`rodet init` cannot be run on existing Cargo packages\n\
+             help: use `rodet new` to create a package in a new subdirectory"
         )
     }
     check_path(path, &mut gctx.shell())?;
@@ -743,7 +751,7 @@ fn mk(gctx: &GlobalContext, opts: &MkOptions<'_>) -> CargoResult<()> {
     init_vcs(path, vcs, gctx)?;
     write_ignore_file(path, &ignore, vcs)?;
 
-    // Create `Cargo.toml` file with necessary `[lib]` and `[[bin]]` sections, if needed.
+    // Create `Silk.toml` file with necessary `[lib]` and `[[bin]]` sections, if needed.
     let mut manifest = toml_edit::DocumentMut::new();
     manifest["package"] = toml_edit::Item::Table(toml_edit::Table::new());
     manifest["package"]["name"] = toml_edit::value(name);
@@ -764,7 +772,7 @@ fn mk(gctx: &GlobalContext, opts: &MkOptions<'_>) -> CargoResult<()> {
     // Calculate what `[lib]` and `[[bin]]`s we need to append to `Cargo.toml`.
     for i in &opts.source_files {
         if i.bin {
-            if i.relative_path != "src/main.rs" {
+            if i.relative_path != "src/main.rd" && i.relative_path != "src/main.rs" {
                 let mut bin = toml_edit::Table::new();
                 bin["name"] = toml_edit::value(name);
                 bin["path"] = toml_edit::value(i.relative_path.clone());
@@ -776,14 +784,14 @@ fn mk(gctx: &GlobalContext, opts: &MkOptions<'_>) -> CargoResult<()> {
                     .expect("bin is an array of tables")
                     .push(bin);
             }
-        } else if i.relative_path != "src/lib.rs" {
+        } else if i.relative_path != "src/lib.rd" && i.relative_path != "src/lib.rs" {
             let mut lib = toml_edit::Table::new();
             lib["path"] = toml_edit::value(i.relative_path.clone());
             manifest["lib"] = toml_edit::Item::Table(lib);
         }
     }
 
-    let manifest_path = paths::normalize_path(&path.join("Cargo.toml"));
+    let manifest_path = paths::normalize_path(&crate::util::important_paths::manifest_in(&path));
     if let Ok(root_manifest_path) = find_root_manifest_for_wd(&manifest_path) {
         let root_manifest = paths::read(&root_manifest_path)?;
         // Sometimes the root manifest is not a valid manifest, so we only try to parse it if it is.
@@ -852,7 +860,7 @@ fn mk(gctx: &GlobalContext, opts: &MkOptions<'_>) -> CargoResult<()> {
         let default_file_content: &[u8] = if i.bin {
             b"\
 fn main() {
-    println!(\"Hello, world!\");
+    out!(\"Hello, world!\");
 }
 "
         } else {
@@ -878,11 +886,11 @@ mod tests {
             paths::write(&path_of_source_file, default_file_content)?;
 
             // Format the newly created source file
-            if let Err(e) = cargo_util::ProcessBuilder::new("rustfmt")
+            if let Err(e) = cargo_util::ProcessBuilder::new("rodetfmt")
                 .arg(&path_of_source_file)
                 .exec_with_output()
             {
-                tracing::warn!("failed to call rustfmt: {:#}", e);
+                tracing::warn!("failed to call rodetfmt: {:#}", e);
             }
         }
     }
@@ -897,7 +905,7 @@ mod tests {
     }
 
     gctx.shell().note(
-        "see more `Cargo.toml` keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html",
+        "see more `Silk.toml` keys and their definitions at https://alzelemx.github.io/rodet/book/",
     )?;
 
     Ok(())

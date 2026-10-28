@@ -49,7 +49,7 @@ pub fn vendor(ws: &Workspace<'_>, opts: &VendorOptions<'_>) -> CargoResult<()> {
         } else {
             crate::drop_eprint!(
                 gctx,
-                "To use vendored sources, add this to your .cargo/config.toml for this project:\n\n"
+                "To use vendored sources, add this to your .rodet/config.toml for this project:\n\n"
             );
             crate::drop_print!(gctx, "{}", &toml::to_string_pretty(&vendor_config).unwrap());
         }

@@ -79,7 +79,7 @@ impl<'gctx> PathSource<'gctx> {
             Some(Some(pkg)) => Ok(pkg.clone()),
             Some(None) | None => Err(anyhow::format_err!(
                 "failed to read `{}`",
-                self.path.join("Cargo.toml").display()
+                crate::util::important_paths::manifest_in(&self.path).display()
             )),
         }
     }
@@ -128,7 +128,7 @@ impl<'gctx> PathSource<'gctx> {
     /// Reads the manifest. Returning `Ok(None)` if missing allows the resolver
     /// to handle it as "not found" instead of an early IO error.
     fn read_package(&self) -> CargoResult<Option<Package>> {
-        let path = self.path.join("Cargo.toml");
+        let path = crate::util::important_paths::manifest_in(&self.path);
         if !path.exists() {
             return Ok(None);
         }
@@ -630,7 +630,7 @@ fn _list_files(pkg: &Package, gctx: &GlobalContext) -> CargoResult<Vec<PathEntry
         };
 
         let rel = relative_path.as_os_str();
-        if rel == "Cargo.lock" || rel == "Cargo.toml" {
+        if rel == "Cargo.lock" || rel == "Cargo.toml" || rel == "Silk.lock" || rel == "Silk.toml" {
             return true;
         }
 
@@ -682,12 +682,14 @@ fn discover_gix_repo(root: &Path) -> CargoResult<Option<gix::Repository>> {
             return Ok(None);
         }
     };
-    let manifest_path = gix::path::join_bstr_unix_pathsep(
-        gix::path::to_unix_separators_on_windows(gix::path::into_bstr(repo_relative_path)),
-        "Cargo.toml",
-    );
-    if index.entry_index_by_path(&manifest_path).is_ok() {
-        return Ok(Some(repo));
+    for name in ["Silk.toml", "Cargo.toml"] {
+        let manifest_path = gix::path::join_bstr_unix_pathsep(
+            gix::path::to_unix_separators_on_windows(gix::path::into_bstr(repo_relative_path.clone())),
+            name,
+        );
+        if index.entry_index_by_path(&manifest_path).is_ok() {
+            return Ok(Some(repo));
+        }
     }
     // Package Cargo.toml is not in git, don't use git to guide our selection.
     Ok(None)
@@ -800,7 +802,7 @@ fn list_files_gix(
     {
         let (rela_path, kind, maybe_plain_text_symlink) = item?;
         let file_path = root.join(gix::path::from_bstr(rela_path));
-        if file_path.file_name().and_then(|name| name.to_str()) == Some("Cargo.toml") {
+        if crate::util::important_paths::is_manifest_name(file_path.file_name()) {
             // Keep track of all sub-packages found and also strip out all
             // matches we've found so far. Note, though, that if we find
             // our own `Cargo.toml`, we keep going.
@@ -896,7 +898,7 @@ fn list_files_walk(
             }
 
             // Don't recurse into any sub-packages that we have.
-            if !at_root && path.join("Cargo.toml").exists() {
+            if !at_root && crate::util::important_paths::manifest_in(&path).exists() {
                 return false;
             }
 
@@ -1058,13 +1060,13 @@ fn read_packages(
             None => {
                 if find_project_manifest_exact(path, "cargo.toml").is_ok() {
                     Err(anyhow::format_err!(
-                        "could not find `Cargo.toml` in `{}`
-help: found `cargo.toml`, consider renaming it to `Cargo.toml`",
+                        "could not find `Silk.toml` in `{}`
+help: found `cargo.toml`, consider renaming it to `Silk.toml`",
                         path.display()
                     ))
                 } else {
                     Err(anyhow::format_err!(
-                        "could not find `Cargo.toml` in `{}`",
+                        "could not find `Silk.toml` in `{}`",
                         path.display()
                     ))
                 }
@@ -1142,7 +1144,7 @@ fn walk(path: &Path, callback: &mut dyn FnMut(&Path) -> CargoResult<bool>) -> Ca
 }
 
 fn has_manifest(path: &Path) -> bool {
-    find_project_manifest_exact(path, "Cargo.toml").is_ok()
+    crate::util::important_paths::manifest_in(path).exists()
 }
 
 fn read_nested_packages(
@@ -1157,7 +1159,10 @@ fn read_nested_packages(
         return Ok(());
     }
 
-    let manifest_path = find_project_manifest_exact(path, "Cargo.toml")?;
+    let manifest_path = crate::util::important_paths::manifest_in(path);
+    if !manifest_path.exists() {
+        anyhow::bail!("Could not find `Silk.toml` in `{}`", path.display());
+    }
 
     let manifest = match read_manifest(&manifest_path, source_id, gctx) {
         Err(err) => {

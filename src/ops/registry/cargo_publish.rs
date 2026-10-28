@@ -97,7 +97,7 @@ pub fn publish(ws: &Workspace<'_>, opts: &PublishOpts<'_>) -> CargoResult<()> {
     if !unpublishable.is_empty() && !allow_unpublishable {
         bail!(
             "{} cannot be published.\n\
-            `package.publish` must be set to `true` or a non-empty list in Cargo.toml to publish.",
+            `package.publish` must be set to `true` or a non-empty list in Silk.toml to publish.",
             unpublishable
                 .iter()
                 .map(|(pkg, _)| format!("`{}`", pkg.name()))
@@ -850,8 +850,8 @@ fn resolve_registry_or_index(
                 .any(|pkg| pkg.publish().as_ref().map(|v| v.len()).unwrap_or(0) > 0);
 
             if registry_is_specified_by_any_package && registry_or_index.is_index() {
-                opts.gctx.shell().warn(r#"`--index` will ignore registries set by `package.publish` in Cargo.toml, and may cause unexpected push to prohibited registry
-help: use `--registry` instead or set `publish = true` in Cargo.toml to suppress this warning"#)?;
+                opts.gctx.shell().warn(r#"`--index` will ignore registries set by `package.publish` in Silk.toml, and may cause unexpected push to prohibited registry
+help: use `--registry` instead or set `publish = true` in Silk.toml to suppress this warning"#)?;
             }
 
             r.clone()
@@ -887,7 +887,7 @@ fn validate_registry(pkgs: &[&Package], reg_or_index: Option<&RegistryOrIndex>) 
                 if !allowed.iter().any(|a| a == reg_name) {
                     bail!(
                         "`{}` cannot be published.\n\
-                         The registry `{}` is not listed in the `package.publish` value in Cargo.toml.",
+                         The registry `{}` is not listed in the `package.publish` value in Silk.toml.",
                         pkg.name(),
                         reg_name
                     );

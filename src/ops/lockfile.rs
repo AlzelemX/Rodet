@@ -11,15 +11,26 @@ use anyhow::Context as _;
 use cargo_util_schemas::lockfile::TomlLockfile;
 
 pub const LOCKFILE_NAME: &str = "Cargo.lock";
+/// The lock file of a Rodet workspace.
+pub const SILK_LOCKFILE_NAME: &str = "Silk.lock";
+
+/// `Silk.lock`, or `Cargo.lock` for a workspace whose root manifest is a `Cargo.toml`.
+pub fn lockfile_name(ws: &Workspace<'_>) -> &'static str {
+    if ws.root_manifest().file_name() == Some(std::ffi::OsStr::new("Cargo.toml")) {
+        LOCKFILE_NAME
+    } else {
+        SILK_LOCKFILE_NAME
+    }
+}
 
 #[tracing::instrument(skip_all)]
 pub fn load_pkg_lockfile(ws: &Workspace<'_>) -> CargoResult<Option<Resolve>> {
     let lock_root = ws.lock_root();
-    if !lock_root.as_path_unlocked().join(LOCKFILE_NAME).exists() {
+    if !lock_root.as_path_unlocked().join(lockfile_name(ws)).exists() {
         return Ok(None);
     }
 
-    let mut f = lock_root.open_ro_shared(LOCKFILE_NAME, ws.gctx(), "Cargo.lock file")?;
+    let mut f = lock_root.open_ro_shared(lockfile_name(ws), ws.gctx(), "lock file")?;
 
     let mut s = String::new();
     f.read_to_string(&mut s)
@@ -55,7 +66,7 @@ pub fn write_pkg_lockfile(ws: &Workspace<'_>, resolve: &mut Resolve) -> CargoRes
     }
 
     if let Some(locked_flag) = ws.gctx().locked_flag() {
-        let lockfile_path = lock_root.as_path_unlocked().join(LOCKFILE_NAME);
+        let lockfile_path = lock_root.as_path_unlocked().join(lockfile_name(ws));
         let action = if lockfile_path.exists() {
             "update"
         } else {
@@ -103,7 +114,7 @@ pub fn write_pkg_lockfile(ws: &Workspace<'_>, resolve: &mut Resolve) -> CargoRes
 
     // Ok, if that didn't work just write it out
     lock_root
-        .open_rw_exclusive_create(LOCKFILE_NAME, ws.gctx(), "Cargo.lock file")
+        .open_rw_exclusive_create(lockfile_name(ws), ws.gctx(), "lock file")
         .and_then(|mut f| {
             f.file().set_len(0)?;
             f.write_all(out.as_bytes())?;
@@ -112,7 +123,7 @@ pub fn write_pkg_lockfile(ws: &Workspace<'_>, resolve: &mut Resolve) -> CargoRes
         .with_context(|| {
             format!(
                 "failed to write {}",
-                lock_root.as_path_unlocked().join(LOCKFILE_NAME).display()
+                lock_root.as_path_unlocked().join(lockfile_name(ws)).display()
             )
         })?;
     Ok(true)
@@ -124,7 +135,7 @@ fn resolve_to_string_orig(
 ) -> (Option<String>, String, Filesystem) {
     // Load the original lock file if it exists.
     let lock_root = ws.lock_root();
-    let orig = lock_root.open_ro_shared(LOCKFILE_NAME, ws.gctx(), "Cargo.lock file");
+    let orig = lock_root.open_ro_shared(lockfile_name(ws), ws.gctx(), "lock file");
     let orig = orig.and_then(|mut f| {
         let mut s = String::new();
         f.read_to_string(&mut s)?;
