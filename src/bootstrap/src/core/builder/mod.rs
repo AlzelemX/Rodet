@@ -567,7 +567,7 @@ impl<'a> ShouldRun<'a> {
     }
 
     fn assert_valid_path(&self, _path: &str) {
-        // Upstream asserts here that every step path exists on disk. Rust++
+        // Upstream asserts here that every step path exists on disk. Rodet
         // removed the parts of upstream it does not use (most of `src/doc`,
         // RELEASES.md, rustc-perf, ...); their steps stay registered, like
         // the steps of submodules that are not checked out.

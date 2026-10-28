@@ -36,9 +36,9 @@ export const AR: Record<string, string> = {
   'Quit': 'خروج',
 
   // ---- language server ----
-  'rust++-analyzer was not found, so errors, completion and search are off. Install or update Rust++ to turn them on.':
-    'لم يُعثر على rust++-analyzer، لذلك الأخطاء والإكمال التلقائي والبحث متوقفة. ثبّت Rust++ أو حدّثه لتعمل.',
-  'Install Rust++': 'تثبيت Rust++',
+  'rodet-analyzer was not found, so errors, completion and search are off. Install or update Rodet to turn them on.':
+    'لم يُعثر على rodet-analyzer، لذلك الأخطاء والإكمال التلقائي والبحث متوقفة. ثبّت Rodet أو حدّثه لتعمل.',
+  'Install Rodet': 'تثبيت Rodet',
   'The language server stopped.': 'توقف محلل اللغة.',
   'Restart': 'إعادة التشغيل',
   'Show Output': 'عرض السجل',
@@ -47,7 +47,7 @@ export const AR: Record<string, string> = {
   'Indexing…': 'جارٍ تحليل المشروع…',
   'Analyzer stopped': 'توقف المحلل',
   'No analyzer': 'لا يوجد محلل',
-  'rust++-analyzer was not found: install or update Rust++': 'لم يُعثر على rust++-analyzer: ثبّت Rust++ أو حدّثه',
+  'rodet-analyzer was not found: install or update Rodet': 'لم يُعثر على rodet-analyzer: ثبّت Rodet أو حدّثه',
   'Click to restart.': 'اضغط لإعادة التشغيل.',
   'Couldn’t apply the change:': 'تعذّر تطبيق التغيير:',
   'References': 'المراجع',
@@ -61,7 +61,7 @@ export const AR: Record<string, string> = {
   // ---- commands (Ctrl+Shift+P) ----
   'File: Open Folder…': 'ملف: فتح مجلد…',
   'File: Close Folder': 'ملف: إغلاق المجلد',
-  'Cargo: New Rust++ Project…': 'Cargo: مشروع Rust++ جديد…',
+  'Cargo: New Rodet Project…': 'Cargo: مشروع Rodet جديد…',
   'File: New File…': 'ملف: ملف جديد…',
   'File: Save': 'ملف: حفظ',
   'File: Save All': 'ملف: حفظ الكل',
@@ -88,11 +88,11 @@ export const AR: Record<string, string> = {
   'Help: Doc Book': 'مساعدة: كتاب Doc Book',
   'Preferences: Settings': 'التفضيلات: الإعدادات',
   'Preferences: Toggle Dark / Light Theme': 'التفضيلات: تبديل الثيم الداكن / الفاتح',
-  'Rust++: Restart Language Server': 'Rust++: إعادة تشغيل محلل اللغة',
-  'Rust++: Language Server Status': 'Rust++: حالة محلل اللغة',
-  'Rust++: Install or Update Rust++': 'Rust++: تثبيت Rust++ أو تحديثه',
-  'Rust++: About This Toolchain': 'Rust++: عن الأدوات المثبتة',
-  'Rust++ is not installed': 'Rust++ غير مثبتة',
+  'Rodet: Restart Language Server': 'Rodet: إعادة تشغيل محلل اللغة',
+  'Rodet: Language Server Status': 'Rodet: حالة محلل اللغة',
+  'Rodet: Install or Update Rodet': 'Rodet: تثبيت Rodet أو تحديثه',
+  'Rodet: About This Toolchain': 'Rodet: عن الأدوات المثبتة',
+  'Rodet is not installed': 'Rodet غير مثبتة',
   'Install / Update': 'تثبيت / تحديث',
   'Rename Symbol': 'إعادة تسمية الرمز',
   'Go to Definition': 'الذهاب إلى التعريف',
@@ -149,7 +149,7 @@ export const AR: Record<string, string> = {
   'Speed score': 'تقييم السرعة',
   'Show the speed score of the file next to Run, with tips.': 'إظهار تقييم سرعة الملف بجانب زر التشغيل، مع النصائح.',
   'Type hints': 'تلميحات الأنواع',
-  'Show the types Rust++ works out, after `let` names.': 'إظهار الأنواع التي يستنتجها Rust++ بعد أسماء `let`.',
+  'Show the types Rodet works out, after `let` names.': 'إظهار الأنواع التي يستنتجها Rodet بعد أسماء `let`.',
   'Parameter names': 'أسماء المعاملات',
   'Show parameter names at calls without named arguments.': 'إظهار أسماء المعاملات في الاستدعاءات التي لا تستخدم الوسائط بالاسم.',
   'Check on save': 'الفحص عند الحفظ',
@@ -162,12 +162,12 @@ export const AR: Record<string, string> = {
   'Wrap long lines.': 'لفّ الأسطر الطويلة.',
 
   // ---- Doc Book ----
-  'The Rust++ on this computer doesn’t include the Doc Book yet. Update Rust++ to read it here, matching your version of the language.':
-    'نسخة Rust++ على هذا الجهاز لا تحتوي كتاب Doc Book بعد. حدّث Rust++ لتقرأه هنا، مطابقًا لنسخة اللغة عندك.',
-  'Update Rust++': 'تحديث Rust++',
+  'The Rodet on this computer doesn’t include the Doc Book yet. Update Rodet to read it here, matching your version of the language.':
+    'نسخة Rodet على هذا الجهاز لا تحتوي كتاب Doc Book بعد. حدّث Rodet لتقرأه هنا، مطابقًا لنسخة اللغة عندك.',
+  'Update Rodet': 'تحديث Rodet',
   'Read online': 'القراءة على الإنترنت',
   'Learn': 'تعلّم',
-  'The guide to Rust++, for your version': 'دليل Rust++ لنسختك',
+  'The guide to Rodet, for your version': 'دليل Rodet لنسختك',
 
   // ---- search ----
   'Search': 'بحث',
@@ -185,7 +185,7 @@ export const AR: Record<string, string> = {
   // ---- status bar ----
   'DEVR+ — show the welcome page': 'DEVR+ — عرض صفحة البداية',
   'Problems (Ctrl+Shift+M)': 'المشاكل (Ctrl+Shift+M)',
-  'Rust++ toolchain': 'أدوات Rust++',
+  'Rodet toolchain': 'أدوات Rodet',
   'Go to Line (Ctrl+G)': 'الذهاب إلى سطر (Ctrl+G)',
   'not installed': 'غير مثبتة',
   '{n} selected': '{n} محدد',
@@ -240,21 +240,21 @@ export const AR: Record<string, string> = {
   'Find Symbols (Ctrl+T)': 'البحث عن الرموز (Ctrl+T)',
 
   // ---- welcome ----
-  'The editor for Rust++ — fast, clear, made for the language.': 'محرر Rust++ — سريع وواضح، ومصنوع للغة.',
+  'The editor for Rodet — fast, clear, made for the language.': 'محرر Rodet — سريع وواضح، ومصنوع للغة.',
   'Start': 'ابدأ',
-  'New Rust++ Project…': 'مشروع Rust++ جديد…',
+  'New Rodet Project…': 'مشروع Rodet جديد…',
   'Open Folder…': 'فتح مجلد…',
   'Find a Symbol': 'البحث عن رمز',
   'New Terminal': 'طرفية جديدة',
   'Recent': 'الأخيرة',
   'Projects you open appear here.': 'المشاريع التي تفتحها تظهر هنا.',
-  'Rust++ on this computer': 'Rust++ على هذا الجهاز',
-  'Rust++ compiler': 'مترجم Rust++',
-  'A compiler was found, but it is not Rust++': 'وُجد مترجم، لكنه ليس Rust++',
+  'Rodet on this computer': 'Rodet على هذا الجهاز',
+  'Rodet compiler': 'مترجم Rodet',
+  'A compiler was found, but it is not Rodet': 'وُجد مترجم، لكنه ليس Rodet',
   'Cargo was not found': 'لم يُعثر على Cargo',
-  'rust++-analyzer (errors, completion, search)': 'rust++-analyzer (الأخطاء، الإكمال، البحث)',
-  'rust++-analyzer was not found': 'لم يُعثر على rust++-analyzer',
-  'Install / Update Rust++': 'تثبيت / تحديث Rust++',
+  'rodet-analyzer (errors, completion, search)': 'rodet-analyzer (الأخطاء، الإكمال، البحث)',
+  'rodet-analyzer was not found': 'لم يُعثر على rodet-analyzer',
+  'Install / Update Rodet': 'تثبيت / تحديث Rodet',
 
   // ---- terminal ----
   'Kill': 'إيقاف',
@@ -270,7 +270,7 @@ export const AR: Record<string, string> = {
   // ---- Cargo view ----
   'Cargo': 'Cargo',
   'Open a Cargo project to run, build and test it.': 'افتح مشروع Cargo لتشغيله وبنائه واختباره.',
-  'New Rust++ Project': 'مشروع Rust++ جديد',
+  'New Rodet Project': 'مشروع Rodet جديد',
   'This folder has no Cargo.toml.': 'هذا المجلد ليس فيه Cargo.toml.',
   'workspace': 'مساحة عمل',
   'project': 'مشروع',
@@ -288,7 +288,7 @@ export const AR: Record<string, string> = {
   'Add a library (crate) from crates.io': 'إضافة مكتبة (crate) من crates.io',
   'e.g. rand, serde --features derive': 'مثل: rand، serde --features derive',
   'Use the crate name, optionally followed by options': 'اكتب اسم المكتبة، ويمكن أن تتبعه خيارات',
-  'New Rust++ project in {folder}': 'مشروع Rust++ جديد في {folder}',
+  'New Rodet project in {folder}': 'مشروع Rodet جديد في {folder}',
   'Start with a letter; use letters, numbers, - and _': 'ابدأ بحرف إنجليزي، واستخدم الحروف والأرقام و - و _',
   'Created {name}. Press F5 to run it.': 'أُنشئ {name}. اضغط F5 لتشغيله.',
   'Reload Cargo.toml': 'إعادة قراءة Cargo.toml',

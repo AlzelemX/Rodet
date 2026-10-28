@@ -1,4 +1,4 @@
-//! RUST++: the compiler's messages in other languages.
+//! RODET: the compiler's messages in other languages.
 //!
 //! Every message is written in English in the compiler's source. The
 //! translations are kept next to this file, one per language (`i18n/ar.txt`),
@@ -9,12 +9,12 @@
 //! ar: لا يوجد متغير أو قيمة اسمها `{$name}` هنا
 //! ```
 //!
-//! Releases install them in `<sysroot>/share/rustpp/i18n/`, where the
+//! Releases install them in `<sysroot>/share/rodet/i18n/`, where the
 //! compiler reads them at run time (so they can grow without rebuilding the
-//! compiler); `RUSTPP_I18N_DIR` points elsewhere for development.
-//! The language comes from `RUSTPP_LANG` (`ar`, or `en`, the default).
+//! compiler); `RODET_I18N_DIR` points elsewhere for development.
+//! The language comes from `RODET_LANG` (`ar`, or `en`, the default).
 //! Messages without a translation stay in English.
-//! `rustpp/i18n/compiler_messages.py` lists what is still missing.
+//! `rodet/i18n/compiler_messages.py` lists what is still missing.
 
 use std::sync::OnceLock;
 
@@ -32,7 +32,7 @@ fn table() -> Option<&'static Table> {
     static TABLE: OnceLock<Option<Table>> = OnceLock::new();
     TABLE
         .get_or_init(|| {
-            let language = std::env::var("RUSTPP_LANG").ok()?.to_ascii_lowercase();
+            let language = std::env::var("RODET_LANG").ok()?.to_ascii_lowercase();
             let code = match language.as_str() {
                 "ar" | "arabic" | "ar_sa" | "ar-sa" | "ar_sa.utf-8" => "ar",
                 _ => return None,
@@ -43,14 +43,14 @@ fn table() -> Option<&'static Table> {
         .as_ref()
 }
 
-/// `RUSTPP_I18N_DIR`, else `<sysroot>/share/rustpp/i18n` next to this compiler.
+/// `RODET_I18N_DIR`, else `<sysroot>/share/rodet/i18n` next to this compiler.
 fn table_dir() -> Option<std::path::PathBuf> {
-    if let Some(dir) = std::env::var_os("RUSTPP_I18N_DIR") {
+    if let Some(dir) = std::env::var_os("RODET_I18N_DIR") {
         return Some(dir.into());
     }
     let exe = std::env::current_exe().ok()?;
     let sysroot = exe.parent()?.parent()?;
-    Some(sysroot.join("share").join("rustpp").join("i18n"))
+    Some(sysroot.join("share").join("rodet").join("i18n"))
 }
 
 fn parse(source: &'static str) -> Table {

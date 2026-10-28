@@ -44,7 +44,7 @@ export function openSettings() {
     number('tabSize', 'Tab size', 'Spaces for one indentation level.', 1, 8),
     toggle('returnMarks', 'Return marks ↩', 'Show ↩ after the value a function gives back (the last line without `;`).'),
     toggle('speedScore', 'Speed score', 'Show the speed score of the file next to Run, with tips.'),
-    toggle('typeHints', 'Type hints', 'Show the types Rust++ works out, after `let` names.'),
+    toggle('typeHints', 'Type hints', 'Show the types Rodet works out, after `let` names.'),
     toggle('parameterHints', 'Parameter names', 'Show parameter names at calls without named arguments.'),
     toggle('checkOnSave', 'Check on save', 'Run the compiler on save and show its errors and fixes.'),
     toggle('autoSave', 'Auto save', 'Save files a moment after you stop typing, so errors update by themselves.'),

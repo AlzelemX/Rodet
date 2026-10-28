@@ -53,9 +53,9 @@ fn main() {
 }
 ```
 
-## Two Rust++ extras
+## Two Rodet extras
 
-Functions in Rust++ can be called with names, and parameters can have
+Functions in Rodet can be called with names, and parameters can have
 default values:
 
 ```rust

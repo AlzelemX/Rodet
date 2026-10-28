@@ -1,13 +1,13 @@
-// Connects rust++-analyzer to the editor: keeps it in sync with the open
+// Connects rodet-analyzer to the editor: keeps it in sync with the open
 // files, and gives Monaco completion, hover, go to definition, errors and
-// fixes, renaming, inlay hints (with the Rust++ ↩ return marks), semantic
+// fixes, renaming, inlay hints (with the Rodet ↩ return marks), semantic
 // colors, Run lenses and the speed score.
 import { arabic, isolateLatin, t } from '../i18n';
 import { translateAction, translateDiagnostic, translateLens, translateTip } from '../i18n/messages';
 import { STD_AR } from '../i18n/std-ar';
 import * as monaco from '../editor/monaco';
 import { backend, errorText } from '../backend';
-import { RUSTPP } from '../editor/language';
+import { RODET } from '../editor/language';
 import { settings } from '../settings';
 import { Emitter, debounce } from '../util';
 import { toast } from '../ui/notify';
@@ -45,15 +45,15 @@ function lspUri(model: monaco.editor.ITextModel) {
   return model.uri.toString();
 }
 
-/** Rust++ spelling in text from the language server: `'static` is `_static`. */
-export function rustppText(text: string) {
+/** Rodet spelling in text from the language server: `'static` is `_static`. */
+export function rodetText(text: string) {
   return text.replace(/'static\b/g, '_static');
 }
 
 function markdown(value: any): monaco.IMarkdownString | undefined {
   if (!value) return undefined;
-  if (typeof value === 'string') return { value: rustppText(value) };
-  return { value: rustppText(value.value ?? ''), isTrusted: false, supportThemeIcons: true };
+  if (typeof value === 'string') return { value: rodetText(value) };
+  return { value: rodetText(value.value ?? ''), isTrusted: false, supportThemeIcons: true };
 }
 
 const completionKinds: Record<number, monaco.languages.CompletionItemKind> = (() => {
@@ -140,7 +140,7 @@ function analyzerConfig() {
     completion: { autoimport: { enable: true }, callable: { snippets: 'fill_arguments' } },
     workspace: { symbol: { search: { kind: 'all_symbols', limit: 256 } } },
     // The standard library's docs carry Arabic next to the English.
-    rustpp: { language: arabic ? 'ar' : 'en' },
+    rodet: { language: arabic ? 'ar' : 'en' },
   };
 }
 
@@ -162,7 +162,7 @@ export function configurationChanged() {
 
 function clearAllDiagnostics() {
   diagnostics.clear();
-  for (const model of monaco.editor.getModels()) monaco.editor.setModelMarkers(model, 'rust++', []);
+  for (const model of monaco.editor.getModels()) monaco.editor.setModelMarkers(model, 'rodet', []);
   onDiagnostics.fire();
 }
 
@@ -170,11 +170,11 @@ function clearAllDiagnostics() {
 
 const synced = new Map<string, { version: number; pending: boolean }>();
 
-/** Only Rust++ files go to the server: it reads any open file as Rust, so an
+/** Only Rodet files go to the server: it reads any open file as Rust, so an
  * open `Cargo.toml` got "Syntax Error" on every line. The server sees saved
  * `Cargo.toml` changes through its file watcher. */
 function wantsServer(doc: Doc) {
-  return doc.model.getLanguageId() === RUSTPP;
+  return doc.model.getLanguageId() === RODET;
 }
 
 function openInServer(doc: Doc) {
@@ -257,7 +257,7 @@ function applyMarkers(path: string) {
   if (!doc) return;
   const entry = diagnostics.get(pathKey(path));
   const markers = (entry?.diagnostics ?? []).map((d) => toMarker(d));
-  monaco.editor.setModelMarkers(doc.model, 'rust++', markers);
+  monaco.editor.setModelMarkers(doc.model, 'rodet', markers);
 }
 
 function toMarker(d: LspDiagnostic): monaco.editor.IMarkerData {
@@ -270,7 +270,7 @@ function toMarker(d: LspDiagnostic): monaco.editor.IMarkerData {
   return {
     ...range,
     severity,
-    message: translateDiagnostic(rustppText(d.message)),
+    message: translateDiagnostic(rodetText(d.message)),
     source: d.source,
     code,
     tags: d.tags?.map((t) => (t === 1 ? monaco.MarkerTag.Unnecessary : monaco.MarkerTag.Deprecated)),
@@ -517,7 +517,7 @@ const speedMarks = new Map<string, monaco.editor.IEditorDecorationsCollection>()
 
 function setupProviders() {
   const L = monaco.languages;
-  const selector = RUSTPP;
+  const selector = RODET;
 
   L.registerCompletionItemProvider(selector, {
     triggerCharacters: ['.', ':', "'", '(', '<', '_'],
@@ -543,7 +543,7 @@ function setupProviders() {
               ? { label: item.label, detail: item.labelDetails.detail, description: item.labelDetails.description }
               : item.label,
             kind: completionKinds[item.kind] ?? L.CompletionItemKind.Text,
-            detail: item.detail && rustppText(item.detail),
+            detail: item.detail && rodetText(item.detail),
             documentation: markdown(item.documentation),
             insertText: edit?.newText ?? item.insertText ?? item.label,
             insertTextRules: item.insertTextFormat === 2 ? L.CompletionItemInsertTextRule.InsertAsSnippet : undefined,
@@ -582,11 +582,11 @@ function setupProviders() {
       const r: any = await ask(model, 'textDocument/hover', { position: toLspPosition(position) }, token);
       if (!r?.contents) return null;
       const contents = (Array.isArray(r.contents) ? r.contents : [r.contents])
-        .map((c: any) => (typeof c === 'string' ? markdown(c) : c.language ? { value: '```' + c.language + '\n' + rustppText(c.value) + '\n```' } : markdown(c)))
+        .map((c: any) => (typeof c === 'string' ? markdown(c) : c.language ? { value: '```' + c.language + '\n' + rodetText(c.value) + '\n```' } : markdown(c)))
         .filter(Boolean);
       const text = contents.map((c: monaco.IMarkdownString) => c.value).join('\n');
-      // The standard library's own Arabic (rust++-analyzer shows it when
-      // `rustpp.language` is `ar`) comes first; the editor's list is the fallback.
+      // The standard library's own Arabic (rodet-analyzer shows it when
+      // `rodet.language` is `ar`) comes first; the editor's list is the fallback.
       const arabicDoc = arabic && !/[\u0600-\u06FF]/.test(text) ? arabicDocFor(text) : null;
       if (arabicDoc) contents.unshift({ value: arabicDoc });
       return { contents, range: r.range ? toRange(r.range) : undefined };
@@ -641,7 +641,7 @@ function setupProviders() {
   });
 
   L.registerDocumentSymbolProvider(selector, {
-    displayName: 'Rust++',
+    displayName: 'Rodet',
     async provideDocumentSymbols(model, token) {
       const r: any[] | null = await ask(model, 'textDocument/documentSymbol', {}, token);
       const convert = (s: any): monaco.languages.DocumentSymbol => ({
@@ -773,9 +773,9 @@ function setupProviders() {
         if (!range.containsPosition(position)) continue;
         hints.push({
           label: typeof hint.label === 'string'
-            ? rustppText(hint.label)
+            ? rodetText(hint.label)
             : hint.label.map((p: any) => ({
-                label: rustppText(p.value),
+                label: rodetText(p.value),
                 tooltip: markdown(p.tooltip),
                 location: p.location ? { uri: monaco.Uri.parse(p.location.uri), range: toRange(p.location.range) } : undefined,
               })),
@@ -890,7 +890,7 @@ export function refreshEditorFeatures() {
 const speedTimers = new Map<string, number>();
 
 function scheduleSpeed(doc: Doc, delay = 900) {
-  if (doc.model.getLanguageId() !== RUSTPP) {
+  if (doc.model.getLanguageId() !== RODET) {
     if (workspace.active && pathKey(workspace.active) === pathKey(doc.path)) {
       lastSpeed = null;
       onSpeed.fire(null);
@@ -905,7 +905,7 @@ function scheduleSpeed(doc: Doc, delay = 900) {
 async function fetchSpeed(doc: Doc) {
   if (!settings.speedScore || !lsp.running) return;
   if (!workspace.active || pathKey(workspace.active) !== pathKey(doc.path)) return;
-  const r = await ask<{ score: number; findings: SpeedFinding[] }>(doc.model, 'rustpp/speedScore', {});
+  const r = await ask<{ score: number; findings: SpeedFinding[] }>(doc.model, 'rodet/speedScore', {});
   if (!r) return;
   lastSpeed = { path: doc.path, score: r.score, findings: r.findings };
   onSpeed.fire(lastSpeed);

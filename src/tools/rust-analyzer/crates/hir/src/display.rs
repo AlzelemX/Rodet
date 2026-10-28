@@ -228,7 +228,7 @@ fn write_function<'db>(f: &mut HirFormatter<'_, 'db>, func_id: FunctionId) -> Re
 
         f.write_str(": ")?;
         type_ref.hir_fmt(f, owner, &data.store)?;
-        // Rust++: the default value, `x: T = value`.
+        // Rodet: the default value, `x: T = value`.
         if let Some(Some(default)) = data.param_defaults.get(index) {
             write!(f, " = {default}")?;
         }

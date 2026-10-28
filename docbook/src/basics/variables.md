@@ -35,7 +35,7 @@ stand out.
 
 ## Giving the type yourself
 
-Rust++ works out the type for you, but you can write it after `:`:
+Rodet works out the type for you, but you can write it after `:`:
 
 ```rust
 fn main() {
@@ -47,7 +47,7 @@ fn main() {
 ```
 
 Remember: **`:` means "has the type"**, **`=` means "gets the value"**.
-Rust++ keeps these two meanings everywhere, also in
+Rodet keeps these two meanings everywhere, also in
 [named arguments](named-arguments.md) and [default values](default-values.md).
 
 ## Shadowing

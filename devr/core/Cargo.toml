@@ -1,6 +1,6 @@
 [package]
 name = "devr-core"
-description = "DEVR+ backend: files, Rust++ toolchain, language server, Cargo, terminals and search"
+description = "DEVR+ backend: files, Rodet toolchain, language server, Cargo, terminals and search"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

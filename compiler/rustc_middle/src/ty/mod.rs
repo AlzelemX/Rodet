@@ -135,7 +135,7 @@ pub mod offload_meta;
 pub mod pattern;
 pub mod print;
 pub mod relate;
-pub mod rustpp;
+pub mod rodet;
 pub mod significant_drop_order;
 pub mod sty;
 pub mod trait_def;

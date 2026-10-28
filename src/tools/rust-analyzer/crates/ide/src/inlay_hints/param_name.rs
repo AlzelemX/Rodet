@@ -16,7 +16,7 @@ use syntax::ast::{self, AstNode, HasArgList, HasName, UnaryOp};
 
 use crate::{InlayHint, InlayHintLabel, InlayHintPosition, InlayHintsConfig, InlayKind};
 
-/// Rust++: whether `arg` is a named argument, `name = value`.
+/// Rodet: whether `arg` is a named argument, `name = value`.
 fn is_named_argument(arg: &ast::Expr) -> bool {
     let ast::Expr::BinExpr(bin) = arg else { return false };
     matches!(bin.op_kind(), Some(ast::BinaryOp::Assignment { op: None }))
@@ -48,7 +48,7 @@ pub(super) fn hints(
         .zip(arg_list.args_maybe_empty())
         .filter_map(|(p, arg)| {
             let arg = arg?;
-            // Rust++: a named argument (`width = 3`) already says its name.
+            // Rodet: a named argument (`width = 3`) already says its name.
             if is_named_argument(&arg) {
                 return None;
             }
@@ -422,7 +422,7 @@ mod tests {
     }
 
     #[test]
-    fn rustpp_named_arguments_have_no_hints() {
+    fn rodet_named_arguments_have_no_hints() {
         check_params(
             r#"
 fn area(width: i32, height: i32) -> i32 { width * height }

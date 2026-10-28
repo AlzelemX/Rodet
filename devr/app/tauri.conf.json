@@ -30,8 +30,8 @@
     "active": true,
     "targets": ["nsis", "deb", "appimage", "dmg", "app"],
     "category": "DeveloperTool",
-    "shortDescription": "The editor for Rust++",
-    "longDescription": "DEVR+ is a fast, light editor made for the Rust++ language: errors and fixes, completion, search, Cargo, terminals, return marks and a speed score.",
+    "shortDescription": "The editor for Rodet",
+    "longDescription": "DEVR+ is a fast, light editor made for the Rodet language: errors and fixes, completion, search, Cargo, terminals, return marks and a speed score.",
     "copyright": "AlzelemX",
     "icon": [
       "icons/32x32.png",

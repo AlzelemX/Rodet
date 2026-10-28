@@ -210,14 +210,14 @@ macro_rules! println {
     }};
 }
 
-/// Prints to the standard output, with a newline. **(Rust++ only)**
+/// Prints to the standard output, with a newline. **(Rodet only)**
 ///
-/// `out!` is the Rust++ name for [`println!`]: it takes exactly the same
+/// `out!` is the Rodet name for [`println!`]: it takes exactly the same
 /// arguments and uses the same format syntax, so anything you can write with
 /// `println!` you can write with `out!`.
 ///
 /// This macro does not exist in upstream Rust; code that uses it only
-/// compiles with the Rust++ compiler.
+/// compiles with the Rodet compiler.
 ///
 /// See the formatting documentation in [`std::fmt`](crate::fmt)
 /// for details of the macro argument syntax.
@@ -232,20 +232,20 @@ macro_rules! println {
 ///
 /// ```
 /// out!(); // prints just a newline
-/// out!("hello from Rust++!");
+/// out!("hello from Rodet!");
 /// let name = "out!";
 /// out!("{name} works like println!: {} + {} = {}", 1, 2, 1 + 2);
 /// ```
 ///
 /// <div lang="ar" dir="rtl">
 ///
-/// يطبع إلى الإخراج القياسي، مع سطر جديد. **(خاص بـ Rust++)**
+/// يطبع إلى الإخراج القياسي، مع سطر جديد. **(خاص بـ Rodet)**
 ///
-/// `out!` هو اسم Rust++ لـ `println!`: يأخذ نفس المعاملات تمامًا ويستخدم نفس صيغة التنسيق، فكل ما
+/// `out!` هو اسم Rodet لـ `println!`: يأخذ نفس المعاملات تمامًا ويستخدم نفس صيغة التنسيق، فكل ما
 /// تكتبه
 /// بـ `println!` يمكنك كتابته بـ `out!`.
 ///
-/// هذا الماكرو غير موجود في Rust الأصلية؛ الكود الذي يستخدمه يُترجم فقط بمترجم Rust++.
+/// هذا الماكرو غير موجود في Rust الأصلية؛ الكود الذي يستخدمه يُترجم فقط بمترجم Rodet.
 ///
 /// انظر توثيق التنسيق في `std::fmt` لتفاصيل صيغة معاملات الماكرو.
 ///
@@ -255,7 +255,7 @@ macro_rules! println {
 ///
 /// </div>
 #[macro_export]
-#[stable(feature = "rustpp_out_macro", since = "CURRENT_RUSTC_VERSION")]
+#[stable(feature = "rodet_out_macro", since = "CURRENT_RUSTC_VERSION")]
 #[allow_internal_unstable(print_internals, format_args_nl)]
 #[rustc_diagnostic_opaque]
 macro_rules! out {

@@ -1411,9 +1411,9 @@ pub struct Expr {
 }
 
 impl Expr {
-    /// RUST++: if this call argument is a named argument `name = value`,
-    /// returns `(name, value)`. See `rustc_hir::rustpp`.
-    pub fn rustpp_named_arg(&self) -> Option<(&Expr, &Expr)> {
+    /// RODET: if this call argument is a named argument `name = value`,
+    /// returns `(name, value)`. See `rustc_hir::rodet`.
+    pub fn rodet_named_arg(&self) -> Option<(&Expr, &Expr)> {
         let ExprKind::Assign(name, value, _) = &self.kind else { return None };
         let ExprKind::Path(None, path) = &name.kind else { return None };
         let simple = matches!(path.segments.as_slice(), [segment] if segment.args.is_none());

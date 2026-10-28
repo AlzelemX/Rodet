@@ -68,7 +68,7 @@ export function createApi(plugin: Plugin) {
     version: API_VERSION,
     /** This plugin: id, name, version and folder. */
     plugin: { id: plugin.id, name: plugin.manifest.name, version: plugin.manifest.version ?? '', path: plugin.path },
-    /** DEVR+ and the computer: version, os, home folder, Rust++ toolchain. */
+    /** DEVR+ and the computer: version, os, home folder, Rodet toolchain. */
     get app() {
       return workspace.info;
     },
@@ -346,7 +346,7 @@ export function createApi(plugin: Plugin) {
       open: () => newTerminal(),
     },
 
-    /** The language server (rust++-analyzer). */
+    /** The language server (rodet-analyzer). */
     lsp: {
       get running() {
         return lsp.running;

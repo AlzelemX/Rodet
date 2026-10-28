@@ -152,7 +152,7 @@ impl<'a> Parser<'a> {
         )?;
 
         // Recover a trailing `= EXPR` if present (e.g. in `fn(i32 = 0)`).
-        // RUST++: named parameters of functions keep it as a default value, see
+        // RODET: named parameters of functions keep it as a default value, see
         // `parse_ty_for_named_param`.
         if self.may_recover()
             && self.check_noexpect(&token::Eq)
@@ -177,7 +177,7 @@ impl<'a> Parser<'a> {
         Ok(ty)
     }
 
-    /// RUST++: like `parse_ty_for_param`, but leaves a trailing `= EXPR` for
+    /// RODET: like `parse_ty_for_param`, but leaves a trailing `= EXPR` for
     /// `parse_param_default`.
     pub(super) fn parse_ty_for_named_param(&mut self) -> PResult<'a, Box<Ty>> {
         self.parse_ty_common(
@@ -748,7 +748,7 @@ impl<'a> Parser<'a> {
 
     fn parse_borrowed_pointee(&mut self) -> PResult<'a, TyKind> {
         let and_span = self.prev_token.span;
-        // RUST++: `&{x, y} T` borrows from the parameters `x` and `y`.
+        // RODET: `&{x, y} T` borrows from the parameters `x` and `y`.
         let mut opt_lifetime = match self.parse_borrow_sources()? {
             Some(sources) => Some(sources),
             None => self.check_lifetime().then(|| self.expect_lifetime()),
@@ -1663,13 +1663,13 @@ impl<'a> Parser<'a> {
 
     pub(super) fn check_lifetime(&mut self) -> bool {
         self.expected_token_types.insert(TokenType::Lifetime);
-        // RUST++: `_a` is a lifetime too.
+        // RODET: `_a` is a lifetime too.
         self.token.is_lifetime() || self.is_named_lifetime_ahead(0)
     }
 
-    /// Parses a single lifetime `'a` (or Rust++ `_a`) or panics.
+    /// Parses a single lifetime `'a` (or Rodet `_a`) or panics.
     pub(super) fn expect_lifetime(&mut self) -> Lifetime {
-        if let Some(lifetime) = super::rustpp::named_lifetime(&self.token)
+        if let Some(lifetime) = super::rodet::named_lifetime(&self.token)
             && self.is_named_lifetime_ahead(0)
         {
             self.bump();

@@ -1,4 +1,4 @@
-//! Runs the language server (rust++-analyzer) and passes its messages to and
+//! Runs the language server (rodet-analyzer) and passes its messages to and
 //! from the editor. The editor speaks the Language Server Protocol itself;
 //! this side only frames the messages (`Content-Length` headers).
 
@@ -57,7 +57,7 @@ impl Lsp {
             None => match Toolchain::find().analyzer {
                 Some(server) => server,
                 None => bail!(
-                    "rust++-analyzer was not found. Install or update Rust++ to get errors, completion and search."
+                    "rodet-analyzer was not found. Install or update Rodet to get errors, completion and search."
                 ),
             },
         };
@@ -67,7 +67,7 @@ impl Lsp {
             .env("PATH", search_path())
             // Checking on save runs the compiler through the analyzer: its
             // messages come in the editor's language.
-            .env("RUSTPP_LANG", crate::toolchain::language())
+            .env("RODET_LANG", crate::toolchain::language())
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())

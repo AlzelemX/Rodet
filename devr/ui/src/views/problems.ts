@@ -2,7 +2,7 @@
 // panel (language server messages).
 import { arabic, t } from '../i18n';
 import { translateDiagnostic } from '../i18n/messages';
-import { diagnostics, diagnosticCounts, lsp, onDiagnostics, rustppText } from '../lsp/features';
+import { diagnostics, diagnosticCounts, lsp, onDiagnostics, rodetText } from '../lsp/features';
 import type { PanelView } from '../ui/layout';
 import { basename, debounce, fileIcon, h, icon, relativePath, richText } from '../util';
 import { workspace } from '../workspace';
@@ -66,9 +66,9 @@ const render = debounce(() => {
           render();
         },
       }, rendered ? icon(open ? 'chevron-down' : 'chevron-right') : null),
-      icon(kind), h('span.msg', { title: arabic ? rustppText(d.message.split('\n')[0]) : '' }, ...richText(translateDiagnostic(rustppText(d.message)).split('\n')[0]),
+      icon(kind), h('span.msg', { title: arabic ? rodetText(d.message.split('\n')[0]) : '' }, ...richText(translateDiagnostic(rodetText(d.message)).split('\n')[0]),
         h('span.where', {}, `${code} [${t('Ln {line}, Col {col}', { line: d.range.start.line + 1, col: d.range.start.character + 1 })}]`))));
-      if (open && rendered) list.appendChild(h('pre.explain', {}, rustppText(rendered.trimEnd())));
+      if (open && rendered) list.appendChild(h('pre.explain', {}, rodetText(rendered.trimEnd())));
     }
   }
   if (!list.children.length) {

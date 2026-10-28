@@ -1,10 +1,10 @@
-// Rust++ and TOML coloring before the language server answers, and the
+// Rodet and TOML coloring before the language server answers, and the
 // DEVR+ color themes (close to VS Code's Dark Modern and Light Modern).
 import * as monaco from './monaco';
 
 // The language id is `rust` so the language server's ```rust code blocks in
 // hovers are colored with it too.
-export const RUSTPP = 'rust';
+export const RODET = 'rust';
 
 const keywords = [
   'as', 'async', 'await', 'const', 'crate', 'dyn', 'enum', 'extern', 'fn', 'impl', 'let', 'mod',
@@ -19,7 +19,7 @@ const builtinTypes = [
   'f16', 'f32', 'f64', 'f128', 'bool', 'char', 'str',
 ];
 
-const rustpp: monaco.languages.IMonarchLanguage = {
+const rodet: monaco.languages.IMonarchLanguage = {
   defaultToken: '',
   keywords,
   controlKeywords,
@@ -27,7 +27,7 @@ const rustpp: monaco.languages.IMonarchLanguage = {
   constants: ['true', 'false', 'None', 'Some', 'Ok', 'Err'],
   tokenizer: {
     root: [
-      // Rust++: `&{x, y}` borrow sources, `&_a` lifetimes.
+      // Rodet: `&{x, y}` borrow sources, `&_a` lifetimes.
       [/&(?=\s*\{)/, { token: 'operator', next: '@borrowSources' }],
       [/&(?=\s*_[a-z]\w*\b\s+[\w&(\[*<'])/, { token: 'operator', next: '@rppLifetime' }],
       [/'[a-zA-Z_]\w*(?!')/, 'lifetime'],
@@ -137,12 +137,12 @@ const toml: monaco.languages.IMonarchLanguage = {
 
 export function registerLanguages() {
   monaco.languages.register({
-    id: RUSTPP,
+    id: RODET,
     extensions: ['.rs'],
-    aliases: ['Rust++', 'rust', 'rs'],
+    aliases: ['Rodet', 'rust', 'rs'],
   });
-  monaco.languages.setMonarchTokensProvider(RUSTPP, rustpp);
-  monaco.languages.setLanguageConfiguration(RUSTPP, {
+  monaco.languages.setMonarchTokensProvider(RODET, rodet);
+  monaco.languages.setLanguageConfiguration(RODET, {
     comments: { lineComment: '//', blockComment: ['/*', '*/'] },
     brackets: [
       ['{', '}'],
@@ -193,7 +193,7 @@ export function registerLanguages() {
 
 export function languageOf(path: string): string {
   const lower = path.toLowerCase();
-  if (lower.endsWith('.rs')) return RUSTPP;
+  if (lower.endsWith('.rs')) return RODET;
   if (lower.endsWith('.toml') || lower.endsWith('cargo.lock')) return 'toml';
   if (lower.endsWith('.md')) return 'markdown';
   return 'plaintext';
@@ -315,7 +315,7 @@ function theme(p: Palette): monaco.editor.IStandaloneThemeData {
       { token: 'operator', foreground: c(p.fg) },
       { token: 'variable', foreground: c(p.variable) },
 
-      // Semantic tokens from rust++-analyzer.
+      // Semantic tokens from rodet-analyzer.
       { token: 'namespace', foreground: c(p.type) },
       { token: 'struct', foreground: c(p.type) },
       { token: 'enum', foreground: c(p.type) },

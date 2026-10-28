@@ -3,7 +3,7 @@
 [Borrow sources](borrow-sources.md) cover functions. One place still needs
 a name for "how long a borrow lives": **a struct that holds a reference**.
 
-> **New in Rust++:** lifetime names are written like normal names that start
+> **New in Rodet:** lifetime names are written like normal names that start
 > with `_`: `_a`, `_text`. `'static` is `_static`.
 
 ```rust

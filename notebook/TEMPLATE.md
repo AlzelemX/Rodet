@@ -10,7 +10,7 @@ One or two sentences: what changed and why it is better.
 // the old way
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```rust
 // the new way

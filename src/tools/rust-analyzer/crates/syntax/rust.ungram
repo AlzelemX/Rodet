@@ -255,7 +255,7 @@ SelfParam =
   | 'mut'? Name ':' Type
   )
 
-// Rust++: `x: T = value` gives the parameter a default value.
+// Rodet: `x: T = value` gives the parameter a default value.
 Param =
   AnyAttr* (
     Pat (':' Type ('=' default_val:Expr)?)?
@@ -706,7 +706,7 @@ PtrType =
 RefType =
   '&' (Lifetime | BorrowSources)? 'mut'? Type
 
-// Rust++: `&{x, y} T`, a reference borrowed from the parameters `x` and `y`.
+// Rodet: `&{x, y} T`, a reference borrowed from the parameters `x` and `y`.
 BorrowSources =
   '{' (NameRef (',' NameRef)* ','?)? '}'
 

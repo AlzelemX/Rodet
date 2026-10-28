@@ -161,13 +161,13 @@ impl Request for InterpretFunctionRequest {
     const MESSAGE_DIRECTION: MessageDirection = MessageDirection::ClientToServer;
 }
 
-/// Rust++: the speed score of a file, from 0 to 100, with its findings.
+/// Rodet: the speed score of a file, from 0 to 100, with its findings.
 pub enum SpeedScoreRequest {}
 
 impl Request for SpeedScoreRequest {
     type Params = SpeedScoreParams;
     type Result = SpeedScore;
-    const METHOD: LspRequestMethod<'_> = LspRequestMethod::new("rustpp/speedScore");
+    const METHOD: LspRequestMethod<'_> = LspRequestMethod::new("rodet/speedScore");
     const MESSAGE_DIRECTION: MessageDirection = MessageDirection::ClientToServer;
 }
 

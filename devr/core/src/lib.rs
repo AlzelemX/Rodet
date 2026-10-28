@@ -1,7 +1,7 @@
 //! DEVR+ backend.
 //!
 //! Everything the editor needs from the computer goes through [`Core::call`]:
-//! files, the Rust++ toolchain, the language server (rust++-analyzer), Cargo,
+//! files, the Rodet toolchain, the language server (rodet-analyzer), Cargo,
 //! terminals, search and plugins. Results come back as JSON; things that happen later
 //! (language server messages, terminal output, file changes) are sent as
 //! events through the [`EventSink`].

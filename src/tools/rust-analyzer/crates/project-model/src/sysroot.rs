@@ -377,7 +377,7 @@ impl Sysroot {
         let (mut res, err) =
             FetchMetadata::new(library_manifest, current_dir, &cargo_config, self, no_deps)
                 .exec(locked, progress)?;
-        // Rust++: when the full metadata fails (e.g. offline, so the standard
+        // Rodet: when the full metadata fails (e.g. offline, so the standard
         // library's crates.io dependencies can't be fetched), the `--no-deps`
         // fallback has no dependency edges at all, and macros like `println!`
         // and `out!` stop resolving. A stitched sysroot works better.

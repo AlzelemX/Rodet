@@ -2,7 +2,7 @@
 
 > 📅 **2026-10-23** · 🟢 Done · 🏷️ Project
 
-The repository now holds only what Rust++ uses, and documents itself in its
+The repository now holds only what Rodet uses, and documents itself in its
 own way.
 
 ### Before
@@ -23,8 +23,8 @@ src/doc/             upstream's books (rustc book, style guide, ...)
 README.md     short description + status board
 STATUS.md     the status board (edit this one)
 notebook/     one card per change (this file)
-docbook/      the Doc Book: how to write Rust++
-rustpp/       setup, installers, scripts
+docbook/      the Doc Book: how to write Rodet
+rodet/       setup, installers, scripts
 compiler/  library/  src/  tests/   the language itself
 LICENSE-*  COPYRIGHT  LICENSES/  REUSE.toml   kept: required by the license
 ```
@@ -39,7 +39,7 @@ LICENSE-*  COPYRIGHT  LICENSES/  REUSE.toml   kept: required by the license
 
 <details><summary>Where</summary>
 
-- `rustpp/sync-status.py`, `.github/workflows/readme-status.yml`: status board
+- `rodet/sync-status.py`, `.github/workflows/readme-status.yml`: status board
 - `.github/workflows/docbook.yml`: publishes the Doc Book
 - `src/bootstrap/src/core/builder/mod.rs`: lets the build run without the removed files
 

@@ -1655,7 +1655,7 @@ fn foo<T>() {
 }
 "#,
         Some('_'),
-        // Rust++: `_x` in generic arguments is a lifetime.
+        // Rodet: `_x` in generic arguments is a lifetime.
         expect![[r#"
             lt _static
         "#]],

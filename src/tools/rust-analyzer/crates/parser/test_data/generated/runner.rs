@@ -630,8 +630,8 @@ mod ok {
         run_and_expect_no_errors("test_data/parser/inline/ok/return_type_syntax_in_path.rs");
     }
     #[test]
-    fn rustpp_named_lifetimes() {
-        run_and_expect_no_errors("test_data/parser/inline/ok/rustpp_named_lifetimes.rs");
+    fn rodet_named_lifetimes() {
+        run_and_expect_no_errors("test_data/parser/inline/ok/rodet_named_lifetimes.rs");
     }
     #[test]
     fn safe_outside_of_extern() {

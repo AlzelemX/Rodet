@@ -1,10 +1,10 @@
 # DEVR+
 
-The editor for Rust++. How to use it: [Doc Book → The DEVR+ Editor](https://alzelemx.github.io/Rust-/start/devr.html).
+The editor for Rodet. How to use it: [Doc Book → The DEVR+ Editor](https://alzelemx.github.io/rodet/start/devr.html).
 
 | Folder | What |
 |---|---|
-| `core/` | The backend (Rust): files, terminals, search, Cargo, and the language server (`rust++-analyzer`) |
+| `core/` | The backend (Rust): files, terminals, search, Cargo, and the language server (`rodet-analyzer`) |
 | `ui/` | The editor (TypeScript, Monaco, xterm.js) |
 | `app/` | The desktop app (Tauri): one window with `ui/`, talking to `core/` |
 | `server/` | `devr-server`: the same editor in a browser, over a WebSocket |
@@ -12,7 +12,7 @@ The editor for Rust++. How to use it: [Doc Book → The DEVR+ Editor](https://al
 
 ## Work on it
 
-Needs Node.js 22 and Rust++ (or Rust). On Linux also the WebKitGTK libraries
+Needs Node.js 22 and Rodet (or Rust). On Linux also the WebKitGTK libraries
 (`libwebkit2gtk-4.1-dev`).
 
 ```sh
@@ -29,5 +29,5 @@ npm run build
 cargo run -p devr-server -- --ui ui/dist   # then open http://127.0.0.1:7878
 ```
 
-Releases are built by `.github/workflows/devr.yml` with the Rust++
+Releases are built by `.github/workflows/devr.yml` with the Rodet
 compiler itself, on every push that changes `devr/`.

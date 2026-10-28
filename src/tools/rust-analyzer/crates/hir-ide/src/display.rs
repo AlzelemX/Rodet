@@ -2508,7 +2508,7 @@ impl<'db> HirDisplayWithExpressionStore<'db> for TypeRefId {
                 };
                 write!(f, "&")?;
                 if let Some(sources) = &ref_.borrow_sources {
-                    // Rust++: `&{x, y} T`
+                    // Rodet: `&{x, y} T`
                     write!(f, "{{")?;
                     for (i, name) in sources.iter().enumerate() {
                         if i > 0 {

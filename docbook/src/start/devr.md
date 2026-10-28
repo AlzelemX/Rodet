@@ -1,12 +1,12 @@
 # The DEVR+ Editor
 
-**DEVR+** is the editor made for Rust++. It looks like VS Code, so
-everything is where you expect it, but it understands every Rust++ feature.
+**DEVR+** is the editor made for Rodet. It looks like VS Code, so
+everything is where you expect it, but it understands every Rodet feature.
 
 ## Install
 
 Download DEVR+ from the
-[releases named “DEVR+”](https://github.com/AlzelemX/Rust-/releases):
+[releases named “DEVR+”](https://github.com/AlzelemX/rodet/releases):
 
 | System | File |
 |---|---|
@@ -14,8 +14,8 @@ Download DEVR+ from the
 | Linux (glibc 2.39+: Ubuntu 24.04+, Debian 13+) | `.deb` or `.AppImage` |
 | macOS (Apple Silicon / Intel) | `DEVR+_…_aarch64.dmg` / `DEVR+_…_x64.dmg` |
 
-DEVR+ uses the Rust++ you installed with `rustup++_init`. If it's missing,
-the welcome page has an **Install Rust++** button.
+DEVR+ uses the Rodet you installed with `rodet_init`. If it's missing,
+the welcome page has an **Install Rodet** button.
 
 > macOS: the app isn't signed by Apple yet. The first time, right-click it
 > and choose **Open**.
@@ -27,23 +27,23 @@ switches to Arabic: menus and commands, compiler messages, quick fixes, speed
 tips, the documentation of the standard library, and this book. Code itself
 stays left to right.
 
-The Arabic lives in Rust++ itself, not only in the editor:
+The Arabic lives in Rodet itself, not only in the editor:
 
 - **Compiler messages.** `rustc` and `cargo` speak Arabic when the
-  environment variable `RUSTPP_LANG` is `ar` (DEVR+ sets it for you, also in
-  its terminal). From any terminal: `RUSTPP_LANG=ar cargo build`
-  (PowerShell: `$env:RUSTPP_LANG="ar"; cargo build`). Names, types and code
+  environment variable `RODET_LANG` is `ar` (DEVR+ sets it for you, also in
+  its terminal). From any terminal: `RODET_LANG=ar cargo build`
+  (PowerShell: `$env:RODET_LANG="ar"; cargo build`). Names, types and code
   in the messages stay as they are.
 - **Standard library docs.** Every documented item of `std`, `core` and
   `alloc` has an Arabic explanation next to the English one, in the same doc
   comment. `Option`, `Result`, `String`, `Vec`, `HashMap` and the print
   macros have the whole text in Arabic, the rest a short summary for now.
-  The analyzer shows the language you chose (setting `rustpp.language`:
+  The analyzer shows the language you chose (setting `rodet.language`:
   `en` or `ar`); code examples are shown in both.
 
 ## A first project
 
-1. **New Rust++ Project…** on the welcome page (or `Ctrl+Shift+P` → *Cargo: New*).
+1. **New Rodet Project…** on the welcome page (or `Ctrl+Shift+P` → *Cargo: New*).
 2. Press **F5**: Cargo builds and runs it in the terminal at the bottom.
 3. Errors appear as you type; a red file:line in the terminal opens the file
    at that line.
@@ -56,10 +56,10 @@ The Arabic lives in Rust++ itself, not only in the editor:
 - **⚡ Speed score**: next to the Run button, from 0 to 100. Point at it to see
   each slow spot and how to fix it. Slow spots are underlined with dots.
 - **▶ Run** above `fn main`, and **N implementations** above types.
-- Gray **hints**: the types Rust++ works out (`: u32`), and parameter names
+- Gray **hints**: the types Rodet works out (`: u32`), and parameter names
   for calls that don't use [named arguments](../basics/named-arguments.md).
 - **Doc Book** (the book icon on the left): this book inside the editor, in
-  English or Arabic. It comes with the installed Rust++, so it always matches
+  English or Arabic. It comes with the installed Rodet, so it always matches
   your version of the language.
 
 ## Keys

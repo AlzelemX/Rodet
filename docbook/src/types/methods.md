@@ -59,6 +59,6 @@ Pick the weakest one that works: `&self` if you only read.
 `Self` (capital S) is a short name for the type of the `impl`:
 `fn new(...) -> Self` means `-> Rect`.
 
-> **Rust++:** [named arguments](../basics/named-arguments.md) and
+> **Rodet:** [named arguments](../basics/named-arguments.md) and
 > [default values](../basics/default-values.md) work on methods:
 > `Rect::new(width = 3.0)`, `r.scale(by = 0.5)`.

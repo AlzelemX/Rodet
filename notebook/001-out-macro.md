@@ -15,11 +15,11 @@ fn main() {
 }
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```rust
 fn main() {
-    let lang = "Rust++";
+    let lang = "Rodet";
     out!("Hello from {lang}!");
     out!("{} + {} = {}", 1, 2, 1 + 2);
 }
@@ -34,6 +34,6 @@ fn main() {
 
 - `library/std/src/macros.rs`: the macro
 - `library/std/src/prelude/v1.rs`: makes it available without `use`
-- `tests/ui/rustpp/out-macro.rs`: test
+- `tests/ui/rodet/out-macro.rs`: test
 
 </details>

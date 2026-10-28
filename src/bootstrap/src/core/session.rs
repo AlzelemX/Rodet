@@ -367,10 +367,10 @@ impl Session {
             config.description = Some("built from a source tarball".to_owned());
         }
 
-        // Rust++: brand every build of this fork so `rustc --version` reports
-        // "(Rust++)" unless `build.description` is set explicitly.
+        // Rodet: brand every build of this fork so `rustc --version` reports
+        // "(Rodet)" unless `build.description` is set explicitly.
         if config.description.is_none() {
-            config.description = Some("Rust++".to_owned());
+            config.description = Some("Rodet".to_owned());
         }
 
         let mut sess = Session {

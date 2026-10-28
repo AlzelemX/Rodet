@@ -4,7 +4,7 @@
 
 Building the compiler used to download the starting compiler, LLVM and
 crates from rust-lang servers. Now everything comes from this repository's
-`deps-snapshot` release, so Rust++ builds even if those servers change or
+`deps-snapshot` release, so Rodet builds even if those servers change or
 go away.
 
 ### Before (Rust)
@@ -16,11 +16,11 @@ python x.py build
   downloading crates from crates.io
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```text
-python rustpp/setup-deps.py
-  downloading github.com/AlzelemX/Rust-/releases/download/deps-snapshot/...
+python rodet/setup-deps.py
+  downloading github.com/AlzelemX/rodet/releases/download/deps-snapshot/...
 python x.py build library
   (nothing downloaded from rust-lang)
 ```
@@ -38,7 +38,7 @@ To add a platform, run the *Snapshot dependencies* workflow with its target.
 
 <details><summary>Where in the compiler</summary>
 
-- `rustpp/setup-deps.py`: downloads the snapshot and writes `bootstrap.toml`
+- `rodet/setup-deps.py`: downloads the snapshot and writes `bootstrap.toml`
 - `src/ci-llvm-sha`: the LLVM version to use
 - `src/bootstrap/src/core/download.rs`, `src/bootstrap/src/core/config/config.rs`: read it
 - `.github/workflows/snapshot-deps.yml`: makes the snapshot

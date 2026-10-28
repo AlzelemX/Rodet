@@ -394,7 +394,7 @@ pub(crate) fn lower_function(
     let mut collector = generics::GenericParamsCollector::new(function_id.into());
     collector.lower(&mut expr_collector, fn_.value.generic_param_list(), fn_.value.where_clause());
     let mut params = vec![];
-    // Rust++: which parameters have a default value (`x: T = value`), and
+    // Rodet: which parameters have a default value (`x: T = value`), and
     // their names, for named arguments.
     let mut param_defaults = vec![];
     let mut param_names = vec![];
@@ -739,7 +739,7 @@ impl<'db> ExprCollector<'db> {
         self.expander.span_map()
     }
 
-    /// Rust++: lowers the arguments of a call. A named argument `x = value`
+    /// Rodet: lowers the arguments of a call. A named argument `x = value`
     /// is lowered to its value; its name is returned in the second vector
     /// (`None` for positional arguments, and the vector is empty when the call
     /// has no named arguments).
@@ -751,7 +751,7 @@ impl<'db> ExprCollector<'db> {
         let mut args = Vec::new();
         let mut names = Vec::new();
         for arg in arg_list.args() {
-            let (name, arg) = match rustpp_named_arg(&arg) {
+            let (name, arg) = match rodet_named_arg(&arg) {
                 Some((name, value)) => (Some(name), value),
                 None => (None, Some(arg)),
             };
@@ -772,7 +772,7 @@ impl<'db> ExprCollector<'db> {
 
     fn record_named_args(&mut self, call: ExprId, names: Vec<Option<Name>>) {
         if !names.is_empty() {
-            self.store.rustpp_named_args.insert(call, names.into_boxed_slice());
+            self.store.rodet_named_args.insert(call, names.into_boxed_slice());
         }
     }
 
@@ -783,7 +783,7 @@ impl<'db> ExprCollector<'db> {
         // FIXME: Keyword check?
         let lifetime_ref = match lifetime.text() {
             "" | "'" => LifetimeRef::Error,
-            // Rust++: `_static` is `'static`.
+            // Rodet: `_static` is `'static`.
             "'static" | "_static" => LifetimeRef::Static,
             "'_" => LifetimeRef::Placeholder,
             text => LifetimeRef::Named(Name::new_lifetime(text)),
@@ -3852,9 +3852,9 @@ pub fn hir_generic_arg_to_ast(
         .nth(arg_idx as usize - has_self_arg as usize)
 }
 
-/// Rust++: if `arg` (a call argument) is a named argument `name = value`,
+/// Rodet: if `arg` (a call argument) is a named argument `name = value`,
 /// returns its name and value.
-fn rustpp_named_arg(arg: &ast::Expr) -> Option<(Name, Option<ast::Expr>)> {
+fn rodet_named_arg(arg: &ast::Expr) -> Option<(Name, Option<ast::Expr>)> {
     let ast::Expr::BinExpr(bin) = arg else { return None };
     if !matches!(bin.op_kind()?, ast::BinaryOp::Assignment { op: None }) {
         return None;

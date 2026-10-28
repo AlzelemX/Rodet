@@ -52,7 +52,7 @@ fn main() {
 
 This is not fussiness: `push` may move the list to a bigger place in
 memory, and `first` would then point at freed memory. In C++ this compiles
-and crashes later; in Rust++ it doesn't compile.
+and crashes later; in Rodet it doesn't compile.
 
 A borrow ends after its last use, so this is fine:
 
@@ -80,4 +80,4 @@ fn main() {
 
 When a **function returns a reference**, the compiler needs to know which
 value it borrows from, to check this rule at the call. In Rust that's what
-lifetimes (`'a`) are for. Rust++ has an easier way: the next chapter.
+lifetimes (`'a`) are for. Rodet has an easier way: the next chapter.

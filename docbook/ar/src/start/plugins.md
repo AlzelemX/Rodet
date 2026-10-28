@@ -81,7 +81,7 @@ export function activate(devr) {
 | `devr.editor` | محرر الكود وواجهة Monaco كاملة |
 | `devr.workspace` | فتح الملفات وقراءتها وكتابتها وحفظها؛ وأحداث فتح الملفات وحفظها وإغلاقها |
 | `devr.terminal` | تشغيل البرامج و`cargo` |
-| `devr.lsp` | طلبات إلى rust++-analyzer، والأخطاء والتحذيرات |
+| `devr.lsp` | طلبات إلى rodet-analyzer، والأخطاء والتحذيرات |
 | `devr.settings`، `devr.storage` | إعدادات المحرر؛ وبيانات إضافتك المحفوظة |
 | `devr.backend` | كل ما يستطيعه الجزء الخلفي من DEVR+ |
 | `devr.t`، `devr.addTranslations` | نصوصك بالإنجليزي والعربي |
@@ -105,7 +105,7 @@ export function activate(devr) {
 
 ## أمثلة
 
-في مستودع Rust++، داخل `devr/plugin-api/examples/`:
+في مستودع Rodet، داخل `devr/plugin-api/examples/`:
 
 - **ocean**: ثيم وشكل بزوايا دائرية، بدون كود.
 - **todos**: لوحة جانبية بكل TODO وFIXME، وأمر، وعنصر في شريط الحالة.

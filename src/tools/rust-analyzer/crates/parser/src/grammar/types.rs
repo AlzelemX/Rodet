@@ -219,7 +219,7 @@ fn ref_type(p: &mut Parser<'_>) {
     m.complete(p, REF_TYPE);
 }
 
-// Rust++: the `{x, y}` of `&{x, y} T`, the parameters a reference borrows from.
+// Rodet: the `{x, y}` of `&{x, y} T`, the parameters a reference borrows from.
 
 // test borrow_sources
 // fn longest(x: &str, y: &str) -> &{x, y} str {}

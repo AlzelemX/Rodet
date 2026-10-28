@@ -1,4 +1,4 @@
-//! Rust++: the speed score of a file, from 0 to 100.
+//! Rodet: the speed score of a file, from 0 to 100.
 //!
 //! A quick look at the code for patterns that are known to make programs
 //! slower: copying or allocating inside loops, searching lists in loops,

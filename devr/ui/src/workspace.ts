@@ -8,12 +8,12 @@ import { Emitter, basename, isWindowsPath } from './util';
 import { toast } from './ui/notify';
 
 export interface Toolchain {
-  rustppBin: string | null;
+  rodetBin: string | null;
   rustc: string | null;
   cargo: string | null;
   analyzer: string | null;
   rustcVersion: string | null;
-  isRustpp: boolean;
+  isRodet: boolean;
 }
 
 export interface AppInfo {

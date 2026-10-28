@@ -458,13 +458,13 @@ impl<'db> InferenceContext<'db> {
             fn_sig,
         );
 
-        // Rust++: named arguments and default values.
+        // Rodet: named arguments and default values.
         let callee = match def_id {
             Some(CallableDefId::FunctionId(func)) => Some(func),
             _ => None,
         };
         if let Some(ordered) =
-            self.rustpp_order_args(call_expr, callee, arg_exprs, fn_sig.inputs(), false)
+            self.rodet_order_args(call_expr, callee, arg_exprs, fn_sig.inputs(), false)
         {
             self.check_call_arguments(
                 call_expr,

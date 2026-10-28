@@ -1,4 +1,4 @@
-//! Rust++: "return value" inlay hints, a mark after the value a function
+//! Rodet: "return value" inlay hints, a mark after the value a function
 //! gives back without `return`:
 //! ```no_run
 //! fn square(n: i32) -> i32 {

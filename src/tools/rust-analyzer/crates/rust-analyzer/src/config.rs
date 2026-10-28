@@ -297,7 +297,7 @@ config_data! {
         /// Whether to render leading colons for type hints, and trailing colons for parameter hints.
         inlayHints_renderColons: bool = true,
 
-        /// Rust++: show a mark after the value a function gives back without `return`.
+        /// Rodet: show a mark after the value a function gives back without `return`.
         inlayHints_returnValueHints_enable: bool = true,
 
         /// Show inlay type hints for variables.
@@ -416,10 +416,10 @@ config_data! {
         /// Exclude tests from find-all-references and call-hierarchy.
         references_excludeTests: bool = false,
 
-        /// RUST++: the language of the standard library's documentation in hovers,
+        /// RODET: the language of the standard library's documentation in hovers,
         /// completions and signature help. Documentation without an Arabic part is
         /// shown in English.
-        rustpp_language: RustppLanguageDef = RustppLanguageDef::English,
+        rodet_language: RodetLanguageDef = RodetLanguageDef::English,
 
         /// Use semantic tokens for comments.
         ///
@@ -2048,9 +2048,9 @@ impl Config {
         }
     }
 
-    /// RUST++: whether documentation is shown in Arabic.
+    /// RODET: whether documentation is shown in Arabic.
     pub fn docs_in_arabic(&self) -> bool {
-        *self.rustpp_language() == RustppLanguageDef::Arabic
+        *self.rodet_language() == RodetLanguageDef::Arabic
     }
 
     pub fn hover<'a>(&self, minicore: MiniCore<'a>) -> HoverConfig<'a> {
@@ -3063,7 +3063,7 @@ where
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
-enum RustppLanguageDef {
+enum RodetLanguageDef {
     #[serde(rename = "en")]
     English,
     #[serde(rename = "ar")]
@@ -3846,7 +3846,7 @@ fn field_props(field: &str, ty: &str, doc: &[&str], default: &str) -> serde_json
             "type": ["null", "array"],
             "items": { "type": "string" },
         },
-        "RustppLanguageDef" => set! {
+        "RodetLanguageDef" => set! {
             "type": "string",
             "enum": ["en", "ar"],
             "enumDescriptions": [

@@ -1286,7 +1286,7 @@ class RustBuild(object):
                 eprint("       from the archive in the root of the rust project.")
                 raise Exception("{} not found".format(vendor_dir))
 
-            # RUST++: the vendored sources are passed to cargo with `--config`
+            # RODET: the vendored sources are passed to cargo with `--config`
             # (see `vendored_sources_config`), so no `.cargo/config.toml` is
             # needed: it would also apply to other projects in the repository,
             # like the DEVR+ editor.
@@ -1294,7 +1294,7 @@ class RustBuild(object):
 
 
 def vendored_sources_config(rust_root):
-    """RUST++: cargo arguments to build from the `vendor` directory only."""
+    """RODET: cargo arguments to build from the `vendor` directory only."""
     vendor = os.path.join(rust_root, "vendor")
     return [
         "--config",

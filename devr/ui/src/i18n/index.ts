@@ -47,7 +47,7 @@ export function t(english: string, vars?: Record<string, string | number>): stri
   return text;
 }
 
-/** In right-to-left text, `Rust++` would show as `++Rust`: names ending in
+/** In right-to-left text, `Rodet` would show as `++Rust`: names ending in
  * symbols are wrapped in left-to-right isolates. */
 export function isolateLatin(text: string) {
   return text.replace(/(Rust\+\+|DEVR\+|C\+\+)/g, '\u2066$1\u2069');

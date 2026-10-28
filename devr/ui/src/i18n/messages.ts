@@ -1,5 +1,5 @@
 // Arabic for texts that come from the compiler (rustc, cargo check) and
-// from rust++-analyzer: errors and warnings, quick fixes, Run lenses.
+// from rodet-analyzer: errors and warnings, quick fixes, Run lenses.
 //
 // They are matched by pattern; the parts in `backticks` (names, types) stay
 // as they are. A message with no pattern stays in English.
@@ -14,7 +14,7 @@ const DIAGNOSTICS: Rule[] = [
   [/^expected (.+), found (.+)$/, 'المتوقَّع $1، لكن الموجود $2'],
   [/^expected `(.+)`, found `(.+)`$/, 'المتوقَّع `$1`، لكن الموجود `$2`'],
   [/^expected due to this$/, 'النوع المتوقَّع جاء من هنا'],
-  [/^type annotations needed(; type must be known at this point)?$/, 'يلزم كتابة النوع: لم يتمكن Rust++ من معرفته وحده'],
+  [/^type annotations needed(; type must be known at this point)?$/, 'يلزم كتابة النوع: لم يتمكن Rodet من معرفته وحده'],
   [/^type annotations needed for `(.+)`$/, 'يلزم كتابة نوع `$1`'],
   [/^arguments to this function are incorrect$/, 'الوسائط المعطاة لهذه الدالة غير صحيحة'],
   [/^cannot add `(.+)` to `(.+)`$/, 'لا يمكن جمع `$1` مع `$2`'],
@@ -327,7 +327,7 @@ export function translateLens(title: string): string {
   return apply(LENSES, title) ?? title;
 }
 
-/** The speed tips from rust++-analyzer (fixed sentences, in ar.ts). */
+/** The speed tips from rodet-analyzer (fixed sentences, in ar.ts). */
 export function translateTip(text: string): string {
   return t(text);
 }

@@ -2,7 +2,7 @@
   "name": "devr",
   "private": true,
   "version": "0.1.0",
-  "description": "DEVR+: the editor for Rust++",
+  "description": "DEVR+: the editor for Rodet",
   "type": "module",
   "scripts": {
     "dev": "node scripts/monaco-nls.mjs && vite",

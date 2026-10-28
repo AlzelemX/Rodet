@@ -126,7 +126,7 @@ pub struct NewParams {
     pub lib: bool,
 }
 
-/// `cargo new`, with a Rust++ hello world.
+/// `cargo new`, with a Rodet hello world.
 pub fn new_project(params: &NewParams) -> Result<PathBuf> {
     let name = params.name.trim();
     if name.is_empty() || !name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '-') {
@@ -136,7 +136,7 @@ pub fn new_project(params: &NewParams) -> Result<PathBuf> {
     if path.exists() {
         bail!("{} already exists", path.display());
     }
-    let cargo = find_program("cargo").context("cargo was not found: install Rust++ first")?;
+    let cargo = find_program("cargo").context("cargo was not found: install Rodet first")?;
     let output = command(cargo)
         .arg("new")
         .arg(if params.lib { "--lib" } else { "--bin" })
@@ -149,7 +149,7 @@ pub fn new_project(params: &NewParams) -> Result<PathBuf> {
     if !params.lib {
         std::fs::write(
             path.join("src/main.rs"),
-            "fn main() {\n    out!(\"Hello from Rust++!\");\n}\n",
+            "fn main() {\n    out!(\"Hello from Rodet!\");\n}\n",
         )?;
     }
     Ok(path)
@@ -171,7 +171,7 @@ pub fn latest_version(name: &str) -> Result<Option<String>> {
     };
     let url = format!("https://index.crates.io/{prefix}/{lower}");
     let text = ureq::get(&url)
-        .set("User-Agent", "DEVR+ (https://github.com/AlzelemX/Rust-)")
+        .set("User-Agent", "DEVR+ (https://github.com/AlzelemX/rodet)")
         .call()
         .with_context(|| format!("can't reach crates.io for {name}"))?
         .into_string()?;

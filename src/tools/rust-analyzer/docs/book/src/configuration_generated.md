@@ -1153,7 +1153,7 @@ Whether to render leading colons for type hints, and trailing colons for paramet
 
 Default: `true`
 
-Rust++: show a mark after the value a function gives back without `return`.
+Rodet: show a mark after the value a function gives back without `return`.
 
 
 ## rust-analyzer.inlayHints.typeHints.enable {#inlayHints.typeHints.enable}
@@ -1565,11 +1565,11 @@ Enables the use of rustfmt's unstable range formatting command for the
 available on a nightly build.
 
 
-## rust-analyzer.rustpp.language {#rustpp.language}
+## rust-analyzer.rodet.language {#rodet.language}
 
 Default: `"en"`
 
-RUST++: the language of the standard library's documentation in hovers,
+RODET: the language of the standard library's documentation in hovers,
 completions and signature help. Documentation without an Arabic part is
 shown in English.
 

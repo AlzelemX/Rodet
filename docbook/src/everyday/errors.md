@@ -1,6 +1,6 @@
 # Errors
 
-Rust++ has two kinds of errors:
+Rodet has two kinds of errors:
 
 - **Bugs**, which should never happen: the program stops with `panic!`.
 - **Expected failures**, like a missing file or bad input: the function

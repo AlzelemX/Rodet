@@ -213,7 +213,7 @@ impl<'a, 'tcx> FnCtxt<'a, 'tcx> {
     ) {
         let tcx = self.tcx;
 
-        // RUST++: put named arguments `f(x = 1)` in parameter order, and leave
+        // RODET: put named arguments `f(x = 1)` in parameter order, and leave
         // out parameters with default values (`fn f(x: i32 = 0)`).
         let Ok((provided_args, remaining_input_tys)) =
             self.order_named_args(call_expr, provided_args, formal_input_tys, &fn_id)

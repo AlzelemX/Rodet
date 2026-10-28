@@ -55,12 +55,12 @@ function render() {
   body.replaceChildren();
   if (!workspace.root) {
     body.appendChild(h('div.empty-state', {}, t('Open a Cargo project to run, build and test it.'),
-      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rust++ Project'))));
+      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rodet Project'))));
     return;
   }
   if (!project?.root) {
     body.appendChild(h('div.empty-state', {}, t('This folder has no Cargo.toml.'),
-      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rust++ Project'))));
+      h('br'), h('button.btn.primary', { onclick: () => newProject() }, icon('add'), t('New Rodet Project'))));
     return;
   }
   const p = project;
@@ -156,7 +156,7 @@ async function addDependency() {
 
 export async function newProject() {
   const parent = workspace.root ? workspace.root.replace(/[\\/][^\\/]+$/, '') : workspace.info.home ?? '.';
-  const name = await prompt(t('New Rust++ project in {folder}', { folder: parent }), 'hello', {
+  const name = await prompt(t('New Rodet project in {folder}', { folder: parent }), 'hello', {
     validate: (v) => (/^[A-Za-z][\w-]*$/.test(v) ? null : t('Start with a letter; use letters, numbers, - and _')),
   });
   if (!name) return;

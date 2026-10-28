@@ -33,7 +33,7 @@ impl<'db> Documentation<'db> {
     }
 }
 
-// RUST++: the standard library documents its items in English and Arabic at
+// RODET: the standard library documents its items in English and Arabic at
 // the same time; the Arabic of a doc comment sits in a block
 //
 //     <div lang="ar" dir="rtl">
@@ -50,7 +50,7 @@ const ARABIC_CLOSE: &str = "</div>";
 
 static SHOW_ARABIC: AtomicBool = AtomicBool::new(false);
 
-/// RUST++: show documentation in Arabic where it has an Arabic block.
+/// RODET: show documentation in Arabic where it has an Arabic block.
 pub fn set_docs_in_arabic(arabic: bool) {
     SHOW_ARABIC.store(arabic, Ordering::Relaxed);
 }

@@ -59,22 +59,22 @@ pub use crate::{
 /// True if `c` is whitespace in Rust source (Unicode Pattern_White_Space as in the language reference).
 ///
 /// See <https://doc.rust-lang.org/reference/whitespace.html>.
-/// Rust++: whether `ident` can be a lifetime written without a quote: `_`, a
+/// Rodet: whether `ident` can be a lifetime written without a quote: `_`, a
 /// lowercase ASCII letter, then anything (`_a`, `_input`, `_static`).
 ///
 /// Such identifiers get the contextual kind `LIFETIME_IDENT`, and the parser
 /// reads them as lifetimes where a lifetime is expected (`<_a>`, `&_a T`,
 /// `T: _static`). Elsewhere they stay normal identifiers.
-pub fn is_rustpp_lifetime_ident(ident: &str) -> bool {
+pub fn is_rodet_lifetime_ident(ident: &str) -> bool {
     let mut chars = ident.chars();
     chars.next() == Some('_') && chars.next().is_some_and(|c| c.is_ascii_lowercase())
 }
 
-/// The contextual kind of an identifier: a contextual keyword, a Rust++
-/// lifetime (see [`is_rustpp_lifetime_ident`]), or `IDENT`.
+/// The contextual kind of an identifier: a contextual keyword, a Rodet
+/// lifetime (see [`is_rodet_lifetime_ident`]), or `IDENT`.
 pub fn ident_contextual_kind(ident: &str, edition: Edition) -> SyntaxKind {
     SyntaxKind::from_contextual_keyword(ident, edition).unwrap_or_else(|| {
-        if is_rustpp_lifetime_ident(ident) { SyntaxKind::LIFETIME_IDENT } else { SyntaxKind::IDENT }
+        if is_rodet_lifetime_ident(ident) { SyntaxKind::LIFETIME_IDENT } else { SyntaxKind::IDENT }
     })
 }
 

@@ -82,7 +82,7 @@ with Monaco directly, add them to `devr.subscriptions`.
 | `devr.editor` | the code editor and the whole Monaco API |
 | `devr.workspace` | open, read, write and save files; events when files open, save, close |
 | `devr.terminal` | run programs and `cargo` |
-| `devr.lsp` | requests to rust++-analyzer, errors and warnings |
+| `devr.lsp` | requests to rodet-analyzer, errors and warnings |
 | `devr.settings`, `devr.storage` | the editor's settings; your plugin's own saved data |
 | `devr.backend` | everything the DEVR+ backend can do |
 | `devr.t`, `devr.addTranslations` | your texts in English and Arabic |
@@ -106,7 +106,7 @@ It then shows in **Settings → Theme**.
 
 ## Examples
 
-In the Rust++ repository, `devr/plugin-api/examples/`:
+In the Rodet repository, `devr/plugin-api/examples/`:
 
 - **ocean**: a theme and a rounded look, no code.
 - **todos**: a side view with every TODO and FIXME, a command and a status item.

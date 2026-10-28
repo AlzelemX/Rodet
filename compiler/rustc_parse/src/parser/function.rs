@@ -145,7 +145,7 @@ impl<'a> Parser<'a> {
 
         let mut decl = Box::new(decl);
 
-        // RUST++: turn parameter default values into hidden constants.
+        // RODET: turn parameter default values into hidden constants.
         self.generate_param_defaults(ident, vis, &fn_parse_mode);
 
         // Store the end of function parameters to give better diagnostics
@@ -156,7 +156,7 @@ impl<'a> Parser<'a> {
 
         generics.where_clause = self.parse_where_clause()?; // `where T: Ord`
 
-        // RUST++: turn `-> &{x, y} T` into ordinary lifetimes.
+        // RODET: turn `-> &{x, y} T` into ordinary lifetimes.
         self.desugar_borrow_sources(&mut generics, &mut decl);
 
         // `fn_params_end` is needed only when it's followed by a where clause.
@@ -811,7 +811,7 @@ impl<'a> Parser<'a> {
                 }
                 let ty = if is_const { this.parse_ty() } else { this.parse_ty_for_named_param() }?;
 
-                // RUST++: `name: Type = default`
+                // RODET: `name: Type = default`
                 if this.token == token::Eq {
                     this.parse_param_default(&pat, &ty, fn_parse_mode)?;
                 }

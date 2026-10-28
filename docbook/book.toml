@@ -1,6 +1,6 @@
 [book]
-title = "The Rust++ Doc Book"
-description = "How to write Rust++: a faster to read, easier to learn Rust."
+title = "The Rodet Doc Book"
+description = "How to write Rodet: a faster to read, easier to learn Rust."
 authors = ["AlzelemX"]
 language = "en"
 src = "src"
@@ -8,12 +8,12 @@ src = "src"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "ayu"
-git-repository-url = "https://github.com/AlzelemX/Rust-/tree/main/docbook"
-edit-url-template = "https://github.com/AlzelemX/Rust-/edit/main/docbook/{path}"
-additional-css = ["theme/rustpp.css"]
-site-url = "/Rust-/"
+git-repository-url = "https://github.com/AlzelemX/rodet/tree/main/docbook"
+edit-url-template = "https://github.com/AlzelemX/rodet/edit/main/docbook/{path}"
+additional-css = ["theme/rodet.css"]
+site-url = "/rodet/"
 
-# play.rust-lang.org runs normal Rust, not Rust++: no "Run" buttons.
+# play.rust-lang.org runs normal Rust, not Rodet: no "Run" buttons.
 [output.html.playground]
 runnable = false
 copyable = true

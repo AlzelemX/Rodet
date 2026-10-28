@@ -741,7 +741,7 @@ pub enum NameRefClass<'db> {
     },
 }
 
-/// Rust++: if `name_ref` is the name of a named argument, `f(name = value)`,
+/// Rodet: if `name_ref` is the name of a named argument, `f(name = value)`,
 /// the parameter `name` of the called function.
 fn named_argument_param<'db>(
     sema: &Semantics<'db, RootDatabase>,
@@ -799,7 +799,7 @@ impl<'db> NameRefClass<'db> {
             return Some(res);
         }
 
-        // Rust++: the name of a named argument (`area(width = 3)`) is the parameter.
+        // Rodet: the name of a named argument (`area(width = 3)`) is the parameter.
         if let Some(param) = named_argument_param(sema, name_ref) {
             return Some(NameRefClass::Definition(Definition::Local(param), None));
         }

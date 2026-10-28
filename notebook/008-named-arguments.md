@@ -21,7 +21,7 @@ fn main() {
 }
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```rust
 fn area(width: u32, height: u32) -> u32 {
@@ -44,9 +44,9 @@ fn main() {
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_hir/src/rustpp.rs`: matches names to parameters
-- `compiler/rustc_hir_typeck/src/fn_ctxt/rustpp.rs`: type checking and errors
+- `compiler/rustc_hir/src/rodet.rs`: matches names to parameters
+- `compiler/rustc_hir_typeck/src/fn_ctxt/rodet.rs`: type checking and errors
 - `compiler/rustc_mir_build/src/thir/cx/expr.rs`: builds the call in order
-- `tests/ui/rustpp/named-args.rs`, `named-args-errors.rs`: tests
+- `tests/ui/rodet/named-args.rs`, `named-args-errors.rs`: tests
 
 </details>

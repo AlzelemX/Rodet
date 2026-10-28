@@ -17,7 +17,7 @@ fn pick<'a>(v: &'a Vec<i32>, n: &usize) -> &'a i32 {
 }
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```rust
 fn longest(x: &str, y: &str) -> &{x, y} str {
@@ -41,7 +41,7 @@ Read `&{x, y} str` as "a `&str` borrowed from `x` or `y`".
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_parse/src/parser/rustpp.rs`: reads `&{...}` and turns it into lifetimes
-- `tests/ui/rustpp/borrow-sources.rs`, `borrow-sources-errors.rs`: tests
+- `compiler/rustc_parse/src/parser/rodet.rs`: reads `&{...}` and turns it into lifetimes
+- `tests/ui/rodet/borrow-sources.rs`, `borrow-sources-errors.rs`: tests
 
 </details>

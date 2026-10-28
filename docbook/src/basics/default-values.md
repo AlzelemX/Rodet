@@ -1,6 +1,6 @@
 # Default Values
 
-> **New in Rust++:** a parameter can have a default value: `name: Type = value`.
+> **New in Rodet:** a parameter can have a default value: `name: Type = value`.
 > Leave it out when calling, and the default is used.
 
 ```rust

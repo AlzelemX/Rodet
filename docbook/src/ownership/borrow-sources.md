@@ -1,6 +1,6 @@
 # Borrow Sources
 
-> **New in Rust++:** when a function returns a reference, write which
+> **New in Rodet:** when a function returns a reference, write which
 > parameters it borrows from: `&{x, y} T`.
 
 ```rust

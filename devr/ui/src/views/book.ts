@@ -1,9 +1,9 @@
 // The Doc Book inside the editor: the book that comes with the installed
-// Rust++ (so it always matches the language version), in Arabic or English,
+// Rodet (so it always matches the language version), in Arabic or English,
 // with its chapters on the side.
 import { Marked } from 'marked';
 import * as monaco from '../editor/monaco';
-import { RUSTPP } from '../editor/language';
+import { RODET } from '../editor/language';
 import { backend, errorText } from '../backend';
 import { arabic, isolateLatin, t } from '../i18n';
 import { runCommand } from '../ui/palette';
@@ -11,7 +11,7 @@ import { h, icon } from '../util';
 import { workspace } from '../workspace';
 
 export const BOOK_TAB = 'devr-book:';
-const ONLINE = 'https://alzelemx.github.io/Rust-/';
+const ONLINE = 'https://alzelemx.github.io/rodet/';
 
 interface Chapter {
   title: string;
@@ -114,7 +114,7 @@ function openUrl(url: string) {
   } else window.open(url, '_blank');
 }
 
-/** Shows a chapter: Markdown → HTML, Rust++ code colored like the editor. */
+/** Shows a chapter: Markdown → HTML, Rodet code colored like the editor. */
 async function showChapter(path: string) {
   current = path;
   renderToc();
@@ -131,13 +131,13 @@ async function showChapter(path: string) {
     const pre = block.parentElement!;
     pre.setAttribute('dir', 'ltr');
     const lang = (block.className.match(/language-(\w+)/)?.[1] ?? 'rust').toLowerCase();
-    if (['rust', 'rs', 'rustpp'].includes(lang) || !block.className) {
-      block.innerHTML = await monaco.editor.colorize(block.textContent ?? '', RUSTPP, { tabSize: 4 });
+    if (['rust', 'rs', 'rodet'].includes(lang) || !block.className) {
+      block.innerHTML = await monaco.editor.colorize(block.textContent ?? '', RODET, { tabSize: 4 });
     }
   }
   for (const code of page.querySelectorAll(':not(pre) > code')) code.setAttribute('dir', 'ltr');
   if (language === 'ar') {
-    // "Rust++" inside Arabic sentences would show as "++Rust".
+    // "Rodet" inside Arabic sentences would show as "++Rust".
     const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
       if (!(node.parentElement?.closest('pre, code'))) (node as Text).data = isolateLatin((node as Text).data);
@@ -181,9 +181,9 @@ function renderMissing() {
   bookElement.setAttribute('dir', arabic ? 'rtl' : 'ltr');
   page.replaceChildren(
     h('h1', {}, t('Doc Book')),
-    h('p', {}, t('The Rust++ on this computer doesn’t include the Doc Book yet. Update Rust++ to read it here, matching your version of the language.')),
+    h('p', {}, t('The Rodet on this computer doesn’t include the Doc Book yet. Update Rodet to read it here, matching your version of the language.')),
     h('div.book-nav', {},
-      h('button.btn.primary', { onclick: () => runCommand('rustpp.install') }, icon('cloud-download'), t('Update Rust++')),
+      h('button.btn.primary', { onclick: () => runCommand('rodet.install') }, icon('cloud-download'), t('Update Rodet')),
       h('button.btn', { onclick: () => openUrl(arabic ? `${ONLINE}ar/` : ONLINE) }, icon('link-external'), t('Read online'))));
 }
 
@@ -206,7 +206,7 @@ export async function openBook(chapter?: string) {
   }
 }
 
-/** Forget the book (after Rust++ was installed or updated). */
+/** Forget the book (after Rodet was installed or updated). */
 export function reloadBook() {
   info = null;
   sections = [];

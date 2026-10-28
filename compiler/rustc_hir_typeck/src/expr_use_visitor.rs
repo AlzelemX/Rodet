@@ -349,8 +349,8 @@ impl<'tcx, Cx: TypeInformationCtxt<'tcx>, D: Delegate<'tcx>> ExprUseVisitor<'tcx
 
     fn consume_exprs(&self, exprs: &[hir::Expr<'_>]) -> Result<(), Cx::Error> {
         for expr in exprs {
-            // RUST++: only the value of a named argument `x = value` is used.
-            match hir::rustpp::named_arg(expr) {
+            // RODET: only the value of a named argument `x = value` is used.
+            match hir::rodet::named_arg(expr) {
                 Some((_, value)) => self.consume_expr(value)?,
                 None => self.consume_expr(expr)?,
             }

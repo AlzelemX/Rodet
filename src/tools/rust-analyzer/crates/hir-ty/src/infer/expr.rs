@@ -1903,8 +1903,8 @@ impl<'db> InferenceContext<'db> {
         };
         let ret_ty = sig.output();
 
-        // Rust++: named arguments and default values.
-        if let Some(ordered) = self.rustpp_order_args(tgt_expr, callee, args, param_tys, true) {
+        // Rodet: named arguments and default values.
+        if let Some(ordered) = self.rodet_order_args(tgt_expr, callee, args, param_tys, true) {
             self.check_call_arguments(
                 tgt_expr,
                 &ordered.input_tys,

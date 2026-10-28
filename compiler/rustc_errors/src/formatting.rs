@@ -32,7 +32,7 @@ pub fn format_diag_messages(messages: &[(DiagMessage, Style)], args: &DiagArgMap
 
 /// Convert a `DiagMessage` to a string
 pub fn format_diag_message<'a>(message: &'a DiagMessage, args: &DiagArgMap) -> Cow<'a, str> {
-    // RUST++: the message in the user's language (`RUSTPP_LANG`), see `i18n.rs`.
+    // RODET: the message in the user's language (`RODET_LANG`), see `i18n.rs`.
     match message {
         DiagMessage::Str(msg) => match crate::i18n::text(msg) {
             Some(translated) => Cow::Owned(translated),
@@ -45,7 +45,7 @@ pub fn format_diag_message<'a>(message: &'a DiagMessage, args: &DiagArgMap) -> C
     }
 }
 
-/// RUST++: formats a translated template; `None` if it can't be read (then
+/// RODET: formats a translated template; `None` if it can't be read (then
 /// the English message is shown instead of failing).
 fn try_format_fluent_str(message: &str, args: &DiagArgMap) -> Option<String> {
     const GENERATED_MSG_ID: &str = "generated_msg";

@@ -1,15 +1,15 @@
-# `DEVR+` | The Editor For Rust++
+# `DEVR+` | The Editor For Rodet
 
 > 📅 **2026-10-23** · 🟢 Done (v0.1) · 🏷️ Tooling
 
-DEVR+ (DEV + R+) is a light editor made only for Rust++. It looks and works
+DEVR+ (DEV + R+) is a light editor made only for Rodet. It looks and works
 like VS Code, so there is nothing new to learn, but everything in it is
 about the language: about 10 MB instead of hundreds.
 
 ### Before
 
 ```text
-VS Code + rust-analyzer: red lines under every Rust++ feature,
+VS Code + rust-analyzer: red lines under every Rodet feature,
 nothing knows about out!, &{x}, _a, named arguments or default values.
 ```
 
@@ -29,9 +29,9 @@ DEVR+
 
 ### Download
 
-From the [releases](https://github.com/AlzelemX/Rust-/releases) named
+From the [releases](https://github.com/AlzelemX/rodet/releases) named
 **DEVR+**: `.exe` for Windows, `.deb` / `.AppImage` for Linux, `.dmg` for
-macOS. DEVR+ uses the Rust++ installed by `rustup++_init`, and offers to
+macOS. DEVR+ uses the Rodet installed by `rodet_init`, and offers to
 install it when it's missing.
 
 ### Rules
@@ -48,6 +48,6 @@ install it when it's missing.
 - `devr/ui/`: the editor (TypeScript + Monaco + xterm.js)
 - `devr/app/`: the desktop app (Tauri)
 - `devr/server/`: the editor in a browser
-- `.github/workflows/devr.yml`: builds the installers with Rust++ itself
+- `.github/workflows/devr.yml`: builds the installers with Rodet itself
 
 </details>

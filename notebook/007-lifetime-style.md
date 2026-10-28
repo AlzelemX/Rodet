@@ -21,7 +21,7 @@ impl<'a> Parser<'a> {
 const NAME: &'static str = "Rust";
 ```
 
-### After (Rust++)
+### After (Rodet)
 
 ```rust
 struct Parser<_a> {
@@ -34,7 +34,7 @@ impl<_a> Parser<_a> {
     }
 }
 
-const NAME: &_static str = "Rust++";
+const NAME: &_static str = "Rodet";
 ```
 
 ### Rules
@@ -46,7 +46,7 @@ const NAME: &_static str = "Rust++";
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_parse/src/parser/rustpp.rs`: `is_named_lifetime`, `named_lifetime`
-- `tests/ui/rustpp/named-lifetimes.rs`: test
+- `compiler/rustc_parse/src/parser/rodet.rs`: `is_named_lifetime`, `named_lifetime`
+- `tests/ui/rodet/named-lifetimes.rs`: test
 
 </details>

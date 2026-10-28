@@ -189,7 +189,7 @@ impl<'t> Parser<'t> {
         self.inp.contextual_kind(self.pos + n) == kw
     }
 
-    /// Rust++: checks if the nth token is a lifetime, `'a` or `_a`.
+    /// Rodet: checks if the nth token is a lifetime, `'a` or `_a`.
     ///
     /// `_a` (an identifier made of `_` and a lowercase letter, then anything)
     /// is only a lifetime where a lifetime is expected; elsewhere it is a
@@ -204,7 +204,7 @@ impl<'t> Parser<'t> {
                 && !self.nth_at(n + 1, T![<]))
     }
 
-    /// Rust++: checks if the current token is a lifetime, `'a` or `_a`.
+    /// Rodet: checks if the current token is a lifetime, `'a` or `_a`.
     pub(crate) fn at_lifetime(&self) -> bool {
         self.nth_at_lifetime(0)
     }

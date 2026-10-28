@@ -2534,7 +2534,7 @@
                 "title": "Inlay Hints",
                 "properties": {
                     "rust-analyzer.inlayHints.returnValueHints.enable": {
-                        "markdownDescription": "Rust++: show a mark after the value a function gives back without `return`.",
+                        "markdownDescription": "Rodet: show a mark after the value a function gives back without `return`.",
                         "default": true,
                         "type": "boolean"
                     }
@@ -3120,10 +3120,10 @@
                 }
             },
             {
-                "title": "Rustpp",
+                "title": "Rodet",
                 "properties": {
-                    "rust-analyzer.rustpp.language": {
-                        "markdownDescription": "RUST++: the language of the standard library's documentation in hovers,\ncompletions and signature help. Documentation without an Arabic part is\nshown in English.",
+                    "rust-analyzer.rodet.language": {
+                        "markdownDescription": "RODET: the language of the standard library's documentation in hovers,\ncompletions and signature help. Documentation without an Arabic part is\nshown in English.",
                         "default": "en",
                         "type": "string",
                         "enum": [

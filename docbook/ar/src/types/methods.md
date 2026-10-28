@@ -59,6 +59,6 @@ fn main() {
 `Self` (بحرف S كبير) اسم مختصر لنوع الـ `impl`:
 `fn new(...) -> Self` تعني `-> Rect`.
 
-> **Rust++:** [الوسائط بالاسم](../basics/named-arguments.md)
+> **Rodet:** [الوسائط بالاسم](../basics/named-arguments.md)
 > و[القيم الافتراضية](../basics/default-values.md) تعمل مع الدوال المرتبطة:
 > `Rect::new(width = 3.0)`، `r.scale(by = 0.5)`.

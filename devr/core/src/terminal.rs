@@ -85,7 +85,7 @@ impl Terminals {
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
         cmd.env("CARGO_TERM_COLOR", "always");
-        cmd.env("RUSTPP_LANG", crate::toolchain::language());
+        cmd.env("RODET_LANG", crate::toolchain::language());
 
         let mut child = pair.slave.spawn_command(cmd).context("can't start the command")?;
         drop(pair.slave);

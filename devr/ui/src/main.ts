@@ -1,4 +1,4 @@
-// DEVR+: the editor for Rust++.
+// DEVR+: the editor for Rodet.
 // First: the interface language, and Monaco's Arabic texts (before Monaco loads).
 import './i18n/monaco-nls';
 import { t } from './i18n';
@@ -160,8 +160,8 @@ async function main() {
 
   lsp.onState.on((state) => {
     if (state === 'missing') {
-      toast(t('rust++-analyzer was not found, so errors, completion and search are off. Install or update Rust++ to turn them on.'), 'warning', [
-        { label: t('Install Rust++'), primary: true, run: () => runCommand('rustpp.install') },
+      toast(t('rodet-analyzer was not found, so errors, completion and search are off. Install or update Rodet to turn them on.'), 'warning', [
+        { label: t('Install Rodet'), primary: true, run: () => runCommand('rodet.install') },
       ]);
     } else if (state === 'error') {
       toast(t('The language server stopped.'), 'error', [
@@ -206,13 +206,13 @@ export async function openFolderDialog() {
   await workspace.openFolder(path);
 }
 
-function installRustpp() {
+function installRodet() {
   const windows = workspace.info.os === 'windows';
   const command = windows
     ? ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command',
-        "$f = \"$env:TEMP\\rustup++_init.exe\"; Invoke-WebRequest https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.exe -OutFile $f; & $f -y"]
-    : ['sh', '-c', 'curl -fsSL https://github.com/AlzelemX/Rust-/releases/latest/download/rustup++_init.sh | sh'];
-  runTask('Install Rust++', command, workspace.info.home ?? '.');
+        "$f = \"$env:TEMP\\rodet_init.exe\"; Invoke-WebRequest https://github.com/AlzelemX/rodet/releases/latest/download/rodet_init.exe -OutFile $f; & $f -y"]
+    : ['sh', '-c', 'curl -fsSL https://github.com/AlzelemX/rodet/releases/latest/download/rodet_init.sh | sh'];
+  runTask('Install Rodet', command, workspace.info.home ?? '.');
   const off = backend.on('term.exit', async () => {
     off();
     await workspace.refreshToolchain();
@@ -227,7 +227,7 @@ function registerCommands() {
   const C = registerCommand;
   C({ id: 'folder.open', title: t('File: Open Folder…'), key: 'Ctrl+O', icon: 'folder-opened', run: () => openFolderDialog() });
   C({ id: 'folder.close', title: t('File: Close Folder'), icon: 'close', run: () => workspace.closeFolder() });
-  C({ id: 'project.new', title: t('Cargo: New Rust++ Project…'), icon: 'add', run: () => newProject() });
+  C({ id: 'project.new', title: t('Cargo: New Rodet Project…'), icon: 'add', run: () => newProject() });
   C({ id: 'file.new', title: t('File: New File…'), key: 'Ctrl+N', icon: 'new-file', run: () => newFile() });
   C({ id: 'file.save', title: t('File: Save'), key: 'Ctrl+S', icon: 'save', run: () => workspace.save() });
   C({ id: 'file.saveAll', title: t('File: Save All'), key: 'Ctrl+Alt+S', icon: 'save-all', run: () => workspace.saveAll() });
@@ -259,16 +259,16 @@ function registerCommands() {
   C({ id: 'book.open', title: t('Help: Doc Book'), icon: 'book', run: () => openBook() });
   C({ id: 'settings', title: t('Preferences: Settings'), key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
   C({ id: 'theme.toggle', title: t('Preferences: Toggle Dark / Light Theme'), icon: 'color-mode', run: () => updateSettings({ theme: (themes.get(settings.theme)?.base ?? settings.theme) === 'dark' ? 'light' : 'dark' }) });
-  C({ id: 'analyzer.restart', title: t('Rust++: Restart Language Server'), icon: 'refresh', run: () => restartLanguageServer() });
-  C({ id: 'analyzer.menu', title: t('Rust++: Language Server Status'), icon: 'info', run: () => {
+  C({ id: 'analyzer.restart', title: t('Rodet: Restart Language Server'), icon: 'refresh', run: () => restartLanguageServer() });
+  C({ id: 'analyzer.menu', title: t('Rodet: Language Server Status'), icon: 'info', run: () => {
     if (lsp.state === 'error' || lsp.state === 'stopped') restartLanguageServer();
     else layout.showPanel('output');
   } });
-  C({ id: 'rustpp.install', title: t('Rust++: Install or Update Rust++'), icon: 'cloud-download', run: () => installRustpp() });
-  C({ id: 'rustpp.about', title: t('Rust++: About This Toolchain'), icon: 'info', run: () => {
+  C({ id: 'rodet.install', title: t('Rodet: Install or Update Rodet'), icon: 'cloud-download', run: () => installRodet() });
+  C({ id: 'rodet.about', title: t('Rodet: About This Toolchain'), icon: 'info', run: () => {
     const tc = workspace.info.toolchain;
-    toast(`${tc.rustcVersion ?? t('Rust++ is not installed')}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
-      { label: t('Install / Update'), run: () => installRustpp() },
+    toast(`${tc.rustcVersion ?? t('Rodet is not installed')}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
+      { label: t('Install / Update'), run: () => installRodet() },
     ]);
   } });
   C({ id: 'editor.rename', title: t('Rename Symbol'), key: 'F2', icon: 'edit', run: () => editorAction('editor.action.rename') });

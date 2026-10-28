@@ -475,7 +475,7 @@ impl CommandLineStep for Releases {
     }
 
     fn is_default_step(builder: &Builder<'_>) -> bool {
-        // Rust++ keeps its change log in `notebook/`, not in RELEASES.md.
+        // Rodet keeps its change log in `notebook/`, not in RELEASES.md.
         builder.config.docs && builder.src.join("RELEASES.md").exists()
     }
 

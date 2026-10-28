@@ -1423,7 +1423,7 @@ impl Builder<'_> {
         }
         if self.config.vendor || self.is_sudo {
             cargo.arg("--frozen");
-            // RUST++: build from `vendor/` without a `.cargo/config.toml` at
+            // RODET: build from `vendor/` without a `.cargo/config.toml` at
             // the top of the repository (it would also apply to other
             // projects in it, like the DEVR+ editor).
             let vendor = self.src.join("vendor");

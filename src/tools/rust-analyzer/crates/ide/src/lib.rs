@@ -397,7 +397,7 @@ impl Analysis {
         })
     }
 
-    /// Rust++: the speed score of a file, see [`SpeedScore`].
+    /// Rodet: the speed score of a file, see [`SpeedScore`].
     pub fn speed_score(&self, file_id: FileId) -> Cancellable<SpeedScore> {
         self.with_db(|db| speed_score::speed_score(db, file_id))
     }

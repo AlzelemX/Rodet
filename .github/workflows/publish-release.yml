@@ -1,7 +1,7 @@
 name: Publish release
 
-# Publishes the builds of one "Build Rust++" run as a GitHub release.
-# Called by build-rustpp.yml after every build. Can also be run by hand with
+# Publishes the builds of one "Build Rodet" run as a GitHub release.
+# Called by build-rodet.yml after every build. Can also be run by hand with
 # the id of an earlier run, to publish it again without rebuilding.
 
 on:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
-        description: 'Id of the "Build Rust++" run to publish (from its URL)'
+        description: 'Id of the "Build Rodet" run to publish (from its URL)'
         required: true
 
 permissions:
@@ -41,17 +41,17 @@ jobs:
           RUN_NUMBER=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq .run_number)
           SHA=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq .head_sha)
           VERSION=$(sed -n 1p artifacts/*/version.txt)
-          TAG="v$(echo "$VERSION" | awk '{print $2}')-rustpp.${RUN_NUMBER}"
+          TAG="v$(echo "$VERSION" | awk '{print $2}')-rodet.${RUN_NUMBER}"
 
           {
             echo "\`$VERSION\`, built from ${SHA}."
             echo
-            echo "**Windows:** download \`rustup++_init.exe\` and double-click it."
+            echo "**Windows:** download \`rodet_init.exe\` and double-click it."
             echo
             echo "**Linux / macOS:**"
             echo
             echo '```sh'
-            echo "curl -fsSL https://github.com/${REPO}/releases/latest/download/rustup++_init.sh | sh"
+            echo "curl -fsSL https://github.com/${REPO}/releases/latest/download/rodet_init.sh | sh"
             echo '```'
             echo
             echo "What changed: see the [NoteBook](https://github.com/${REPO}/tree/main/notebook)."
@@ -64,7 +64,7 @@ jobs:
           gh release delete "$TAG" -R "$REPO" --yes 2> /dev/null || true
           create() {
             gh api -i "repos/$REPO/releases" -X POST -f tag_name="$TAG" -f target_commitish="$1" \
-              -f name="Rust++ $TAG" -F body=@notes.md -F draft=true > create.txt 2>&1
+              -f name="Rodet $TAG" -F body=@notes.md -F draft=true > create.txt 2>&1
           }
           if ! create "$SHA"; then
             MAIN=$(gh api "repos/$REPO/commits/main" --jq .sha)

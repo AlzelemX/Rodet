@@ -14,7 +14,7 @@ mod never_type;
 mod opaque_types;
 mod patterns;
 mod regression;
-mod rustpp;
+mod rodet;
 mod simple;
 mod trait_aliases;
 mod traits;

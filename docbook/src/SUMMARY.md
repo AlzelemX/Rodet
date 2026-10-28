@@ -4,7 +4,7 @@
 
 # Getting Started
 
-- [Install Rust++](start/install.md)
+- [Install Rodet](start/install.md)
 - [Hello, World!](start/hello.md)
 - [Projects with Cargo](start/cargo.md)
 - [The DEVR+ Editor](start/devr.md)
@@ -33,7 +33,7 @@
 - [Enums and match](types/enums.md)
 - [Traits and Generics](types/traits.md)
 
-# Everyday Rust++
+# Everyday Rodet
 
 - [Collections](everyday/collections.md)
 - [Errors](everyday/errors.md)
@@ -41,5 +41,5 @@
 
 # Appendix
 
-- [Rust++ for Rust Programmers](appendix/for-rust-programmers.md)
+- [Rodet for Rust Programmers](appendix/for-rust-programmers.md)
 - [Coming Soon](appendix/coming-soon.md)

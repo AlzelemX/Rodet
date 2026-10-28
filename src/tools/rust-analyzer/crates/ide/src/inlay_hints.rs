@@ -341,7 +341,7 @@ pub struct InlayHintsConfig<'a> {
     pub hide_closure_initialization_hints: bool,
     pub hide_closure_parameter_hints: bool,
     pub range_exclusive_hints: bool,
-    /// Rust++: mark the value a function gives back without `return`.
+    /// Rodet: mark the value a function gives back without `return`.
     pub return_value_hints: bool,
     pub closure_style: ClosureStyle,
     pub max_length: Option<usize>,
@@ -491,7 +491,7 @@ pub enum InlayKind {
     Drop,
     RangeExclusive,
     ExternUnsafety,
-    /// Rust++: the value a function gives back.
+    /// Rodet: the value a function gives back.
     ReturnValue,
 }
 

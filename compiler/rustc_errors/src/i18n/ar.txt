@@ -1,4 +1,4 @@
-# RUST++: Arabic for the compiler's messages, shown when RUSTPP_LANG=ar.
+# RODET: Arabic for the compiler's messages, shown when RODET_LANG=ar.
 #
 # Each message: `en:` the exact English text from the compiler's source, then
 # `ar:` its Arabic. Keep `{$name}` holes (Fluent messages) as they are; in
@@ -6,7 +6,7 @@
 # Fluent selectors keep their shape: {$n -> [one] … *[other] …}.
 # Code, names and types stay in `backticks`.
 #
-# What is missing: python3 rustpp/i18n/compiler_messages.py missing [crate]
+# What is missing: python3 rodet/i18n/compiler_messages.py missing [crate]
 
 en: remove the arguments
 ar: احذف الوسائط
@@ -2700,10 +2700,10 @@ en: this function's return type contains a borrowed value with an elided lifetim
 ar: نوع إرجاع هذه الدالة فيه قيمة مستعارة بعمر محذوف، لكن لا يمكن استنتاج العمر من الوسائط
 
 en: this function's return type contains a borrowed value, but the signature does not say which {m} it is borrowed from
-ar: نوع إرجاع هذه الدالة فيه قيمة مستعارة، لكن التوقيع لا يحدد من أي {0} تُستعار؛ في Rust++ اكتب المصدر: `-> &{x} T`
+ar: نوع إرجاع هذه الدالة فيه قيمة مستعارة، لكن التوقيع لا يحدد من أي {0} تُستعار؛ في Rodet اكتب المصدر: `-> &{x} T`
 
 en: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from {m}
-ar: نوع إرجاع هذه الدالة فيه قيمة مستعارة، لكن التوقيع لا يحدد هل تُستعار من {0}؛ في Rust++ اكتب المصدر: `-> &{x} T`
+ar: نوع إرجاع هذه الدالة فيه قيمة مستعارة، لكن التوقيع لا يحدد هل تُستعار من {0}؛ في Rodet اكتب المصدر: `-> &{x} T`
 
 en: consider using the `{existing_name}` lifetime{post}
 ar: جرّب استخدام العمر `{0}`{1}
@@ -4764,7 +4764,7 @@ en: non-function item at `crate::main` is found
 ar: وُجد عنصر ليس دالة في `crate::main`
 
 en: if you don't know the basics of Rust, you can go look to the Rust Book to get started: https://doc.rust-lang.org/book/
-ar: إذا كنت لا تعرف أساسيات اللغة، ابدأ بكتاب Doc Book: https://alzelemx.github.io/Rust-/ar/
+ar: إذا كنت لا تعرف أساسيات اللغة، ابدأ بكتاب Doc Book: https://alzelemx.github.io/rodet/ar/
 
 en: useless assignment of {$is_field_assign ->\n        [true] field\n        *[false] variable\n    } of type `{$ty}` to itself
 ar: إسناد بلا فائدة لـ {$is_field_assign ->\n        [true] الحقل\n        *[false] المتغير\n    } من النوع `{$ty}` إلى نفسه
@@ -5469,7 +5469,7 @@ en: positive implementation here
 ar: تطبيق إيجابي هنا
 
 en: each elided lifetime in input position becomes a distinct lifetime
-ar: كل عمر محذوف في المدخلات يصبح عمرًا مستقلًا؛ في Rust++ اكتب مصدر الاستعارة: `-> &{x} T`
+ar: كل عمر محذوف في المدخلات يصبح عمرًا مستقلًا؛ في Rodet اكتب مصدر الاستعارة: `-> &{x} T`
 
 en: lifetime mismatch
 ar: الأعمار غير متطابقة
@@ -7212,7 +7212,7 @@ en: expected a label, found an identifier
 ar: المتوقَّع اسم حلقة، لكن الموجود اسم عادي
 
 en: labels start with a tick
-ar: أسماء الحلقات تبدأ بعلامة `'` (في Rust++ أسماء الأعمار تبدأ بـ `_`)
+ar: أسماء الحلقات تبدأ بعلامة `'` (في Rodet أسماء الأعمار تبدأ بـ `_`)
 
 en: expected item, found {$token_name}
 ar: المتوقَّع عنصر، لكن الموجود {$token_name}
@@ -7422,7 +7422,7 @@ en: expected a path
 ar: المتوقَّع مسار
 
 en: Rust has no ternary operator
-ar: Rust++ ليس فيها المعامل الثلاثي `? :`
+ar: Rodet ليس فيها المعامل الثلاثي `? :`
 
 en: use an `if-else` expression instead
 ar: استخدم تعبير `if-else` بدلًا منه
@@ -7929,7 +7929,7 @@ en: cast cannot be followed by {kind}
 ar: التحويل `as` لا يمكن أن يتبعه {0}
 
 en: Rust has no {fixity} {op} operator
-ar: Rust++ ليس فيها المعامل {0} {1}
+ar: Rodet ليس فيها المعامل {0} {1}
 
 en: not a valid {fixity} operator
 ar: ليس معاملًا {0} صالحًا

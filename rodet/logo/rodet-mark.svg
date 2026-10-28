@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1f4f8"/>
+      <stop offset="0.5" stop-color="#9aa6b5"/>
+      <stop offset="1" stop-color="#5b6675"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb366"/>
+      <stop offset="1" stop-color="#e8590c"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="0.5" cy="0.42" r="0.7">
+      <stop offset="0" stop-color="#242a33"/>
+      <stop offset="1" stop-color="#0d1015"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- the web -->
+  <g fill="none" stroke="#e8590c" stroke-opacity="0.28" stroke-width="3">
+    <path d="M256 36 V476 M36 256 H476 M100 100 L412 412 M412 100 L100 412"/>
+    <polygon points="256,96 369,143 416,256 369,369 256,416 143,369 96,256 143,143"/>
+    <polygon points="256,156 327,185 356,256 327,327 256,356 185,327 156,256 185,185"/>
+  </g>
+  <!-- legs: four per side, bent like threads -->
+  <g fill="none" stroke="url(#steel)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M222 214 L150 150 L112 92"/>
+    <path d="M214 240 L128 214 L74 178"/>
+    <path d="M214 274 L128 300 L82 352"/>
+    <path d="M224 300 L162 370 L136 432"/>
+    <path d="M290 214 L362 150 L400 92"/>
+    <path d="M298 240 L384 214 L438 178"/>
+    <path d="M298 274 L384 300 L430 352"/>
+    <path d="M288 300 L350 370 L376 432"/>
+  </g>
+  <!-- joints glow -->
+  <g fill="url(#ember)" filter="url(#glow)">
+    <circle cx="150" cy="150" r="8"/><circle cx="128" cy="214" r="8"/><circle cx="128" cy="300" r="8"/><circle cx="162" cy="370" r="8"/>
+    <circle cx="362" cy="150" r="8"/><circle cx="384" cy="214" r="8"/><circle cx="384" cy="300" r="8"/><circle cx="350" cy="370" r="8"/>
+  </g>
+  <!-- body: a cut gem (head + abdomen) -->
+  <polygon points="256,168 290,196 280,232 256,242 232,232 222,196" fill="url(#steel)" stroke="#0d1015" stroke-width="4"/>
+  <polygon points="256,236 304,266 300,330 256,368 212,330 208,266" fill="url(#steel)" stroke="#0d1015" stroke-width="4"/>
+  <!-- facets -->
+  <path d="M256 236 V368 M208 266 L256 300 L304 266 M212 330 L256 300 L300 330" stroke="#0d1015" stroke-opacity="0.35" stroke-width="3" fill="none"/>
+  <!-- the mark on its back -->
+  <polygon points="256,282 272,300 256,318 240,300" fill="url(#ember)" filter="url(#glow)"/>
+  <!-- eyes -->
+  <circle cx="246" cy="200" r="5" fill="#e8590c" filter="url(#glow)"/>
+  <circle cx="266" cy="200" r="5" fill="#e8590c" filter="url(#glow)"/>
+</svg>

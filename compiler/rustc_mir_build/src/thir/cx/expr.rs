@@ -413,7 +413,7 @@ impl<'tcx> ThirBuildCx<'tcx> {
                     let expr = self.method_callee(expr, segment.ident.span, None);
                     info!("Using method span: {:?}", expr.span);
 
-                    // RUST++: named arguments are passed in parameter order.
+                    // RODET: named arguments are passed in parameter order.
                     let args = self.order_named_args(expr.ty, args, 1);
 
                     // Arg position const args are already part of the callee's generic args,
@@ -546,7 +546,7 @@ impl<'tcx> ThirBuildCx<'tcx> {
                         // Arg position const args are already part of the callee's generic args,
                         // so we skip them when building runtime arguments.
                         let fn_ty = self.typeck_results.node_type(fun.hir_id);
-                        // RUST++: named arguments are passed in parameter order.
+                        // RODET: named arguments are passed in parameter order.
                         let args = self.order_named_args(fn_ty, args, 0);
                         let generics = match *fn_ty.kind() {
                             ty::FnDef(def_id, _) => Some(tcx.generics_of(def_id)),
@@ -1815,9 +1815,9 @@ fn assign_op(op: hir::AssignOpKind) -> AssignOp {
 }
 
 impl<'tcx> ThirBuildCx<'tcx> {
-    /// RUST++: the call arguments in parameter order, with named arguments
+    /// RODET: the call arguments in parameter order, with named arguments
     /// `x = value` replaced by their values and left-out parameters filled
-    /// with their default values (see `rustc_hir::rustpp`).
+    /// with their default values (see `rustc_hir::rodet`).
     /// `skip` is the number of leading parameters not in `args` (`self` for
     /// method calls).
     fn order_named_args(
@@ -1828,23 +1828,23 @@ impl<'tcx> ThirBuildCx<'tcx> {
     ) -> Vec<CallArg<'tcx>> {
         let unchanged = |args: Vec<&'tcx hir::Expr<'tcx>>| args.into_iter().map(CallArg::Expr).collect();
         let ty::FnDef(def_id, fn_args) = *fn_ty.kind() else {
-            return unchanged(hir::rustpp::strip_named_args(args));
+            return unchanged(hir::rodet::strip_named_args(args));
         };
         // Only functions and methods have parameter names (not e.g. tuple
         // struct constructors used as functions).
         if !matches!(self.tcx.def_kind(def_id), DefKind::Fn | DefKind::AssocFn) {
-            return unchanged(hir::rustpp::strip_named_args(args));
+            return unchanged(hir::rodet::strip_named_args(args));
         }
         let names = self.tcx.fn_arg_idents(def_id);
         let names = names.get(skip..).unwrap_or_default();
-        if !hir::rustpp::has_named_args(args) && args.len() >= names.len() {
+        if !hir::rodet::has_named_args(args) && args.len() >= names.len() {
             return unchanged(args.iter().collect());
         }
         let default_of = |index: usize| {
-            names[index].and_then(|name| ty::rustpp::param_default(self.tcx, def_id, name.name))
+            names[index].and_then(|name| ty::rodet::param_default(self.tcx, def_id, name.name))
         };
         // Type checking already reported any mistake.
-        match hir::rustpp::order_named_args(names, args, |index| default_of(index).is_some()) {
+        match hir::rodet::order_named_args(names, args, |index| default_of(index).is_some()) {
             Ok(slots) => slots
                 .into_iter()
                 .enumerate()
@@ -1859,11 +1859,11 @@ impl<'tcx> ThirBuildCx<'tcx> {
                     }
                 })
                 .collect(),
-            Err(_) => unchanged(hir::rustpp::strip_named_args(args)),
+            Err(_) => unchanged(hir::rodet::strip_named_args(args)),
         }
     }
 
-    /// RUST++: builds a call argument: an expression, or a parameter default
+    /// RODET: builds a call argument: an expression, or a parameter default
     /// value (a use of its hidden constant).
     fn mirror_call_arg(&mut self, call: &'tcx hir::Expr<'tcx>, arg: CallArg<'tcx>) -> ExprId {
         match arg {
@@ -1881,7 +1881,7 @@ impl<'tcx> ThirBuildCx<'tcx> {
     }
 }
 
-/// RUST++: one argument of a call, see [`ThirBuildCx::order_named_args`].
+/// RODET: one argument of a call, see [`ThirBuildCx::order_named_args`].
 #[derive(Clone, Copy)]
 enum CallArg<'tcx> {
     Expr(&'tcx hir::Expr<'tcx>),

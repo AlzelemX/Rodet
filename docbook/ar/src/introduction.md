@@ -1,8 +1,8 @@
 # المقدمة
 
-> 🌐 [Read this book in English](https://alzelemx.github.io/Rust-/)
+> 🌐 [Read this book in English](https://alzelemx.github.io/rodet/)
 
-**Rust++** لغة برمجة مبنية من Rust 1.101. تحتفظ بكل ما يجعل Rust جيدة —
+**Rodet** لغة برمجة مبنية من Rust 1.101. تحتفظ بكل ما يجعل Rust جيدة —
 سرعة مثل C، بدون جامع نفايات (garbage collector)، وبدون انهيارات بسبب
 الاستخدام الخاطئ للذاكرة — وتغيّر الأجزاء التي تجعل Rust صعبة القراءة وبطيئة
 التعلم.
@@ -16,19 +16,19 @@ fn greet(name: &str = "world", times: u32 = 1) {
 
 fn main() {
     greet();
-    greet("Rust++", times = 2);
+    greet("Rodet", times = 2);
 }
 ```
 
 ```text
 Hello, world!
-Hello, Rust++!
-Hello, Rust++!
+Hello, Rodet!
+Hello, Rodet!
 ```
 
 ## ما الذي يختلف عن Rust
 
-| Rust | Rust++ | الفصل |
+| Rust | Rodet | الفصل |
 |---|---|---|
 | `println!("...")` | `out!("...")` | [مرحبا يا عالم!](start/hello.md) |
 | `area(3, 4)` | `area(width = 3, height = 4)` | [الوسائط بالاسم](basics/named-arguments.md) |
@@ -37,14 +37,14 @@ Hello, Rust++!
 | `struct P<'a> { s: &'a str }` | `struct P<_a> { s: &_a str }` | [الأعمار المسماة](ownership/named-lifetimes.md) |
 | `&'static str` | `&_static str` | [الأعمار المسماة](ownership/named-lifetimes.md) |
 
-كل شيء آخر مثل Rust تمامًا، لذلك مكتبات Rust (crates) تعمل في Rust++ أيضًا.
+كل شيء آخر مثل Rust تمامًا، لذلك مكتبات Rust (crates) تعمل في Rodet أيضًا.
 
 ## كيف تقرأ هذا الكتاب
 
 اقرأه بالترتيب في المرة الأولى: كل فصل يستخدم ما علّمته الفصول التي قبله.
-مربعات مثل هذا تدل على الجديد في Rust++:
+مربعات مثل هذا تدل على الجديد في Rodet:
 
-> **جديد في Rust++:** شيء غير موجود في Rust.
+> **جديد في Rodet:** شيء غير موجود في Rust.
 
 كل مثال في هذا الكتاب برنامج كامل. انسخه إلى `src/main.rs` في مشروع Cargo
 وشغّله بـ `cargo run`.

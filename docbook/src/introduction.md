@@ -1,8 +1,8 @@
 # Introduction
 
-> 🌐 [اقرأ هذا الكتاب بالعربية](https://alzelemx.github.io/Rust-/ar/)
+> 🌐 [اقرأ هذا الكتاب بالعربية](https://alzelemx.github.io/rodet/ar/)
 
-**Rust++** is a programming language built from Rust 1.101. It keeps
+**Rodet** is a programming language built from Rust 1.101. It keeps
 everything that makes Rust good — speed like C, no garbage collector, no
 crashes from bad memory use — and changes the parts that make Rust hard to
 read and slow to learn.
@@ -16,19 +16,19 @@ fn greet(name: &str = "world", times: u32 = 1) {
 
 fn main() {
     greet();
-    greet("Rust++", times = 2);
+    greet("Rodet", times = 2);
 }
 ```
 
 ```text
 Hello, world!
-Hello, Rust++!
-Hello, Rust++!
+Hello, Rodet!
+Hello, Rodet!
 ```
 
 ## What is different from Rust
 
-| Rust | Rust++ | Chapter |
+| Rust | Rodet | Chapter |
 |---|---|---|
 | `println!("...")` | `out!("...")` | [Hello, World!](start/hello.md) |
 | `area(3, 4)` | `area(width = 3, height = 4)` | [Named Arguments](basics/named-arguments.md) |
@@ -38,14 +38,14 @@ Hello, Rust++!
 | `&'static str` | `&_static str` | [Named Lifetimes](ownership/named-lifetimes.md) |
 
 Everything else is the same as Rust, so Rust libraries (crates) work in
-Rust++ too.
+Rodet too.
 
 ## How to read this book
 
 Read it in order the first time: each chapter uses what the chapters before
-it taught. Boxes like this one mark what is new in Rust++:
+it taught. Boxes like this one mark what is new in Rodet:
 
-> **New in Rust++:** something Rust doesn't have.
+> **New in Rodet:** something Rust doesn't have.
 
 Every example in this book is a complete program. Copy it into
 `src/main.rs` of a Cargo project and run it with `cargo run`.

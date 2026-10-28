@@ -1,6 +1,6 @@
 # Named Arguments
 
-> **New in Rust++:** when calling a function, write `name = value` to say
+> **New in Rodet:** when calling a function, write `name = value` to say
 > which parameter gets which value.
 
 ```rust
@@ -82,7 +82,7 @@ fn main() {
 
 ## Why `=` and not `:`
 
-In Rust++, `:` always means "has the type" (`let x: u32`) and `=` always
+In Rodet, `:` always means "has the type" (`let x: u32`) and `=` always
 means "gets the value" (`let x = 5`). A named argument gives a value, so it
 uses `=`.
 

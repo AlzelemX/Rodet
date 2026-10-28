@@ -1,7 +1,7 @@
 # Ownership
 
-Ownership is how Rust++ manages memory **without a garbage collector and
-without you calling `free`**. It is the one idea that makes Rust++ both fast
+Ownership is how Rodet manages memory **without a garbage collector and
+without you calling `free`**. It is the one idea that makes Rodet both fast
 and safe, so take your time with this chapter.
 
 ## Three rules

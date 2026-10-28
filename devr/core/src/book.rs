@@ -1,8 +1,8 @@
-//! The Doc Book that comes with the installed Rust++.
+//! The Doc Book that comes with the installed Rodet.
 //!
-//! Every Rust++ release carries its Doc Book in
-//! `<sysroot>/share/doc/rustpp/book/<language>/` (`en`, `ar`): the Markdown
-//! chapters and their images. The editor shows the book of the Rust++ that is
+//! Every Rodet release carries its Doc Book in
+//! `<sysroot>/share/doc/rodet/book/<language>/` (`en`, `ar`): the Markdown
+//! chapters and their images. The editor shows the book of the Rodet that is
 //! installed, so it always matches the language the code is compiled with.
 
 use std::path::{Component, Path, PathBuf};
@@ -15,13 +15,13 @@ use crate::toolchain::{command, find_program};
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BookInfo {
-    /// The folder with one sub-folder per language, if this Rust++ has a book.
+    /// The folder with one sub-folder per language, if this Rodet has a book.
     pub root: Option<PathBuf>,
     /// The languages available, e.g. `["ar", "en"]`.
     pub languages: Vec<String>,
 }
 
-/// `DEVR_BOOK_DIR` (for development), else the book of the installed Rust++.
+/// `DEVR_BOOK_DIR` (for development), else the book of the installed Rodet.
 fn book_root() -> Option<PathBuf> {
     if let Some(dir) = std::env::var_os("DEVR_BOOK_DIR") {
         return Some(PathBuf::from(dir));
@@ -29,7 +29,7 @@ fn book_root() -> Option<PathBuf> {
     let rustc = find_program("rustc")?;
     let out = command(rustc).args(["--print", "sysroot"]).output().ok()?;
     let sysroot = PathBuf::from(String::from_utf8_lossy(&out.stdout).trim());
-    let root = sysroot.join("share").join("doc").join("rustpp").join("book");
+    let root = sysroot.join("share").join("doc").join("rodet").join("book");
     root.is_dir().then_some(root)
 }
 
@@ -60,7 +60,7 @@ pub struct FileParams {
 
 /// The file `params.path` of the book, refusing paths that leave it.
 fn book_file(params: &FileParams) -> Result<PathBuf> {
-    let root = book_root().context("this Rust++ has no Doc Book: update Rust++")?;
+    let root = book_root().context("this Rodet has no Doc Book: update Rodet")?;
     if !params.language.chars().all(|c| c.is_ascii_alphabetic() || c == '-') {
         bail!("unknown language");
     }

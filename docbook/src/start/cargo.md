@@ -47,4 +47,4 @@ rand = "0.8"
 ```
 
 Cargo downloads it the next time you build. Crates written for Rust work in
-Rust++.
+Rodet.

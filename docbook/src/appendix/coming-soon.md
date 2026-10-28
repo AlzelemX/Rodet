@@ -2,7 +2,7 @@
 
 Ideas that are planned but not built yet. **None of the code on this page
 compiles today**, and the final syntax may change. The live list is the
-[status board](https://github.com/AlzelemX/Rust-#status).
+[status board](https://github.com/AlzelemX/rodet#status).
 
 ## `data`: one type for struct and enum
 
@@ -36,9 +36,9 @@ Borrow sources and `_a` already replace most lifetimes. The plan is to
 remove `'a` completely, including in the standard library and in error
 messages.
 
-## Error messages in Rust++ style
+## Error messages in Rodet style
 
-Compiler errors that show Rust++ syntax (`&{x}`, `_a`) in their
+Compiler errors that show Rodet syntax (`&{x}`, `_a`) in their
 suggestions.
 
 ## `on_ready()`

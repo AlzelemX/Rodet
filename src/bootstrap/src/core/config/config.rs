@@ -1674,7 +1674,7 @@ NOTE: Please add `--stage 2` to your command line, or if you're sure you want to
     /// Bootstrap embeds a version number into the name of shared libraries it uploads in CI.
     /// Return the version it would have used for the given commit.
     pub(crate) fn artifact_version_part(&self, commit: &str) -> String {
-        // Rust++: the LLVM commit pinned in `src/ci-llvm-sha` is not part of this
+        // Rodet: the LLVM commit pinned in `src/ci-llvm-sha` is not part of this
         // repository's history, so `git show` cannot read files at it. Read the
         // working tree instead; `src/ci/channel` and `src/version` are kept as
         // they were at that commit.

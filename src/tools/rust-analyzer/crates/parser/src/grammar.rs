@@ -405,7 +405,7 @@ fn name_ref_or_index(p: &mut Parser<'_>) {
 fn lifetime(p: &mut Parser<'_>) {
     assert!(p.at_lifetime());
     let m = p.start();
-    // Rust++: `_a` becomes a lifetime token here.
+    // Rodet: `_a` becomes a lifetime token here.
     p.bump_remap(LIFETIME_IDENT);
     m.complete(p, LIFETIME);
 }

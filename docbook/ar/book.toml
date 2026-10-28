@@ -1,6 +1,6 @@
 [book]
-title = "كتاب Rust++ (Doc Book)"
-description = "كيف تكتب بلغة Rust++: لغة Rust أسهل في القراءة والتعلم."
+title = "كتاب Rodet (Doc Book)"
+description = "كيف تكتب بلغة Rodet: لغة Rust أسهل في القراءة والتعلم."
 authors = ["AlzelemX"]
 language = "ar"
 text-direction = "rtl"
@@ -9,13 +9,13 @@ src = "src"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "ayu"
-git-repository-url = "https://github.com/AlzelemX/Rust-/tree/main/docbook/ar"
-edit-url-template = "https://github.com/AlzelemX/Rust-/edit/main/docbook/ar/{path}"
-additional-css = ["theme/rustpp.css"]
+git-repository-url = "https://github.com/AlzelemX/rodet/tree/main/docbook/ar"
+edit-url-template = "https://github.com/AlzelemX/rodet/edit/main/docbook/ar/{path}"
+additional-css = ["theme/rodet.css"]
 additional-js = ["theme/bidi.js"]
-site-url = "/Rust-/ar/"
+site-url = "/rodet/ar/"
 
-# play.rust-lang.org runs normal Rust, not Rust++: no "Run" buttons.
+# play.rust-lang.org runs normal Rust, not Rodet: no "Run" buttons.
 [output.html.playground]
 runnable = false
 copyable = true

@@ -5,7 +5,7 @@ name: Snapshot dependencies (run once per platform)
 # rust-std, cargo) and the prebuilt LLVM pinned in src/ci-llvm-sha; plus the
 # vendored crates.io dependencies (shared by all platforms).
 #
-# Building Rust++ then only downloads from that release (rustpp/setup-deps.py).
+# Building Rodet then only downloads from that release (rodet/setup-deps.py).
 # Run this manually from the Actions tab, only when adding a new platform.
 # Files already in the release are kept; files for the listed platforms are
 # added or replaced (their checksums are fixed by src/stage0, so a refresh
@@ -42,9 +42,9 @@ jobs:
           set -euo pipefail
           if ! gh release view deps-snapshot > /dev/null 2>&1; then
             cat > notes.md <<'EOF'
-          Build dependencies of Rust++, copied from Rust's servers so the build
+          Build dependencies of Rodet, copied from Rust's servers so the build
           no longer needs them: stage0 compilers, prebuilt LLVM and vendored
-          crates, per platform. Used by `rustpp/setup-deps.py`. This is not a
+          crates, per platform. Used by `rodet/setup-deps.py`. This is not a
           compiler release; see the other releases for that.
           EOF
             gh release create deps-snapshot --title "Build dependencies snapshot" \

@@ -40,7 +40,7 @@ const GENERIC_PARAM_FIRST: TokenSet = TokenSet::new(&[IDENT, LIFETIME_IDENT, T![
 fn generic_param(p: &mut Parser<'_>, m: Marker) -> bool {
     match p.current() {
         LIFETIME_IDENT => lifetime_param(p, m),
-        // Rust++: `<_a>`
+        // Rodet: `<_a>`
         IDENT if p.at_lifetime() => lifetime_param(p, m),
         IDENT => type_param(p, m),
         T![const] => const_param(p, m),
@@ -53,7 +53,7 @@ fn generic_param(p: &mut Parser<'_>, m: Marker) -> bool {
     true
 }
 
-// test rustpp_named_lifetimes
+// test rodet_named_lifetimes
 // struct Parser<_a> { input: &_a str }
 // impl<_a> Parser<_a> { fn rest(&_a self) -> &_a mut str {} }
 // fn keep<T: _static>(t: T) -> Box<dyn Debug + _static> where _x: _y {}
@@ -156,7 +156,7 @@ fn type_bound(p: &mut Parser<'_>) -> bool {
     let has_paren = p.eat(T!['(']);
     match p.current() {
         LIFETIME_IDENT => lifetime(p),
-        // Rust++: `T: _static`
+        // Rodet: `T: _static`
         IDENT if p.at_lifetime() => lifetime(p),
         // test for_binder_bound
         // fn foo<T: for<'a> [const] async Trait>() {}
@@ -295,7 +295,7 @@ pub(super) fn opt_where_clause(p: &mut Parser<'_>) {
 fn where_predicate(p: &mut Parser<'_>) {
     let m = p.start();
     match p.current() {
-        // Rust++: `where _a: _b`
+        // Rodet: `where _a: _b`
         _ if p.at_lifetime() => {
             lifetime(p);
             if p.at(T![:]) {

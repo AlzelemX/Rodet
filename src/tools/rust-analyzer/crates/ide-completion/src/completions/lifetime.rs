@@ -31,7 +31,7 @@ pub(crate) fn complete_lifetime(
             acc.add_lifetime(ctx, name);
         }
     });
-    // Rust++: a lifetime written `_a` gets `_static`, not `'static`.
+    // Rodet: a lifetime written `_a` gets `_static`, not `'static`.
     if ctx.original_token.text().starts_with('_') {
         acc.add_lifetime(ctx, Name::new_root("_static"));
         return;

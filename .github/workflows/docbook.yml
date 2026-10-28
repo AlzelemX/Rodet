@@ -2,7 +2,7 @@ name: Doc Book
 
 # Builds the Doc Book (docbook/, and the Arabic one in docbook/ar/) with
 # mdBook and publishes it to the gh-pages branch, served at
-# https://alzelemx.github.io/Rust-/ and https://alzelemx.github.io/Rust-/ar/
+# https://alzelemx.github.io/rodet/ and https://alzelemx.github.io/rodet/ar/
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
       - name: Build
         run: |
           mdbook build docbook
-          # The Arabic book, at /Rust-/ar/
+          # The Arabic book, at /rodet/ar/
           mdbook build docbook/ar -d "$PWD/docbook/book/ar"
           test -f docbook/book/ar/index.html
 

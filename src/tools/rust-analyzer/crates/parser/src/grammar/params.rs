@@ -105,7 +105,7 @@ fn param(p: &mut Parser<'_>, m: Marker, flavor: Flavor) {
             if !variadic_param(p) {
                 if p.at(T![:]) {
                     types::ascription(p);
-                    // Rust++: a default value.
+                    // Rodet: a default value.
 
                     // test fn_def_param_default
                     // fn open(path: &str, write: bool = false, mode: u32 = 0o644) {}

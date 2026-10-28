@@ -5,7 +5,7 @@ name: README status
 on:
   push:
     branches: [main]
-    paths: [STATUS.md, rustpp/sync-status.py]
+    paths: [STATUS.md, rodet/sync-status.py]
   workflow_dispatch:
 
 permissions:
@@ -20,12 +20,12 @@ jobs:
           sparse-checkout: |
             README.md
             STATUS.md
-            rustpp/sync-status.py
+            rodet/sync-status.py
           sparse-checkout-cone-mode: false
 
       - name: Update README.md
         run: |
-          python3 rustpp/sync-status.py
+          python3 rodet/sync-status.py
           if git diff --quiet README.md; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

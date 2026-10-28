@@ -4,7 +4,7 @@
 
 # البداية
 
-- [تثبيت Rust++](start/install.md)
+- [تثبيت Rodet](start/install.md)
 - [مرحبا يا عالم!](start/hello.md)
 - [المشاريع مع Cargo](start/cargo.md)
 - [محرر DEVR+](start/devr.md)
@@ -33,7 +33,7 @@
 - [التعدادات (enum) و match](types/enums.md)
 - [السمات (trait) والأنواع العامة](types/traits.md)
 
-# Rust++ في الاستخدام اليومي
+# Rodet في الاستخدام اليومي
 
 - [المجموعات](everyday/collections.md)
 - [الأخطاء](everyday/errors.md)
@@ -41,5 +41,5 @@
 
 # ملحق
 
-- [Rust++ لمبرمجي Rust](appendix/for-rust-programmers.md)
+- [Rodet لمبرمجي Rust](appendix/for-rust-programmers.md)
 - [قريبًا](appendix/coming-soon.md)

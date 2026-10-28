@@ -243,11 +243,11 @@ export async function renderWelcome() {
 
   welcome.replaceChildren(h('div.welcome-inner', {},
     h('div.brand', {}, h('img', { src: './logo.svg', alt: '' }),
-      h('div', {}, h('h1', { dir: 'ltr' }, 'DEVR+'), h('p', {}, t('The editor for Rust++ — fast, clear, made for the language.')))),
+      h('div', {}, h('h1', { dir: 'ltr' }, 'DEVR+'), h('p', {}, t('The editor for Rodet — fast, clear, made for the language.')))),
     h('div.columns', {},
       h('div', {},
         h('section', {}, h('h2', {}, t('Start')),
-          link('add', t('New Rust++ Project…'), () => runCommand('project.new')),
+          link('add', t('New Rodet Project…'), () => runCommand('project.new')),
           link('folder-opened', t('Open Folder…'), () => runCommand('folder.open'), keyLabel('Ctrl+O')),
           link('symbol-class', t('Find a Symbol'), () => runCommand('symbols.find'), keyLabel('Ctrl+T')),
           link('terminal', t('New Terminal'), () => runCommand('terminal.new'), keyLabel('Ctrl+`'))),
@@ -256,16 +256,16 @@ export async function renderWelcome() {
             ? recent.slice(0, 8).map((path) => link('folder', basename(path), () => workspace.openFolder(path), path))
             : h('div.muted', {}, t('Projects you open appear here.')))),
       h('div', {},
-        h('section', {}, h('h2', {}, t('Rust++ on this computer')),
+        h('section', {}, h('h2', {}, t('Rodet on this computer')),
           h('div.toolchain-card', {},
-            toolRow(tc.isRustpp, tc.isRustpp ? t('Rust++ compiler') : tc.rustc ? t('A compiler was found, but it is not Rust++') : t('Rust++ is not installed'), tc.rustcVersion ?? undefined),
+            toolRow(tc.isRodet, tc.isRodet ? t('Rodet compiler') : tc.rustc ? t('A compiler was found, but it is not Rodet') : t('Rodet is not installed'), tc.rustcVersion ?? undefined),
             toolRow(!!tc.cargo, tc.cargo ? 'Cargo' : t('Cargo was not found')),
-            toolRow(!!tc.analyzer, tc.analyzer ? t('rust++-analyzer (errors, completion, search)') : t('rust++-analyzer was not found')),
-            !tc.isRustpp || !tc.analyzer
-              ? h('div', { style: { marginTop: '6px' } }, h('button.btn.primary.small', { onclick: () => runCommand('rustpp.install') }, icon('cloud-download'), t('Install / Update Rust++')))
+            toolRow(!!tc.analyzer, tc.analyzer ? t('rodet-analyzer (errors, completion, search)') : t('rodet-analyzer was not found')),
+            !tc.isRodet || !tc.analyzer
+              ? h('div', { style: { marginTop: '6px' } }, h('button.btn.primary.small', { onclick: () => runCommand('rodet.install') }, icon('cloud-download'), t('Install / Update Rodet')))
               : null)),
         h('section', {}, h('h2', {}, t('Learn')),
-          link('book', t('Doc Book'), () => openBook(), t('The guide to Rust++, for your version')),
+          link('book', t('Doc Book'), () => openBook(), t('The guide to Rodet, for your version')),
           link('settings-gear', t('Settings'), () => runCommand('settings'), keyLabel('Ctrl+,')))))));
 }
 

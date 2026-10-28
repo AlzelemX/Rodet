@@ -1,9 +1,9 @@
-# Rust++ لمبرمجي Rust
+# Rodet لمبرمجي Rust
 
-إذا كنت تعرف Rust، فهذه الصفحة كل ما تحتاجه. Rust++ هي Rust 1.101.0-dev مع
+إذا كنت تعرف Rust، فهذه الصفحة كل ما تحتاجه. Rodet هي Rust 1.101.0-dev مع
 هذه التغييرات؛ وكل شيء آخر، بما فيه crates.io، يعمل كما في Rust.
 
-| Rust | Rust++ |
+| Rust | Rodet |
 |---|---|
 | `println!("{x}")` | `out!("{x}")` (و`println!` ما زالت تعمل) |
 | `area(3, 4)` | `area(width = 3, height = 4)`، بأي ترتيب، بعد القيم بالترتيب |
@@ -12,8 +12,8 @@
 | `fn f(&self) -> &str` | نفسها، أو `-> &{self} str` |
 | `struct P<'a> { s: &'a str }` | `struct P<_a> { s: &_a str }` |
 | `&'static str`، `T: 'static` | `&_static str`، `T: _static` |
-| `rustup`، `rustc --version` ← `rustc 1.101.0-dev` | `rustup++_init`، `rustc 1.101.0-dev (Rust++ #19)` |
-| rust-analyzer | `rust++-analyzer` ومحرر [DEVR+](../start/devr.md) |
+| `rustup`، `rustc --version` ← `rustc 1.101.0-dev` | `rodet_init`، `rustc 1.101.0-dev (Rodet #19)` |
+| rust-analyzer | `rodet-analyzer` ومحرر [DEVR+](../start/devr.md) |
 
 ## كيف تُترجم الكتابة الجديدة
 
@@ -33,5 +33,5 @@
 - rustfmt لا يعرف الكتابة الجديدة بعد.
 
 لكل تغيير بطاقة في
-[NoteBook](https://github.com/AlzelemX/Rust-/tree/main/notebook) فيها التاريخ
+[NoteBook](https://github.com/AlzelemX/rodet/tree/main/notebook) فيها التاريخ
 والكود قبل وبعد.

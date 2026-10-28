@@ -208,11 +208,11 @@ impl<'hir> LoweringContext<'_, 'hir> {
         self.expr(whole_span, hir::ExprKind::Block(block, None))
     }
 
-    /// RUST++: lowers call arguments. A named argument `x = value` stays an
+    /// RODET: lowers call arguments. A named argument `x = value` stays an
     /// `Assign(x, value)` with an unresolved `x` (instead of being treated as
-    /// a destructuring assignment); see `rustc_hir::rustpp`.
+    /// a destructuring assignment); see `rustc_hir::rodet`.
     fn lower_call_args(&mut self, args: &[Box<Expr>]) -> &'hir [hir::Expr<'hir>] {
-        self.arena.alloc_from_iter(args.iter().map(|arg| match arg.rustpp_named_arg() {
+        self.arena.alloc_from_iter(args.iter().map(|arg| match arg.rodet_named_arg() {
             Some((name, value)) => {
                 let hir_id = self.lower_node_id(arg.id);
                 let ExprKind::Assign(_, _, eq_span) = &arg.kind else { unreachable!() };

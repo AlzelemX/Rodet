@@ -5575,8 +5575,8 @@ impl<'a, 'ast, 'ra, 'tcx> LateResolutionVisitor<'a, 'ast, 'ra, 'tcx> {
             ExprKind::MethodCall(MethodCall { ref seg, ref receiver, ref args, .. }) => {
                 self.resolve_expr(receiver, Some(expr));
                 for arg in args {
-                    // RUST++: in `x = value`, `x` names a parameter, not a variable.
-                    match arg.rustpp_named_arg() {
+                    // RODET: in `x = value`, `x` names a parameter, not a variable.
+                    match arg.rodet_named_arg() {
                         Some((_, value)) => self.resolve_expr(value, None),
                         None => self.resolve_expr(arg, None),
                     }
@@ -5599,8 +5599,8 @@ impl<'a, 'ast, 'ra, 'tcx> LateResolutionVisitor<'a, 'ast, 'ra, 'tcx> {
                             AnonConstKind::ConstArg(IsRepeatExpr::No),
                             |this| this.resolve_expr(argument, None),
                         );
-                    } else if let Some((_, value)) = argument.rustpp_named_arg() {
-                        // RUST++: in `x = value`, `x` names a parameter, not a variable.
+                    } else if let Some((_, value)) = argument.rodet_named_arg() {
+                        // RODET: in `x = value`, `x` names a parameter, not a variable.
                         self.resolve_expr(value, None);
                     } else {
                         self.resolve_expr(argument, None);

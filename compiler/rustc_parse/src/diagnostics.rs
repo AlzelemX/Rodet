@@ -94,7 +94,7 @@ pub(crate) struct WrapType {
     pub hi: Span,
 }
 
-// RUST++: parameter default values, `fn f(x: i32 = 0)`.
+// RODET: parameter default values, `fn f(x: i32 = 0)`.
 #[derive(Diagnostic)]
 #[diag("default parameter values are only supported on functions in a module or an inherent `impl`")]
 pub(crate) struct ParamDefaultNotAllowed {
@@ -109,7 +109,7 @@ pub(crate) struct ParamDefaultNeedsName {
     pub span: Span,
 }
 
-// RUST++: borrow sources, `&{x, y} T`.
+// RODET: borrow sources, `&{x, y} T`.
 #[derive(Diagnostic)]
 #[diag("cannot borrow from `{$name}`: this function has no parameter with that name")]
 pub(crate) struct BorrowSourceNotAParam {

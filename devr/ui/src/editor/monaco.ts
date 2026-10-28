@@ -1,5 +1,5 @@
 // Monaco with every editor feature and no bundled languages (DEVR+ only
-// edits Rust++, TOML, Markdown and plain text). Generated from
+// edits Rodet, TOML, Markdown and plain text). Generated from
 // monaco-editor/esm/vs/editor/editor.main.js without its language imports.
 import 'monaco-esm/editor/contrib/anchorSelect/browser/anchorSelect.js';
 import 'monaco-esm/editor/contrib/bracketMatching/browser/bracketMatching.js';

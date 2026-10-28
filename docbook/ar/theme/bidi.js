@@ -1,4 +1,4 @@
-// In right-to-left text, "Rust++" shows as "++Rust": keep names that end in
+// In right-to-left text, "Rodet" shows as "++Rust": keep names that end in
 // symbols left to right (outside code, which is already left to right).
 (function () {
   var main = document.querySelector('main') || document.body;

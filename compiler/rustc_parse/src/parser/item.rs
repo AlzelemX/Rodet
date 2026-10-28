@@ -71,7 +71,7 @@ impl<'a> Parser<'a> {
                 break;
             };
             items.push(item);
-            // RUST++: hidden constants for parameter default values.
+            // RODET: hidden constants for parameter default values.
             items.extend(self.take_generated_items());
         }
 
@@ -780,7 +780,7 @@ impl<'a> Parser<'a> {
             Default::default()
         } else {
             let mut items = self.parse_item_list(attrs, |p| p.parse_impl_item(ForceCollect::No))?;
-            // RUST++: hidden constants for parameter default values (inherent impls only).
+            // RODET: hidden constants for parameter default values (inherent impls only).
             items.extend(self.take_generated_assoc_items(ty_second.is_none()));
             items
         };
@@ -1227,7 +1227,7 @@ impl<'a> Parser<'a> {
             // It's a normal trait.
             generics.where_clause = self.parse_where_clause()?;
             let items = self.parse_item_list(attrs, |p| p.parse_trait_item(ForceCollect::No))?;
-            // RUST++: parameter default values are not supported in traits.
+            // RODET: parameter default values are not supported in traits.
             self.take_generated_assoc_items(false);
             Ok(ItemKind::Trait(Box::new(Trait {
                 impl_restriction,
@@ -1594,7 +1594,7 @@ impl<'a> Parser<'a> {
             let _ = self.eat_keyword(exp!(Unsafe));
         }
         let items = self.parse_item_list(attrs, |p| p.parse_foreign_item(ForceCollect::No))?;
-        // RUST++: parameter default values are not supported in `extern` blocks.
+        // RODET: parameter default values are not supported in `extern` blocks.
         self.take_generated_assoc_items(false);
         Ok(ItemKind::ForeignMod(ast::ForeignMod { extern_span, safety, abi, items }))
     }

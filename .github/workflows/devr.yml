@@ -1,8 +1,8 @@
 name: DEVR+
 
 # Builds the DEVR+ editor (devr/) for Windows, Linux and macOS with the
-# Rust++ compiler itself, and publishes the installers as a `devr-v0.1.N`
-# release (never marked "latest": that stays the Rust++ toolchain).
+# Rodet compiler itself, and publishes the installers as a `devr-v0.1.N`
+# release (never marked "latest": that stays the Rodet toolchain).
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             bundles: nsis
-          # Same glibc as the Rust++ Linux build (2.39+: Ubuntu 24.04, Debian 13…).
+          # Same glibc as the Rodet Linux build (2.39+: Ubuntu 24.04, Debian 13…).
           - os: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
             bundles: deb,appimage
@@ -48,7 +48,7 @@ jobs:
         with:
           sparse-checkout: |
             devr
-            rustpp
+            rodet
 
       - name: Install Linux libraries
         if: runner.os == 'Linux'
@@ -56,26 +56,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
 
-      # DEVR+ is built by Rust++: the newest release of the toolchain.
-      - name: Install Rust++
+      # DEVR+ is built by Rodet: the newest release of the toolchain.
+      - name: Install Rodet
         env:
           TARGET: ${{ matrix.target }}
         run: |
           set -euo pipefail
           base=https://github.com/${{ github.repository }}/releases/latest/download
-          mkdir -p "$RUNNER_TEMP/rustpp"
+          mkdir -p "$RUNNER_TEMP/rodet"
           if [ "$RUNNER_OS" = Windows ]; then
-            curl -fsSL --retry 3 -o rustpp.zip "$base/rustpp-$TARGET.zip"
-            7z x -o"$RUNNER_TEMP" rustpp.zip > /dev/null
+            curl -fsSL --retry 3 -o rodet.zip "$base/rodet-$TARGET.zip"
+            7z x -o"$RUNNER_TEMP" rodet.zip > /dev/null
           else
-            curl -fsSL --retry 3 "$base/rustpp-$TARGET.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
+            curl -fsSL --retry 3 "$base/rodet-$TARGET.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
           fi
-          echo "$RUNNER_TEMP/rustpp/bin" >> "$GITHUB_PATH"
+          echo "$RUNNER_TEMP/rodet/bin" >> "$GITHUB_PATH"
 
       - name: Check the toolchain
         run: |
           rustc --version
-          rustc --version | grep -F "(Rust++"
+          rustc --version | grep -F "(Rodet"
           cargo --version
 
       - uses: actions/setup-node@v4
@@ -150,7 +150,7 @@ jobs:
           if [ ${#files[@]} -eq 0 ]; then echo "::error::no installers to publish"; exit 1; fi
           TAG="devr-v$DEVR_VERSION"
           {
-            echo "**DEVR+ $DEVR_VERSION** — the editor for Rust++, built from ${GITHUB_SHA}."
+            echo "**DEVR+ $DEVR_VERSION** — the editor for Rodet, built from ${GITHUB_SHA}."
             echo
             echo "| System | Download |"
             echo "|---|---|"
@@ -159,7 +159,7 @@ jobs:
             echo "| macOS Apple Silicon | \`DEVR+_${DEVR_VERSION}_aarch64.dmg\` |"
             echo "| macOS Intel | \`DEVR+_${DEVR_VERSION}_x64.dmg\` |"
             echo
-            echo "DEVR+ uses the Rust++ installed on the computer (\`rustup++_init\`). Without it, the editor offers to install it."
+            echo "DEVR+ uses the Rodet installed on the computer (\`rodet_init\`). Without it, the editor offers to install it."
             echo
             echo "macOS: the app is not signed by Apple. The first time, right-click it → Open."
           } > notes.md

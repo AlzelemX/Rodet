@@ -197,7 +197,7 @@ impl Docs {
     ///
     /// `range` must end at a line boundary and start at one (or at the line break
     /// before it), after the prefix
-    /// (RUST++ uses this to hide one language of documentation written in two).
+    /// (RODET uses this to hide one language of documentation written in two).
     pub fn remove_lines(&mut self, range: Range<usize>) {
         let (Ok(start), Ok(end)) = (u32::try_from(range.start), u32::try_from(range.end)) else {
             return;

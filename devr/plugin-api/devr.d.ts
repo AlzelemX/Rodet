@@ -138,7 +138,7 @@ export interface Devr {
   readonly version: string;
   /** This plugin. */
   readonly plugin: { id: string; name: Text | undefined; version: string; path: string };
-  /** DEVR+ version, os, home folder and the Rust++ toolchain. */
+  /** DEVR+ version, os, home folder and the Rodet toolchain. */
   readonly app: any;
   /** The editor's language. / لغة المحرر. */
   readonly language: 'en' | 'ar';
@@ -268,7 +268,7 @@ export interface Devr {
     open(): Promise<void>;
   };
 
-  /** rust++-analyzer (Language Server Protocol). */
+  /** rodet-analyzer (Language Server Protocol). */
   readonly lsp: {
     readonly running: boolean;
     request<T = any>(method: string, params: unknown): Promise<T>;

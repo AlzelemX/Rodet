@@ -62,7 +62,7 @@ shows you every `match` that needs updating: no case is forgotten.
 
 ## Option: a value or nothing
 
-Rust++ has no `null`. A value that may be missing is an `Option`:
+Rodet has no `null`. A value that may be missing is an `Option`:
 
 ```rust
 fn find_age(name: &str) -> Option<u32> {
@@ -107,5 +107,5 @@ fn main() {
 
 `if` after a pattern is a *guard*: an extra condition.
 
-> **Coming to Rust++:** `data`, one type that can be a struct, an enum, or
+> **Coming to Rodet:** `data`, one type that can be a struct, an enum, or
 > both, and named `match` functions. See [Coming Soon](../appendix/coming-soon.md).

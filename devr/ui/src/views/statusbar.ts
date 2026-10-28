@@ -1,4 +1,4 @@
-// The status bar: Rust++ version, language server state, errors and
+// The status bar: Rodet version, language server state, errors and
 // warnings, cursor position.
 import { t } from '../i18n';
 import { diagnosticCounts, lsp, onDiagnostics, onProgress } from '../lsp/features';
@@ -9,8 +9,8 @@ import { workspace } from '../workspace';
 
 const brand = h('button.status-item.brand', { title: t('DEVR+ — show the welcome page'), onclick: () => workspace.show(null) }, 'DEVR+');
 const problems = h('button.status-item', { title: t('Problems (Ctrl+Shift+M)'), onclick: () => layout.showPanel('problems') });
-const server = h('button.status-item', { title: t('rust++-analyzer'), onclick: () => runCommand('analyzer.menu') });
-const toolchain = h('button.status-item', { title: t('Rust++ toolchain'), onclick: () => runCommand('rustpp.about') });
+const server = h('button.status-item', { title: t('rodet-analyzer'), onclick: () => runCommand('analyzer.menu') });
+const toolchain = h('button.status-item', { title: t('Rodet toolchain'), onclick: () => runCommand('rodet.about') });
 const position = h('button.status-item', { title: t('Go to Line (Ctrl+G)'), onclick: () => {
   workspace.editor.focus();
   workspace.editor.trigger('statusbar', 'editor.action.gotoLine', null);
@@ -30,25 +30,25 @@ function renderServer() {
     stopped: ['circle-slash', t('Analyzer off'), false],
     starting: ['loading', t('Starting…'), true],
     indexing: ['loading', progressText || t('Indexing…'), true],
-    ready: ['check', 'Rust++', false],
+    ready: ['check', 'Rodet', false],
     error: ['error', t('Analyzer stopped'), false],
     missing: ['warning', t('No analyzer'), false],
   };
   const [iconName, text, spinning] = map[state] ?? map.stopped;
   server.replaceChildren(icon(iconName, spinning ? 'spin' : ''), text);
   server.title = state === 'missing'
-    ? t('rust++-analyzer was not found: install or update Rust++')
+    ? t('rodet-analyzer was not found: install or update Rodet')
     : state === 'error'
       ? `${t('The language server stopped.')}${lsp.lastError ? ` ${lsp.lastError}` : ''} ${t('Click to restart.')}`
-      : `rust++-analyzer${lsp.serverPath ? `: ${lsp.serverPath}` : ''}`;
+      : `rodet-analyzer${lsp.serverPath ? `: ${lsp.serverPath}` : ''}`;
 }
 
 export function renderToolchain() {
   const tc = workspace.info.toolchain;
   const version = tc.rustcVersion?.replace(/^rustc\s+/, '') ?? 'not installed';
-  // `1.101.0-dev (Rust++ #19)` → `1.101.0-dev #19`
+  // `1.101.0-dev (Rodet #19)` → `1.101.0-dev #19`
   const short = version.replace(/\s*\(Rust\+\+\s*(#\d+)?\)/, (_m, build) => (build ? ` ${build}` : ''));
-  toolchain.replaceChildren(icon(tc.isRustpp ? 'symbol-namespace' : 'warning'), tc.isRustpp ? short : `Rust++ ${tc.rustcVersion ? version : t('not installed')}`);
+  toolchain.replaceChildren(icon(tc.isRodet ? 'symbol-namespace' : 'warning'), tc.isRodet ? short : `Rodet ${tc.rustcVersion ? version : t('not installed')}`);
 }
 
 function renderPosition() {
@@ -61,7 +61,7 @@ function renderPosition() {
   const selected = selection && !selection.isEmpty() ? ` (${t('{n} selected', { n: model.getValueInRange(selection).length })})` : '';
   position.textContent = `${t('Ln {line}, Col {col}', { line: pos.lineNumber, col: pos.column })}${selected}`;
   const lang = model.getLanguageId();
-  language.textContent = lang === 'rust' ? 'Rust++' : lang === 'toml' ? 'TOML' : lang === 'markdown' ? 'Markdown' : t('Plain Text');
+  language.textContent = lang === 'rust' ? 'Rodet' : lang === 'toml' ? 'TOML' : lang === 'markdown' ? 'Markdown' : t('Plain Text');
 }
 
 export function setupStatusbar() {

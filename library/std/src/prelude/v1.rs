@@ -66,8 +66,8 @@ pub use crate::{
     dbg, eprint, eprintln, format, is_x86_feature_detected, print, println, thread_local
 };
 
-// Rust++: `out!` is used like `println!`, so it has to be reachable without an import.
-#[stable(feature = "rustpp_out_macro", since = "CURRENT_RUSTC_VERSION")]
+// Rodet: `out!` is used like `println!`, so it has to be reachable without an import.
+#[stable(feature = "rodet_out_macro", since = "CURRENT_RUSTC_VERSION")]
 #[doc(no_inline)]
 pub use crate::out;
 

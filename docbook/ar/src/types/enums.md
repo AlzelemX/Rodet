@@ -62,7 +62,7 @@ fn main() {
 
 ## Option: قيمة أو لا شيء
 
-Rust++ ليس فيها `null`. القيمة التي قد تكون غير موجودة نوعها `Option`:
+Rodet ليس فيها `null`. القيمة التي قد تكون غير موجودة نوعها `Option`:
 
 ```rust
 fn find_age(name: &str) -> Option<u32> {
@@ -107,5 +107,5 @@ fn main() {
 
 `if` بعد النمط *حارس*: شرط إضافي.
 
-> **قريبًا في Rust++:** `data`، نوع واحد يمكن أن يكون struct أو enum أو
+> **قريبًا في Rodet:** `data`، نوع واحد يمكن أن يكون struct أو enum أو
 > الاثنين، ودوال `match` المسماة. انظر [قريبًا](../appendix/coming-soon.md).

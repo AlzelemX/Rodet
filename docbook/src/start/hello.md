@@ -24,7 +24,7 @@ Hello, world!
   of code that writes code for you.
 - `;` — ends the statement.
 
-> **New in Rust++:** `out!` prints a line. It works exactly like Rust's
+> **New in Rodet:** `out!` prints a line. It works exactly like Rust's
 > `println!`, which still works too.
 
 ## Printing values
