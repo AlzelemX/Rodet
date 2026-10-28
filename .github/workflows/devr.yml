@@ -64,12 +64,19 @@ jobs:
           set -euo pipefail
           base=https://github.com/${{ github.repository }}/releases/latest/download
           mkdir -p "$RUNNER_TEMP/rodet"
-          if [ "$RUNNER_OS" = Windows ]; then
-            curl -fsSL --retry 3 -o rodet.zip "$base/rodet-$TARGET.zip"
-            7z x -o"$RUNNER_TEMP" rodet.zip > /dev/null
-          else
-            curl -fsSL --retry 3 "$base/rodet-$TARGET.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
-          fi
+          # Releases before the name Rodet are called rustpp-<target>.
+          for name in rodet rustpp; do
+            if [ "$RUNNER_OS" = Windows ]; then
+              curl -fsSL --retry 3 -o rodet.zip "$base/$name-$TARGET.zip" || continue
+              7z x -o"$RUNNER_TEMP" rodet.zip > /dev/null
+            else
+              curl -fsSL --retry 3 -o rodet.tar.xz "$base/$name-$TARGET.tar.xz" || continue
+              tar -xJf rodet.tar.xz -C "$RUNNER_TEMP"
+            fi
+            [ -d "$RUNNER_TEMP/$name" ] && [ "$name" != rodet ] && mv "$RUNNER_TEMP/$name" "$RUNNER_TEMP/rodet"
+            break
+          done
+          ls "$RUNNER_TEMP/rodet/bin"
           echo "$RUNNER_TEMP/rodet/bin" >> "$GITHUB_PATH"
 
       - name: Check the toolchain
