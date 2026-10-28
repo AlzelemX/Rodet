@@ -151,12 +151,12 @@ fn windows_manifest() {
 
         println!("cargo:rerun-if-changed={WINDOWS_MANIFEST_FILE}");
         // Embed the Windows application manifest file.
-        println!("cargo:rustc-link-arg-bin=cargo=/MANIFEST:EMBED");
+        println!("cargo:rustc-link-arg-bin=rodet=/MANIFEST:EMBED");
         println!(
-            "cargo:rustc-link-arg-bin=cargo=/MANIFESTINPUT:{}",
+            "cargo:rustc-link-arg-bin=rodet=/MANIFESTINPUT:{}",
             manifest.to_str().unwrap()
         );
         // Turn linker warnings into errors.
-        println!("cargo:rustc-link-arg-bin=cargo=/WX");
+        println!("cargo:rustc-link-arg-bin=rodet=/WX");
     }
 }
