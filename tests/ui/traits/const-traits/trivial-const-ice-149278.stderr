@@ -34,4 +34,4 @@ LL |         type Assoc = impl Copy;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0438, E0658.
-For more information about an error, try `rustc --explain E0438`.
+For more information about an error, try `rodetc --explain E0438`.

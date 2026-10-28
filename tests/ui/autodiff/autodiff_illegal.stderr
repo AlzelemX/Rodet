@@ -157,4 +157,4 @@ LL | #[autodiff_reverse(df21, Active, Duplicated)]
 error: aborting due to 21 previous errors
 
 Some errors have detailed explanations: E0428, E0658.
-For more information about an error, try `rustc --explain E0428`.
+For more information about an error, try `rodetc --explain E0428`.

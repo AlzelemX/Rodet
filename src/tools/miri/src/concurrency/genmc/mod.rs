@@ -5,10 +5,10 @@ use genmc_sys::{
     CasOutcome, EstimationResult, GENMC_GLOBAL_ADDRESSES_MASK, GenmcHandlerResult, GenmcScalar,
     MemOrdering, MiriGenmcInterface, RMWBinOp, RmwOutcome, UniquePtr, create_genmc_driver_handle,
 };
-use rustc_abi::{Align, Size};
-use rustc_const_eval::interpret::{AllocId, InterpCx, InterpResult, interp_ok};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_middle::{throw_ub_format, throw_unsup_format};
+use rodetc_abi::{Align, Size};
+use rodetc_const_eval::interpret::{AllocId, InterpCx, InterpResult, interp_ok};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_middle::{throw_ub_format, throw_unsup_format};
 // FIXME(genmc,tracing): Implement some work-around for enabling debug/trace level logging (currently disabled statically in rustc).
 use tracing::debug;
 

@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_note};
 use clippy_utils::is_span_if;
 use clippy_utils::source::snippet_opt;
-use rustc_ast::ast::{BinOpKind, Block, Expr, ExprKind, StmtKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::ast::{BinOpKind, Block, Expr, ExprKind, StmtKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

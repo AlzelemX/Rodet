@@ -14,4 +14,4 @@ LL | impl<S: Copy> Copy for Wrapper<S> {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0204`.
+For more information about this error, try `rodetc --explain E0204`.

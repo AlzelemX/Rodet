@@ -110,4 +110,4 @@ LL |     let _: fn(CamelCase: i32);
 
 error: aborting due to 10 previous errors; 3 warnings emitted
 
-For more information about this error, try `rustc --explain E0170`.
+For more information about this error, try `rodetc --explain E0170`.

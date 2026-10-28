@@ -48,4 +48,4 @@ LL |     let str::<{fn str() { let str::T>>::as_bytes: /* Type */; }}, T>::as_by
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0109, E0282, E0425, E0533.
-For more information about an error, try `rustc --explain E0109`.
+For more information about an error, try `rodetc --explain E0109`.

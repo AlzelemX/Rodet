@@ -554,4 +554,4 @@ LL +     pub type Alias<T>  = T;
 
 error: aborting due to 46 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0446`.
+For more information about this error, try `rodetc --explain E0446`.

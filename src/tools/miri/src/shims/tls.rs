@@ -4,10 +4,10 @@ use std::collections::btree_map::Entry as BTreeEntry;
 use std::collections::{BTreeMap, VecDeque};
 use std::task::Poll;
 
-use rustc_abi::{ExternAbi, HasDataLayout, Size};
-use rustc_middle::ty;
-use rustc_span::Span;
-use rustc_target::spec::Os;
+use rodetc_abi::{ExternAbi, HasDataLayout, Size};
+use rodetc_middle::ty;
+use rodetc_span::Span;
+use rodetc_target::spec::Os;
 
 use crate::*;
 

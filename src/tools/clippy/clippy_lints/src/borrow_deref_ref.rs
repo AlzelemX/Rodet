@@ -6,11 +6,11 @@ use clippy_utils::{
     get_enclosing_closure, get_parent_expr, is_expr_temporary_value, is_from_proc_macro, is_lint_allowed, is_mutable,
     is_upvar_in_closure, path_to_local_with_projections,
 };
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Node, UnOp};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::mir::Mutability;
-use rustc_middle::ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Node, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::mir::Mutability;
+use rodetc_middle::ty;
 
 declare_clippy_lint! {
     /// ### What it does

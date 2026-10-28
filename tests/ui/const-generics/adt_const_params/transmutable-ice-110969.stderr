@@ -23,4 +23,4 @@ LL |         const FALSE: bool = assert::is_transmutable::<Src, Dst, Context, {}
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0107, E0308.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

@@ -4,10 +4,10 @@ use clippy_utils::macros::root_macro_call_first_node;
 use clippy_utils::source::{SpanExt as _, snippet_with_context};
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{is_no_std_crate, sym};
-use rustc_ast::{LitIntType, LitKind, RangeLimits, UintTy};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_ast::{LitIntType, LitKind, RangeLimits, UintTy};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
 use std::fmt::{self, Display, Formatter};
 
 declare_clippy_lint! {

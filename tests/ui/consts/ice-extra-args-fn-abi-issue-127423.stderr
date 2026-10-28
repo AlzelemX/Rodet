@@ -36,4 +36,4 @@ LL +     Qux + a
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0261, E0425.
-For more information about an error, try `rustc --explain E0261`.
+For more information about an error, try `rodetc --explain E0261`.

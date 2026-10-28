@@ -22,7 +22,7 @@ use itertools::{EitherOrBoth, Itertools};
 use la_arena::{ArenaMap, RawIdx};
 use rustc_apfloat::Float;
 use rustc_hash::FxHashMap;
-use rustc_type_ir::inherent::{Const as _, GenericArgs as _, IntoKind, Ty as _};
+use rodetc_type_ir::inherent::{Const as _, GenericArgs as _, IntoKind, Ty as _};
 use salsa::SalsaValue;
 use span::Edition;
 
@@ -883,7 +883,7 @@ impl<'a, 'db> MirLowerCtx<'a, 'db> {
                             else {
                                 return Ok(None);
                             };
-                            let discr_ty = Ty::new_int(self.interner(), rustc_type_ir::IntTy::I128);
+                            let discr_ty = Ty::new_int(self.interner(), rodetc_type_ir::IntTy::I128);
                             let discr_place: Place<'db> =
                                 self.temp(discr_ty, current, expr_id.into())?.into();
 
@@ -1450,7 +1450,7 @@ impl<'a, 'db> MirLowerCtx<'a, 'db> {
         variant_id: EnumVariantId,
     ) -> Result<'db, (Operand, Ty<'db>, BasicBlockId)> {
         let discriminant = self.const_eval_discriminant(variant_id)?;
-        let discr_ty = Ty::new_int(self.interner(), rustc_type_ir::IntTy::I128);
+        let discr_ty = Ty::new_int(self.interner(), rodetc_type_ir::IntTy::I128);
         let operand = Operand::from_bytes(Box::new(discriminant.to_le_bytes()), discr_ty);
         Ok((operand, discr_ty, current))
     }
@@ -1554,7 +1554,7 @@ impl<'a, 'db> MirLowerCtx<'a, 'db> {
             Some(it) => it.as_ref(),
             None => {
                 // FIXME: rustc's ty is dependent on the adt type, maybe we need to do that as well
-                let discr_ty = Ty::new_int(self.interner(), rustc_type_ir::IntTy::I128);
+                let discr_ty = Ty::new_int(self.interner(), rodetc_type_ir::IntTy::I128);
                 let tmp: Place<'_> = self
                     .temp(discr_ty, current, MirSpan::Unknown)
                     .expect("discr_ty is never unsized")
@@ -2016,14 +2016,14 @@ pub fn mir_body_for_closure_query<'db>(
     ctx.result.locals.alloc(Local { ty: infer.expr_ty(*root).store() });
     let closure_local = ctx.result.locals.alloc(Local {
         ty: match kind {
-            rustc_type_ir::ClosureKind::FnOnce => infer.expr_ty(expr),
-            rustc_type_ir::ClosureKind::FnMut => Ty::new_ref(
+            rodetc_type_ir::ClosureKind::FnOnce => infer.expr_ty(expr),
+            rodetc_type_ir::ClosureKind::FnMut => Ty::new_ref(
                 ctx.interner(),
                 Region::error(ctx.interner()),
                 infer.expr_ty(expr),
                 Mutability::Mut,
             ),
-            rustc_type_ir::ClosureKind::Fn => Ty::new_ref(
+            rodetc_type_ir::ClosureKind::Fn => Ty::new_ref(
                 ctx.interner(),
                 Region::error(ctx.interner()),
                 infer.expr_ty(expr),
@@ -2044,8 +2044,8 @@ pub fn mir_body_for_closure_query<'db>(
     // Push local for every upvar in the closure. rustc doesn't do that, but we have to so we have locals
     // to associate with upvars for borrowck.
     let is_by_ref_closure = match kind {
-        rustc_type_ir::ClosureKind::Fn | rustc_type_ir::ClosureKind::FnMut => true,
-        rustc_type_ir::ClosureKind::FnOnce => false,
+        rodetc_type_ir::ClosureKind::Fn | rodetc_type_ir::ClosureKind::FnMut => true,
+        rodetc_type_ir::ClosureKind::FnOnce => false,
     };
     let mut upvar_map: FxHashMap<LocalId, Vec<(&CapturedPlace, LocalId)>> = FxHashMap::default();
     for (capture_idx, capture) in captures.enumerate() {

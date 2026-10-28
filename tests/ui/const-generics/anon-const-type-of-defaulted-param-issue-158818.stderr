@@ -9,7 +9,7 @@ LL |     f::<{ async || {} }>();
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.
 Future incompatibility report: Future breakage diagnostic:
 warning: defaults for generic parameters are not allowed here
   --> $DIR/anon-const-type-of-defaulted-param-issue-158818.rs:7:19

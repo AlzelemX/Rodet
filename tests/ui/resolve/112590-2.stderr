@@ -74,4 +74,4 @@ LL +     let _t: Vec<i32> = Vec::new();
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0433`.
+For more information about this error, try `rodetc --explain E0433`.

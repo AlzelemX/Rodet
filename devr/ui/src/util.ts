@@ -123,8 +123,9 @@ export function extension(path: string) {
 /** The codicon for a file in the explorer and tabs. */
 export function fileIcon(path: string): { name: string; color: string } {
   const name = basename(path).toLowerCase();
-  if (name === 'cargo.toml' || name === 'cargo.lock') return { name: 'package', color: '#e8590c' };
+  if (['silk.toml', 'silk.lock', 'cargo.toml', 'cargo.lock'].includes(name)) return { name: 'package', color: '#e8590c' };
   switch (extension(path)) {
+    case 'rd':
     case 'rs':
       return { name: 'symbol-namespace', color: '#ff8a3d' };
     case 'toml':

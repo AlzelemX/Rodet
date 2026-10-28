@@ -7,28 +7,28 @@ use std::fmt::Display;
 use std::mem;
 use std::ops::Range;
 
-use rustc_ast::util::comments::may_have_doc_links;
-use rustc_attr_ir::{Attribute, AttributeKind, find_attr};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_data_structures::intern::Interned;
-use rustc_errors::{Applicability, Diag, DiagMessage};
-use rustc_hir::def::Namespace::*;
-use rustc_hir::def::{DefKind, MacroKinds, Namespace, PerNS};
-use rustc_hir::def_id::{CRATE_DEF_ID, DefId, LOCAL_CRATE};
-use rustc_hir::{Mutability, Safety};
-use rustc_lint::Lint;
-use rustc_middle::ty;
-use rustc_middle::ty::{Ty, TyCtxt};
-use rustc_resolve::rustdoc::pulldown_cmark::LinkType;
-use rustc_resolve::rustdoc::{
+use rodetc_ast::util::comments::may_have_doc_links;
+use rodetc_attr_ir::{Attribute, AttributeKind, find_attr};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_data_structures::intern::Interned;
+use rodetc_errors::{Applicability, Diag, DiagMessage};
+use rodetc_hir::def::Namespace::*;
+use rodetc_hir::def::{DefKind, MacroKinds, Namespace, PerNS};
+use rodetc_hir::def_id::{CRATE_DEF_ID, DefId, LOCAL_CRATE};
+use rodetc_hir::{Mutability, Safety};
+use rodetc_lint::Lint;
+use rodetc_middle::ty;
+use rodetc_middle::ty::{Ty, TyCtxt};
+use rodetc_resolve::rustdoc::pulldown_cmark::LinkType;
+use rodetc_resolve::rustdoc::{
     DocStrings, MalformedGenerics, has_primitive_or_keyword_or_attribute_docs,
     prepare_to_doc_link_resolution, source_span_for_markdown_range, strip_generics_from_path,
 };
-use rustc_span::def_id::ModId;
-use rustc_span::edit_distance::find_best_match_for_name;
-use rustc_span::symbol::{Ident, Symbol, sym};
-use rustc_span::{BytePos, bug, span_bug};
-use rustc_structures::CrateType;
+use rodetc_span::def_id::ModId;
+use rodetc_span::edit_distance::find_best_match_for_name;
+use rodetc_span::symbol::{Ident, Symbol, sym};
+use rodetc_span::{BytePos, bug, span_bug};
+use rodetc_structures::CrateType;
 use smallvec::{SmallVec, smallvec};
 use tracing::{debug, info, instrument, trace};
 
@@ -69,7 +69,7 @@ pub(crate) enum Res {
     Primitive(PrimitiveType),
 }
 
-type ResolveRes = rustc_hir::def::Res<rustc_ast::NodeId>;
+type ResolveRes = rodetc_hir::def::Res<rodetc_ast::NodeId>;
 
 impl Res {
     fn descr(self) -> &'static str {
@@ -149,7 +149,7 @@ impl TryFrom<ResolveRes> for Res {
     type Error = ();
 
     fn try_from(res: ResolveRes) -> Result<Self, ()> {
-        use rustc_hir::def::Res::*;
+        use rodetc_hir::def::Res::*;
         match res {
             Def(kind, id) => Ok(Res::Def(kind, id)),
             PrimTy(prim) => Ok(Res::Primitive(PrimitiveType::from_hir(prim))),
@@ -258,7 +258,7 @@ pub(super) struct LinkCollection {
     /// Cache the resolved links so we can avoid resolving (and emitting errors for) the same link.
     /// The link will be `None` if it could not be resolved (i.e. the error was cached).
     visited: FxHashMap<ResolutionInfo, Option<(Res, Option<UrlFragment>)>>,
-    /// According to `rustc_resolve`, these links are ambiguous.
+    /// According to `rodetc_resolve`, these links are ambiguous.
     ///
     /// However, we cannot link to an item that has been stripped from the documentation. If all
     /// but one of the "possibilities" are stripped, then there is no real ambiguity. To determine
@@ -283,7 +283,7 @@ impl<'tcx> LinkCollector<'_, 'tcx> {
     /// In particular, this will return an error whenever there aren't three
     /// full path segments left in the link.
     ///
-    /// [enum struct variant]: rustc_hir::VariantData::Struct
+    /// [enum struct variant]: rodetc_hir::VariantData::Struct
     fn variant_field<'path>(
         &self,
         path_str: &'path str,
@@ -373,7 +373,7 @@ impl<'tcx> LinkCollector<'_, 'tcx> {
             // NOTE: do not remove this panic! Missing links should be recorded as `Res::Err`; if
             // `doc_link_resolutions` is missing a `path_str`, that means that there are valid links
             // that are being missed. To fix the ICE, change
-            // `rustc_resolve::rustdoc::attrs_to_preprocessed_links` to cache the link.
+            // `rodetc_resolve::rustdoc::attrs_to_preprocessed_links` to cache the link.
             .unwrap_or_else(|| {
                 span_bug!(
                     self.cx.tcx.def_span(item_id),
@@ -423,7 +423,7 @@ impl<'tcx> LinkCollector<'_, 'tcx> {
             Some(res @ (_path_root, item_str)) if !item_str.is_empty() => res,
             _ => {
                 // If there's no `::`, or the `::` is at the end (e.g. `String::`) it's not an
-                // associated item. So we can be sure that `rustc_resolve` was accurate when it
+                // associated item. So we can be sure that `rodetc_resolve` was accurate when it
                 // said it wasn't resolved.
                 debug!("`::` missing or at end, assuming {path_str} was not in scope");
                 return Err(UnresolvedPath {
@@ -945,7 +945,7 @@ fn preprocess_link(
     ori_link: &MarkdownLink,
     dox: &str,
 ) -> Option<Result<PreprocessingInfo, PreprocessingError>> {
-    // IMPORTANT: To be kept in sync with the corresponding function in `rustc_resolve::rustdoc`.
+    // IMPORTANT: To be kept in sync with the corresponding function in `rodetc_resolve::rustdoc`.
     // Namely, whenever this function returns a successful result for a given input,
     // the rustc counterpart *MUST* return a link that's equal to `PreprocessingInfo.path_str`!
 
@@ -1433,7 +1433,7 @@ impl LinkCollector<'_, '_> {
                     &diag_info,
                 )?;
 
-                let page_id = clean::register_res(self.cx, rustc_hir::def::Res::Def(kind, id));
+                let page_id = clean::register_res(self.cx, rodetc_hir::def::Res::Def(kind, id));
                 Some(ItemLink {
                     link: Box::<str>::from(diag_info.ori_link),
                     link_text: link_text.clone(),
@@ -1501,7 +1501,7 @@ impl LinkCollector<'_, '_> {
     ) {
         // The resolved item did not match the disambiguator; give a better error than 'not found'
         let msg = format!("incompatible link kind for `{path_str}`");
-        let callback = |diag: &mut Diag<'_>, sp: Option<rustc_span::Span>, link_range| {
+        let callback = |diag: &mut Diag<'_>, sp: Option<rodetc_span::Span>, link_range| {
             let note = format!(
                 "this link resolved to {} {}, which is not {} {}",
                 resolved.article(),
@@ -1534,7 +1534,7 @@ impl LinkCollector<'_, '_> {
             Some((sp, _)) => sp,
             None => item.attr_span(self.cx.tcx),
         };
-        rustc_session::diagnostics::feature_err(
+        rodetc_session::diagnostics::feature_err(
             self.cx.tcx.sess,
             sym::intra_doc_pointers,
             span,
@@ -1894,8 +1894,8 @@ impl Suggestion {
     fn as_help_span(
         &self,
         ori_link: &str,
-        sp: rustc_span::Span,
-    ) -> Vec<(rustc_span::Span, String)> {
+        sp: rodetc_span::Span,
+    ) -> Vec<(rodetc_span::Span, String)> {
         let inner_sp = match ori_link.find('(') {
             Some(index) if index != 0 && ori_link.as_bytes()[index - 1] == b'\\' => {
                 sp.with_hi(sp.lo() + BytePos((index - 1) as _))
@@ -1959,7 +1959,7 @@ fn report_diagnostic(
     lint: &'static Lint,
     msg: impl Into<DiagMessage> + Display,
     DiagnosticInfo { item, ori_link: _, dox, link_range }: &DiagnosticInfo<'_>,
-    decorate: impl FnOnce(&mut Diag<'_>, Option<rustc_span::Span>, MarkdownLinkRange),
+    decorate: impl FnOnce(&mut Diag<'_>, Option<rodetc_span::Span>, MarkdownLinkRange),
 ) {
     let Some(hir_id) = DocContext::as_local_hir_id(tcx, item.item_id) else {
         // If non-local, no need to check anything.
@@ -1973,7 +1973,7 @@ fn report_diagnostic(
         lint,
         hir_id,
         sp,
-        rustc_errors::DiagDecorator(|lint| {
+        rodetc_errors::DiagDecorator(|lint| {
             lint.primary_message(msg);
 
             let (span, link_range) = match link_range {
@@ -2038,7 +2038,7 @@ fn report_diagnostic(
 fn suggest_path_name_typo(
     collector: &LinkCollector<'_, '_>,
     diag: &mut Diag<'_>,
-    span: Option<rustc_span::Span>,
+    span: Option<rodetc_span::Span>,
     link_range: &MarkdownLinkRange,
     dox: &str,
     module: ModId,
@@ -2555,7 +2555,7 @@ fn suggest_disambiguator(
     diag: &mut Diag<'_>,
     path_str: &str,
     link_range: MarkdownLinkRange,
-    sp: Option<rustc_span::Span>,
+    sp: Option<rodetc_span::Span>,
     diag_info: &DiagnosticInfo<'_>,
 ) {
     let suggestion = res.disambiguator_suggestion();

@@ -3,14 +3,14 @@ use clippy_utils::diagnostics::{span_lint_and_then, span_lint_hir_and_then};
 use clippy_utils::is_from_proc_macro;
 use core::iter;
 use core::num::NonZero;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::pluralize;
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::pluralize;
+use rodetc_hir::{
     FieldDef, HirId, ImplItem, ImplItemImplKind, ImplItemKind, Item, ItemKind, Node, Pat, PatKind, TraitFn, TraitItem,
     TraitItemKind, UseKind, UseTree, Variant,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{Ident, Symbol};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{Ident, Symbol};
 use std::borrow::Cow::{self, Borrowed, Owned};
 
 declare_clippy_lint! {

@@ -151,4 +151,4 @@ LL |     purr_louder();
 error: aborting due to 17 previous errors
 
 Some errors have detailed explanations: E0424, E0425.
-For more information about an error, try `rustc --explain E0424`.
+For more information about an error, try `rodetc --explain E0424`.

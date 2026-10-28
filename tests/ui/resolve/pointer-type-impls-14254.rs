@@ -18,7 +18,7 @@ impl BarTy {
     fn b(&self) {}
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl Foo for *const BarTy {
     fn bar(&self) {
         self.baz();
@@ -27,7 +27,7 @@ impl Foo for *const BarTy {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl<'a> Foo for &'a BarTy {
     fn bar(&self) {
         self.baz();
@@ -39,7 +39,7 @@ impl<'a> Foo for &'a BarTy {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl<'a> Foo for &'a mut BarTy {
     fn bar(&self) {
         self.baz();
@@ -51,7 +51,7 @@ impl<'a> Foo for &'a mut BarTy {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl Foo for Box<BarTy> {
     fn bar(&self) {
         self.baz();
@@ -59,7 +59,7 @@ impl Foo for Box<BarTy> {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl Foo for *const isize {
     fn bar(&self) {
         self.baz();
@@ -67,7 +67,7 @@ impl Foo for *const isize {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl<'a> Foo for &'a isize {
     fn bar(&self) {
         self.baz();
@@ -75,7 +75,7 @@ impl<'a> Foo for &'a isize {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl<'a> Foo for &'a mut isize {
     fn bar(&self) {
         self.baz();
@@ -83,7 +83,7 @@ impl<'a> Foo for &'a mut isize {
     }
 }
 
-// If these fail, it's necessary to update rustc_resolve and the cfail tests.
+// If these fail, it's necessary to update rodetc_resolve and the cfail tests.
 impl Foo for Box<isize> {
     fn bar(&self) {
         self.baz();

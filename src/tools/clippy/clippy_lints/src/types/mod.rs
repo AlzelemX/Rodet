@@ -11,15 +11,15 @@ mod utils;
 mod vec_box;
 
 use clippy_config::Conf;
-use rustc_hir as hir;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_hir as hir;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     Body, FnDecl, FnRetTy, GenericArg, ImplItem, ImplItemKind, Item, ItemKind, LetStmt, QPath, TraitFn, TraitItem,
     TraitItemKind, TyKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 declare_clippy_lint! {
     /// ### What it does

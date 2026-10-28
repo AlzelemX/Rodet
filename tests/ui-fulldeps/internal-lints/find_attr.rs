@@ -4,9 +4,9 @@
 #![feature(rustc_private)]
 #![deny(rustc::bad_use_of_find_attr)]
 
-extern crate rustc_attr_ir;
+extern crate rodetc_attr_ir;
 
-use rustc_attr_ir::{AttributeKind, find_attr};
+use rodetc_attr_ir::{AttributeKind, find_attr};
 
 fn main() {
     let attrs = &[];

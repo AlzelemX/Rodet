@@ -2,11 +2,11 @@ use super::WHILE_IMMUTABLE_CONDITION;
 use clippy_utils::consts::ConstEvalCtxt;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::usage::mutated_variables;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefIdMap;
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{Expr, ExprKind, HirIdSet, QPath};
-use rustc_lint::LateContext;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{Expr, ExprKind, HirIdSet, QPath};
+use rodetc_lint::LateContext;
 use std::ops::ControlFlow;
 
 pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, cond: &'tcx Expr<'_>, expr: &'tcx Expr<'_>) {

@@ -32,4 +32,4 @@ LL + pub use options::ParseOptions;
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0603`.
+For more information about this error, try `rodetc --explain E0603`.

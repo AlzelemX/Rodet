@@ -2,8 +2,8 @@ use std::{fmt, hash::Hash, num::NonZero};
 
 use intern::{Interned, InternedRef, impl_internable};
 use macros::{GenericTypeVisitable, TypeFoldable, TypeVisitable};
-use rustc_abi::{Size, TargetDataLayout};
-use rustc_type_ir::{GenericTypeVisitable, TypeFoldable, TypeVisitable, inherent::IntoKind};
+use rodetc_abi::{Size, TargetDataLayout};
+use rodetc_type_ir::{GenericTypeVisitable, TypeFoldable, TypeVisitable, inherent::IntoKind};
 use stdx::never;
 
 use crate::{
@@ -15,7 +15,7 @@ use crate::{
 
 use super::{DbInterner, Ty};
 
-pub type ValTreeKind<'db> = rustc_type_ir::ValTreeKind<DbInterner<'db>>;
+pub type ValTreeKind<'db> = rodetc_type_ir::ValTreeKind<DbInterner<'db>>;
 
 /// A type-level constant value.
 ///
@@ -103,16 +103,16 @@ pub(super) fn allocation_to_const<'db>(
         }
         TyKind::Float(float) => {
             let scalar = match float {
-                rustc_ast_ir::FloatTy::F16 => {
+                rodetc_ast_ir::FloatTy::F16 => {
                     ScalarInt::from(u16::from_le_bytes(memory.try_into().unwrap()))
                 }
-                rustc_ast_ir::FloatTy::F32 => {
+                rodetc_ast_ir::FloatTy::F32 => {
                     ScalarInt::from(u32::from_le_bytes(memory.try_into().unwrap()))
                 }
-                rustc_ast_ir::FloatTy::F64 => {
+                rodetc_ast_ir::FloatTy::F64 => {
                     ScalarInt::from(u64::from_le_bytes(memory.try_into().unwrap()))
                 }
-                rustc_ast_ir::FloatTy::F128 => {
+                rodetc_ast_ir::FloatTy::F128 => {
                     ScalarInt::from(u128::from_le_bytes(memory.try_into().unwrap()))
                 }
             };
@@ -274,7 +274,7 @@ pub(super) fn allocation_to_const<'db>(
     Const::new_valtree(interner, ty, valtree)
 }
 
-impl<'db> rustc_type_ir::inherent::ValueConst<DbInterner<'db>> for ValueConst<'db> {
+impl<'db> rodetc_type_ir::inherent::ValueConst<DbInterner<'db>> for ValueConst<'db> {
     fn ty(self) -> Ty<'db> {
         self.ty
     }
@@ -298,7 +298,7 @@ impl<'db, V: WorldExposer> GenericTypeVisitable<V> for ValTree<'db> {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for ValTree<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -307,14 +307,14 @@ impl<'db> TypeVisitable<DbInterner<'db>> for ValTree<'db> {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for ValTree<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         self.inner().try_fold_with(folder).map(ValTree::new)
     }
 
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         ValTree::new(self.inner().fold_with(folder))
     }
 }

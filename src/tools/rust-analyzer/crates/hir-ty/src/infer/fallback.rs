@@ -5,7 +5,7 @@ use petgraph::{
     visit::{Dfs, Walker},
 };
 use rustc_hash::{FxBuildHasher, FxHashMap, FxHashSet};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     TyVid,
     inherent::{IntoKind, Ty as _},
 };
@@ -150,8 +150,8 @@ impl<'db> InferenceContext<'db> {
         // type, `?T` is not considered unsolved, but `?I` is. The
         // same is true for float variables.)
         let fallback = match ty.kind() {
-            TyKind::Infer(rustc_type_ir::IntVar(_)) => self.types.types.i32,
-            TyKind::Infer(rustc_type_ir::FloatVar(_)) => self.types.types.f64,
+            TyKind::Infer(rodetc_type_ir::IntVar(_)) => self.types.types.i32,
+            TyKind::Infer(rodetc_type_ir::FloatVar(_)) => self.types.types.f64,
             _ => match diverging_fallback.get(&ty) {
                 Some(&fallback_ty) => fallback_ty,
                 None => return false,
@@ -365,7 +365,7 @@ impl<'db> InferenceContext<'db> {
                     //     //
                     //     // For details on the requirements for these relationships to be
                     //     // set, see the relationship finding module in
-                    //     // compiler/rustc_trait_selection/src/traits/relationships.rs.
+                    //     // compiler/rodetc_trait_selection/src/traits/relationships.rs.
                     //     debug!("fallback to () - found trait and projection: {:?}", diverging_vid);
                     //     fallback_to(self.types.types.unit);
                     // }

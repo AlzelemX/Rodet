@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::ty::ty_from_hir_ty;
-use rustc_hir::{self as hir, AmbigArg, HirId, ItemKind, Node};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_middle::ty::{self, TypeVisitableExt as _};
-use rustc_span::sym;
+use rodetc_hir::{self as hir, AmbigArg, HirId, ItemKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_middle::ty::{self, TypeVisitableExt as _};
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

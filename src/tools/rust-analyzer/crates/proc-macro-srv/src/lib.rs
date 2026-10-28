@@ -15,13 +15,13 @@
 #![deny(deprecated_safe, clippy::undocumented_unsafe_blocks)]
 #![cfg_attr(test, expect(unreachable_pub))]
 
-extern crate rustc_codegen_ssa;
-extern crate rustc_driver as _;
-extern crate rustc_interface;
-extern crate rustc_lexer;
-extern crate rustc_metadata;
-extern crate rustc_proc_macro;
-extern crate rustc_span;
+extern crate rodetc_codegen_ssa;
+extern crate rodetc_driver as _;
+extern crate rodetc_interface;
+extern crate rodetc_lexer;
+extern crate rodetc_metadata;
+extern crate rodetc_proc_macro;
+extern crate rodetc_span;
 
 mod bridge;
 mod dylib;
@@ -45,7 +45,7 @@ use span::{FIXUP_ERASED_FILE_AST_ID_MARKER, Span};
 
 pub use crate::server_impl::token_id::SpanId;
 
-pub use rustc_proc_macro::Delimiter;
+pub use rodetc_proc_macro::Delimiter;
 pub use span;
 
 pub use crate::bridge::*;
@@ -232,7 +232,7 @@ pub struct TrackedEnv {
 }
 
 pub trait ProcMacroSrvSpan: Copy + Send + Sync {
-    type Server<'a>: rustc_proc_macro::bridge::server::Server<
+    type Server<'a>: rodetc_proc_macro::bridge::server::Server<
             TokenStream = crate::token_stream::TokenStream<Self>,
         >;
     fn make_server<'a>(

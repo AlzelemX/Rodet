@@ -1,6 +1,6 @@
-use rustc_ast::token::{CommentKind, DocFragmentKind};
-use rustc_resolve::rustdoc::unindent_doc_fragments;
-use rustc_span::create_default_session_globals_then;
+use rodetc_ast::token::{CommentKind, DocFragmentKind};
+use rodetc_resolve::rustdoc::unindent_doc_fragments;
+use rodetc_span::create_default_session_globals_then;
 
 use super::*;
 
@@ -12,7 +12,7 @@ fn create_doc_fragment(s: &str) -> Vec<DocFragment> {
         kind: DocFragmentKind::Sugared(CommentKind::Line),
         indent: 0,
         from_expansion: false,
-        style: rustc_ast::AttrStyle::Outer,
+        style: rodetc_ast::AttrStyle::Outer,
     }]
 }
 

@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::eq_expr_value;
 use clippy_utils::source::snippet;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
 
 use super::SELF_ASSIGNMENT;
 

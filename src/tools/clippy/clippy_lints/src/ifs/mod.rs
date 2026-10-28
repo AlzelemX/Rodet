@@ -1,9 +1,9 @@
 use clippy_config::Conf;
 use clippy_utils::ty::InteriorMut;
 use clippy_utils::{if_sequence, is_else_clause, is_lint_allowed};
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
 
 mod branches_sharing_code;
 mod if_same_then_else;

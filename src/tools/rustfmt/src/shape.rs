@@ -2,7 +2,7 @@ use std::borrow::Cow;
 use std::cmp::min;
 use std::ops::{Add, Sub};
 
-use rustc_span::Span;
+use rodetc_span::Span;
 
 use crate::Config;
 use crate::rewrite::ExceedsMaxWidthError;

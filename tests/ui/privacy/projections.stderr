@@ -59,4 +59,4 @@ LL |     type A<T: Trait> = T::A<m::Leak>;
 
 error: aborting due to 6 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0446`.
+For more information about this error, try `rodetc --explain E0446`.

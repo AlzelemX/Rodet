@@ -1,6 +1,6 @@
 //! Strips all non-local private aliases items from the output.
 
-use rustc_middle::ty::{TyCtxt, Visibility};
+use rodetc_middle::ty::{TyCtxt, Visibility};
 
 use crate::clean;
 use crate::clean::Item;

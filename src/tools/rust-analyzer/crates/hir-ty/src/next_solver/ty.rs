@@ -9,9 +9,9 @@ use hir_def::{
 use hir_def::{TraitId, type_ref::Rawness};
 use intern::{Interned, InternedRef, impl_internable};
 use macros::GenericTypeVisitable;
-use rustc_abi::{ExternAbi, Float, Integer, Size};
-use rustc_ast_ir::{Mutability, try_visit, visit::VisitorResult};
-use rustc_type_ir::{
+use rodetc_abi::{ExternAbi, Float, Integer, Size};
+use rodetc_ast_ir::{Mutability, try_visit, visit::VisitorResult};
+use rodetc_type_ir::{
     BoundVar, BoundVarIndexKind, ClosureKind, DebruijnIndex, FlagComputation, Flags, FloatTy,
     FloatVid, GenericTypeVisitable, InferTy, IntTy, IntVid, Interner, TyVid, TypeFoldable,
     TypeSuperFoldable, TypeSuperVisitable, TypeVisitable, TypeVisitableExt, TypeVisitor, UintTy,
@@ -44,12 +44,12 @@ use super::{
     util::{FloatExt, IntegerExt},
 };
 
-pub type SimplifiedType<'db> = rustc_type_ir::fast_reject::SimplifiedType<SolverDefId<'db>>;
-pub type TyKind<'db> = rustc_type_ir::TyKind<DbInterner<'db>>;
-pub type FnHeader<'db> = rustc_type_ir::FnHeader<DbInterner<'db>>;
-pub type AliasTyKind<'db> = rustc_type_ir::AliasTyKind<DbInterner<'db>>;
-pub type AliasTermKind<'db> = rustc_type_ir::AliasTermKind<DbInterner<'db>>;
-pub type FnSigKind<'db> = rustc_type_ir::FnSigKind<DbInterner<'db>>;
+pub type SimplifiedType<'db> = rodetc_type_ir::fast_reject::SimplifiedType<SolverDefId<'db>>;
+pub type TyKind<'db> = rodetc_type_ir::TyKind<DbInterner<'db>>;
+pub type FnHeader<'db> = rodetc_type_ir::FnHeader<DbInterner<'db>>;
+pub type AliasTyKind<'db> = rodetc_type_ir::AliasTyKind<DbInterner<'db>>;
+pub type AliasTermKind<'db> = rodetc_type_ir::AliasTermKind<DbInterner<'db>>;
+pub type FnSigKind<'db> = rodetc_type_ir::FnSigKind<DbInterner<'db>>;
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Ty<'db> {
@@ -70,7 +70,7 @@ const _: () = {
 };
 
 impl<'db> Ty<'db> {
-    /// You should avoid using this if you can, since we want `Const` to be defined in `rustc_type_ir` and then this method
+    /// You should avoid using this if you can, since we want `Const` to be defined in `rodetc_type_ir` and then this method
     /// will become more difficult to use.
     #[inline]
     pub fn new_without_interner(kind: TyKind<'db>) -> Self {
@@ -553,7 +553,7 @@ impl<'db> Ty<'db> {
     #[inline]
     pub fn ty_vid(self) -> Option<TyVid> {
         match self.kind() {
-            TyKind::Infer(rustc_type_ir::TyVar(vid)) => Some(vid),
+            TyKind::Infer(rodetc_type_ir::TyVar(vid)) => Some(vid),
             _ => None,
         }
     }
@@ -724,26 +724,26 @@ impl<'db> Ty<'db> {
             TyKind::Bool => hir_def::builtin_type::BuiltinType::Bool,
             TyKind::Str => hir_def::builtin_type::BuiltinType::Str,
             TyKind::Int(int) => hir_def::builtin_type::BuiltinType::Int(match int {
-                rustc_type_ir::IntTy::Isize => hir_def::builtin_type::BuiltinInt::Isize,
-                rustc_type_ir::IntTy::I8 => hir_def::builtin_type::BuiltinInt::I8,
-                rustc_type_ir::IntTy::I16 => hir_def::builtin_type::BuiltinInt::I16,
-                rustc_type_ir::IntTy::I32 => hir_def::builtin_type::BuiltinInt::I32,
-                rustc_type_ir::IntTy::I64 => hir_def::builtin_type::BuiltinInt::I64,
-                rustc_type_ir::IntTy::I128 => hir_def::builtin_type::BuiltinInt::I128,
+                rodetc_type_ir::IntTy::Isize => hir_def::builtin_type::BuiltinInt::Isize,
+                rodetc_type_ir::IntTy::I8 => hir_def::builtin_type::BuiltinInt::I8,
+                rodetc_type_ir::IntTy::I16 => hir_def::builtin_type::BuiltinInt::I16,
+                rodetc_type_ir::IntTy::I32 => hir_def::builtin_type::BuiltinInt::I32,
+                rodetc_type_ir::IntTy::I64 => hir_def::builtin_type::BuiltinInt::I64,
+                rodetc_type_ir::IntTy::I128 => hir_def::builtin_type::BuiltinInt::I128,
             }),
             TyKind::Uint(uint) => hir_def::builtin_type::BuiltinType::Uint(match uint {
-                rustc_type_ir::UintTy::Usize => hir_def::builtin_type::BuiltinUint::Usize,
-                rustc_type_ir::UintTy::U8 => hir_def::builtin_type::BuiltinUint::U8,
-                rustc_type_ir::UintTy::U16 => hir_def::builtin_type::BuiltinUint::U16,
-                rustc_type_ir::UintTy::U32 => hir_def::builtin_type::BuiltinUint::U32,
-                rustc_type_ir::UintTy::U64 => hir_def::builtin_type::BuiltinUint::U64,
-                rustc_type_ir::UintTy::U128 => hir_def::builtin_type::BuiltinUint::U128,
+                rodetc_type_ir::UintTy::Usize => hir_def::builtin_type::BuiltinUint::Usize,
+                rodetc_type_ir::UintTy::U8 => hir_def::builtin_type::BuiltinUint::U8,
+                rodetc_type_ir::UintTy::U16 => hir_def::builtin_type::BuiltinUint::U16,
+                rodetc_type_ir::UintTy::U32 => hir_def::builtin_type::BuiltinUint::U32,
+                rodetc_type_ir::UintTy::U64 => hir_def::builtin_type::BuiltinUint::U64,
+                rodetc_type_ir::UintTy::U128 => hir_def::builtin_type::BuiltinUint::U128,
             }),
             TyKind::Float(float) => hir_def::builtin_type::BuiltinType::Float(match float {
-                rustc_type_ir::FloatTy::F16 => hir_def::builtin_type::BuiltinFloat::F16,
-                rustc_type_ir::FloatTy::F32 => hir_def::builtin_type::BuiltinFloat::F32,
-                rustc_type_ir::FloatTy::F64 => hir_def::builtin_type::BuiltinFloat::F64,
-                rustc_type_ir::FloatTy::F128 => hir_def::builtin_type::BuiltinFloat::F128,
+                rodetc_type_ir::FloatTy::F16 => hir_def::builtin_type::BuiltinFloat::F16,
+                rodetc_type_ir::FloatTy::F32 => hir_def::builtin_type::BuiltinFloat::F32,
+                rodetc_type_ir::FloatTy::F64 => hir_def::builtin_type::BuiltinFloat::F64,
+                rodetc_type_ir::FloatTy::F128 => hir_def::builtin_type::BuiltinFloat::F128,
             }),
             _ => return None,
         };
@@ -902,7 +902,7 @@ impl<'db, V: super::WorldExposer> GenericTypeVisitable<V> for Ty<'db> {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for Ty<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -911,7 +911,7 @@ impl<'db> TypeVisitable<DbInterner<'db>> for Ty<'db> {
 }
 
 impl<'db> TypeSuperVisitable<DbInterner<'db>> for Ty<'db> {
-    fn super_visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn super_visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -965,19 +965,19 @@ impl<'db> TypeSuperVisitable<DbInterner<'db>> for Ty<'db> {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for Ty<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         folder.try_fold_ty(self)
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         folder.fold_ty(self)
     }
 }
 
 impl<'db> TypeSuperFoldable<DbInterner<'db>> for Ty<'db> {
-    fn try_super_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_super_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
@@ -1028,7 +1028,7 @@ impl<'db> TypeSuperFoldable<DbInterner<'db>> for Ty<'db> {
 
         Ok(if self.kind() == kind { self } else { Ty::new(folder.cx(), kind) })
     }
-    fn super_fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(
+    fn super_fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Self {
@@ -1078,26 +1078,26 @@ impl<'db> TypeSuperFoldable<DbInterner<'db>> for Ty<'db> {
 }
 
 impl<'db> Relate<DbInterner<'db>> for Ty<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         relation.tys(a, b)
     }
 }
 
 impl<'db> Flags for Ty<'db> {
-    fn flags(&self) -> rustc_type_ir::TypeFlags {
+    fn flags(&self) -> rodetc_type_ir::TypeFlags {
         self.inner().flags
     }
 
-    fn outer_exclusive_binder(&self) -> rustc_type_ir::DebruijnIndex {
+    fn outer_exclusive_binder(&self) -> rodetc_type_ir::DebruijnIndex {
         self.inner().outer_exclusive_binder
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
+impl<'db> rodetc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
     fn new_unit(interner: DbInterner<'db>) -> Self {
         interner.default_types().types.unit
     }
@@ -1114,12 +1114,12 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
         interner.default_types().types.usize
     }
 
-    fn new_infer(interner: DbInterner<'db>, var: rustc_type_ir::InferTy) -> Self {
+    fn new_infer(interner: DbInterner<'db>, var: rodetc_type_ir::InferTy) -> Self {
         Ty::new(interner, TyKind::Infer(var))
     }
 
-    fn new_var(interner: DbInterner<'db>, var: rustc_type_ir::TyVid) -> Self {
-        Ty::new(interner, TyKind::Infer(rustc_type_ir::InferTy::TyVar(var)))
+    fn new_var(interner: DbInterner<'db>, var: rodetc_type_ir::TyVid) -> Self {
+        Ty::new(interner, TyKind::Infer(rodetc_type_ir::InferTy::TyVar(var)))
     }
 
     fn new_param(interner: DbInterner<'db>, param: ParamTy) -> Self {
@@ -1228,7 +1228,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
             match arg.kind() {
                 GenericArgKind::Type(_) | GenericArgKind::Const(_) => arg,
                 GenericArgKind::Lifetime(_) => {
-                    crate::next_solver::Region::new(interner, rustc_type_ir::RegionKind::ReErased)
+                    crate::next_solver::Region::new(interner, rodetc_type_ir::RegionKind::ReErased)
                         .into()
                 }
             }
@@ -1236,7 +1236,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
         Ty::new_coroutine_witness(interner, def_id, coroutine_args)
     }
 
-    fn new_ptr(interner: DbInterner<'db>, ty: Self, mutbl: rustc_ast_ir::Mutability) -> Self {
+    fn new_ptr(interner: DbInterner<'db>, ty: Self, mutbl: rodetc_ast_ir::Mutability) -> Self {
         Ty::new(interner, TyKind::RawPtr(ty, mutbl))
     }
 
@@ -1244,7 +1244,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
         interner: DbInterner<'db>,
         region: <DbInterner<'db> as Interner>::Region,
         ty: Self,
-        mutbl: rustc_ast_ir::Mutability,
+        mutbl: rodetc_ast_ir::Mutability,
     ) -> Self {
         Ty::new(interner, TyKind::Ref(region, ty, mutbl))
     }
@@ -1268,7 +1268,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
     fn new_tup_from_iter<It, T>(interner: DbInterner<'db>, iter: It) -> T::Output
     where
         It: Iterator<Item = T>,
-        T: rustc_type_ir::CollectAndApply<Self, Self>,
+        T: rodetc_type_ir::CollectAndApply<Self, Self>,
     {
         T::collect_and_apply(iter, |ts| Ty::new_tup(interner, ts))
     }
@@ -1283,7 +1283,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
 
     fn new_fn_ptr(
         interner: DbInterner<'db>,
-        sig: rustc_type_ir::Binder<DbInterner<'db>, rustc_type_ir::FnSig<DbInterner<'db>>>,
+        sig: rodetc_type_ir::Binder<DbInterner<'db>, rodetc_type_ir::FnSig<DbInterner<'db>>>,
     ) -> Self {
         let (sig_tys, header) = sig.split();
         Ty::new(interner, TyKind::FnPtr(sig_tys, header))
@@ -1299,7 +1299,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
 
     fn new_unsafe_binder(
         interner: DbInterner<'db>,
-        ty: rustc_type_ir::Binder<DbInterner<'db>, <DbInterner<'db> as Interner>::Ty>,
+        ty: rodetc_type_ir::Binder<DbInterner<'db>, <DbInterner<'db> as Interner>::Ty>,
     ) -> Self {
         Ty::new(interner, TyKind::UnsafeBinder(ty.into()))
     }
@@ -1311,7 +1311,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
         }
     }
 
-    fn to_opt_closure_kind(self) -> Option<rustc_type_ir::ClosureKind> {
+    fn to_opt_closure_kind(self) -> Option<rodetc_type_ir::ClosureKind> {
         match self.kind() {
             TyKind::Int(int_ty) => match int_ty {
                 IntTy::I8 => Some(ClosureKind::Fn),
@@ -1333,7 +1333,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
         }
     }
 
-    fn from_closure_kind(interner: DbInterner<'db>, kind: rustc_type_ir::ClosureKind) -> Self {
+    fn from_closure_kind(interner: DbInterner<'db>, kind: rodetc_type_ir::ClosureKind) -> Self {
         let types = interner.default_types();
         match kind {
             ClosureKind::Fn => types.types.i8,
@@ -1344,7 +1344,7 @@ impl<'db> rustc_type_ir::inherent::Ty<DbInterner<'db>> for Ty<'db> {
 
     fn from_coroutine_closure_kind(
         interner: DbInterner<'db>,
-        kind: rustc_type_ir::ClosureKind,
+        kind: rodetc_type_ir::ClosureKind,
     ) -> Self {
         let types = interner.default_types();
         match kind {
@@ -1426,7 +1426,7 @@ impl<'db> Tys<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Tys<DbInterner<'db>> for Tys<'db> {
+impl<'db> rodetc_type_ir::inherent::Tys<DbInterner<'db>> for Tys<'db> {
     fn inputs(self) -> <DbInterner<'db> as Interner>::FnInputTys {
         self.as_slice().split_last().unwrap().1
     }
@@ -1436,7 +1436,7 @@ impl<'db> rustc_type_ir::inherent::Tys<DbInterner<'db>> for Tys<'db> {
     }
 }
 
-pub type PlaceholderType<'db> = rustc_type_ir::PlaceholderType<DbInterner<'db>>;
+pub type PlaceholderType<'db> = rodetc_type_ir::PlaceholderType<DbInterner<'db>>;
 
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 pub struct ParamTy {
@@ -1459,8 +1459,8 @@ impl std::fmt::Debug for ParamTy {
     }
 }
 
-pub type BoundTy<'db> = rustc_type_ir::BoundTy<DbInterner<'db>>;
-pub type BoundTyKind<'db> = rustc_type_ir::BoundTyKind<DbInterner<'db>>;
+pub type BoundTy<'db> = rodetc_type_ir::BoundTy<DbInterner<'db>>;
+pub type BoundTyKind<'db> = rodetc_type_ir::BoundTyKind<DbInterner<'db>>;
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub struct ErrorGuaranteed;
@@ -1470,7 +1470,7 @@ impl<V> GenericTypeVisitable<V> for ErrorGuaranteed {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for ErrorGuaranteed {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -1479,13 +1479,13 @@ impl<'db> TypeVisitable<DbInterner<'db>> for ErrorGuaranteed {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for ErrorGuaranteed {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         _folder: &mut F,
     ) -> Result<Self, F::Error> {
         Ok(self)
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, _folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, _folder: &mut F) -> Self {
         self
     }
 }

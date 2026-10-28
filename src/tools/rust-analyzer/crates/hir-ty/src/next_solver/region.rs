@@ -3,7 +3,7 @@
 use hir_def::LifetimeParamId;
 use intern::{Interned, InternedRef, impl_internable};
 use macros::GenericTypeVisitable;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     BoundVarIndexKind, DebruijnIndex, Flags, GenericTypeVisitable, INNERMOST, RegionVid, TypeFlags,
     TypeFoldable, TypeVisitable,
     inherent::{IntoKind, SliceLike},
@@ -17,8 +17,8 @@ use crate::next_solver::{
 
 use super::{SolverDefId, interner::DbInterner};
 
-pub type RegionKind<'db> = rustc_type_ir::RegionKind<DbInterner<'db>>;
-pub type RegionConstraint<'db> = rustc_type_ir::RegionConstraint<DbInterner<'db>>;
+pub type RegionKind<'db> = rodetc_type_ir::RegionKind<DbInterner<'db>>;
+pub type RegionConstraint<'db> = rodetc_type_ir::RegionConstraint<DbInterner<'db>>;
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Region<'db> {
@@ -38,7 +38,7 @@ const _: () = {
 };
 
 impl<'db> Region<'db> {
-    /// You should avoid using this if you can, since we want `Region` to be defined in `rustc_type_ir` and then this method
+    /// You should avoid using this if you can, since we want `Region` to be defined in `rodetc_type_ir` and then this method
     /// will become more difficult to use.
     pub fn new_without_interner(kind: RegionKind<'db>) -> Self {
         let kind = unsafe { std::mem::transmute::<RegionKind<'db>, RegionKind<'static>>(kind) };
@@ -160,7 +160,7 @@ impl<'db> Region<'db> {
     }
 }
 
-pub type PlaceholderRegion<'db> = rustc_type_ir::PlaceholderRegion<DbInterner<'db>>;
+pub type PlaceholderRegion<'db> = rodetc_type_ir::PlaceholderRegion<DbInterner<'db>>;
 
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 pub struct EarlyParamRegion {
@@ -185,10 +185,10 @@ impl std::fmt::Debug for LateParamRegion<'_> {
     }
 }
 
-pub type BoundRegion<'db> = rustc_type_ir::BoundRegion<DbInterner<'db>>;
-pub type BoundRegionKind<'db> = rustc_type_ir::BoundRegionKind<DbInterner<'db>>;
+pub type BoundRegion<'db> = rodetc_type_ir::BoundRegion<DbInterner<'db>>;
+pub type BoundRegionKind<'db> = rodetc_type_ir::BoundRegionKind<DbInterner<'db>>;
 
-impl rustc_type_ir::inherent::ParamLike for EarlyParamRegion {
+impl rodetc_type_ir::inherent::ParamLike for EarlyParamRegion {
     fn index(self) -> u32 {
         self.index
     }
@@ -216,7 +216,7 @@ impl<'db> IntoKind for Region<'db> {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for Region<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -225,33 +225,33 @@ impl<'db> TypeVisitable<DbInterner<'db>> for Region<'db> {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for Region<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         folder.try_fold_region(self)
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         folder.fold_region(self)
     }
 }
 
 impl<'db> Relate<DbInterner<'db>> for Region<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         relation.regions(a, b)
     }
 }
 
 impl<'db> Flags for Region<'db> {
-    fn flags(&self) -> rustc_type_ir::TypeFlags {
+    fn flags(&self) -> rodetc_type_ir::TypeFlags {
         self.type_flags()
     }
 
-    fn outer_exclusive_binder(&self) -> rustc_type_ir::DebruijnIndex {
+    fn outer_exclusive_binder(&self) -> rodetc_type_ir::DebruijnIndex {
         match &self.inner() {
             RegionKind::ReBound(BoundVarIndexKind::Bound(debruijn), _) => debruijn.shifted_in(1),
             _ => INNERMOST,
@@ -259,7 +259,7 @@ impl<'db> Flags for Region<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Region<DbInterner<'db>> for Region<'db> {
+impl<'db> rodetc_type_ir::inherent::Region<DbInterner<'db>> for Region<'db> {
     fn new_bound(
         interner: DbInterner<'db>,
         debruijn: DebruijnIndex,
@@ -271,7 +271,7 @@ impl<'db> rustc_type_ir::inherent::Region<DbInterner<'db>> for Region<'db> {
     fn new_anon_bound(
         interner: DbInterner<'db>,
         debruijn: DebruijnIndex,
-        var: rustc_type_ir::BoundVar,
+        var: rodetc_type_ir::BoundVar,
     ) -> Self {
         Region::new(
             interner,
@@ -282,7 +282,7 @@ impl<'db> rustc_type_ir::inherent::Region<DbInterner<'db>> for Region<'db> {
         )
     }
 
-    fn new_canonical_bound(interner: DbInterner<'db>, var: rustc_type_ir::BoundVar) -> Self {
+    fn new_canonical_bound(interner: DbInterner<'db>, var: rodetc_type_ir::BoundVar) -> Self {
         Region::new(
             interner,
             RegionKind::ReBound(

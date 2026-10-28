@@ -24,7 +24,7 @@ LL + use core::mem::transmute; // depended upon by rand_core
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.
 Future incompatibility report: Future breakage diagnostic:
 error: use of deprecated import through accidentally stabilized module `intrinsics`
   --> $DIR/accidental-stable-in-unstable.rs:10:5

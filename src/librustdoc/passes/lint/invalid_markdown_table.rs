@@ -3,10 +3,10 @@
 
 use std::ops::Range;
 
-use rustc_hir::HirId;
-use rustc_macros::Diagnostic;
-use rustc_resolve::rustdoc::pulldown_cmark::{Event, Parser, Tag, TagEnd};
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_hir::HirId;
+use rodetc_macros::Diagnostic;
+use rodetc_resolve::rustdoc::pulldown_cmark::{Event, Parser, Tag, TagEnd};
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
 
 use crate::clean::*;
 use crate::core::DocContext;
@@ -18,7 +18,7 @@ use crate::html::markdown::main_body_opts;
 struct UnescapedPipeInTableCell {
     #[primary_span]
     #[label("any content after this column divider is discarded")]
-    span: rustc_span::Span,
+    span: rodetc_span::Span,
 }
 
 #[derive(Diagnostic)]
@@ -26,7 +26,7 @@ struct UnescapedPipeInTableCell {
 struct ContentAfterLastPipe {
     #[primary_span]
     #[label("this content is discarded")]
-    span: rustc_span::Span,
+    span: rodetc_span::Span,
 }
 
 pub(crate) fn visit_item(cx: &DocContext<'_>, item: &Item, hir_id: HirId, dox: &str) {

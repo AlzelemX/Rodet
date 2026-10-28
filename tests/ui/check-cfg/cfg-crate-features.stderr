@@ -30,4 +30,4 @@ LL | #![cfg(not(target(os = "does_not_exist")))]
 
 error: aborting due to 2 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.

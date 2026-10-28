@@ -4,11 +4,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _, MaybeTypeckRes as _};
 use clippy_utils::source::SpanExt as _;
 use itertools::Itertools as _;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, Param, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, Param, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::STRING_LIT_CHARS_ANY;
 

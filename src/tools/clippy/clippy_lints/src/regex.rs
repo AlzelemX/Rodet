@@ -7,11 +7,11 @@ use clippy_utils::paths;
 use clippy_utils::paths::PathLookup;
 use clippy_utils::res::MaybeQPath as _;
 use clippy_utils::source::SpanExt as _;
-use rustc_ast::ast::{LitKind, StrStyle};
-use rustc_hir::def_id::DefIdMap;
-use rustc_hir::{BorrowKind, Expr, ExprKind, OwnerId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{BytePos, Span};
+use rodetc_ast::ast::{LitKind, StrStyle};
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, OwnerId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does

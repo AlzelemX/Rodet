@@ -3,10 +3,10 @@ use std::fmt::Display;
 use clippy_utils::consts::{ConstEvalCtxt, Constant};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
 
 declare_clippy_lint! {
     /// ### What it does

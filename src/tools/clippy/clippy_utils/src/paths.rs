@@ -6,17 +6,17 @@
 
 use crate::res::MaybeQPath;
 use crate::sym;
-use rustc_ast::Mutability;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def::Namespace::{MacroNS, TypeNS, ValueNS};
-use rustc_hir::def::{DefKind, Namespace, Res};
-use rustc_hir::def_id::{DefId, LOCAL_CRATE, LocalDefId};
-use rustc_hir::{ItemKind, Node, UseKind, UseTree};
-use rustc_lint::LateContext;
-use rustc_middle::ty::fast_reject::SimplifiedType;
-use rustc_middle::ty::layout::HasTyCtxt;
-use rustc_middle::ty::{FloatTy, IntTy, Ty, TyCtxt, UintTy};
-use rustc_span::{Ident, STDLIB_STABLE_CRATES, Symbol};
+use rodetc_ast::Mutability;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def::Namespace::{MacroNS, TypeNS, ValueNS};
+use rodetc_hir::def::{DefKind, Namespace, Res};
+use rodetc_hir::def_id::{DefId, LOCAL_CRATE, LocalDefId};
+use rodetc_hir::{ItemKind, Node, UseKind, UseTree};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::fast_reject::SimplifiedType;
+use rodetc_middle::ty::layout::HasTyCtxt;
+use rodetc_middle::ty::{FloatTy, IntTy, Ty, TyCtxt, UintTy};
+use rodetc_span::{Ident, STDLIB_STABLE_CRATES, Symbol};
 use std::sync::OnceLock;
 
 /// Specifies whether to resolve a path in the [`TypeNS`], [`ValueNS`], [`MacroNS`] or in an
@@ -293,7 +293,7 @@ fn local_item_child_by_name(tcx: TyCtxt<'_>, local_id: LocalDefId, ns: PathNS, n
         },
         Node::Item(item) => &item.kind,
         Node::Variant(variant) if ns == PathNS::Field => {
-            return if let rustc_hir::VariantData::Struct { fields, .. } = variant.data
+            return if let rodetc_hir::VariantData::Struct { fields, .. } = variant.data
                 && let Some(field_def_id) = fields.iter().find_map(|field| {
                     if field.ident.name == name {
                         Some(field.def_id.to_def_id())
@@ -343,7 +343,7 @@ fn local_item_child_by_name(tcx: TyCtxt<'_>, local_id: LocalDefId, ns: PathNS, n
             .filter_by_name_unhygienic(name)
             .find(|assoc_item| ns.matches(Some(assoc_item.namespace())))
             .map(|assoc_item| assoc_item.def_id),
-        ItemKind::Struct(_, _, rustc_hir::VariantData::Struct { fields, .. }) if ns == PathNS::Field => {
+        ItemKind::Struct(_, _, rodetc_hir::VariantData::Struct { fields, .. }) if ns == PathNS::Field => {
             fields.iter().find_map(|field| {
                 if field.ident.name == name {
                     Some(field.def_id.to_def_id())
@@ -352,7 +352,7 @@ fn local_item_child_by_name(tcx: TyCtxt<'_>, local_id: LocalDefId, ns: PathNS, n
                 }
             })
         },
-        ItemKind::Enum(_, _, rustc_hir::EnumDef { variants }) if ns == PathNS::Type => {
+        ItemKind::Enum(_, _, rodetc_hir::EnumDef { variants }) if ns == PathNS::Type => {
             variants.iter().find_map(|variant| {
                 if variant.ident.name == name {
                     Some(variant.def_id.to_def_id())

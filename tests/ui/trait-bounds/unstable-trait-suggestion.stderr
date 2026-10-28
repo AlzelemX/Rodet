@@ -32,4 +32,4 @@ LL | pub fn baz<T: std::iter::Step>(t: std::ops::Range<T>) {
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

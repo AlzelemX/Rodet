@@ -102,4 +102,4 @@ LL |     let e = Bar::<usize>::lol();
 error: aborting due to 5 previous errors; 5 warnings emitted
 
 Some errors have detailed explanations: E0393, E0599.
-For more information about an error, try `rustc --explain E0393`.
+For more information about an error, try `rodetc --explain E0393`.

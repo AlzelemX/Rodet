@@ -1,6 +1,6 @@
 # Hello, World!
 
-Make a file called `main.rs`:
+Make a file called `main.rd` (Rodet files end in `.rd`):
 
 ```rust
 fn main() {
@@ -11,7 +11,7 @@ fn main() {
 Compile it and run it:
 
 ```text
-> rustc main.rs
+> rodetc main.rd
 > ./main          (on Windows: .\main.exe)
 Hello, world!
 ```

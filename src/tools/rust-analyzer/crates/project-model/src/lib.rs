@@ -20,7 +20,7 @@
 #![cfg_attr(feature = "in-rust-tree", feature(rustc_private))]
 
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_driver as _;
+extern crate rodetc_driver as _;
 
 pub mod project_json;
 pub mod toolchain_info {
@@ -106,7 +106,7 @@ impl ProjectManifest {
         if path.file_name().unwrap_or_default() == ".rust-project.json" {
             return Ok(ProjectManifest::ProjectJson(path));
         }
-        if path.file_name().unwrap_or_default() == "Cargo.toml" {
+        if let "Cargo.toml" | "Silk.toml" = path.file_name().unwrap_or_default() {
             return Ok(ProjectManifest::CargoToml(path));
         }
         if path.extension().unwrap_or_default() == "rs" {
@@ -141,7 +141,14 @@ impl ProjectManifest {
             .map(|paths| paths.into_iter().map(ProjectManifest::CargoToml).collect());
 
         fn find_cargo_toml(path: &AbsPath) -> io::Result<Vec<ManifestPath>> {
-            match find_in_parent_dirs(path, "Cargo.toml") {
+            // RODET: `Silk.toml` (Rodet packages) or `Cargo.toml`, whichever is nearer.
+            let silk = find_in_parent_dirs(path, "Silk.toml");
+            let cargo = find_in_parent_dirs(path, "Cargo.toml");
+            let nearest = match (silk, cargo) {
+                (Some(s), Some(c)) => Some(if c.as_str().len() > s.as_str().len() { c } else { s }),
+                (s, c) => s.or(c),
+            };
+            match nearest {
                 Some(it) => Ok(vec![it]),
                 None => Ok(find_cargo_toml_in_child_dir(read_dir(path)?)),
             }
@@ -174,8 +181,10 @@ impl ProjectManifest {
             // Only one level down to avoid cycles the easy way and stop a runaway scan with large projects
             entities
                 .filter_map(Result::ok)
-                .map(|it| it.path().join("Cargo.toml"))
-                .filter(|it| it.exists())
+                .filter_map(|it| {
+                    let dir = it.path();
+                    ["Silk.toml", "Cargo.toml"].into_iter().map(|n| dir.join(n)).find(|p| p.exists())
+                })
                 .map(Utf8PathBuf::from_path_buf)
                 .filter_map(Result::ok)
                 .map(AbsPathBuf::try_from)

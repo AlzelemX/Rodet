@@ -8,7 +8,7 @@ use std::path::Path;
 use crate::diagnostics::TidyCtx;
 use crate::walk::{filter_not_rust, walk};
 
-const TARGET_DEFINITIONS_PATH: &str = "compiler/rustc_target/src/spec/targets/";
+const TARGET_DEFINITIONS_PATH: &str = "compiler/rodetc_target/src/spec/targets/";
 const ASSEMBLY_LLVM_TEST_PATH: &str = "tests/assembly-llvm/targets/";
 const REVISION_LINE_START: &str = "//@ revisions: ";
 const EXCEPTIONS: &[&str] = &[

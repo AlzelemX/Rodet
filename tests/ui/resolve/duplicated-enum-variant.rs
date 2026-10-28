@@ -1,4 +1,4 @@
-// Regression test for #123690. If we allow the compiler to advance past `rustc_resolve`, it causes
+// Regression test for #123690. If we allow the compiler to advance past `rodetc_resolve`, it causes
 // an ICE.
 
 

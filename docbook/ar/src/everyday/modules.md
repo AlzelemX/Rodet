@@ -33,15 +33,15 @@ fn main() {
 
 ## وحدة لكل ملف
 
-في مشروع Cargo، `mod shapes;` (مع `;`) تحمّل الوحدة من ملف:
+في مشروع Rodet، `mod shapes;` (مع `;`) تحمّل الوحدة من ملف:
 
 ```text
 src/
-├── main.rs        mod shapes;  use shapes::Circle;
-└── shapes.rs      pub struct Circle { ... }
+├── main.rd        mod shapes;  use shapes::Circle;
+└── shapes.rd      pub struct Circle { ... }
 ```
 
-المجلد يعمل أيضًا: `src/shapes/mod.rs`، أو `src/shapes.rs` بجانب مجلد
+المجلد يعمل أيضًا: `src/shapes/mod.rd`، أو `src/shapes.rd` بجانب مجلد
 `src/shapes/` لوحداتها الفرعية.
 
 ## المسارات
@@ -52,4 +52,4 @@ src/
 | `super::helper` | من الوحدة الأم |
 | `self::inner` | من هذه الوحدة |
 | `std::fs` | من المكتبة القياسية |
-| `rand::random` | من مكتبة في `Cargo.toml` |
+| `rand::random` | من مكتبة في `Silk.toml` |

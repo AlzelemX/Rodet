@@ -1,9 +1,9 @@
 use super::ITER_NEXT_LOOP;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 pub(super) fn check(cx: &LateContext<'_>, arg: &Expr<'_>) {
     if cx.ty_based_def(arg).opt_parent(cx).is_diag_item(cx, sym::Iterator) {

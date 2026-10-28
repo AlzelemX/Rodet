@@ -4,14 +4,14 @@ use std::path::PathBuf;
 
 use miri::Immediate::Uninit;
 use miri::{InterpErrorInfo, InterpErrorKind, TerminationInfo, *};
-use rustc_abi::{FIRST_VARIANT, FieldIdx, Size};
-use rustc_data_structures::either::Either;
-use rustc_hir::def::CtorKind;
-use rustc_middle::mir::interpret::AllocId;
-use rustc_middle::mir::{self, Local, ProjectionElem, VarDebugInfoContents, VarDebugInfoFragment};
-use rustc_middle::ty::{self, TyKind};
-use rustc_span::source_map::SourceMap;
-use rustc_span::{Span, Symbol};
+use rodetc_abi::{FIRST_VARIANT, FieldIdx, Size};
+use rodetc_data_structures::either::Either;
+use rodetc_hir::def::CtorKind;
+use rodetc_middle::mir::interpret::AllocId;
+use rodetc_middle::mir::{self, Local, ProjectionElem, VarDebugInfoContents, VarDebugInfoFragment};
+use rodetc_middle::ty::{self, TyKind};
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::{Span, Symbol};
 
 /// Structured source information for frontends.
 pub(super) struct SourceLocation {

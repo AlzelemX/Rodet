@@ -28,7 +28,7 @@ use hir_expand::{
 use intern::Symbol;
 use itertools::Itertools;
 use la_arena::ArenaMap;
-use rustc_abi::ReprOptions;
+use rodetc_abi::ReprOptions;
 use rustc_hash::FxHashSet;
 use smallvec::SmallVec;
 use syntax::{
@@ -796,7 +796,7 @@ impl AttrFlags {
                     && let Ok(scalable) = scalable.try_into()
                 {
                     current = Some(ReprOptions {
-                        scalable: Some(rustc_abi::ScalableElt::ElementCount(scalable)),
+                        scalable: Some(rodetc_abi::ScalableElt::ElementCount(scalable)),
                         ..ReprOptions::default()
                     });
                 }
@@ -804,7 +804,7 @@ impl AttrFlags {
                 && attr.path().is1("rustc_scalable_vector")
             {
                 current = Some(ReprOptions {
-                    scalable: Some(rustc_abi::ScalableElt::Container),
+                    scalable: Some(rodetc_abi::ScalableElt::Container),
                     ..ReprOptions::default()
                 });
             }
@@ -1271,7 +1271,7 @@ fn merge_repr(this: &mut ReprOptions, other: ReprOptions) {
 
 fn parse_repr_tt(tt: &ast::TokenTree) -> Option<ReprOptions> {
     use crate::builtin_type::{BuiltinInt, BuiltinUint};
-    use rustc_abi::{Align, Integer, IntegerType, ReprFlags, ReprOptions};
+    use rodetc_abi::{Align, Integer, IntegerType, ReprFlags, ReprOptions};
 
     let mut tts = TokenTreeChildren::new(tt).peekable();
 

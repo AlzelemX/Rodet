@@ -51,7 +51,7 @@ use hir_ide::{
 use intern::sym;
 use itertools::Itertools;
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind,
     inherent::{IntoKind, Ty as _},
 };

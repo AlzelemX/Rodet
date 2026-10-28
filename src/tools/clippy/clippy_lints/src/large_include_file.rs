@@ -3,9 +3,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::root_macro_call_first_node;
 use clippy_utils::source::snippet_opt;
 use clippy_utils::sym;
-use rustc_ast::{AttrArgs, AttrKind, Attribute, LitKind};
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, impl_lint_pass};
+use rodetc_ast::{AttrArgs, AttrKind, Attribute, LitKind};
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

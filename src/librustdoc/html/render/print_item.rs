@@ -6,16 +6,16 @@ use std::hash::{Hash, Hasher};
 use std::iter;
 
 use askama::Template;
-use rustc_abi::VariantIdx;
-use rustc_ast::join_path_syms;
-use rustc_data_structures::fx::{FxHashMap, FxIndexMap, FxIndexSet};
-use rustc_hir as hir;
-use rustc_hir::def::{CtorKind, MacroKinds};
-use rustc_hir::def_id::DefId;
-use rustc_index::IndexVec;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::hygiene::MacroKind;
-use rustc_span::symbol::{Symbol, sym};
+use rodetc_abi::VariantIdx;
+use rodetc_ast::join_path_syms;
+use rodetc_data_structures::fx::{FxHashMap, FxIndexMap, FxIndexSet};
+use rodetc_hir as hir;
+use rodetc_hir::def::{CtorKind, MacroKinds};
+use rodetc_hir::def_id::DefId;
+use rodetc_index::IndexVec;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::hygiene::MacroKind;
+use rodetc_span::symbol::{Symbol, sym};
 use tracing::{debug, info};
 
 use super::type_layout::document_type_layout;
@@ -659,7 +659,7 @@ fn item_trait(cx: &Context<'_>, it: &clean::Item, t: &clean::Trait) -> impl fmt:
         let count_types = required_types.len() + provided_types.len();
         let count_consts = required_consts.len() + provided_consts.len();
         let count_methods = required_methods.len() + provided_methods.len();
-        let &rustc_middle::ty::TraitDef {
+        let &rodetc_middle::ty::TraitDef {
             must_implement_one_of: ref must_implement_one_of_functions,
             impl_restriction,
             ..
@@ -814,7 +814,7 @@ fn item_trait(cx: &Context<'_>, it: &clean::Item, t: &clean::Trait) -> impl fmt:
             }
         })?;
 
-        if let rustc_middle::ty::RestrictionKind::Restricted(def_id, _) = impl_restriction {
+        if let rodetc_middle::ty::RestrictionKind::Restricted(def_id, _) = impl_restriction {
             let v1;
             let v2;
             write!(
@@ -822,7 +822,7 @@ fn item_trait(cx: &Context<'_>, it: &clean::Item, t: &clean::Trait) -> impl fmt:
                 "<div class=\"impl-restriction\">ⓘ <i>This trait cannot be implemented outside <code>{}</code>.</i></div>",
                 if cx.cache().document_private {
                     v1 =
-                        rustc_middle::ty::print::with_resolve_crate_name!(tcx.def_path_str(def_id));
+                        rodetc_middle::ty::print::with_resolve_crate_name!(tcx.def_path_str(def_id));
                     v1.as_str()
                 } else {
                     v2 = tcx.crate_name(def_id.krate);

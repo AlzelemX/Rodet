@@ -13,4 +13,4 @@ LL | fn non_const_fn(x: i32) -> i32 { x }
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0015`.
+For more information about this error, try `rodetc --explain E0015`.

@@ -5,7 +5,7 @@ error: internal compiler error: broken MIR in Item(DefId(0:8 ~ storage_live[HASH
 LL |             StorageLive(a);
    |             ^^^^^^^^^^^^^^
    |
-note: delayed at compiler/rustc_mir_transform/src/lint.rs:LL:CC - disabled backtrace
+note: delayed at compiler/rodetc_mir_transform/src/lint.rs:LL:CC - disabled backtrace
   --> $DIR/storage-live.rs:22:13
    |
 LL |             StorageLive(a);

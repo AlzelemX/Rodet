@@ -2,10 +2,10 @@
 
 use std::fmt;
 
-use rustc_hir::def::{CtorOf, DefKind, MacroKinds};
-use rustc_hir::def_id::DefId;
-use rustc_middle::ty::TyCtxt;
-use rustc_span::hygiene::MacroKind;
+use rodetc_hir::def::{CtorOf, DefKind, MacroKinds};
+use rodetc_hir::def_id::DefId;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::hygiene::MacroKind;
 use serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 
 use crate::clean;

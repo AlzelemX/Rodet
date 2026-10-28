@@ -18,4 +18,4 @@ LL | static A: u64;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0423, E0428.
-For more information about an error, try `rustc --explain E0423`.
+For more information about an error, try `rodetc --explain E0423`.

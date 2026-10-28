@@ -71,4 +71,4 @@ LL |     impl Item for S<S<S>> {
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0107, E0392, E0405, E0425, E0603.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

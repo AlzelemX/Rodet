@@ -572,7 +572,7 @@ mod snapshot {
                 .render_steps(), @r"
         [build] llvm <host>
         [build] rustc 0 <host> -> rustc 1 <host>
-        [build] rustc 0 <host> -> rustc_codegen_cranelift 1 <host>
+        [build] rustc 0 <host> -> rodetc_codegen_cranelift 1 <host>
         [build] rustc 1 <host> -> std 1 <host>
         [build] rustdoc 1 <host>
         "
@@ -887,7 +887,7 @@ mod snapshot {
         insta::assert_snapshot!(
             ctx.config("build")
                 .stage(2)
-                .paths(&["compiler/rustc", "library"])
+                .paths(&["compiler/rodetc", "library"])
                 .hosts(&[&host_target(), TEST_TRIPLE_1])
                 .targets(&[&host_target(), TEST_TRIPLE_1, TEST_TRIPLE_2])
             .render_steps(), @r"
@@ -1492,7 +1492,7 @@ mod snapshot {
                 .render_steps(), @r"
         [build] llvm <host>
         [build] rustc 0 <host> -> rustc 1 <host>
-        [build] rustc 0 <host> -> rustc_codegen_cranelift 1 <host>
+        [build] rustc 0 <host> -> rodetc_codegen_cranelift 1 <host>
         [build] rustc 1 <host> -> std 1 <host>
         [build] rustc 0 <host> -> UnstableBookGen 1 <host>
         [build] rustc 0 <host> -> Rustbook 1 <host>
@@ -1505,7 +1505,7 @@ mod snapshot {
         [doc] rustc 1 <host> -> standalone 2 <host>
         [doc] rustc 1 <host> -> std 1 <host> crates=[alloc,compiler_builtins,core,panic_abort,panic_unwind,proc_macro,rustc-std-workspace-core,std,std_detect,sysroot,test,unwind]
         [build] rustc 1 <host> -> rustc 2 <host>
-        [build] rustc 1 <host> -> rustc_codegen_cranelift 2 <host>
+        [build] rustc 1 <host> -> rodetc_codegen_cranelift 2 <host>
         [build] rustc 1 <host> -> error-index 2 <host>
         [doc] rustc 1 <host> -> error-index 2 <host>
         [doc] nomicon (book) <host>
@@ -1528,7 +1528,7 @@ mod snapshot {
         [build] rustdoc 2 <host>
         [build] rustc 0 <host> -> GenerateCopyright 1 <host>
         [dist] rustc <host>
-        [dist] rustc 1 <host> -> rustc_codegen_cranelift 2 <host>
+        [dist] rustc 1 <host> -> rodetc_codegen_cranelift 2 <host>
         [dist] rustc 1 <host> -> std 1 <host>
         [dist] rustc 1 <host> -> rustc-dev 2 <host>
         [dist] src <>
@@ -1659,8 +1659,8 @@ mod snapshot {
         [check] rustc 1 <host> -> rustc 2 <target1> (78 crates)
         [check] rustc 1 <host> -> rustc 2 <target1>
         [check] rustc 1 <host> -> Rustdoc 2 <target1>
-        [check] rustc 1 <host> -> rustc_codegen_cranelift 2 <target1>
-        [check] rustc 1 <host> -> rustc_codegen_gcc 2 <target1>
+        [check] rustc 1 <host> -> rodetc_codegen_cranelift 2 <target1>
+        [check] rustc 1 <host> -> rodetc_codegen_gcc 2 <target1>
         [check] rustc 1 <host> -> Clippy 2 <target1>
         [check] rustc 1 <host> -> Miri 2 <target1>
         [check] rustc 1 <host> -> CargoMiri 2 <target1>
@@ -1818,10 +1818,10 @@ mod snapshot {
         let ctx = TestCtx::new();
         insta::assert_snapshot!(
             ctx.config("check")
-                .path("rustc_codegen_cranelift")
+                .path("rodetc_codegen_cranelift")
                 .render_steps(), @r"
         [check] rustc 0 <host> -> rustc 1 <host>
-        [check] rustc 0 <host> -> rustc_codegen_cranelift 1 <host>
+        [check] rustc 0 <host> -> rodetc_codegen_cranelift 1 <host>
         ");
     }
 
@@ -2179,15 +2179,15 @@ mod snapshot {
 
         let get_steps = |args: &[&str]| ctx.config("test").args(args).get_steps();
 
-        let rustc_metadata =
+        let rodetc_metadata =
             || StepMetadata::test("CrateLibrustc", host).built_by(Compiler::new(0, host));
         // Ensure our test is valid, and `test::Rustc` would be run without the exclude.
-        get_steps(&[]).assert_contains(rustc_metadata());
+        get_steps(&[]).assert_contains(rodetc_metadata());
 
-        let steps = get_steps(&["--skip", "compiler/rustc_data_structures"]);
+        let steps = get_steps(&["--skip", "compiler/rodetc_data_structures"]);
 
         // Ensure tests for rustc are not skipped.
-        steps.assert_contains(rustc_metadata());
+        steps.assert_contains(rodetc_metadata());
         steps.assert_contains_fuzzy(StepMetadata::build("rustc", host));
     }
 
@@ -2598,7 +2598,7 @@ mod snapshot {
         [clippy] rustc 1 <host> -> std 1 <host>
         [clippy] rustc 1 <host> -> rustc 2 <host>
         [check] rustc 1 <host> -> rustc 2 <host>
-        [clippy] rustc 1 <host> -> rustc_codegen_gcc 2 <host>
+        [clippy] rustc 1 <host> -> rodetc_codegen_gcc 2 <host>
         ");
     }
 
@@ -2888,8 +2888,8 @@ mod snapshot {
         [build] rustc 1 <x86_64-unknown-linux-gnu> -> cargo-miri 2 <x86_64-unknown-linux-gnu>
         [dist] rustc 1 <x86_64-unknown-linux-gnu> -> miri 2 <x86_64-unknown-linux-gnu>
         [dist] src <>
-        [build] rustc 1 <x86_64-unknown-linux-gnu> -> rustc_codegen_cranelift 2 <x86_64-unknown-linux-gnu>
-        [dist] rustc 1 <x86_64-unknown-linux-gnu> -> rustc_codegen_cranelift 2 <x86_64-unknown-linux-gnu>
+        [build] rustc 1 <x86_64-unknown-linux-gnu> -> rodetc_codegen_cranelift 2 <x86_64-unknown-linux-gnu>
+        [dist] rustc 1 <x86_64-unknown-linux-gnu> -> rodetc_codegen_cranelift 2 <x86_64-unknown-linux-gnu>
         [build] rustc 1 <x86_64-unknown-linux-gnu> -> LlvmBitcodeLinker 2 <x86_64-unknown-linux-gnu>
         ");
     }

@@ -15,4 +15,4 @@ LL | unsafe fn foo() {
 
 warning: 1 warning emitted
 
-For more information about this error, try `rustc --explain E0133`.
+For more information about this error, try `rodetc --explain E0133`.

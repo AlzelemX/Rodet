@@ -87,4 +87,4 @@ LL |         Ok(a @ b @ ref mut a)
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0384, E0415, E0416.
-For more information about an error, try `rustc --explain E0384`.
+For more information about an error, try `rodetc --explain E0384`.

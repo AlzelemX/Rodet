@@ -102,4 +102,4 @@ LL |     let _ = S { field: (), field1: m::Priv1 {}, .. };
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0063, E0603.
-For more information about an error, try `rustc --explain E0063`.
+For more information about an error, try `rodetc --explain E0063`.

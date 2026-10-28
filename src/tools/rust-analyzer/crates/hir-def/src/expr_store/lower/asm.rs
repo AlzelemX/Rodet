@@ -208,12 +208,12 @@ impl ExprCollector<'_> {
                         None => None,
                     };
 
-                    let mut parser = rustc_parse_format::Parser::new(
+                    let mut parser = rodetc_parse_format::Parser::new(
                         &text,
                         str_style,
                         template_snippet,
                         false,
-                        rustc_parse_format::ParseMode::InlineAsm,
+                        rodetc_parse_format::ParseMode::InlineAsm,
                     );
                     parser.curarg = curarg;
 
@@ -238,13 +238,13 @@ impl ExprCollector<'_> {
                     };
                     for piece in unverified_pieces {
                         match piece {
-                            rustc_parse_format::Piece::Lit(_) => {}
-                            rustc_parse_format::Piece::NextArgument(arg) => {
+                            rodetc_parse_format::Piece::Lit(_) => {}
+                            rodetc_parse_format::Piece::NextArgument(arg) => {
                                 // let span = arg_spans.next();
 
                                 let (operand_idx, _name) = match arg.position {
-                                    rustc_parse_format::ArgumentIs(idx)
-                                    | rustc_parse_format::ArgumentImplicitlyIs(idx) => {
+                                    rodetc_parse_format::ArgumentIs(idx)
+                                    | rodetc_parse_format::ArgumentImplicitlyIs(idx) => {
                                         if idx >= operands.len()
                                             || named_pos.contains_key(&idx)
                                             || reg_args.contains(&idx)
@@ -254,7 +254,7 @@ impl ExprCollector<'_> {
                                             (Some(idx), None)
                                         }
                                     }
-                                    rustc_parse_format::ArgumentNamed(name) => {
+                                    rodetc_parse_format::ArgumentNamed(name) => {
                                         let name = Symbol::intern(name);
                                         (
                                             named_args.get(&name).copied(),

@@ -6,4 +6,4 @@ LL | pub extern "cmse-nonsecure-entry" fn entry_function(input: u32) -> u32 {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0570`.
+For more information about this error, try `rodetc --explain E0570`.

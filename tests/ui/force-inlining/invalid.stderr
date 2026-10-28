@@ -326,4 +326,4 @@ LL | async gen fn async_gen_foo() {}
 error: aborting due to 36 previous errors
 
 Some errors have detailed explanations: E0539, E0805.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

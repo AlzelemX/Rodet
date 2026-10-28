@@ -4,17 +4,17 @@
 use crate::source::{snippet, snippet_opt, snippet_with_applicability, snippet_with_context};
 use crate::ty::expr_sig;
 use crate::{get_parent_expr_for_hir, higher};
-use rustc_ast::util::parser::AssocOp;
-use rustc_ast::{UnOp, ast};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::{self as hir, Closure, ExprKind, HirId, MatchSource, Node, TyKind};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::{EarlyContext, LateContext, LintContext};
-use rustc_middle::hir::place::ProjectionKind;
-use rustc_middle::mir::{FakeReadCause, Mutability};
-use rustc_middle::ty;
-use rustc_span::{BytePos, CharPos, Pos as _, Span, SyntaxContext};
+use rodetc_ast::util::parser::AssocOp;
+use rodetc_ast::{UnOp, ast};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::{self as hir, Closure, ExprKind, HirId, MatchSource, Node, TyKind};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::{EarlyContext, LateContext, LintContext};
+use rodetc_middle::hir::place::ProjectionKind;
+use rodetc_middle::mir::{FakeReadCause, Mutability};
+use rodetc_middle::ty;
+use rodetc_span::{BytePos, CharPos, Pos as _, Span, SyntaxContext};
 use std::borrow::Cow;
 use std::fmt::{self, Display, Write as _};
 use std::ops::{Add, Neg, Not, Sub};
@@ -667,7 +667,7 @@ enum Associativity {
 #[must_use]
 fn associativity(op: AssocOp) -> Associativity {
     use ast::BinOpKind::{Add, And, BitAnd, BitOr, BitXor, Div, Eq, Ge, Gt, Le, Lt, Mul, Ne, Or, Rem, Shl, Shr, Sub};
-    use rustc_ast::util::parser::AssocOp::{Assign, AssignOp, Binary, Cast, Range};
+    use rodetc_ast::util::parser::AssocOp::{Assign, AssignOp, Binary, Cast, Range};
 
     match op {
         Assign | AssignOp(_) => Associativity::Right,
@@ -745,7 +745,7 @@ pub trait DiagExt<T: LintContext> {
     fn suggest_remove_item(&mut self, cx: &T, item: Span, msg: &str, applicability: Applicability);
 }
 
-impl<T: LintContext> DiagExt<T> for rustc_errors::Diag<'_> {
+impl<T: LintContext> DiagExt<T> for rodetc_errors::Diag<'_> {
     fn suggest_item_with_attr<D: Display + ?Sized>(
         &mut self,
         cx: &T,
@@ -1099,8 +1099,8 @@ impl<'tcx> Delegate<'tcx> for DerefDelegate<'_, 'tcx> {
 mod test {
     use super::Sugg;
 
-    use rustc_ast as ast;
-    use rustc_ast::util::parser::AssocOp;
+    use rodetc_ast as ast;
+    use rodetc_ast::util::parser::AssocOp;
     use std::borrow::Cow;
 
     const SUGGESTION: Sugg<'static> = Sugg::NonParen(Cow::Borrowed("function_call()"));

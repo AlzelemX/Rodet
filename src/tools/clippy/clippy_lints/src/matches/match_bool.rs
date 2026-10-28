@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_unit_expr;
 use clippy_utils::source::expr_block;
 use clippy_utils::sugg::Sugg;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Arm, Expr, PatExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Arm, Expr, PatExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use super::MATCH_BOOL;
 

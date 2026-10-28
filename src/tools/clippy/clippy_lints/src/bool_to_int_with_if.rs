@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{higher, is_else_clause, is_in_const_context, span_contains_comment};
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

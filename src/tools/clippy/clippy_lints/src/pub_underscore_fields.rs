@@ -4,9 +4,9 @@ use clippy_utils::attrs::is_doc_hidden;
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::sym::PhantomPinned;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::{FieldDef, Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::{FieldDef, Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

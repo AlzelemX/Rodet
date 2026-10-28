@@ -25,4 +25,4 @@ LL | impl<'a> Drop for &'a mut isize {
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0117, E0120, E0425.
-For more information about an error, try `rustc --explain E0117`.
+For more information about an error, try `rodetc --explain E0117`.

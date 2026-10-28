@@ -1,9 +1,9 @@
 use std::ops::Range;
 
 use rand::{Rng, RngExt};
-use rustc_abi::{Align, Size};
-use rustc_const_eval::interpret::{InterpResult, interp_ok};
-use rustc_middle::{err_exhaust, throw_exhaust};
+use rodetc_abi::{Align, Size};
+use rodetc_const_eval::interpret::{InterpResult, interp_ok};
+use rodetc_middle::{err_exhaust, throw_exhaust};
 
 /// Shifts `addr` to make it aligned with `align` by rounding `addr` to the smallest multiple
 /// of `align` that is larger or equal to `addr`

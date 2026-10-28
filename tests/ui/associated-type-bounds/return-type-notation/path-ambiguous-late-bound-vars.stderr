@@ -23,4 +23,4 @@ LL +     <T as A>::f(..):,
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0221`.
+For more information about this error, try `rodetc --explain E0221`.

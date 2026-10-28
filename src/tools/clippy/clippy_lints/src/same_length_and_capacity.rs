@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::{eq_expr_value, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::{Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::symbol::sym as rustc_sym;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::{Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::symbol::sym as rustc_sym;
 
 declare_clippy_lint! {
     /// ### What it does

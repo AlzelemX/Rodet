@@ -17,4 +17,4 @@ LL | #[link(kind = "wonderful_unicorn")] extern "C" {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0459, E0539.
-For more information about an error, try `rustc --explain E0459`.
+For more information about an error, try `rodetc --explain E0459`.

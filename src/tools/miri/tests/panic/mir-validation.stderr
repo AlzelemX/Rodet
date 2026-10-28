@@ -1,4 +1,4 @@
-error: internal compiler error: compiler/rustc_mir_transform/src/validate.rs:LL:CC: broken MIR in Item(DefId) (after phase change to runtime-optimized) at bb0[1]:
+error: internal compiler error: compiler/rodetc_mir_transform/src/validate.rs:LL:CC: broken MIR in Item(DefId) (after phase change to runtime-optimized) at bb0[1]:
                                 place (*(_2.0: *mut i32)) has deref as a later projection (it is only permitted as the first projection)
   --> tests/panic/mir-validation.rs:LL:CC
    |
@@ -6,7 +6,7 @@ LL |             *(tuple.0) = 1;
    |             ^^^^^^^^^^^^^^
 
 
-thread 'rustc' ($TID) panicked at compiler/rustc_mir_transform/src/validate.rs:LL:CC:
+thread 'rustc' ($TID) panicked at compiler/rodetc_mir_transform/src/validate.rs:LL:CC:
 Box<dyn Any>
 stack backtrace:
 

@@ -1,15 +1,15 @@
 //! Utilities for node resolution.
 
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{
     self as hir, Expr, ExprKind, HirId, Pat, PatExpr, PatExprKind, PatKind, Path, PathSegment, QPath, TyKind,
 };
-use rustc_lint::LateContext;
-use rustc_middle::ty::layout::HasTyCtxt;
-use rustc_middle::ty::{AdtDef, AdtKind, Binder, EarlyBinder, Ty, TypeckResults};
-use rustc_span::{Ident, Symbol};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::layout::HasTyCtxt;
+use rodetc_middle::ty::{AdtDef, AdtKind, Binder, EarlyBinder, Ty, TypeckResults};
+use rodetc_span::{Ident, Symbol};
 
 /// Either a `HirId` or a type which can be identified by one.
 pub trait HasHirId: Copy {

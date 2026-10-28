@@ -40,4 +40,4 @@ LL |     T1: for<T> Foo<usize, Bar<K> = Bar<T>>,
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0107, E0405.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

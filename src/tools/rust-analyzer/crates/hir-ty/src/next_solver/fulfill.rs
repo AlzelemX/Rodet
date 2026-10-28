@@ -3,11 +3,11 @@
 use std::ops::ControlFlow;
 
 use rustc_hash::FxHashSet;
-use rustc_next_trait_solver::{
+use rodetc_next_trait_solver::{
     delegate::SolverDelegate,
     solve::{GoalEvaluation, GoalStalledOn, HasChanged, SolverDelegateEvalExt},
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     Interner, TypeSuperVisitable, TypeVisitable, TypeVisitableExt, TypeVisitor,
     inherent::IntoKind,
     solve::{Certainty, NoSolution},

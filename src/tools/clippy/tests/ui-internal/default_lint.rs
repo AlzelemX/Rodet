@@ -3,9 +3,9 @@
 #![feature(rustc_private)]
 
 #[macro_use]
-extern crate rustc_middle;
+extern crate rodetc_middle;
 #[macro_use]
-extern crate rustc_lint;
+extern crate rodetc_lint;
 
 declare_tool_lint! {
     pub clippy::TEST_LINT,

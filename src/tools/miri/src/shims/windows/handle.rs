@@ -1,6 +1,6 @@
 use std::mem::variant_count;
 
-use rustc_abi::HasDataLayout;
+use rodetc_abi::HasDataLayout;
 
 use crate::shims::files::FdNum;
 use crate::*;

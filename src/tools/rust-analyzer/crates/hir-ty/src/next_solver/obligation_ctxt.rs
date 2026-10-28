@@ -1,5 +1,5 @@
 use hir_def::TraitId;
-use rustc_type_ir::{TypeFoldable, Upcast, Variance};
+use rodetc_type_ir::{TypeFoldable, Upcast, Variance};
 
 use crate::next_solver::{
     Const, DbInterner, ParamEnv, Term, TraitRef, Ty, TypeError,

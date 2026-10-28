@@ -34,4 +34,4 @@ LL ~     ref_s = &mut binding;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0716`.
+For more information about this error, try `rodetc --explain E0716`.

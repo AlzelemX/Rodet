@@ -153,12 +153,12 @@ RUSTFMT="./target/debug/rustfmt" cargo run --bin cargo-fmt -- --manifest-path pa
 #### Running a binary directly
 
 You may want to run one of the built binaries directly, for example to connect
-it to a debugger. Since `rustfmt` uses `rustc_driver` it needs to be linked
+it to a debugger. Since `rustfmt` uses `rodetc_driver` it needs to be linked
 against the version of that library for the current toolchain, without
 configuring anything you are likely to run into errors like:
 
 ```
-./target/debug/rustfmt: error while loading shared libraries: librustc_driver-63b8deb6c23747dd.so: cannot open shared object file: No such file or directory
+./target/debug/rustfmt: error while loading shared libraries: librodetc_driver-63b8deb6c23747dd.so: cannot open shared object file: No such file or directory
 ```
 
 This library will be in the sysroot of the current toolchain, which will be

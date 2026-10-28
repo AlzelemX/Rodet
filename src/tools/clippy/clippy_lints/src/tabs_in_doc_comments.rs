@@ -1,10 +1,10 @@
 use std::iter;
 
 use clippy_utils::diagnostics::span_lint_and_sugg;
-use rustc_ast::ast;
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::{BytePos, Span};
+use rodetc_ast::ast;
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does

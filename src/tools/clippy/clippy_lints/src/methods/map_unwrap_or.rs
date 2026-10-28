@@ -4,14 +4,14 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::is_copy;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::intravisit::{Visitor, walk_expr, walk_path};
-use rustc_hir::{ExprKind, HirId, Node, PatKind, Path, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter;
-use rustc_span::{Span, sym};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::intravisit::{Visitor, walk_expr, walk_path};
+use rodetc_hir::{ExprKind, HirId, Node, PatKind, Path, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter;
+use rodetc_span::{Span, sym};
 use std::ops::ControlFlow;
 
 use super::MAP_UNWRAP_OR;
@@ -20,11 +20,11 @@ use super::MAP_UNWRAP_OR;
 #[expect(clippy::too_many_arguments)]
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,
-    expr: &rustc_hir::Expr<'_>,
-    recv: &rustc_hir::Expr<'_>,
-    map_arg: &'tcx rustc_hir::Expr<'_>,
-    unwrap_recv: &rustc_hir::Expr<'_>,
-    unwrap_arg: &'tcx rustc_hir::Expr<'_>,
+    expr: &rodetc_hir::Expr<'_>,
+    recv: &rodetc_hir::Expr<'_>,
+    map_arg: &'tcx rodetc_hir::Expr<'_>,
+    unwrap_recv: &rodetc_hir::Expr<'_>,
+    unwrap_arg: &'tcx rodetc_hir::Expr<'_>,
     map_span: Span,
     msrv: Msrv,
 ) {
@@ -88,7 +88,7 @@ pub(super) fn check<'tcx>(
     }
     // is_some_and is stabilised && `unwrap_or` argument is false; suggest `is_some_and` instead
     else if matches!(&unwrap_arg.kind, ExprKind::Lit(lit)
-            if matches!(lit.node, rustc_ast::LitKind::Bool(false)))
+            if matches!(lit.node, rodetc_ast::LitKind::Bool(false)))
         && msrv.meets(cx, msrvs::OPTION_RESULT_IS_VARIANT_AND)
     {
         SuggestedKind::IsVariantAnd
@@ -183,7 +183,7 @@ struct ReferenceVisitor<'a, 'tcx> {
 impl<'tcx> Visitor<'tcx> for ReferenceVisitor<'_, 'tcx> {
     type NestedFilter = nested_filter::All;
     type Result = ControlFlow<()>;
-    fn visit_expr(&mut self, expr: &'tcx rustc_hir::Expr<'_>) -> ControlFlow<()> {
+    fn visit_expr(&mut self, expr: &'tcx rodetc_hir::Expr<'_>) -> ControlFlow<()> {
         // If we haven't found a reference yet, check if this references
         // one of the locals that was moved in the `unwrap_or` argument.
         // We are only interested in exprs that appear before the `unwrap_or` call.

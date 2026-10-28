@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::{return_ty, sym};
-use rustc_hir::{
+use rodetc_hir::{
     Body, BodyOwnerKind, Expr, ExprKind, FnSig, ImplItem, ImplItemKind, Item, ItemKind, OwnerId, PathSegment, QPath,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::Ty;
-use rustc_span::{Ident, Span, Symbol};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::Ty;
+use rodetc_span::{Ident, Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

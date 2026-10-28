@@ -200,4 +200,4 @@ LL + reuse to_reuse::{empt{ self + 1 }
 error: aborting due to 17 previous errors
 
 Some errors have detailed explanations: E0061, E0283, E0308, E0609, E0610.
-For more information about an error, try `rustc --explain E0061`.
+For more information about an error, try `rodetc --explain E0061`.

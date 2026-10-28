@@ -45,14 +45,14 @@ use std::fmt::Debug;
 use std::mem;
 
 use rand::RngExt;
-use rustc_abi::{Align, HasDataLayout, Size};
-use rustc_ast::Mutability;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_index::{Idx, IndexVec};
-use rustc_log::tracing;
-use rustc_middle::mir;
-use rustc_middle::ty::{AtomicOrdering, Ty};
-use rustc_span::Span;
+use rodetc_abi::{Align, HasDataLayout, Size};
+use rodetc_ast::Mutability;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_index::{Idx, IndexVec};
+use rodetc_log::tracing;
+use rodetc_middle::mir;
+use rodetc_middle::ty::{AtomicOrdering, Ty};
+use rodetc_span::Span;
 
 use super::vector_clock::{VClock, VTimestamp, VectorIdx};
 use super::weak_memory::EvalContextExt as _;

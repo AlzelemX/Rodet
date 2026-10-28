@@ -127,4 +127,4 @@ LL |     if x == 1 && x == 1 {
 
 error: aborting due to 13 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

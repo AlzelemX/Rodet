@@ -14,4 +14,4 @@ LL |     &*(intrinsics::const_make_global(std::ptr::dangling_mut()) as *const u3
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

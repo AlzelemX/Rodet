@@ -1,7 +1,7 @@
 //! Detecting whether a type is infinitely-sized.
 
 use hir_def::{AdtId, VariantId, hir::generics::GenericParams};
-use rustc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::inherent::IntoKind;
 
 use crate::{
     db::HirDatabase,

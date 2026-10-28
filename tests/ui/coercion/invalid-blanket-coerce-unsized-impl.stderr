@@ -16,4 +16,4 @@ LL | impl<A> std::ops::CoerceUnsized<A> for A {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0210, E0377.
-For more information about an error, try `rustc --explain E0210`.
+For more information about an error, try `rodetc --explain E0210`.

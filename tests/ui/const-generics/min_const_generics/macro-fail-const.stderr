@@ -46,4 +46,4 @@ LL |   Example::<gimme_a_const!(marker)>
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0747`.
+For more information about this error, try `rodetc --explain E0747`.

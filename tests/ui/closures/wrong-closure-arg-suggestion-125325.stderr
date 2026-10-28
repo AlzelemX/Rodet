@@ -100,4 +100,4 @@ LL |         P.flat_map(|_| P.map(|_| self.counter += 1));
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0594, E0596.
-For more information about an error, try `rustc --explain E0594`.
+For more information about an error, try `rodetc --explain E0594`.

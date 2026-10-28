@@ -2,8 +2,8 @@ use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use std::sync::Arc;
 
-use rustc_ast::{ast, token::Delimiter, visit};
-use rustc_span::{BytePos, Ident, Pos, Span, symbol};
+use rodetc_ast::{ast, token::Delimiter, visit};
+use rodetc_span::{BytePos, Ident, Pos, Span, symbol};
 use tracing::debug;
 
 use crate::attr::*;

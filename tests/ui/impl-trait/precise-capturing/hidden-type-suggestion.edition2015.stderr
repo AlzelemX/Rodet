@@ -108,4 +108,4 @@ LL + fn yes_params_yet<'a, T, U: Sized>(_: U, y: &'a ()) -> impl Sized + use<'a,
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

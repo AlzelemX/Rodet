@@ -1,5 +1,5 @@
 use genmc_sys::GENMC_MAIN_THREAD_ID;
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::fx::FxHashMap;
 
 use crate::ThreadId;
 

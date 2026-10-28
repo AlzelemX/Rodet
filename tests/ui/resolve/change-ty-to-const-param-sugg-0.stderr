@@ -31,4 +31,4 @@ LL | struct Array<N: usize>([bool; N]);
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0404, E0423.
-For more information about an error, try `rustc --explain E0404`.
+For more information about an error, try `rodetc --explain E0404`.

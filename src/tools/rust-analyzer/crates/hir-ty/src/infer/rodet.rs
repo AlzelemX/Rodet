@@ -5,7 +5,7 @@
 //! records their names (see `ExpressionStore::rodet_named_args`). Here the
 //! arguments are put back in parameter order, and parameters left out
 //! because they have a default value are dropped from the expected inputs.
-//! The rules are the compiler's (`rustc_hir::rodet::order_named_args`):
+//! The rules are the compiler's (`rodetc_hir::rodet::order_named_args`):
 //! positional arguments first, each parameter given once, every parameter
 //! given unless it has a default value.
 

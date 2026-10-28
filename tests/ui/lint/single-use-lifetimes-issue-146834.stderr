@@ -52,4 +52,4 @@ LL + fn f<'a>(a: &'a i32, b: &i32) -> (&i32, &i32) {
 
 error: aborting due to 2 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0106`.
+For more information about this error, try `rodetc --explain E0106`.

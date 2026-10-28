@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint;
-use rustc_ast::ast::{Item, ItemKind, UseTree, UseTreeKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::Span;
-use rustc_span::symbol::Ident;
+use rodetc_ast::ast::{Item, ItemKind, UseTree, UseTreeKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::symbol::Ident;
 
 declare_clippy_lint! {
     /// ### What it does

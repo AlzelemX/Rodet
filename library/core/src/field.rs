@@ -176,9 +176,9 @@ pub macro field_of($Container:ty, $($fields:expr)+ $(,)?) {
 // associated types (and the `Self` type). Thus any changes to the bounds here must be reflected in
 // the old and new trait solver:
 // - `fn assemble_candidates_for_field_trait` in
-//   `compiler/rustc_trait_selection/src/traits/select/candidate_assembly.rs`, and
+//   `compiler/rodetc_trait_selection/src/traits/select/candidate_assembly.rs`, and
 // - `fn consider_builtin_field_candidate` in
-//   `compiler/rustc_next_trait_solver/src/solve/trait_goals.rs`.
+//   `compiler/rodetc_next_trait_solver/src/solve/trait_goals.rs`.
 pub unsafe trait Field: Send + Sync + Copy {
     /// The type of the base where this field exists in.
     ///

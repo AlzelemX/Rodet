@@ -8,10 +8,10 @@ use clippy_utils::ty::is_non_aggregate_primitive_type;
 use clippy_utils::{
     as_some_expr, is_default_equivalent, is_expr_used_or_unified, is_none_expr, peel_ref_operators, std_or_core, sym,
 };
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

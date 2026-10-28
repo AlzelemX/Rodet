@@ -32,4 +32,4 @@ LL | impl<T, V> MyTrait for S2<T, V> {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0207`.
+For more information about this error, try `rodetc --explain E0207`.

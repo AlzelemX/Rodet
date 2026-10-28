@@ -6,8 +6,8 @@ use core::hash::{Hash, Hasher};
 
 use itertools::Itertools;
 
-use rustc_ast::ast::{self, UseTreeKind};
-use rustc_span::{
+use rodetc_ast::ast::{self, UseTreeKind};
+use rodetc_span::{
     BytePos, DUMMY_SP, Span,
     symbol::{self, sym},
 };

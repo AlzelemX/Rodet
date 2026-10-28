@@ -7,20 +7,20 @@
 
 // FIXME: switch to something more ergonomic here, once available.
 // (Currently there is no way to opt into sysroot crates without `extern crate`.)
-extern crate rustc_driver;
-extern crate rustc_interface;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_driver;
+extern crate rodetc_interface;
+extern crate rodetc_session;
+extern crate rodetc_span;
 
 // Override the C allocator in the same way that the `rustc` binary would do.
-rustc_driver::override_c_allocator_in_binary!();
+rodetc_driver::override_c_allocator_in_binary!();
 
 use clippy_utils::sym;
 use declare_clippy_lint::LintListBuilder;
-use rustc_interface::interface;
-use rustc_session::config::ErrorOutputType;
-use rustc_session::{EarlyDiagCtxt, Session};
-use rustc_span::symbol::Symbol;
+use rodetc_interface::interface;
+use rodetc_session::config::ErrorOutputType;
+use rodetc_session::{EarlyDiagCtxt, Session};
+use rodetc_span::symbol::Symbol;
 
 use std::env;
 use std::fs::read_to_string;
@@ -113,7 +113,7 @@ fn track_files(sess: &Session) {
 }
 
 struct DefaultCallbacks;
-impl rustc_driver::Callbacks for DefaultCallbacks {}
+impl rodetc_driver::Callbacks for DefaultCallbacks {}
 
 /// This is different from `DefaultCallbacks` that it will inform Cargo to track the value of
 /// `CLIPPY_ARGS` environment variable.
@@ -121,7 +121,7 @@ struct RustcCallbacks {
     clippy_args_var: Option<String>,
 }
 
-impl rustc_driver::Callbacks for RustcCallbacks {
+impl rodetc_driver::Callbacks for RustcCallbacks {
     fn config(&mut self, config: &mut interface::Config) {
         let clippy_args_var = self.clippy_args_var.take();
         config.track_state = Some(Box::new(move |sess| {
@@ -135,7 +135,7 @@ struct ClippyCallbacks {
     clippy_args_var: Option<String>,
 }
 
-impl rustc_driver::Callbacks for ClippyCallbacks {
+impl rodetc_driver::Callbacks for ClippyCallbacks {
     #[expect(rustc::bad_opt_access, reason = "necessary in clippy driver to set `mir_opt_level`")]
     fn config(&mut self, config: &mut interface::Config) {
         let previous = config.register_lints.take();
@@ -196,9 +196,9 @@ const BUG_REPORT_URL: &str = "https://github.com/rust-lang/rust-clippy/issues/ne
 fn main() -> ExitCode {
     let early_dcx = EarlyDiagCtxt::new(ErrorOutputType::default());
 
-    rustc_driver::init_rustc_env_logger(&early_dcx);
+    rodetc_driver::init_rustc_env_logger(&early_dcx);
 
-    rustc_driver::install_ice_hook(BUG_REPORT_URL, |dcx| {
+    rodetc_driver::install_ice_hook(BUG_REPORT_URL, |dcx| {
         // FIXME: this macro calls unwrap internally but is called in a panicking context!  It's not
         // as simple as moving the call from the hook to main, because `install_ice_hook` doesn't
         // accept a generic closure.
@@ -206,7 +206,7 @@ fn main() -> ExitCode {
         dcx.note(format!("Clippy version: {version_info}"));
     });
 
-    rustc_driver::catch_with_exit_code(move || {
+    rodetc_driver::catch_with_exit_code(move || {
         fn has_sysroot_arg(args: &[String]) -> bool {
             // https://doc.rust-lang.org/rustc/command-line-arguments.html#path-load-command-line-flags-from-a-path
             // Beside checking for existence of `--sysroot` on the command line, we need to
@@ -222,7 +222,7 @@ fn main() -> ExitCode {
             })
         }
 
-        let mut orig_args = rustc_driver::args::raw_args(&early_dcx);
+        let mut orig_args = rodetc_driver::args::raw_args(&early_dcx);
 
         let sys_root_env = std::env::var("SYSROOT").ok();
         let pass_sysroot_env_if_given = |args: &mut Vec<String>, sys_root_env| {
@@ -243,7 +243,7 @@ fn main() -> ExitCode {
             let mut args: Vec<String> = orig_args.clone();
             pass_sysroot_env_if_given(&mut args, sys_root_env);
 
-            rustc_driver::compiler_entrypoint(&args, &mut DefaultCallbacks);
+            rodetc_driver::compiler_entrypoint(&args, &mut DefaultCallbacks);
             return ExitCode::SUCCESS;
         }
 
@@ -304,9 +304,9 @@ fn main() -> ExitCode {
         let clippy_enabled = !cap_lints_allow && relevant_package && !info_query;
         if clippy_enabled {
             args.extend(clippy_args);
-            rustc_driver::compiler_entrypoint(&args, &mut ClippyCallbacks { clippy_args_var });
+            rodetc_driver::compiler_entrypoint(&args, &mut ClippyCallbacks { clippy_args_var });
         } else {
-            rustc_driver::compiler_entrypoint(&args, &mut RustcCallbacks { clippy_args_var });
+            rodetc_driver::compiler_entrypoint(&args, &mut RustcCallbacks { clippy_args_var });
         }
         ExitCode::SUCCESS
     })

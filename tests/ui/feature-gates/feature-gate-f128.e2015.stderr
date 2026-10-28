@@ -201,4 +201,4 @@ LL |     let from_i8: f128 = 1_i8.into();
 
 error: aborting due to 20 previous errors
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.

@@ -10,14 +10,14 @@ use clippy_utils::{
     span_contains_non_whitespace,
 };
 use core::ops::ControlFlow;
-use rustc_ast::BorrowKind;
-use rustc_errors::{Applicability, MultiSpan};
-use rustc_hir::{Arm, Expr, ExprKind, HirId, HirIdSet, Pat, PatKind};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::LateContext;
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty;
-use rustc_span::{BytePos, Ident, Span, SyntaxContext};
+use rodetc_ast::BorrowKind;
+use rodetc_errors::{Applicability, MultiSpan};
+use rodetc_hir::{Arm, Expr, ExprKind, HirId, HirIdSet, Pat, PatKind};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty;
+use rodetc_span::{BytePos, Ident, Span, SyntaxContext};
 
 use super::{COLLAPSIBLE_MATCH, pat_contains_disallowed_or};
 use crate::collapsible_if::{parens_around, peel_parens};

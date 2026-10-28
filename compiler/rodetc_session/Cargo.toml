@@ -1,0 +1,36 @@
+[package]
+name = "rodetc_session"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+getopts = "0.2"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_feature = { path = "../rodetc_feature" }
+rodetc_fs_util = { path = "../rodetc_fs_util" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_target = { path = "../rodetc_target" }
+termize = "0.2"
+tracing = "0.1"
+# tidy-alphabetical-end
+
+[target.'cfg(unix)'.dependencies]
+# tidy-alphabetical-start
+libc = "0.2"
+# tidy-alphabetical-end
+
+[target.'cfg(windows)'.dependencies.windows]
+version = "0.61.0"
+features = [
+    "Win32_Foundation",
+    "Win32_System_LibraryLoader",
+]

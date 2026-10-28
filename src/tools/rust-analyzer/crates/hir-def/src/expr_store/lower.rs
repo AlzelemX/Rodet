@@ -19,7 +19,7 @@ use hir_expand::{
 };
 use intern::{Symbol, sym};
 use itertools::Itertools;
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use rustc_hash::FxHashMap;
 use smallvec::SmallVec;
 use stdx::never;

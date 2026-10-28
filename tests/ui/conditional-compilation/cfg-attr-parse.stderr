@@ -124,4 +124,4 @@ LL | #[cfg_attr(true,)]
 
 error: aborting due to 9 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0539`.
+For more information about this error, try `rodetc --explain E0539`.

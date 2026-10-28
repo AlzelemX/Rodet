@@ -1,17 +1,17 @@
 use clippy_utils::res::MaybeQPath;
 use clippy_utils::{get_builtin_attr, higher, sym};
 use itertools::Itertools as _;
-use rustc_ast::LitIntType;
-use rustc_ast::ast::{LitFloatType, LitKind};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{
+use rodetc_ast::LitIntType;
+use rodetc_ast::ast::{LitFloatType, LitKind};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{
     self as hir, BindingMode, Body, CaptureBy, Closure, ClosureKind, ConstArg, ConstArgKind, CoroutineKind, ExprKind,
     FnRetTy, HirId, Lit, PatExprKind, PatKind, QPath, StmtKind, StructTailExpr,
 };
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{FloatTy, IntTy, TypeckResults, UintTy};
-use rustc_span::symbol::{Ident, Symbol};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{FloatTy, IntTy, TypeckResults, UintTy};
+use rodetc_span::symbol::{Ident, Symbol};
 use std::cell::Cell;
 use std::fmt::{Display, Formatter};
 

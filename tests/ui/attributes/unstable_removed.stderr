@@ -25,4 +25,4 @@ LL | #![feature(concat_idents)]
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0557, E0658.
-For more information about an error, try `rustc --explain E0557`.
+For more information about an error, try `rodetc --explain E0557`.

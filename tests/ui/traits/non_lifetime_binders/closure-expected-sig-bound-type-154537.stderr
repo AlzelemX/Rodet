@@ -73,4 +73,4 @@ LL | fn take_nested_fn(_id: impl for<T> Fn(T) -> T) {}
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0271, E0631.
-For more information about an error, try `rustc --explain E0271`.
+For more information about an error, try `rodetc --explain E0271`.

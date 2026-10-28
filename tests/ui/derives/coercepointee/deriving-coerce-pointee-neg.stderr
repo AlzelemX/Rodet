@@ -154,4 +154,4 @@ LL |     inner2: Box<T>,
 error: aborting due to 21 previous errors
 
 Some errors have detailed explanations: E0375, E0392, E0690, E0802.
-For more information about an error, try `rustc --explain E0375`.
+For more information about an error, try `rodetc --explain E0375`.

@@ -84,4 +84,4 @@ LL + fn issue_161062_assoc_constraint() -> &'static dyn Trait<Assoc<impl Sized> 
 
 error: aborting due to 12 previous errors
 
-For more information about this error, try `rustc --explain E0214`.
+For more information about this error, try `rodetc --explain E0214`.

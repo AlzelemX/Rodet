@@ -241,4 +241,4 @@ LL +     String::from(<str as AsRef<T>>::as_ref("x"));
 
 error: aborting due to 17 previous errors
 
-For more information about this error, try `rustc --explain E0283`.
+For more information about this error, try `rodetc --explain E0283`.

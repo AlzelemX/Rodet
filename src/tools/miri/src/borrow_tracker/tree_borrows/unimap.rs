@@ -16,7 +16,7 @@ use std::fmt::Debug;
 use std::hash::Hash;
 use std::mem;
 
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::fx::FxHashMap;
 
 use crate::helpers::ToUsize;
 

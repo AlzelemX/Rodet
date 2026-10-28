@@ -1,0 +1,16 @@
+[package]
+name = "rodetc_ast_pretty"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_lexer = { path = "../rodetc_lexer" }
+rodetc_span = { path = "../rodetc_span" }
+# tidy-alphabetical-end
+
+[dev-dependencies]
+# tidy-alphabetical-start
+thin-vec = "0.2.21"
+# tidy-alphabetical-end

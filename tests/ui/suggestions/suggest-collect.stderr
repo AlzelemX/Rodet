@@ -60,4 +60,4 @@ LL |     let (a, b): (Vec<i32>, Vec<i32>) = vec![1, 2].into_iter().map(|x| (x, x
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

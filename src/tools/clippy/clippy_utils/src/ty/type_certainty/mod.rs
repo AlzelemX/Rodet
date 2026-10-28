@@ -1,12 +1,12 @@
 use crate::paths::{PathNS, lookup_path};
-use rustc_ast::{LitFloatType, LitIntType, LitKind};
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::intravisit::{InferKind, Visitor, walk_qpath, walk_ty};
-use rustc_hir::{self as hir, AmbigArg, Expr, ExprKind, GenericArgs, HirId, Node, Param, PathSegment, QPath, TyKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, AdtDef, GenericArgKind, Ty};
-use rustc_span::Span;
+use rodetc_ast::{LitFloatType, LitIntType, LitKind};
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::intravisit::{InferKind, Visitor, walk_qpath, walk_ty};
+use rodetc_hir::{self as hir, AmbigArg, Expr, ExprKind, GenericArgs, HirId, Node, Param, PathSegment, QPath, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, AdtDef, GenericArgKind, Ty};
+use rodetc_span::Span;
 
 mod certainty;
 use certainty::{Certainty, Meet as _, join, meet};

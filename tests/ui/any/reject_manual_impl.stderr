@@ -43,4 +43,4 @@ LL | impl TryAsDynCompatible<'static> for dyn Iterator<Item = u32> {}
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0117, E0322.
-For more information about an error, try `rustc --explain E0117`.
+For more information about an error, try `rodetc --explain E0117`.

@@ -5,7 +5,7 @@ use std::time::{Duration, SystemTime};
 
 use chrono::{DateTime, Datelike, Offset, Timelike, Utc};
 use chrono_tz::Tz;
-use rustc_target::spec::Os;
+use rodetc_target::spec::Os;
 
 use crate::*;
 

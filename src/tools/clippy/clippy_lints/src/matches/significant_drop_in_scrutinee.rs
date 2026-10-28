@@ -6,14 +6,14 @@ use clippy_utils::source::{first_line_of_span, indent_of, snippet};
 use clippy_utils::ty::{for_each_top_level_late_bound_region, is_copy};
 use clippy_utils::{get_builtin_attr, is_lint_allowed, sym};
 use itertools::Itertools as _;
-use rustc_ast::Mutability;
-use rustc_data_structures::fx::FxIndexSet;
-use rustc_errors::{Applicability, Diag};
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{Arm, Expr, ExprKind, MatchSource};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{GenericArgKind, RegionKind, Ty, TypeVisitableExt as _};
-use rustc_span::Span;
+use rodetc_ast::Mutability;
+use rodetc_data_structures::fx::FxIndexSet;
+use rodetc_errors::{Applicability, Diag};
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{Arm, Expr, ExprKind, MatchSource};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{GenericArgKind, RegionKind, Ty, TypeVisitableExt as _};
+use rodetc_span::Span;
 
 use super::SIGNIFICANT_DROP_IN_SCRUTINEE;
 
@@ -199,7 +199,7 @@ impl<'a, 'tcx> SigDropChecker<'a, 'tcx> {
         }
 
         match ty.kind() {
-            rustc_middle::ty::Adt(adt, args) => {
+            rodetc_middle::ty::Adt(adt, args) => {
                 // if some field has significant drop,
                 adt.all_fields()
                     .map(|field| field.ty(self.cx.tcx, args))
@@ -219,8 +219,8 @@ impl<'a, 'tcx> SigDropChecker<'a, 'tcx> {
                             })
                             .any(|ty| self.has_sig_drop_attr_impl(ty)))
             },
-            rustc_middle::ty::Tuple(tys) => tys.iter().any(|ty| self.has_sig_drop_attr_impl(ty)),
-            rustc_middle::ty::Array(ty, _) | rustc_middle::ty::Slice(ty) => self.has_sig_drop_attr_impl(*ty),
+            rodetc_middle::ty::Tuple(tys) => tys.iter().any(|ty| self.has_sig_drop_attr_impl(ty)),
+            rodetc_middle::ty::Array(ty, _) | rodetc_middle::ty::Slice(ty) => self.has_sig_drop_attr_impl(*ty),
             _ => false,
         }
     }
@@ -349,7 +349,7 @@ impl<'a, 'tcx> SigDropHelper<'a, 'tcx> {
         };
 
         let input_re = if let Some(input_ty) = fn_sig.skip_binder().inputs().get(arg_idx)
-            && let rustc_middle::ty::Ref(input_re, _, _) = input_ty.kind()
+            && let rodetc_middle::ty::Ref(input_re, _, _) = input_ty.kind()
         {
             input_re
         } else {
@@ -371,7 +371,7 @@ impl<'a, 'tcx> SigDropHelper<'a, 'tcx> {
         };
 
         let output_ty = fn_sig.skip_binder().output();
-        if let rustc_middle::ty::Ref(output_re, peel_ref_ty, _) = output_ty.kind()
+        if let rodetc_middle::ty::Ref(output_re, peel_ref_ty, _) = output_ty.kind()
             && input_re == output_re
             && for_each_top_level_late_bound_region(*peel_ref_ty, contains_input_re).is_continue()
         {
@@ -392,7 +392,7 @@ impl<'a, 'tcx> SigDropHelper<'a, 'tcx> {
 
 fn ty_peel_refs(mut ty: Ty<'_>) -> (Ty<'_>, usize) {
     let mut n = 0;
-    while let rustc_middle::ty::Ref(_, new_ty, Mutability::Not) = ty.kind() {
+    while let rodetc_middle::ty::Ref(_, new_ty, Mutability::Not) = ty.kind() {
         ty = *new_ty;
         n += 1;
     }

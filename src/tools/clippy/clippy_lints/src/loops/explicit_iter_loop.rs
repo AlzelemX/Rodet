@@ -8,12 +8,12 @@ use clippy_utils::ty::{
     implements_trait, implements_trait_with_env, is_copy, make_normalized_projection,
     make_normalized_projection_with_regions, normalize_with_regions,
 };
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, Mutability};
-use rustc_lint::LateContext;
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
-use rustc_middle::ty::{self, EarlyBinder, Ty};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, Mutability};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
+use rodetc_middle::ty::{self, EarlyBinder, Ty};
 
 pub(super) fn check(
     cx: &LateContext<'_>,

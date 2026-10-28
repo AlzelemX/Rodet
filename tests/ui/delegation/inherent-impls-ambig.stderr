@@ -142,4 +142,4 @@ LL |     reuse X::<M2, String>::foo_self as foo_self1;
 error: aborting due to 14 previous errors
 
 Some errors have detailed explanations: E0034, E0061, E0599.
-For more information about an error, try `rustc --explain E0034`.
+For more information about an error, try `rodetc --explain E0034`.

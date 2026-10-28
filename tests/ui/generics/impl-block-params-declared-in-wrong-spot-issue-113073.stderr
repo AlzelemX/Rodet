@@ -102,4 +102,4 @@ LL + impl<T, K: Default> Bar<T, K> for u8 {}
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0107, E0229, E0261.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

@@ -1,6 +1,6 @@
-use rustc_abi::{Endian, Size};
-use rustc_middle::ty::layout::LayoutOf;
-use rustc_target::spec::Os;
+use rodetc_abi::{Endian, Size};
+use rodetc_middle::ty::layout::LayoutOf;
+use rodetc_target::spec::Os;
 
 use crate::*;
 

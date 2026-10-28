@@ -7,12 +7,12 @@
 // `should_encode_span`, `should_encode_attrs`, `should_encode_visibility`,
 // `should_encode_generics`, `should_encode_type` and `should_encode_mir` are
 // all false for `GlobalAsm`, and `def_kind.has_codegen_attrs()` is false too
-// (see `compiler/rustc_metadata/src/rmeta/encoder.rs`). All that ends up in
+// (see `compiler/rodetc_metadata/src/rmeta/encoder.rs`). All that ends up in
 // the rmeta byte stream for a `global_asm!` invocation is the fixed-size
 // `DefKind::GlobalAsm` enum discriminant in the def_kind table, which is
 // identical regardless of the asm template's contents. The asm template
 // itself is only read out of HIR later by `MonoItem::GlobalAsm` codegen in
-// `rustc_monomorphize::collector`.
+// `rodetc_monomorphize::collector`.
 //
 // Companion to `proc-macro-dep-source-changes-crate-hash` and
 // `proc-macro-env-changes-crate-hash`.

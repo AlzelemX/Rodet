@@ -1,0 +1,21 @@
+[package]
+name = "rodetc_mir_dataflow"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+polonius-engine = "0.13.0"
+regex = "1"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_graphviz = { path = "../rodetc_graphviz" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_span = { path = "../rodetc_span" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+tracing = "0.1"
+# tidy-alphabetical-end

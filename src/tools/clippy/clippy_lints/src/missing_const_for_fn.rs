@@ -5,15 +5,15 @@ use clippy_utils::qualify_min_const_fn::is_min_const_fn;
 use clippy_utils::{
     fn_has_unsatisfiable_clauses, is_entrypoint_fn, is_from_proc_macro, is_in_test, trait_ref_of_method,
 };
-use rustc_abi::ExternAbi;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::CRATE_DEF_ID;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{self as hir, Body, Constness, FnDecl, GenericParamKind, OwnerId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_abi::ExternAbi;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::CRATE_DEF_ID;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{self as hir, Body, Constness, FnDecl, GenericParamKind, OwnerId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 declare_clippy_lint! {
     /// ### What it does

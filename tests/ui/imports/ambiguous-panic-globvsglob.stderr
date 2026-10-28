@@ -39,4 +39,4 @@ note: `panic` could also refer to a macro from prelude
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0659`.
+For more information about this error, try `rodetc --explain E0659`.

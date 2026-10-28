@@ -73,4 +73,4 @@ LL | impl std::ops::Add<AddRhs> for i32 {
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0282, E0283.
-For more information about an error, try `rustc --explain E0282`.
+For more information about an error, try `rodetc --explain E0282`.

@@ -29,4 +29,4 @@ LL |     fn new<T: 'a + 'static>(value: T) -> Self {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0310, E0478.
-For more information about an error, try `rustc --explain E0310`.
+For more information about an error, try `rodetc --explain E0310`.

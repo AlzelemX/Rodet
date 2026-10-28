@@ -35,4 +35,4 @@ LL | struct A<T: Size<8> + ?Sized> {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0277, E0308.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

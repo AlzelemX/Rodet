@@ -2,11 +2,11 @@ use super::EXPLICIT_INTO_ITER_LOOP;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::snippet_with_context;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
-use rustc_span::symbol::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
+use rodetc_span::symbol::sym;
 
 #[derive(Clone, Copy)]
 enum AdjustKind {

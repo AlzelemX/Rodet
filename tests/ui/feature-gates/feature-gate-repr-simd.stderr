@@ -70,7 +70,7 @@ LL | #[repr(simd)]
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0566, E0658.
-For more information about an error, try `rustc --explain E0566`.
+For more information about an error, try `rodetc --explain E0566`.
 Future incompatibility report: Future breakage diagnostic:
 error[E0566]: conflicting representation hints
   --> $DIR/feature-gate-repr-simd.rs:4:8

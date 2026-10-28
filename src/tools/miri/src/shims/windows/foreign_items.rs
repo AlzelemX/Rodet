@@ -2,11 +2,11 @@ use std::ffi::OsStr;
 use std::path::{self, Path, PathBuf};
 use std::{io, iter, str};
 
-use rustc_abi::{Align, Size};
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::Env;
+use rodetc_abi::{Align, Size};
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::Env;
 
 use self::shims::windows::handle::{Handle, PseudoHandle};
 use crate::shims::os_str::bytes_to_os_str;
@@ -32,7 +32,7 @@ fn win_get_full_path_name<'tcx>(path: &Path) -> InterpResult<'tcx, io::Result<Pa
 fn win_get_full_path_name<'tcx>(path: &Path) -> InterpResult<'tcx, io::Result<PathBuf>> {
     use std::sync::LazyLock;
 
-    use rustc_data_structures::fx::FxHashSet;
+    use rodetc_data_structures::fx::FxHashSet;
 
     // We are on Unix, so we need to implement parts of the logic ourselves. `path` will use `/`
     // separators, and the result should also use `/`.

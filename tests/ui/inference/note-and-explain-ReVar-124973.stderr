@@ -15,4 +15,4 @@ LL | async unsafe extern "C" fn multiple_named_lifetimes<'a, 'b>(_: u8, _: ...) 
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

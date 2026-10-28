@@ -5,12 +5,12 @@ use core::ops::Range;
 use std::sync::LazyLock;
 
 use regex::Regex;
-use rustc_errors::{Applicability, DiagDecorator};
-use rustc_hir::HirId;
-use rustc_resolve::rustdoc::pulldown_cmark::{
+use rodetc_errors::{Applicability, DiagDecorator};
+use rodetc_hir::HirId;
+use rodetc_resolve::rustdoc::pulldown_cmark::{
     DefaultBrokenLinkCallback, Event, Tag, TextMergeWithOffset,
 };
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
 use tracing::trace;
 
 use crate::clean::*;

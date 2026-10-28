@@ -7,7 +7,7 @@
 use std::ops::{Bound, Range};
 
 use intern::Symbol;
-use rustc_proc_macro::bridge::server;
+use rodetc_proc_macro::bridge::server;
 use span::{ErasedFileAstId, Span, TextRange, TextSize};
 
 use crate::{

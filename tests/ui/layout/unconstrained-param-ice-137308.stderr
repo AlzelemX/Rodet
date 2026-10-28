@@ -19,4 +19,4 @@ LL | struct S([u8; <u8 as A>::B]);
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0207, E0282.
-For more information about an error, try `rustc --explain E0207`.
+For more information about an error, try `rodetc --explain E0207`.

@@ -3,7 +3,7 @@ use std::ops::Neg;
 use rand::RngExt;
 use rustc_apfloat::ieee::{DoubleS, HalfS, IeeeFloat, Semantics, SingleS};
 use rustc_apfloat::{Float, FloatConvert};
-use rustc_middle::ty::{self, FloatTy, ScalarInt};
+use rodetc_middle::ty::{self, FloatTy, ScalarInt};
 
 use crate::*;
 

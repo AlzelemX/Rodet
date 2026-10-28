@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, Expr, ExprKind, FnDecl, FnRetTy, TyKind, UnOp};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, Expr, ExprKind, FnDecl, FnRetTy, TyKind, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 declare_clippy_lint! {
     /// ### What it does

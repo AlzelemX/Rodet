@@ -6,7 +6,7 @@
 //@ has "$.target.target_features[?(@.name=='avx2')].implies_features" '["avx"]'
 //@ is "$.target.target_features[?(@.name=='avx2')].unstable_feature_gate" null
 
-// If this breaks due to stabilization, check rustc_target::target_features for a replacement
+// If this breaks due to stabilization, check rodetc_target::target_features for a replacement
 //@ is "$.target.target_features[?(@.name=='amx-tile')].unstable_feature_gate" '"x86_amx_intrinsics"'
 //@ is "$.target.target_features[?(@.name=='x87')].unstable_feature_gate" '"x87_target_feature"'
 

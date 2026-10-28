@@ -5,11 +5,11 @@ use clippy_utils::source::snippet;
 use clippy_utils::visitors::for_each_local_use_after_expr;
 use clippy_utils::{get_parent_expr, sym};
 use core::ops::ControlFlow;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::{BindingMode, Block, Expr, ExprKind, HirId, LetStmt, Mutability, PatKind, QPath, Stmt, StmtKind, UnOp};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::{Span, Symbol};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{BindingMode, Block, Expr, ExprKind, HirId, LetStmt, Mutability, PatKind, QPath, Stmt, StmtKind, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

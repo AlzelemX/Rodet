@@ -5,7 +5,7 @@ struct ReallyBig {
 
 // The limit for "too big for the current architecture" is dependent on the target pointer size
 // but is artificially limited due to LLVM's internal architecture
-// logic based on rustc_target::abi::TargetDataLayout::obj_size_bound()
+// logic based on rodetc_target::abi::TargetDataLayout::obj_size_bound()
 const fn max_size() -> usize {
     if usize::BITS < 61 {
         1 << (usize::BITS - 1)

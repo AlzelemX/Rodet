@@ -3,9 +3,9 @@ use std::cmp::Ordering;
 use std::fmt;
 
 use askama::Template;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_hir::def::CtorKind;
-use rustc_hir::def_id::{DefIdMap, DefIdSet};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_hir::def::CtorKind;
+use rodetc_hir::def_id::{DefIdMap, DefIdSet};
 use tracing::debug;
 
 use super::{Context, ItemSection, impl_trait_key, item_ty_to_section};
@@ -346,7 +346,7 @@ fn sidebar_trait<'a>(
     // but still want the link in the sidebar, so we handle it on its own.
     let mut req_method_link =
         LinkBlock::new(Link::new("required-methods", "Required Methods"), "", req_method);
-    let rustc_middle::ty::TraitDef { must_implement_one_of, .. } = tcx.trait_def(t.def_id);
+    let rodetc_middle::ty::TraitDef { must_implement_one_of, .. } = tcx.trait_def(t.def_id);
     req_method_link.force_render = must_implement_one_of.is_some();
     blocks.push(req_method_link);
 

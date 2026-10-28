@@ -273,4 +273,4 @@ LL |         type F = ::self;
 error: aborting due to 33 previous errors
 
 Some errors have detailed explanations: E0252, E0432, E0433, E0573.
-For more information about an error, try `rustc --explain E0252`.
+For more information about an error, try `rodetc --explain E0252`.

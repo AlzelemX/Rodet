@@ -335,7 +335,7 @@ impl CommandLineStep for Rustc {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.crate_or_deps("rustc-main").path("compiler")
+        run.crate_or_deps("rodetc-main").path("compiler")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -563,7 +563,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_cranelift").alias("cg_clif")
+        run.alias("rodetc_codegen_cranelift").alias("cg_clif")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -592,12 +592,12 @@ impl CommandLineStep for CraneliftCodegenBackend {
 
         cargo
             .arg("--manifest-path")
-            .arg(builder.src.join("compiler/rustc_codegen_cranelift/Cargo.toml"));
+            .arg(builder.src.join("compiler/rodetc_codegen_cranelift/Cargo.toml"));
         self.build_compiler.configure_cargo(&mut cargo);
 
         let _guard = builder.msg(
             Kind::Check,
-            "rustc_codegen_cranelift",
+            "rodetc_codegen_cranelift",
             Mode::Codegen,
             build_compiler,
             target,
@@ -623,7 +623,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::check("rustc_codegen_cranelift", self.target)
+            StepMetadata::check("rodetc_codegen_cranelift", self.target)
                 .built_by(self.build_compiler.build_compiler()),
         )
     }
@@ -641,7 +641,7 @@ impl CommandLineStep for GccCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_gcc").alias("cg_gcc")
+        run.alias("rodetc_codegen_gcc").alias("cg_gcc")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -658,7 +658,7 @@ impl CommandLineStep for GccCodegenBackend {
     fn run(self, builder: &Builder<'_>) {
         // FIXME: remove once https://github.com/rust-lang/rust/issues/112393 is resolved
         if builder.sess.config.vendor {
-            println!("Skipping checking of `rustc_codegen_gcc` with vendoring enabled.");
+            println!("Skipping checking of `rodetc_codegen_gcc` with vendoring enabled.");
             return;
         }
 
@@ -674,11 +674,11 @@ impl CommandLineStep for GccCodegenBackend {
             builder.kind,
         );
 
-        cargo.arg("--manifest-path").arg(builder.src.join("compiler/rustc_codegen_gcc/Cargo.toml"));
+        cargo.arg("--manifest-path").arg(builder.src.join("compiler/rodetc_codegen_gcc/Cargo.toml"));
         self.build_compiler.configure_cargo(&mut cargo);
 
         let _guard =
-            builder.msg(Kind::Check, "rustc_codegen_gcc", Mode::Codegen, build_compiler, target);
+            builder.msg(Kind::Check, "rodetc_codegen_gcc", Mode::Codegen, build_compiler, target);
 
         let stamp = build_stamp::codegen_backend_stamp(
             builder,
@@ -700,7 +700,7 @@ impl CommandLineStep for GccCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::check("rustc_codegen_gcc", self.target)
+            StepMetadata::check("rodetc_codegen_gcc", self.target)
                 .built_by(self.build_compiler.build_compiler()),
         )
     }

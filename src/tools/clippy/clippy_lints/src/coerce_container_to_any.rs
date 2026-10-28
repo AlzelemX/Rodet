@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::sugg::{self, Sugg};
 use clippy_utils::sym;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::adjustment::{Adjust, PointerCoercion};
-use rustc_middle::ty::{self, ExistentialPredicate, Ty, TyCtxt};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::adjustment::{Adjust, PointerCoercion};
+use rodetc_middle::ty::{self, ExistentialPredicate, Ty, TyCtxt};
 
 declare_clippy_lint! {
     /// ### What it does

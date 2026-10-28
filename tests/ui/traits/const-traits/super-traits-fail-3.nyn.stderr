@@ -94,4 +94,4 @@ LL |     x.a();
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0015, E0658.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

@@ -14,15 +14,15 @@
 // Disable this rustc lint for now, as it was also done in rustc
 #![allow(rustc::potential_query_instability)]
 
-extern crate rustc_ast;
-extern crate rustc_attr_ir;
-extern crate rustc_attr_parsing;
-extern crate rustc_data_structures;
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_lint;
-extern crate rustc_middle;
-extern crate rustc_span;
+extern crate rodetc_ast;
+extern crate rodetc_attr_ir;
+extern crate rodetc_attr_parsing;
+extern crate rodetc_data_structures;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_lint;
+extern crate rodetc_middle;
+extern crate rodetc_span;
 
 mod almost_standard_lint_formulation;
 mod collapsible_span_lint_calls;
@@ -36,7 +36,7 @@ mod unnecessary_def_path;
 mod unsorted_clippy_utils_paths;
 mod unusual_names;
 
-use rustc_lint::{Lint, LintStore};
+use rodetc_lint::{Lint, LintStore};
 
 static LINTS: &[&Lint] = &[
     almost_standard_lint_formulation::ALMOST_STANDARD_LINT_FORMULATION,

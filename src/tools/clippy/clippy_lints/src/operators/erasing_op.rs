@@ -2,9 +2,9 @@ use clippy_utils::consts::{ConstEvalCtxt, Constant};
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::ty::same_type_modulo_regions;
 
-use rustc_hir::{BinOpKind, Expr};
-use rustc_lint::LateContext;
-use rustc_middle::ty::TypeckResults;
+use rodetc_hir::{BinOpKind, Expr};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::TypeckResults;
 
 use super::ERASING_OP;
 

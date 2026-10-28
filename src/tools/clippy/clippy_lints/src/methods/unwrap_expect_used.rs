@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::ty::is_never_like;
 use clippy_utils::{is_in_test, is_inside_always_const_context, is_lint_allowed};
-use rustc_hir::Expr;
-use rustc_hir::def::DefKind;
-use rustc_lint::{LateContext, Lint};
-use rustc_middle::ty;
-use rustc_span::sym;
+use rodetc_hir::Expr;
+use rodetc_hir::def::DefKind;
+use rodetc_lint::{LateContext, Lint};
+use rodetc_middle::ty;
+use rodetc_span::sym;
 
 use super::{EXPECT_USED, UNWRAP_USED};
 
@@ -44,8 +44,8 @@ pub(super) fn check(
     is_err: bool,
     allow_unwrap_in_consts: bool,
     allow_unwrap_in_tests: bool,
-    unwrap_allowed_ids: &rustc_data_structures::fx::FxHashSet<rustc_hir::def_id::DefId>,
-    unwrap_allowed_aliases: &[rustc_hir::def_id::DefId],
+    unwrap_allowed_ids: &rodetc_data_structures::fx::FxHashSet<rodetc_hir::def_id::DefId>,
+    unwrap_allowed_aliases: &[rodetc_hir::def_id::DefId],
     variant: Variant,
 ) {
     let ty = cx.typeck_results().expr_ty(recv).peel_refs();
@@ -138,8 +138,8 @@ pub(super) fn check_call(
     allow_unwrap_in_tests: bool,
     allow_expect_in_consts: bool,
     allow_expect_in_tests: bool,
-    unwrap_allowed_ids: &rustc_data_structures::fx::FxHashSet<rustc_hir::def_id::DefId>,
-    unwrap_allowed_aliases: &[rustc_hir::def_id::DefId],
+    unwrap_allowed_ids: &rodetc_data_structures::fx::FxHashSet<rodetc_hir::def_id::DefId>,
+    unwrap_allowed_aliases: &[rodetc_hir::def_id::DefId],
 ) {
     let Some(recv) = args.first() else {
         return;

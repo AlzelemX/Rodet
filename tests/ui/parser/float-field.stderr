@@ -358,4 +358,4 @@ LL |     { s.1.1e1f32; }
 
 error: aborting due to 57 previous errors
 
-For more information about this error, try `rustc --explain E0609`.
+For more information about this error, try `rodetc --explain E0609`.

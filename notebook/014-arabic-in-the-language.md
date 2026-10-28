@@ -60,7 +60,7 @@ keeps the code examples.
 
 <details><summary>Where</summary>
 
-- `compiler/rustc_errors/src/i18n.rs`, `i18n/ar.txt`: the message table and
+- `compiler/rodetc_errors/src/i18n.rs`, `i18n/ar.txt`: the message table and
   how it is matched (Fluent and `format!` messages, words in their holes)
 - `rodet/i18n/compiler_messages.py`: finds untranslated messages, coverage
 - `rodet/i18n/std_docs.py`: Arabic blocks in the std docs (`coverage`,

@@ -315,7 +315,7 @@ impl RunConfig<'_> {
 
         let crates = match alias {
             Alias::Library => self.builder.in_tree_crates("sysroot", Some(self.target)),
-            Alias::Compiler => self.builder.in_tree_crates("rustc-main", Some(self.target)),
+            Alias::Compiler => self.builder.in_tree_crates("rodetc-main", Some(self.target)),
         };
 
         crates.into_iter().map(|krate| krate.name.to_string()).collect()

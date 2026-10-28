@@ -3,12 +3,12 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::{find_assert_eq_args, first_node_macro_backtrace, macro_backtrace};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{parent_item_name, sym};
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{BinOpKind, Expr, ExprKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::SyntaxContext;
 
 use super::{FLOAT_CMP, FLOAT_CMP_CONST};
 
@@ -115,7 +115,7 @@ pub(crate) fn check<'tcx>(
     }
 }
 
-fn get_lint_and_message(is_local: bool, is_comparing_arrays: bool) -> (&'static rustc_lint::Lint, &'static str) {
+fn get_lint_and_message(is_local: bool, is_comparing_arrays: bool) -> (&'static rodetc_lint::Lint, &'static str) {
     if is_local {
         (
             FLOAT_CMP,

@@ -79,4 +79,4 @@ LL | fn badboi<'short, 'in_, 'out, T>(x: Foo<'in_, 'out, T>, sadness: &'in_ Foo<
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0261`.
+For more information about this error, try `rodetc --explain E0261`.

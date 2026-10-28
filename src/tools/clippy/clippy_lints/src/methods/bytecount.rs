@@ -3,10 +3,10 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::visitors::is_local_used;
 use clippy_utils::{peel_blocks, peel_ref_operators, strip_pat_refs, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Closure, Expr, ExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, UintTy};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Closure, Expr, ExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, UintTy};
 
 use super::NAIVE_BYTECOUNT;
 

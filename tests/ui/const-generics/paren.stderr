@@ -82,4 +82,4 @@ LL |     let _: Thing<{ (_) }> = Thing::<5>;
 
 error: aborting due to 10 previous errors
 
-For more information about this error, try `rustc --explain E0573`.
+For more information about this error, try `rodetc --explain E0573`.

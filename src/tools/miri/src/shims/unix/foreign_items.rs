@@ -2,11 +2,11 @@ use std::ffi::OsStr;
 use std::str;
 use std::time::Duration;
 
-use rustc_abi::{CanonAbi, Size};
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::{Env, Os};
+use rodetc_abi::{CanonAbi, Size};
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::{Env, Os};
 
 use self::shims::unix::android::foreign_items as android;
 use self::shims::unix::freebsd::foreign_items as freebsd;

@@ -1,7 +1,7 @@
 use genmc_sys::{ActionKind, ExecutionStatus};
-use rustc_data_structures::either::Either;
-use rustc_middle::mir::TerminatorKind;
-use rustc_middle::ty::{self, Ty};
+use rodetc_data_structures::either::Either;
+use rodetc_middle::mir::TerminatorKind;
+use rodetc_middle::ty::{self, Ty};
 
 use super::GenmcCtx;
 use crate::{

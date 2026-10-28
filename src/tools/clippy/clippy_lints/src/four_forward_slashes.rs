@@ -1,12 +1,12 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::SpanExt as _;
 use itertools::Itertools as _;
-use rustc_ast::AttrStyle;
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_errors::Applicability;
-use rustc_hir::Item;
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::AttrStyle;
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::Item;
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

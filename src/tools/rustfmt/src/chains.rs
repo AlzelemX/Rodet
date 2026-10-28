@@ -58,8 +58,8 @@
 use std::borrow::Cow;
 use std::cmp::min;
 
-use rustc_ast::ast;
-use rustc_span::{BytePos, Span, symbol};
+use rodetc_ast::ast;
+use rodetc_span::{BytePos, Span, symbol};
 use tracing::debug;
 
 use crate::comment::{CharClasses, FullCodeCharKind, RichChar, rewrite_comment};

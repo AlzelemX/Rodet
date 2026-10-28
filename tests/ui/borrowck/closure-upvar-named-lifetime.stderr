@@ -113,4 +113,4 @@ LL |         f(value);
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0597, E0700, E0716.
-For more information about an error, try `rustc --explain E0597`.
+For more information about an error, try `rodetc --explain E0597`.

@@ -141,4 +141,4 @@ LL +     let _: <S as B>::Type;
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0034, E0221, E0223.
-For more information about an error, try `rustc --explain E0034`.
+For more information about an error, try `rodetc --explain E0034`.

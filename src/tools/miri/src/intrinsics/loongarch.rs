@@ -1,5 +1,5 @@
-use rustc_abi::Size;
-use rustc_span::Symbol;
+use rodetc_abi::Size;
+use rodetc_span::Symbol;
 
 use crate::intrinsics::math::compute_crc32;
 use crate::*;

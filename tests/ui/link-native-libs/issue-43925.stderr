@@ -20,4 +20,4 @@ LL | #[link(name = "foo", cfg("rlib"))]
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0565, E0658.
-For more information about an error, try `rustc --explain E0565`.
+For more information about an error, try `rodetc --explain E0565`.

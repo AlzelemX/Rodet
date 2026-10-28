@@ -201,4 +201,4 @@ LL +     let _: Result<&usize, _> = Ok(42).as_ref();
 
 error: aborting due to 12 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

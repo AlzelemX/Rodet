@@ -6,14 +6,14 @@ use clippy_config::types::{
 };
 use clippy_utils::diagnostics::span_lint_and_note;
 use clippy_utils::is_cfg_test;
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_hir::{
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_hir::{
     FieldDef, ImplItemId, IsAuto, Item, ItemKind, Mod, OwnerId, QPath, TraitItemId, TyKind, Variant, VariantData,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext, impl_lint_pass};
-use rustc_middle::ty::{AssocKind, TyCtxt};
-use rustc_span::def_id::LocalModId;
-use rustc_span::{Ident, Symbol, bug};
+use rodetc_lint::{LateContext, LateLintPass, LintContext, impl_lint_pass};
+use rodetc_middle::ty::{AssocKind, TyCtxt};
+use rodetc_span::def_id::LocalModId;
+use rodetc_span::{Ident, Symbol, bug};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -278,7 +278,7 @@ impl ArbitrarySourceItemOrdering {
 
     /// Checks the ordering of items in an impl block against the configured
     /// associated item kind order, alphabetically within each kind.
-    fn check_impl_alphabetical(&self, cx: &LateContext<'_>, trait_impl: &rustc_hir::Impl<'_>) {
+    fn check_impl_alphabetical(&self, cx: &LateContext<'_>, trait_impl: &rodetc_hir::Impl<'_>) {
         let mut cur_t: Option<(ImplItemId, Ident)> = None;
 
         for &item in trait_impl.items {
@@ -308,7 +308,7 @@ impl ArbitrarySourceItemOrdering {
     /// which they are declared in the trait definition.
     ///
     /// Falls back to the alphabetical check for impl blocks without a trait.
-    fn check_impl_trait_def_order(&self, cx: &LateContext<'_>, trait_impl: &rustc_hir::Impl<'_>) {
+    fn check_impl_trait_def_order(&self, cx: &LateContext<'_>, trait_impl: &rodetc_hir::Impl<'_>) {
         let Some(trait_order) = get_trait_item_order(cx, trait_impl) else {
             // Bare impl blocks have no trait definition to compare against.
             self.check_impl_alphabetical(cx, trait_impl);
@@ -342,7 +342,7 @@ impl ArbitrarySourceItemOrdering {
     /// or the trait definition order. Lints only when both are violated.
     ///
     /// Fallbacks to the alphabetical check for impl blocks without a trait.
-    fn check_impl_alphabetical_or_trait_def_order(&self, cx: &LateContext<'_>, trait_impl: &rustc_hir::Impl<'_>) {
+    fn check_impl_alphabetical_or_trait_def_order(&self, cx: &LateContext<'_>, trait_impl: &rodetc_hir::Impl<'_>) {
         let Some(trait_order) = get_trait_item_order(cx, trait_impl) else {
             // Bare impl blocks have no trait definition to compare against,
             // so only the alphabetical ordering applies.
@@ -522,7 +522,7 @@ impl<'tcx> LateLintPass<'tcx> for ArbitrarySourceItemOrdering {
                     continue;
                 }
 
-                if ident.name == rustc_span::sym::std && item.span.is_dummy() {
+                if ident.name == rodetc_span::sym::std && item.span.is_dummy() {
                     if let ItemKind::ExternCrate(None, _) = item.kind {
                         // Filters the auto-included Rust standard library.
                         continue;
@@ -590,7 +590,7 @@ impl<'tcx> LateLintPass<'tcx> for ArbitrarySourceItemOrdering {
 
 /// Converts a [`ty::AssocKind`] to a [`SourceItemOrderingTraitAssocItemKind`].
 ///
-/// This is implemented here because `rustc_hir` is not a dependency of
+/// This is implemented here because `rodetc_hir` is not a dependency of
 /// `clippy_config`.
 fn convert_assoc_item_kind(cx: &LateContext<'_>, owner_id: OwnerId) -> SourceItemOrderingTraitAssocItemKind {
     #[allow(clippy::enum_glob_use)] // Very local glob use for legibility.
@@ -605,10 +605,10 @@ fn convert_assoc_item_kind(cx: &LateContext<'_>, owner_id: OwnerId) -> SourceIte
     }
 }
 
-/// Converts a [`rustc_hir::ItemKind`] to a
+/// Converts a [`rodetc_hir::ItemKind`] to a
 /// [`SourceItemOrderingModuleItemKind`].
 ///
-/// This is implemented here because `rustc_hir` is not a dependency of
+/// This is implemented here because `rodetc_hir` is not a dependency of
 /// `clippy_config`.
 fn convert_module_item_kind(value: &ItemKind<'_>) -> SourceItemOrderingModuleItemKind {
     #[allow(clippy::enum_glob_use)] // Very local glob use for legibility.
@@ -687,7 +687,7 @@ fn get_item_name(item: &Item<'_>) -> Option<String> {
 
 /// Returns the associated item names of the implemented trait in
 /// definition order, or `None` if the impl block has no trait.
-fn get_trait_item_order(cx: &LateContext<'_>, trait_impl: &rustc_hir::Impl<'_>) -> Option<Vec<Symbol>> {
+fn get_trait_item_order(cx: &LateContext<'_>, trait_impl: &rodetc_hir::Impl<'_>) -> Option<Vec<Symbol>> {
     trait_impl
         .of_trait
         .and_then(|t| t.trait_ref.trait_def_id())
@@ -695,7 +695,7 @@ fn get_trait_item_order(cx: &LateContext<'_>, trait_impl: &rustc_hir::Impl<'_>) 
             cx.tcx
                 .associated_items(def_id)
                 .in_definition_order()
-                .map(rustc_middle::ty::AssocItem::name)
+                .map(rodetc_middle::ty::AssocItem::name)
                 .collect()
         })
 }

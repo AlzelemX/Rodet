@@ -3,12 +3,12 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::{SpanExt as _, indent_of, reindent_multiline};
 use clippy_utils::sym;
-use rustc_ast::ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::{Span, Spanned};
+use rodetc_ast::ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, Spanned};
 
 use super::CASE_SENSITIVE_FILE_EXTENSION_COMPARISONS;
 

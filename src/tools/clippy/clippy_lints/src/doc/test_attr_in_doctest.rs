@@ -2,8 +2,8 @@ use super::Fragments;
 use crate::doc::TEST_ATTR_IN_DOCTEST;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::tokenize_with_text;
-use rustc_lexer::TokenKind;
-use rustc_lint::LateContext;
+use rodetc_lexer::TokenKind;
+use rodetc_lint::LateContext;
 
 pub fn check(cx: &LateContext<'_>, text: &str, offset: usize, fragments: Fragments<'_>) {
     if !text.contains("#[test]") {

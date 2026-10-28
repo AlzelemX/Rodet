@@ -18,20 +18,20 @@ use std::{panic, str};
 pub(crate) use make::{BuildDocTestBuilder, DocTestBuilder};
 pub(crate) use markdown::test as test_markdown;
 use proc_macro2::{TokenStream, TokenTree};
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxHasher, FxIndexMap, FxIndexSet};
-use rustc_errors::emitter::HumanReadableErrorType;
-use rustc_errors::{ColorConfig, DiagCtxtHandle};
-use rustc_hir::CRATE_HIR_ID;
-use rustc_hir::def_id::LOCAL_CRATE;
-use rustc_interface::interface;
-use rustc_lint as lint;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::config::{self, ErrorOutputType, Input};
-use rustc_span::edition::Edition;
-use rustc_span::{FileName, RemapPathScopeComponents, Span};
-use rustc_structures::CrateType;
-use rustc_target::spec::{Target, TargetTuple};
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxHasher, FxIndexMap, FxIndexSet};
+use rodetc_errors::emitter::HumanReadableErrorType;
+use rodetc_errors::{ColorConfig, DiagCtxtHandle};
+use rodetc_hir::CRATE_HIR_ID;
+use rodetc_hir::def_id::LOCAL_CRATE;
+use rodetc_interface::interface;
+use rodetc_lint as lint;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::config::{self, ErrorOutputType, Input};
+use rodetc_span::edition::Edition;
+use rodetc_span::{FileName, RemapPathScopeComponents, Span};
+use rodetc_structures::CrateType;
+use rodetc_target::spec::{Target, TargetTuple};
 use tempfile::{Builder as TempFileBuilder, TempDir};
 use tracing::{debug, info};
 
@@ -206,7 +206,7 @@ pub(crate) fn run(dcx: DiagCtxtHandle<'_>, input: Input, options: RustdocOptions
         extra_symbols: Vec::new(),
         make_codegen_backend: None,
         ice_file: None,
-        using_internal_features: &rustc_driver::USING_INTERNAL_FEATURES,
+        using_internal_features: &rodetc_driver::USING_INTERNAL_FEATURES,
     };
 
     let externs = options.externs.clone();
@@ -229,14 +229,14 @@ pub(crate) fn run(dcx: DiagCtxtHandle<'_>, input: Input, options: RustdocOptions
 
         // -W help
         if sess.opts.describe_lints {
-            rustc_driver::describe_lints(sess, registered_lints);
+            rodetc_driver::describe_lints(sess, registered_lints);
             return Ok(None);
         }
 
-        let krate = rustc_interface::passes::parse(sess);
+        let krate = rodetc_interface::passes::parse(sess);
 
         let (collector, _incr_comp_session) =
-            rustc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
+            rodetc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
                 let crate_name = tcx.crate_name(LOCAL_CRATE).to_string();
                 let opts = scrape_test_config(tcx, crate_name, args_path);
 
@@ -684,7 +684,7 @@ fn run_test(
     let rustc_binary = rustdoc_options
         .test_builder
         .as_deref()
-        .unwrap_or_else(|| rustc_interface::util::rustc_path(sysroot).expect("found rustc"));
+        .unwrap_or_else(|| rodetc_interface::util::rustc_path(sysroot).expect("found rustc"));
     let mut compiler = wrapped_rustc_command(&rustdoc_options.test_builder_wrappers, rustc_binary);
 
     compiler.args(&compiler_args);

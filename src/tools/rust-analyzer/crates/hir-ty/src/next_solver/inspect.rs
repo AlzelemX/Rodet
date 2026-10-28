@@ -1,10 +1,10 @@
-use rustc_ast_ir::try_visit;
-use rustc_next_trait_solver::{
+use rodetc_ast_ir::try_visit;
+use rodetc_next_trait_solver::{
     canonical::instantiate_canonical_state,
     resolve::eager_resolve_vars,
     solve::{SolverDelegateEvalExt, inspect},
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     VisitorResult,
     inherent::IntoKind,
     solve::{Certainty, GoalSource, MaybeCause, MaybeInfo, NoSolution},
@@ -24,7 +24,7 @@ use crate::{
     },
 };
 
-pub(crate) use rustc_next_trait_solver::solve::inspect::*;
+pub(crate) use rodetc_next_trait_solver::solve::inspect::*;
 
 pub(crate) struct InspectConfig {
     pub(crate) max_depth: usize,

@@ -232,4 +232,4 @@ LL |                     Output = impl Nesting<'a>
 
 error: aborting due to 29 previous errors
 
-For more information about this error, try `rustc --explain E0657`.
+For more information about this error, try `rodetc --explain E0657`.

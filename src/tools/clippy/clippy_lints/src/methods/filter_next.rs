@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{path_to_local_with_projections, sym};
-use rustc_ast::{BindingMode, Mutability};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, Node, PatKind};
-use rustc_lint::LateContext;
+use rodetc_ast::{BindingMode, Mutability};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, Node, PatKind};
+use rodetc_lint::LateContext;
 
 use super::FILTER_NEXT;
 

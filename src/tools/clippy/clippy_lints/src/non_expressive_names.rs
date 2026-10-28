@@ -1,12 +1,12 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::{span_lint, span_lint_and_then};
-use rustc_ast::ast::{
+use rodetc_ast::ast::{
     self, Arm, AssocItem, AssocItemKind, Attribute, Block, FnDecl, Item, ItemKind, Local, Pat, PatKind,
 };
-use rustc_ast::visit::{Visitor, walk_block, walk_expr, walk_pat};
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::symbol::{Ident, Symbol};
-use rustc_span::{Span, sym};
+use rodetc_ast::visit::{Visitor, walk_block, walk_expr, walk_pat};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::symbol::{Ident, Symbol};
+use rodetc_span::{Span, sym};
 use std::cmp::Ordering;
 
 declare_clippy_lint! {

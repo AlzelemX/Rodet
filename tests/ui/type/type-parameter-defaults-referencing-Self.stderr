@@ -15,4 +15,4 @@ LL | fn foo(x: &dyn Foo</* T */>) { }
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0393`.
+For more information about this error, try `rodetc --explain E0393`.

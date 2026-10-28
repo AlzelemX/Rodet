@@ -275,4 +275,4 @@ LL | fn exceed_u16_mixed() {}
 
 error: aborting due to 14 previous errors; 14 warnings emitted
 
-For more information about this error, try `rustc --explain E0425`.
+For more information about this error, try `rodetc --explain E0425`.

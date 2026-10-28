@@ -12,4 +12,4 @@ LL |         (true, _) => drop(r),
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0503`.
+For more information about this error, try `rodetc --explain E0503`.

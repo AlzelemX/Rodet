@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet_with_applicability;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty, UintTy};
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty, UintTy};
 
 use super::CHAR_LIT_AS_U8;
 

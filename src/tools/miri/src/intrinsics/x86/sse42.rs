@@ -1,8 +1,8 @@
-use rustc_abi::Size;
-use rustc_middle::mir;
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::spec::Arch;
+use rodetc_abi::Size;
+use rodetc_middle::mir;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::spec::Arch;
 
 use crate::intrinsics::math::compute_crc32;
 use crate::*;

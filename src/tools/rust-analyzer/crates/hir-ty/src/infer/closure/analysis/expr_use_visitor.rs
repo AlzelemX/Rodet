@@ -16,7 +16,7 @@ use hir_def::{
     upvars::UpvarsRef,
 };
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_type_ir::inherent::{IntoKind, Ty as _};
+use rodetc_type_ir::inherent::{IntoKind, Ty as _};
 use smallvec::{SmallVec, smallvec};
 use stdx::impl_from;
 use syntax::ast::{BinaryOp, UnaryOp};
@@ -236,7 +236,7 @@ pub enum FakeReadCause {
     ///
     /// For details on how these references are created, see the extensive
     /// documentation on `bind_matched_candidate_for_guard` in
-    /// `rustc_mir_build`.
+    /// `rodetc_mir_build`.
     ForGuardBinding,
 
     /// Officially, the semantics of

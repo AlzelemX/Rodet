@@ -19,4 +19,4 @@ LL +     assert_eq!(shadowed_stability::B::hello(&()), "B");
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0034`.
+For more information about this error, try `rodetc --explain E0034`.

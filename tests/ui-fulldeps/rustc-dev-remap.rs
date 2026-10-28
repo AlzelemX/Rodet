@@ -15,9 +15,9 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_ast;
+extern crate rodetc_ast;
 
-use rustc_ast::visit::Visitor;
+use rodetc_ast::visit::Visitor;
 
 struct MyStruct;
 struct NotAValidResultType;

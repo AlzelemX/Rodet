@@ -67,4 +67,4 @@ LL | const _: u32 = no_curly__rhs_dollar__no_round! (a);
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0425`.
+For more information about this error, try `rodetc --explain E0425`.

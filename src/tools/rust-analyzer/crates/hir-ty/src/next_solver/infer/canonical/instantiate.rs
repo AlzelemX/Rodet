@@ -20,8 +20,8 @@ use crate::next_solver::{
     },
 };
 use rustc_hash::FxHashMap;
-use rustc_index::{Idx as _, IndexVec};
-use rustc_type_ir::{
+use rodetc_index::{Idx as _, IndexVec};
+use rodetc_type_ir::{
     BoundVar, BoundVarIndexKind, GenericArgKind, TypeFlags, TypeFoldable, TypeFolder,
     TypeSuperFoldable, TypeVisitableExt, UniverseIndex,
     inherent::{GenericArg as _, IntoKind},

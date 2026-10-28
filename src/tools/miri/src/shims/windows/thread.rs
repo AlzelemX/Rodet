@@ -1,4 +1,4 @@
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 
 use self::shims::windows::handle::{EvalContextExt as _, Handle, PseudoHandle};
 use crate::*;

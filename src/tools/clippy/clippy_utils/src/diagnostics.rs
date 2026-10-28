@@ -8,12 +8,12 @@
 //! Thank you!
 //! ~The `INTERNAL_METADATA_COLLECTOR` lint
 
-use rustc_errors::{Applicability, Diag, DiagCtxtHandle, DiagLocation, DiagMessage, Diagnostic, Level, MultiSpan};
+use rodetc_errors::{Applicability, Diag, DiagCtxtHandle, DiagLocation, DiagMessage, Diagnostic, Level, MultiSpan};
 #[cfg(debug_assertions)]
-use rustc_errors::{SubstitutionPart, Suggestions};
-use rustc_hir::HirId;
-use rustc_lint::{LateContext, Lint, LintContext};
-use rustc_span::Span;
+use rodetc_errors::{SubstitutionPart, Suggestions};
+use rodetc_hir::HirId;
+use rodetc_lint::{LateContext, Lint, LintContext};
+use rodetc_span::Span;
 use std::env;
 
 fn docs_link(diag: &mut Diag<'_>, lint: &'static Lint) {
@@ -339,7 +339,7 @@ pub fn span_lint_hir_and_then(
         lint,
         hir_id,
         sp,
-        rustc_errors::DiagDecorator(|diag| {
+        rodetc_errors::DiagDecorator(|diag| {
             diag.primary_message(msg);
             diag.emitted_at = emitted_at;
             f(diag);

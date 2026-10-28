@@ -16,4 +16,4 @@ LL | pub fn cast<T>(x: Container<Alias<T>, T>) -> Container<T, T> {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0119, E0282.
-For more information about an error, try `rustc --explain E0119`.
+For more information about an error, try `rodetc --explain E0119`.

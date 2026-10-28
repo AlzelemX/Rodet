@@ -5,8 +5,8 @@ use std::io;
 use std::io::ErrorKind;
 
 use rand::RngExt;
-use rustc_abi::{Align, Size};
-use rustc_target::spec::Os;
+use rodetc_abi::{Align, Size};
+use rodetc_target::spec::Os;
 
 use crate::shims::FileDescriptionRef;
 use crate::shims::files::{DynFileDescriptionRef, FdNum, FileDescription};

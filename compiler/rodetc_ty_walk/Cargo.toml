@@ -1,0 +1,12 @@
+[package]
+name = "rodetc_ty_walk"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_span = { path = "../rodetc_span" }
+tracing = "0.1"
+# tidy-alphabetical-end

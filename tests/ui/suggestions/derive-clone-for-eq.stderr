@@ -22,4 +22,4 @@ LL | pub struct Struct<T: std::clone::Clone>(T);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

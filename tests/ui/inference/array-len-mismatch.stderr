@@ -28,4 +28,4 @@ LL +     let wrong: [u8; 2] = returns_arr();
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

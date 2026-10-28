@@ -41,4 +41,4 @@ LL | trait SendEqAlias<T> = PartialEq;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0038, E0658.
-For more information about an error, try `rustc --explain E0038`.
+For more information about an error, try `rodetc --explain E0038`.

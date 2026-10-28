@@ -998,11 +998,11 @@ fn test_needs_target_has_atomic() {
 #[test]
 fn test_rustc_abi() {
     let config = cfg().target("i686-unknown-linux-gnu").build();
-    assert_eq!(config.target_cfg().rustc_abi, Some("x86-sse2".to_string()));
+    assert_eq!(config.target_cfg().rodetc_abi, Some("x86-sse2".to_string()));
     assert!(check_ignore(&config, "//@ ignore-rustc_abi-x86-sse2"));
     assert!(!check_ignore(&config, "//@ only-rustc_abi-x86-sse2"));
     let config = cfg().target("x86_64-unknown-linux-gnu").build();
-    assert_eq!(config.target_cfg().rustc_abi, None);
+    assert_eq!(config.target_cfg().rodetc_abi, None);
     assert!(!check_ignore(&config, "//@ ignore-rustc_abi-x86-sse2"));
     assert!(check_ignore(&config, "//@ only-rustc_abi-x86-sse2"));
 }

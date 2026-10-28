@@ -90,4 +90,4 @@ LL | const fn my_const_fn(val: u8) -> u8 {
 
 error: aborting due to 2 previous errors; 5 warnings emitted
 
-For more information about this error, try `rustc --explain E0446`.
+For more information about this error, try `rodetc --explain E0446`.

@@ -2,12 +2,12 @@ use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet;
 use clippy_utils::{get_parent_expr, sym};
-use rustc_ast::{LitKind, StrStyle};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Node, QPath, TyKind};
-use rustc_lint::LateContext;
-use rustc_span::edition::Edition::Edition2021;
-use rustc_span::{Span, Symbol};
+use rodetc_ast::{LitKind, StrStyle};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Node, QPath, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_span::edition::Edition::Edition2021;
+use rodetc_span::{Span, Symbol};
 
 use super::MANUAL_C_STR_LITERALS;
 

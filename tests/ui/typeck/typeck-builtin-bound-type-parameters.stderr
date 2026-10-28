@@ -68,4 +68,4 @@ LL | fn foo2<'a, T:Copy<'a, U>, U>(x: T) {}
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0107`.
+For more information about this error, try `rodetc --explain E0107`.

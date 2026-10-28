@@ -3,11 +3,11 @@ use clippy_config::types::{DisallowedPath, create_disallowed_map};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::paths::PathNS;
 use clippy_utils::ty::get_field_def_id_by_name;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefIdMap;
-use rustc_hir::{Expr, ExprKind, Pat, PatKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_hir::{Expr, ExprKind, Pat, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
 
 declare_clippy_lint! {
     /// ### What it does

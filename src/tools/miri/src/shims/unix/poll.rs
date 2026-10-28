@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 use std::rc::Rc;
 use std::time::Duration;
 
-use rustc_target::spec::Os;
+use rodetc_target::spec::Os;
 
 use crate::shims::files::FdNum;
 use crate::*;

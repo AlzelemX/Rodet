@@ -1,6 +1,6 @@
 use expect_test::expect;
 use hir_def::{AdtId, ModuleDefId};
-use rustc_type_ir::inherent::IntoKind as _;
+use rodetc_type_ir::inherent::IntoKind as _;
 use test_fixture::WithFixture;
 
 use crate::{

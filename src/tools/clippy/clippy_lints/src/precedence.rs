@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};
 use clippy_utils::source::snippet_with_applicability;
-use rustc_ast::ast::BinOpKind::{Add, BitAnd, BitOr, BitXor, Div, Mul, Rem, Shl, Shr, Sub};
-use rustc_ast::ast::{BinOpKind, Expr, ExprKind};
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, Lint, declare_lint_pass};
-use rustc_span::Spanned;
+use rodetc_ast::ast::BinOpKind::{Add, BitAnd, BitOr, BitXor, Div, Mul, Rem, Shl, Shr, Sub};
+use rodetc_ast::ast::{BinOpKind, Expr, ExprKind};
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, Lint, declare_lint_pass};
+use rodetc_span::Spanned;
 
 declare_clippy_lint! {
     /// ### What it does

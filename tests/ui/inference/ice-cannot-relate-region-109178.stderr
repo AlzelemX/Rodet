@@ -18,4 +18,4 @@ LL | impl<const CHANGES: &[&str]> Changes<CHANGES> where [(); CHANGES.len()]: {}
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0637`.
+For more information about this error, try `rodetc --explain E0637`.

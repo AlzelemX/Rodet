@@ -2,12 +2,12 @@ use clippy_utils::consts::{ConstEvalCtxt, Constant};
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::get_parent_expr;
 use clippy_utils::source::snippet_with_context;
-use rustc_ast::ast::{LitIntType, LitKind};
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::{AssignOpKind, BinOpKind, Block, Expr, ExprKind, Stmt, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{IntTy, Ty, UintTy};
+use rodetc_ast::ast::{LitIntType, LitKind};
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::{AssignOpKind, BinOpKind, Block, Expr, ExprKind, Stmt, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{IntTy, Ty, UintTy};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -96,7 +96,7 @@ impl<'tcx> LateLintPass<'tcx> for ImplicitSaturatingAdd {
 }
 
 fn get_int_max(ty: Ty<'_>) -> Option<u128> {
-    use rustc_middle::ty::{Int, Uint};
+    use rodetc_middle::ty::{Int, Uint};
     match ty.peel_refs().kind() {
         Int(IntTy::I8) => i8::MAX.try_into().ok(),
         Int(IntTy::I16) => i16::MAX.try_into().ok(),
@@ -129,7 +129,7 @@ fn get_const<'tcx>(cx: &LateContext<'tcx>, expr: &Expr<'tcx>) -> Option<(u128, B
 }
 
 fn invert_op(op: BinOpKind) -> Option<BinOpKind> {
-    use rustc_hir::BinOpKind::{Ge, Gt, Le, Lt, Ne};
+    use rodetc_hir::BinOpKind::{Ge, Gt, Le, Lt, Ne};
     match op {
         Lt => Some(Gt),
         Le => Some(Ge),

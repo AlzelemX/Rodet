@@ -3,14 +3,14 @@
 use std::mem;
 
 use rustc_hash::FxHashMap;
-use rustc_type_ir::error::TypeError;
-use rustc_type_ir::inherent::{Const as _, IntoKind, Ty as _};
-use rustc_type_ir::relate::VarianceDiagInfo;
-use rustc_type_ir::{
+use rodetc_type_ir::error::TypeError;
+use rodetc_type_ir::inherent::{Const as _, IntoKind, Ty as _};
+use rodetc_type_ir::relate::VarianceDiagInfo;
+use rodetc_type_ir::{
     AliasRelationDirection, ConstVid, InferConst, InferCtxtLike, InferTy, RegionKind, TermKind,
     TyVid, UniverseIndex, Variance,
 };
-use rustc_type_ir::{Interner, TypeVisitable, TypeVisitableExt};
+use rodetc_type_ir::{Interner, TypeVisitable, TypeVisitableExt};
 use tracing::{debug, instrument, warn};
 
 use super::{

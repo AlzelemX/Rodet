@@ -1,18 +1,18 @@
 use clippy_utils::SpanlessEq;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::MaybeDef as _;
-use rustc_ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::ExprKind;
-use rustc_lint::LateContext;
+use rodetc_ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::ExprKind;
+use rodetc_lint::LateContext;
 
 use super::NO_EFFECT_REPLACE;
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,
-    expr: &'tcx rustc_hir::Expr<'_>,
-    arg1: &'tcx rustc_hir::Expr<'_>,
-    arg2: &'tcx rustc_hir::Expr<'_>,
+    expr: &'tcx rodetc_hir::Expr<'_>,
+    arg1: &'tcx rodetc_hir::Expr<'_>,
+    arg2: &'tcx rodetc_hir::Expr<'_>,
 ) {
     let ty = cx.typeck_results().expr_ty(expr).peel_refs();
     if !(ty.is_str() || ty.is_lang_item(cx, LangItem::String)) {

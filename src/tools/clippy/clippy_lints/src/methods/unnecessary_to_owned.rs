@@ -7,21 +7,21 @@ use clippy_utils::source::{SpanExt as _, snippet, snippet_with_context};
 use clippy_utils::ty::{get_iterator_item_ty, implements_trait, is_copy, peel_and_count_ty_refs};
 use clippy_utils::visitors::find_all_ret_expressions;
 use clippy_utils::{fn_def_id, get_parent_expr, is_expr_temporary_value, return_ty, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{BorrowKind, Expr, ExprKind, ItemKind, Node};
-use rustc_infer::infer::TyCtxtInferExt as _;
-use rustc_lint::LateContext;
-use rustc_middle::mir::Mutability;
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind, OverloadedDeref};
-use rustc_middle::ty::{
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, ItemKind, Node};
+use rodetc_infer::infer::TyCtxtInferExt as _;
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::Mutability;
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind, OverloadedDeref};
+use rodetc_middle::ty::{
     self, ClauseKind, GenericArg, GenericArgKind, GenericArgsRef, ParamTy, ProjectionClause, TraitClause, Ty,
 };
-use rustc_span::Symbol;
-use rustc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
-use rustc_trait_selection::traits::{Obligation, ObligationCause};
+use rodetc_span::Symbol;
+use rodetc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
+use rodetc_trait_selection::traits::{Obligation, ObligationCause};
 
 use super::UNNECESSARY_TO_OWNED;
 
@@ -503,7 +503,7 @@ fn can_change_type<'a>(cx: &LateContext<'a>, mut expr: &'a Expr<'a>, mut ty: Ty<
             Node::Item(item) => {
                 if let ItemKind::Fn { body: body_id, .. } = &item.kind
                     && let output_ty = return_ty(cx, item.owner_id)
-                    && rustc_hir_typeck::can_coerce(cx.tcx, cx.param_env, item.owner_id.def_id, ty, output_ty)
+                    && rodetc_hir_typeck::can_coerce(cx.tcx, cx.param_env, item.owner_id.def_id, ty, output_ty)
                 {
                     if has_lifetime(output_ty) && has_lifetime(ty) {
                         return false;

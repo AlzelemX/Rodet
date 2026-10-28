@@ -21,7 +21,7 @@ pub struct Config<T> {
     pub writer: T,
     pub filter: String,
     /// The meaning of SOLVER_DEBUG is to tell the solver crates
-    /// (i.e. rustc_type_ir, rustc_next_trait_solver) how to filter tracing
+    /// (i.e. rodetc_type_ir, rodetc_next_trait_solver) how to filter tracing
     /// logs. But now we can only have just one filter, which means we have to
     /// merge the solver filter to our main filter (from RA_LOG env).
     ///
@@ -83,9 +83,9 @@ where
                 // Once with `ra_ap_` and once without; in-tree r-a uses without, out-of-tree uses with.
                 let solver_filter = Targets::new()
                     .with_target("ra_ap_rustc_type_ir", level)
-                    .with_target("rustc_type_ir", level)
+                    .with_target("rodetc_type_ir", level)
                     .with_target("ra_ap_rustc_next_trait_solver", level)
-                    .with_target("rustc_next_trait_solver", level);
+                    .with_target("rodetc_next_trait_solver", level);
                 // TODO: remove `.with_filter(LevelFilter::OFF)` on the `None` branch.
                 HierarchicalLayer::default()
                     .with_indent_lines(true)

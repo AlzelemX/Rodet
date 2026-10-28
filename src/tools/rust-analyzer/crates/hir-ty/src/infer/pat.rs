@@ -16,9 +16,9 @@ use hir_def::{
     resolver::ValueNs,
     signatures::VariantFields,
 };
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::FxHashMap;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     TypeVisitableExt as _,
     inherent::{IntoKind as _, Ty as _},
 };

@@ -6,7 +6,7 @@
 #![cfg(feature = "in-rust-tree")]
 #![feature(rustc_private)]
 
-extern crate rustc_driver as _;
+extern crate rodetc_driver as _;
 
 mod common {
     pub(crate) mod utils;

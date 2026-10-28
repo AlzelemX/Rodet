@@ -44,4 +44,4 @@ LL | #[link_name]
 
 error: aborting due to 1 previous error; 3 warnings emitted
 
-For more information about this error, try `rustc --explain E0539`.
+For more information about this error, try `rodetc --explain E0539`.

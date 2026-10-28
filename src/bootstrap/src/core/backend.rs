@@ -22,9 +22,9 @@ impl CodegenBackendKind {
         }
     }
 
-    /// Name of the codegen backend's crate, e.g. `rustc_codegen_cranelift`.
+    /// Name of the codegen backend's crate, e.g. `rodetc_codegen_cranelift`.
     pub(crate) fn crate_name(&self) -> String {
-        format!("rustc_codegen_{}", self.name())
+        format!("rodetc_codegen_{}", self.name())
     }
 
     pub(crate) fn is_llvm(&self) -> bool {

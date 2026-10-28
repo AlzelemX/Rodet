@@ -1,6 +1,6 @@
 //! Builtin attributes resolved by nameres.
 //!
-//! The actual definitions were copied from rustc's `compiler/rustc_feature/src/builtin_attrs.rs`.
+//! The actual definitions were copied from rustc's `compiler/rodetc_feature/src/builtin_attrs.rs`.
 //!
 //! It was last synchronized with upstream commit c3def263a44e07e09ae6d57abfc8650227fb4972.
 //!
@@ -664,7 +664,7 @@ pub const INERT_ATTRIBUTES: &[BuiltinAttribute] = &[
     rustc_attr!(TEST, rustc_variance_of_opaques, Normal, template!(Word), WarnFollowing),
     rustc_attr!(TEST, rustc_hidden_type_of_opaques, Normal, template!(Word), WarnFollowing),
     rustc_attr!(TEST, rustc_layout, Normal, template!(List: "field1, field2, ..."), WarnFollowing),
-    rustc_attr!(TEST, rustc_abi, Normal, template!(List: "field1, field2, ..."), WarnFollowing),
+    rustc_attr!(TEST, rodetc_abi, Normal, template!(List: "field1, field2, ..."), WarnFollowing),
     rustc_attr!(TEST, rustc_regions, Normal, template!(Word), WarnFollowing),
     rustc_attr!(TEST, rustc_dump_user_args, Normal, template!(Word), WarnFollowing),
     rustc_attr!(TEST, rustc_evaluate_where_clauses, Normal, template!(Word), WarnFollowing),

@@ -3,10 +3,10 @@ use clippy_utils::higher::{VecInitKind, get_vec_init_kind};
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::ty::is_uninit_value_valid_for_ty;
 use clippy_utils::{SpanlessEq, is_integer_literal, is_lint_allowed, peel_hir_expr_while, sym};
-use rustc_hir::{Block, Expr, ExprKind, HirId, PatKind, PathSegment, Stmt, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Span, SyntaxContext};
+use rodetc_hir::{Block, Expr, ExprKind, HirId, PatKind, PathSegment, Stmt, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Span, SyntaxContext};
 
 // TODO: add `ReadBuf` (RFC 2930) in "How to fix" once it is available in std
 declare_clippy_lint! {

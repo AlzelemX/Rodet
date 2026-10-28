@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::{peel_blocks, strip_pat_refs};
-use rustc_errors::Applicability;
-use rustc_hir::{ExprKind, LetStmt, MatchSource, PatKind, QPath};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{ExprKind, LetStmt, MatchSource, PatKind, QPath};
+use rodetc_lint::LateContext;
 
 use super::INFALLIBLE_DESTRUCTURING_MATCH;
 

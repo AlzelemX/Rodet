@@ -23,4 +23,4 @@ LL | fn a<'a>() -> impl for<'b> Fn(&'a u8) -> (impl Sized + 'b) {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0275, E0657.
-For more information about an error, try `rustc --explain E0275`.
+For more information about an error, try `rodetc --explain E0275`.

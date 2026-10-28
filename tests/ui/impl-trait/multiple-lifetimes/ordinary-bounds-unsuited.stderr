@@ -11,4 +11,4 @@ LL |     if condition() { a } else { b }
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

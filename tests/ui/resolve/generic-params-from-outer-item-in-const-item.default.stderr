@@ -55,4 +55,4 @@ LL +     let _: u32 = T::C;
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0401`.
+For more information about this error, try `rodetc --explain E0401`.

@@ -1,34 +1,34 @@
-error: the `rustc_abi` attribute cannot be used on constants
+error: the `rodetc_abi` attribute cannot be used on constants
   --> $DIR/debug.rs:48:3
    |
-LL | #[rustc_abi(debug)]
+LL | #[rodetc_abi(debug)]
    |   ^^^^^^^^^
    |
-   = help: the `rustc_abi` attribute can be applied to functions and type aliases
+   = help: the `rodetc_abi` attribute can be applied to functions and type aliases
 
-error: the `rustc_abi` attribute cannot be used on associated consts
+error: the `rodetc_abi` attribute cannot be used on associated consts
   --> $DIR/debug.rs:52:7
    |
-LL |     #[rustc_abi(debug)]
+LL |     #[rodetc_abi(debug)]
    |       ^^^^^^^^^
    |
-   = help: the `rustc_abi` attribute can be applied to functions and type aliases
+   = help: the `rodetc_abi` attribute can be applied to functions and type aliases
 
-error[E0539]: malformed `rustc_abi` attribute input
+error[E0539]: malformed `rodetc_abi` attribute input
   --> $DIR/debug.rs:80:3
    |
-LL | #[rustc_abi("assert_eq")]
+LL | #[rodetc_abi("assert_eq")]
    |   ^^^^^^^^^-------------
    |            |
    |            valid arguments are `assert_eq` or `debug`
    |
 help: try changing it to one of the following valid forms of the attribute
    |
-LL - #[rustc_abi("assert_eq")]
-LL + #[rustc_abi(assert_eq)]
+LL - #[rodetc_abi("assert_eq")]
+LL + #[rodetc_abi(assert_eq)]
    |
-LL - #[rustc_abi("assert_eq")]
-LL + #[rustc_abi(debug)]
+LL - #[rodetc_abi("assert_eq")]
+LL + #[rodetc_abi(debug)]
    |
 
 error: fn_abi_of(test) = FnAbi {
@@ -364,7 +364,7 @@ error: fn_abi_of(test_generic) = FnAbi {
 LL | fn test_generic<T>(_x: *const T) {}
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error: the `rustc_abi` attribute can only be applied to function items, type aliases, and associated functions
+error: the `rodetc_abi` attribute can only be applied to function items, type aliases, and associated functions
   --> $DIR/debug.rs:49:1
    |
 LL | const C: () = ();
@@ -961,7 +961,7 @@ LL | type TestAbiEqNonsense = (fn((str, str)), fn((str, str)));
    = help: the trait `Sized` is not implemented for `str`
    = note: only the last element of a tuple may have a dynamically sized type
 
-error: the `rustc_abi` attribute can only be applied to function items, type aliases, and associated functions
+error: the `rodetc_abi` attribute can only be applied to function items, type aliases, and associated functions
   --> $DIR/debug.rs:53:5
    |
 LL |     const C: () = ();
@@ -1051,4 +1051,4 @@ LL |     fn assoc_test(&self) {}
 error: aborting due to 15 previous errors
 
 Some errors have detailed explanations: E0277, E0539.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

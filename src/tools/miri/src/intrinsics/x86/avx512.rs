@@ -1,4 +1,4 @@
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 
 use super::{
     packssdw, packsswb, packusdw, packuswb, pavg, permute, permute2, pmaddbw, pmaddwd, psadbw,

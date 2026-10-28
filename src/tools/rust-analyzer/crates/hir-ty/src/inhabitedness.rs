@@ -5,7 +5,7 @@ use hir_def::{
     AdtId, EnumVariantId, ModuleId, VariantId, signatures::VariantFields, visibility::Visibility,
 };
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{TypeSuperVisitable, TypeVisitable, TypeVisitor, inherent::IntoKind};
+use rodetc_type_ir::{TypeSuperVisitable, TypeVisitable, TypeVisitor, inherent::IntoKind};
 
 use crate::{
     consteval::try_const_usize,

@@ -14,7 +14,7 @@ use emmy_dap_types::prelude::types::{
 };
 use emmy_dap_types::prelude::{Command, Event, Request, ResponseBody, Server};
 use miri::{InterpErrorInfo, InterpErrorKind, InterpResult, TerminationInfo};
-use rustc_span::bug;
+use rodetc_span::bug;
 
 use crate::debugger::{ExecutionResult, LocalDesc, PrirodaContext, StepResult};
 

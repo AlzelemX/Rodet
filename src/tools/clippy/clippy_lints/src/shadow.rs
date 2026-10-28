@@ -4,15 +4,15 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::snippet;
 use clippy_utils::visitors::{Descend, Visitable, for_each_expr};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{
     Block, Body, BodyOwnerKind, Expr, ExprKind, HirId, ItemLocalId, LetExpr, LocalSource, Node, Pat, PatKind, QPath,
     UnOp,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{Span, Symbol};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

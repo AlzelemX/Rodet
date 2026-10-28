@@ -2,7 +2,7 @@ use std::{fmt, hash::Hash};
 
 use intern::{Interned, InternedRef, impl_internable};
 use macros::GenericTypeVisitable;
-use rustc_type_ir::GenericTypeVisitable;
+use rodetc_type_ir::GenericTypeVisitable;
 
 use crate::{
     MemoryMap,

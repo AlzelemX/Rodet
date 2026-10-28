@@ -987,7 +987,7 @@ LL |     #[coroutine = 63] || {}
 error: aborting due to 74 previous errors; 8 warnings emitted
 
 Some errors have detailed explanations: E0308, E0463, E0539, E0565, E0658, E0805.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.
 Future incompatibility report: Future breakage diagnostic:
 error: valid forms for the attribute are `inline`, `inline(always)`, and `inline(never)`
   --> $DIR/malformed-attrs.rs:51:3

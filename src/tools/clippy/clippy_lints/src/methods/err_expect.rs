@@ -2,16 +2,16 @@ use super::ERR_EXPECT;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::ty::has_debug_impl;
-use rustc_errors::Applicability;
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_middle::ty::Ty;
-use rustc_span::{Span, sym};
+use rodetc_errors::Applicability;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_middle::ty::Ty;
+use rodetc_span::{Span, sym};
 
 pub(super) fn check(
     cx: &LateContext<'_>,
-    _expr: &rustc_hir::Expr<'_>,
-    recv: &rustc_hir::Expr<'_>,
+    _expr: &rodetc_hir::Expr<'_>,
+    recv: &rodetc_hir::Expr<'_>,
     expect_span: Span,
     err_span: Span,
     msrv: Msrv,

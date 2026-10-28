@@ -20,4 +20,4 @@ LL | fn qux<T>(a: Wrapper<T>, b: T) -> T where Wrapper<T>: Add<T, Output = T> {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0369`.
+For more information about this error, try `rodetc --explain E0369`.

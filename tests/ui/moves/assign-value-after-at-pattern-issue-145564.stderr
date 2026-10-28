@@ -65,4 +65,4 @@ LL |     let ref mut y = 42;
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0381`.
+For more information about this error, try `rodetc --explain E0381`.

@@ -18,4 +18,4 @@ LL |     unsafe extern "C" fn dyn_method_ref(&self, mut ap: ...) -> u64 {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0038`.
+For more information about this error, try `rodetc --explain E0038`.

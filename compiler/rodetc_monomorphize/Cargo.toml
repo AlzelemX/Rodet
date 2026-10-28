@@ -1,0 +1,32 @@
+[package]
+name = "rodetc_monomorphize"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_symbol_mangling = { path = "../rodetc_symbol_mangling" }
+rodetc_target = { path = "../rodetc_target" }
+serde = "1"
+serde_json = "1"
+tracing = "0.1"
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+llvm_offload = []
+# tidy-alphabetical-end

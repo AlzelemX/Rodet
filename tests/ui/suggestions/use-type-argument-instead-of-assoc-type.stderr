@@ -22,4 +22,4 @@ LL | fn take(_: impl Iterator<0>) {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0107`.
+For more information about this error, try `rodetc --explain E0107`.

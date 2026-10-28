@@ -4,12 +4,12 @@ use clippy_utils::source::{snippet, snippet_with_applicability};
 use clippy_utils::sugg::deref_closure_args;
 use clippy_utils::{is_receiver_of_method_call, strip_pat_refs, sym};
 use hir::ExprKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::PatKind;
-use rustc_lint::LateContext;
-use rustc_span::{Span, Symbol};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::PatKind;
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, Symbol};
 
 use super::SEARCH_IS_SOME;
 

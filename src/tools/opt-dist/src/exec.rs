@@ -138,7 +138,7 @@ impl Bootstrap {
     }
 
     pub fn with_cranelift(mut self) -> Self {
-        self.cmd = self.cmd.arg("rustc_codegen_cranelift");
+        self.cmd = self.cmd.arg("rodetc_codegen_cranelift");
         self
     }
 

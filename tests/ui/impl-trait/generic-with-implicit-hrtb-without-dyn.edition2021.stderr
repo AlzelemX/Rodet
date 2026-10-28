@@ -23,4 +23,4 @@ LL | fn ice() -> impl AsRef<dyn Fn(&())> {
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0782`.
+For more information about this error, try `rodetc --explain E0782`.

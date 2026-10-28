@@ -1,7 +1,7 @@
 #![feature(rustc_private)]
 #![allow(unused_extern_crates)]
 
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 use clippy_config::{Conf, ConfMetadata};
 use itertools::Itertools as _;

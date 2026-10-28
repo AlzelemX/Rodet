@@ -148,4 +148,4 @@ LL |     reuse foo;
 
 error: aborting due to 21 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0283`.
+For more information about this error, try `rodetc --explain E0283`.

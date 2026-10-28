@@ -83,4 +83,4 @@ LL |     let x: u8 = 42;
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0004, E0381.
-For more information about an error, try `rustc --explain E0004`.
+For more information about an error, try `rodetc --explain E0004`.

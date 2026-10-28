@@ -4,15 +4,15 @@
 
 use std::sync::Arc;
 
-use rustc_ast::{LitKind, StrStyle};
-use rustc_errors::Applicability;
-use rustc_hir::{BlockCheckMode, Expr, ExprKind, UnsafeSource};
-use rustc_lexer::{FrontmatterAllowed, LiteralKind, TokenKind, tokenize};
-use rustc_lint::{EarlyContext, LateContext};
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
-use rustc_span::source_map::{SourceMap, original_sp};
-use rustc_span::{
+use rodetc_ast::{LitKind, StrStyle};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BlockCheckMode, Expr, ExprKind, UnsafeSource};
+use rodetc_lexer::{FrontmatterAllowed, LiteralKind, TokenKind, tokenize};
+use rodetc_lint::{EarlyContext, LateContext};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
+use rodetc_span::source_map::{SourceMap, original_sp};
+use rodetc_span::{
     BytePos, DUMMY_SP, DesugaringKind, Pos as _, RelativeBytePos, SourceFile, SourceFileAndLine, Span, SpanData,
     SyntaxContext, hygiene,
 };
@@ -46,7 +46,7 @@ impl<'sm> HasSourceMap<'sm> for TyCtxt<'sm> {
 impl<'sm> HasSourceMap<'sm> for &'sm EarlyContext<'_> {
     #[inline]
     fn source_map(self) -> &'sm SourceMap {
-        ::rustc_lint::LintContext::sess(self).source_map()
+        ::rodetc_lint::LintContext::sess(self).source_map()
     }
 }
 impl<'sm> HasSourceMap<'sm> for &LateContext<'sm> {

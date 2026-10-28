@@ -1,13 +1,13 @@
 use std::borrow::Cow;
 
-use rustc_ast::YieldKind;
-use rustc_ast::ast::{
+use rodetc_ast::YieldKind;
+use rodetc_ast::ast::{
     self, Attribute, ImplRestriction, MetaItem, MetaItemInner, MetaItemKind, MutRestriction,
     NodeId, Path, RestrictionKind, Visibility, VisibilityKind,
 };
-use rustc_ast_pretty::pprust;
-use rustc_feature::is_builtin_attr_name;
-use rustc_span::{BytePos, LocalExpnId, Span, Symbol, SyntaxContext, sym, symbol};
+use rodetc_ast_pretty::pprust;
+use rodetc_feature::is_builtin_attr_name;
+use rodetc_span::{BytePos, LocalExpnId, Span, Symbol, SyntaxContext, sym, symbol};
 use unicode_width::UnicodeWidthStr;
 
 use crate::comment::{CharClasses, FullCodeCharKind, LineClasses, filter_normal_code};

@@ -1,6 +1,6 @@
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
 
 use crate::shims::unix::*;
 use crate::*;

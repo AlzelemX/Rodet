@@ -15,7 +15,7 @@ LL |   foo, //
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0635`.
+For more information about this error, try `rodetc --explain E0635`.
 Couldn't compile the test.
 ---- $DIR/comment-in-attr-134221.rs - (line 17) stdout ----
 error[E0635]: unknown feature `foo`
@@ -26,7 +26,7 @@ LL |   foo,
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0635`.
+For more information about this error, try `rodetc --explain E0635`.
 Couldn't compile the test.
 ---- $DIR/comment-in-attr-134221.rs - (line 23) stdout ----
 error: this file contains an unclosed delimiter

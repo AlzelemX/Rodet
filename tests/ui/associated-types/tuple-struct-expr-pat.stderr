@@ -112,4 +112,4 @@ LL +     let <T<3> as Trait>::Assoc { 0: ref _a, 1: ref mut _b, 2: mut _c } = <T
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0575`.
+For more information about this error, try `rodetc --explain E0575`.

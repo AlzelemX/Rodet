@@ -1,9 +1,9 @@
 use clippy_utils::consts::{ConstEvalCtxt, Constant};
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::ITERATOR_STEP_BY_ZERO;
 

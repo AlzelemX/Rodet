@@ -2,13 +2,13 @@ use clippy_config::Conf;
 use clippy_config::types::{DisallowedPath, create_disallowed_map};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::paths::PathNS;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefIdMap;
-use rustc_hir::{AmbigArg, Item, ItemKind, PolyTraitRef, PrimTy, Ty, TyKind, UseKind, UseTree};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_hir::{AmbigArg, Item, ItemKind, PolyTraitRef, PrimTy, Ty, TyKind, UseKind, UseTree};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -46,4 +46,4 @@ LL | fn func1(foo: Foo<(&str,)>) {
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0310, E0477.
-For more information about an error, try `rustc --explain E0310`.
+For more information about an error, try `rodetc --explain E0310`.

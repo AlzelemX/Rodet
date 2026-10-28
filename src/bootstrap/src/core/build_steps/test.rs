@@ -3413,7 +3413,7 @@ fn markdown_test(builder: &Builder<'_>, compiler: Compiler, markdown: &Path) -> 
 
 /// Runs `cargo test` for the compiler crates in `compiler/`.
 ///
-/// (This step does not test `rustc_codegen_cranelift` or `rustc_codegen_gcc`,
+/// (This step does not test `rodetc_codegen_cranelift` or `rodetc_codegen_gcc`,
 /// which have their own separate test steps.)
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct CrateLibrustc {
@@ -3428,7 +3428,7 @@ impl CommandLineStep for CrateLibrustc {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.crate_or_deps("rustc-main").path("compiler")
+        run.crate_or_deps("rodetc-main").path("compiler")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -4081,7 +4081,7 @@ fn distcheck_rustc_dev(builder: &Builder<'_>, dir: &Path) {
     command(&builder.initial_cargo)
         .arg("metadata")
         .arg("--manifest-path")
-        .arg("rustc-dev/lib/rustlib/rustc-src/rust/compiler/rustc/Cargo.toml")
+        .arg("rustc-dev/lib/rustlib/rustc-src/rust/compiler/rodetc/Cargo.toml")
         .env("RUSTC_BOOTSTRAP", "1")
         // We might not have a globally available `rustc` binary on CI
         .env("RUSTC", &builder.initial_rustc)
@@ -4456,7 +4456,7 @@ impl CommandLineStep for CodegenCranelift {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("compiler/rustc_codegen_cranelift")
+        run.path("compiler/rodetc_codegen_cranelift")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -4478,12 +4478,12 @@ impl CommandLineStep for CodegenCranelift {
         }
 
         if !target_supports_cranelift_backend(run.target) {
-            builder.info("target not supported by rustc_codegen_cranelift. skipping");
+            builder.info("target not supported by rodetc_codegen_cranelift. skipping");
             return;
         }
 
         if builder.remote_tested(run.target) {
-            builder.info("remote testing is not supported by rustc_codegen_cranelift. skipping");
+            builder.info("remote testing is not supported by rodetc_codegen_cranelift. skipping");
             return;
         }
 
@@ -4519,16 +4519,16 @@ impl CommandLineStep for CodegenCranelift {
             Kind::Run,
         );
 
-        cargo.current_dir(&builder.src.join("compiler/rustc_codegen_cranelift"));
+        cargo.current_dir(&builder.src.join("compiler/rodetc_codegen_cranelift"));
         cargo
             .arg("--manifest-path")
-            .arg(builder.src.join("compiler/rustc_codegen_cranelift/build_system/Cargo.toml"));
+            .arg(builder.src.join("compiler/rodetc_codegen_cranelift/build_system/Cargo.toml"));
 
         // Avoid incremental cache issues when changing rustc
         cargo.env("CARGO_BUILD_INCREMENTAL", "false");
 
         let _guard = builder.msg_test(
-            "rustc_codegen_cranelift",
+            "rodetc_codegen_cranelift",
             target_compiler.host,
             target_compiler.stage,
         );
@@ -4559,7 +4559,7 @@ impl CommandLineStep for CodegenCranelift {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::test("rustc_codegen_cranelift", self.target)
+            StepMetadata::test("rodetc_codegen_cranelift", self.target)
                 .built_by(self.compilers.build_compiler()),
         )
     }
@@ -4576,7 +4576,7 @@ impl CommandLineStep for CodegenGCC {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("compiler/rustc_codegen_gcc")
+        run.path("compiler/rodetc_codegen_gcc")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -4598,7 +4598,7 @@ impl CommandLineStep for CodegenGCC {
         }
 
         if builder.remote_tested(run.target) {
-            builder.info("remote testing is not supported by rustc_codegen_gcc. skipping");
+            builder.info("remote testing is not supported by rodetc_codegen_gcc. skipping");
             return;
         }
 
@@ -4631,7 +4631,7 @@ impl CommandLineStep for CodegenGCC {
                 .extra_rust_args(&["-Csymbol-mangling-version=v0", "-Cpanic=abort"]),
         );
 
-        let _guard = builder.msg_test("rustc_codegen_gcc", target, target_compiler.stage);
+        let _guard = builder.msg_test("rodetc_codegen_gcc", target, target_compiler.stage);
         let mut cargo = builder::Cargo::new(
             builder,
             target_compiler,
@@ -4641,10 +4641,10 @@ impl CommandLineStep for CodegenGCC {
             Kind::Run,
         );
 
-        cargo.current_dir(&builder.src.join("compiler/rustc_codegen_gcc"));
+        cargo.current_dir(&builder.src.join("compiler/rodetc_codegen_gcc"));
         cargo
             .arg("--manifest-path")
-            .arg(builder.src.join("compiler/rustc_codegen_gcc/build_system/Cargo.toml"));
+            .arg(builder.src.join("compiler/rodetc_codegen_gcc/build_system/Cargo.toml"));
         add_cg_gcc_cargo_flags(&mut cargo, &gcc);
 
         // Avoid incremental cache issues when changing rustc
@@ -4673,7 +4673,7 @@ impl CommandLineStep for CodegenGCC {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::test("rustc_codegen_gcc", self.target)
+            StepMetadata::test("rodetc_codegen_gcc", self.target)
                 .built_by(self.compilers.build_compiler()),
         )
     }

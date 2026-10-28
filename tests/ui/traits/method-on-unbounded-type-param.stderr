@@ -81,4 +81,4 @@ LL |     x.cmp(&x);
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0599`.
+For more information about this error, try `rodetc --explain E0599`.

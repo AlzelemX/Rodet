@@ -2589,7 +2589,7 @@ impl<'test> TestCx<'test> {
         // Fake paths into the libstd/libcore
         normalize_path(&base_dir.join("library"), "$SRC_DIR");
         // `ui-fulldeps` tests can show paths to the compiler source when testing macros from
-        // `rustc_macros`
+        // `rodetc_macros`
         // eg. /home/user/rust/compiler
         normalize_path(&base_dir.join("compiler"), "$COMPILER_DIR");
 

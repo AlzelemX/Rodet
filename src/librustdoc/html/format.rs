@@ -11,17 +11,17 @@ use std::fmt::{self, Display, Write};
 use std::{iter, slice};
 
 use itertools::{Either, Itertools};
-use rustc_abi::ExternAbi;
-use rustc_ast::join_path_syms;
-use rustc_attr_ir::{ConstStability, StabilityLevel, StableSince};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_hir as hir;
-use rustc_hir::def::{DefKind, MacroKinds};
-use rustc_hir::def_id::{DefId, LOCAL_CRATE, ModId};
-use rustc_metadata::creader::CStore;
-use rustc_middle::ty::{self, Ty, TyCtxt, TypingMode};
-use rustc_span::symbol::kw;
-use rustc_span::{Ident, Symbol, sym};
+use rodetc_abi::ExternAbi;
+use rodetc_ast::join_path_syms;
+use rodetc_attr_ir::{ConstStability, StabilityLevel, StableSince};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_hir as hir;
+use rodetc_hir::def::{DefKind, MacroKinds};
+use rodetc_hir::def_id::{DefId, LOCAL_CRATE, ModId};
+use rodetc_metadata::creader::CStore;
+use rodetc_middle::ty::{self, Ty, TyCtxt, TypingMode};
+use rodetc_span::symbol::kw;
+use rodetc_span::{Ident, Symbol, sym};
 use tracing::{debug, trace};
 
 use super::url_parts_builder::UrlPartsBuilder;
@@ -318,7 +318,7 @@ pub(crate) enum HrefError {
     ///
     /// Crate `a` defines a public trait and crate `b` – the target crate that depends on `a` –
     /// implements it for a local type.
-    /// We document `b` but **not** `a` (we only _build_ the latter – with `rustc`):
+    /// We document `b` but **not** `a` (we only _build_ the latter – with `rodetc`):
     ///
     /// ```sh
     /// rustc a.rs --crate-type=lib
@@ -413,10 +413,10 @@ fn generate_macro_def_id_path(
 
 /// Takes an impl `DefId` and return the self `Ty` of the impl.
 fn impl_self_ty(tcx: TyCtxt<'_>, impl_def_id: DefId) -> Ty<'_> {
-    use rustc_middle::traits::ObligationCause;
-    use rustc_middle::ty;
-    use rustc_trait_selection::infer::TyCtxtInferExt;
-    use rustc_trait_selection::traits::query::normalize::QueryNormalizeExt;
+    use rodetc_middle::traits::ObligationCause;
+    use rodetc_middle::ty;
+    use rodetc_trait_selection::infer::TyCtxtInferExt;
+    use rodetc_trait_selection::traits::query::normalize::QueryNormalizeExt;
 
     let infcx = tcx.infer_ctxt().build(TypingMode::non_body_analysis());
     let ty = tcx.type_of(impl_def_id);
@@ -431,13 +431,13 @@ fn transitive_reexport_path(tcx: TyCtxt<'_>, def_id: DefId) -> Option<Vec<Symbol
     transitive_reexport_path_inner(tcx, def_id, &mut Vec::new())
 }
 
-/// Simplified implementation of `rustc_middle::ty::print::pretty::try_print_visible_def_path_recur`.
+/// Simplified implementation of `rodetc_middle::ty::print::pretty::try_print_visible_def_path_recur`.
 fn transitive_reexport_path_inner(
     tcx: TyCtxt<'_>,
     def_id: DefId,
     callers: &mut Vec<DefId>,
 ) -> Option<Vec<Symbol>> {
-    use rustc_hir::definitions::{DefPathData, DisambiguatedDefPathData};
+    use rodetc_hir::definitions::{DefPathData, DisambiguatedDefPathData};
 
     if let Some(cnum) = def_id.as_crate_root() {
         return Some(vec![tcx.crate_name(cnum)]);

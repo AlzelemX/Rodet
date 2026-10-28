@@ -34,4 +34,4 @@ LL |     let [ref mut x, ref xs_hold @ ..] = arr;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0384`.
+For more information about this error, try `rodetc --explain E0384`.

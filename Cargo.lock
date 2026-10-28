@@ -3548,16 +3548,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfe6f213fb658c8fb95baabd5420393438cf5a98d707f5dd701d9197c705f71e"
 
 [[package]]
-name = "rustc-main"
+name = "rodetc-main"
 version = "0.0.0"
 dependencies = [
  "getrandom 0.3.3",
- "rustc_codegen_ssa",
- "rustc_driver",
- "rustc_driver_impl",
- "rustc_public",
- "rustc_public_bridge",
- "rustc_windows_rc",
+ "rodetc_codegen_ssa",
+ "rodetc_driver",
+ "rodetc_driver_impl",
+ "rodetc_public",
+ "rodetc_public_bridge",
+ "rodetc_windows_rc",
  "tikv-jemalloc-sys",
  "wasi 0.14.2+wasi-0.2.4",
 ]
@@ -3581,20 +3581,20 @@ name = "rustc-std-workspace-std"
 version = "1.0.1"
 
 [[package]]
-name = "rustc_abi"
+name = "rodetc_abi"
 version = "0.0.0"
 dependencies = [
  "bitflags",
  "rand 0.9.3",
  "rand_xoshiro",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_errors",
- "rustc_hashes",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_errors",
+ "rodetc_hashes",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "tracing",
 ]
 
@@ -3609,137 +3609,137 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_arena"
+name = "rodetc_arena"
 version = "0.0.0"
 dependencies = [
  "smallvec",
 ]
 
 [[package]]
-name = "rustc_ast"
+name = "rodetc_ast"
 version = "0.0.0"
 dependencies = [
  "bitflags",
  "memchr",
  "rustc-literal-escaper",
- "rustc_ast_ir",
- "rustc_data_structures",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_ast_ir",
+ "rodetc_data_structures",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_ast_ir"
+name = "rodetc_ast_ir"
 version = "0.0.0"
 dependencies = [
- "rustc_data_structures",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_data_structures",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
 ]
 
 [[package]]
-name = "rustc_ast_lowering"
+name = "rodetc_ast_lowering"
 version = "0.0.0"
 dependencies = [
  "bitflags",
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_hir",
- "rustc_index",
- "rustc_macros",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_target",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_ast_passes"
+name = "rodetc_ast_passes"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_session",
- "rustc_span",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_target",
 ]
 
 [[package]]
-name = "rustc_ast_pretty"
+name = "rodetc_ast_pretty"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_lexer",
- "rustc_span",
+ "rodetc_ast",
+ "rodetc_lexer",
+ "rodetc_span",
  "thin-vec",
 ]
 
 [[package]]
-name = "rustc_attr_ir"
+name = "rodetc_attr_ir"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_structures",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_structures",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_attr_parsing"
+name = "rodetc_attr_parsing"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_lexer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_parse",
- "rustc_parse_format",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_lexer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_parse",
+ "rodetc_parse_format",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
  "thin-vec",
 ]
 
 [[package]]
-name = "rustc_baked_icu_data"
+name = "rodetc_baked_icu_data"
 version = "0.0.0"
 dependencies = [
  "icu_list",
@@ -3749,61 +3749,61 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_borrowck"
+name = "rodetc_borrowck"
 version = "0.0.0"
 dependencies = [
  "either",
  "itertools",
  "polonius-engine",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_graphviz",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lexer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_mir_dataflow",
- "rustc_session",
- "rustc_span",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_graphviz",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lexer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_mir_dataflow",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_trait_selection",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_builtin_macros"
+name = "rodetc_builtin_macros"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_expand",
- "rustc_feature",
- "rustc_index",
- "rustc_lexer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_parse",
- "rustc_parse_format",
- "rustc_proc_macro",
- "rustc_session",
- "rustc_span",
- "rustc_target",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_expand",
+ "rodetc_feature",
+ "rodetc_index",
+ "rodetc_lexer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_parse",
+ "rodetc_parse_format",
+ "rodetc_proc_macro",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_target",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_codegen_llvm"
+name = "rodetc_codegen_llvm"
 version = "0.0.0"
 dependencies = [
  "bitflags",
@@ -3814,34 +3814,34 @@ dependencies = [
  "measureme",
  "object 0.39.1",
  "rustc-demangle",
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_codegen_ssa",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_fs_util",
- "rustc_hashes",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_llvm",
- "rustc_macros",
- "rustc_metadata",
- "rustc_middle",
- "rustc_sanitizers",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_symbol_mangling",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_codegen_ssa",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_fs_util",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_llvm",
+ "rodetc_macros",
+ "rodetc_metadata",
+ "rodetc_middle",
+ "rodetc_sanitizers",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_symbol_mangling",
+ "rodetc_target",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_codegen_ssa"
+name = "rodetc_codegen_ssa"
 version = "0.0.0"
 dependencies = [
  "ar_archive_writer",
@@ -3853,30 +3853,30 @@ dependencies = [
  "object 0.39.1",
  "pathdiff",
  "regex",
- "rustc_abi",
- "rustc_arena",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_fs_util",
- "rustc_hashes",
- "rustc_hir",
- "rustc_incremental",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_metadata",
- "rustc_middle",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_symbol_mangling",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_fs_util",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_incremental",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_metadata",
+ "rodetc_middle",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_symbol_mangling",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "serde_json",
  "smallvec",
  "tempfile",
@@ -3887,47 +3887,47 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_const_eval"
+name = "rodetc_const_eval"
 version = "0.0.0"
 dependencies = [
  "either",
- "rustc_abi",
+ "rodetc_abi",
  "rustc_apfloat",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_mir_dataflow",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_mir_dataflow",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_crate_store"
+name = "rodetc_crate_store"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_hir_id",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_structures",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_hir_id",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_structures",
 ]
 
 [[package]]
-name = "rustc_data_structures"
+name = "rodetc_data_structures"
 version = "0.0.0"
 dependencies = [
  "arrayvec",
@@ -3945,13 +3945,13 @@ dependencies = [
  "portable-atomic",
  "rustc-hash 2.1.1",
  "rustc-stable-hash",
- "rustc_arena",
- "rustc_graphviz",
- "rustc_hashes",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
- "rustc_thread_pool",
+ "rodetc_arena",
+ "rodetc_graphviz",
+ "rodetc_hashes",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_thread_pool",
  "smallvec",
  "tempfile",
  "thin-vec",
@@ -3960,50 +3960,50 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_driver"
+name = "rodetc_driver"
 version = "0.0.0"
 dependencies = [
- "rustc_driver_impl",
- "rustc_windows_rc",
+ "rodetc_driver_impl",
+ "rodetc_windows_rc",
 ]
 
 [[package]]
-name = "rustc_driver_impl"
+name = "rodetc_driver_impl"
 version = "0.0.0"
 dependencies = [
  "anstyle",
  "ctrlc",
  "jiff",
  "libc",
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_codegen_ssa",
- "rustc_const_eval",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_expand",
- "rustc_feature",
- "rustc_hir",
- "rustc_hir_analysis",
- "rustc_hir_pretty",
- "rustc_index",
- "rustc_interface",
- "rustc_lexer",
- "rustc_lint",
- "rustc_lint_defs",
- "rustc_log",
- "rustc_macros",
- "rustc_metadata",
- "rustc_middle",
- "rustc_mir_build",
- "rustc_parse",
- "rustc_public",
- "rustc_resolve",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_codegen_ssa",
+ "rodetc_const_eval",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_expand",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_hir_analysis",
+ "rodetc_hir_pretty",
+ "rodetc_index",
+ "rodetc_interface",
+ "rodetc_lexer",
+ "rodetc_lint",
+ "rodetc_lint_defs",
+ "rodetc_log",
+ "rodetc_macros",
+ "rodetc_metadata",
+ "rodetc_middle",
+ "rodetc_mir_build",
+ "rodetc_parse",
+ "rodetc_public",
+ "rodetc_resolve",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
  "serde_json",
  "shlex 1.3.0",
  "tracing",
@@ -4011,43 +4011,43 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_error_codes"
+name = "rodetc_error_codes"
 version = "0.0.0"
 
 [[package]]
-name = "rustc_error_messages"
+name = "rodetc_error_messages"
 version = "0.0.0"
 dependencies = [
  "fluent-bundle",
  "icu_list",
  "icu_locale_core",
  "intl-memoizer",
- "rustc_baked_icu_data",
- "rustc_data_structures",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_baked_icu_data",
+ "rodetc_data_structures",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "unic-langid",
 ]
 
 [[package]]
-name = "rustc_errors"
+name = "rodetc_errors"
 version = "0.0.0"
 dependencies = [
  "annotate-snippets 0.12.16",
  "anstream 0.6.21",
  "anstyle",
  "derive_setters",
- "rustc_ast",
- "rustc_data_structures",
- "rustc_error_codes",
- "rustc_error_messages",
- "rustc_hashes",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_ast",
+ "rodetc_data_structures",
+ "rodetc_error_codes",
+ "rodetc_error_messages",
+ "rodetc_hashes",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "serde",
  "serde_json",
  "termize",
@@ -4056,206 +4056,206 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_expand"
+name = "rodetc_expand"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_hir",
- "rustc_lexer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_parse",
- "rustc_proc_macro",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_lexer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_parse",
+ "rodetc_proc_macro",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_expand_queries"
+name = "rodetc_expand_queries"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_expand",
- "rustc_middle",
- "rustc_proc_macro",
- "rustc_span",
+ "rodetc_ast",
+ "rodetc_expand",
+ "rodetc_middle",
+ "rodetc_proc_macro",
+ "rodetc_span",
  "scoped-tls",
 ]
 
 [[package]]
-name = "rustc_feature"
+name = "rodetc_feature"
 version = "0.0.0"
 dependencies = [
- "rustc_data_structures",
- "rustc_macros",
- "rustc_span",
+ "rodetc_data_structures",
+ "rodetc_macros",
+ "rodetc_span",
  "serde",
  "serde_json",
 ]
 
 [[package]]
-name = "rustc_fs_util"
+name = "rodetc_fs_util"
 version = "0.0.0"
 dependencies = [
  "tempfile",
 ]
 
 [[package]]
-name = "rustc_graphviz"
+name = "rodetc_graphviz"
 version = "0.0.0"
 
 [[package]]
-name = "rustc_hashes"
+name = "rodetc_hashes"
 version = "0.0.0"
 dependencies = [
  "rustc-stable-hash",
 ]
 
 [[package]]
-name = "rustc_hir"
+name = "rodetc_hir"
 version = "0.0.0"
 dependencies = [
  "bitflags",
- "rustc_abi",
- "rustc_arena",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_errors",
- "rustc_hir_id",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_errors",
+ "rodetc_hir_id",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_target",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_hir_analysis"
+name = "rodetc_hir_analysis"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_arena",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_hir_id"
+name = "rodetc_hir_id"
 version = "0.0.0"
 dependencies = [
  "odht",
- "rustc_data_structures",
- "rustc_hashes",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_data_structures",
+ "rodetc_hashes",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_hir_pretty"
+name = "rodetc_hir_pretty"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_hir",
- "rustc_span",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_hir",
+ "rodetc_span",
 ]
 
 [[package]]
-name = "rustc_hir_typeck"
+name = "rodetc_hir_typeck"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_hir_analysis",
- "rustc_hir_pretty",
- "rustc_index",
- "rustc_infer",
- "rustc_lint",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_hir_analysis",
+ "rodetc_hir_pretty",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_incremental"
+name = "rodetc_incremental"
 version = "0.0.0"
 dependencies = [
  "rand 0.9.3",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_fs_util",
- "rustc_graphviz",
- "rustc_hashes",
- "rustc_hir",
- "rustc_macros",
- "rustc_middle",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_fs_util",
+ "rodetc_graphviz",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_index"
+name = "rodetc_index"
 version = "0.0.0"
 dependencies = [
- "rustc_index_macros",
- "rustc_macros",
- "rustc_serialize",
+ "rodetc_index_macros",
+ "rodetc_macros",
+ "rodetc_serialize",
  "smallvec",
 ]
 
 [[package]]
-name = "rustc_index_macros"
+name = "rodetc_index_macros"
 version = "0.0.0"
 dependencies = [
  "proc-macro2",
@@ -4264,78 +4264,78 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_infer"
+name = "rodetc_infer"
 version = "0.0.0"
 dependencies = [
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_macros",
- "rustc_middle",
- "rustc_span",
- "rustc_type_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_span",
+ "rodetc_type_ir",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_interface"
+name = "rodetc_interface"
 version = "0.0.0"
 dependencies = [
  "rand 0.9.3",
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_lowering",
- "rustc_ast_passes",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_borrowck",
- "rustc_builtin_macros",
- "rustc_codegen_llvm",
- "rustc_codegen_ssa",
- "rustc_const_eval",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_expand",
- "rustc_expand_queries",
- "rustc_feature",
- "rustc_fs_util",
- "rustc_hir",
- "rustc_hir_analysis",
- "rustc_hir_typeck",
- "rustc_incremental",
- "rustc_lint",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_metadata",
- "rustc_middle",
- "rustc_mir_build",
- "rustc_mir_dataflow",
- "rustc_mir_transform",
- "rustc_monomorphize",
- "rustc_parse",
- "rustc_passes",
- "rustc_privacy",
- "rustc_query_impl",
- "rustc_resolve",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_symbol_mangling",
- "rustc_target",
- "rustc_thread_pool",
- "rustc_trait_selection",
- "rustc_traits",
- "rustc_ty_utils",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_lowering",
+ "rodetc_ast_passes",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_borrowck",
+ "rodetc_builtin_macros",
+ "rodetc_codegen_llvm",
+ "rodetc_codegen_ssa",
+ "rodetc_const_eval",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_expand",
+ "rodetc_expand_queries",
+ "rodetc_feature",
+ "rodetc_fs_util",
+ "rodetc_hir",
+ "rodetc_hir_analysis",
+ "rodetc_hir_typeck",
+ "rodetc_incremental",
+ "rodetc_lint",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_metadata",
+ "rodetc_middle",
+ "rodetc_mir_build",
+ "rodetc_mir_dataflow",
+ "rodetc_mir_transform",
+ "rodetc_monomorphize",
+ "rodetc_parse",
+ "rodetc_passes",
+ "rodetc_privacy",
+ "rodetc_query_impl",
+ "rodetc_resolve",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_symbol_mangling",
+ "rodetc_target",
+ "rodetc_thread_pool",
+ "rodetc_trait_selection",
+ "rodetc_traits",
+ "rodetc_ty_utils",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_lexer"
+name = "rodetc_lexer"
 version = "0.0.0"
 dependencies = [
  "expect-test",
@@ -4345,33 +4345,33 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_lint"
+name = "rodetc_lint"
 version = "0.0.0"
 dependencies = [
  "bitflags",
- "rustc_abi",
+ "rodetc_abi",
  "rustc_apfloat",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_hashes",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_parse_format",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_symbol_mangling",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_parse_format",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_symbol_mangling",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "smallvec",
  "thin-vec",
  "tracing",
@@ -4379,21 +4379,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_lint_defs"
+name = "rodetc_lint_defs"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_hir_id",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_ast",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_hir_id",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "serde",
 ]
 
 [[package]]
-name = "rustc_llvm"
+name = "rodetc_llvm"
 version = "0.0.0"
 dependencies = [
  "cc",
@@ -4402,7 +4402,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_log"
+name = "rodetc_log"
 version = "0.0.0"
 dependencies = [
  "tracing",
@@ -4412,7 +4412,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_macros"
+name = "rodetc_macros"
 version = "0.0.0"
 dependencies = [
  "fluent-bundle",
@@ -4425,43 +4425,43 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_metadata"
+name = "rodetc_metadata"
 version = "0.0.0"
 dependencies = [
  "bitflags",
  "libc",
  "libloading",
  "odht",
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_expand",
- "rustc_feature",
- "rustc_fs_util",
- "rustc_hashes",
- "rustc_hir",
- "rustc_hir_pretty",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_proc_macro",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_expand",
+ "rodetc_feature",
+ "rodetc_fs_util",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_hir_pretty",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_proc_macro",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
  "tempfile",
  "tracing",
  "twox-hash 2.1.2",
 ]
 
 [[package]]
-name = "rustc_middle"
+name = "rodetc_middle"
 version = "0.0.0"
 dependencies = [
  "bitflags",
@@ -4469,162 +4469,162 @@ dependencies = [
  "gsgdt",
  "parking_lot",
  "polonius-engine",
- "rustc_abi",
+ "rodetc_abi",
  "rustc_apfloat",
- "rustc_arena",
- "rustc_ast",
- "rustc_ast_ir",
- "rustc_attr_ir",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_graphviz",
- "rustc_hashes",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_thread_pool",
- "rustc_type_ir",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_ast_ir",
+ "rodetc_attr_ir",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_graphviz",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_thread_pool",
+ "rodetc_type_ir",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_mir_build"
+name = "rodetc_mir_build"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
+ "rodetc_abi",
  "rustc_apfloat",
- "rustc_arena",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_pattern_analysis",
- "rustc_span",
- "rustc_trait_selection",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_pattern_analysis",
+ "rodetc_span",
+ "rodetc_trait_selection",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_mir_dataflow"
+name = "rodetc_mir_dataflow"
 version = "0.0.0"
 dependencies = [
  "polonius-engine",
  "regex",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_graphviz",
- "rustc_index",
- "rustc_macros",
- "rustc_middle",
- "rustc_span",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_graphviz",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_span",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_mir_transform"
+name = "rodetc_mir_transform"
 version = "0.0.0"
 dependencies = [
  "either",
  "itertools",
- "rustc_abi",
- "rustc_arena",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_const_eval",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_mir_dataflow",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_const_eval",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_mir_dataflow",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_monomorphize"
+name = "rodetc_monomorphize"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_serialize",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_symbol_mangling",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_serialize",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_symbol_mangling",
+ "rodetc_target",
  "serde",
  "serde_json",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_next_trait_solver"
+name = "rodetc_next_trait_solver"
 version = "0.0.0"
 dependencies = [
  "derive-where",
- "rustc_data_structures",
- "rustc_index",
- "rustc_macros",
- "rustc_type_ir",
- "rustc_type_ir_macros",
+ "rodetc_data_structures",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_type_ir",
+ "rodetc_type_ir_macros",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_parse"
+name = "rodetc_parse"
 version = "0.0.0"
 dependencies = [
  "bitflags",
  "rustc-literal-escaper",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_index",
- "rustc_lexer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_session",
- "rustc_span",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_index",
+ "rodetc_lexer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_session",
+ "rodetc_span",
  "thin-vec",
  "tracing",
  "unicode-normalization",
@@ -4632,56 +4632,56 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_parse_format"
+name = "rodetc_parse_format"
 version = "0.0.0"
 dependencies = [
  "rustc-literal-escaper",
- "rustc_index",
- "rustc_lexer",
+ "rodetc_index",
+ "rodetc_lexer",
 ]
 
 [[package]]
-name = "rustc_passes"
+name = "rodetc_passes"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_ast",
- "rustc_ast_lowering",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_privacy",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_ast_lowering",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_privacy",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_pattern_analysis"
+name = "rodetc_pattern_analysis"
 version = "0.0.0"
 dependencies = [
  "rustc-hash 2.1.1",
- "rustc_abi",
+ "rodetc_abi",
  "rustc_apfloat",
- "rustc_arena",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_span",
+ "rodetc_arena",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_span",
  "smallvec",
  "tracing",
  "tracing-subscriber",
@@ -4689,40 +4689,40 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_privacy"
+name = "rodetc_privacy"
 version = "0.0.0"
 dependencies = [
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_span",
- "rustc_ty_walk",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_span",
+ "rodetc_ty_walk",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_proc_macro"
+name = "rodetc_proc_macro"
 version = "0.0.0"
 dependencies = [
  "rustc-literal-escaper",
 ]
 
 [[package]]
-name = "rustc_public"
+name = "rodetc_public"
 version = "0.1.0-preview"
 dependencies = [
- "rustc_abi",
- "rustc_crate_store",
- "rustc_hir",
- "rustc_middle",
- "rustc_public_bridge",
- "rustc_span",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_crate_store",
+ "rodetc_hir",
+ "rodetc_middle",
+ "rodetc_public_bridge",
+ "rodetc_span",
+ "rodetc_target",
  "scoped-tls",
  "serde",
  "serde_json",
@@ -4730,124 +4730,124 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_public_bridge"
+name = "rodetc_public_bridge"
 version = "0.0.0"
 dependencies = [
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_hir",
- "rustc_hir_pretty",
- "rustc_middle",
- "rustc_span",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_hir",
+ "rodetc_hir_pretty",
+ "rodetc_middle",
+ "rodetc_span",
+ "rodetc_target",
 ]
 
 [[package]]
-name = "rustc_query_impl"
+name = "rodetc_query_impl"
 version = "0.0.0"
 dependencies = [
  "measureme",
  "parking_lot",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_macros",
- "rustc_middle",
- "rustc_serialize",
- "rustc_span",
- "rustc_structures",
- "rustc_thread_pool",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_thread_pool",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_resolve"
+name = "rodetc_resolve"
 version = "0.0.0"
 dependencies = [
  "indexmap",
  "itertools",
  "pulldown-cmark",
- "rustc_arena",
- "rustc_ast",
- "rustc_ast_pretty",
- "rustc_attr_ir",
- "rustc_attr_parsing",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_expand",
- "rustc_feature",
- "rustc_hir",
- "rustc_index",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_metadata",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
+ "rodetc_arena",
+ "rodetc_ast",
+ "rodetc_ast_pretty",
+ "rodetc_attr_ir",
+ "rodetc_attr_parsing",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_expand",
+ "rodetc_feature",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_metadata",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_sanitizers"
+name = "rodetc_sanitizers"
 version = "0.0.0"
 dependencies = [
  "bitflags",
  "libc",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_hir",
- "rustc_middle",
- "rustc_span",
- "rustc_target",
- "rustc_trait_selection",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_hir",
+ "rodetc_middle",
+ "rodetc_span",
+ "rodetc_target",
+ "rodetc_trait_selection",
  "tracing",
  "twox-hash 1.6.3",
 ]
 
 [[package]]
-name = "rustc_serialize"
+name = "rodetc_serialize"
 version = "0.0.0"
 dependencies = [
  "indexmap",
- "rustc_hashes",
- "rustc_macros",
+ "rodetc_hashes",
+ "rodetc_macros",
  "smallvec",
  "tempfile",
  "thin-vec",
 ]
 
 [[package]]
-name = "rustc_session"
+name = "rodetc_session"
 version = "0.0.0"
 dependencies = [
  "getopts",
  "libc",
- "rustc_abi",
- "rustc_ast",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_feature",
- "rustc_fs_util",
- "rustc_hashes",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_feature",
+ "rodetc_fs_util",
+ "rodetc_hashes",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
  "termize",
  "tracing",
  "windows 0.61.3",
 ]
 
 [[package]]
-name = "rustc_span"
+name = "rodetc_span"
 version = "0.0.0"
 dependencies = [
  "bitflags",
@@ -4855,12 +4855,12 @@ dependencies = [
  "indexmap",
  "itoa",
  "md-5",
- "rustc_arena",
- "rustc_data_structures",
- "rustc_hashes",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
+ "rodetc_arena",
+ "rodetc_data_structures",
+ "rodetc_hashes",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
  "scoped-tls",
  "sha1",
  "sha2",
@@ -4869,51 +4869,51 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_structures"
+name = "rodetc_structures"
 version = "0.0.0"
 dependencies = [
  "bitflags",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
  "schemars",
  "serde",
 ]
 
 [[package]]
-name = "rustc_symbol_mangling"
+name = "rodetc_symbol_mangling"
 version = "0.0.0"
 dependencies = [
  "punycode",
  "rustc-demangle",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_hashes",
- "rustc_hir",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_target"
+name = "rodetc_target"
 version = "0.0.0"
 dependencies = [
  "arrayvec",
  "bitflags",
  "object 0.39.1",
- "rustc_abi",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_fs_util",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_structures",
+ "rodetc_abi",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_fs_util",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_structures",
  "schemars",
  "serde",
  "serde_derive",
@@ -4923,7 +4923,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_thread_pool"
+name = "rodetc_thread_pool"
 version = "0.0.0"
 dependencies = [
  "crossbeam-deque",
@@ -4946,94 +4946,94 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a3b75158011a63889ba12084cf1224baad7bcad50f6ee7c842f772b74aa148ed"
 
 [[package]]
-name = "rustc_trait_selection"
+name = "rodetc_trait_selection"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_ast",
- "rustc_attr_ir",
- "rustc_crate_store",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_lint_defs",
- "rustc_macros",
- "rustc_middle",
- "rustc_next_trait_solver",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_transmute",
+ "rodetc_abi",
+ "rodetc_ast",
+ "rodetc_attr_ir",
+ "rodetc_crate_store",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_lint_defs",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_next_trait_solver",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_transmute",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_traits"
+name = "rodetc_traits"
 version = "0.0.0"
 dependencies = [
- "rustc_data_structures",
- "rustc_infer",
- "rustc_middle",
- "rustc_span",
- "rustc_trait_selection",
+ "rodetc_data_structures",
+ "rodetc_infer",
+ "rodetc_middle",
+ "rodetc_span",
+ "rodetc_trait_selection",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_transmute"
+name = "rodetc_transmute"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_middle",
- "rustc_span",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_middle",
+ "rodetc_span",
  "smallvec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_ty_utils"
+name = "rodetc_ty_utils"
 version = "0.0.0"
 dependencies = [
  "itertools",
- "rustc_abi",
- "rustc_attr_ir",
- "rustc_data_structures",
- "rustc_errors",
- "rustc_hashes",
- "rustc_hir",
- "rustc_index",
- "rustc_infer",
- "rustc_macros",
- "rustc_middle",
- "rustc_session",
- "rustc_span",
- "rustc_structures",
- "rustc_target",
- "rustc_trait_selection",
- "rustc_ty_walk",
+ "rodetc_abi",
+ "rodetc_attr_ir",
+ "rodetc_data_structures",
+ "rodetc_errors",
+ "rodetc_hashes",
+ "rodetc_hir",
+ "rodetc_index",
+ "rodetc_infer",
+ "rodetc_macros",
+ "rodetc_middle",
+ "rodetc_session",
+ "rodetc_span",
+ "rodetc_structures",
+ "rodetc_target",
+ "rodetc_trait_selection",
+ "rodetc_ty_walk",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_ty_walk"
+name = "rodetc_ty_walk"
 version = "0.0.0"
 dependencies = [
- "rustc_hir",
- "rustc_middle",
- "rustc_span",
+ "rodetc_hir",
+ "rodetc_middle",
+ "rodetc_span",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_type_ir"
+name = "rodetc_type_ir"
 version = "0.0.0"
 dependencies = [
  "arrayvec",
@@ -5042,22 +5042,22 @@ dependencies = [
  "ena",
  "indexmap",
  "rustc-hash 2.1.1",
- "rustc_abi",
- "rustc_ast_ir",
- "rustc_data_structures",
- "rustc_error_messages",
- "rustc_index",
- "rustc_macros",
- "rustc_serialize",
- "rustc_span",
- "rustc_type_ir_macros",
+ "rodetc_abi",
+ "rodetc_ast_ir",
+ "rodetc_data_structures",
+ "rodetc_error_messages",
+ "rodetc_index",
+ "rodetc_macros",
+ "rodetc_serialize",
+ "rodetc_span",
+ "rodetc_type_ir_macros",
  "smallvec",
  "thin-vec",
  "tracing",
 ]
 
 [[package]]
-name = "rustc_type_ir_macros"
+name = "rodetc_type_ir_macros"
 version = "0.0.0"
 dependencies = [
  "indexmap",
@@ -5077,7 +5077,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc_windows_rc"
+name = "rodetc_windows_rc"
 version = "0.0.0"
 dependencies = [
  "find-msvc-tools",

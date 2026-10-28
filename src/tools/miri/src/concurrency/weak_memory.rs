@@ -93,7 +93,7 @@
 use std::cell::{Ref, RefCell};
 use std::collections::VecDeque;
 
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::fx::FxHashMap;
 
 use super::AllocDataRaceHandler;
 use super::data_race::{GlobalState as DataRaceState, ThreadClockSet};

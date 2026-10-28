@@ -1,6 +1,6 @@
 use std::fmt::{self, Formatter};
 
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 use serde::de::{self, SeqAccess};
 use serde::ser::SerializeSeq as _;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};

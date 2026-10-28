@@ -1,5 +1,5 @@
-use rustc_data_structures::profiling::SelfProfilerRef;
-use rustc_middle::ty::TyCtxt;
+use rodetc_data_structures::profiling::SelfProfilerRef;
+use rodetc_middle::ty::TyCtxt;
 
 use crate::clean;
 use crate::config::{EmitType, RenderOptions};

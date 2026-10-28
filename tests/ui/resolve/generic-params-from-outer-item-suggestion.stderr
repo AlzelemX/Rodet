@@ -43,4 +43,4 @@ LL +         let K: u32 = Self::VALUE;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0401`.
+For more information about this error, try `rodetc --explain E0401`.

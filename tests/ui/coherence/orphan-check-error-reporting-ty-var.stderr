@@ -13,4 +13,4 @@ LL | impl<K2> From<Vec<K2>> for <Vec<K2> as MyTrait>::Item {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0117`.
+For more information about this error, try `rodetc --explain E0117`.

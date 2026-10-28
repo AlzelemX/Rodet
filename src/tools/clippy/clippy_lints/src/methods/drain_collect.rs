@@ -3,10 +3,10 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::source::snippet;
 use clippy_utils::{is_full_collection_range, std_or_core, sym};
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 pub(super) fn check(cx: &LateContext<'_>, arg: Option<&Expr<'_>>, expr: &Expr<'_>, recv: &Expr<'_>) {
     let ty = cx.typeck_results().expr_ty(recv);

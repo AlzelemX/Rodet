@@ -4,8 +4,8 @@ use hir_def::{
     AssocItemId,
     signatures::{ConstSignature, TypeAliasSignature},
 };
-use rustc_next_trait_solver::delegate::SolverDelegate;
-use rustc_type_ir::{
+use rodetc_next_trait_solver::delegate::SolverDelegate;
+use rodetc_type_ir::{
     AliasTyKind, GenericArgKind, InferCtxtLike, InferTy, Interner, PredicatePolarity, TypeFlags,
     TypeVisitableExt,
     inherent::{Const as _, IntoKind, Term as _, Ty as _},
@@ -30,7 +30,7 @@ use super::{
     infer::{DbInternerInferExt, InferCtxt, canonical::instantiate::CanonicalExt},
 };
 
-pub type Goal<'db, P> = rustc_type_ir::solve::Goal<DbInterner<'db>, P>;
+pub type Goal<'db, P> = rodetc_type_ir::solve::Goal<DbInterner<'db>, P>;
 
 #[repr(transparent)]
 pub(crate) struct SolverContext<'db>(pub(crate) InferCtxt<'db>);
@@ -60,10 +60,10 @@ impl<'db> SolverDelegate for SolverContext<'db> {
 
     fn build_with_canonical<V>(
         cx: Self::Interner,
-        canonical: &rustc_type_ir::CanonicalQueryInput<Self::Interner, V>,
-    ) -> (Self, V, rustc_type_ir::CanonicalVarValues<Self::Interner>)
+        canonical: &rodetc_type_ir::CanonicalQueryInput<Self::Interner, V>,
+    ) -> (Self, V, rodetc_type_ir::CanonicalVarValues<Self::Interner>)
     where
-        V: rustc_type_ir::TypeFoldable<Self::Interner>,
+        V: rodetc_type_ir::TypeFoldable<Self::Interner>,
     {
         let (infcx, value, vars) = cx.infer_ctxt().build_with_canonical(Span::Dummy, canonical);
         (SolverContext(infcx), value, vars)
@@ -79,7 +79,7 @@ impl<'db> SolverDelegate for SolverContext<'db> {
 
     fn leak_check(
         &self,
-        _max_input_universe: rustc_type_ir::UniverseIndex,
+        _max_input_universe: rodetc_type_ir::UniverseIndex,
     ) -> Result<(), NoSolution> {
         Ok(())
     }
@@ -87,12 +87,12 @@ impl<'db> SolverDelegate for SolverContext<'db> {
     fn well_formed_goals(
         &self,
         _param_env: ParamEnv<'db>,
-        _arg: <Self::Interner as rustc_type_ir::Interner>::Term,
+        _arg: <Self::Interner as rodetc_type_ir::Interner>::Term,
     ) -> Option<
         Vec<
-            rustc_type_ir::solve::Goal<
+            rodetc_type_ir::solve::Goal<
                 Self::Interner,
-                <Self::Interner as rustc_type_ir::Interner>::Predicate,
+                <Self::Interner as rodetc_type_ir::Interner>::Predicate,
             >,
         >,
     > {
@@ -109,11 +109,11 @@ impl<'db> SolverDelegate for SolverContext<'db> {
 
     fn instantiate_canonical<V>(
         &self,
-        canonical: rustc_type_ir::Canonical<Self::Interner, V>,
-        values: rustc_type_ir::CanonicalVarValues<Self::Interner>,
+        canonical: rodetc_type_ir::Canonical<Self::Interner, V>,
+        values: rodetc_type_ir::CanonicalVarValues<Self::Interner>,
     ) -> V
     where
-        V: rustc_type_ir::TypeFoldable<Self::Interner>,
+        V: rodetc_type_ir::TypeFoldable<Self::Interner>,
     {
         canonical.instantiate(self.cx(), &values)
     }
@@ -123,7 +123,7 @@ impl<'db> SolverDelegate for SolverContext<'db> {
         kind: CanonicalVarKind<'db>,
         span: Span,
         var_values: &[GenericArg<'db>],
-        universe_map: impl Fn(rustc_type_ir::UniverseIndex) -> rustc_type_ir::UniverseIndex,
+        universe_map: impl Fn(rodetc_type_ir::UniverseIndex) -> rodetc_type_ir::UniverseIndex,
     ) -> GenericArg<'db> {
         self.0.instantiate_canonical_var(span, kind, var_values, universe_map)
     }
@@ -175,7 +175,7 @@ impl<'db> SolverDelegate for SolverContext<'db> {
 
     fn fetch_eligible_assoc_item(
         &self,
-        _goal_trait_ref: rustc_type_ir::TraitRef<Self::Interner>,
+        _goal_trait_ref: rodetc_type_ir::TraitRef<Self::Interner>,
         trait_assoc_def_id: TraitAssocTermId,
         impl_id: AnyImplId,
     ) -> FetchEligibleAssocItemResponse<Self::Interner> {
@@ -247,7 +247,7 @@ impl<'db> SolverDelegate for SolverContext<'db> {
         &self,
         _src: Ty<'db>,
         _dst: Ty<'db>,
-        _assume: <Self::Interner as rustc_type_ir::Interner>::Const,
+        _assume: <Self::Interner as rodetc_type_ir::Interner>::Const,
     ) -> Result<Certainty, NoSolution> {
         // It's better to return some value while not fully implement
         // then panic in the mean time
@@ -284,11 +284,11 @@ impl<'db> SolverDelegate for SolverContext<'db> {
 
     fn compute_goal_fast_path(
         &self,
-        goal: rustc_type_ir::solve::Goal<
+        goal: rodetc_type_ir::solve::Goal<
             Self::Interner,
-            <Self::Interner as rustc_type_ir::Interner>::Predicate,
+            <Self::Interner as rodetc_type_ir::Interner>::Predicate,
         >,
-        _span: <Self::Interner as rustc_type_ir::Interner>::Span,
+        _span: <Self::Interner as rodetc_type_ir::Interner>::Span,
     ) -> Option<Certainty> {
         if let Some(trait_pred) = goal.predicate.as_trait_clause() {
             if self.shallow_resolve(trait_pred.self_ty().skip_binder()).is_ty_var()

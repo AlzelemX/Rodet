@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::ty::InteriorMut;
 use clippy_utils::{SpanlessEq, eq_expr_value, find_binding_init, hash_expr, search_same};
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::SyntaxContext;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::SyntaxContext;
 
 use super::IFS_SAME_COND;
 

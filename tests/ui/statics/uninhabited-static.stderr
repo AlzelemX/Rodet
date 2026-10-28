@@ -53,7 +53,7 @@ LL | static NEVER2: Void = unsafe { std::mem::transmute(()) };
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.
 Future incompatibility report: Future breakage diagnostic:
 error: static of uninhabited type
   --> $DIR/uninhabited-static.rs:9:1

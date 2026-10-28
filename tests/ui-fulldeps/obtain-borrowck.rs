@@ -18,46 +18,46 @@
 //! `optimized_mir` and pulls out the MIR bodies with the borrowck information
 //! from the thread local storage.
 
-extern crate rustc_borrowck;
-extern crate rustc_data_structures;
-extern crate rustc_driver;
-extern crate rustc_hir;
-extern crate rustc_interface;
-extern crate rustc_middle;
-extern crate rustc_session;
+extern crate rodetc_borrowck;
+extern crate rodetc_data_structures;
+extern crate rodetc_driver;
+extern crate rodetc_hir;
+extern crate rodetc_interface;
+extern crate rodetc_middle;
+extern crate rodetc_session;
 
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::process::ExitCode;
 use std::thread_local;
 
-use rustc_borrowck::consumers::{self, BodyWithBorrowckFacts, ConsumerOptions};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_driver::Compilation;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::LocalDefId;
-use rustc_interface::Config;
-use rustc_interface::interface::Compiler;
-use rustc_middle::queries::mir_borrowck::ProvidedValue;
-use rustc_middle::ty::TyCtxt;
-use rustc_middle::util::Providers;
-use rustc_session::Session;
+use rodetc_borrowck::consumers::{self, BodyWithBorrowckFacts, ConsumerOptions};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_driver::Compilation;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_interface::Config;
+use rodetc_interface::interface::Compiler;
+use rodetc_middle::queries::mir_borrowck::ProvidedValue;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_middle::util::Providers;
+use rodetc_session::Session;
 
 fn main() -> ExitCode {
-    rustc_driver::catch_with_exit_code(move || {
+    rodetc_driver::catch_with_exit_code(move || {
         let mut rustc_args: Vec<_> = std::env::args().collect();
         // We must pass -Zpolonius so that the borrowck information is computed.
         rustc_args.push("-Zpolonius".to_owned());
         let mut callbacks = CompilerCalls::default();
         // Call the Rust compiler with our callbacks.
-        rustc_driver::compiler_entrypoint(&rustc_args, &mut callbacks);
+        rodetc_driver::compiler_entrypoint(&rustc_args, &mut callbacks);
     })
 }
 
 #[derive(Default)]
 pub struct CompilerCalls;
 
-impl rustc_driver::Callbacks for CompilerCalls {
+impl rodetc_driver::Callbacks for CompilerCalls {
     // In this callback we override the mir_borrowck query.
     fn config(&mut self, config: &mut Config) {
         assert!(config.override_queries.is_none());
@@ -81,8 +81,8 @@ impl rustc_driver::Callbacks for CompilerCalls {
         for id in crate_items.trait_items() {
             if matches!(tcx.def_kind(id.owner_id), DefKind::AssocFn) {
                 let trait_item = tcx.hir_trait_item(id);
-                if let rustc_hir::TraitItemKind::Fn(_, trait_fn) = &trait_item.kind {
-                    if let rustc_hir::TraitFn::Provided(_) = trait_fn {
+                if let rodetc_hir::TraitItemKind::Fn(_, trait_fn) = &trait_item.kind {
+                    if let rodetc_hir::TraitFn::Provided(_) = trait_fn {
                         bodies.push(trait_item.owner_id);
                     }
                 }
@@ -142,7 +142,7 @@ fn mir_borrowck<'tcx>(tcx: TyCtxt<'tcx>, def_id: LocalDefId) -> ProvidedValue<'t
         }
     });
     let mut providers = Providers::default();
-    rustc_borrowck::provide(&mut providers.queries);
+    rodetc_borrowck::provide(&mut providers.queries);
     let original_mir_borrowck = providers.queries.mir_borrowck;
     original_mir_borrowck(tcx, def_id)
 }

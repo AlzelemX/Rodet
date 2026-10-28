@@ -27,4 +27,4 @@ LL +     fn add(self, rhs: Self) -> <Foo<T> as IntoFuture>::Output {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0223, E0404.
-For more information about an error, try `rustc --explain E0223`.
+For more information about an error, try `rodetc --explain E0223`.

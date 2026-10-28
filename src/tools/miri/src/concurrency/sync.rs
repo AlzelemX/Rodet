@@ -7,8 +7,8 @@ use std::ops::Not;
 use std::rc::Rc;
 use std::{fmt, iter};
 
-use rustc_abi::Size;
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_abi::Size;
+use rodetc_data_structures::fx::FxHashMap;
 
 use super::vector_clock::VClock;
 use crate::*;

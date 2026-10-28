@@ -2,7 +2,7 @@
 
 use base_db::{Crate, target::TargetLoadError};
 use hir_def::layout::TargetDataLayout;
-use rustc_abi::{AddressSpace, AlignFromBytesError, TargetDataLayoutError};
+use rodetc_abi::{AddressSpace, AlignFromBytesError, TargetDataLayoutError};
 
 use crate::db::HirDatabase;
 

@@ -84,4 +84,4 @@ LL | const CHAR_OOB: pattern_type!(char is 'A'..'Z') = unsafe { std::mem::transm
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

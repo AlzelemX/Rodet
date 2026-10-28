@@ -173,4 +173,4 @@ LL |         fn private(&self) -> i32 { self.0 }
 error: aborting due to 19 previous errors
 
 Some errors have detailed explanations: E0616, E0624, E0658.
-For more information about an error, try `rustc --explain E0616`.
+For more information about an error, try `rodetc --explain E0616`.

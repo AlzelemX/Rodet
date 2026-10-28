@@ -43,4 +43,4 @@ LL | fn ref_arg<T: ?Send + ?Sized>(_: &T) {}
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

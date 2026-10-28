@@ -1,9 +1,9 @@
 use std::collections::BTreeMap;
 use std::rc::Rc;
 
-use rustc_data_structures::either::Either;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_span::Symbol;
+use rodetc_data_structures::either::Either;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_span::Symbol;
 
 use crate::*;
 

@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::expr_custom_deref_adjustment;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::ty::peel_and_count_ty_refs;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, Mutability};
-use rustc_lint::LateContext;
-use rustc_span::{Span, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, Mutability};
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, sym};
 
 use super::MUT_MUTEX_LOCK;
 

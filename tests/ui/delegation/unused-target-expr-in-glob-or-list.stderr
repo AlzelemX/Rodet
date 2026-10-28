@@ -570,4 +570,4 @@ LL +         reuse to_reuse::{value, mut_ref,  -> i32} { 1 + 1 }
 error: aborting due to 50 previous errors
 
 Some errors have detailed explanations: E0053, E0061, E0308, E0433, E0609.
-For more information about an error, try `rustc --explain E0053`.
+For more information about an error, try `rodetc --explain E0053`.

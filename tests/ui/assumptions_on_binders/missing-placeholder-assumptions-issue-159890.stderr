@@ -27,4 +27,4 @@ LL | |     for<'s, 'cx> FI1::Future<'s, 'cx>: Send,
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0046, E0195.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

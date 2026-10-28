@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::{eq_expr_value, path_to_local_with_projections, sym};
-use rustc_abi::WrappingRange;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Node};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::SyntaxContext;
+use rodetc_abi::WrappingRange;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Node};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::SyntaxContext;
 
 use super::EAGER_TRANSMUTE;
 

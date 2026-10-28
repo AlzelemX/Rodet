@@ -1,12 +1,12 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
 use clippy_utils::sym;
-use rustc_ast::ast::{Fn, FnRetTy, GenericParam, GenericParamKind};
-use rustc_ast::visit::{FnCtxt, FnKind};
-use rustc_ast::{HasAttrs as _, NodeId};
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::ast::{Fn, FnRetTy, GenericParam, GenericParamKind};
+use rodetc_ast::visit::{FnCtxt, FnKind};
+use rodetc_ast::{HasAttrs as _, NodeId};
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -46,7 +46,7 @@ pub struct InlineTraitBounds {
 }
 
 impl EarlyLintPass for InlineTraitBounds {
-    fn check_item(&mut self, _: &EarlyContext<'_>, item: &rustc_ast::Item) {
+    fn check_item(&mut self, _: &EarlyContext<'_>, item: &rodetc_ast::Item) {
         if self.automatically_derived_at.is_none()
             && item
                 .attrs()
@@ -57,7 +57,7 @@ impl EarlyLintPass for InlineTraitBounds {
         }
     }
 
-    fn check_item_post(&mut self, _: &EarlyContext<'_>, item: &rustc_ast::Item) {
+    fn check_item_post(&mut self, _: &EarlyContext<'_>, item: &rodetc_ast::Item) {
         self.automatically_derived_at.take_if(|id| *id == item.id);
     }
 

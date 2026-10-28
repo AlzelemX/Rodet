@@ -1,11 +1,11 @@
 use std::mem;
 
-use rustc_attr_ir::StabilityLevel;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_hir::def_id::{CrateNum, DefId, DefIdMap, DefIdSet};
-use rustc_metadata::creader::CStore;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::Symbol;
+use rodetc_attr_ir::StabilityLevel;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_hir::def_id::{CrateNum, DefId, DefIdMap, DefIdSet};
+use rodetc_metadata::creader::CStore;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::Symbol;
 use tracing::debug;
 
 use crate::clean::types::ExternalLocation;
@@ -400,7 +400,7 @@ impl DocFolder for CacheBuilder<'_, '_> {
             | clean::ProcMacroItem(..)
             | clean::VariantItem(..)
             | clean::PrimitiveItem(..) => {
-                use rustc_data_structures::fx::IndexEntry as Entry;
+                use rodetc_data_structures::fx::IndexEntry as Entry;
 
                 let skip_because_unstable = matches!(
                     item.stability.map(|stab| stab.level),

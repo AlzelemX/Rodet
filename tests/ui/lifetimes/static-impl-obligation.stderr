@@ -611,4 +611,4 @@ LL |         y.hello();
 error: aborting due to 28 previous errors
 
 Some errors have detailed explanations: E0478, E0521, E0637, E0803.
-For more information about an error, try `rustc --explain E0478`.
+For more information about an error, try `rodetc --explain E0478`.

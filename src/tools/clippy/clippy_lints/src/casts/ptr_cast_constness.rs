@@ -3,10 +3,10 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{std_or_core, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{self as hir, Expr, ExprKind, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty, TypeVisitableExt as _};
+use rodetc_errors::Applicability;
+use rodetc_hir::{self as hir, Expr, ExprKind, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty, TypeVisitableExt as _};
 
 use super::PTR_CAST_CONSTNESS;
 

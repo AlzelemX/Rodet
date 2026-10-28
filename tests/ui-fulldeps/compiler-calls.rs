@@ -6,16 +6,16 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_driver;
-extern crate rustc_interface;
+extern crate rodetc_driver;
+extern crate rodetc_interface;
 
-use rustc_interface::interface;
+use rodetc_interface::interface;
 
 struct TestCalls<'a> {
     count: &'a mut u32,
 }
 
-impl rustc_driver::Callbacks for TestCalls<'_> {
+impl rodetc_driver::Callbacks for TestCalls<'_> {
     fn config(&mut self, _config: &mut interface::Config) {
         *self.count *= 2;
     }
@@ -24,8 +24,8 @@ impl rustc_driver::Callbacks for TestCalls<'_> {
 fn main() {
     let mut count = 1;
     let args = vec!["compiler-calls".to_string(), "foo.rs".to_string()];
-    rustc_driver::catch_fatal_errors(|| -> interface::Result<()> {
-        rustc_driver::compiler_entrypoint(&args, &mut TestCalls { count: &mut count });
+    rodetc_driver::catch_fatal_errors(|| -> interface::Result<()> {
+        rodetc_driver::compiler_entrypoint(&args, &mut TestCalls { count: &mut count });
         Ok(())
     })
     .ok();

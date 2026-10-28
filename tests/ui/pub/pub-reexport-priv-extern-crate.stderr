@@ -52,7 +52,7 @@ LL |     pub extern crate core;
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0365, E0603.
-For more information about an error, try `rustc --explain E0365`.
+For more information about an error, try `rodetc --explain E0365`.
 Future incompatibility report: Future breakage diagnostic:
 error[E0365]: extern crate `core` is private and cannot be re-exported
   --> $DIR/pub-reexport-priv-extern-crate.rs:2:9

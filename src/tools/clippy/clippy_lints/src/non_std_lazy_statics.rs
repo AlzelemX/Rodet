@@ -5,13 +5,13 @@ use clippy_utils::paths::{self, PathNS, find_crates, lookup_path_str};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::visitors::for_each_expr;
 use clippy_utils::{fn_def_id, is_no_std_crate, sym};
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{CrateNum, DefId};
-use rustc_hir::{self as hir, BodyId, Expr, ExprKind, HirId, Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{CrateNum, DefId};
+use rodetc_hir::{self as hir, BodyId, Expr, ExprKind, HirId, Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -143,9 +143,9 @@ impl<'hir> LateLintPass<'hir> for NonStdLazyStatic {
         }
     }
 
-    fn check_ty(&mut self, cx: &LateContext<'hir>, ty: &'hir rustc_hir::Ty<'hir, rustc_hir::AmbigArg>) {
+    fn check_ty(&mut self, cx: &LateContext<'hir>, ty: &'hir rodetc_hir::Ty<'hir, rodetc_hir::AmbigArg>) {
         // Record if types from `once_cell` besides `sync::Lazy` are used.
-        if let rustc_hir::TyKind::Path(qpath) = ty.peel_refs().kind
+        if let rodetc_hir::TyKind::Path(qpath) = ty.peel_refs().kind
             && let Some(ty_def_id) = cx.qpath_res(&qpath, ty.hir_id).opt_def_id()
             // Is from `once_cell` crate
             && self.once_cell_crates.contains(&ty_def_id.krate)
@@ -247,7 +247,7 @@ impl LazyInfo {
 
 /// Return the span of a given `Path` without including any of its args.
 ///
-/// NB: Re-write of a private function `rustc_lint::non_local_def::path_span_without_args`.
+/// NB: Re-write of a private function `rodetc_lint::non_local_def::path_span_without_args`.
 fn path_span_without_args(path: &hir::Path<'_>) -> Span {
     path.segments
         .last()

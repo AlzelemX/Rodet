@@ -1,18 +1,18 @@
 use clippy_utils::diagnostics::{span_lint, span_lint_and_then};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::{fulfill_or_allowed, get_parent_as_impl, sym};
-use rustc_data_structures::unord::UnordItems;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::{DefId, DefIdSet};
-use rustc_hir::{
+use rodetc_data_structures::unord::UnordItems;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::{DefId, DefIdSet};
+use rodetc_hir::{
     FnRetTy, GenericArg, GenericBound, HirId, ImplItem, ImplItemKind, ImplicitSelfKind, Item, ItemKind, Mutability,
     Node, OpaqueTyOrigin, PathSegment, PrimTy, QPath, TraitItemId, TyKind,
 };
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{self, FnSig, Ty};
-use rustc_span::symbol::kw;
-use rustc_span::{Ident, Span, Symbol};
-use rustc_trait_selection::traits::supertrait_def_ids;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{self, FnSig, Ty};
+use rodetc_span::symbol::kw;
+use rodetc_span::{Ident, Span, Symbol};
+use rodetc_trait_selection::traits::supertrait_def_ids;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -1,0 +1,20 @@
+[package]
+name = "rodetc_attr_ir"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_ast_pretty = { path = "../rodetc_ast_pretty" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_error_messages = { path = "../rodetc_error_messages" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+thin-vec = "0.2.21"
+tracing = "0.1"
+# tidy-alphabetical-end

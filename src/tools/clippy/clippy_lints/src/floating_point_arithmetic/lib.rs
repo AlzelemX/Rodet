@@ -1,9 +1,9 @@
 use clippy_utils::sugg::Sugg;
-use rustc_ast::ast;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_ast::ast;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 // Adds type suffixes and parenthesis to method receivers if necessary, and returns whether a suffix
 // was added.

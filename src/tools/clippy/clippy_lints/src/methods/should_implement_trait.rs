@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::{is_bool, sym};
-use rustc_abi::ExternAbi;
-use rustc_hir::{self as hir, FnRetTy, FnSig, GenericParamKind, ImplItem, LifetimeParamKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::edition::Edition::{self, Edition2015, Edition2021};
-use rustc_span::{Symbol, kw};
+use rodetc_abi::ExternAbi;
+use rodetc_hir::{self as hir, FnRetTy, FnSig, GenericParamKind, ImplItem, LifetimeParamKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::edition::Edition::{self, Edition2015, Edition2021};
+use rodetc_span::{Symbol, kw};
 
 use super::SHOULD_IMPLEMENT_TRAIT;
 use super::lib::SelfKind;

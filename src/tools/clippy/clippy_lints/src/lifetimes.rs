@@ -3,28 +3,28 @@ use clippy_utils::diagnostics::{span_lint, span_lint_and_then};
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::{is_from_proc_macro, trait_ref_of_method};
 use itertools::Itertools as _;
-use rustc_ast::visit::{try_visit, walk_list};
-use rustc_attr_ir::lang_items;
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_errors::Applicability;
-use rustc_hir::FnRetTy::Return;
-use rustc_hir::intravisit::{
+use rodetc_ast::visit::{try_visit, walk_list};
+use rodetc_attr_ir::lang_items;
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_errors::Applicability;
+use rodetc_hir::FnRetTy::Return;
+use rodetc_hir::intravisit::{
     IgnoreNested, NestedFilter, Visitor, walk_fn_decl, walk_generic_args, walk_generic_param, walk_generics,
     walk_impl_item_ref, walk_param_bound, walk_poly_trait_ref, walk_trait_ref, walk_ty, walk_unambig_ty,
     walk_where_predicate,
 };
-use rustc_hir::{
+use rodetc_hir::{
     AmbigArg, BodyId, FnDecl, FnPtrTy, FnSig, GenericArg, GenericArgs, GenericBound, GenericParam, GenericParamKind,
     Generics, HirId, Impl, ImplItem, ImplItemKind, Item, ItemKind, Lifetime, LifetimeKind, LifetimeParamKind, Node,
     PolyTraitRef, PredicateOrigin, TraitFn, TraitItem, TraitItemKind, TraitRef, Ty, TyKind, WhereBoundPredicate,
     WherePredicate, WherePredicateKind,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::hir::nested_filter as middle_nested_filter;
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
-use rustc_span::symbol::{Ident, kw};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::hir::nested_filter as middle_nested_filter;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::symbol::{Ident, kw};
 use std::ops::ControlFlow;
 
 declare_clippy_lint! {

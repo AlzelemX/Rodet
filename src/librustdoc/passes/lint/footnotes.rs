@@ -1,11 +1,11 @@
 use std::ops::Range;
 
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_errors::DiagDecorator;
-use rustc_hir::HirId;
-use rustc_lint::Applicability;
-use rustc_resolve::rustdoc::pulldown_cmark::{Event, Options, Parser, Tag};
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_errors::DiagDecorator;
+use rodetc_hir::HirId;
+use rodetc_lint::Applicability;
+use rodetc_resolve::rustdoc::pulldown_cmark::{Event, Options, Parser, Tag};
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
 
 use crate::clean::Item;
 use crate::core::DocContext;

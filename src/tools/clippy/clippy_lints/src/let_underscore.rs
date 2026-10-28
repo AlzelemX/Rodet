@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::ty::{describe_must_use_type, implements_trait, opt_must_use_path};
 use clippy_utils::{is_from_proc_macro, is_must_use_func_call, paths};
-use rustc_hir::{LetStmt, LocalSource, PatKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{GenericArgKind, IsSuggestable as _};
-use rustc_span::{BytePos, Span};
+use rodetc_hir::{LetStmt, LocalSource, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{GenericArgKind, IsSuggestable as _};
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does

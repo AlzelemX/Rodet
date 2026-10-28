@@ -82,7 +82,7 @@ note: required by a bound in `collect`
 error: aborting due to 5 previous errors; 2 warnings emitted
 
 Some errors have detailed explanations: E0277, E0283, E0599.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.
 Future incompatibility report: Future breakage diagnostic:
 warning: method call on a diverging inference variable
   --> $DIR/question-mark-type-inference-in-chain.rs:35:10

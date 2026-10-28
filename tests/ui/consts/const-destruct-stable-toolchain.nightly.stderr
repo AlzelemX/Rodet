@@ -13,4 +13,4 @@ LL | const fn const_drop<T: [const] Destruct>(_: T) {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0493`.
+For more information about this error, try `rodetc --explain E0493`.

@@ -2,9 +2,9 @@ use super::{Attribute, DEPRECATED_CFG_ATTR, DEPRECATED_CLIPPY_CFG_ATTR, unnecess
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::msrvs::{self, MsrvStack};
 use clippy_utils::sym;
-use rustc_ast::AttrStyle;
-use rustc_errors::Applicability;
-use rustc_lint::EarlyContext;
+use rodetc_ast::AttrStyle;
+use rodetc_errors::Applicability;
+use rodetc_lint::EarlyContext;
 
 pub(super) fn check(cx: &EarlyContext<'_>, attr: &Attribute, msrv: &MsrvStack) {
     // check cfg_attr
@@ -59,7 +59,7 @@ pub(super) fn check_clippy(cx: &EarlyContext<'_>, attr: &Attribute) {
     }
 }
 
-fn check_deprecated_cfg_recursively(cx: &EarlyContext<'_>, attr: &rustc_ast::MetaItem) {
+fn check_deprecated_cfg_recursively(cx: &EarlyContext<'_>, attr: &rodetc_ast::MetaItem) {
     if let Some(ident) = attr.ident() {
         if matches!(ident.name, sym::any | sym::all | sym::not) {
             let Some(list) = attr.meta_item_list() else { return };
@@ -72,7 +72,7 @@ fn check_deprecated_cfg_recursively(cx: &EarlyContext<'_>, attr: &rustc_ast::Met
     }
 }
 
-fn check_cargo_clippy_attr(cx: &EarlyContext<'_>, item: &rustc_ast::MetaItem) {
+fn check_cargo_clippy_attr(cx: &EarlyContext<'_>, item: &rodetc_ast::MetaItem) {
     if item.has_name(sym::feature) && item.value_str() == Some(sym::cargo_clippy) {
         span_lint_and_sugg(
             cx,

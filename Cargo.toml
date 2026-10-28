@@ -2,7 +2,7 @@
 resolver = "2"
 members = [
 # tidy-alphabetical-start
-  "compiler/rustc",
+  "compiler/rodetc",
   "src/build_helper",
   "src/rustc-std-workspace/rustc-std-workspace-alloc",
   "src/rustc-std-workspace/rustc-std-workspace-core",
@@ -52,8 +52,8 @@ members = [
 
 exclude = [
   "build",
-  "compiler/rustc_codegen_cranelift",
-  "compiler/rustc_codegen_gcc",
+  "compiler/rodetc_codegen_cranelift",
+  "compiler/rodetc_codegen_gcc",
   "src/bootstrap",
   "tests/rustdoc-gui",
   # HACK(eddyb) This hardcodes the fact that our CI uses `/checkout/obj`.

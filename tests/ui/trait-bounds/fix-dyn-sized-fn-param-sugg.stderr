@@ -193,4 +193,4 @@ LL | fn foo8(_: &impl ?Sized + Debug + ?Sized ) {}
 error: aborting due to 14 previous errors
 
 Some errors have detailed explanations: E0203, E0277.
-For more information about an error, try `rustc --explain E0203`.
+For more information about an error, try `rodetc --explain E0203`.

@@ -2,11 +2,11 @@
 
 use std::iter;
 
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use tracing::debug;
 
 use hir_def::{CallableDefId, ConstParamId, hir::ExprId, signatures::FunctionSignature};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     InferTy, Interner,
     inherent::{GenericArgs as _, IntoKind, Ty as _},
 };
@@ -60,7 +60,7 @@ impl<'db> InferenceContext<'db> {
             );
         }
 
-        // FIXME: rustc does some ABI checks here, but the ABI mapping is in rustc_target and we don't have access to that crate.
+        // FIXME: rustc does some ABI checks here, but the ABI mapping is in rodetc_target and we don't have access to that crate.
 
         let obligations = autoderef.take_obligations();
         self.table.register_predicates(obligations);

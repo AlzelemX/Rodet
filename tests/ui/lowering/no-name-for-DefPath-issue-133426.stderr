@@ -28,4 +28,4 @@ note: the associated type is defined here
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0614, E0658.
-For more information about an error, try `rustc --explain E0614`.
+For more information about an error, try `rodetc --explain E0614`.

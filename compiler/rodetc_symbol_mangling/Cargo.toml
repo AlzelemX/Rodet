@@ -1,0 +1,19 @@
+[package]
+name = "rodetc_symbol_mangling"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+punycode = "0.4.0"
+rustc-demangle = "0.1.28"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+tracing = "0.1"
+# tidy-alphabetical-end

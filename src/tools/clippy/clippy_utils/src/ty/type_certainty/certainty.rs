@@ -1,4 +1,4 @@
-use rustc_hir::def_id::DefId;
+use rodetc_hir::def_id::DefId;
 use std::fmt::Debug;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

@@ -1,5 +1,5 @@
 //@ check-pass
-//! rustc_hir_analysis::check_item_type does type_of() on the default value. This is wonky, because
+//! rodetc_hir_analysis::check_item_type does type_of() on the default value. This is wonky, because
 //! the generic args are in Self format at that point, not in impl format, so the result can't be
 //! used with the Self-format args. However, it does not instantiate the result, it just does
 //! ensure_ok(). This test just makes sure that codepath is hit in tests.

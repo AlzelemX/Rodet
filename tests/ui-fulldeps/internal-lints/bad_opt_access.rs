@@ -7,8 +7,8 @@
 #![feature(rustc_private)]
 #![deny(rustc::bad_opt_access)]
 
-extern crate rustc_session;
-use rustc_session::Session;
+extern crate rodetc_session;
+use rodetc_session::Session;
 
 pub fn access_bad_option(sess: Session) {
     let _ = sess.opts.cg.split_debuginfo;

@@ -28,4 +28,4 @@ LL | unsafe extern "nonsense" fn c_variadic_x86_nonsense(_: ...) {
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0703`.
+For more information about this error, try `rodetc --explain E0703`.

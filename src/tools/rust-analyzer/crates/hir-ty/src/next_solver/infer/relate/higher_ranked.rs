@@ -1,7 +1,7 @@
 //! Helper routines for higher-ranked things. See the `doc` module at
 //! the end of the file for details.
 
-use rustc_type_ir::TypeFoldable;
+use rodetc_type_ir::TypeFoldable;
 use tracing::{debug, instrument};
 
 use crate::next_solver::fold::FnMutDelegate;

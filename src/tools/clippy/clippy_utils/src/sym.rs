@@ -1,9 +1,9 @@
 #![expect(non_upper_case_globals)]
 
-use rustc_span::symbol::PREDEFINED_SYMBOLS_COUNT;
+use rodetc_span::symbol::PREDEFINED_SYMBOLS_COUNT;
 
 #[doc(no_inline)]
-pub use rustc_span::sym::*;
+pub use rodetc_span::sym::*;
 
 macro_rules! val {
     ($name:ident) => {
@@ -16,7 +16,7 @@ macro_rules! val {
 
 macro_rules! generate {
     ($($name:ident $(: $value:literal)? ,)*) => {
-        /// To be supplied to `rustc_interface::Config`
+        /// To be supplied to `rodetc_interface::Config`
         pub const EXTRA_SYMBOLS: &[&str] = &[
             $(
                 val!($name $($value)?),
@@ -24,7 +24,7 @@ macro_rules! generate {
         ];
 
         $(
-            pub const $name: rustc_span::Symbol = rustc_span::Symbol::new(PREDEFINED_SYMBOLS_COUNT + ${index()});
+            pub const $name: rodetc_span::Symbol = rodetc_span::Symbol::new(PREDEFINED_SYMBOLS_COUNT + ${index()});
         )*
     };
 }
@@ -525,10 +525,10 @@ generate! {
     rsplit_terminator,
     rsplitn,
     rsplitn_mut,
-    rustc_errors,
-    rustc_lint,
-    rustc_middle,
-    rustc_span,
+    rodetc_errors,
+    rodetc_lint,
+    rodetc_middle,
+    rodetc_span,
     rustfmt_skip,
     rwlock,
     saturating_abs,

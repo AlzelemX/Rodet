@@ -106,4 +106,4 @@ LL |     let &[bind!(z)] = &&mut [0];
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0596, E0658.
-For more information about an error, try `rustc --explain E0596`.
+For more information about an error, try `rodetc --explain E0596`.

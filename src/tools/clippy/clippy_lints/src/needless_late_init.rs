@@ -5,13 +5,13 @@ use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::needs_ordered_drop;
 use clippy_utils::visitors::{for_each_expr, for_each_expr_without_closures, is_local_used};
 use core::ops::ControlFlow;
-use rustc_errors::{Applicability, MultiSpan};
-use rustc_hir::{
+use rodetc_errors::{Applicability, MultiSpan};
+use rodetc_hir::{
     BindingMode, Block, Expr, ExprKind, HirId, HirIdMap, HirIdSet, LetStmt, LocalSource, MatchSource, Node, Pat,
     PatKind, Stmt, StmtKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
 use std::borrow::Cow;
 
 declare_clippy_lint! {

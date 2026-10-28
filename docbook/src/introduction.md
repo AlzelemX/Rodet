@@ -48,4 +48,4 @@ it taught. Boxes like this one mark what is new in Rodet:
 > **New in Rodet:** something Rust doesn't have.
 
 Every example in this book is a complete program. Copy it into
-`src/main.rs` of a Cargo project and run it with `cargo run`.
+`src/main.rd` of a Rodet project and run it with `rodet run`.

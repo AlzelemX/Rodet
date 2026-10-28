@@ -3,7 +3,7 @@
 
 use hir_expand::name::Name;
 use la_arena::Idx;
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use thin_vec::ThinVec;
 
 use crate::{

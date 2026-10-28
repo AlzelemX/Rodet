@@ -5,8 +5,8 @@ use crate::utils::{ErrAction, Scoped, StrBuf, VecBuf, expect_action, slice_group
 use crate::{DiagCx, SourceFile, Span};
 use core::fmt::{self, Display};
 use core::range::Range;
-use rustc_arena::{DroplessArena, TypedArena};
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_arena::{DroplessArena, TypedArena};
+use rodetc_data_structures::fx::FxHashMap;
 use std::collections::hash_map::{Entry, VacantEntry};
 use std::{fs, path};
 

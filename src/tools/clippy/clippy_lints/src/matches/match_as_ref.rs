@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::option_arg_ty;
 use clippy_utils::{as_some_expr, as_some_pattern, is_none_arm, peel_blocks};
-use rustc_errors::Applicability;
-use rustc_hir::{Arm, BindingMode, ByRef, Expr, ExprKind, Mutability, PatKind, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Arm, BindingMode, ByRef, Expr, ExprKind, Mutability, PatKind, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use super::MATCH_AS_REF;
 

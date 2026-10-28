@@ -27,4 +27,4 @@ LL |         extern crate std as other_non_existent;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0259, E0463.
-For more information about an error, try `rustc --explain E0259`.
+For more information about an error, try `rodetc --explain E0259`.

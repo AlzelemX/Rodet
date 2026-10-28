@@ -231,4 +231,4 @@ LL |     h2(|_: &(), _: (), _: &(), _: ()| {});
 
 error: aborting due to 11 previous errors
 
-For more information about this error, try `rustc --explain E0631`.
+For more information about this error, try `rodetc --explain E0631`.

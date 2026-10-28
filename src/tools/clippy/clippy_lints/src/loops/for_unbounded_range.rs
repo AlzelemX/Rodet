@@ -2,11 +2,11 @@ use super::FOR_UNBOUNDED_RANGE;
 use super::infinite_loop::LoopVisitor;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::higher;
-use rustc_ast::Label;
-use rustc_hir::Expr;
-use rustc_hir::intravisit::Visitor as _;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_ast::Label;
+use rodetc_hir::Expr;
+use rodetc_hir::intravisit::Visitor as _;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 pub fn check<'tcx>(
     cx: &LateContext<'tcx>,
@@ -35,7 +35,7 @@ pub fn check<'tcx>(
                 arg.span.shrink_to_hi(),
                 "for loops over unbounded ranges will wrap around and may panic, consider adding an inclusive high bound",
                 format!("={ty}::MAX"),
-                rustc_errors::Applicability::MaybeIncorrect,
+                rodetc_errors::Applicability::MaybeIncorrect,
             );
         });
     }

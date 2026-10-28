@@ -92,4 +92,4 @@ LL | fn issue_95327() where <u8 as Unresolved>::Assoc: ToString {}
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0404, E0405.
-For more information about an error, try `rustc --explain E0404`.
+For more information about an error, try `rodetc --explain E0404`.

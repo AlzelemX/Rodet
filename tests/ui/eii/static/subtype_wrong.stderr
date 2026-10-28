@@ -9,4 +9,4 @@ LL | static HELLO_IMPL: for<'a> fn(&'a u8) -> &'a u8 = |_| todo!();
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

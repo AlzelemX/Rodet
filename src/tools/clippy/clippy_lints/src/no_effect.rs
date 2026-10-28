@@ -5,14 +5,14 @@ use clippy_utils::ty::{expr_type_is_certain, has_drop};
 use clippy_utils::{
     in_automatically_derived, is_from_proc_macro, is_inside_always_const_context, is_lint_allowed, peel_blocks,
 };
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{
     BinOpKind, BlockCheckMode, Expr, ExprKind, HirId, HirIdMap, ItemKind, LocalSource, Node, PatKind, Stmt, StmtKind,
     StructTailExpr, UnsafeSource, is_range_literal,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::Span;
 use std::ops::Deref;
 
 declare_clippy_lint! {
@@ -92,11 +92,11 @@ impl<'tcx> LateLintPass<'tcx> for NoEffect {
         check_unnecessary_operation(cx, stmt);
     }
 
-    fn check_block(&mut self, _: &LateContext<'tcx>, _: &'tcx rustc_hir::Block<'tcx>) {
+    fn check_block(&mut self, _: &LateContext<'tcx>, _: &'tcx rodetc_hir::Block<'tcx>) {
         self.local_bindings.push(Vec::default());
     }
 
-    fn check_block_post(&mut self, cx: &LateContext<'tcx>, _: &'tcx rustc_hir::Block<'tcx>) {
+    fn check_block_post(&mut self, cx: &LateContext<'tcx>, _: &'tcx rodetc_hir::Block<'tcx>) {
         for hir_id in self.local_bindings.pop().unwrap() {
             if let Some(span) = self.underscore_bindings.swap_remove(&hir_id) {
                 span_lint_hir(
@@ -212,7 +212,7 @@ fn is_operator_overridden(cx: &LateContext<'_>, expr: &Expr<'_>) -> bool {
             // No need to check type of `lhs` and `rhs`
             // because if the operator is overridden, at least one operand is ADT type
 
-            // reference: rust/compiler/rustc_middle/src/ty/typeck_results.rs: `is_method_call`.
+            // reference: rust/compiler/rodetc_middle/src/ty/typeck_results.rs: `is_method_call`.
             // use this function to check whether operator is overridden in `ExprKind::{Binary, Unary}`.
             cx.typeck_results().is_method_call(expr)
         },

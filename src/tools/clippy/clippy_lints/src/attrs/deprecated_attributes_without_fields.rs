@@ -1,10 +1,10 @@
 use super::{Attribute, DEPRECATED_ATTRIBUTES_WITHOUT_NOTE, DEPRECATED_ATTRIBUTES_WITHOUT_SINCE};
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::snippet_with_applicability;
-use rustc_ast::{MetaItemInner, MetaItemKind};
-use rustc_errors::Applicability;
-use rustc_lint::EarlyContext;
-use rustc_span::sym;
+use rodetc_ast::{MetaItemInner, MetaItemKind};
+use rodetc_errors::Applicability;
+use rodetc_lint::EarlyContext;
+use rodetc_span::sym;
 
 pub(super) fn check_fields<'cx>(cx: &EarlyContext<'cx>, items: Option<&[MetaItemInner]>, attr: &'cx Attribute) {
     let mut has_note = attr.value_span().is_some();

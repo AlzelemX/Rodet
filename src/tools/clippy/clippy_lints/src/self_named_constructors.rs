@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::return_ty;
 use clippy_utils::ty::contains_adt_constructor;
-use rustc_hir::{Impl, ImplItem, ImplItemKind, ItemKind, Node};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_hir::{Impl, ImplItem, ImplItemKind, ItemKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

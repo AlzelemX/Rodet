@@ -169,4 +169,4 @@ LL |         let _: impl for<'a> Send;
 error: aborting due to 20 previous errors
 
 Some errors have detailed explanations: E0214, E0562, E0697, E0703, E0728.
-For more information about an error, try `rustc --explain E0214`.
+For more information about an error, try `rodetc --explain E0214`.

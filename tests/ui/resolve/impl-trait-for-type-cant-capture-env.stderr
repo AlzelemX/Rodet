@@ -6,4 +6,4 @@ LL |            self.v0 = k0 ^ 0x736f6d6570736575;
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0434`.
+For more information about this error, try `rodetc --explain E0434`.

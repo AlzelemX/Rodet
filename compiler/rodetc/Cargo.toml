@@ -1,0 +1,48 @@
+[package]
+name = "rodetc-main"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+
+# Make sure rodetc_codegen_ssa ends up in the sysroot, because this
+# crate is intended to be used by codegen backends, which may not be in-tree.
+rodetc_codegen_ssa = { path = "../rodetc_codegen_ssa" }
+
+rodetc_driver = { path = "../rodetc_driver" }
+rodetc_driver_impl = { path = "../rodetc_driver_impl" }
+
+rodetc_public = { path = "../rodetc_public" }
+
+# Make sure rodetc_public_bridge ends up in the sysroot, because this
+# crate is intended to be used by stable MIR consumers, which are not in-tree.
+rodetc_public_bridge = { path = "../rodetc_public_bridge" }
+# tidy-alphabetical-end
+
+# Pin these to avoid pulling in a package with a binary blob
+# <https://github.com/rust-lang/rust/pull/136395#issuecomment-2692769062>
+[target.'cfg(target_os = "wasi")'.dependencies]
+getrandom = "=0.3.3"
+wasi = "=0.14.2"
+
+
+[dependencies.tikv-jemalloc-sys]
+version = "0.6.1"
+optional = true
+features = ['override_allocator_on_supported_platforms']
+
+[features]
+# tidy-alphabetical-start
+check_only = ['rodetc_driver_impl/check_only']
+jemalloc = ['dep:tikv-jemalloc-sys', 'rodetc_driver_impl/jemalloc']
+llvm = ['rodetc_driver_impl/llvm']
+llvm_offload = ['rodetc_driver_impl/llvm_offload']
+max_level_info = ['rodetc_driver_impl/max_level_info']
+rustc_randomized_layouts = ['rodetc_driver_impl/rustc_randomized_layouts']
+# tidy-alphabetical-end
+
+[build-dependencies]
+# tidy-alphabetical-start
+rodetc_windows_rc = { path = "../rodetc_windows_rc" }
+# tidy-alphabetical-end

@@ -1,7 +1,7 @@
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_errors::Applicability;
-use rustc_lint::EarlyContext;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_lint::EarlyContext;
+use rodetc_span::Span;
 
 use super::{SEPARATED_LITERAL_SUFFIX, UNSEPARATED_LITERAL_SUFFIX};
 

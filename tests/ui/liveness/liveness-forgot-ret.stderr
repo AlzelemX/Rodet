@@ -24,4 +24,4 @@ LL | fn god_exists(a: isize) -> bool { return god_exists(a); }
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

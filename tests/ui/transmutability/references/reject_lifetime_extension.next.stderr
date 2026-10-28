@@ -75,4 +75,4 @@ LL |         for<'b> &'b u8: TransmuteFrom<&'a u8>,
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0521`.
+For more information about this error, try `rodetc --explain E0521`.

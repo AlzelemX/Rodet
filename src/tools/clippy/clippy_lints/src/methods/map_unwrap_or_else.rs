@@ -4,9 +4,9 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet;
 use clippy_utils::sym;
 use clippy_utils::usage::mutated_variables;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
 
 use super::MAP_UNWRAP_OR;
 

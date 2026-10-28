@@ -27,4 +27,4 @@ LL | pub struct T7(T1, [Sized; 0]); // still wrong, even when the repr(C) is hid
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0690`.
+For more information about this error, try `rodetc --explain E0690`.

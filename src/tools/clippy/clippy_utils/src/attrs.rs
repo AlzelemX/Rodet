@@ -2,14 +2,14 @@
 
 use crate::source::SpanExt as _;
 use crate::{sym, tokenize_with_text};
-use rustc_ast::attr::AttributeExt;
-use rustc_attr_ir::find_attr;
-use rustc_errors::Applicability;
-use rustc_lexer::TokenKind;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{AdtDef, TyCtxt};
-use rustc_session::Session;
-use rustc_span::{Span, Symbol};
+use rodetc_ast::attr::AttributeExt;
+use rodetc_attr_ir::find_attr;
+use rodetc_errors::Applicability;
+use rodetc_lexer::TokenKind;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{AdtDef, TyCtxt};
+use rodetc_session::Session;
+use rodetc_span::{Span, Symbol};
 use std::str::FromStr as _;
 
 /// Validates a single clippy attribute and emits errors for unknown or deprecated ones.

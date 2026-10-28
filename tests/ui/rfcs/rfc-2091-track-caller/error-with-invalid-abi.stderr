@@ -43,4 +43,4 @@ LL | pub extern fn extern_missing_abi() {}
 
 error: aborting due to 4 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0737`.
+For more information about this error, try `rodetc --explain E0737`.

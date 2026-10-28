@@ -49,4 +49,4 @@ LL |     let y = f(&x.clone(), ());
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0309, E0505.
-For more information about an error, try `rustc --explain E0309`.
+For more information about an error, try `rodetc --explain E0309`.

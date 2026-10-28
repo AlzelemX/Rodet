@@ -101,4 +101,4 @@ LL |     let _ = produces_string().as_deref().and_then(generic_ref);
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0631`.
+For more information about this error, try `rodetc --explain E0631`.

@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::ty::is_isize_or_usize;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, FloatTy, Ty};
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, FloatTy, Ty};
 
 use super::{CAST_PRECISION_LOSS, utils};
 

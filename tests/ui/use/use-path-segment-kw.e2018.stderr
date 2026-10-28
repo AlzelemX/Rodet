@@ -990,4 +990,4 @@ LL |         type C4 = crate::super;
 error: aborting due to 114 previous errors
 
 Some errors have detailed explanations: E0425, E0433, E0573.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

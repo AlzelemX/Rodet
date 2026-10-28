@@ -12,4 +12,4 @@ LL +     <InMemoryStore as Store<String, HashMap<K, String>>>::get_raw(&InMemory
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0282`.
+For more information about this error, try `rodetc --explain E0282`.

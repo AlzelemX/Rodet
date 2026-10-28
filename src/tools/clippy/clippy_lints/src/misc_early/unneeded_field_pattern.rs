@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::{span_lint, span_lint_and_then};
 use clippy_utils::source::SpanExt as _;
 use itertools::Itertools as _;
-use rustc_ast::ast::{Pat, PatKind};
-use rustc_lint::{EarlyContext, LintContext as _};
+use rodetc_ast::ast::{Pat, PatKind};
+use rodetc_lint::{EarlyContext, LintContext as _};
 
 use super::UNNEEDED_FIELD_PATTERN;
 

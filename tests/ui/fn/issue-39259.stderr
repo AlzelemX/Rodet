@@ -39,4 +39,4 @@ note: required by a bound in `Fn`
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0050, E0229, E0277.
-For more information about an error, try `rustc --explain E0050`.
+For more information about an error, try `rodetc --explain E0050`.

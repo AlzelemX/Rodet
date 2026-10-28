@@ -2,9 +2,9 @@
 //!
 //! [RFC 3631]: https://rust-lang.github.io/rfcs/3631-rustdoc-cfgs-handling.html
 
-use rustc_attr_ir::{Attribute, AttributeKind, DocAttribute, find_attr};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_span::{ExpnKind, MacroKind};
+use rodetc_attr_ir::{Attribute, AttributeKind, DocAttribute, find_attr};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_span::{ExpnKind, MacroKind};
 
 use crate::clean::inline::{load_attrs, merge_attrs};
 use crate::clean::{CfgInfo, Crate, Item, ItemId, ItemKind};

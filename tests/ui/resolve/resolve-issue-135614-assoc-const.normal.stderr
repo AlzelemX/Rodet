@@ -27,4 +27,4 @@ LL |     let DEFAULT_var: u32 = 0;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0005, E0658.
-For more information about an error, try `rustc --explain E0005`.
+For more information about an error, try `rodetc --explain E0005`.

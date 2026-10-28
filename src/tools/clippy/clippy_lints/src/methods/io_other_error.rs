@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::{expr_or_init, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, QPath};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, QPath};
+use rodetc_lint::LateContext;
 
 pub(super) fn check(cx: &LateContext<'_>, expr: &Expr<'_>, path: &Expr<'_>, args: &[Expr<'_>], msrv: Msrv) {
     if let [error_kind, error] = args

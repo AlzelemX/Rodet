@@ -2,8 +2,8 @@ use crate::clean::*;
 
 /// Allows a type to traverse the cleaned ast of a crate.
 ///
-/// Note that like [`rustc_ast::visit::Visitor`], but
-/// unlike [`rustc_lint::EarlyLintPass`], if you override a
+/// Note that like [`rodetc_ast::visit::Visitor`], but
+/// unlike [`rodetc_lint::EarlyLintPass`], if you override a
 /// `visit_*` method, you will need to manually recurse into
 /// its contents.
 pub(crate) trait DocVisitor<'a>: Sized {

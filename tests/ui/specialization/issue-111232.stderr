@@ -11,4 +11,4 @@ LL |     fn from(s: S) -> S {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0520`.
+For more information about this error, try `rodetc --explain E0520`.

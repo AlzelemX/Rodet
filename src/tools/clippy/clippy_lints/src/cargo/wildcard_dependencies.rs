@@ -1,7 +1,7 @@
 use cargo_metadata::Metadata;
 use clippy_utils::diagnostics::span_lint;
-use rustc_lint::LateContext;
-use rustc_span::DUMMY_SP;
+use rodetc_lint::LateContext;
+use rodetc_span::DUMMY_SP;
 
 use super::WILDCARD_DEPENDENCIES;
 

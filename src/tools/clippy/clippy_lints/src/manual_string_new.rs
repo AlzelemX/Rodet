@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::sym;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability::MachineApplicable;
-use rustc_hir::{Expr, ExprKind, PathSegment, QPath, TyKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::Span;
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability::MachineApplicable;
+use rodetc_hir::{Expr, ExprKind, PathSegment, QPath, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

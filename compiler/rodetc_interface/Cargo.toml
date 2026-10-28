@@ -1,0 +1,67 @@
+[package]
+name = "rodetc_interface"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rand = "0.9.0"
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_ast_lowering = { path = "../rodetc_ast_lowering" }
+rodetc_ast_passes = { path = "../rodetc_ast_passes" }
+rodetc_ast_pretty = { path = "../rodetc_ast_pretty" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_attr_parsing = { path = "../rodetc_attr_parsing" }
+rodetc_borrowck = { path = "../rodetc_borrowck" }
+rodetc_builtin_macros = { path = "../rodetc_builtin_macros" }
+rodetc_codegen_llvm = { path = "../rodetc_codegen_llvm", optional = true }
+rodetc_codegen_ssa = { path = "../rodetc_codegen_ssa" }
+rodetc_const_eval = { path = "../rodetc_const_eval" }
+rodetc_crate_store = { path = "../rodetc_crate_store" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_expand = { path = "../rodetc_expand" }
+rodetc_expand_queries = { path = "../rodetc_expand_queries" }
+rodetc_feature = { path = "../rodetc_feature" }
+rodetc_fs_util = { path = "../rodetc_fs_util" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_hir_analysis = { path = "../rodetc_hir_analysis" }
+rodetc_hir_typeck = { path = "../rodetc_hir_typeck" }
+rodetc_incremental = { path = "../rodetc_incremental" }
+rodetc_lint = { path = "../rodetc_lint" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_metadata = { path = "../rodetc_metadata" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_mir_build = { path = "../rodetc_mir_build" }
+rodetc_mir_dataflow = { path = "../rodetc_mir_dataflow" }
+rodetc_mir_transform = { path = "../rodetc_mir_transform" }
+rodetc_monomorphize = { path = "../rodetc_monomorphize" }
+rodetc_parse = { path = "../rodetc_parse" }
+rodetc_passes = { path = "../rodetc_passes" }
+rodetc_privacy = { path = "../rodetc_privacy" }
+rodetc_query_impl = { path = "../rodetc_query_impl" }
+rodetc_resolve = { path = "../rodetc_resolve" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_symbol_mangling = { path = "../rodetc_symbol_mangling" }
+rodetc_target = { path = "../rodetc_target" }
+rodetc_thread_pool = { path = "../rodetc_thread_pool" }
+rodetc_trait_selection = { path = "../rodetc_trait_selection" }
+rodetc_traits = { path = "../rodetc_traits" }
+rodetc_ty_utils = { path = "../rodetc_ty_utils" }
+tracing = "0.1"
+# tidy-alphabetical-end
+
+[dev-dependencies]
+# tidy-alphabetical-start
+rodetc_abi = { path = "../rodetc_abi" }
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+check_only = ['rodetc_codegen_llvm?/check_only']
+llvm = ['dep:rodetc_codegen_llvm']
+llvm_offload = ['rodetc_codegen_llvm/llvm_offload']
+# tidy-alphabetical-end

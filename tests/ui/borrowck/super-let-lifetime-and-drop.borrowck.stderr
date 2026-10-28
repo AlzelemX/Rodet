@@ -171,4 +171,4 @@ LL |     }
 error: aborting due to 13 previous errors
 
 Some errors have detailed explanations: E0506, E0716.
-For more information about an error, try `rustc --explain E0506`.
+For more information about an error, try `rodetc --explain E0506`.

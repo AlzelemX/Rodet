@@ -35,4 +35,4 @@ LL + impl Foo<3> for Bar {
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0229, E0658.
-For more information about an error, try `rustc --explain E0229`.
+For more information about an error, try `rodetc --explain E0229`.

@@ -27,55 +27,55 @@ use minicore::*;
 
 struct S(u16);
 
-#[rustc_abi(debug)]
+#[rodetc_abi(debug)]
 fn test(_x: u8) -> bool {
     //~^ ERROR: fn_abi
     true
 }
 
-#[rustc_abi(debug)]
+#[rodetc_abi(debug)]
 fn test_unsized(_x: [u8]) -> bool {
     //~^ ERROR: fn_abi
     true
 }
 
-#[rustc_abi(debug)]
+#[rodetc_abi(debug)]
 type TestFnPtr = fn(bool) -> u8; //~ ERROR: fn_abi
 
-#[rustc_abi(debug)]
+#[rodetc_abi(debug)]
 fn test_generic<T>(_x: *const T) {} //~ ERROR: fn_abi
 
-#[rustc_abi(debug)] //~ ERROR: the `rustc_abi` attribute cannot be used on constants
-const C: () = (); //~ ERROR: the `rustc_abi` attribute can only be applied to
+#[rodetc_abi(debug)] //~ ERROR: the `rodetc_abi` attribute cannot be used on constants
+const C: () = (); //~ ERROR: the `rodetc_abi` attribute can only be applied to
 
 impl S {
-    #[rustc_abi(debug)] //~ ERROR: the `rustc_abi` attribute cannot be used on assoc
-    const C: () = (); //~ ERROR: the `rustc_abi` attribute can only be applied to
+    #[rodetc_abi(debug)] //~ ERROR: the `rodetc_abi` attribute cannot be used on assoc
+    const C: () = (); //~ ERROR: the `rodetc_abi` attribute can only be applied to
 }
 
 impl S {
-    #[rustc_abi(debug)]
+    #[rodetc_abi(debug)]
     fn assoc_test(&self) {} //~ ERROR: fn_abi
 }
 
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiEq = (fn(bool), fn(bool));
 
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiNe = (fn(u8), fn(u32)); //~ ERROR: ABIs are not compatible
 
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiNeLarger = (fn([u8; 32]), fn([u32; 32])); //~ ERROR: ABIs are not compatible
 
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiNeFloat = (fn(f32), fn(u32)); //~ ERROR: ABIs are not compatible
 
 // Sign matters on some targets (such as s390x), so let's make sure we never accept this.
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiNeSign = (fn(i32), fn(u32)); //~ ERROR: ABIs are not compatible
 
-#[rustc_abi(assert_eq)]
+#[rodetc_abi(assert_eq)]
 type TestAbiEqNonsense = (fn((str, str)), fn((str, str))); //~ ERROR: cannot be known at compilation time
 
-#[rustc_abi("assert_eq")] //~ ERROR malformed `rustc_abi` attribute input
+#[rodetc_abi("assert_eq")] //~ ERROR malformed `rodetc_abi` attribute input
 type Bad = u32;

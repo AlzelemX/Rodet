@@ -112,7 +112,7 @@ fn handle_rt_panic<T>(e: Box<dyn Any + Send>) -> T {
 // has a value, but its value is ignored.
 //
 // Even though it is an `u8`, it only ever has 4 values. These are documented in
-// `compiler/rustc_session/src/config/sigpipe.rs`.
+// `compiler/rodetc_session/src/config/sigpipe.rs`.
 #[cfg_attr(test, allow(dead_code))]
 unsafe fn init(argc: isize, argv: *const *const u8, sigpipe: u8) {
     // Remember the main thread ID to give it the correct name.

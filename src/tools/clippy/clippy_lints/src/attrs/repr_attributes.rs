@@ -1,6 +1,6 @@
-use rustc_attr_ir::{Attribute, ReprAttr, find_attr};
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_attr_ir::{Attribute, ReprAttr, find_attr};
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};

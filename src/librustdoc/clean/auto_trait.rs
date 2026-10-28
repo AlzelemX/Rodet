@@ -1,12 +1,12 @@
-use rustc_data_structures::fx::{FxIndexMap, FxIndexSet, IndexEntry};
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_hir as hir;
-use rustc_infer::infer::region_constraints::{ConstraintKind, RegionConstraintData};
-use rustc_middle::ty::{self, Region, Ty, fold_regions};
-use rustc_span::bug;
-use rustc_span::def_id::DefId;
-use rustc_span::symbol::{Symbol, kw};
-use rustc_trait_selection::traits::auto_trait::{self, RegionTarget};
+use rodetc_data_structures::fx::{FxIndexMap, FxIndexSet, IndexEntry};
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_hir as hir;
+use rodetc_infer::infer::region_constraints::{ConstraintKind, RegionConstraintData};
+use rodetc_middle::ty::{self, Region, Ty, fold_regions};
+use rodetc_span::bug;
+use rodetc_span::def_id::DefId;
+use rodetc_span::symbol::{Symbol, kw};
+use rodetc_trait_selection::traits::auto_trait::{self, RegionTarget};
 use tracing::{debug, instrument};
 
 use crate::clean::{

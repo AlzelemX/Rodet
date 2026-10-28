@@ -9,13 +9,13 @@ use crate::visitors::{Descend, for_each_expr_without_closures};
 use crate::{get_unique_builtin_attr, sym};
 
 use arrayvec::ArrayVec;
-use rustc_ast::{FormatArgs, FormatArgument, FormatPlaceholder};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::{self as hir, Expr, ExprKind, HirId, Node, QPath};
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_span::def_id::DefId;
-use rustc_span::hygiene::{self, MacroKind, SyntaxContext};
-use rustc_span::{BytePos, ExpnData, ExpnId, ExpnKind, Span, SpanData, Symbol};
+use rodetc_ast::{FormatArgs, FormatArgument, FormatPlaceholder};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::{self as hir, Expr, ExprKind, HirId, Node, QPath};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_span::def_id::DefId;
+use rodetc_span::hygiene::{self, MacroKind, SyntaxContext};
+use rodetc_span::{BytePos, ExpnData, ExpnId, ExpnKind, Span, SpanData, Symbol};
 use std::ops::ControlFlow;
 
 const FORMAT_MACRO_DIAG_ITEMS: &[Symbol] = &[
@@ -142,7 +142,7 @@ pub fn root_macro_call(span: Span) -> Option<MacroCall> {
 }
 
 /// A combination of [`root_macro_call`] and
-/// [`is_diagnostic_item`](rustc_middle::ty::TyCtxt::is_diagnostic_item) that returns a `MacroCall`
+/// [`is_diagnostic_item`](rodetc_middle::ty::TyCtxt::is_diagnostic_item) that returns a `MacroCall`
 /// at the root expansion if only it matches the given name.
 pub fn matching_root_macro_call(cx: &LateContext<'_>, span: Span, name: Symbol) -> Option<MacroCall> {
     root_macro_call(span).filter(|mc| cx.tcx.is_diagnostic_item(name, mc.def_id))
@@ -472,7 +472,7 @@ impl FormatArgsStorage {
         };
 
         for arg in parent_format_args.arguments.all_args() {
-            if matches!(arg.expr.kind, rustc_ast::ExprKind::FormatArgs(_))
+            if matches!(arg.expr.kind, rodetc_ast::ExprKind::FormatArgs(_))
                 && let Some(format_args) = format_args_map.get(&arg.expr.span.with_parent(None))
             {
                 nested.push(format_args);
@@ -490,7 +490,7 @@ impl FormatArgsStorage {
     }
 }
 
-/// Attempt to find the [`rustc_hir::Expr`] that corresponds to the [`FormatArgument`]'s value
+/// Attempt to find the [`rodetc_hir::Expr`] that corresponds to the [`FormatArgument`]'s value
 pub fn find_format_arg_expr<'hir>(start: &'hir Expr<'hir>, target: &FormatArgument) -> Option<&'hir Expr<'hir>> {
     let SpanData {
         lo,

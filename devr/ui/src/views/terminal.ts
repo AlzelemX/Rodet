@@ -1,5 +1,5 @@
 // The terminal panel: shells and Cargo tasks (Run, Build, Test…), with
-// clickable `src/main.rs:12:5` links that open the file at that place.
+// clickable `src/main.rd:12:5` links that open the file at that place.
 import { t } from '../i18n';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
@@ -50,9 +50,9 @@ function builtinXtermTheme(dark: boolean) {
         brightYellow: '#b5ba00', brightBlue: '#0451a5', brightMagenta: '#bc05bc', brightCyan: '#0598bc', brightWhite: '#a5a5a5' };
 }
 
-/** Links like `src/main.rs:12:5` (from rustc and cargo) open the file. */
+/** Links like `src/main.rd:12:5` (from rodetc and rodet) open the file. */
 function addFileLinks(term: Term) {
-  const pattern = /((?:[A-Za-z]:)?[\w./\\-]+\.(?:rs|toml)):(\d+)(?::(\d+))?/g;
+  const pattern = /((?:[A-Za-z]:)?[\w./\\-]+\.(?:rd|rs|toml)):(\d+)(?::(\d+))?/g;
   term.xterm.registerLinkProvider({
     provideLinks(lineNumber, callback) {
       const line = term.xterm.buffer.active.getLine(lineNumber - 1)?.translateToString(true) ?? '';
@@ -173,7 +173,7 @@ export async function newTerminal() {
   await create(t('Terminal {n}', { n: terms.filter((x) => !x.task).length + 1 }), cwd);
 }
 
-/** Runs a command (e.g. `cargo run`) in a task terminal. */
+/** Runs a command (e.g. `rodet run`) in a task terminal. */
 export async function runTask(title: string, command: string[], cwd: string) {
   await workspace.saveAll();
   opening = true;
@@ -191,13 +191,14 @@ export async function runTask(title: string, command: string[], cwd: string) {
   term.xterm.writeln(`\x1b[2m> ${command.join(' ')}\x1b[0m`);
 }
 
-export function runCargo(args: string[], title?: string) {
+/** Runs `rodet …` (Silk) in the open project. */
+export function runRodet(args: string[], title?: string) {
   const root = workspace.root;
   if (!root) {
-    toast(t('Open a Cargo project first.'), 'warning');
+    toast(t('Open a Rodet project first.'), 'warning');
     return;
   }
-  runTask(title ?? `cargo ${args[0]}`, ['cargo', ...args], root);
+  runTask(title ?? `rodet ${args[0]}`, ['rodet', ...args], root);
 }
 
 function openUrl(url: string) {

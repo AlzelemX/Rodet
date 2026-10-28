@@ -7,12 +7,12 @@ use clippy_utils::{
     SpanlessEq, eq_expr_value, get_parent_expr_for_hir, higher, is_else_clause, is_none_expr, over,
     peel_blocks_with_stmt,
 };
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     Arm, BindingMode, ByRef, Expr, ExprKind, ItemKind, Node, Pat, PatExpr, PatExprKind, PatKind, Path, QPath,
 };
-use rustc_lint::LateContext;
-use rustc_span::{SyntaxContext, sym};
+use rodetc_lint::LateContext;
+use rodetc_span::{SyntaxContext, sym};
 
 pub(crate) fn check_match(cx: &LateContext<'_>, ex: &Expr<'_>, arms: &[Arm<'_>], expr: &Expr<'_>) {
     if arms.len() > 1 && expr_ty_matches_p_ty(cx, ex, expr) && check_all_arms(cx, expr.span.ctxt(), ex, arms) {

@@ -18,13 +18,13 @@
 
 /// Run one field's `check_*`.
 ///
-/// Fully qualified through [`rustc_lint::EarlyLintPass`] since some passes impl
+/// Fully qualified through [`rodetc_lint::EarlyLintPass`] since some passes impl
 /// both `EarlyLintPass` and `LateLintPass` with like-named methods, which would
 /// be ambiguous on the concrete field type.
 #[macro_export]
 macro_rules! run_combined_early_lint_pass_field {
     ($self:ident, $field:ident, $name:ident, ($($arg:expr),* $(,)?)) => {
-        rustc_lint::EarlyLintPass::$name(&mut $self.$field, $($arg),*);
+        rodetc_lint::EarlyLintPass::$name(&mut $self.$field, $($arg),*);
     };
 }
 
@@ -41,7 +41,7 @@ macro_rules! expand_combined_early_lint_pass_method {
 #[macro_export]
 macro_rules! expand_combined_early_lint_pass_methods {
     ($fields:tt, [$($(#[$attr:meta])* fn $name:ident($($param:ident: $arg:ty),*);)*]) => (
-        $(#[inline(always)] fn $name(&mut self, cx: &rustc_lint::EarlyContext<'_>, $($param: $arg),*) {
+        $(#[inline(always)] fn $name(&mut self, cx: &rodetc_lint::EarlyContext<'_>, $($param: $arg),*) {
             $crate::expand_combined_early_lint_pass_method!($fields, self, $name, (cx, $($param),*));
         })*
     )
@@ -49,7 +49,7 @@ macro_rules! expand_combined_early_lint_pass_methods {
 
 /// Declare the combined struct (one field per pass) plus its
 /// `LintPass`/`EarlyLintPass` impls. The method list comes from
-/// `rustc_lint::early_lint_methods!` so it can't drift from rustc's.
+/// `rodetc_lint::early_lint_methods!` so it can't drift from rustc's.
 ///
 /// Each entry is `Field: Type = constructor`; `new`'s params (`conf`, ...) come
 /// from the caller so ctor exprs can name them without hygiene trouble.
@@ -73,11 +73,11 @@ macro_rules! combined_early_lint_pass {
         }
 
         #[allow(rustc::lint_pass_impl_without_macro)]
-        impl rustc_lint::LintPass for $name {
+        impl rodetc_lint::LintPass for $name {
             fn name(&self) -> &'static str {
                 stringify!($name)
             }
-            fn get_lints(&self) -> rustc_lint::LintVec {
+            fn get_lints(&self) -> rodetc_lint::LintVec {
                 // Reserve at least one slot per pass up front to skip the early reallocations.
                 let mut lints = Vec::with_capacity(${count($field)});
                 $(lints.extend(<$fty>::lint_vec());)*
@@ -85,7 +85,7 @@ macro_rules! combined_early_lint_pass {
             }
         }
 
-        impl rustc_lint::EarlyLintPass for $name {
+        impl rodetc_lint::EarlyLintPass for $name {
             $crate::expand_combined_early_lint_pass_methods!([$($field),*], $methods);
         }
     };

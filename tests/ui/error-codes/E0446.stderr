@@ -18,4 +18,4 @@ LL |     type Alias2 = Box<dyn PrivTr>;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0446`.
+For more information about this error, try `rodetc --explain E0446`.

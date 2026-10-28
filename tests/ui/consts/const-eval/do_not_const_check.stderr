@@ -1,4 +1,4 @@
-error: internal compiler error: compiler/rustc_const_eval/src/const_eval/machine.rs:LL:CC: calling non-const function `mostly_harmless`
+error: internal compiler error: compiler/rodetc_const_eval/src/const_eval/machine.rs:LL:CC: calling non-const function `mostly_harmless`
   --> $DIR/do_not_const_check.rs:21:5
    |
 LL |     mostly_harmless();
@@ -17,7 +17,7 @@ query stack during panic:
 #2 [eval_to_const_value_raw] simplifying constant for the type system `_`
 #3 [analysis] running analysis passes on crate `do_not_const_check`
 end of query stack
-error: internal compiler error: compiler/rustc_const_eval/src/const_eval/machine.rs:LL:CC: calling non-const function `integer_min::<i32>`
+error: internal compiler error: compiler/rodetc_const_eval/src/const_eval/machine.rs:LL:CC: calling non-const function `integer_min::<i32>`
   --> $DIR/do_not_const_check.rs:34:5
    |
 LL |     integer_min(0, 1);

@@ -7,12 +7,12 @@ use clippy_utils::{
     is_expr_used_or_unified, paths, peel_hir_expr_while, span_contains_non_whitespace, sym,
 };
 use core::fmt::{self, Write as _};
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::intravisit::{Visitor, walk_body, walk_expr};
-use rustc_hir::{Block, Expr, ExprKind, HirId, HirIdSet, Pat, Stmt, StmtKind, UnOp};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::{DUMMY_SP, Span, SyntaxContext};
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::intravisit::{Visitor, walk_body, walk_expr};
+use rodetc_hir::{Block, Expr, ExprKind, HirId, HirIdSet, Pat, Stmt, StmtKind, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::{DUMMY_SP, Span, SyntaxContext};
 use std::ops::ControlFlow;
 
 declare_clippy_lint! {
@@ -739,7 +739,7 @@ fn find_insert_calls<'tcx>(
         map_is_mutex_guard: false,
     };
     // Check if the map is a non-async-aware `MutexGuard`
-    if let rustc_middle::ty::Adt(adt, _) = cx.typeck_results().expr_ty(contains_expr.map).kind()
+    if let rodetc_middle::ty::Adt(adt, _) = cx.typeck_results().expr_ty(contains_expr.map).kind()
         && is_mutex_guard(cx, adt.did())
     {
         s.map_is_mutex_guard = true;

@@ -76,4 +76,4 @@ LL |     let [&mut ref x] = &mut [&mut 0];
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0507, E0508, E0596.
-For more information about an error, try `rustc --explain E0507`.
+For more information about an error, try `rodetc --explain E0507`.

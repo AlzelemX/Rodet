@@ -9,14 +9,14 @@ use clippy_utils::{
 };
 use core::iter;
 use core::ops::ControlFlow;
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     Arm, Block, Expr, ExprKind, HirId, HirIdSet, ItemKind, LetStmt, Node, Stmt, StmtKind, UseKind, UseTree, intravisit,
 };
-use rustc_lint::LateContext;
-use rustc_span::hygiene::walk_chain;
-use rustc_span::source_map::SourceMap;
-use rustc_span::{Span, Symbol, SyntaxContext};
+use rodetc_lint::LateContext;
+use rodetc_span::hygiene::walk_chain;
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::{Span, Symbol, SyntaxContext};
 
 use super::BRANCHES_SHARING_CODE;
 

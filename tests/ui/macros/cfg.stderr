@@ -54,4 +54,4 @@ LL |     cfg!(foo);
 error: aborting due to 4 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0539, E0565.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

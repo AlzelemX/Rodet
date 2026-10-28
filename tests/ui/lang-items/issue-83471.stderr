@@ -70,4 +70,4 @@ LL |     a()
 error: aborting due to 7 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0425, E0573, E0658, E0718.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

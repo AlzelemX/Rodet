@@ -26,4 +26,4 @@ LL |     let _ = v.iter().filter(|&&v: &&i32| v.pow(2) > 0);
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0689`.
+For more information about this error, try `rodetc --explain E0689`.

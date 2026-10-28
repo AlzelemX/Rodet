@@ -79,4 +79,4 @@ LL |     F: for<'x> FnOnce(Cell<&'a u32>, Cell<&'x u32>),
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0521, E0597.
-For more information about an error, try `rustc --explain E0521`.
+For more information about an error, try `rodetc --explain E0521`.

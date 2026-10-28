@@ -40,10 +40,10 @@ use hir_def::{
 use hir_expand::name::Name;
 use la_arena::ArenaMap;
 use path::{PathDiagnosticCallback, PathLoweringContext};
-use rustc_abi::ExternAbi;
-use rustc_ast_ir::Mutability;
+use rodetc_abi::ExternAbi;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind, BoundRegion, BoundRegionKind, BoundTyKind, BoundVar, BoundVarIndexKind,
     DebruijnIndex, ExistentialPredicate, ExistentialProjection, ExistentialTraitRef, FnSig,
     Interner, OutlivesPredicate, TermKind, TyKind, TypeFoldable, TypeFolder, TypeSuperFoldable,
@@ -753,13 +753,13 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                 // rustc allows using generic params in pattern types.
                 // In practice this does not matter since this feature is internal and I didn't find a way to actually use generic params,
                 // but it doesn't matter so...
-                rustc_type_ir::PatternKind::Range {
+                rodetc_type_ir::PatternKind::Range {
                     start: self.lower_expr_as_const(start, ty, true),
                     end: self.lower_expr_as_const(end, ty, true),
                 }
             }
-            hir_def::hir::Pat::NotNull => rustc_type_ir::PatternKind::NotNull,
-            hir_def::hir::Pat::Or(ref pats) => rustc_type_ir::PatternKind::Or(
+            hir_def::hir::Pat::NotNull => rodetc_type_ir::PatternKind::NotNull,
+            hir_def::hir::Pat::Or(ref pats) => rodetc_type_ir::PatternKind::Or(
                 PatList::new_from_iter(
                     pats.iter().map(|&pat| self.lower_pattern_type(pat, ty).ok_or(())),
                 )
@@ -932,8 +932,8 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
             &WherePredicate::Lifetime { bound, target } => Either::Right(iter::once((
                 Clause(Predicate::new(
                     self.interner,
-                    Binder::dummy(rustc_type_ir::PredicateKind::Clause(
-                        rustc_type_ir::ClauseKind::RegionOutlives(OutlivesPredicate(
+                    Binder::dummy(rodetc_type_ir::PredicateKind::Clause(
+                        rodetc_type_ir::ClauseKind::RegionOutlives(OutlivesPredicate(
                             self.lower_lifetime(bound),
                             self.lower_lifetime(target),
                         )),
@@ -978,10 +978,10 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                     clause = Some(Clause(Predicate::new(
                         interner,
                         Binder::bind_with_vars(
-                            rustc_type_ir::PredicateKind::Clause(rustc_type_ir::ClauseKind::Trait(
+                            rodetc_type_ir::PredicateKind::Clause(rodetc_type_ir::ClauseKind::Trait(
                                 TraitPredicate {
                                     trait_ref,
-                                    polarity: rustc_type_ir::PredicatePolarity::Positive,
+                                    polarity: rodetc_type_ir::PredicatePolarity::Positive,
                                 },
                             )),
                             binder,
@@ -1014,8 +1014,8 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                 clause = Some(Clause(Predicate::new(
                     self.interner,
                     Binder::bind_with_vars(
-                        rustc_type_ir::PredicateKind::Clause(
-                            rustc_type_ir::ClauseKind::TypeOutlives(OutlivesPredicate(
+                        rodetc_type_ir::PredicateKind::Clause(
+                            rodetc_type_ir::ClauseKind::TypeOutlives(OutlivesPredicate(
                                 self_ty, lifetime,
                             )),
                         ),
@@ -1060,7 +1060,7 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                 }
                 .for_each(|(b, _)| {
                     match b.kind().skip_binder() {
-                        rustc_type_ir::ClauseKind::Trait(t) => {
+                        rodetc_type_ir::ClauseKind::Trait(t) => {
                             let id = t.def_id();
                             let is_auto =
                                 TraitSignature::of(db, id.0).flags.contains(TraitFlags::AUTO);
@@ -1074,22 +1074,22 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                                 principal = Some(b.kind().rebind(t.trait_ref));
                             }
                         }
-                        rustc_type_ir::ClauseKind::Projection(p) => {
+                        rodetc_type_ir::ClauseKind::Projection(p) => {
                             projections.push(b.kind().rebind(p));
                         }
-                        rustc_type_ir::ClauseKind::TypeOutlives(outlives_predicate) => {
+                        rodetc_type_ir::ClauseKind::TypeOutlives(outlives_predicate) => {
                             if region.is_some() {
                                 // FIXME: Report an error.
                                 had_error = true;
                             }
                             region = Some(outlives_predicate.1);
                         }
-                        rustc_type_ir::ClauseKind::RegionOutlives(_)
-                        | rustc_type_ir::ClauseKind::ConstArgHasType(_, _)
-                        | rustc_type_ir::ClauseKind::WellFormed(_)
-                        | rustc_type_ir::ClauseKind::ConstEvaluatable(_)
-                        | rustc_type_ir::ClauseKind::HostEffect(_)
-                        | rustc_type_ir::ClauseKind::UnstableFeature(_) => unreachable!(),
+                        rodetc_type_ir::ClauseKind::RegionOutlives(_)
+                        | rodetc_type_ir::ClauseKind::ConstArgHasType(_, _)
+                        | rodetc_type_ir::ClauseKind::WellFormed(_)
+                        | rodetc_type_ir::ClauseKind::ConstEvaluatable(_)
+                        | rodetc_type_ir::ClauseKind::HostEffect(_)
+                        | rodetc_type_ir::ClauseKind::UnstableFeature(_) => unreachable!(),
                     }
                 })
             }
@@ -1313,7 +1313,7 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
         let args = GenericArgs::identity_for_item(interner, def_id.into());
         let self_ty = Ty::new_alias(
             self.interner,
-            AliasTy::new_from_args(interner, rustc_type_ir::Opaque { def_id: def_id.into() }, args),
+            AliasTy::new_from_args(interner, rodetc_type_ir::Opaque { def_id: def_id.into() }, args),
         );
         let prev_is_lowering_impl_trait_bounds =
             mem::replace(&mut self.is_lowering_impl_trait_bounds, true);
@@ -1339,10 +1339,10 @@ impl<'db, 'a> TyLoweringContext<'db, 'a> {
                 );
                 Clause(Predicate::new(
                     interner,
-                    Binder::dummy(rustc_type_ir::PredicateKind::Clause(
-                        rustc_type_ir::ClauseKind::Trait(TraitPredicate {
+                    Binder::dummy(rodetc_type_ir::PredicateKind::Clause(
+                        rodetc_type_ir::ClauseKind::Trait(TraitPredicate {
                             trait_ref,
-                            polarity: rustc_type_ir::PredicatePolarity::Positive,
+                            polarity: rodetc_type_ir::PredicatePolarity::Positive,
                         }),
                     )),
                 ))
@@ -2425,7 +2425,7 @@ fn remap_gat_vars_and_recurse_into_nested_projections<'db>(
                 let RegionKind::ReBound(BoundVarIndexKind::Bound(debruijn), bv) = re.kind() else {
                     return None;
                 };
-                if debruijn != rustc_type_ir::INNERMOST {
+                if debruijn != rodetc_type_ir::INNERMOST {
                     return None;
                 }
                 mapping.insert(bv.var, mk_param(interner, param_idx, param))
@@ -2434,7 +2434,7 @@ fn remap_gat_vars_and_recurse_into_nested_projections<'db>(
                 let TyKind::Bound(BoundVarIndexKind::Bound(debruijn), bv) = ty.kind() else {
                     return None;
                 };
-                if debruijn != rustc_type_ir::INNERMOST {
+                if debruijn != rodetc_type_ir::INNERMOST {
                     return None;
                 }
                 mapping.insert(bv.var, mk_param(interner, param_idx, param))
@@ -2443,7 +2443,7 @@ fn remap_gat_vars_and_recurse_into_nested_projections<'db>(
                 let ConstKind::Bound(BoundVarIndexKind::Bound(debruijn), bv) = ct.kind() else {
                     return None;
                 };
-                if debruijn != rustc_type_ir::INNERMOST {
+                if debruijn != rodetc_type_ir::INNERMOST {
                     return None;
                 }
                 mapping.insert(bv.var, mk_param(interner, param_idx, param))
@@ -2459,7 +2459,7 @@ fn remap_gat_vars_and_recurse_into_nested_projections<'db>(
     // the remaining late-bound vars so that they count up from var 0.
     let mut folder = MapAndCompressBoundVars {
         tcx: interner,
-        binder: rustc_type_ir::INNERMOST,
+        binder: rodetc_type_ir::INNERMOST,
         still_bound_vars: vec![],
         mapping,
     };
@@ -2523,7 +2523,7 @@ impl<'db> TypeFolder<DbInterner<'db>> for MapAndCompressBoundVars<'db> {
                 self.still_bound_vars.push(BoundVariableKind::Ty(old_bound.kind));
                 let mapped = Ty::new_bound(
                     self.tcx,
-                    rustc_type_ir::INNERMOST,
+                    rodetc_type_ir::INNERMOST,
                     BoundTy { var, kind: old_bound.kind },
                 );
                 self.mapping.insert(old_bound.var, mapped.into());
@@ -2547,7 +2547,7 @@ impl<'db> TypeFolder<DbInterner<'db>> for MapAndCompressBoundVars<'db> {
                 self.still_bound_vars.push(BoundVariableKind::Region(old_bound.kind));
                 let mapped = Region::new_bound(
                     self.tcx,
-                    rustc_type_ir::INNERMOST,
+                    rodetc_type_ir::INNERMOST,
                     BoundRegion { var, kind: old_bound.kind },
                 );
                 self.mapping.insert(old_bound.var, mapped.into());
@@ -2574,7 +2574,7 @@ impl<'db> TypeFolder<DbInterner<'db>> for MapAndCompressBoundVars<'db> {
                 let var = BoundVar::from_usize(self.still_bound_vars.len());
                 self.still_bound_vars.push(BoundVariableKind::Const);
                 let mapped =
-                    Const::new_bound(self.tcx, rustc_type_ir::INNERMOST, BoundConst::new(var));
+                    Const::new_bound(self.tcx, rodetc_type_ir::INNERMOST, BoundConst::new(var));
                 self.mapping.insert(old_bound.var, mapped.into());
                 mapped
             };
@@ -2747,7 +2747,7 @@ pub(crate) fn param_env_from_predicates<'db>(
     interner: DbInterner<'db>,
     predicates: &'db GenericPredicates,
 ) -> ParamEnv<'db> {
-    let clauses = rustc_type_ir::elaborate::elaborate(
+    let clauses = rodetc_type_ir::elaborate::elaborate(
         interner,
         predicates.all_predicates().iter_identity().map(Unnormalized::skip_norm_wip),
     );
@@ -2846,10 +2846,10 @@ fn generic_predicates<'db>(
             );
             let clause = Clause(Predicate::new(
                 interner,
-                Binder::dummy(rustc_type_ir::PredicateKind::Clause(
-                    rustc_type_ir::ClauseKind::Trait(TraitPredicate {
+                Binder::dummy(rodetc_type_ir::PredicateKind::Clause(
+                    rodetc_type_ir::ClauseKind::Trait(TraitPredicate {
                         trait_ref,
-                        polarity: rustc_type_ir::PredicatePolarity::Positive,
+                        polarity: rodetc_type_ir::PredicatePolarity::Positive,
                     }),
                 )),
             ));

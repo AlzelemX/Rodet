@@ -2,9 +2,9 @@ use std::env::{self, VarError};
 use std::str::FromStr;
 use std::sync::{Mutex, OnceLock};
 
-use rustc_log::tracing;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::{CtfeBacktrace, EarlyDiagCtxt};
+use rodetc_log::tracing;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::{CtfeBacktrace, EarlyDiagCtxt};
 
 /// The tracing layer from `tracing-chrome` starts a thread in the background that saves data to
 /// file and closes the file when stopped. If the thread is not stopped properly, the file will be
@@ -24,9 +24,9 @@ impl Drop for TracingGuard {
     fn drop(&mut self) {}
 }
 
-fn rustc_logger_config() -> rustc_log::LoggerConfig {
+fn rustc_logger_config() -> rodetc_log::LoggerConfig {
     // Start with the usual env vars.
-    let mut cfg = rustc_log::LoggerConfig::from_env("RUSTC_LOG");
+    let mut cfg = rodetc_log::LoggerConfig::from_env("RUSTC_LOG");
 
     // Overwrite if MIRI_LOG is set.
     if let Ok(var) = env::var("MIRI_LOG") {
@@ -36,10 +36,10 @@ fn rustc_logger_config() -> rustc_log::LoggerConfig {
             // used for everything, we only apply it to the parts of rustc that are
             // CTFE-related. Otherwise, we use it verbatim for `RUSTC_LOG`.
             // This way, if you set `MIRI_LOG=trace`, you get only the right parts of
-            // rustc traced, but you can also do `MIRI_LOG=miri=trace,rustc_const_eval::interpret=debug`.
+            // rustc traced, but you can also do `MIRI_LOG=miri=trace,rodetc_const_eval::interpret=debug`.
             if tracing::Level::from_str(&var).is_ok() {
                 cfg.filter = Ok(format!(
-                    "rustc_middle::mir::interpret={var},rustc_const_eval::interpret={var},miri={var}"
+                    "rodetc_middle::mir::interpret={var},rodetc_const_eval::interpret={var},miri={var}"
                 ));
             } else {
                 cfg.filter = Ok(var);
@@ -69,12 +69,12 @@ fn init_logger_once(early_dcx: &EarlyDiagCtxt) {
             {
                 let (chrome_layer, chrome_guard) =
                     super::tracing_chrome::ChromeLayerBuilder::new().include_args(true).build();
-                rustc_driver::init_logger_with_additional_layer(
+                rodetc_driver::init_logger_with_additional_layer(
                     early_dcx,
                     rustc_logger_config(),
                     || {
-                        rustc_log::tracing_subscriber::layer::SubscriberExt::with(
-                            rustc_log::tracing_subscriber::Registry::default(),
+                        rodetc_log::tracing_subscriber::layer::SubscriberExt::with(
+                            rodetc_log::tracing_subscriber::Registry::default(),
                             chrome_layer,
                         )
                     },
@@ -84,7 +84,7 @@ fn init_logger_once(early_dcx: &EarlyDiagCtxt) {
             }
         } else {
             // initialize the logger without any tracing enabled
-            rustc_driver::init_logger(early_dcx, rustc_logger_config());
+            rodetc_driver::init_logger(early_dcx, rustc_logger_config());
             None
         };
         Mutex::new(guard)

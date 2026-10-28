@@ -44,9 +44,9 @@ fn main() {
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_hir/src/rodet.rs`: matches names to parameters
-- `compiler/rustc_hir_typeck/src/fn_ctxt/rodet.rs`: type checking and errors
-- `compiler/rustc_mir_build/src/thir/cx/expr.rs`: builds the call in order
+- `compiler/rodetc_hir/src/rodet.rs`: matches names to parameters
+- `compiler/rodetc_hir_typeck/src/fn_ctxt/rodet.rs`: type checking and errors
+- `compiler/rodetc_mir_build/src/thir/cx/expr.rs`: builds the call in order
 - `tests/ui/rodet/named-args.rs`, `named-args-errors.rs`: tests
 
 </details>

@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::sym;
-use rustc_hir::{Expr, Item, ItemKind, OwnerNode};
-use rustc_lint::LateContext;
+use rodetc_hir::{Expr, Item, ItemKind, OwnerNode};
+use rodetc_lint::LateContext;
 
 use super::EXIT;
 

@@ -19,4 +19,4 @@ LL | fn take_trait<'a, T: Trait<'a, 6, u8, U>, U>(_: T) {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

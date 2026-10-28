@@ -5,15 +5,15 @@ use clippy_utils::{
     span_contains_cfg, span_find_starting_semi, sym,
 };
 
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::lint::{LintCheck, LintCheckKind};
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, Expr, ExprKind, HirId, MatchSource, StmtKind};
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::{BytePos, Ident, Pos as _, Span};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::lint::{LintCheck, LintCheckKind};
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, Expr, ExprKind, HirId, MatchSource, StmtKind};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::{BytePos, Ident, Pos as _, Span};
 use std::borrow::Cow;
 use std::fmt::Display;
 

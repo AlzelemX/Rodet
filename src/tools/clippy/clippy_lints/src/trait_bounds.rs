@@ -5,17 +5,17 @@ use clippy_utils::source::{SpanExt as _, snippet, snippet_with_applicability};
 use clippy_utils::{SpanlessEq, SpanlessHash, is_from_proc_macro};
 use core::hash::{Hash, Hasher};
 use itertools::Itertools as _;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, IndexEntry};
-use rustc_data_structures::unhash::UnhashMap;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::{
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, IndexEntry};
+use rodetc_data_structures::unhash::UnhashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{
     AmbigArg, BoundPolarity, GenericBound, Generics, Item, ItemKind, Node, Path, PathSegment, PredicateOrigin, QPath,
     TraitBoundModifiers, TraitItem, TraitRef, Ty, TyKind, WherePredicateKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{Span, SyntaxContext};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{Span, SyntaxContext};
 
 declare_clippy_lint! {
     /// ### What it does

@@ -56,4 +56,4 @@ LL | impl<T> Downstream for W<T> where T: Foo {}
 
 error: aborting due to 1 previous error; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

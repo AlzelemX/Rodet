@@ -10,7 +10,7 @@ use hir_def::{
     unstable_features::UnstableFeatures,
 };
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind, ClauseKind, PredicatePolarity, TypeSuperVisitable as _, TypeVisitable as _,
     Upcast, elaborate, inherent::IntoKind,
 };
@@ -218,7 +218,7 @@ fn predicate_references_self<'db>(
     }
 }
 
-fn contains_illegal_self_type_reference<'db, T: rustc_type_ir::TypeVisitable<DbInterner<'db>>>(
+fn contains_illegal_self_type_reference<'db, T: rodetc_type_ir::TypeVisitable<DbInterner<'db>>>(
     db: &'db dyn HirDatabase,
     trait_: TraitId,
     t: &T,
@@ -230,18 +230,18 @@ fn contains_illegal_self_type_reference<'db, T: rustc_type_ir::TypeVisitable<DbI
         super_traits: Option<SmallVec<[TraitId; 4]>>,
         allow_self_projection: AllowSelfProjections,
     }
-    impl<'db> rustc_type_ir::TypeVisitor<DbInterner<'db>> for IllegalSelfTypeVisitor<'db> {
+    impl<'db> rodetc_type_ir::TypeVisitor<DbInterner<'db>> for IllegalSelfTypeVisitor<'db> {
         type Result = ControlFlow<()>;
 
         fn visit_ty(
             &mut self,
-            ty: <DbInterner<'db> as rustc_type_ir::Interner>::Ty,
+            ty: <DbInterner<'db> as rodetc_type_ir::Interner>::Ty,
         ) -> Self::Result {
             let interner = DbInterner::new_no_crate(self.db);
             match ty.kind() {
-                rustc_type_ir::TyKind::Param(param) if param.index == 0 => ControlFlow::Break(()),
-                rustc_type_ir::TyKind::Param(_) => ControlFlow::Continue(()),
-                rustc_type_ir::TyKind::Alias(
+                rodetc_type_ir::TyKind::Param(param) if param.index == 0 => ControlFlow::Break(()),
+                rodetc_type_ir::TyKind::Param(_) => ControlFlow::Continue(()),
+                rodetc_type_ir::TyKind::Alias(
                     proj @ AliasTy { kind: AliasTyKind::Projection { .. }, .. },
                 ) => match self.allow_self_projection {
                     AllowSelfProjections::Yes => {
@@ -381,7 +381,7 @@ where
         }) = pred
             && let trait_data = TraitSignature::of(db, pred_trait_ref.def_id.0)
             && trait_data.flags.contains(TraitFlags::AUTO)
-            && let rustc_type_ir::TyKind::Param(ParamTy { index: 0, .. }) =
+            && let rodetc_type_ir::TyKind::Param(ParamTy { index: 0, .. }) =
                 pred_trait_ref.self_ty().kind()
         {
             continue;
@@ -400,7 +400,7 @@ fn receiver_is_dispatchable<'db>(
     db: &'db dyn HirDatabase,
     trait_: TraitId,
     func: FunctionId,
-    sig: &EarlyBinder<'db, Binder<'db, rustc_type_ir::FnSig<DbInterner<'db>>>>,
+    sig: &EarlyBinder<'db, Binder<'db, rodetc_type_ir::FnSig<DbInterner<'db>>>>,
 ) -> bool {
     let sig = sig.instantiate_identity().skip_norm_wip();
 
@@ -411,7 +411,7 @@ fn receiver_is_dispatchable<'db>(
         local_id: LocalTypeOrConstParamId::from_raw(la_arena::RawIdx::from_u32(0)),
     });
     let self_param_ty =
-        Ty::new(interner, rustc_type_ir::TyKind::Param(ParamTy { index: 0, id: self_param_id }));
+        Ty::new(interner, rodetc_type_ir::TyKind::Param(ParamTy { index: 0, id: self_param_id }));
 
     // `self: Self` can't be dispatched on, but this is already considered dyn-compatible
     // See rustc's comment on https://github.com/rust-lang/rust/blob/3f121b9461cce02a703a0e7e450568849dfaa074/compiler/rustc_trait_selection/src/traits/object_safety.rs#L433-L437
@@ -490,18 +490,18 @@ fn receiver_for_self_ty<'db>(
 
 fn contains_illegal_impl_trait_in_trait<'db>(
     db: &'db dyn HirDatabase,
-    sig: &EarlyBinder<'db, Binder<'db, rustc_type_ir::FnSig<DbInterner<'db>>>>,
+    sig: &EarlyBinder<'db, Binder<'db, rodetc_type_ir::FnSig<DbInterner<'db>>>>,
 ) -> Option<MethodViolationCode> {
     struct OpaqueTypeCollector<'db>(FxHashSet<InternedOpaqueTyId<'db>>);
 
-    impl<'db> rustc_type_ir::TypeVisitor<DbInterner<'db>> for OpaqueTypeCollector<'db> {
+    impl<'db> rodetc_type_ir::TypeVisitor<DbInterner<'db>> for OpaqueTypeCollector<'db> {
         type Result = ControlFlow<()>;
 
         fn visit_ty(
             &mut self,
-            ty: <DbInterner<'db> as rustc_type_ir::Interner>::Ty,
+            ty: <DbInterner<'db> as rodetc_type_ir::Interner>::Ty,
         ) -> Self::Result {
-            if let rustc_type_ir::TyKind::Alias(AliasTy {
+            if let rodetc_type_ir::TyKind::Alias(AliasTy {
                 kind: AliasTyKind::Opaque { def_id },
                 ..
             }) = ty.kind()

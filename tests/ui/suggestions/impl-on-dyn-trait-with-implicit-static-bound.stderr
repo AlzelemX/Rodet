@@ -173,4 +173,4 @@ LL |     impl MyTrait for Box<dyn ObjectTrait + '_> {
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0521`.
+For more information about this error, try `rodetc --explain E0521`.

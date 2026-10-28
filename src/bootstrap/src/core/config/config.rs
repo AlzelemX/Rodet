@@ -1101,7 +1101,7 @@ impl Config {
         if llvm_ci_mode.requests_download_from_ci() {
             let warn = |option: &str| {
                 println!(
-                    "WARNING: `{option}` will only be used on `compiler/rustc_llvm` build, not for the LLVM build."
+                    "WARNING: `{option}` will only be used on `compiler/rodetc_llvm` build, not for the LLVM build."
                 );
                 println!(
                     "HELP: To use `{option}` for LLVM builds, set `download-ci-llvm` option to false."

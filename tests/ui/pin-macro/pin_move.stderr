@@ -35,4 +35,4 @@ LL |     pin!(*&mut pointee);
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0382, E0507.
-For more information about an error, try `rustc --explain E0382`.
+For more information about an error, try `rodetc --explain E0382`.

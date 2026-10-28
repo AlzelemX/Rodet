@@ -2,22 +2,22 @@
 //! the `clean` types but with some fields removed or stringified to simplify the output and not
 //! expose unstable compiler internals.
 
-use rustc_abi::ExternAbi;
-use rustc_ast::ast;
-use rustc_attr_ir::{
+use rodetc_abi::ExternAbi;
+use rodetc_ast::ast;
+use rodetc_attr_ir::{
     self, DeprecatedSince, DocAttribute, DocCfgHideShow, DocInline, HideOrShow, RustcVersion,
     find_attr,
 };
-use rustc_data_structures::fx::FxHashSet;
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_hir::def::{CtorKind, DefKind};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{HeaderSafety, Safety, intravisit};
-use rustc_hir_pretty::PpAnn;
-use rustc_metadata::rendered_const;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::def_id::ModId;
-use rustc_span::{Pos, RemapPathScopeComponents, Symbol, bug, kw, sym};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_hir::def::{CtorKind, DefKind};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{HeaderSafety, Safety, intravisit};
+use rodetc_hir_pretty::PpAnn;
+use rodetc_metadata::rendered_const;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::def_id::ModId;
+use rodetc_span::{Pos, RemapPathScopeComponents, Symbol, bug, kw, sym};
 use rustdoc_json_types::*;
 
 use crate::clean::{self, ItemId};
@@ -190,7 +190,7 @@ where
 impl FromClean<clean::Span> for Option<Span> {
     fn from_clean(span: &clean::Span, renderer: &JsonRenderer<'_>) -> Self {
         match span.filename(renderer.sess()) {
-            rustc_span::FileName::Real(name) => {
+            rodetc_span::FileName::Real(name) => {
                 let filename = name.path(RemapPathScopeComponents::DOCUMENTATION);
                 let hi = span.hi(renderer.sess());
                 let lo = span.lo(renderer.sess());
@@ -219,9 +219,9 @@ impl FromClean<Option<ty::Visibility<ModId>>> for Visibility {
     }
 }
 
-impl FromClean<rustc_attr_ir::Deprecation> for Deprecation {
-    fn from_clean(deprecation: &rustc_attr_ir::Deprecation, _renderer: &JsonRenderer<'_>) -> Self {
-        let rustc_attr_ir::Deprecation { since, note, suggestion: _ } = deprecation;
+impl FromClean<rodetc_attr_ir::Deprecation> for Deprecation {
+    fn from_clean(deprecation: &rodetc_attr_ir::Deprecation, _renderer: &JsonRenderer<'_>) -> Self {
+        let rodetc_attr_ir::Deprecation { since, note, suggestion: _ } = deprecation;
         let since = match since {
             DeprecatedSince::RustcVersion(version) => Some(version.to_string()),
             DeprecatedSince::Future => Some("TBD".to_string()),
@@ -232,48 +232,48 @@ impl FromClean<rustc_attr_ir::Deprecation> for Deprecation {
     }
 }
 
-impl FromClean<rustc_attr_ir::Stability> for Stability {
-    fn from_clean(stab: &rustc_attr_ir::Stability, _renderer: &JsonRenderer<'_>) -> Self {
+impl FromClean<rodetc_attr_ir::Stability> for Stability {
+    fn from_clean(stab: &rodetc_attr_ir::Stability, _renderer: &JsonRenderer<'_>) -> Self {
         let feature = stab.feature.to_string();
         let level = match stab.level {
-            rustc_attr_ir::StabilityLevel::Stable { since, .. } => StabilityLevel::Stable {
+            rodetc_attr_ir::StabilityLevel::Stable { since, .. } => StabilityLevel::Stable {
                 since: match since {
-                    rustc_attr_ir::StableSince::Version(since) => Some(since.to_string()),
-                    rustc_attr_ir::StableSince::Current => Some(RustcVersion::CURRENT.to_string()),
+                    rodetc_attr_ir::StableSince::Version(since) => Some(since.to_string()),
+                    rodetc_attr_ir::StableSince::Current => Some(RustcVersion::CURRENT.to_string()),
                     // Match rustdoc HTML: malformed stable-since values are omitted.
-                    rustc_attr_ir::StableSince::Err(_) => None,
+                    rodetc_attr_ir::StableSince::Err(_) => None,
                 },
             },
-            rustc_attr_ir::StabilityLevel::Unstable { .. } => StabilityLevel::Unstable,
+            rodetc_attr_ir::StabilityLevel::Unstable { .. } => StabilityLevel::Unstable,
         };
         Stability { feature, level }
     }
 }
 
-impl FromClean<rustc_attr_ir::ConstStability> for Stability {
-    fn from_clean(stab: &rustc_attr_ir::ConstStability, _renderer: &JsonRenderer<'_>) -> Self {
+impl FromClean<rodetc_attr_ir::ConstStability> for Stability {
+    fn from_clean(stab: &rodetc_attr_ir::ConstStability, _renderer: &JsonRenderer<'_>) -> Self {
         let feature = stab.feature.to_string();
         let level = match stab.level {
-            rustc_attr_ir::StabilityLevel::Stable { since, .. } => StabilityLevel::Stable {
+            rodetc_attr_ir::StabilityLevel::Stable { since, .. } => StabilityLevel::Stable {
                 since: match since {
-                    rustc_attr_ir::StableSince::Version(since) => Some(since.to_string()),
-                    rustc_attr_ir::StableSince::Current => Some(RustcVersion::CURRENT.to_string()),
+                    rodetc_attr_ir::StableSince::Version(since) => Some(since.to_string()),
+                    rodetc_attr_ir::StableSince::Current => Some(RustcVersion::CURRENT.to_string()),
                     // Match rustdoc HTML: malformed stable-since values are omitted.
-                    rustc_attr_ir::StableSince::Err(_) => None,
+                    rodetc_attr_ir::StableSince::Err(_) => None,
                 },
             },
-            rustc_attr_ir::StabilityLevel::Unstable { .. } => StabilityLevel::Unstable,
+            rodetc_attr_ir::StabilityLevel::Unstable { .. } => StabilityLevel::Unstable,
         };
         Stability { feature, level }
     }
 }
 
-impl FromClean<rustc_attr_ir::DefaultBodyStability> for Box<ProvidedDefaultUnstable> {
+impl FromClean<rodetc_attr_ir::DefaultBodyStability> for Box<ProvidedDefaultUnstable> {
     fn from_clean(
-        stab: &rustc_attr_ir::DefaultBodyStability,
+        stab: &rodetc_attr_ir::DefaultBodyStability,
         _renderer: &JsonRenderer<'_>,
     ) -> Self {
-        let rustc_attr_ir::StabilityLevel::Unstable { .. } = stab.level else {
+        let rodetc_attr_ir::StabilityLevel::Unstable { .. } = stab.level else {
             bug!(
                 "unexpected stable default-body stability, \
                  there's no stable equivalent of `#[rustc_default_body_unstable]`"
@@ -385,7 +385,7 @@ fn from_clean_item(item: &clean::Item, renderer: &JsonRenderer<'_>) -> ItemEnum 
             ItemEnum::Function(from_clean_function(m, false, None, header.unwrap(), renderer))
         }
         ImplItem(i) => ItemEnum::Impl(i.into_json(renderer)),
-        StaticItem(s) => ItemEnum::Static(from_clean_static(s, rustc_hir::Safety::Safe, renderer)),
+        StaticItem(s) => ItemEnum::Static(from_clean_static(s, rodetc_hir::Safety::Safe, renderer)),
         ForeignStaticItem(s, safety) => ItemEnum::Static(from_clean_static(s, *safety, renderer)),
         ForeignTypeItem => ItemEnum::ExternType,
         TypeAliasItem(t) => ItemEnum::TypeAlias(t.into_json(renderer)),
@@ -497,8 +497,8 @@ impl FromClean<clean::Union> for Union {
     }
 }
 
-impl FromClean<rustc_hir::FnHeader> for FunctionHeader {
-    fn from_clean(header: &rustc_hir::FnHeader, renderer: &JsonRenderer<'_>) -> Self {
+impl FromClean<rodetc_hir::FnHeader> for FunctionHeader {
+    fn from_clean(header: &rodetc_hir::FnHeader, renderer: &JsonRenderer<'_>) -> Self {
         let is_unsafe = match header.safety {
             HeaderSafety::SafeTargetFeatures => {
                 // The type system's internal implementation details consider
@@ -513,7 +513,7 @@ impl FromClean<rustc_hir::FnHeader> for FunctionHeader {
         };
         FunctionHeader {
             is_async: header.is_async(),
-            is_const: matches!(header.constness, rustc_hir::Constness::Const { .. }),
+            is_const: matches!(header.constness, rodetc_hir::Constness::Const { .. }),
             is_unsafe,
             abi: header.abi.into_json(renderer),
         }
@@ -639,12 +639,12 @@ impl FromClean<clean::GenericBound> for GenericBound {
     }
 }
 
-impl FromClean<rustc_hir::TraitBoundModifiers> for TraitBoundModifier {
+impl FromClean<rodetc_hir::TraitBoundModifiers> for TraitBoundModifier {
     fn from_clean(
-        modifiers: &rustc_hir::TraitBoundModifiers,
+        modifiers: &rodetc_hir::TraitBoundModifiers,
         _renderer: &JsonRenderer<'_>,
     ) -> Self {
-        use rustc_hir as hir;
+        use rodetc_hir as hir;
         let hir::TraitBoundModifiers { constness, polarity } = modifiers;
         match (constness, polarity) {
             (hir::BoundConstness::Never, hir::BoundPolarity::Positive) => TraitBoundModifier::None,
@@ -852,7 +852,7 @@ pub(crate) fn from_clean_function(
     clean::Function { decl, generics }: &clean::Function,
     has_body: bool,
     default_unstable: Option<Box<ProvidedDefaultUnstable>>,
-    header: rustc_hir::FnHeader,
+    header: rodetc_hir::FnHeader,
     renderer: &JsonRenderer<'_>,
 ) -> Function {
     Function {
@@ -901,7 +901,7 @@ impl FromClean<clean::Discriminant> for Discriminant {
         let tcx = renderer.tcx;
         Discriminant {
             // expr is only none if going through the inlining path, which gets
-            // `rustc_middle` types, not `rustc_hir`, but because JSON never inlines
+            // `rodetc_middle` types, not `rodetc_hir`, but because JSON never inlines
             // the expr is always some.
             expr: disr.expr(tcx).unwrap(),
             value: disr.value(tcx, false),
@@ -934,9 +934,9 @@ impl FromClean<clean::ProcMacro> for ProcMacro {
     }
 }
 
-impl FromClean<rustc_span::hygiene::MacroKind> for MacroKind {
-    fn from_clean(kind: &rustc_span::hygiene::MacroKind, _renderer: &JsonRenderer<'_>) -> Self {
-        use rustc_span::hygiene::MacroKind::*;
+impl FromClean<rodetc_span::hygiene::MacroKind> for MacroKind {
+    fn from_clean(kind: &rodetc_span::hygiene::MacroKind, _renderer: &JsonRenderer<'_>) -> Self {
+        use rodetc_span::hygiene::MacroKind::*;
         match kind {
             Bang => MacroKind::Bang,
             Attr => MacroKind::Attr,
@@ -954,7 +954,7 @@ impl FromClean<clean::TypeAlias> for TypeAlias {
 
 fn from_clean_static(
     stat: &clean::Static,
-    safety: rustc_hir::Safety,
+    safety: rodetc_hir::Safety,
     renderer: &JsonRenderer<'_>,
 ) -> Static {
     let tcx = renderer.tcx;
@@ -1013,18 +1013,18 @@ impl FromClean<ItemType> for ItemKind {
 fn default_body_stability_for_def_id(
     tcx: TyCtxt<'_>,
     def_id: DefId,
-) -> Option<rustc_attr_ir::DefaultBodyStability> {
+) -> Option<rodetc_attr_ir::DefaultBodyStability> {
     let stability = tcx.lookup_default_body_stability(def_id)?;
     match stability.level {
-        rustc_attr_ir::StabilityLevel::Unstable { .. } => Some(stability),
-        rustc_attr_ir::StabilityLevel::Stable { .. } => None,
+        rodetc_attr_ir::StabilityLevel::Unstable { .. } => Some(stability),
+        rodetc_attr_ir::StabilityLevel::Stable { .. } => None,
     }
 }
 
 fn const_stability_for_def_id(
     tcx: TyCtxt<'_>,
     def_id: DefId,
-) -> Option<rustc_attr_ir::ConstStability> {
+) -> Option<rodetc_attr_ir::ConstStability> {
     if !tcx.is_conditionally_const(def_id) {
         // The item cannot be conditionally-const. No const stability here.
         //
@@ -1067,7 +1067,7 @@ fn const_stability_for_def_id(
     } else {
         std::debug_assert_matches!(
             tcx.lookup_stability(def_id).map(|s| s.level),
-            Some(rustc_attr_ir::StabilityLevel::Unstable { .. })
+            Some(rodetc_attr_ir::StabilityLevel::Unstable { .. })
         );
         None
     }
@@ -1077,16 +1077,16 @@ fn const_stability_for_def_id(
 ///
 /// Returns `None` if the attribute shouldn't be in the output.
 fn maybe_from_hir_attr(
-    attr: &rustc_attr_ir::Attribute,
+    attr: &rodetc_attr_ir::Attribute,
     item_id: ItemId,
     tcx: TyCtxt<'_>,
 ) -> Vec<Attribute> {
-    use rustc_attr_ir::AttributeKind as AK;
+    use rodetc_attr_ir::AttributeKind as AK;
 
     let kind = match attr {
-        rustc_attr_ir::Attribute::Parsed(kind) => kind,
+        rodetc_attr_ir::Attribute::Parsed(kind) => kind,
 
-        rustc_attr_ir::Attribute::Unparsed(_) => {
+        rodetc_attr_ir::Attribute::Unparsed(_) => {
             // FIXME: We should handle `#[doc(hidden)]`.
             return vec![other_attr(tcx, attr)];
         }
@@ -1118,7 +1118,7 @@ fn maybe_from_hir_attr(
         AK::NonExhaustive(_) => Attribute::NonExhaustive,
         AK::AutomaticallyDerived => Attribute::AutomaticallyDerived,
         AK::Doc(d) => {
-            fn toggle_attr(ret: &mut Vec<Attribute>, name: &str, v: &Option<rustc_span::Span>) {
+            fn toggle_attr(ret: &mut Vec<Attribute>, name: &str, v: &Option<rodetc_span::Span>) {
                 if v.is_some() {
                     ret.push(Attribute::Other(format!("#[doc({name})]")));
                 }
@@ -1127,7 +1127,7 @@ fn maybe_from_hir_attr(
             fn name_value_attr(
                 ret: &mut Vec<Attribute>,
                 name: &str,
-                v: &Option<(Symbol, rustc_span::Span)>,
+                v: &Option<(Symbol, rodetc_span::Span)>,
             ) {
                 if let Some((v, _)) = v {
                     // We use `as_str` and debug display to have characters escaped and `"`
@@ -1249,8 +1249,8 @@ fn maybe_from_hir_attr(
     }]
 }
 
-fn other_attr(tcx: TyCtxt<'_>, attr: &rustc_attr_ir::Attribute) -> Attribute {
-    let mut s = rustc_hir_pretty::attribute_to_string(
+fn other_attr(tcx: TyCtxt<'_>, attr: &rodetc_attr_ir::Attribute) -> Attribute {
+    let mut s = rodetc_hir_pretty::attribute_to_string(
         &(&tcx as &dyn intravisit::HirTyCtxt<'_>) as &dyn PpAnn,
         attr,
     );
@@ -1278,9 +1278,9 @@ fn repr_attr(tcx: TyCtxt<'_>, def_id: DefId) -> Attribute {
     Attribute::Repr(AttributeRepr { kind, align, packed, int })
 }
 
-fn format_integer_type(it: rustc_abi::IntegerType) -> String {
-    use rustc_abi::Integer::*;
-    use rustc_abi::IntegerType::*;
+fn format_integer_type(it: rodetc_abi::IntegerType) -> String {
+    use rodetc_abi::Integer::*;
+    use rodetc_abi::IntegerType::*;
     match it {
         Pointer(true) => "isize",
         Pointer(false) => "usize",
@@ -1298,13 +1298,13 @@ fn format_integer_type(it: rustc_abi::IntegerType) -> String {
     .to_owned()
 }
 
-pub(super) fn target(sess: &rustc_session::Session) -> Target {
+pub(super) fn target(sess: &rodetc_session::Session) -> Target {
     // Build a set of which features are enabled on this target
     let globally_enabled_features: FxHashSet<&str> =
         sess.internal_target_features.iter().map(|name| name.as_str()).collect();
 
     // Build a map of target feature stability by feature name
-    use rustc_target::target_features::Stability;
+    use rodetc_target::target_features::Stability;
     let feature_stability: FxHashMap<&str, Stability> = sess
         .target
         .rust_target_features()

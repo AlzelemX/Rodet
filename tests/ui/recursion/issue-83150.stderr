@@ -21,4 +21,4 @@ error[E0275]: overflow evaluating the requirement `Map<&mut std::ops::Range<u8>,
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0275`.
+For more information about this error, try `rodetc --explain E0275`.

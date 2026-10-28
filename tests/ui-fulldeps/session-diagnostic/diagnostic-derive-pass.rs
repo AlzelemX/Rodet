@@ -11,16 +11,16 @@
 #![feature(rustc_private)]
 #![crate_type = "lib"]
 
-extern crate rustc_span;
-use rustc_span::Span;
+extern crate rodetc_span;
+use rodetc_span::Span;
 
-extern crate rustc_macros;
-use rustc_macros::Diagnostic;
+extern crate rodetc_macros;
+use rodetc_macros::Diagnostic;
 
-extern crate rustc_errors;
-use rustc_errors::ErrCode;
+extern crate rodetc_errors;
+use rodetc_errors::ErrCode;
 
-extern crate rustc_session;
+extern crate rodetc_session;
 
 extern crate core;
 

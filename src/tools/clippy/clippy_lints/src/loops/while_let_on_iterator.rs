@@ -6,15 +6,15 @@ use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::visitors::is_res_used;
 use clippy_utils::{as_some_pattern, get_enclosing_loop_or_multi_call_closure, higher, is_refutable};
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{Closure, Expr, ExprKind, HirId, LetStmt, Mutability, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter::OnlyBodies;
-use rustc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
-use rustc_span::Symbol;
-use rustc_span::symbol::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{Closure, Expr, ExprKind, HirId, LetStmt, Mutability, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter::OnlyBodies;
+use rodetc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
+use rodetc_span::Symbol;
+use rodetc_span::symbol::sym;
 
 pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, expr: &'tcx Expr<'_>) {
     if let Some(higher::WhileLet { if_then, let_pat, let_expr, label, .. }) = higher::WhileLet::hir(expr)

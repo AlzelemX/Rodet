@@ -6,10 +6,10 @@
 //! [c]: https://rust-lang.github.io/chalk/book/canonical_queries/canonicalization.html
 
 use rustc_hash::FxHashMap;
-use rustc_index::Idx;
-use rustc_type_ir::InferTy::{self, FloatVar, IntVar, TyVar};
-use rustc_type_ir::inherent::{Const as _, IntoKind as _, Region as _, Ty as _};
-use rustc_type_ir::{
+use rodetc_index::Idx;
+use rodetc_type_ir::InferTy::{self, FloatVar, IntVar, TyVar};
+use rodetc_type_ir::inherent::{Const as _, IntoKind as _, Region as _, Ty as _};
+use rodetc_type_ir::{
     BoundVar, BoundVarIndexKind, DebruijnIndex, Flags, InferConst, RegionKind, TyVid, TypeFlags,
     TypeFoldable, TypeFolder, TypeSuperFoldable, TypeVisitableExt, UniverseIndex,
 };

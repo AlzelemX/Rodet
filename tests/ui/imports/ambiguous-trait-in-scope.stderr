@@ -188,4 +188,4 @@ LL + use crate::m2::Trait;
 
 error: aborting due to 7 previous errors; 7 warnings emitted
 
-For more information about this error, try `rustc --explain E0599`.
+For more information about this error, try `rodetc --explain E0599`.

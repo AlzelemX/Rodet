@@ -13,4 +13,4 @@ LL |     let mut a: [D; 4] = /* value */;
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0381`.
+For more information about this error, try `rodetc --explain E0381`.

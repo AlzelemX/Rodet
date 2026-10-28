@@ -1,17 +1,17 @@
 //@no-rustfix
 #![feature(rustc_private)]
 
-extern crate rustc_hir;
-extern crate rustc_lint;
-extern crate rustc_middle;
-extern crate rustc_span;
+extern crate rodetc_hir;
+extern crate rodetc_lint;
+extern crate rodetc_middle;
+extern crate rodetc_span;
 
 use clippy_utils::res::MaybeDef;
 use clippy_utils::sym;
-use rustc_hir::def_id::DefId;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{AdtDef, Ty, TyCtxt};
-use rustc_span::Symbol;
+use rodetc_hir::def_id::DefId;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{AdtDef, Ty, TyCtxt};
+use rodetc_span::Symbol;
 
 fn main() {}
 

@@ -1,14 +1,14 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::{RequiresSemi, fn_def_id, is_from_proc_macro, is_lint_allowed, is_never_expr};
 use hir::intravisit::{Visitor, walk_expr};
-use rustc_ast::Label;
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_ast::Label;
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     self as hir, Closure, ClosureKind, CoroutineDesugaring, CoroutineKind, CoroutineSource, Expr, ExprKind, FnRetTy,
     FnSig, Node, TyKind,
 };
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_span::sym;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_span::sym;
 
 use super::INFINITE_LOOP;
 

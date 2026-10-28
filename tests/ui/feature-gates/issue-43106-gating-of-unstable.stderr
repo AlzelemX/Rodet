@@ -127,4 +127,4 @@ LL |     #[unstable()]
 error: aborting due to 21 previous errors
 
 Some errors have detailed explanations: E0546, E0547, E0658.
-For more information about an error, try `rustc --explain E0546`.
+For more information about an error, try `rodetc --explain E0546`.

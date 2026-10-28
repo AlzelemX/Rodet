@@ -32,4 +32,4 @@ LL | fn store1<'b>(ss: &mut SomeStruct<'b>, b: Box<dyn SomeTrait+'b>) {
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0507, E0621.
-For more information about an error, try `rustc --explain E0507`.
+For more information about an error, try `rodetc --explain E0507`.

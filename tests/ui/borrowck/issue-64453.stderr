@@ -23,4 +23,4 @@ LL |     let settings_data = from_string(settings_dir.clone());
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0015, E0507.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

@@ -4,12 +4,12 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{SpanExt as _, snippet_indent};
 use clippy_utils::tokenize_with_text;
 use itertools::Itertools as _;
-use rustc_ast::token::CommentKind;
-use rustc_ast::{AssocItemKind, AttrKind, AttrStyle, Attribute, Crate, Item, ItemKind, ModKind, NodeId};
-use rustc_errors::{Applicability, Diag, SuggestionStyle};
-use rustc_lexer::TokenKind;
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::{BytePos, ExpnKind, Ident, InnerSpan, Span, SpanData, Symbol, kw, sym};
+use rodetc_ast::token::CommentKind;
+use rodetc_ast::{AssocItemKind, AttrKind, AttrStyle, Attribute, Crate, Item, ItemKind, ModKind, NodeId};
+use rodetc_errors::{Applicability, Diag, SuggestionStyle};
+use rodetc_lexer::TokenKind;
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::{BytePos, ExpnKind, Ident, InnerSpan, Span, SpanData, Symbol, kw, sym};
 
 declare_clippy_lint! {
     /// ### What it does

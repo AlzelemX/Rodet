@@ -8,7 +8,7 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_errors;
-//~? ERROR crate `rustc_errors` required to be available in rlib format
+extern crate rodetc_errors;
+//~? ERROR crate `rodetc_errors` required to be available in rlib format
 
 fn main() {}

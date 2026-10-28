@@ -997,4 +997,4 @@ LL |         match &em {
 
 error: aborting due to 41 previous errors
 
-For more information about this error, try `rustc --explain E0507`.
+For more information about this error, try `rodetc --explain E0507`.

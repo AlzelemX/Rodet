@@ -3,14 +3,14 @@ use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{is_from_proc_macro, is_lint_allowed, last_path_segment, std_or_core};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Block, Body, Expr, ExprKind, ImplItem, ImplItemKind, Item, ItemKind, Stmt, StmtKind, UnOp};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty::{TyCtxt, TypeckResults};
-use rustc_span::sym;
-use rustc_span::symbol::kw;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Block, Body, Expr, ExprKind, ImplItem, ImplItemKind, Item, ItemKind, Stmt, StmtKind, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty::{TyCtxt, TypeckResults};
+use rodetc_span::sym;
+use rodetc_span::symbol::kw;
 
 declare_clippy_lint! {
     /// ### What it does

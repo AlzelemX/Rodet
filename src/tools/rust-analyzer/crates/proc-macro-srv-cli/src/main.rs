@@ -5,7 +5,7 @@
 #![allow(clippy::print_stdout, clippy::print_stderr)]
 
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_driver as _;
+extern crate rodetc_driver as _;
 
 mod version;
 

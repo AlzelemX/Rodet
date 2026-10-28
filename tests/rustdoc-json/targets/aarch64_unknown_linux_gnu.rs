@@ -6,7 +6,7 @@
 //@ has "$.target.target_features[?(@.name=='sve2')].implies_features" '["sve"]'
 //@ is "$.target.target_features[?(@.name=='sve2')].unstable_feature_gate" null
 
-// If this breaks due to stabilization, check rustc_target::target_features for a replacement
+// If this breaks due to stabilization, check rodetc_target::target_features for a replacement
 //@ is "$.target.target_features[?(@.name=='cssc')].unstable_feature_gate" '"aarch64_unstable_target_feature"'
 //@ is "$.target.target_features[?(@.name=='v9a')].unstable_feature_gate" '"aarch64_ver_target_feature"'
 

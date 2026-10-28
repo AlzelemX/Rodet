@@ -1,17 +1,17 @@
 use std::ops::Range;
 
-use rustc_ast::NodeId;
-use rustc_errors::{Diag, DiagCtxtHandle, Diagnostic, Level, SuggestionStyle};
-use rustc_hir::HirId;
-use rustc_hir::def::{DefKind, Namespace, Res};
-use rustc_lint::Applicability;
-use rustc_middle::middle::resolve::DocLinkResMap;
-use rustc_resolve::rustdoc::pulldown_cmark::{
+use rodetc_ast::NodeId;
+use rodetc_errors::{Diag, DiagCtxtHandle, Diagnostic, Level, SuggestionStyle};
+use rodetc_hir::HirId;
+use rodetc_hir::def::{DefKind, Namespace, Res};
+use rodetc_lint::Applicability;
+use rodetc_middle::middle::resolve::DocLinkResMap;
+use rodetc_resolve::rustdoc::pulldown_cmark::{
     BrokenLink, BrokenLinkCallback, CowStr, Event, LinkType, OffsetIter, Parser, Tag,
 };
-use rustc_resolve::rustdoc::{prepare_to_doc_link_resolution, source_span_for_markdown_range};
-use rustc_span::def_id::{DefId, ModId};
-use rustc_span::{Span, Symbol};
+use rodetc_resolve::rustdoc::{prepare_to_doc_link_resolution, source_span_for_markdown_range};
+use rodetc_span::def_id::{DefId, ModId};
+use rodetc_span::{Span, Symbol};
 
 use crate::clean::utils::{find_nearest_parent_module, inherits_doc_hidden};
 use crate::clean::{Item, inline};

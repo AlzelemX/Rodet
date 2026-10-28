@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::{SpanlessEq, is_integer_literal, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Spanned;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Spanned;
 
 use super::GET_LAST_WITH_LEN;
 

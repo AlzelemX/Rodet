@@ -70,4 +70,4 @@ LL | fn f<T, S>(data: &[T], key: impl Fn(&T) -> S) {
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

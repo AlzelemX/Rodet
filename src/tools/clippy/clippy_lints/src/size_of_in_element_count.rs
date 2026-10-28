@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::sym;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Symbol;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Symbol;
 
 declare_clippy_lint! {
     /// ### What it does

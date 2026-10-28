@@ -6,4 +6,4 @@ LL | fn f<T: B<U<1i32> = ()>>() {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0747`.
+For more information about this error, try `rodetc --explain E0747`.

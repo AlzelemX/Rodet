@@ -214,9 +214,9 @@ Let's start by opening the new file created in the `clippy_lints` crate at
 is. This file has already imported some initial things we will need:
 
 ```rust
-use rustc_lint::{EarlyLintPass, EarlyContext};
-use rustc_session::declare_lint_pass;
-use rustc_ast::ast::*;
+use rodetc_lint::{EarlyLintPass, EarlyContext};
+use rodetc_session::declare_lint_pass;
+use rodetc_ast::ast::*;
 ```
 
 The next step is to update the lint declaration. Lints are declared using the
@@ -793,7 +793,7 @@ Here are some pointers to things you are likely going to need for every lint:
 For `EarlyLintPass` lints:
 
 * [`EarlyLintPass`][early_lint_pass]
-* [`rustc_ast::ast`][ast]
+* [`rodetc_ast::ast`][ast]
 
 For `LateLintPass` lints:
 

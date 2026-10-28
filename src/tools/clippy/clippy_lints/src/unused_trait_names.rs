@@ -2,13 +2,13 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_from_proc_macro;
 use clippy_utils::msrvs::{self, Msrv};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{Item, ItemKind, UseKind, UseTree};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::Visibility;
-use rustc_span::symbol::kw;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{Item, ItemKind, UseKind, UseTree};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::Visibility;
+use rodetc_span::symbol::kw;
 
 declare_clippy_lint! {
     /// ### What it does

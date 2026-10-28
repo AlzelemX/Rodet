@@ -1,7 +1,7 @@
 use expect_test::expect_file;
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_span::create_default_session_globals_then;
-use rustc_span::edition::Edition;
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_span::create_default_session_globals_then;
+use rodetc_span::edition::Edition;
 use test::Bencher;
 
 use super::{DecorationInfo, write_code};
@@ -93,7 +93,7 @@ let a = 4;";
 
 #[bench]
 fn bench_html_highlighting(b: &mut Bencher) {
-    let src = include_str!("../../../../compiler/rustc_ast/src/visit.rs");
+    let src = include_str!("../../../../compiler/rodetc_ast/src/visit.rs");
 
     create_default_session_globals_then(|| {
         b.iter(|| {

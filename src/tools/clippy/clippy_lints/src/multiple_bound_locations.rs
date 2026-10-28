@@ -1,8 +1,8 @@
-use rustc_ast::visit::FnKind;
-use rustc_ast::{Fn, NodeId, WherePredicateKind};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::visit::FnKind;
+use rodetc_ast::{Fn, NodeId, WherePredicateKind};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::Span;
 
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::source::SpanExt as _;

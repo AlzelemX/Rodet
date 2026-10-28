@@ -24,4 +24,4 @@ LL |     fn ref_wrap_ref_Self<'a>(self: &'a Wrap<&'a Self, u32>, f: &'a u32) -> 
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0106`.
+For more information about this error, try `rodetc --explain E0106`.

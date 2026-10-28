@@ -166,4 +166,4 @@ LL | #[rustc_must_implement_one_of(a, b, c)]
 
 error: aborting due to 16 previous errors
 
-For more information about this error, try `rustc --explain E0539`.
+For more information about this error, try `rodetc --explain E0539`.

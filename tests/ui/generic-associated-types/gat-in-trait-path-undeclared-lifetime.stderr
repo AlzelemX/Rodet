@@ -23,4 +23,4 @@ LL |   fn _f(arg : Box<dyn for<'a> X<Y<'x> = &'a [u32]>>) {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0261, E0582.
-For more information about an error, try `rustc --explain E0261`.
+For more information about an error, try `rodetc --explain E0261`.

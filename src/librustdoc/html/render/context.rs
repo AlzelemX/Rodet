@@ -6,14 +6,14 @@ use std::path::{Path, PathBuf};
 use std::sync::mpsc::{Receiver, channel};
 
 use askama::Template;
-use rustc_ast::join_path_syms;
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_hir::def_id::{DefIdMap, LOCAL_CRATE};
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
-use rustc_span::edition::Edition;
-use rustc_span::{BytePos, FileName, RemapPathScopeComponents, Symbol};
+use rodetc_ast::join_path_syms;
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_hir::def_id::{DefIdMap, LOCAL_CRATE};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
+use rodetc_span::edition::Edition;
+use rodetc_span::{BytePos, FileName, RemapPathScopeComponents, Symbol};
 use serde::ser::SerializeSeq;
 use tracing::info;
 

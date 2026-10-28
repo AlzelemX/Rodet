@@ -25,4 +25,4 @@ LL ~ impl<'a, S: Site> From<<S::Child<'a> as Child>::Error> for MyError<S::Error
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0119, E0207.
-For more information about an error, try `rustc --explain E0119`.
+For more information about an error, try `rodetc --explain E0119`.

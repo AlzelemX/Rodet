@@ -6,17 +6,17 @@ use clippy_utils::macros::span_is_local;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::SpanExt as _;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{Visitor, walk_path};
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{Visitor, walk_path};
+use rodetc_hir::{
     FnRetTy, GenericArg, GenericArgs, HirId, Impl, ImplItemId, ImplItemKind, Item, ItemKind, PatKind, Path,
     PathSegment, Ty as HirTy, TyKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::hir::nested_filter::OnlyBodies;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::symbol::{kw, sym};
-use rustc_span::{Span, Symbol};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::hir::nested_filter::OnlyBodies;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::symbol::{kw, sym};
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

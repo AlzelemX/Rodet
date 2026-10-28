@@ -1,10 +1,10 @@
 use std::panic::{AssertUnwindSafe, catch_unwind};
 
-use rustc_ast::ast;
-use rustc_ast::token::TokenKind;
-use rustc_parse::exp;
-use rustc_parse::parser::{AllowConstBlockItems, ForceCollect};
-use rustc_span::symbol::kw;
+use rodetc_ast::ast;
+use rodetc_ast::token::TokenKind;
+use rodetc_parse::exp;
+use rodetc_parse::parser::{AllowConstBlockItems, ForceCollect};
+use rodetc_span::symbol::kw;
 
 use crate::parse::macros::build_stream_parser;
 use crate::parse::session::ParseSess;
@@ -49,7 +49,7 @@ fn parse_cfg_if_inner<'a>(
             // to the opening brace.
             // See also https://github.com/rust-lang/rust/pull/79433
             parser
-                .parse_attribute(rustc_parse::parser::attr::InnerAttrPolicy::Permitted)
+                .parse_attribute(rodetc_parse::parser::attr::InnerAttrPolicy::Permitted)
                 .map_err(|e| {
                     e.cancel();
                     "Failed to parse attributes"

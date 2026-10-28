@@ -289,4 +289,4 @@ LL |     const fn i_f5(x: isize, _: ...) {}
 error: aborting due to 33 previous errors
 
 Some errors have detailed explanations: E0493, E0658.
-For more information about an error, try `rustc --explain E0493`.
+For more information about an error, try `rodetc --explain E0493`.

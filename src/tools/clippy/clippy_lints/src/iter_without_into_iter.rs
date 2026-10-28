@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
 use clippy_utils::ty::{deref_chain, get_adt_inherent_method, implements_trait, make_normalized_projection};
 use clippy_utils::{get_parent_as_impl, sym};
-use rustc_ast::Mutability;
-use rustc_errors::Applicability;
-use rustc_hir::{FnRetTy, ImplItemKind, ImplicitSelfKind, ItemKind, TyKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::{self, Ty};
+use rodetc_ast::Mutability;
+use rodetc_errors::Applicability;
+use rodetc_hir::{FnRetTy, ImplItemKind, ImplicitSelfKind, ItemKind, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::{self, Ty};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -113,7 +113,7 @@ declare_lint_pass!(IterWithoutIntoIter => [
 /// RPIT is stable, but impl Trait in traits is not (yet), so when we have
 /// a function such as `fn iter(&self) -> impl IntoIterator`, we can't
 /// suggest `type IntoIter = impl IntoIterator`.
-fn is_nameable_in_impl_trait(ty: &rustc_hir::Ty<'_>) -> bool {
+fn is_nameable_in_impl_trait(ty: &rodetc_hir::Ty<'_>) -> bool {
     !matches!(ty.kind, TyKind::OpaqueDef(..))
 }
 
@@ -124,7 +124,7 @@ fn is_ty_exported(cx: &LateContext<'_>, ty: Ty<'_>) -> bool {
 }
 
 impl LateLintPass<'_> for IterWithoutIntoIter {
-    fn check_item(&mut self, cx: &LateContext<'_>, item: &rustc_hir::Item<'_>) {
+    fn check_item(&mut self, cx: &LateContext<'_>, item: &rodetc_hir::Item<'_>) {
         if let ItemKind::Impl(imp) = item.kind
             && let TyKind::Ref(_, self_ty_without_ref, _) = &imp.self_ty.kind
             && let Some(of_trait) = imp.of_trait
@@ -196,7 +196,7 @@ impl {self_ty_without_ref} {{
         }
     }
 
-    fn check_impl_item(&mut self, cx: &LateContext<'_>, item: &rustc_hir::ImplItem<'_>) {
+    fn check_impl_item(&mut self, cx: &LateContext<'_>, item: &rodetc_hir::ImplItem<'_>) {
         let item_did = item.owner_id.to_def_id();
         let (borrow_prefix, expected_implicit_self) = match item.ident.name {
             sym::iter => ("&", ImplicitSelfKind::RefImm),

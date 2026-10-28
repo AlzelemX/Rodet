@@ -28,4 +28,4 @@ LL |                 std::str::from_utf8(t).map_err(|_| FromSqlError::InvalidTyp
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0515`.
+For more information about this error, try `rodetc --explain E0515`.

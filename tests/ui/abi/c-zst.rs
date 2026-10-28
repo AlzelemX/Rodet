@@ -63,5 +63,5 @@ extern "C" fn(i32, (), i32);
 extern crate minicore;
 use minicore::*;
 
-#[rustc_abi(debug)]
+#[rodetc_abi(debug)]
 extern "C" fn pass_zst(_: ()) {} //~ ERROR: fn_abi

@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::sym;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Lit, UnOp};
-use rustc_lint::LateContext;
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Lit, UnOp};
+use rodetc_lint::LateContext;
 use std::cmp::Ordering;
 use std::fmt;
 

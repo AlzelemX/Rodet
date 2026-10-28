@@ -166,11 +166,11 @@ use clippy_utils::macros::FormatArgsStorage;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::{contains_return, iter_input_pats, peel_blocks, sym};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_hir::{self as hir, Expr, ExprKind, Node, Stmt, StmtKind, TraitItem, TraitItemKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty::TraitRef;
-use rustc_span::{Span, Symbol};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_hir::{self as hir, Expr, ExprKind, Node, Stmt, StmtKind, TraitItem, TraitItemKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty::TraitRef;
+use rodetc_span::{Span, Symbol};
 
 use crate::matches::manual_filter;
 
@@ -5258,8 +5258,8 @@ pub struct Methods {
     allowed_dotfiles: FxHashSet<&'static str>,
     format_args: FormatArgsStorage,
     allow_unwrap_types: Vec<String>,
-    unwrap_allowed_ids: FxHashSet<rustc_hir::def_id::DefId>,
-    unwrap_allowed_aliases: Vec<rustc_hir::def_id::DefId>,
+    unwrap_allowed_ids: FxHashSet<rodetc_hir::def_id::DefId>,
+    unwrap_allowed_aliases: Vec<rodetc_hir::def_id::DefId>,
 }
 
 impl Methods {
@@ -5302,7 +5302,7 @@ impl<'tcx> LateLintPass<'tcx> for Methods {
         for s in &self.allow_unwrap_types {
             let def_ids = clippy_utils::paths::lookup_path_str(cx.tcx, clippy_utils::paths::PathNS::Type, s);
             for def_id in def_ids {
-                if cx.tcx.def_kind(def_id) == rustc_hir::def::DefKind::TyAlias {
+                if cx.tcx.def_kind(def_id) == rodetc_hir::def::DefKind::TyAlias {
                     self.unwrap_allowed_aliases.push(def_id);
                 } else {
                     self.unwrap_allowed_ids.insert(def_id);

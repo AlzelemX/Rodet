@@ -5,12 +5,12 @@ use clippy_utils::is_from_proc_macro;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::SpanExt as _;
-use rustc_errors::Applicability;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{BinOpKind, Constness, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, Lint, LintContext as _, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{BinOpKind, Constness, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, Lint, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
 
 declare_clippy_lint! {
     /// ### What it does

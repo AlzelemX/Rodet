@@ -70,4 +70,4 @@ LL | reuse inherent_impl::X::foo as x_foo;
 error: aborting due to 10 previous errors
 
 Some errors have detailed explanations: E0034, E0599, E0618.
-For more information about an error, try `rustc --explain E0034`.
+For more information about an error, try `rodetc --explain E0034`.

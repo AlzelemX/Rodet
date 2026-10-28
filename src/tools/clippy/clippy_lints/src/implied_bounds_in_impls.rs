@@ -2,16 +2,16 @@ use std::cmp::max_by_key;
 
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
-use rustc_errors::{Applicability, SuggestionStyle};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{
+use rodetc_errors::{Applicability, SuggestionStyle};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{
     AmbigArg, AssocItemConstraint, GenericArg, GenericBound, GenericBounds, PredicateOrigin, TraitBoundModifiers,
     TyKind, WherePredicateKind,
 };
-use rustc_hir_analysis::lower_ty;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{self, AssocItem, ClauseKind, Generics, Ty, TyCtxt};
-use rustc_span::Span;
+use rodetc_hir_analysis::lower_ty;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{self, AssocItem, ClauseKind, Generics, Ty, TyCtxt};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -53,7 +53,7 @@ declare_lint_pass!(ImpliedBoundsInImpls => [IMPLIED_BOUNDS_IN_IMPLS]);
 
 fn emit_lint(
     cx: &LateContext<'_>,
-    poly_trait: &rustc_hir::PolyTraitRef<'_>,
+    poly_trait: &rodetc_hir::PolyTraitRef<'_>,
     bounds: GenericBounds<'_>,
     index: usize,
     // The constraints that were implied, used for suggestion purposes since removing a bound with
@@ -328,7 +328,7 @@ fn check<'tcx>(cx: &LateContext<'tcx>, bounds: GenericBounds<'tcx>) {
 }
 
 impl<'tcx> LateLintPass<'tcx> for ImpliedBoundsInImpls {
-    fn check_generics(&mut self, cx: &LateContext<'tcx>, generics: &rustc_hir::Generics<'tcx>) {
+    fn check_generics(&mut self, cx: &LateContext<'tcx>, generics: &rodetc_hir::Generics<'tcx>) {
         for predicate in generics.predicates {
             if let WherePredicateKind::BoundPredicate(predicate) = predicate.kind
                 // In theory, the origin doesn't really matter,
@@ -341,7 +341,7 @@ impl<'tcx> LateLintPass<'tcx> for ImpliedBoundsInImpls {
         }
     }
 
-    fn check_ty(&mut self, cx: &LateContext<'tcx>, ty: &rustc_hir::Ty<'tcx, AmbigArg>) {
+    fn check_ty(&mut self, cx: &LateContext<'tcx>, ty: &rodetc_hir::Ty<'tcx, AmbigArg>) {
         if let TyKind::OpaqueDef(opaque_ty, ..) = ty.kind {
             check(cx, opaque_ty.bounds);
         }

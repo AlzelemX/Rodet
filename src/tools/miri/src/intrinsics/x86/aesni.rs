@@ -1,5 +1,5 @@
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
 
 use crate::*;
 

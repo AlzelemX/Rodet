@@ -93,4 +93,4 @@ LL + impl<const N: u8> Foo for B<N> {}
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0425, E0747.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

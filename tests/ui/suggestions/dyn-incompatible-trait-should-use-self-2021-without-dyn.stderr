@@ -84,4 +84,4 @@ LL |     fn f(&self, c: C) -> impl C;
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0782`.
+For more information about this error, try `rodetc --explain E0782`.

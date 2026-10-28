@@ -4,13 +4,13 @@ use std::sync::Arc;
 use std::time::Instant;
 
 use genmc_sys::EstimationResult;
-use rustc_abi::Endian;
-use rustc_log::tracing;
-use rustc_middle::ty::TyCtxt;
+use rodetc_abi::Endian;
+use rodetc_log::tracing;
+use rodetc_middle::ty::TyCtxt;
 
 use super::GlobalState;
 use crate::concurrency::genmc::ExecutionEndResult;
-use crate::rustc_const_eval::interpret::PointerArithmetic;
+use crate::rodetc_const_eval::interpret::PointerArithmetic;
 use crate::{GenmcConfig, GenmcCtx, MiriConfig};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -97,7 +97,7 @@ fn run_genmc_mode_impl<'tcx>(
                 // we just print GenMC's error string, and the full GenMC output if requested.
                 eprintln!("(GenMC) Error detected: {error}");
                 genmc_ctx.print_genmc_output(genmc_config, tcx);
-                return Err(NonZeroI32::new(rustc_driver::EXIT_FAILURE).unwrap());
+                return Err(NonZeroI32::new(rodetc_driver::EXIT_FAILURE).unwrap());
             }
         }
     }

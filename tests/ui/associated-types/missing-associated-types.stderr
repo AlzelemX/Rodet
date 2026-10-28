@@ -53,4 +53,4 @@ LL | type Bal<Rhs> = dyn X<Rhs>;
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0191, E0225.
-For more information about an error, try `rustc --explain E0191`.
+For more information about an error, try `rodetc --explain E0191`.

@@ -66,4 +66,4 @@ LL |     fn static_method<'c: 'c, U, const B: bool>(x: usize) {}
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

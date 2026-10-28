@@ -24,8 +24,8 @@
 #![allow(warnings)]
 #![cfg(feature = "tracing")]
 
-use rustc_log::tracing_core::{field::Field, span, Event, Subscriber};
-use rustc_log::tracing_subscriber::{
+use rodetc_log::tracing_core::{field::Field, span, Event, Subscriber};
+use rodetc_log::tracing_subscriber::{
     self,
     layer::Context,
     registry::{LookupSpan, SpanRef},

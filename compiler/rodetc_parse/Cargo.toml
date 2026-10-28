@@ -1,0 +1,29 @@
+[package]
+name = "rodetc_parse"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+bitflags = "2.4.1"
+rustc-literal-escaper = "0.0.8"
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_ast_pretty = { path = "../rodetc_ast_pretty" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_feature = { path = "../rodetc_feature" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_lexer = { path = "../rodetc_lexer" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+thin-vec = "0.2.21"
+tracing = "0.1"
+unicode-normalization = "0.1.25"
+unicode-width = "0.2.2"
+# tidy-alphabetical-end
+
+[dev-dependencies]
+# tidy-alphabetical-start
+# tidy-alphabetical-end

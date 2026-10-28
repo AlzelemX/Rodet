@@ -5,11 +5,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::macro_backtrace;
 use clippy_utils::source::snippet;
 use clippy_utils::{is_from_proc_macro, sym};
-use rustc_hir::{Expr, ExprKind, Item, ItemKind, Node};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_span::Span;
+use rodetc_hir::{Expr, ExprKind, Item, ItemKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

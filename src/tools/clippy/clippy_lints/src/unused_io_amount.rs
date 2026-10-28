@@ -3,10 +3,10 @@ use clippy_utils::macros::{is_panic, root_macro_call_first_node};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::{paths, peel_blocks, sym};
 use hir::{ExprKind, HirId, PatKind};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

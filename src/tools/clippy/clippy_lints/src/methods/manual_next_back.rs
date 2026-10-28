@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::sym;
 use clippy_utils::ty::implements_trait;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,

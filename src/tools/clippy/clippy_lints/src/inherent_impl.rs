@@ -2,11 +2,11 @@ use clippy_config::Conf;
 use clippy_config::types::InherentImplLintScope;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::{fulfill_or_allowed, is_cfg_test, is_in_cfg_test};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def_id::{LocalDefId, LocalModId};
-use rustc_hir::{Item, ItemKind, Node};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{FileName, Span};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def_id::{LocalDefId, LocalModId};
+use rodetc_hir::{Item, ItemKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{FileName, Span};
 use std::collections::hash_map::Entry;
 
 declare_clippy_lint! {

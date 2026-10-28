@@ -143,7 +143,7 @@ declare_tests!(
         "build rust-analyzer-proc-macro-srv src/tools/rust-analyzer/crates/proc-macro-srv-cli"
     ),
     (x_build_rustc, "build rustc"),
-    (x_build_rustc_llvm, "build rustc_llvm"),
+    (x_build_rustc_llvm, "build rodetc_llvm"),
     (x_build_rustdoc, "build rustdoc"),
     (x_build_src_tools_rust_analyzer, "build src/tools/rust-analyzer"),
     (

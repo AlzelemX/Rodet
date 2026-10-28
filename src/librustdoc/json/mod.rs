@@ -14,14 +14,14 @@ use std::io::{BufWriter, Write, stdout};
 use std::path::PathBuf;
 use std::rc::Rc;
 
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::{DefId, DefIdSet};
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
-use rustc_span::def_id::LOCAL_CRATE;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::{DefId, DefIdSet};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
+use rodetc_span::def_id::LOCAL_CRATE;
 use rustdoc_json_types as types;
 // It's important to use the FxHashMap from rustdoc_json_types here, instead of
-// the one from rustc_data_structures, as they're different types due to sysroots.
+// the one from rodetc_data_structures, as they're different types due to sysroots.
 // See #110051 and #127456 for details
 use rustdoc_json_types::FxHashMap;
 use tracing::{debug, trace};
@@ -422,7 +422,7 @@ fn serialize_and_write<T: Write>(
 // because we have access to `static_assert_size` here.
 #[cfg(target_pointer_width = "64")]
 mod size_asserts {
-    use rustc_data_structures::static_assert_size;
+    use rodetc_data_structures::static_assert_size;
 
     use super::types::*;
     // tidy-alphabetical-start

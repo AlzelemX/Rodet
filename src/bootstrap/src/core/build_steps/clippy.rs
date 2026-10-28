@@ -261,7 +261,7 @@ impl CommandLineStep for Rustc {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.crate_or_deps("rustc-main").path("compiler")
+        run.crate_or_deps("rodetc-main").path("compiler")
     }
 
     fn is_default_step(_builder: &Builder<'_>) -> bool {
@@ -345,7 +345,7 @@ impl CommandLineStep for CodegenGcc {
     type Output = ();
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_gcc")
+        run.alias("rodetc_codegen_gcc")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -364,7 +364,7 @@ impl CommandLineStep for CodegenGcc {
             Mode::Codegen,
             target,
             Kind::Clippy,
-            "compiler/rustc_codegen_gcc",
+            "compiler/rodetc_codegen_gcc",
             SourceType::InTree,
             &[],
         );
@@ -372,14 +372,14 @@ impl CommandLineStep for CodegenGcc {
 
         let _guard = builder.msg(
             Kind::Clippy,
-            "rustc_codegen_gcc",
+            "rodetc_codegen_gcc",
             Mode::ToolRustcPrivate,
             build_compiler,
             target,
         );
 
         let stamp = BuildStamp::new(&builder.cargo_out(build_compiler, Mode::Codegen, target))
-            .with_prefix("rustc_codegen_gcc-check");
+            .with_prefix("rodetc_codegen_gcc-check");
 
         let args = lint_args(builder, &self.config, &[]);
         run_cargo(builder, cargo, args.clone(), &stamp, vec![], ArtifactKeepMode::OnlyRmeta);
@@ -391,19 +391,19 @@ impl CommandLineStep for CodegenGcc {
             Mode::Codegen,
             target,
             Kind::Clippy,
-            "compiler/rustc_codegen_gcc",
+            "compiler/rodetc_codegen_gcc",
             SourceType::InTree,
             &[],
         );
         self.build_compiler.configure_cargo(&mut cargo);
-        println!("Now running clippy on `rustc_codegen_gcc` with `--no-default-features`");
+        println!("Now running clippy on `rodetc_codegen_gcc` with `--no-default-features`");
         cargo.arg("--no-default-features");
         run_cargo(builder, cargo, args, &stamp, vec![], ArtifactKeepMode::OnlyRmeta);
     }
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::clippy("rustc_codegen_gcc", self.target)
+            StepMetadata::clippy("rodetc_codegen_gcc", self.target)
                 .built_by(self.build_compiler.build_compiler()),
         )
     }
@@ -552,7 +552,7 @@ impl CommandLineStep for CI {
         // We want to check in-tree source using in-tree clippy. However, if we naively did
         // a stage 2 `x clippy ci`, it would *build* a stage 2 rustc, in order to lint stage 2
         // std, which is wasteful.
-        // So we want to lint stage 2 [bootstrap/rustc/...], but only stage 1 std rustc_codegen_gcc.
+        // So we want to lint stage 2 [bootstrap/rustc/...], but only stage 1 std rodetc_codegen_gcc.
         // We thus construct the compilers in this step manually, to optimize the number of
         // steps that get built.
 
@@ -662,7 +662,7 @@ impl CommandLineStep for CI {
             vec![],
         ));
 
-        let rustc_codegen_gcc = LintConfig {
+        let rodetc_codegen_gcc = LintConfig {
             allow: vec![],
             warn: vec![],
             deny: vec!["warnings".into()],
@@ -672,7 +672,7 @@ impl CommandLineStep for CI {
         builder.ensure(CodegenGcc::new(
             builder,
             self.target,
-            self.config.merge(&rustc_codegen_gcc),
+            self.config.merge(&rodetc_codegen_gcc),
         ));
     }
 }

@@ -64,4 +64,4 @@ LL | #[unsafe(naked)]
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0433, E0736.
-For more information about an error, try `rustc --explain E0433`.
+For more information about an error, try `rodetc --explain E0433`.

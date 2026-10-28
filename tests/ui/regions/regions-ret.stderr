@@ -9,4 +9,4 @@ LL |     return &id(3);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0515`.
+For more information about this error, try `rodetc --explain E0515`.

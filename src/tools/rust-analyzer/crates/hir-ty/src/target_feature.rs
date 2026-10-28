@@ -45,7 +45,7 @@ impl<'db> TargetFeatures<'db> {
 }
 
 // List of the target features each target feature implies.
-// Ideally we'd depend on rustc for this, but rustc_target doesn't compile on stable,
+// Ideally we'd depend on rustc for this, but rodetc_target doesn't compile on stable,
 // and t-compiler prefers for it to stay this way.
 
 static TARGET_FEATURE_IMPLICATIONS: LazyLock<FxHashMap<Symbol, Box<[Symbol]>>> =
@@ -69,7 +69,7 @@ static TARGET_FEATURE_IMPLICATIONS: LazyLock<FxHashMap<Symbol, Box<[Symbol]>>> =
         result
     });
 
-#[expect(dead_code, reason = "stubs for rustc_target")]
+#[expect(dead_code, reason = "stubs for rodetc_target")]
 enum Stability {
     Stable,
     Unstable(()),
@@ -81,7 +81,7 @@ type ImpliedFeatures = &'static [&'static str];
 
 // spellchecker:off
 
-#[expect(non_upper_case_globals, reason = "stubs for rustc_target")]
+#[expect(non_upper_case_globals, reason = "stubs for rodetc_target")]
 mod sym {
     // ARM
     pub(super) const arm_target_feature: () = ();
@@ -133,7 +133,7 @@ mod sym {
     pub(super) const xtensa_target_feature: () = ();
 }
 
-// The following code is copied verbatim from compiler/rustc_target/src/target_features.rs.
+// The following code is copied verbatim from compiler/rodetc_target/src/target_features.rs.
 
 static ARM_FEATURES: &[(&str, Stability, ImpliedFeatures)] = &[
     // tidy-alphabetical-start

@@ -3,9 +3,9 @@
 #
 #   curl -fsSL https://github.com/AlzelemX/rodet/releases/latest/download/rodet_init.sh | sh
 #
-# Installs the Rodet toolchain (rustc, cargo, rustdoc, standard library) into
+# Installs the Rodet toolchain (rodet, rodetc, rodetdoc, standard library) into
 # ~/.rodet and adds ~/.rodet/bin to the PATH in your shell startup files, so
-# `rustc` and `cargo` in a new terminal are Rodet. There is no toolchain
+# `rodet` and `rodetc` work in a new terminal. There is no toolchain
 # switching: Rodet is the only toolchain it knows about.
 #
 # Options (when running the file directly: sh rodet_init.sh ...):
@@ -111,23 +111,23 @@ install() {
     step "Unpacking"
     tar -xJf "$package" -C "$tmp" ||
         die "could not unpack (on Linux, install xz: sudo apt install xz-utils)"
-    [ -x "$tmp/rodet/bin/rustc" ] || die "$package does not look like a Rodet package"
+    [ -x "$tmp/rodet/bin/rodetc" ] || die "$package does not look like a Rodet package"
     rm -rf "$INSTALL_DIR"
     mkdir -p "$(dirname "$INSTALL_DIR")"
     mv "$tmp/rodet" "$INSTALL_DIR"
 
     step "Checking the installation"
-    "$INSTALL_DIR/bin/rustc" --version > "$tmp/version" 2>&1 || {
+    "$INSTALL_DIR/bin/rodetc" --version > "$tmp/version" 2>&1 || {
         cat "$tmp/version" >&2
-        die "rustc does not run on this system (on Linux this usually means glibc is too old)"
+        die "rodetc does not run on this system (on Linux this usually means glibc is too old)"
     }
     say "    $(cat "$tmp/version")"
-    say "    $("$INSTALL_DIR/bin/cargo" --version)"
+    say "    $("$INSTALL_DIR/bin/rodet" --version)"
 
     step "Adding $INSTALL_DIR/bin to your PATH in"
     add_path_lines
 
-    # Rust uses the system C compiler/linker to produce executables.
+    # Rodet uses the system C compiler/linker to produce executables.
     if ! command -v cc > /dev/null 2>&1; then
         say ""
         say "NOTE: no C compiler/linker (cc) was found. Rodet needs one to build programs:"
@@ -141,8 +141,8 @@ install() {
     say ""
     say "Rodet is installed. Open a NEW terminal (or run: export PATH=\"$INSTALL_DIR/bin:\$PATH\")"
     say "and try:"
-    say "    rustc --version"
-    say "    cargo new hello && cd hello && cargo run"
+    say "    rodet --version"
+    say "    rodet new hello && cd hello && rodet run"
 }
 
 uninstall() {

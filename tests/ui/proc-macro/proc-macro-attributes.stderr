@@ -133,7 +133,7 @@ LL | #[derive(B)]
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0659`.
+For more information about this error, try `rodetc --explain E0659`.
 Future incompatibility report: Future breakage diagnostic:
 error: derive helper attribute is used before it is introduced
   --> $DIR/proc-macro-attributes.rs:6:3

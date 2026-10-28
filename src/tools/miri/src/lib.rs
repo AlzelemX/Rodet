@@ -59,28 +59,28 @@
 #![recursion_limit = "256"]
 
 // The rustc crates we need
-extern crate rustc_abi;
+extern crate rodetc_abi;
 extern crate rustc_apfloat;
-extern crate rustc_ast;
-extern crate rustc_attr_ir;
-extern crate rustc_codegen_ssa;
-extern crate rustc_const_eval;
-extern crate rustc_data_structures;
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_hir_analysis;
-extern crate rustc_index;
-extern crate rustc_log;
-extern crate rustc_middle;
-extern crate rustc_session;
-extern crate rustc_span;
-extern crate rustc_structures;
-extern crate rustc_symbol_mangling;
-extern crate rustc_target;
-// Linking `rustc_driver` pulls in the required  object code as the rest of the rustc crates are
+extern crate rodetc_ast;
+extern crate rodetc_attr_ir;
+extern crate rodetc_codegen_ssa;
+extern crate rodetc_const_eval;
+extern crate rodetc_data_structures;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_hir_analysis;
+extern crate rodetc_index;
+extern crate rodetc_log;
+extern crate rodetc_middle;
+extern crate rodetc_session;
+extern crate rodetc_span;
+extern crate rodetc_structures;
+extern crate rodetc_symbol_mangling;
+extern crate rodetc_target;
+// Linking `rodetc_driver` pulls in the required  object code as the rest of the rustc crates are
 // shipped only as rmeta files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 mod alloc;
 mod alloc_addresses;
@@ -102,13 +102,13 @@ pub mod sym;
 // Establish a "crate-wide prelude": we often import `crate::*`.
 // Make all those symbols available in the same place as our own.
 #[doc(no_inline)]
-pub use rustc_const_eval::interpret::*;
+pub use rodetc_const_eval::interpret::*;
 // Resolve ambiguity.
 #[doc(no_inline)]
-pub use rustc_const_eval::interpret::{self, Provenance as _};
-use rustc_data_structures::either::Either;
-use rustc_log::tracing::{self, info, trace, warn};
-use rustc_span::{bug, span_bug};
+pub use rodetc_const_eval::interpret::{self, Provenance as _};
+use rodetc_data_structures::either::Either;
+use rodetc_log::tracing::{self, info, trace, warn};
+use rodetc_span::{bug, span_bug};
 
 #[cfg(all(feature = "native-lib", unix))]
 pub mod native_lib {

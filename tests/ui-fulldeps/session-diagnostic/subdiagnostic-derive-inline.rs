@@ -11,15 +11,15 @@
 #![feature(rustc_private)]
 #![crate_type = "lib"]
 
-extern crate rustc_errors;
-extern crate rustc_macros;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_errors;
+extern crate rodetc_macros;
+extern crate rodetc_session;
+extern crate rodetc_span;
 extern crate core;
 
-use rustc_errors::{Applicability, DiagMessage};
-use rustc_macros::Subdiagnostic;
-use rustc_span::Span;
+use rodetc_errors::{Applicability, DiagMessage};
+use rodetc_macros::Subdiagnostic;
+use rodetc_span::Span;
 
 #[derive(Subdiagnostic)]
 #[label("example message")]

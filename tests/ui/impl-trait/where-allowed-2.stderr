@@ -8,4 +8,4 @@ LL | fn in_adt_in_return() -> Vec<impl Debug> { panic!() }
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0283`.
+For more information about this error, try `rodetc --explain E0283`.

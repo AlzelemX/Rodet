@@ -3,8 +3,8 @@ use std::time::SystemTime;
 use std::{fs, io};
 
 use bitflags::bitflags;
-use rustc_abi::Size;
-use rustc_target::spec::Os;
+use rodetc_abi::Size;
+use rodetc_target::spec::Os;
 
 use crate::shims::files::{DirHandle, FileHandle, open_file_or_dir};
 use crate::shims::windows::handle::{EvalContextExt as _, Handle};

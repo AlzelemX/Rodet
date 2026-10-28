@@ -75,4 +75,4 @@ LL +         i8::MIN..=-17_i8 => todo!()
 error: aborting due to 10 previous errors
 
 Some errors have detailed explanations: E0004, E0030.
-For more information about an error, try `rustc --explain E0004`.
+For more information about an error, try `rodetc --explain E0004`.

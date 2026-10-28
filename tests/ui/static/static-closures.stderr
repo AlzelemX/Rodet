@@ -17,4 +17,4 @@ LL |     static || {};
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0658, E0697.
-For more information about an error, try `rustc --explain E0658`.
+For more information about an error, try `rodetc --explain E0658`.

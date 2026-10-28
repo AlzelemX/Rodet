@@ -1,8 +1,8 @@
 #[cfg(feature = "stack-cache")]
 use std::ops::Range;
 
-use rustc_data_structures::fx::FxHashSet;
-use rustc_log::tracing::trace;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_log::tracing::trace;
 
 use crate::borrow_tracker::stacked_borrows::{Item, Permission};
 use crate::borrow_tracker::{AccessKind, BorTag};

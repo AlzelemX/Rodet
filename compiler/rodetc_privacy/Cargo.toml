@@ -1,0 +1,19 @@
+[package]
+name = "rodetc_privacy"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_ty_walk = { path = "../rodetc_ty_walk" }
+tracing = "0.1"
+# tidy-alphabetical-end

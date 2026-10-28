@@ -1,14 +1,14 @@
 use clippy_utils::consts::ConstEvalCtxt;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _, MaybeResPath as _};
 use clippy_utils::source::{SpanExt as _, indent_of, reindent_multiline};
-use rustc_ast::{BindingMode, ByRef};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::{Arm, Expr, ExprKind, HirId, Pat, PatKind, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{GenericArgKind, Ty};
-use rustc_span::sym;
+use rodetc_ast::{BindingMode, ByRef};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{Arm, Expr, ExprKind, HirId, Pat, PatKind, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{GenericArgKind, Ty};
+use rodetc_span::sym;
 
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::sugg::Sugg;

@@ -1,13 +1,13 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::source::snippet;
-use rustc_attr_ir::find_attr;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{self as hir, AmbigArg, UseTree};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::edition::Edition;
-use rustc_span::{OrdSpan, Span};
+use rodetc_attr_ir::find_attr;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{self as hir, AmbigArg, UseTree};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::edition::Edition;
+use rodetc_span::{OrdSpan, Span};
 use std::collections::BTreeMap;
 
 declare_clippy_lint! {

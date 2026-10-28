@@ -111,4 +111,4 @@ LL |     fn test() -> Opq2 {}
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0700, E0792.
-For more information about an error, try `rustc --explain E0700`.
+For more information about an error, try `rodetc --explain E0700`.

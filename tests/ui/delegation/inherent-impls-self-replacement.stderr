@@ -191,4 +191,4 @@ LL |     reuse S::<(), 123>::by_mut_ref { self.get_s() }
 error: aborting due to 11 previous errors
 
 Some errors have detailed explanations: E0308, E0507, E0599.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

@@ -1,17 +1,17 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_then};
 use clippy_utils::{is_from_proc_macro, trait_ref_of_method};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{Visitor, walk_impl_item, walk_item, walk_param_bound, walk_ty, walk_unambig_ty};
-use rustc_hir::{
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{Visitor, walk_impl_item, walk_item, walk_param_bound, walk_ty, walk_unambig_ty};
+use rodetc_hir::{
     AmbigArg, BodyId, ExprKind, GenericBound, GenericParam, GenericParamKind, Generics, ImplItem, ImplItemKind, Item,
     ItemKind, PredicateOrigin, Ty, WherePredicate, WherePredicateKind,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_span::Span;
-use rustc_span::def_id::{DefId, LocalDefId};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_span::Span;
+use rodetc_span::def_id::{DefId, LocalDefId};
 
 declare_clippy_lint! {
     /// ### What it does

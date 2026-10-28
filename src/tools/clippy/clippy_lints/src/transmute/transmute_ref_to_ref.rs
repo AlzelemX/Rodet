@@ -1,10 +1,10 @@
 use super::{TRANSMUTE_BYTES_TO_STR, TRANSMUTE_PTR_TO_PTR};
 use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};
 use clippy_utils::{std_or_core, sugg};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, Mutability};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, Mutability};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 
 /// Checks for `transmute_bytes_to_str` and `transmute_ptr_to_ptr` lints.
 /// Returns `true` if either one triggered, otherwise returns `false`.

@@ -60,4 +60,4 @@ LL |     offset_of!(S, v.self);
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0411, E0425, E0609, E0616.
-For more information about an error, try `rustc --explain E0411`.
+For more information about an error, try `rodetc --explain E0411`.

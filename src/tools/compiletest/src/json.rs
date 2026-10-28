@@ -1,4 +1,4 @@
-//! These structs are a subset of the ones found in `rustc_errors::json`.
+//! These structs are a subset of the ones found in `rodetc_errors::json`.
 
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;

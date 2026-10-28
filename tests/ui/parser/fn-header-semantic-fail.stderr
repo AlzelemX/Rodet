@@ -156,4 +156,4 @@ LL |         const async unsafe extern "C" fn fe5();
 
 error: aborting due to 17 previous errors
 
-For more information about this error, try `rustc --explain E0379`.
+For more information about this error, try `rodetc --explain E0379`.

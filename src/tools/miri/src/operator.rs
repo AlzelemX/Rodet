@@ -2,9 +2,9 @@ use std::iter;
 
 use rand::RngExt;
 use rand::seq::IteratorRandom;
-use rustc_abi::Size;
+use rodetc_abi::Size;
 use rustc_apfloat::{Float, FloatConvert};
-use rustc_middle::mir;
+use rodetc_middle::mir;
 
 use crate::*;
 
@@ -16,7 +16,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         left: &ImmTy<'tcx>,
         right: &ImmTy<'tcx>,
     ) -> InterpResult<'tcx, ImmTy<'tcx>> {
-        use rustc_middle::mir::BinOp::*;
+        use rodetc_middle::mir::BinOp::*;
 
         let this = self.eval_context_ref();
         trace!("ptr_op: {:?} {:?} {:?}", *left, bin_op, *right);

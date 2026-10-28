@@ -2,7 +2,7 @@
 
 use core::time::Duration;
 
-use rustc_abi::FieldIdx;
+use rodetc_abi::FieldIdx;
 
 use crate::concurrency::sync::{FutexRef, SyncObj};
 use crate::*;

@@ -138,4 +138,4 @@ LL +     fn d(&self, _: <X as Vehicle>::Color) where X : Box { }
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0221`.
+For more information about this error, try `rodetc --explain E0221`.

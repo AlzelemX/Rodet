@@ -114,4 +114,4 @@ LL |     let _res = get_expr(dbg!(&a));
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0382`.
+For more information about this error, try `rodetc --explain E0382`.

@@ -66,4 +66,4 @@ LL | impl<T, U> Trait for W<T>
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0107, E0261, E0403, E0437.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

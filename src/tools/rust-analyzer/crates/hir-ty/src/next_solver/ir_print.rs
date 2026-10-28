@@ -1,7 +1,7 @@
 //! Things related to IR printing in the next-trait-solver.
 
 use hir_def::signatures::{TraitSignature, TypeAliasSignature};
-use rustc_type_ir::{self as ty, ir_print::IrPrint};
+use rodetc_type_ir::{self as ty, ir_print::IrPrint};
 
 use crate::next_solver::TermId;
 
@@ -89,16 +89,16 @@ impl<'db> IrPrint<ty::TraitPredicate<Self>> for DbInterner<'db> {
         }
     }
 }
-impl<'db> IrPrint<rustc_type_ir::HostEffectPredicate<Self>> for DbInterner<'db> {
+impl<'db> IrPrint<rodetc_type_ir::HostEffectPredicate<Self>> for DbInterner<'db> {
     fn print(
-        t: &rustc_type_ir::HostEffectPredicate<Self>,
+        t: &rodetc_type_ir::HostEffectPredicate<Self>,
         fmt: &mut std::fmt::Formatter<'_>,
     ) -> std::fmt::Result {
         Self::print_debug(t, fmt)
     }
 
     fn print_debug(
-        t: &rustc_type_ir::HostEffectPredicate<Self>,
+        t: &rodetc_type_ir::HostEffectPredicate<Self>,
         fmt: &mut std::fmt::Formatter<'_>,
     ) -> std::fmt::Result {
         let prefix = match t.constness {
@@ -233,16 +233,16 @@ impl<'db> IrPrint<ty::FnSig<Self>> for DbInterner<'db> {
     }
 }
 
-impl<'db> IrPrint<rustc_type_ir::PatternKind<DbInterner<'db>>> for DbInterner<'db> {
+impl<'db> IrPrint<rodetc_type_ir::PatternKind<DbInterner<'db>>> for DbInterner<'db> {
     fn print(
-        t: &rustc_type_ir::PatternKind<DbInterner<'db>>,
+        t: &rodetc_type_ir::PatternKind<DbInterner<'db>>,
         fmt: &mut std::fmt::Formatter<'_>,
     ) -> std::fmt::Result {
         Self::print_debug(t, fmt)
     }
 
     fn print_debug(
-        t: &rustc_type_ir::PatternKind<DbInterner<'db>>,
+        t: &rodetc_type_ir::PatternKind<DbInterner<'db>>,
         fmt: &mut std::fmt::Formatter<'_>,
     ) -> std::fmt::Result {
         match t {

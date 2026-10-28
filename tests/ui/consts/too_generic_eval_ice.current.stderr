@@ -42,4 +42,4 @@ LL |         [5; Self::HOST_SIZE] == [6; 0]
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

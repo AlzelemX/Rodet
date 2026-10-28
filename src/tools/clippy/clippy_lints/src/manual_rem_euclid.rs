@@ -5,10 +5,10 @@ use clippy_utils::is_in_const_context;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::snippet_with_context;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, Node, TyKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, Node, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::SyntaxContext;
 
 declare_clippy_lint! {
     /// ### What it does

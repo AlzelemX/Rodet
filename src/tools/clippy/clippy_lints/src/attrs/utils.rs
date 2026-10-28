@@ -1,9 +1,9 @@
 use clippy_utils::macros::{is_panic, macro_backtrace};
-use rustc_ast::MetaItemInner;
-use rustc_hir::{Block, Expr, ExprKind, StmtKind};
-use rustc_lint::{LateContext, Level};
-use rustc_span::sym;
-use rustc_span::symbol::Symbol;
+use rodetc_ast::MetaItemInner;
+use rodetc_hir::{Block, Expr, ExprKind, StmtKind};
+use rodetc_lint::{LateContext, Level};
+use rodetc_span::sym;
+use rodetc_span::symbol::Symbol;
 
 pub(super) fn is_word(nmi: &MetaItemInner, expected: Symbol) -> bool {
     if let MetaItemInner::MetaItem(mi) = &nmi {

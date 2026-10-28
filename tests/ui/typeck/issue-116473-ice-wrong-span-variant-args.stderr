@@ -257,4 +257,4 @@ LL |     if let EnumUnit::VariantB::<i32, u32> {} = 5 { true } else { false };
 error: aborting due to 14 previous errors
 
 Some errors have detailed explanations: E0109, E0308.
-For more information about an error, try `rustc --explain E0109`.
+For more information about an error, try `rodetc --explain E0109`.

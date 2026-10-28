@@ -2,10 +2,10 @@ use clippy_utils::consts::is_zero_integer_const;
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_sugg};
 use clippy_utils::is_else_clause;
 use clippy_utils::source::{indent_of, reindent_multiline, snippet_with_context};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, UnOp};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

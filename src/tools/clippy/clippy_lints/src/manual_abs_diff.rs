@@ -6,10 +6,10 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::peel_and_count_ty_refs;
 use clippy_utils::{eq_expr_value, peel_blocks, span_contains_comment, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty};
 
 declare_clippy_lint! {
     /// ### What it does

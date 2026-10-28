@@ -153,4 +153,4 @@ LL |             let _: &dyn X;
 error: aborting due to 20 previous errors
 
 Some errors have detailed explanations: E0116, E0223, E0423, E0782.
-For more information about an error, try `rustc --explain E0116`.
+For more information about an error, try `rodetc --explain E0116`.

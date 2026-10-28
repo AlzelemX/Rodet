@@ -2,16 +2,16 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::{indent_of, snippet};
 use clippy_utils::{expr_or_init, get_builtin_attr, peel_hir_expr_unary, sym};
-use rustc_ast::BindingMode;
-use rustc_data_structures::fx::{FxHashMap, FxIndexMap};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{self as hir, HirId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{GenericArgKind, Ty, Unnormalized};
-use rustc_span::symbol::Ident;
-use rustc_span::{DUMMY_SP, Span};
+use rodetc_ast::BindingMode;
+use rodetc_data_structures::fx::{FxHashMap, FxIndexMap};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{self as hir, HirId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{GenericArgKind, Ty, Unnormalized};
+use rodetc_span::symbol::Ident;
+use rodetc_span::{DUMMY_SP, Span};
 use std::borrow::Cow;
 use std::collections::hash_map::Entry;
 
@@ -178,7 +178,7 @@ impl<'cx, 'others, 'tcx> AttrChecker<'cx, 'others, 'tcx> {
             }
         }
         match ty.kind() {
-            rustc_middle::ty::Adt(a, b) => {
+            rodetc_middle::ty::Adt(a, b) => {
                 for f in a.all_fields() {
                     let ty = f.ty(self.cx.tcx, b).skip_norm_wip();
                     if self.has_sig_drop_attr(ty, depth) {
@@ -194,10 +194,10 @@ impl<'cx, 'others, 'tcx> AttrChecker<'cx, 'others, 'tcx> {
                 }
                 false
             },
-            rustc_middle::ty::Array(ty, _)
-            | rustc_middle::ty::RawPtr(ty, _)
-            | rustc_middle::ty::Ref(_, ty, _)
-            | rustc_middle::ty::Slice(ty) => self.has_sig_drop_attr(*ty, depth),
+            rodetc_middle::ty::Array(ty, _)
+            | rodetc_middle::ty::RawPtr(ty, _)
+            | rodetc_middle::ty::Ref(_, ty, _)
+            | rodetc_middle::ty::Slice(ty) => self.has_sig_drop_attr(*ty, depth),
             _ => false,
         }
     }

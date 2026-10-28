@@ -19,17 +19,17 @@ struct Option<'a> {
 }
 
 fn main() {
-    // Printed from CodegenBackend trait impl in rustc_codegen_llvm/src/lib.rs
+    // Printed from CodegenBackend trait impl in rodetc_codegen_llvm/src/lib.rs
     check(Option { target: &target(), option: "relocation-models", includes: &["dynamic-no-pic"] });
 
-    // Printed by compiler/rustc_codegen_llvm/src/llvm_util.rs
+    // Printed by compiler/rodetc_codegen_llvm/src/llvm_util.rs
     check(Option {
         target: "wasm32-unknown-unknown",
         option: "target-features",
         includes: &["reference-types"],
     });
 
-    // Printed by C++ code in rustc_llvm/llvm-wrapper/PassWrapper.cpp
+    // Printed by C++ code in rodetc_llvm/llvm-wrapper/PassWrapper.cpp
     check(Option {
         target: "wasm32-unknown-unknown",
         option: "target-cpus",

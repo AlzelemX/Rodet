@@ -12,9 +12,9 @@
 //!   gets popped *during unwinding*, we take the panic payload and store it according to the extra
 //!   metadata we remembered when pushing said frame.
 
-use rustc_abi::ExternAbi;
-use rustc_middle::mir;
-use rustc_target::spec::PanicStrategy;
+use rodetc_abi::ExternAbi;
+use rodetc_middle::mir;
+use rodetc_target::spec::PanicStrategy;
 
 use crate::*;
 

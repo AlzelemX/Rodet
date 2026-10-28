@@ -880,4 +880,4 @@ LL |         #[cfg_attr(false, cfg(false))] U: TraitAnyAny,
 
 error: aborting due to 88 previous errors
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.

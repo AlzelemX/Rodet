@@ -6,7 +6,7 @@
 
 - [تثبيت Rodet](start/install.md)
 - [مرحبا يا عالم!](start/hello.md)
-- [المشاريع مع Cargo](start/cargo.md)
+- [المشاريع مع Silk](start/silk.md)
 - [محرر DEVR+](start/devr.md)
     - [الإضافات](start/plugins.md)
 

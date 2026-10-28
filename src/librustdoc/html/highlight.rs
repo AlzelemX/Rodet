@@ -11,11 +11,11 @@ use std::fmt::{self, Display, Write};
 use std::iter;
 
 use itertools::Either;
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_lexer::{Cursor, FrontmatterAllowed, LiteralKind, TokenKind};
-use rustc_span::BytePos;
-use rustc_span::edition::Edition;
-use rustc_span::symbol::Symbol;
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_lexer::{Cursor, FrontmatterAllowed, LiteralKind, TokenKind};
+use rodetc_span::BytePos;
+use rodetc_span::edition::Edition;
+use rodetc_span::symbol::Symbol;
 
 use super::format;
 use crate::clean::PrimitiveType;
@@ -902,7 +902,7 @@ fn classify<'src>(
     edition: Edition,
     sink: &mut dyn FnMut(Span, Highlight<'src>),
 ) {
-    let offset = rustc_lexer::strip_shebang(src);
+    let offset = rodetc_lexer::strip_shebang(src);
 
     if let Some(offset) = offset {
         sink(DUMMY_SP, Highlight::Token { text: &src[..offset], class: Some(Class::Comment) });
@@ -1456,10 +1456,10 @@ fn generate_link_to_def(
 /// * If `klass` is `None`, `text` is written into `out` with no modification.
 /// * If `klass` is `Some` but `klass.get_span()` is `None`, it writes the text wrapped in a
 ///   `<span>` with the provided `klass`.
-/// * If `klass` is `Some` and has a [`rustc_span::Span`], it then tries to generate a link (`<a>`
+/// * If `klass` is `Some` and has a [`rodetc_span::Span`], it then tries to generate a link (`<a>`
 ///   element) by retrieving the link information from the `span_correspondence_map` that was filled
 ///   in `span_map.rs::collect_spans_and_sources`. If it cannot retrieve the information, then it's
-///   the same as the second point (`klass` is `Some` but doesn't have a [`rustc_span::Span`]).
+///   the same as the second point (`klass` is `Some` but doesn't have a [`rodetc_span::Span`]).
 fn string_without_closing_tag<T: Display>(
     out: &mut impl Write,
     text: T,

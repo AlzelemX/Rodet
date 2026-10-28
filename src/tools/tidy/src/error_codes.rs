@@ -2,9 +2,9 @@
 //!
 //! Overview of check:
 //!
-//! 1. We create a list of error codes used by the compiler. Error codes are extracted from `compiler/rustc_error_codes/src/lib.rs`.
+//! 1. We create a list of error codes used by the compiler. Error codes are extracted from `compiler/rodetc_error_codes/src/lib.rs`.
 //!
-//! 2. We check that the error code has a long-form explanation in `compiler/rustc_error_codes/src/error_codes/`.
+//! 2. We check that the error code has a long-form explanation in `compiler/rodetc_error_codes/src/error_codes/`.
 //!   - The explanation is expected to contain a `doctest` that fails with the correct error code. (`EXEMPT_FROM_DOCTEST` *currently* bypasses this check)
 //!   - Note that other stylistic conventions for markdown files are checked in the `style.rs` tidy check.
 //!
@@ -25,8 +25,8 @@ use regex::Regex;
 use crate::diagnostics::{RunningCheck, TidyCtx};
 use crate::walk::{filter_dirs, walk, walk_many};
 
-const ERROR_CODES_PATH: &str = "compiler/rustc_error_codes/src/lib.rs";
-const ERROR_DOCS_PATH: &str = "compiler/rustc_error_codes/src/error_codes/";
+const ERROR_CODES_PATH: &str = "compiler/rodetc_error_codes/src/lib.rs";
+const ERROR_DOCS_PATH: &str = "compiler/rodetc_error_codes/src/error_codes/";
 const ERROR_TESTS_PATH: &str = "tests/ui/error-codes/";
 
 // Error codes that (for some reason) can't have a doctest in their explanation. Error codes are still expected to provide a code example, even if untested.
@@ -67,7 +67,7 @@ fn check_removed_error_code_explanation(base_commit: &Option<String>, check: &mu
         return;
     };
     if diff.lines().any(|line| {
-        line.starts_with('D') && line.contains("compiler/rustc_error_codes/src/error_codes/")
+        line.starts_with('D') && line.contains("compiler/rodetc_error_codes/src/error_codes/")
     }) {
         check.error(format!(
             r#"Error code explanations should never be removed!
@@ -145,14 +145,14 @@ fn check_error_codes_docs(
             return;
         }
 
-        // Make sure that the file is referenced in `rustc_error_codes/src/lib.rs`
+        // Make sure that the file is referenced in `rodetc_error_codes/src/lib.rs`
         let filename = path.file_name().unwrap().to_str().unwrap().split_once('.');
         let err_code = filename.unwrap().0; // `unwrap` is ok because we know the filename is in the correct format.
 
         if error_codes.iter().all(|e| e != err_code) {
             check.error(format!(
                 "Found valid file `{}` in error code docs directory without corresponding \
-                entry in `rustc_error_codes/src/lib.rs`",
+                entry in `rodetc_error_codes/src/lib.rs`",
                 path.display()
             ));
             return;
@@ -331,7 +331,7 @@ fn check_error_codes_used(
 
                     if !error_codes.contains(&error_code) {
                         // This error code isn't properly defined, we must error.
-                        check.error(format!("Error code `{error_code}` is used in the compiler but not defined and documented in `compiler/rustc_error_codes/src/lib.rs`."));
+                        check.error(format!("Error code `{error_code}` is used in the compiler but not defined and documented in `compiler/rodetc_error_codes/src/lib.rs`."));
                         continue;
                     }
 

@@ -2,10 +2,10 @@ use std::borrow::Cow;
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
-use rustc_ast::ast;
-use rustc_ast::visit::Visitor;
-use rustc_span::Span;
-use rustc_span::symbol::{self, Symbol, sym};
+use rodetc_ast::ast;
+use rodetc_ast::visit::Visitor;
+use rodetc_span::Span;
+use rodetc_span::symbol::{self, Symbol, sym};
 use thin_vec::ThinVec;
 use thiserror::Error;
 
@@ -72,7 +72,7 @@ pub struct ModuleResolutionError {
     pub(crate) kind: ModuleResolutionErrorKind,
 }
 
-/// Defines variants similar to those of [rustc_expand::module::ModError]
+/// Defines variants similar to those of [rodetc_expand::module::ModError]
 #[derive(Debug, Error)]
 pub(crate) enum ModuleResolutionErrorKind {
     /// Find a file that cannot be parsed.

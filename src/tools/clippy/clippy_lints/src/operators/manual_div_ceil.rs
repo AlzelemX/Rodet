@@ -3,13 +3,13 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::sugg::{Sugg, has_enclosing_paren};
 use clippy_utils::{eq_expr_value, sym};
-use rustc_ast::{BinOpKind, LitIntType, LitKind, UnOp};
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Spanned;
+use rodetc_ast::{BinOpKind, LitIntType, LitKind, UnOp};
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Spanned;
 
 use super::MANUAL_DIV_CEIL;
 

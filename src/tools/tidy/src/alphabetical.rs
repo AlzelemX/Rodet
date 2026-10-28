@@ -114,7 +114,7 @@ fn sort_section(section: &str) -> String {
             && let Some(indented) =
                 // Only append next indented line if it looks like a closing bracket.
                 // Otherwise we incorrectly merge code like this (can be seen in
-                // compiler/rustc_session/src/options.rs):
+                // compiler/rodetc_session/src/options.rs):
                 //
                 // force_unwind_tables: Option<bool> = (None, parse_opt_bool, [TRACKED],
                 //     "force use of unwind tables"),

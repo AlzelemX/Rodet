@@ -7,8 +7,8 @@
 //!
 //! So the monomorphization should be called even if the substitution is empty.
 
-use rustc_type_ir::inherent::IntoKind;
-use rustc_type_ir::{
+use rodetc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::{
     FallibleTypeFolder, TypeFlags, TypeFoldable, TypeSuperFoldable, TypeVisitableExt,
 };
 

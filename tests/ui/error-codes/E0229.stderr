@@ -61,4 +61,4 @@ LL | fn baz<I: Foo>(x: &<I as Foo<A = Bar>>::A) {}
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0229, E0277.
-For more information about an error, try `rustc --explain E0229`.
+For more information about an error, try `rodetc --explain E0229`.

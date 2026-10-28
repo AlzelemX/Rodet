@@ -2,9 +2,9 @@ use super::UNSOUND_COLLECTION_TRANSMUTE;
 use super::utils::is_layout_incompatible;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::sym;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 
 /// Checks for `unsound_collection_transmute` lint.
 /// Returns `true` if it's triggered, otherwise returns `false`.

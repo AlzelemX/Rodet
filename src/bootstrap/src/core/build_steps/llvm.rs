@@ -1243,7 +1243,7 @@ impl CommandLineStep for RustOffload {
         let dylib = build_dir.join(&lib_rust_offload).with_extension(lib_ext);
 
         let mut cfg =
-            cmake::Config::new(builder.src.join("compiler/rustc_llvm/llvm-wrapper/offload/"));
+            cmake::Config::new(builder.src.join("compiler/rodetc_llvm/llvm-wrapper/offload/"));
 
         let mut ldflags = LdFlags::default();
         try_link_with_in_tree_lld(builder, target, &llvm_output, &mut cfg, &mut ldflags);

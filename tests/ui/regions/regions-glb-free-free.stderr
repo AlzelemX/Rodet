@@ -16,4 +16,4 @@ LL |         pub fn set_desc(self, s: &'a str) -> Flag<'a> {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0621`.
+For more information about this error, try `rodetc --explain E0621`.

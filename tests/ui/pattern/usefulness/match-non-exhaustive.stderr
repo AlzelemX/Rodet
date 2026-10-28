@@ -24,4 +24,4 @@ LL |     match 0 { 0 if false => (), i32::MIN..=-1_i32 | 1_i32..=i32::MAX => tod
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0004`.
+For more information about this error, try `rodetc --explain E0004`.

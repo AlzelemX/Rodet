@@ -188,7 +188,7 @@ but is usually called much later into the condition chain as it's a bit heavier 
 so that the other cheaper conditions can fail faster. For example, the `borrow_deref_ref` lint:
 ```rs
 impl<'tcx> LateLintPass<'tcx> for BorrowDerefRef {
-    fn check_expr(&mut self, cx: &LateContext<'tcx>, e: &rustc_hir::Expr<'tcx>) {
+    fn check_expr(&mut self, cx: &LateContext<'tcx>, e: &rodetc_hir::Expr<'tcx>) {
         if let ... = ...
             && ...
             && !e.span.from_expansion()

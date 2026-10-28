@@ -48,4 +48,4 @@ LL | fn chars2<'b>(v0 : &str, v1 : &'_ str, v2 : &'b str) -> (impl Iterator<Item
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

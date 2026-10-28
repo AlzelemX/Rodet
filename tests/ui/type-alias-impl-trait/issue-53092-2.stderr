@@ -22,4 +22,4 @@ LL | const CONST_BUG: Bug<u8, ()> = unsafe { std::mem::transmute(|_: u8| ()) };
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0512`.
+For more information about this error, try `rodetc --explain E0512`.

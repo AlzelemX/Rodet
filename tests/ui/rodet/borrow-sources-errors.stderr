@@ -25,4 +25,4 @@ LL | fn wrong_source(x: &str, y: &'x str) -> &{x} str {
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0621`.
+For more information about this error, try `rodetc --explain E0621`.

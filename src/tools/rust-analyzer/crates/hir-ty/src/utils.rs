@@ -8,7 +8,7 @@ use hir_def::{
     EnumId, EnumVariantId, FunctionId, Lookup, TraitId, lang_item::LangItems,
     signatures::FunctionSignature,
 };
-use rustc_abi::TargetDataLayout;
+use rodetc_abi::TargetDataLayout;
 use span::Edition;
 
 use crate::{

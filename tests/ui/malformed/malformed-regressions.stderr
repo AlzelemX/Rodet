@@ -68,7 +68,7 @@ LL | #[link = ""]
 
 error: aborting due to 5 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0539`.
+For more information about this error, try `rodetc --explain E0539`.
 Future incompatibility report: Future breakage diagnostic:
 error: valid forms for the attribute are `ignore` and `ignore = "reason"`
   --> $DIR/malformed-regressions.rs:4:3

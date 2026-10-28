@@ -399,7 +399,7 @@ fn check_cpp_fmt(
     }
     let files;
     if file_args_clang_format.is_empty() {
-        let llvm_wrapper = root_path.join("compiler/rustc_llvm/llvm-wrapper");
+        let llvm_wrapper = root_path.join("compiler/rodetc_llvm/llvm-wrapper");
         match find_with_extension(
             root_path,
             Some(llvm_wrapper.as_path()),

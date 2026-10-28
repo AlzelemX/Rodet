@@ -12,14 +12,14 @@
 #![allow(unstable)]
 #![feature(rustc_private)]
 
-extern crate rustc_arena;
+extern crate rodetc_arena;
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
-use rustc_arena::TypedArena;
+use rodetc_arena::TypedArena;
 
 trait HasId { fn count(&self) -> usize; }
 

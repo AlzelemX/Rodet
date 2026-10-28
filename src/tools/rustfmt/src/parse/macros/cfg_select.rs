@@ -4,13 +4,13 @@
 
 use std::panic::{AssertUnwindSafe, catch_unwind};
 
-use rustc_ast::ast;
-use rustc_ast::token;
-use rustc_ast::token::{Token, TokenKind};
-use rustc_ast::tokenstream::TokenStream;
-use rustc_parse::exp;
-use rustc_parse::parser::{AllowConstBlockItems, ForceCollect};
-use rustc_span::Span;
+use rodetc_ast::ast;
+use rodetc_ast::token;
+use rodetc_ast::token::{Token, TokenKind};
+use rodetc_ast::tokenstream::TokenStream;
+use rodetc_parse::exp;
+use rodetc_parse::parser::{AllowConstBlockItems, ForceCollect};
+use rodetc_span::Span;
 use tracing::debug;
 
 use crate::expr::is_unsafe_block;
@@ -110,7 +110,7 @@ pub(crate) enum CfgSelectFormatPredicate {
 }
 
 impl Spanned for CfgSelectFormatPredicate {
-    fn span(&self) -> rustc_span::Span {
+    fn span(&self) -> rodetc_span::Span {
         match self {
             Self::Cfg(meta_item_inner) => meta_item_inner.span(),
             Self::Wildcard(span) => *span,
@@ -190,7 +190,7 @@ impl CfgSelectArm {
 }
 
 // FIXME(ytmimi) would be nice if rustfmt didn't need to implement parsing logic on its own
-// and could instead just call rustc_attr_parsing::parse_cfg_select, but this is fine for now.
+// and could instead just call rodetc_attr_parsing::parse_cfg_select, but this is fine for now.
 pub(crate) fn parse_cfg_select_arms(
     psess: &ParseSess,
     ts: TokenStream,

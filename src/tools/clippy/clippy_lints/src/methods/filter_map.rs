@@ -4,15 +4,15 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _, MaybeTypeckRes as _};
 use clippy_utils::source::{indent_of, reindent_multiline, snippet};
 use clippy_utils::{SpanlessEq, higher, peel_blocks, sym};
 use hir::{Body, HirId, MatchSource, Pat};
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::def::Res;
-use rustc_hir::{Closure, Expr, ExprKind, PatKind, PathSegment, QPath, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty::TypeckResults;
-use rustc_middle::ty::adjustment::Adjust;
-use rustc_span::symbol::{Ident, Symbol};
-use rustc_span::{Span, SyntaxContext};
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::def::Res;
+use rodetc_hir::{Closure, Expr, ExprKind, PatKind, PathSegment, QPath, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::TypeckResults;
+use rodetc_middle::ty::adjustment::Adjust;
+use rodetc_span::symbol::{Ident, Symbol};
+use rodetc_span::{Span, SyntaxContext};
 
 use super::{MANUAL_FILTER_MAP, MANUAL_FIND_MAP, OPTION_FILTER_MAP, RESULT_FILTER_MAP};
 

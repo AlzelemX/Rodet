@@ -3,7 +3,7 @@
 
 Every message the compiler can show is written in English in its source
 (`#[diag("mismatched types")]`, `msg!("...")`, `.note("...")`, …). The Arabic
-for each one lives next to them in `compiler/rustc_errors/src/i18n/ar.txt`,
+for each one lives next to them in `compiler/rodetc_errors/src/i18n/ar.txt`,
 keyed by the exact English text; the compiler shows it when `RODET_LANG=ar`.
 
     python3 rodet/i18n/compiler_messages.py coverage      # how much is translated
@@ -22,11 +22,11 @@ from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 COMPILER = os.path.join(ROOT, "compiler")
-TABLE = os.path.join(COMPILER, "rustc_errors", "src", "i18n", "ar.txt")
+TABLE = os.path.join(COMPILER, "rodetc_errors", "src", "i18n", "ar.txt")
 
 # Crates whose messages users never see (internal bugs, tests, the driver's
 # own debugging output) are left out of the coverage count.
-SKIP_CRATES = {"rustc_macros", "rustc_fluent_macro", "rustc_codegen_gcc", "rustc_codegen_cranelift"}
+SKIP_CRATES = {"rodetc_macros", "rustc_fluent_macro", "rodetc_codegen_gcc", "rodetc_codegen_cranelift"}
 
 ATTRIBUTE = re.compile(
     r"#\[(diag|note|help|label|warning|suggestion|multipart_suggestion|note_once|help_once)\(\s*"
@@ -162,7 +162,7 @@ def extract():
                 lit = read_literal(text, m.end())
                 if lit:
                     add(lit[0], "format", m.start())
-            if crate == "rustc_errors" and name == "lib.rs":
+            if crate == "rodetc_errors" and name == "lib.rs":
                 # The summary at the end: "aborting due to 2 previous errors".
                 for m in re.finditer(r'Cow::from\(\s*(format!\(\s*)?', text):
                     lit = read_literal(text, m.end())

@@ -65,4 +65,4 @@ LL | impl<T> External {
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0116, E0207.
-For more information about an error, try `rustc --explain E0116`.
+For more information about an error, try `rodetc --explain E0116`.

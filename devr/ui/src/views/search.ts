@@ -19,7 +19,7 @@ interface FileMatches {
 
 const options = { regex: false, caseSensitive: false, wholeWord: false };
 const input = h('input.input', { placeholder: t('Search'), spellcheck: false });
-const include = h('input.input', { placeholder: t('Files to include (e.g. .rs)'), spellcheck: false });
+const include = h('input.input', { placeholder: t('Files to include (e.g. .rd)'), spellcheck: false });
 const summary = h('div.muted', { style: { fontSize: '12px' } });
 const results = h('div.tree');
 const collapsed = new Set<string>();

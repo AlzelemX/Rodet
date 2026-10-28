@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::MacroCall;
 use clippy_utils::source::{expand_past_previous_comma, snippet_opt};
 use clippy_utils::{span_extract_comments, sym};
-use rustc_ast::{FormatArgs, FormatArgsPiece};
-use rustc_errors::Applicability;
-use rustc_lint::{LateContext, LintContext as _};
+use rodetc_ast::{FormatArgs, FormatArgsPiece};
+use rodetc_errors::Applicability;
+use rodetc_lint::{LateContext, LintContext as _};
 
 use super::{PRINTLN_EMPTY_STRING, WRITELN_EMPTY_STRING};
 

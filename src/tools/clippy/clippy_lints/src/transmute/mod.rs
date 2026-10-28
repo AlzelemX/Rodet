@@ -19,11 +19,11 @@ use clippy_config::Conf;
 use clippy_utils::is_in_const_context;
 use clippy_utils::msrvs::Msrv;
 use clippy_utils::sugg::Sugg;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::symbol::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::symbol::sym;
 
 declare_clippy_lint! {
     /// ### What it does

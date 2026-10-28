@@ -125,4 +125,4 @@ LL |     println!("never: {}", never);
 
 error: aborting due to 10 previous errors
 
-For more information about this error, try `rustc --explain E0381`.
+For more information about this error, try `rodetc --explain E0381`.

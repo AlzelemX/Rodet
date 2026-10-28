@@ -236,4 +236,4 @@ LL | reuse impl Trait for S6;
 
 error: aborting due to 4 previous errors; 15 warnings emitted
 
-For more information about this error, try `rustc --explain E0507`.
+For more information about this error, try `rodetc --explain E0507`.

@@ -34,4 +34,4 @@ LL | impl<T> Foo for T where Bar<T>: Foo {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0275`.
+For more information about this error, try `rodetc --explain E0275`.

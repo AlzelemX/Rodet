@@ -15,4 +15,4 @@ help: this trait has no implementations, consider adding one
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

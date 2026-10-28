@@ -152,4 +152,4 @@ LL |     const CALL: fn();
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

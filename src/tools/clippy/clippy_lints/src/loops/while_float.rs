@@ -1,7 +1,7 @@
 use clippy_utils::diagnostics::span_lint;
-use rustc_hir::ExprKind;
+use rodetc_hir::ExprKind;
 
-pub(super) fn check(cx: &rustc_lint::LateContext<'_>, condition: &rustc_hir::Expr<'_>) {
+pub(super) fn check(cx: &rodetc_lint::LateContext<'_>, condition: &rodetc_hir::Expr<'_>) {
     if let ExprKind::Binary(_op, left, right) = condition.kind
         && is_float_type(cx, left)
         && is_float_type(cx, right)
@@ -15,6 +15,6 @@ pub(super) fn check(cx: &rustc_lint::LateContext<'_>, condition: &rustc_hir::Exp
     }
 }
 
-fn is_float_type(cx: &rustc_lint::LateContext<'_>, expr: &rustc_hir::Expr<'_>) -> bool {
+fn is_float_type(cx: &rodetc_lint::LateContext<'_>, expr: &rodetc_hir::Expr<'_>) -> bool {
     cx.typeck_results().expr_ty(expr).is_floating_point()
 }

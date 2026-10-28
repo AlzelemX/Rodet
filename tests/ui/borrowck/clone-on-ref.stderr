@@ -76,4 +76,4 @@ LL | struct A;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0502, E0505.
-For more information about an error, try `rustc --explain E0502`.
+For more information about an error, try `rodetc --explain E0502`.

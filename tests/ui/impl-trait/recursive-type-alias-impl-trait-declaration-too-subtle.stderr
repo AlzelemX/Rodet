@@ -60,4 +60,4 @@ LL |     type Foo = impl PartialEq<(Foo, i32)>;
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0053`.
+For more information about this error, try `rodetc --explain E0053`.

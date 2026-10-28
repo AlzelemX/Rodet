@@ -1,26 +1,26 @@
 #![feature(rustc_private)]
 
-extern crate rustc_abi;
-extern crate rustc_data_structures;
-extern crate rustc_driver;
-extern crate rustc_hir;
-extern crate rustc_interface;
-extern crate rustc_middle;
-extern crate rustc_session;
-extern crate rustc_span;
-extern crate rustc_structures;
+extern crate rodetc_abi;
+extern crate rodetc_data_structures;
+extern crate rodetc_driver;
+extern crate rodetc_hir;
+extern crate rodetc_interface;
+extern crate rodetc_middle;
+extern crate rodetc_session;
+extern crate rodetc_span;
+extern crate rodetc_structures;
 
 mod debugger;
 mod frontend;
 
 use debugger::PrirodaContext;
 use miri::*;
-use rustc_driver::Compilation;
-use rustc_interface::interface;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::EarlyDiagCtxt;
-use rustc_session::config::ErrorOutputType;
-use rustc_structures::CrateType;
+use rodetc_driver::Compilation;
+use rodetc_interface::interface;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::EarlyDiagCtxt;
+use rodetc_session::config::ErrorOutputType;
+use rodetc_structures::CrateType;
 
 fn find_sysroot() -> String {
     std::env::var("MIRI_SYSROOT")
@@ -29,7 +29,7 @@ fn find_sysroot() -> String {
 
 fn main() {
     let early_dcx = EarlyDiagCtxt::new(ErrorOutputType::default());
-    rustc_driver::init_rustc_env_logger(&early_dcx);
+    rodetc_driver::init_rustc_env_logger(&early_dcx);
 
     let mut args: Vec<String> = std::env::args().collect();
     let frontend = Frontend::parse_from_args(&mut args);
@@ -42,7 +42,7 @@ fn main() {
         args.push(find_sysroot());
     }
     // FIXME: handle the same `-Z` flags that Miri accepts.
-    rustc_driver::compiler_entrypoint(&args, &mut PrirodaCompilerCalls::new(frontend));
+    rodetc_driver::compiler_entrypoint(&args, &mut PrirodaCompilerCalls::new(frontend));
 }
 
 /// Frontend selected by Priroda-specific CLI flags.
@@ -119,7 +119,7 @@ impl PrirodaCompilerCalls {
     }
 }
 
-impl rustc_driver::Callbacks for PrirodaCompilerCalls {
+impl rodetc_driver::Callbacks for PrirodaCompilerCalls {
     fn after_analysis<'tcx>(&mut self, _: &interface::Compiler, tcx: TyCtxt<'tcx>) -> Compilation {
         tcx.dcx().emit_stashed_diagnostics();
         tcx.dcx().abort_if_errors();

@@ -1,10 +1,10 @@
-use rustc_errors::Applicability;
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
+use rodetc_errors::Applicability;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
 
-pub fn check<'tcx>(cx: &LateContext<'tcx>, ty_into: Ty<'_>, cast_to_hir: &'tcx rustc_hir::Ty<'tcx>) {
-    if let rustc_hir::TyKind::Ptr(ty, _) = cast_to_hir.kind
-        && matches!(ty.kind, rustc_hir::TyKind::Infer(()))
+pub fn check<'tcx>(cx: &LateContext<'tcx>, ty_into: Ty<'_>, cast_to_hir: &'tcx rodetc_hir::Ty<'tcx>) {
+    if let rodetc_hir::TyKind::Ptr(ty, _) = cast_to_hir.kind
+        && matches!(ty.kind, rodetc_hir::TyKind::Infer(()))
     {
         clippy_utils::diagnostics::span_lint_and_sugg(
             cx,

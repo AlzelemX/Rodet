@@ -1,10 +1,10 @@
 use super::MIXED_ATTRIBUTES_STYLE;
 use clippy_utils::diagnostics::span_lint;
-use rustc_ast::{AttrKind, AttrStyle, Attribute, SyntheticAttr};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_lint::{EarlyContext, LintContext as _};
-use rustc_span::source_map::SourceMap;
-use rustc_span::{SourceFile, Span, Symbol};
+use rodetc_ast::{AttrKind, AttrStyle, Attribute, SyntheticAttr};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_lint::{EarlyContext, LintContext as _};
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::{SourceFile, Span, Symbol};
 use std::sync::Arc;
 
 #[derive(Hash, PartialEq, Eq)]

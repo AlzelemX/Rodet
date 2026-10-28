@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _, MaybeResPath as _};
 use clippy_utils::source::{SpanExt as _, indent_of, reindent_multiline};
-use rustc_attr_ir::lang_items::LangItem::{ResultErr, ResultOk};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::symbol::sym;
+use rodetc_attr_ir::lang_items::LangItem::{ResultErr, ResultOk};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::symbol::sym;
 
 use super::MANUAL_OK_OR;
 

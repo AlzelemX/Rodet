@@ -5,12 +5,12 @@ use crate::types::{
     PubUnderscoreFieldsBehaviour, Rename, SourceItemOrdering, SourceItemOrderingModuleItemGroupings,
     SourceItemOrderingTraitAssocItemKinds, SourceItemOrderingWithinModuleItemGroupings, TraitImplItemOrder,
 };
-use rustc_attr_ir::RustcVersion;
-use rustc_attr_parsing::parse_version;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_session::Session;
-use rustc_span::{Pos as _, SourceFile, Symbol};
+use rodetc_attr_ir::RustcVersion;
+use rodetc_attr_parsing::parse_version;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_session::Session;
+use rodetc_span::{Pos as _, SourceFile, Symbol};
 use std::path::PathBuf;
 use std::sync::{Arc, OnceLock};
 use std::{env, fs, io};
@@ -998,7 +998,7 @@ impl Conf {
 
 #[cfg(test)]
 mod tests {
-    use rustc_data_structures::fx::FxHashSet;
+    use rodetc_data_structures::fx::FxHashSet;
     use std::fs;
     use toml::de::DeTable;
     use walkdir::WalkDir;

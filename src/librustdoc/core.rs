@@ -1,31 +1,31 @@
 use std::sync::{Arc, LazyLock};
 use std::{io, mem};
 
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
-use rustc_data_structures::unord::UnordSet;
-use rustc_driver::USING_INTERNAL_FEATURES;
-use rustc_errors::TerminalUrl;
-use rustc_errors::annotate_snippet_emitter_writer::AnnotateSnippetEmitter;
-use rustc_errors::codes::*;
-use rustc_errors::emitter::{DynEmitter, HumanReadableErrorType, OutputTheme, stderr_destination};
-use rustc_errors::json::JsonEmitter;
-use rustc_feature::UnstableFeatures;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::{DefId, DefIdMap, DefIdSet, LocalDefId};
-use rustc_hir::intravisit::{self, Visitor};
-use rustc_hir::{HirId, Path};
-use rustc_lint as lint;
-use rustc_lint::{MissingDoc, late_lint_mod};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, ParamEnv, Ty, TyCtxt};
-use rustc_session::Session;
-use rustc_session::config::{
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
+use rodetc_data_structures::unord::UnordSet;
+use rodetc_driver::USING_INTERNAL_FEATURES;
+use rodetc_errors::TerminalUrl;
+use rodetc_errors::annotate_snippet_emitter_writer::AnnotateSnippetEmitter;
+use rodetc_errors::codes::*;
+use rodetc_errors::emitter::{DynEmitter, HumanReadableErrorType, OutputTheme, stderr_destination};
+use rodetc_errors::json::JsonEmitter;
+use rodetc_feature::UnstableFeatures;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::{DefId, DefIdMap, DefIdSet, LocalDefId};
+use rodetc_hir::intravisit::{self, Visitor};
+use rodetc_hir::{HirId, Path};
+use rodetc_lint as lint;
+use rodetc_lint::{MissingDoc, late_lint_mod};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, ParamEnv, Ty, TyCtxt};
+use rodetc_session::Session;
+use rodetc_session::config::{
     self, ErrorOutputType, Input, OutputType, OutputTypes, ResolveDocLinks,
 };
-pub(crate) use rustc_session::config::{Options, UnstableOptions};
-use rustc_span::source_map;
-use rustc_span::symbol::sym;
-use rustc_structures::CrateType;
+pub(crate) use rodetc_session::config::{Options, UnstableOptions};
+use rodetc_span::source_map;
+use rodetc_span::symbol::sym;
+use rodetc_structures::CrateType;
 use tracing::debug;
 
 use crate::clean::inline::build_trait;
@@ -39,7 +39,7 @@ pub(crate) struct DocContext<'tcx> {
     pub(crate) tcx: TyCtxt<'tcx>,
     /// Used for normalization.
     ///
-    /// Most of this logic is copied from rustc_lint::late.
+    /// Most of this logic is copied from rodetc_lint::late.
     pub(crate) param_env: ParamEnv<'tcx>,
     /// Later on moved through `clean::Crate` into `cache`
     pub(crate) external_traits: FxIndexMap<DefId, clean::Trait>,
@@ -168,7 +168,7 @@ pub(crate) fn new_dcx(
     source_map: Option<Arc<source_map::SourceMap>>,
     diagnostic_width: Option<usize>,
     unstable_opts: &UnstableOptions,
-) -> rustc_errors::DiagCtxt {
+) -> rodetc_errors::DiagCtxt {
     let emitter: Box<DynEmitter> = match error_format {
         ErrorOutputType::HumanReadable { kind, color_config } => match kind {
             HumanReadableErrorType { short, unicode } => Box::new(
@@ -201,7 +201,7 @@ pub(crate) fn new_dcx(
         }
     };
 
-    rustc_errors::DiagCtxt::new(emitter).with_flags(unstable_opts.dcx_flags(true))
+    rodetc_errors::DiagCtxt::new(emitter).with_flags(unstable_opts.dcx_flags(true))
 }
 
 /// Parse, resolve, and typecheck the given crate.
@@ -232,7 +232,7 @@ pub(crate) fn create_config(
         ..
     }: RustdocOptions,
     render_options: &RenderOptions,
-) -> rustc_interface::Config {
+) -> rodetc_interface::Config {
     // Add the doc cfg into the doc build.
     cfgs.push("doc".to_string());
 
@@ -240,18 +240,18 @@ pub(crate) fn create_config(
     // Specifically unblock lints relevant to documentation or the lint machinery itself.
     let mut lints_to_show = vec![
         // it's unclear whether these should be part of rustdoc directly (#77364)
-        rustc_lint::builtin::MISSING_DOCS.name.to_string(),
-        rustc_lint::builtin::INVALID_DOC_ATTRIBUTES.name.to_string(),
-        rustc_lint::builtin::UNUSED_DOC_COMMENTS.name.to_string(),
+        rodetc_lint::builtin::MISSING_DOCS.name.to_string(),
+        rodetc_lint::builtin::INVALID_DOC_ATTRIBUTES.name.to_string(),
+        rodetc_lint::builtin::UNUSED_DOC_COMMENTS.name.to_string(),
         // these are definitely not part of rustdoc, but we want to warn on them anyway.
-        rustc_lint::builtin::RENAMED_AND_REMOVED_LINTS.name.to_string(),
-        rustc_lint::builtin::UNKNOWN_LINTS.name.to_string(),
-        rustc_lint::builtin::UNEXPECTED_CFGS.name.to_string(),
-        rustc_lint::builtin::DUPLICATE_FEATURES.name.to_string(),
-        rustc_lint::builtin::UNUSED_FEATURES.name.to_string(),
-        rustc_lint::builtin::STABLE_FEATURES.name.to_string(),
+        rodetc_lint::builtin::RENAMED_AND_REMOVED_LINTS.name.to_string(),
+        rodetc_lint::builtin::UNKNOWN_LINTS.name.to_string(),
+        rodetc_lint::builtin::UNEXPECTED_CFGS.name.to_string(),
+        rodetc_lint::builtin::DUPLICATE_FEATURES.name.to_string(),
+        rodetc_lint::builtin::UNUSED_FEATURES.name.to_string(),
+        rodetc_lint::builtin::STABLE_FEATURES.name.to_string(),
         // this lint is needed to support `#[expect]` attributes
-        rustc_lint::builtin::UNFULFILLED_LINT_EXPECTATIONS.name.to_string(),
+        rodetc_lint::builtin::UNFULFILLED_LINT_EXPECTATIONS.name.to_string(),
     ];
     lints_to_show.extend(crate::lint::RUSTDOC_LINTS.iter().map(|lint| lint.name.to_string()));
 
@@ -299,7 +299,7 @@ pub(crate) fn create_config(
         ..Options::default()
     };
 
-    rustc_interface::Config {
+    rodetc_interface::Config {
         opts: sessopts,
         crate_cfg: cfgs,
         crate_check_cfg: check_cfgs,
@@ -333,7 +333,7 @@ pub(crate) fn create_config(
                 let body = tcx.hir_body_owned_by(def_id);
                 debug!("visiting body for {def_id:?}");
                 EmitIgnoredResolutionErrors::new(tcx).visit_body(body);
-                (rustc_interface::DEFAULT_QUERY_PROVIDERS.queries.typeck_root)(tcx, def_id)
+                (rodetc_interface::DEFAULT_QUERY_PROVIDERS.queries.typeck_root)(tcx, def_id)
             };
         }),
         extra_symbols: Vec::new(),
@@ -348,7 +348,7 @@ pub(crate) fn run_global_ctxt(
     show_coverage: bool,
     render_options: RenderOptions,
     output_format: OutputFormat,
-) -> (clean::Crate, RenderOptions, Cache, FxHashMap<rustc_span::BytePos, Vec<ExpandedCode>>) {
+) -> (clean::Crate, RenderOptions, Cache, FxHashMap<rodetc_span::BytePos, Vec<ExpandedCode>>) {
     // Certain queries assume that some checks were run elsewhere
     // (see https://github.com/rust-lang/rust/pull/73566#issuecomment-656954425),
     // so type-check everything other than function bodies in this crate before running lints.
@@ -370,12 +370,12 @@ pub(crate) fn run_global_ctxt(
     tcx.sess.time("check_mod_attrs", || {
         tcx.hir_for_each_module(|module| tcx.ensure_ok().check_mod_attrs(module))
     });
-    rustc_interface::passes::emit_delayed_lints(tcx);
+    rodetc_interface::passes::emit_delayed_lints(tcx);
 
     tcx.dcx().abort_if_errors();
 
-    tcx.sess.time("missing_docs", || rustc_lint::check_crate(tcx));
-    rustc_passes::stability::check_unused_or_stable_features(tcx);
+    tcx.sess.time("missing_docs", || rodetc_lint::check_crate(tcx));
+    rodetc_passes::stability::check_unused_or_stable_features(tcx);
 
     let auto_traits =
         tcx.visible_traits().filter(|&trait_def_id| tcx.trait_is_auto(trait_def_id)).collect();
@@ -419,7 +419,7 @@ pub(crate) fn run_global_ctxt(
         tcx.emit_node_lint(
             crate::lint::MISSING_CRATE_LEVEL_DOCS,
             DocContext::as_local_hir_id(tcx, krate.module.item_id).unwrap(),
-            rustc_errors::DiagDecorator(|lint| {
+            rodetc_errors::DiagDecorator(|lint| {
                 if let Some(local_def_id) = krate.module.item_id.as_local_def_id() {
                     lint.span(tcx.def_span(local_def_id));
                 }
@@ -477,9 +477,9 @@ impl<'tcx> Visitor<'tcx> for EmitIgnoredResolutionErrors<'tcx> {
     fn visit_path(&mut self, path: &Path<'tcx>, _id: HirId) {
         debug!("visiting path {path:?}");
         if path.res == Res::Err {
-            // We have less context here than in rustc_resolve,
+            // We have less context here than in rodetc_resolve,
             // so we can only emit the name and span.
-            // However we can give a hint that rustc_resolve will have more info.
+            // However we can give a hint that rodetc_resolve will have more info.
             let label = format!(
                 "could not resolve path `{}`",
                 path.segments
@@ -488,7 +488,7 @@ impl<'tcx> Visitor<'tcx> for EmitIgnoredResolutionErrors<'tcx> {
                     .intersperse("::")
                     .collect::<String>()
             );
-            rustc_errors::struct_span_code_err!(
+            rodetc_errors::struct_span_code_err!(
                 self.tcx.dcx(),
                 path.span,
                 E0433,
@@ -496,7 +496,7 @@ impl<'tcx> Visitor<'tcx> for EmitIgnoredResolutionErrors<'tcx> {
             )
             .with_span_label(path.span, label)
             .with_note("this error was originally ignored because you are running `rustdoc`")
-            .with_note("try running again with `rustc` or `cargo check` and you may get a more detailed error")
+            .with_note("try running again with `rodetc` or `cargo check` and you may get a more detailed error")
             .emit();
         }
         // We could have an outer resolution that succeeded,

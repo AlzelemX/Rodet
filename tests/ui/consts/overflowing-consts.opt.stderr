@@ -1020,4 +1020,4 @@ LL | const _NI32_OOB_P: &i32 = &([1, 2, 3][4]);
 
 error: aborting due to 170 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

@@ -43,7 +43,7 @@ LL | pub use b::*;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0659`.
+For more information about this error, try `rodetc --explain E0659`.
 Future incompatibility report: Future breakage diagnostic:
 error: `C` is ambiguous
   --> $DIR/glob-conflict-cross-crate-3.rs:13:13

@@ -28,4 +28,4 @@ LL |     writeln!(fp, "hello world").unwrap();
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0277, E0599.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

@@ -25,4 +25,4 @@ LL | unsafe impl Field for MyField {
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0120, E0321, E0322.
-For more information about an error, try `rustc --explain E0120`.
+For more information about an error, try `rodetc --explain E0120`.

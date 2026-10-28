@@ -15,4 +15,4 @@ LL |     a: A<(T, u32)>, // <- note, comma is missing here
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0585`.
+For more information about this error, try `rodetc --explain E0585`.

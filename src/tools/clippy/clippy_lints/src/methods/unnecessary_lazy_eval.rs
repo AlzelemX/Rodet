@@ -3,10 +3,10 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::{snippet, snippet_with_applicability};
 use clippy_utils::{eager_or_lazy, is_from_proc_macro, usage};
 use hir::FnRetTy;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::UNNECESSARY_LAZY_EVALUATIONS;
 

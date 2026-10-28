@@ -4,11 +4,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::ty_from_hir_ty;
 use clippy_utils::{SpanlessEq, is_in_const_context, is_integer_literal, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::SyntaxContext;
 
 declare_clippy_lint! {
     /// ### What it does

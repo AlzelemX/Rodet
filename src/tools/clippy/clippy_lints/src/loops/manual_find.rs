@@ -6,10 +6,10 @@ use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::implements_trait;
 use clippy_utils::usage::contains_return_break_continue_macro;
 use clippy_utils::{as_some_expr, higher, is_none_expr, peel_blocks_with_stmt};
-use rustc_errors::Applicability;
-use rustc_hir::{BindingMode, Block, Expr, ExprKind, HirId, Node, Pat, PatKind, Stmt, StmtKind};
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BindingMode, Block, Expr, ExprKind, HirId, Node, Pat, PatKind, Stmt, StmtKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,

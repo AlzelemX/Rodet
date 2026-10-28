@@ -3,12 +3,12 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::expr_type_is_certain;
 use clippy_utils::{get_parent_expr, is_in_const_context, sym};
-use rustc_ast::AssignOpKind;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, PathSegment};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Spanned;
+use rodetc_ast::AssignOpKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, PathSegment};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Spanned;
 
 use super::SUBOPTIMAL_FLOPS;
 

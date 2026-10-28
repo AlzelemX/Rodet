@@ -1,0 +1,18 @@
+[package]
+name = "rodetc_error_messages"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+fluent-bundle = "0.16"
+icu_list = { version = "2.3", default-features = false, features = ["alloc"] }
+icu_locale_core = { version = "2.3", default-features = false }
+intl-memoizer = "0.5.1"
+rodetc_baked_icu_data = { path = "../rodetc_baked_icu_data" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+unic-langid = { version = "0.9.0", features = ["macros"] }
+# tidy-alphabetical-end

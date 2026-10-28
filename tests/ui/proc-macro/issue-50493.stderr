@@ -6,4 +6,4 @@ LL |     pub(in crate::restricted) field: usize,
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0742`.
+For more information about this error, try `rodetc --explain E0742`.

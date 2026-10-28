@@ -38,7 +38,7 @@ LL | #[allow(nonstandard_style)]
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0453`.
+For more information about this error, try `rodetc --explain E0453`.
 Future incompatibility report: Future breakage diagnostic:
 error: allow(unused_variables) incompatible with previous forbid
   --> $DIR/outer-forbid.rs:20:9

@@ -4,11 +4,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet;
 use clippy_utils::sym;
-use rustc_ast::{LitKind, StrStyle};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
+use rodetc_ast::{LitKind, StrStyle};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
 use std::fmt::Write as _;
 
 pub const DEFAULT_ALLOWED_DOTFILES: &[&str] = &[

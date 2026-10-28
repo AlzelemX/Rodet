@@ -4,11 +4,11 @@ use clippy_utils::paths::{PathNS, lookup_path};
 use clippy_utils::source::snippet_opt;
 use clippy_utils::ty::{implements_trait, ty_from_hir_ty};
 use clippy_utils::{is_from_proc_macro, sym};
-use rustc_errors::Applicability;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{BodyId, GenericArg, Impl, ImplItemKind, Item, ItemKind, LifetimeKind, TraitRef, Ty};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::symbol::kw;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{BodyId, GenericArg, Impl, ImplItemKind, Item, ItemKind, LifetimeKind, TraitRef, Ty};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::symbol::kw;
 
 use core::ops::ControlFlow;
 
@@ -92,10 +92,10 @@ struct LifetimeVisitor {
     forbidden_lifetime: LocalDefId,
 }
 
-impl<'tcx> rustc_hir::intravisit::Visitor<'tcx> for LifetimeVisitor {
+impl<'tcx> rodetc_hir::intravisit::Visitor<'tcx> for LifetimeVisitor {
     type Result = ControlFlow<(), ()>;
 
-    fn visit_lifetime(&mut self, lifetime: &'tcx rustc_hir::Lifetime) -> Self::Result {
+    fn visit_lifetime(&mut self, lifetime: &'tcx rodetc_hir::Lifetime) -> Self::Result {
         if let LifetimeKind::Param(def_id) = lifetime.kind
             && def_id == self.forbidden_lifetime
         {
@@ -118,8 +118,8 @@ fn check_lifetimes(ty: &Ty<'_>, imp: &Impl<'_>, trait_ref: &TraitRef<'_>) -> boo
 
     let mut visitor = LifetimeVisitor { forbidden_lifetime };
 
-    if rustc_hir::intravisit::walk_unambig_ty(&mut visitor, ty).is_break()
-        || rustc_hir::intravisit::walk_unambig_ty(&mut visitor, imp.self_ty).is_break()
+    if rodetc_hir::intravisit::walk_unambig_ty(&mut visitor, ty).is_break()
+        || rodetc_hir::intravisit::walk_unambig_ty(&mut visitor, imp.self_ty).is_break()
     {
         return false;
     }
@@ -128,7 +128,7 @@ fn check_lifetimes(ty: &Ty<'_>, imp: &Impl<'_>, trait_ref: &TraitRef<'_>) -> boo
     imp.generics
         .predicates
         .iter()
-        .all(|pred| rustc_hir::intravisit::walk_where_predicate(&mut visitor, pred).is_continue())
+        .all(|pred| rodetc_hir::intravisit::walk_where_predicate(&mut visitor, pred).is_continue())
 }
 
 fn get_impl_items<'tcx>(cx: &LateContext<'tcx>, imp: &Impl<'_>) -> Option<(&'tcx Ty<'tcx>, BodyId)> {
@@ -150,7 +150,7 @@ fn get_try_from_str_lifetime(trait_ref: &TraitRef<'_>) -> Option<LocalDefId> {
             GenericArg::Type(ty) => Some(ty),
             _ => None,
         })
-        && let rustc_hir::TyKind::Ref(lifetime, ..) = ty.kind
+        && let rodetc_hir::TyKind::Ref(lifetime, ..) = ty.kind
         && lifetime.ident.name != kw::UnderscoreLifetime
         && let LifetimeKind::Param(def_id) = lifetime.kind
     {

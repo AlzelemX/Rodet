@@ -1,0 +1,22 @@
+[package]
+name = "rodetc_incremental"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rand = "0.9.0"
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_fs_util = { path = "../rodetc_fs_util" }
+rodetc_graphviz = { path = "../rodetc_graphviz" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+tracing = "0.1"
+# tidy-alphabetical-end

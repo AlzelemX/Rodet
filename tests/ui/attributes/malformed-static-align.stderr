@@ -44,4 +44,4 @@ LL | #[rustc_align_static(16)]
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0539, E0589.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

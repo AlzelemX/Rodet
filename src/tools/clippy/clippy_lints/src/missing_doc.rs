@@ -1,15 +1,15 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::{is_doc_hidden, is_from_proc_macro};
-use rustc_attr_ir::{AttrArgs, Attribute, AttributeKind};
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{Body, BodyId, FieldDef, HirId, ImplItem, Item, ItemKind, Node, TraitItem, Variant};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::middle::privacy::Level;
-use rustc_middle::ty::Visibility;
-use rustc_span::def_id::CRATE_DEF_ID;
-use rustc_span::sym;
-use rustc_span::symbol::kw;
+use rodetc_attr_ir::{AttrArgs, Attribute, AttributeKind};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{Body, BodyId, FieldDef, HirId, ImplItem, Item, ItemKind, Node, TraitItem, Variant};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::middle::privacy::Level;
+use rodetc_middle::ty::Visibility;
+use rodetc_span::def_id::CRATE_DEF_ID;
+use rodetc_span::sym;
+use rodetc_span::symbol::kw;
 
 declare_clippy_lint! {
     /// ### What it does

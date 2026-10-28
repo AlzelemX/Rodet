@@ -115,4 +115,4 @@ LL |         #[rustc_always_gca] const PRIVATE: usize;
 
 error: aborting due to 11 previous errors
 
-For more information about this error, try `rustc --explain E0449`.
+For more information about this error, try `rodetc --explain E0449`.

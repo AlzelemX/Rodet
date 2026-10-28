@@ -2,10 +2,10 @@ use super::FORMAT_COLLECT;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::{is_format_macro, root_macro_call_first_node};
 use clippy_utils::res::MaybeDef as _;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 /// Same as `peel_blocks` but only actually considers blocks that are not from an expansion.
 /// This is needed because always calling `peel_blocks` would otherwise remove parts of the

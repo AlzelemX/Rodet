@@ -3,16 +3,16 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_type_ir;
-extern crate rustc_type_ir_macros;
+extern crate rodetc_type_ir;
+extern crate rodetc_type_ir_macros;
 
-use rustc_type_ir::GenericTypeVisitable;
-use rustc_type_ir_macros::GenericTypeVisitable;
+use rodetc_type_ir::GenericTypeVisitable;
+use rodetc_type_ir_macros::GenericTypeVisitable;
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[expect(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 #[derive(GenericTypeVisitable)]
 struct DerivesGenericTypeVisitable;

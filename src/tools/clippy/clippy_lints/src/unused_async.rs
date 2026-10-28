@@ -2,17 +2,17 @@ use clippy_utils::diagnostics::{span_lint_and_then, span_lint_hir_and_then};
 use clippy_utils::is_def_id_trait_method;
 use clippy_utils::source::{snippet_with_applicability, walk_span_to_context};
 use clippy_utils::usage::is_todo_unimplemented_stub;
-use rustc_errors::Applicability;
-use rustc_hir::def::DefKind;
-use rustc_hir::intravisit::{FnKind, Visitor, walk_expr, walk_fn};
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::intravisit::{FnKind, Visitor, walk_expr, walk_fn};
+use rodetc_hir::{
     Body, Closure, ClosureKind, CoroutineDesugaring, CoroutineKind, Defaultness, Expr, ExprKind, FnDecl, HirId,
     ImplItem, ImplItemKind, IsAsync, Node, TraitItem, YieldSource,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_span::Span;
-use rustc_span::def_id::{LocalDefId, LocalDefIdSet};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_span::Span;
+use rodetc_span::def_id::{LocalDefId, LocalDefIdSet};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -210,7 +210,7 @@ impl<'tcx> LateLintPass<'tcx> for UnusedAsync {
         }
     }
 
-    fn check_path(&mut self, cx: &LateContext<'tcx>, path: &rustc_hir::Path<'tcx>, hir_id: HirId) {
+    fn check_path(&mut self, cx: &LateContext<'tcx>, path: &rodetc_hir::Path<'tcx>, hir_id: HirId) {
         // Find paths to local async functions that aren't immediately called.
         // E.g. `async fn f() {}; let x = f;`
         // Depending on how `x` is used, f's asyncness might be required despite not having any `await`

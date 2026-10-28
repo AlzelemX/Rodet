@@ -29,10 +29,10 @@ stays left to right.
 
 The Arabic lives in Rodet itself, not only in the editor:
 
-- **Compiler messages.** `rustc` and `cargo` speak Arabic when the
+- **Compiler messages.** `rodetc` and `rodet` speak Arabic when the
   environment variable `RODET_LANG` is `ar` (DEVR+ sets it for you, also in
-  its terminal). From any terminal: `RODET_LANG=ar cargo build`
-  (PowerShell: `$env:RODET_LANG="ar"; cargo build`). Names, types and code
+  its terminal). From any terminal: `RODET_LANG=ar rodet build`
+  (PowerShell: `$env:RODET_LANG="ar"; rodet build`). Names, types and code
   in the messages stay as they are.
 - **Standard library docs.** Every documented item of `std`, `core` and
   `alloc` has an Arabic explanation next to the English one, in the same doc
@@ -43,8 +43,8 @@ The Arabic lives in Rodet itself, not only in the editor:
 
 ## A first project
 
-1. **New Rodet Project…** on the welcome page (or `Ctrl+Shift+P` → *Cargo: New*).
-2. Press **F5**: Cargo builds and runs it in the terminal at the bottom.
+1. **New Rodet Project…** on the welcome page (or `Ctrl+Shift+P` → *Rodet: New Project*).
+2. Press **F5**: Silk builds and runs it in the terminal at the bottom.
 3. Errors appear as you type; a red file:line in the terminal opens the file
    at that line.
 
@@ -84,12 +84,12 @@ The Arabic lives in Rodet itself, not only in the editor:
 
 On macOS use `⌘` instead of `Ctrl`.
 
-## The Cargo view
+## The Silk view
 
 The package icon on the left shows your project: **Run**, **Build**,
 **Check**, **Test**, **Run fast** and **Clean**, the programs in it, and its
 libraries. A library with a newer version on crates.io shows it in green;
-**+** adds a library (`cargo add`).
+**+** adds a library (`rodet add`).
 
 ## In a browser
 

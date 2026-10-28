@@ -36,4 +36,4 @@ LL | #![feature(macroless_const_item_generic_const_args)]
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0557`.
+For more information about this error, try `rodetc --explain E0557`.

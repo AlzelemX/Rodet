@@ -576,8 +576,8 @@ mark { background: none; color: var(--accent); font-weight: 600; }
 .context-menu .item .key { margin-left: auto; color: var(--fg-faint); font-size: 11.5px; }
 .context-menu .sep { height: 1px; background: var(--border-strong); margin: 4px 2px; }
 
-.cargo-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.cargo-actions .btn { justify-content: flex-start; }
+.silk-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.silk-actions .btn { justify-content: flex-start; }
 .dep-version.old { color: var(--warning); }
 .dep-version.new { color: var(--success); }
 .kbd { font-family: var(--font-code); font-size: 11px; padding: 1px 5px; border: 1px solid var(--border-strong); border-radius: 4px; color: var(--fg-muted); }

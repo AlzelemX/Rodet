@@ -1,10 +1,10 @@
 use clippy_utils::ast_utils::is_cfg_test;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
-use rustc_ast::ast::{self, Inline, ItemKind, ModKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::def_id::LOCAL_CRATE;
-use rustc_span::{FileName, Ident, SourceFile, Span, SyntaxContext, sym};
+use rodetc_ast::ast::{self, Inline, ItemKind, ModKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::def_id::LOCAL_CRATE;
+use rodetc_span::{FileName, Ident, SourceFile, Span, SyntaxContext, sym};
 use std::path::{Component, Path, PathBuf};
 use std::sync::Arc;
 

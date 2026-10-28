@@ -3,10 +3,10 @@
 
 #![feature(rustc_private)]
 use std::io::Write;
-extern crate rustc_driver;
-extern crate rustc_driver_impl;
+extern crate rodetc_driver;
+extern crate rodetc_driver_impl;
 
-use rustc_driver_impl::highlighter::highlight;
+use rodetc_driver_impl::highlighter::highlight;
 
 const TEST_INPUT: &str = "
 struct Foo;

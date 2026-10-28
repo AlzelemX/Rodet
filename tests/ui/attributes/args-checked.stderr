@@ -184,38 +184,38 @@ LL - #[coverage(off(x, y, z))]
 LL + #[coverage(on)]
    |
 
-error[E0539]: malformed `rustc_abi` attribute input
+error[E0539]: malformed `rodetc_abi` attribute input
   --> $DIR/args-checked.rs:28:3
    |
-LL | #[rustc_abi(debug = 5)]
+LL | #[rodetc_abi(debug = 5)]
    |   ^^^^^^^^^-----------
    |            |
    |            valid arguments are `assert_eq` or `debug`
    |
 help: try changing it to one of the following valid forms of the attribute
    |
-LL - #[rustc_abi(debug = 5)]
-LL + #[rustc_abi(assert_eq)]
+LL - #[rodetc_abi(debug = 5)]
+LL + #[rodetc_abi(assert_eq)]
    |
-LL - #[rustc_abi(debug = 5)]
-LL + #[rustc_abi(debug)]
+LL - #[rodetc_abi(debug = 5)]
+LL + #[rodetc_abi(debug)]
    |
 
-error[E0539]: malformed `rustc_abi` attribute input
+error[E0539]: malformed `rodetc_abi` attribute input
   --> $DIR/args-checked.rs:30:3
    |
-LL | #[rustc_abi(debug(x, y, z))]
+LL | #[rodetc_abi(debug(x, y, z))]
    |   ^^^^^^^^^----------------
    |            |
    |            valid arguments are `assert_eq` or `debug`
    |
 help: try changing it to one of the following valid forms of the attribute
    |
-LL - #[rustc_abi(debug(x, y, z))]
-LL + #[rustc_abi(assert_eq)]
+LL - #[rodetc_abi(debug(x, y, z))]
+LL + #[rodetc_abi(assert_eq)]
    |
-LL - #[rustc_abi(debug(x, y, z))]
-LL + #[rustc_abi(debug)]
+LL - #[rodetc_abi(debug(x, y, z))]
+LL + #[rodetc_abi(debug)]
    |
 
 error: `rustc_allow_const_fn_unstable` expects feature names
@@ -336,7 +336,7 @@ LL | #[macro_export(local_inner_macros(x, y, z))]
 error: aborting due to 23 previous errors
 
 Some errors have detailed explanations: E0539, E0565.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.
 Future incompatibility report: Future breakage diagnostic:
 error: valid forms for the attribute are `macro_export` and `macro_export(local_inner_macros)`
   --> $DIR/args-checked.rs:36:3

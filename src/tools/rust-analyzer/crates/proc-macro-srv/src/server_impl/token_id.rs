@@ -3,7 +3,7 @@
 use std::ops::{Bound, Range};
 
 use intern::Symbol;
-use rustc_proc_macro::bridge::server;
+use rodetc_proc_macro::bridge::server;
 
 use crate::{
     ProcMacroClientHandle,

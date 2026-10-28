@@ -24,4 +24,4 @@ LL |     extern "rust-invalid" fn trait_fn(self) {
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0570`.
+For more information about this error, try `rodetc --explain E0570`.

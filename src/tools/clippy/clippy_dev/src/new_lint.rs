@@ -263,8 +263,8 @@ fn get_lint_file_contents(lint: &LintData<'_>, enable_msrv: bool) -> String {
     let mut result = String::new();
 
     let (pass_type, pass_lifetimes, pass_import, context_import) = match lint.pass {
-        Pass::Early => ("EarlyLintPass", "", "use rustc_ast::ast::*;", "EarlyContext"),
-        Pass::Late => ("LateLintPass", "<'_>", "use rustc_hir::*;", "LateContext"),
+        Pass::Early => ("EarlyLintPass", "", "use rodetc_ast::ast::*;", "EarlyContext"),
+        Pass::Late => ("LateLintPass", "<'_>", "use rodetc_hir::*;", "LateContext"),
     };
     let (msrv_ty, extract_msrv) = match lint.pass {
         Pass::Early => ("MsrvStack", "\n    extract_msrv_attr!();\n"),
@@ -283,8 +283,8 @@ fn get_lint_file_contents(lint: &LintData<'_>, enable_msrv: bool) -> String {
             use clippy_config::Conf;
             use clippy_utils::msrvs::{{self, {msrv_ty}}};
             {pass_import}
-            use rustc_lint::{{{context_import}, {pass_type}}};
-            use rustc_lint::impl_lint_pass;
+            use rodetc_lint::{{{context_import}, {pass_type}}};
+            use rodetc_lint::impl_lint_pass;
 
         "
         );
@@ -293,8 +293,8 @@ fn get_lint_file_contents(lint: &LintData<'_>, enable_msrv: bool) -> String {
             result,
             r"
             {pass_import}
-            use rustc_lint::{{{context_import}, {pass_type}}};
-            use rustc_lint::declare_lint_pass;
+            use rodetc_lint::{{{context_import}, {pass_type}}};
+            use rodetc_lint::declare_lint_pass;
 
         "
         );
@@ -411,7 +411,7 @@ fn create_lint_for_ty(lint: &LintData<'_>, enable_msrv: bool, ty: &str) -> io::R
             lint_file_contents,
             r#"
                 use clippy_utils::msrvs::{{self, {msrv_ty}}};
-                use rustc_lint::{{{context_import}, LintContext}};
+                use rodetc_lint::{{{context_import}, LintContext}};
 
                 use super::{name_upper};
 
@@ -428,7 +428,7 @@ fn create_lint_for_ty(lint: &LintData<'_>, enable_msrv: bool, ty: &str) -> io::R
         let _: fmt::Result = writedoc!(
             lint_file_contents,
             r"
-                use rustc_lint::{{{context_import}, LintContext}};
+                use rodetc_lint::{{{context_import}, LintContext}};
 
                 use super::{name_upper};
 

@@ -121,4 +121,4 @@ LL | fn baz_path<T: Trait>() where T::method(..): Send {}
 
 error: aborting due to 10 previous errors
 
-For more information about this error, try `rustc --explain E0575`.
+For more information about this error, try `rodetc --explain E0575`.

@@ -13,9 +13,9 @@
 use std::ops::Range;
 use std::{cmp, fmt, mem};
 
-use rustc_abi::Size;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_span::Span;
+use rodetc_abi::Size;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_span::Span;
 use smallvec::SmallVec;
 
 use super::diagnostics::{

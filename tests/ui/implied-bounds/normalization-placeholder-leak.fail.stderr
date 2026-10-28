@@ -54,4 +54,4 @@ LL |     for<'x> T::Ty<'x>: Sized;
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0477`.
+For more information about this error, try `rodetc --explain E0477`.

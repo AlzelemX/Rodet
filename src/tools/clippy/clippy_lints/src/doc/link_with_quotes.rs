@@ -1,7 +1,7 @@
 use std::ops::Range;
 
 use clippy_utils::diagnostics::span_lint;
-use rustc_lint::LateContext;
+use rodetc_lint::LateContext;
 
 use super::{DOC_LINK_WITH_QUOTES, Fragments};
 

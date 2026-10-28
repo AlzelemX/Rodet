@@ -21,7 +21,7 @@ import { layout } from './ui/layout';
 import { confirm, prompt, toast } from './ui/notify';
 import { commandPalette, keybindings, quickOpen, registerCommand, runCommand, symbolPicker } from './ui/palette';
 import { basename, debounce, h, isMac } from './util';
-import { cargo, newProject, setupCargo } from './views/cargo';
+import { silk, newProject, setupSilk } from './views/silk';
 import { renderWelcome, setupEditorArea } from './views/editor-area';
 import { explorer, setupExplorer } from './views/explorer';
 import { outputPanel, problemsPanel, setupProblems } from './views/problems';
@@ -29,7 +29,7 @@ import { search, searchFor, setupSearch } from './views/search';
 import { openSettings } from './views/settings-dialog';
 import { renderToolchain, setupStatusbar } from './views/statusbar';
 import { setupSymbols, symbols } from './views/symbols';
-import { newTerminal, runCargo, runTask, setupTerminal, terminalPanel } from './views/terminal';
+import { newTerminal, runRodet, runTask, setupTerminal, terminalPanel } from './views/terminal';
 import { workspace } from './workspace';
 import { openBook, reloadBook } from './views/book';
 import { applyTheme, themes } from './theme';
@@ -109,7 +109,7 @@ async function main() {
   layout.addSideView(explorer);
   layout.addSideView(search);
   layout.addSideView(symbols);
-  layout.addSideView(cargo);
+  layout.addSideView(silk);
   layout.addSideView(pluginsView);
   layout.addActivityButton(t('Doc Book'), 'book', () => openBook());
   layout.addActivityButton(t('Settings (Ctrl+,)'), 'settings-gear', () => openSettings());
@@ -122,7 +122,7 @@ async function main() {
   setupExplorer();
   setupSearch();
   setupSymbols();
-  setupCargo();
+  setupSilk();
   setupProblems();
   setupTerminal();
   setupStatusbar();
@@ -227,7 +227,7 @@ function registerCommands() {
   const C = registerCommand;
   C({ id: 'folder.open', title: t('File: Open Folder…'), key: 'Ctrl+O', icon: 'folder-opened', run: () => openFolderDialog() });
   C({ id: 'folder.close', title: t('File: Close Folder'), icon: 'close', run: () => workspace.closeFolder() });
-  C({ id: 'project.new', title: t('Cargo: New Rodet Project…'), icon: 'add', run: () => newProject() });
+  C({ id: 'project.new', title: t('Rodet: New Project…'), icon: 'add', run: () => newProject() });
   C({ id: 'file.new', title: t('File: New File…'), key: 'Ctrl+N', icon: 'new-file', run: () => newFile() });
   C({ id: 'file.save', title: t('File: Save'), key: 'Ctrl+S', icon: 'save', run: () => workspace.save() });
   C({ id: 'file.saveAll', title: t('File: Save All'), key: 'Ctrl+Alt+S', icon: 'save-all', run: () => workspace.saveAll() });
@@ -244,18 +244,18 @@ function registerCommands() {
     const model = workspace.editor.getModel();
     if (selection && model && !selection.isEmpty() && selection.startLineNumber === selection.endLineNumber) searchFor(model.getValueInRange(selection));
   } });
-  C({ id: 'view.cargo', title: t('View: Cargo'), icon: 'package', run: () => layout.showSide('cargo') });
+  C({ id: 'view.silk', title: t('View: Silk'), icon: 'package', run: () => layout.showSide('silk') });
   C({ id: 'view.sidebar', title: t('View: Toggle Side Bar'), key: 'Ctrl+B', icon: 'layout-sidebar-left', run: () => layout.toggleSidebar() });
   C({ id: 'view.panel', title: t('View: Toggle Panel'), key: 'Ctrl+J', icon: 'layout-panel', run: () => layout.togglePanel() });
   C({ id: 'view.problems', title: t('View: Problems'), key: 'Ctrl+Shift+M', icon: 'error', run: () => layout.showPanel('problems') });
   C({ id: 'view.output', title: t('View: Output'), icon: 'output', run: () => layout.showPanel('output') });
   C({ id: 'terminal.new', title: t('Terminal: New Terminal'), key: 'Ctrl+`', icon: 'terminal', run: () => newTerminal() });
-  C({ id: 'cargo.run', title: t('Cargo: Run'), key: 'F5', icon: 'play', run: () => runCargo(['run'], 'cargo run') });
-  C({ id: 'cargo.runRelease', title: t('Cargo: Run Fast (release)'), key: 'Ctrl+F5', icon: 'rocket', run: () => runCargo(['run', '--release'], 'cargo run --release') });
-  C({ id: 'cargo.build', title: t('Cargo: Build'), key: 'Ctrl+Shift+B', icon: 'tools', run: () => runCargo(['build']) });
-  C({ id: 'cargo.check', title: t('Cargo: Check'), icon: 'check', run: () => runCargo(['check']) });
-  C({ id: 'cargo.test', title: t('Cargo: Test'), icon: 'beaker', run: () => runCargo(['test']) });
-  C({ id: 'cargo.clean', title: t('Cargo: Clean'), icon: 'trash', run: () => runCargo(['clean']) });
+  C({ id: 'rodet.run', title: t('Rodet: Run'), key: 'F5', icon: 'play', run: () => runRodet(['run'], 'rodet run') });
+  C({ id: 'rodet.runRelease', title: t('Rodet: Run Fast (release)'), key: 'Ctrl+F5', icon: 'rocket', run: () => runRodet(['run', '--release'], 'rodet run --release') });
+  C({ id: 'rodet.build', title: t('Rodet: Build'), key: 'Ctrl+Shift+B', icon: 'tools', run: () => runRodet(['build']) });
+  C({ id: 'rodet.check', title: t('Rodet: Check'), icon: 'check', run: () => runRodet(['check']) });
+  C({ id: 'rodet.test', title: t('Rodet: Test'), icon: 'beaker', run: () => runRodet(['test']) });
+  C({ id: 'rodet.clean', title: t('Rodet: Clean'), icon: 'trash', run: () => runRodet(['clean']) });
   C({ id: 'book.open', title: t('Help: Doc Book'), icon: 'book', run: () => openBook() });
   C({ id: 'settings', title: t('Preferences: Settings'), key: 'Ctrl+,', icon: 'settings-gear', run: () => openSettings() });
   C({ id: 'theme.toggle', title: t('Preferences: Toggle Dark / Light Theme'), icon: 'color-mode', run: () => updateSettings({ theme: (themes.get(settings.theme)?.base ?? settings.theme) === 'dark' ? 'light' : 'dark' }) });
@@ -267,7 +267,7 @@ function registerCommands() {
   C({ id: 'rodet.install', title: t('Rodet: Install or Update Rodet'), icon: 'cloud-download', run: () => installRodet() });
   C({ id: 'rodet.about', title: t('Rodet: About This Toolchain'), icon: 'info', run: () => {
     const tc = workspace.info.toolchain;
-    toast(`${tc.rustcVersion ?? t('Rodet is not installed')}\nrustc: ${tc.rustc ?? '–'}\ncargo: ${tc.cargo ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
+    toast(`${tc.rodetcVersion ?? t('Rodet is not installed')}\nrodetc: ${tc.rodetc ?? '–'}\nrodet: ${tc.rodet ?? '–'}\nanalyzer: ${tc.analyzer ?? '–'}`, 'info', [
       { label: t('Install / Update'), run: () => installRodet() },
     ]);
   } });
@@ -324,9 +324,9 @@ function setupKeys() {
     'Ctrl+J': 'view.panel',
     'Ctrl+Shift+M': 'view.problems',
     'Ctrl+`': 'terminal.new',
-    'F5': 'cargo.run',
-    'Ctrl+F5': 'cargo.runRelease',
-    'Ctrl+Shift+B': 'cargo.build',
+    'F5': 'rodet.run',
+    'Ctrl+F5': 'rodet.runRelease',
+    'Ctrl+Shift+B': 'rodet.build',
     'Ctrl+,': 'settings',
   };
   for (const [combo, id] of Object.entries(defaults)) keybindings.set(combo, id);

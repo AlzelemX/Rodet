@@ -168,4 +168,4 @@ LL |         simd_cttz(z);
 
 error: aborting due to 28 previous errors
 
-For more information about this error, try `rustc --explain E0511`.
+For more information about this error, try `rodetc --explain E0511`.

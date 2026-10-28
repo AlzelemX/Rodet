@@ -6,4 +6,4 @@ LL |     const CONST: () = ();
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0326`.
+For more information about this error, try `rodetc --explain E0326`.

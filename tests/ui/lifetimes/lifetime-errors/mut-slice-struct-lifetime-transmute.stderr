@@ -22,4 +22,4 @@ LL | fn lifetime_transmute_struct<'a, T: ?Sized>(x: &'a T, y: &'a T) -> &'a T {
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0621`.
+For more information about this error, try `rodetc --explain E0621`.

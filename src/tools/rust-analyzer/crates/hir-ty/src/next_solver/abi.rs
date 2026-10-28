@@ -1,7 +1,7 @@
 //! ABI-related things in the next-trait-solver.
-use rustc_abi::ExternAbi;
-use rustc_ast_ir::visit::VisitorResult;
-use rustc_type_ir::{
+use rodetc_abi::ExternAbi;
+use rodetc_ast_ir::visit::VisitorResult;
+use rodetc_type_ir::{
     FallibleTypeFolder, TypeFoldable, TypeFolder, TypeVisitable, TypeVisitor, error::TypeError,
     relate::Relate,
 };
@@ -15,20 +15,20 @@ pub enum Safety {
 }
 
 impl<'db> Relate<DbInterner<'db>> for Safety {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         _relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         if a != b {
-            Err(TypeError::SafetyMismatch(rustc_type_ir::error::ExpectedFound::new(a, b)))
+            Err(TypeError::SafetyMismatch(rodetc_type_ir::error::ExpectedFound::new(a, b)))
         } else {
             Ok(a)
         }
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Safety<DbInterner<'db>> for Safety {
+impl<'db> rodetc_type_ir::inherent::Safety<DbInterner<'db>> for Safety {
     fn safe() -> Self {
         Self::Safe
     }
@@ -69,15 +69,15 @@ impl<'db> TypeFoldable<DbInterner<'db>> for ExternAbi {
 }
 
 impl<'db> Relate<DbInterner<'db>> for ExternAbi {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         _relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         if a == b {
             Ok(a)
         } else {
-            Err(TypeError::AbiMismatch(rustc_type_ir::error::ExpectedFound::new(a, b)))
+            Err(TypeError::AbiMismatch(rodetc_type_ir::error::ExpectedFound::new(a, b)))
         }
     }
 }

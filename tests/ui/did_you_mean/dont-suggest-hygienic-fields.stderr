@@ -52,4 +52,4 @@ LL |     const CRATE: Crate = Crate { field: () };
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0026, E0560, E0609.
-For more information about an error, try `rustc --explain E0026`.
+For more information about an error, try `rodetc --explain E0026`.

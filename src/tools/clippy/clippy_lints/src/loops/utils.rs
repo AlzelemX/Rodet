@@ -1,15 +1,15 @@
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::ty::{has_iter_method, implements_trait};
 use clippy_utils::{get_parent_expr, is_integer_literal, sugg};
-use rustc_ast::ast::{LitIntType, LitKind};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{Visitor, walk_expr, walk_local};
-use rustc_hir::{AssignOpKind, BorrowKind, Expr, ExprKind, HirId, HirIdMap, LetStmt, Mutability, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Spanned;
-use rustc_span::symbol::{Symbol, sym};
+use rodetc_ast::ast::{LitIntType, LitKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{Visitor, walk_expr, walk_local};
+use rodetc_hir::{AssignOpKind, BorrowKind, Expr, ExprKind, HirId, HirIdMap, LetStmt, Mutability, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Spanned;
+use rodetc_span::symbol::{Symbol, sym};
 
 #[derive(Debug, PartialEq, Eq)]
 enum IncrementVisitorVarState {

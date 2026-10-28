@@ -1,5 +1,5 @@
-use rustc_ast::ast;
-use rustc_parse::parser::asm::{AsmArg, parse_asm_args};
+use rodetc_ast::ast;
+use rodetc_parse::parser::asm::{AsmArg, parse_asm_args};
 
 use crate::rewrite::RewriteContext;
 

@@ -3,7 +3,7 @@ use std::num::NonZeroU64;
 use std::path::PathBuf;
 
 use miri::{InterpResult, interp_ok};
-use rustc_middle::mir::interpret::AllocId;
+use rodetc_middle::mir::interpret::AllocId;
 
 use crate::debugger::{
     BreakpointSetResult, CommandResult, DebuggerCommand, ExecutionResult, PrirodaContext,

@@ -161,9 +161,9 @@ macro_rules! test_abi_compatible {
             // Declaring a `type` doesn't even check well-formedness, so we also declare a function.
             fn check_wf(_x: $t1, _y: $t2) {}
             // Test argument and return value, `Rust` and `C` ABIs.
-            #[rustc_abi(assert_eq)]
+            #[rodetc_abi(assert_eq)]
             type TestRust = (fn($t1) -> $t1, fn($t2) -> $t2);
-            #[rustc_abi(assert_eq)]
+            #[rodetc_abi(assert_eq)]
             type TestC = (extern "C" fn($t1) -> $t1, extern "C" fn($t2) -> $t2);
         }
     };
@@ -173,9 +173,9 @@ macro_rules! test_abi_compatible {
             // Declaring a `type` doesn't even check well-formedness, so we also declare a function.
             fn check_wf(_x: $t1, _y: $t2) {}
             // Test argument only in case of unsized types, `Rust` and `C` ABIs.
-            #[rustc_abi(assert_eq)]
+            #[rodetc_abi(assert_eq)]
             type TestRust = (fn($t1), fn($t2));
-            #[rustc_abi(assert_eq)]
+            #[rodetc_abi(assert_eq)]
             type TestC = (extern "C" fn($t1), extern "C" fn($t2));
         }
     };
@@ -315,7 +315,7 @@ macro_rules! test_transparent_unsized {
 }
 
 // NOTE: non-rustic ABIs do not support unsized types: they are skipped during ABI generation, and
-// will trigger an error if they make it to rustc_monomorphize/src/mono_checks/abi_check.rs
+// will trigger an error if they make it to rodetc_monomorphize/src/mono_checks/abi_check.rs
 mod unsized_ {
     use super::*;
     test_transparent_unsized!(str_, str);

@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
-use rustc_ast::ast::{AttrKind, Attribute, Item, ItemKind};
-use rustc_ast::token::{Token, TokenKind};
-use rustc_ast::tokenstream::{TokenStream, TokenTree};
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::symbol::sym;
-use rustc_span::{Span, kw};
+use rodetc_ast::ast::{AttrKind, Attribute, Item, ItemKind};
+use rodetc_ast::token::{Token, TokenKind};
+use rodetc_ast::tokenstream::{TokenStream, TokenTree};
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::symbol::sym;
+use rodetc_span::{Span, kw};
 
 declare_clippy_lint! {
     /// ### What it does

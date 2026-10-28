@@ -111,4 +111,4 @@ LL + trait B { fn foo() -> Self; }
 
 error: aborting due to 2 previous errors; 4 warnings emitted
 
-For more information about this error, try `rustc --explain E0038`.
+For more information about this error, try `rodetc --explain E0038`.

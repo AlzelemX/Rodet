@@ -47,4 +47,4 @@ LL | impl<const N: usize = { || [0; X] }, X> dyn PartialEq<X> {}
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0116, E0128, E0207, E0308.
-For more information about an error, try `rustc --explain E0116`.
+For more information about an error, try `rodetc --explain E0116`.

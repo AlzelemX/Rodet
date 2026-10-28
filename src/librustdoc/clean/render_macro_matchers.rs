@@ -1,12 +1,12 @@
-use rustc_ast::token::{self, Delimiter, IdentKind};
-use rustc_ast::tokenstream::{TokenStream, TokenTree};
-use rustc_ast_pretty::pprust::PrintState;
-use rustc_ast_pretty::pprust::state::State as Printer;
-use rustc_middle::ty::TyCtxt;
-use rustc_parse::lexer::StripTokens;
-use rustc_session::parse::ParseSess;
-use rustc_span::symbol::{Ident, Symbol, kw};
-use rustc_span::{FileName, Span};
+use rodetc_ast::token::{self, Delimiter, IdentKind};
+use rodetc_ast::tokenstream::{TokenStream, TokenTree};
+use rodetc_ast_pretty::pprust::PrintState;
+use rodetc_ast_pretty::pprust::state::State as Printer;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_parse::lexer::StripTokens;
+use rodetc_session::parse::ParseSess;
+use rodetc_span::symbol::{Ident, Symbol, kw};
+use rodetc_span::{FileName, Span};
 
 /// Render a macro matcher in a format suitable for displaying to the user
 /// as part of an item declaration.
@@ -65,7 +65,7 @@ fn snippet_equal_to_token(tcx: TyCtxt<'_>, matcher: &TokenTree) -> Option<String
     // Create a Parser.
     let psess = ParseSess::new();
     let file_name = FileName::macro_expansion_source_code(&snippet);
-    let mut parser = match rustc_parse::new_parser_from_source_str(
+    let mut parser = match rodetc_parse::new_parser_from_source_str(
         &psess,
         file_name,
         snippet.clone(),

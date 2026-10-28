@@ -1,15 +1,15 @@
 use crate::{is_in_const_context, sym};
-use rustc_ast::Attribute;
-use rustc_ast::attr::AttributeExt;
-use rustc_attr_ir::{RustcVersion, StabilityLevel, StableSince};
-use rustc_attr_parsing::parse_version;
-use rustc_data_structures::smallvec::SmallVec;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Constness, HirId};
-use rustc_lint::LateContext;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
+use rodetc_ast::Attribute;
+use rodetc_ast::attr::AttributeExt;
+use rodetc_attr_ir::{RustcVersion, StabilityLevel, StableSince};
+use rodetc_attr_parsing::parse_version;
+use rodetc_data_structures::smallvec::SmallVec;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Constness, HirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
 use std::iter::once;
 use std::sync::atomic::{AtomicBool, Ordering};
 

@@ -1,12 +1,12 @@
 use super::TRANSMUTES_EXPRESSIBLE_AS_PTR_CASTS;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::sugg::Sugg;
-use rustc_ast::util::parser::ExprPrecedence;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, Node};
-use rustc_hir_typeck::cast::{CastKind, check_cast};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
+use rodetc_ast::util::parser::ExprPrecedence;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, Node};
+use rodetc_hir_typeck::cast::{CastKind, check_cast};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
 
 /// Checks for `transmutes_expressible_as_ptr_casts` lint.
 /// Returns `true` if it's triggered, otherwise returns `false`.

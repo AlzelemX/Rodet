@@ -97,4 +97,4 @@ LL |     let _: Box<for<'a> Trait<'a> + (Obj) + (?Sized)>;
 
 error: aborting due to 6 previous errors; 3 warnings emitted
 
-For more information about this error, try `rustc --explain E0225`.
+For more information about this error, try `rodetc --explain E0225`.

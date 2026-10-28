@@ -1,10 +1,10 @@
 use super::USELESS_TRANSMUTE;
 use clippy_utils::diagnostics::{span_lint, span_lint_and_then};
 use clippy_utils::sugg;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty, TypeVisitableExt as _};
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty, TypeVisitableExt as _};
 
 /// Checks for `useless_transmute` lint.
 /// Returns `true` if it's triggered, otherwise returns `false`.

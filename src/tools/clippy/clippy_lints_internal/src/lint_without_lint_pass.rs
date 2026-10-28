@@ -2,16 +2,16 @@ use crate::internal_paths;
 use clippy_utils::diagnostics::{span_lint, span_lint_and_help};
 use clippy_utils::macros::root_macro_call_first_node;
 use clippy_utils::{is_lint_allowed, sym};
-use rustc_ast::ast::LitKind;
-use rustc_data_structures::fx::{FxIndexMap, FxIndexSet};
-use rustc_hir as hir;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::intravisit::Visitor;
-use rustc_hir::{CRATE_HIR_ID, ExprKind, HirId, Item, Mutability, Path, TyKind};
-use rustc_lint::{LateContext, LateLintPass, declare_tool_lint, impl_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_span::symbol::Symbol;
-use rustc_span::{Span, Spanned};
+use rodetc_ast::ast::LitKind;
+use rodetc_data_structures::fx::{FxIndexMap, FxIndexSet};
+use rodetc_hir as hir;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::intravisit::Visitor;
+use rodetc_hir::{CRATE_HIR_ID, ExprKind, HirId, Item, Mutability, Path, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_tool_lint, impl_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_span::symbol::Symbol;
+use rodetc_span::{Span, Spanned};
 
 declare_tool_lint! {
     /// ### What it does
@@ -211,7 +211,7 @@ fn check_invalid_clippy_version_attribute(cx: &LateContext<'_>, item: &'_ Item<'
             return;
         }
 
-        if rustc_attr_parsing::parse_version(value).is_none() {
+        if rodetc_attr_parsing::parse_version(value).is_none() {
             span_lint_and_help(
                 cx,
                 INVALID_CLIPPY_VERSION_ATTRIBUTE,
@@ -238,7 +238,7 @@ fn check_invalid_clippy_version_attribute(cx: &LateContext<'_>, item: &'_ Item<'
 pub(super) fn extract_clippy_version_value(cx: &LateContext<'_>, item: &'_ Item<'_>) -> Option<Symbol> {
     let attrs = cx.tcx.hir_attrs(item.hir_id());
     attrs.iter().find_map(|attr| {
-        if let rustc_attr_ir::Attribute::Unparsed(attr_kind) = &attr
+        if let rodetc_attr_ir::Attribute::Unparsed(attr_kind) = &attr
             // Identify attribute
             && let [tool_name, attr_name] = &attr_kind.path.segments[..]
             && tool_name == &sym::clippy

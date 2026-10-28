@@ -6,9 +6,9 @@ use clippy_utils::usage::mutated_variables;
 use clippy_utils::visitors::{Descend, for_each_expr_without_closures};
 use clippy_utils::{as_some_expr, is_none_expr, sym};
 use core::ops::ControlFlow;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 use std::fmt::Display;
 
 use super::{UNNECESSARY_FILTER_MAP, UNNECESSARY_FIND_MAP};

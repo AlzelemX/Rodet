@@ -1,16 +1,16 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_hir;
-use rustc_abi::ExternAbi;
-use rustc_hir::def::DefKind;
-use rustc_hir::{Body, FnDecl, HirId, HirIdSet, PatKind, intravisit};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_middle::ty::{self, TraitRef, Ty};
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
-use rustc_span::symbol::kw;
+use rodetc_abi::ExternAbi;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::{Body, FnDecl, HirId, HirIdSet, PatKind, intravisit};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_middle::ty::{self, TraitRef, Ty};
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::symbol::kw;
 
 pub struct BoxedLocal {
     too_large_for_stack: u64,

@@ -219,8 +219,8 @@ fn test_numeric_good() {
     good(
         "\
         # tidy-alphabetical-start
-        rustc_ast = { path = \"../rustc_ast\" }
-        rustc_ast_lowering = { path = \"../rustc_ast_lowering\" }
+        rodetc_ast = { path = \"../rodetc_ast\" }
+        rodetc_ast_lowering = { path = \"../rodetc_ast_lowering\" }
         # tidy-alphabetical-end
     ",
     );
@@ -423,15 +423,15 @@ fn multiline() {
 fn multiline_types() {
     let lines = "\
         // tidy-alphabetical-start
-        rustc_data_structures::steal::Steal<
-            rustc_index::IndexVec<
-                rustc_middle::mir::Promoted,
-                rustc_middle::mir::Body<'tcx>
+        rodetc_data_structures::steal::Steal<
+            rodetc_index::IndexVec<
+                rodetc_middle::mir::Promoted,
+                rodetc_middle::mir::Body<'tcx>
             >
         >,
-        rustc_index::IndexVec<
-            rustc_middle::mir::Promoted,
-            rustc_middle::mir::Body<'tcx>
+        rodetc_index::IndexVec<
+            rodetc_middle::mir::Promoted,
+            rodetc_middle::mir::Body<'tcx>
         >,
         // tidy-alphabetical-end
     ";
@@ -506,14 +506,14 @@ fn bless_multiline() {
 fn bless_multiline_types() {
     let before = "\
         // tidy-alphabetical-start
-        rustc_index::IndexVec<
-            rustc_middle::mir::Promoted,
-            rustc_middle::mir::Body<'tcx>
+        rodetc_index::IndexVec<
+            rodetc_middle::mir::Promoted,
+            rodetc_middle::mir::Body<'tcx>
         >,
-        rustc_data_structures::steal::Steal<
-            rustc_index::IndexVec<
-                rustc_middle::mir::Promoted,
-                rustc_middle::mir::Body<'tcx>
+        rodetc_data_structures::steal::Steal<
+            rodetc_index::IndexVec<
+                rodetc_middle::mir::Promoted,
+                rodetc_middle::mir::Body<'tcx>
             >
         >,
         // tidy-alphabetical-end
@@ -521,15 +521,15 @@ fn bless_multiline_types() {
 
     let after = "\
         // tidy-alphabetical-start
-        rustc_data_structures::steal::Steal<
-            rustc_index::IndexVec<
-                rustc_middle::mir::Promoted,
-                rustc_middle::mir::Body<'tcx>
+        rodetc_data_structures::steal::Steal<
+            rodetc_index::IndexVec<
+                rodetc_middle::mir::Promoted,
+                rodetc_middle::mir::Body<'tcx>
             >
         >,
-        rustc_index::IndexVec<
-            rustc_middle::mir::Promoted,
-            rustc_middle::mir::Body<'tcx>
+        rodetc_index::IndexVec<
+            rodetc_middle::mir::Promoted,
+            rodetc_middle::mir::Body<'tcx>
         >,
         // tidy-alphabetical-end
     ";

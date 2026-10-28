@@ -7,14 +7,14 @@ use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::visitors::is_const_evaluatable;
 use clippy_utils::{is_in_const_context, is_mutable, sym};
-use rustc_ast::Mutability;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, HirId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_middle::ty::adjustment::{Adjust, DerefAdjustKind, OverloadedDeref};
-use rustc_span::Symbol;
+use rodetc_ast::Mutability;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, HirId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_middle::ty::adjustment::{Adjust, DerefAdjustKind, OverloadedDeref};
+use rodetc_span::Symbol;
 
 use crate::methods::is_clone_like;
 

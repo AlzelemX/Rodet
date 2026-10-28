@@ -14,4 +14,4 @@ LL |     let _ = S1(C[0].clone()).clone();
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0508`.
+For more information about this error, try `rodetc --explain E0508`.

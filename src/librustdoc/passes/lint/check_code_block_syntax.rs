@@ -3,16 +3,16 @@
 use std::borrow::Cow;
 use std::sync::Arc;
 
-use rustc_data_structures::sync::Lock;
-use rustc_errors::emitter::Emitter;
-use rustc_errors::formatting::format_diag_message;
-use rustc_errors::{Applicability, Diag, DiagCtxt, DiagCtxtHandle, DiagInner, Diagnostic, Level};
-use rustc_parse::{source_str_to_stream, unwrap_or_emit_fatal};
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
-use rustc_session::parse::ParseSess;
-use rustc_span::hygiene::{AstPass, ExpnData, ExpnKind, LocalExpnId, Transparency};
-use rustc_span::source_map::{FilePathMapping, SourceMap};
-use rustc_span::{DUMMY_SP, FileName, InnerSpan, Span};
+use rodetc_data_structures::sync::Lock;
+use rodetc_errors::emitter::Emitter;
+use rodetc_errors::formatting::format_diag_message;
+use rodetc_errors::{Applicability, Diag, DiagCtxt, DiagCtxtHandle, DiagInner, Diagnostic, Level};
+use rodetc_parse::{source_str_to_stream, unwrap_or_emit_fatal};
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_session::parse::ParseSess;
+use rodetc_span::hygiene::{AstPass, ExpnData, ExpnKind, LocalExpnId, Transparency};
+use rodetc_span::source_map::{FilePathMapping, SourceMap};
+use rodetc_span::{DUMMY_SP, FileName, InnerSpan, Span};
 
 use crate::clean;
 use crate::core::DocContext;
@@ -112,7 +112,7 @@ fn check_rust_syntax(
     let expn_id = cx.tcx.with_stable_hashing_context(|hcx| LocalExpnId::fresh(expn_data, hcx));
     let span = DUMMY_SP.apply_mark(expn_id.to_expn_id(), Transparency::Transparent);
 
-    let is_empty = rustc_driver::catch_fatal_errors(|| {
+    let is_empty = rodetc_driver::catch_fatal_errors(|| {
         unwrap_or_emit_fatal(source_str_to_stream(
             &psess,
             FileName::Custom(String::from("doctest")),

@@ -12,4 +12,4 @@ LL | fn test<T: Foo1<Assoc1 = <T as Foo2>::Assoc2> + Foo2<Assoc2 = <T as Foo1>::
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0275`.
+For more information about this error, try `rodetc --explain E0275`.

@@ -1,8 +1,8 @@
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Block, Body, FnDecl, Stmt};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Block, Body, FnDecl, Stmt};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 mod let_and_return;
 mod needless_return;

@@ -43,4 +43,4 @@ LL | #[eii(eii5)]
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0433, E0603.
-For more information about an error, try `rustc --explain E0433`.
+For more information about an error, try `rodetc --explain E0433`.

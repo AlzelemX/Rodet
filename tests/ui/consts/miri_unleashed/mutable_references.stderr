@@ -202,4 +202,4 @@ LL | const RAW_MUT_COERCE: SyncPtr<i32> = SyncPtr { x: &mut 0 };
 error: aborting due to 15 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0080, E0594.
-For more information about an error, try `rustc --explain E0080`.
+For more information about an error, try `rodetc --explain E0080`.

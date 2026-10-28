@@ -7,7 +7,7 @@ use std::ops::Deref;
 use std::rc::{Rc, Weak};
 use std::{fs, io};
 
-use rustc_abi::Size;
+use rodetc_abi::Size;
 
 use crate::shims::unix::UnixFileDescription;
 use crate::*;

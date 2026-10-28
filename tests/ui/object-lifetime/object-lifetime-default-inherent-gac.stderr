@@ -22,4 +22,4 @@ LL |         [(); Parent::<'r>::CT::<dyn super::Trait + /* 'a */>]:,
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0228`.
+For more information about this error, try `rodetc --explain E0228`.

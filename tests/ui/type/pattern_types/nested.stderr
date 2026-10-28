@@ -180,4 +180,4 @@ LL | const BAD_NESTING5: pattern_type!(f32 is 1.0 .. 2.0) = todo!();
 error: aborting due to 11 previous errors
 
 Some errors have detailed explanations: E0277, E0308, E0600.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

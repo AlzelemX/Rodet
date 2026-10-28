@@ -63,12 +63,12 @@ fn type_visitable_derive(mut s: synstructure::Structure<'_>) -> proc_macro2::Tok
     s.add_bounds(synstructure::AddBounds::Generics);
     let body_visit = s.each(|bind| {
         quote! {
-            match ::rustc_type_ir::VisitorResult::branch(
-                ::rustc_type_ir::TypeVisitable::visit_with(#bind, __visitor)
+            match ::rodetc_type_ir::VisitorResult::branch(
+                ::rodetc_type_ir::TypeVisitable::visit_with(#bind, __visitor)
             ) {
                 ::core::ops::ControlFlow::Continue(()) => {},
                 ::core::ops::ControlFlow::Break(r) => {
-                    return ::rustc_type_ir::VisitorResult::from_residual(r);
+                    return ::rodetc_type_ir::VisitorResult::from_residual(r);
                 },
             }
         }
@@ -76,14 +76,14 @@ fn type_visitable_derive(mut s: synstructure::Structure<'_>) -> proc_macro2::Tok
     s.bind_with(|_| synstructure::BindStyle::Move);
 
     s.bound_impl(
-        quote!(::rustc_type_ir::TypeVisitable<::hir_ty::next_solver::DbInterner<'db>>),
+        quote!(::rodetc_type_ir::TypeVisitable<::hir_ty::next_solver::DbInterner<'db>>),
         quote! {
-            fn visit_with<__V: ::rustc_type_ir::TypeVisitor<::hir_ty::next_solver::DbInterner<'db>>>(
+            fn visit_with<__V: ::rodetc_type_ir::TypeVisitor<::hir_ty::next_solver::DbInterner<'db>>>(
                 &self,
                 __visitor: &mut __V
             ) -> __V::Result {
                 match *self { #body_visit }
-                <__V::Result as ::rustc_type_ir::VisitorResult>::output()
+                <__V::Result as ::rodetc_type_ir::VisitorResult>::output()
             }
         },
     )
@@ -112,7 +112,7 @@ fn type_foldable_derive(mut s: synstructure::Structure<'_>) -> proc_macro2::Toke
                 bind.to_token_stream()
             } else {
                 quote! {
-                    ::rustc_type_ir::TypeFoldable::try_fold_with(#bind, __folder)?
+                    ::rodetc_type_ir::TypeFoldable::try_fold_with(#bind, __folder)?
                 }
             }
         })
@@ -130,23 +130,23 @@ fn type_foldable_derive(mut s: synstructure::Structure<'_>) -> proc_macro2::Toke
                 bind.to_token_stream()
             } else {
                 quote! {
-                    ::rustc_type_ir::TypeFoldable::fold_with(#bind, __folder)
+                    ::rodetc_type_ir::TypeFoldable::fold_with(#bind, __folder)
                 }
             }
         })
     });
 
     s.bound_impl(
-        quote!(::rustc_type_ir::TypeFoldable<::hir_ty::next_solver::DbInterner<'db>>),
+        quote!(::rodetc_type_ir::TypeFoldable<::hir_ty::next_solver::DbInterner<'db>>),
         quote! {
-            fn try_fold_with<__F: ::rustc_type_ir::FallibleTypeFolder<::hir_ty::next_solver::DbInterner<'db>>>(
+            fn try_fold_with<__F: ::rodetc_type_ir::FallibleTypeFolder<::hir_ty::next_solver::DbInterner<'db>>>(
                 self,
                 __folder: &mut __F
             ) -> Result<Self, __F::Error> {
                 Ok(match self { #try_body_fold })
             }
 
-            fn fold_with<__F: ::rustc_type_ir::TypeFolder<::hir_ty::next_solver::DbInterner<'db>>>(
+            fn fold_with<__F: ::rodetc_type_ir::TypeFolder<::hir_ty::next_solver::DbInterner<'db>>>(
                 self,
                 __folder: &mut __F
             ) -> Self {
@@ -183,12 +183,12 @@ fn generic_type_visitable_derive(mut s: synstructure::Structure<'_>) -> proc_mac
     s.add_impl_generic(parse_quote!(__V: hir_ty::next_solver::interner::WorldExposer));
     let body_visit = s.each(|bind| {
         quote! {
-            ::rustc_type_ir::GenericTypeVisitable::<__V>::generic_visit_with(#bind, __visitor);
+            ::rodetc_type_ir::GenericTypeVisitable::<__V>::generic_visit_with(#bind, __visitor);
         }
     });
 
     s.bound_impl(
-        quote!(::rustc_type_ir::GenericTypeVisitable<__V>),
+        quote!(::rodetc_type_ir::GenericTypeVisitable<__V>),
         quote! {
             fn generic_visit_with(
                 &self,

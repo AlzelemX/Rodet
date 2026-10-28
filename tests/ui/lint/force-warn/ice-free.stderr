@@ -14,7 +14,7 @@ LL | pub extern crate core;
 
 warning: 1 warning emitted
 
-For more information about this error, try `rustc --explain E0365`.
+For more information about this error, try `rodetc --explain E0365`.
 Future incompatibility report: Future breakage diagnostic:
 warning[E0365]: extern crate `core` is private and cannot be re-exported
   --> $DIR/ice-free.rs:5:9

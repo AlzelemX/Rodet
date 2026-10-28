@@ -53,4 +53,4 @@ LL | fn not_dupes<T: ?Sized + ?Iterator>() {}
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0203`.
+For more information about this error, try `rodetc --explain E0203`.

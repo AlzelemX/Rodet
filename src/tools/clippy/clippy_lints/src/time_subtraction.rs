@@ -7,11 +7,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::sym;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::Ty;
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::Ty;
+use rodetc_span::SyntaxContext;
 
 declare_clippy_lint! {
     /// ### What it does

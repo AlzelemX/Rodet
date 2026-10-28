@@ -3,11 +3,11 @@
 use std::cmp::Ordering;
 
 use clippy_utils::consts::{ConstEvalCtxt, Constant};
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::layout::HasTyCtxt as _;
-use rustc_middle::ty::{Ty, TypeckResults};
-use rustc_span::{Span, Spanned};
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::layout::HasTyCtxt as _;
+use rodetc_middle::ty::{Ty, TypeckResults};
+use rodetc_span::{Span, Spanned};
 
 use clippy_utils::SpanlessEq;
 use clippy_utils::diagnostics::span_lint_and_note;

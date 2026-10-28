@@ -1007,10 +1007,10 @@ impl CommandLineStep for Rustc {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.crate_or_deps_filtered("rustc-main", |krate| {
+        run.crate_or_deps_filtered("rodetc-main", |krate| {
             // We can't allow `build rustc` as an alias for this Step, because that's reserved by `Assemble`.
             // Ideally Assemble would use `build compiler` instead, but that seems too confusing to be worth the breaking change.
-            krate.name != "rustc-main"
+            krate.name != "rodetc-main"
         })
     }
 
@@ -1159,10 +1159,10 @@ impl CommandLineStep for Rustc {
             vec![],
             ArtifactKeepMode::Custom(Box::new(|filename| {
                 if filename.contains("jemalloc_sys")
-                    || filename.contains("rustc_public_bridge")
-                    || filename.contains("rustc_public")
+                    || filename.contains("rodetc_public_bridge")
+                    || filename.contains("rodetc_public")
                 {
-                    // jemalloc_sys and rustc_public_bridge are not linked into librustc_driver.so,
+                    // jemalloc_sys and rodetc_public_bridge are not linked into librodetc_driver.so,
                     // so we need to distribute them as rlib to be able to use them.
                     if filename.ends_with(".rlib") {
                         return true;
@@ -1171,28 +1171,28 @@ impl CommandLineStep for Rustc {
 
                 // Distribute the rest of the rustc crates as rmeta files only to reduce
                 // the tarball sizes by about 50%. The object files are linked into
-                // librustc_driver.so, so it is still possible to link against them.
+                // librodetc_driver.so, so it is still possible to link against them.
                 filename.ends_with(".rmeta")
             })),
         );
 
         let target_root_dir = stamp.path().parent().unwrap();
-        // When building `librustc_driver.so` (like `libLLVM.so`) on linux, it can contain
+        // When building `librodetc_driver.so` (like `libLLVM.so`) on linux, it can contain
         // unexpected debuginfo from dependencies, for example from the C++ standard library used in
-        // our LLVM wrapper. Unless we're explicitly requesting `librustc_driver` to be built with
+        // our LLVM wrapper. Unless we're explicitly requesting `librodetc_driver` to be built with
         // debuginfo (via the debuginfo level of the executables using it): strip this debuginfo
         // away after the fact.
         if builder.config.rust_debuginfo_level_rustc == DebuginfoLevel::None
             && builder.config.rust_debuginfo_level_tools == DebuginfoLevel::None
         {
-            let rustc_driver = target_root_dir.join("librustc_driver.so");
-            strip_debug(builder, target, &rustc_driver);
+            let rodetc_driver = target_root_dir.join("librodetc_driver.so");
+            strip_debug(builder, target, &rodetc_driver);
         }
 
         if builder.config.rust_debuginfo_level_rustc == DebuginfoLevel::None {
             // Due to LTO a lot of debug info from C++ dependencies such as jemalloc can make it into
             // our final binaries
-            strip_debug(builder, target, &target_root_dir.join("rustc-main"));
+            strip_debug(builder, target, &target_root_dir.join("rodetc-main"));
         }
 
         builder.ensure(RustcLink::from_rustc(self));
@@ -1216,7 +1216,7 @@ pub fn rustc_cargo(
         .arg("--features")
         .arg(builder.rustc_features(kind, target, crates))
         .arg("--manifest-path")
-        .arg(builder.src.join("compiler/rustc/Cargo.toml"));
+        .arg(builder.src.join("compiler/rodetc/Cargo.toml"));
 
     cargo.rustdocflag("-Zcrate-attr=warn(rust_2018_idioms)");
 
@@ -1254,7 +1254,7 @@ pub fn rustc_cargo(
     apply_dylib_lto(builder, build_compiler, cargo);
 
     // With LLD, we can use ICF (identical code folding) to reduce the executable size
-    // of librustc_driver/rustc and to improve i-cache utilization.
+    // of librodetc_driver/rustc and to improve i-cache utilization.
     //
     // -Wl,[link options] doesn't work on MSVC. However, /OPT:ICF (technically /OPT:REF,ICF)
     // is already on by default in MSVC optimized builds, which is interpreted as --icf=all:
@@ -1388,11 +1388,11 @@ fn rustc_cargo_env(builder: &Builder<'_>, cargo: &mut Cargo, target: TargetSelec
     // - download-ci-llvm enabled
     // - LLVM provided externally through a llvm-config
     //
-    // and we do a check-like build, we run rustc_llvm as normally, to maintain a
+    // and we do a check-like build, we run rodetc_llvm as normally, to maintain a
     // consistent environment between check and non-check builds
     //
     // However, if neither from the above three bullet points is true, and we do a check-like build,
-    // we skip running rustc_llvm by setting the RUST_CHECK environment variable.
+    // we skip running rodetc_llvm by setting the RUST_CHECK environment variable.
     //
     // Note that if download-ci-llvm is enabled, `prebuilt_llvm_output` will *eagerly* download
     // LLVM from CI, thus making it locally available.
@@ -1423,14 +1423,14 @@ fn rustc_cargo_env(builder: &Builder<'_>, cargo: &mut Cargo, target: TargetSelec
     }
 
     // Plumb the `rust.wasm-panic-unwind-default` configuration option into the
-    // `rustc_target` crate.
+    // `rodetc_target` crate.
     if builder.config.wasm_panic_unwind_default {
         cargo.env("CFG_WASM_PANIC_UNWIND_DEFAULT", "1");
     }
 }
 
 /// Pass down configuration from the LLVM build into the build of
-/// rustc_llvm and rustc_codegen_llvm.
+/// rodetc_llvm and rodetc_codegen_llvm.
 ///
 /// Note that calling this function has the side-effect of _building LLVM_, which is sometimes
 /// unwanted (e.g. for check builds).
@@ -1447,10 +1447,10 @@ fn rustc_llvm_env(builder: &Builder<'_>, cargo: &mut Cargo, target: TargetSelect
         cargo.env("LLVM_OFFLOAD", "1");
     }
 
-    // This always has to be the host LLVM config, because it is executed by rustc_llvm
+    // This always has to be the host LLVM config, because it is executed by rodetc_llvm
     cargo.env("LLVM_CONFIG", builder.host_llvm_config());
 
-    // Some LLVM linker flags (-L and -l) may be needed to link `rustc_llvm`. Its build script
+    // Some LLVM linker flags (-L and -l) may be needed to link `rodetc_llvm`. Its build script
     // expects these to be passed via the `LLVM_LINKER_FLAGS` env variable, separated by
     // whitespace.
     //
@@ -1458,7 +1458,7 @@ fn rustc_llvm_env(builder: &Builder<'_>, cargo: &mut Cargo, target: TargetSelect
     // - on windows, when `clang-cl` is used with instrumentation, we need to manually add
     // clang's runtime library resource directory so that the profiler runtime library can be
     // found. This is to avoid the linker errors about undefined references to
-    // `__llvm_profile_instrument_memop` when linking `rustc_driver`.
+    // `__llvm_profile_instrument_memop` when linking `rodetc_driver`.
     let mut llvm_linker_flags = String::new();
     if builder.config.llvm_pgo.generate_profile.is_some()
         && target.is_msvc()
@@ -1477,7 +1477,7 @@ fn rustc_llvm_env(builder: &Builder<'_>, cargo: &mut Cargo, target: TargetSelect
         llvm_linker_flags.push_str(s);
     }
 
-    // Set the linker flags via the env var that `rustc_llvm`'s build script will read.
+    // Set the linker flags via the env var that `rodetc_llvm`'s build script will read.
     if !llvm_linker_flags.is_empty() {
         cargo.env("LLVM_LINKER_FLAGS", llvm_linker_flags);
     }
@@ -1691,7 +1691,7 @@ impl CommandLineStep for GccCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_gcc").alias("cg_gcc")
+        run.alias("rodetc_codegen_gcc").alias("cg_gcc")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -1729,7 +1729,7 @@ impl CommandLineStep for GccCodegenBackend {
             host,
             Kind::Build,
         );
-        cargo.arg("--manifest-path").arg(builder.src.join("compiler/rustc_codegen_gcc/Cargo.toml"));
+        cargo.arg("--manifest-path").arg(builder.src.join("compiler/rodetc_codegen_gcc/Cargo.toml"));
         apply_dylib_lto(builder, &build_compiler, &mut cargo);
 
         let _guard =
@@ -1743,7 +1743,7 @@ impl CommandLineStep for GccCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::build("rustc_codegen_gcc", self.compilers.target())
+            StepMetadata::build("rodetc_codegen_gcc", self.compilers.target())
                 .built_by(self.compilers.build_compiler()),
         )
     }
@@ -1759,7 +1759,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_cranelift").alias("cg_clif")
+        run.alias("rodetc_codegen_cranelift").alias("cg_clif")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -1800,7 +1800,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
         );
         cargo
             .arg("--manifest-path")
-            .arg(builder.src.join("compiler/rustc_codegen_cranelift/Cargo.toml"));
+            .arg(builder.src.join("compiler/rodetc_codegen_cranelift/Cargo.toml"));
         apply_dylib_lto(builder, &build_compiler, &mut cargo);
         apply_pgo(builder, &mut cargo, build_compiler, &builder.config.cranelift_pgo);
 
@@ -1817,7 +1817,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::build("rustc_codegen_cranelift", self.compilers.target())
+            StepMetadata::build("rodetc_codegen_cranelift", self.compilers.target())
                 .built_by(self.compilers.build_compiler()),
         )
     }
@@ -1850,7 +1850,7 @@ fn write_codegen_backend_stamp(
 
 pub fn looks_like_codegen_backend(path: &Path) -> bool {
     is_dylib(path)
-        && path.file_name().and_then(|p| p.to_str()).is_some_and(|n| n.contains("rustc_codegen_"))
+        && path.file_name().and_then(|p| p.to_str()).is_some_and(|n| n.contains("rodetc_codegen_"))
 }
 
 /// Creates the `codegen-backends` folder for a compiler that's about to be
@@ -1897,8 +1897,8 @@ pub fn get_codegen_backend_file(stamp: &BuildStamp) -> PathBuf {
 /// Normalize the name of a dynamic codegen backend library.
 pub fn normalize_codegen_backend_name(builder: &Builder<'_>, path: &Path) -> String {
     let filename = path.file_name().unwrap().to_str().unwrap();
-    // change e.g. `librustc_codegen_cranelift-xxxxxx.so` to
-    // `librustc_codegen_cranelift-release.so`
+    // change e.g. `librodetc_codegen_cranelift-xxxxxx.so` to
+    // `librodetc_codegen_cranelift-release.so`
     let dash = filename.find('-').unwrap();
     let dot = filename.find('.').unwrap();
     format!("{}-{}{}", &filename[..dash], builder.rust_release(), &filename[dot..])
@@ -2108,7 +2108,7 @@ impl CommandLineStep for Assemble {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.path("compiler/rustc").path("compiler")
+        run.path("compiler/rodetc").path("compiler")
     }
 
     fn make_run(run: RunConfig<'_>) {
@@ -2380,7 +2380,7 @@ impl CommandLineStep for Assemble {
             let is_proc_macro = proc_macros.contains(&filename);
             let is_dylib_or_debug = is_dylib(&f.path()) || is_debug_info(&filename);
 
-            // `rustc_driver` statically links to stdlib, so do not copy the libstd dynamic library file
+            // `rodetc_driver` statically links to stdlib, so do not copy the libstd dynamic library file
             let can_be_rustc_dynamic_dep =
                 !(filename.starts_with("std-") || filename.starts_with("libstd-"));
 
@@ -2557,7 +2557,7 @@ impl CommandLineStep for Assemble {
             if !host.contains("linux") {
                 builder.info(&format!("host target `{host}` not supported by tpde. skipping"));
             } else {
-                // Put TPDE next to librustc_driver.so
+                // Put TPDE next to librodetc_driver.so
                 let tpde_output = builder.ensure(llvm::Tpde { target: host });
                 let target_libdir =
                     builder.sysroot_target_libdir(target_compiler, target_compiler.host);
@@ -2583,7 +2583,7 @@ impl CommandLineStep for Assemble {
 
         // Link the compiler binary itself into place
         let out_dir = builder.cargo_out(build_compiler, Mode::Rustc, host);
-        let rustc = out_dir.join(exe("rustc-main", host));
+        let rustc = out_dir.join(exe("rodetc-main", host));
         let bindir = sysroot.join("bin");
         t!(fs::create_dir_all(bindir));
         let compiler = builder.rustc(target_compiler);
@@ -2638,11 +2638,11 @@ pub fn add_to_sysroot(
     // Check that none of the rustc_* crates have multiple versions. Otherwise using them from
     // the sysroot would cause ambiguity errors. We do allow rustc_hash however as it is an
     // external dependency that we build multiple copies of. It is re-exported by
-    // rustc_data_structures, so not being able to use extern crate rustc_hash; is not a big
+    // rodetc_data_structures, so not being able to use extern crate rustc_hash; is not a big
     // issue.
     let mut seen_crates = HashMap::new();
     for (filestem, path) in crates {
-        if !filestem.contains("rustc_") || filestem.contains("rustc_hash") {
+        if !filestem.contains("rodetc_") || filestem.contains("rustc_hash") {
             continue;
         }
         if let Some(other_path) =
@@ -2941,7 +2941,7 @@ pub fn strip_debug(builder: &Builder<'_>, target: TargetSelection, path: &Path) 
         .with_prefix("strip")
         .add_stamp(previous_mtime.duration_since(SystemTime::UNIX_EPOCH).unwrap().as_nanos());
 
-    // Running strip can be relatively expensive (~1s on librustc_driver.so), so we don't rerun it
+    // Running strip can be relatively expensive (~1s on librodetc_driver.so), so we don't rerun it
     // if the file is unchanged.
     if !stamp.is_up_to_date() {
         command("strip").arg("--strip-debug").arg(path).run_capture(builder);
@@ -2954,13 +2954,13 @@ pub fn strip_debug(builder: &Builder<'_>, target: TargetSelection, path: &Path) 
     // otherwise we risk Cargo invalidating its fingerprint and rebuilding the world next time
     // bootstrap is invoked.
     //
-    // An example of this is if we run this on librustc_driver.so. In the first invocation:
-    // - Cargo will build librustc_driver.so (mtime of 1)
-    // - Cargo will build rustc-main (mtime of 2)
-    // - Bootstrap will strip librustc_driver.so (changing the mtime to 3).
+    // An example of this is if we run this on librodetc_driver.so. In the first invocation:
+    // - Cargo will build librodetc_driver.so (mtime of 1)
+    // - Cargo will build rodetc-main (mtime of 2)
+    // - Bootstrap will strip librodetc_driver.so (changing the mtime to 3).
     //
-    // In the second invocation of bootstrap, Cargo will see that the mtime of librustc_driver.so
-    // is greater than the mtime of rustc-main, and will rebuild rustc-main. That will then cause
+    // In the second invocation of bootstrap, Cargo will see that the mtime of librodetc_driver.so
+    // is greater than the mtime of rodetc-main, and will rebuild rodetc-main. That will then cause
     // everything else (standard library, future stages...) to be rebuilt.
     t!(file.set_modified(previous_mtime));
 }

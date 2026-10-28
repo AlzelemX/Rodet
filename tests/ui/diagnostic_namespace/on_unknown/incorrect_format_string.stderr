@@ -129,4 +129,4 @@ LL | #[diagnostic::on_unknown(note = "foo {Self} {item_context} {Trait} {A}")]
 
 error: aborting due to 6 previous errors; 9 warnings emitted
 
-For more information about this error, try `rustc --explain E0432`.
+For more information about this error, try `rodetc --explain E0432`.

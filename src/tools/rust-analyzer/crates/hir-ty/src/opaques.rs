@@ -6,7 +6,7 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use la_arena::ArenaMap;
-use rustc_type_ir::inherent::Ty as _;
+use rodetc_type_ir::inherent::Ty as _;
 use syntax::ast;
 
 use crate::{

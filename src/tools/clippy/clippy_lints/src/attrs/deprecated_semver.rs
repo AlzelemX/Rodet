@@ -1,10 +1,10 @@
 use super::DEPRECATED_SEMVER;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::sym;
-use rustc_ast::{LitKind, MetaItemLit};
-use rustc_attr_ir::VERSION_PLACEHOLDER;
-use rustc_lint::EarlyContext;
-use rustc_span::Span;
+use rodetc_ast::{LitKind, MetaItemLit};
+use rodetc_attr_ir::VERSION_PLACEHOLDER;
+use rodetc_lint::EarlyContext;
+use rodetc_span::Span;
 use semver::Version;
 
 pub(super) fn check(cx: &EarlyContext<'_>, span: Span, lit: &MetaItemLit) {

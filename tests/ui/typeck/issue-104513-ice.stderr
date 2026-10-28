@@ -18,4 +18,4 @@ LL |     let _: S<impl Oops> = S;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0405, E0562.
-For more information about an error, try `rustc --explain E0405`.
+For more information about an error, try `rodetc --explain E0405`.

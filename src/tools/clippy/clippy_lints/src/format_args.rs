@@ -14,24 +14,24 @@ use clippy_utils::source::{SpanExt as _, snippet, snippet_opt};
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{is_from_proc_macro, is_in_test, peel_hir_expr_while, sym, trait_ref_of_method};
 use itertools::Itertools as _;
-use rustc_ast::FormatTrait::{Binary, Debug, Display, LowerExp, LowerHex, Octal, Pointer, UpperExp, UpperHex};
-use rustc_ast::{
+use rodetc_ast::FormatTrait::{Binary, Debug, Display, LowerExp, LowerHex, Octal, Pointer, UpperExp, UpperHex};
+use rodetc_ast::{
     BorrowKind, FormatArgPosition, FormatArgPositionKind, FormatArgsPiece, FormatArgumentKind, FormatCount,
     FormatOptions, FormatPlaceholder, Mutability,
 };
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::{RustcVersion, find_attr};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_errors::SuggestionStyle::{CompletelyHidden, ShowCode};
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
-use rustc_middle::ty::{self, GenericArg, List, TraitRef, Ty, TyCtxt, Unnormalized, Upcast as _};
-use rustc_span::edition::Edition::Edition2021;
-use rustc_span::{BytePos, Pos as _, Span, Symbol};
-use rustc_trait_selection::infer::TyCtxtInferExt as _;
-use rustc_trait_selection::traits::{Obligation, ObligationCause, Selection, SelectionContext};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::{RustcVersion, find_attr};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_errors::SuggestionStyle::{CompletelyHidden, ShowCode};
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
+use rodetc_middle::ty::{self, GenericArg, List, TraitRef, Ty, TyCtxt, Unnormalized, Upcast as _};
+use rodetc_span::edition::Edition::Edition2021;
+use rodetc_span::{BytePos, Pos as _, Span, Symbol};
+use rodetc_trait_selection::infer::TyCtxtInferExt as _;
+use rodetc_trait_selection::traits::{Obligation, ObligationCause, Selection, SelectionContext};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -395,7 +395,7 @@ struct FormatArgsExpr<'a, 'tcx> {
     cx: &'a LateContext<'tcx>,
     expr: &'tcx Expr<'tcx>,
     macro_call: &'a MacroCall,
-    format_args: &'a rustc_ast::FormatArgs,
+    format_args: &'a rodetc_ast::FormatArgs,
     ignore_mixed: bool,
     msrv: &'a Msrv,
     ty_msrv_map: &'a FxHashMap<Ty<'tcx>, Option<RustcVersion>>,
@@ -662,7 +662,7 @@ impl<'tcx> FormatArgsExpr<'_, 'tcx> {
         let arg = &self.format_args.arguments.all_args()[index];
 
         if !matches!(arg.kind, FormatArgumentKind::Captured(_))
-            && let rustc_ast::ExprKind::Path(None, path) = &arg.expr.kind
+            && let rodetc_ast::ExprKind::Path(None, path) = &arg.expr.kind
             && let [segment] = path.segments.as_slice()
             && segment.args.is_none()
             && let Some(arg_span) = format_arg_removal_span(self.format_args, index)

@@ -2,10 +2,10 @@ use super::BLANKET_CLIPPY_RESTRICTION_LINTS;
 use super::utils::extract_clippy_lint;
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_then};
 use clippy_utils::sym;
-use rustc_ast::MetaItemInner;
-use rustc_lint::{EarlyContext, Level, LintContext as _};
-use rustc_span::DUMMY_SP;
-use rustc_span::symbol::Symbol;
+use rodetc_ast::MetaItemInner;
+use rodetc_lint::{EarlyContext, Level, LintContext as _};
+use rodetc_span::DUMMY_SP;
+use rodetc_span::symbol::Symbol;
 
 pub(super) fn check(cx: &EarlyContext<'_>, name: Symbol, items: &[MetaItemInner]) {
     for lint in items {

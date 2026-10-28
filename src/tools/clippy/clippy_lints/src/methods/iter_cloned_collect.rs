@@ -2,11 +2,11 @@ use crate::methods::utils::derefs_to_slice;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::ty::get_iterator_item_ty;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::{Symbol, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::{Symbol, sym};
 
 use super::ITER_CLONED_COLLECT;
 

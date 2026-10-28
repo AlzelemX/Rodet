@@ -3,18 +3,18 @@
 
 use std::mem;
 
-use rustc_ast::attr::AttributeExt;
-use rustc_attr_ir::{DocInline, find_attr};
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap};
-use rustc_hir::def::{DefKind, MacroKinds, Res};
-use rustc_hir::def_id::{DefId, DefIdMap, LocalDefId, LocalDefIdSet};
-use rustc_hir::intravisit::{Visitor, walk_body, walk_item};
-use rustc_hir::{self as hir, HirId, Node};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
-use rustc_span::def_id::{CRATE_DEF_ID, LOCAL_CRATE, LocalModId};
-use rustc_span::symbol::{Symbol, kw};
+use rodetc_ast::attr::AttributeExt;
+use rodetc_attr_ir::{DocInline, find_attr};
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap};
+use rodetc_hir::def::{DefKind, MacroKinds, Res};
+use rodetc_hir::def_id::{DefId, DefIdMap, LocalDefId, LocalDefIdSet};
+use rodetc_hir::intravisit::{Visitor, walk_body, walk_item};
+use rodetc_hir::{self as hir, HirId, Node};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::Span;
+use rodetc_span::def_id::{CRATE_DEF_ID, LOCAL_CRATE, LocalModId};
+use rodetc_span::symbol::{Symbol, kw};
 use tracing::{debug, instrument, trace};
 
 use crate::clean::reexport_chain;
@@ -424,7 +424,7 @@ impl<'a, 'tcx> RustdocVisitor<'a, 'tcx> {
             // itself. It just tells that this is an inlined impl and that it should not
             // be cleaned as a normal `ImplItem` but instead as a `PlaceholderImplItem`.
             // It's to ensure that `doc_cfg` inheritance works as expected.
-            if impl_.of_trait.is_none() { None } else { Some(rustc_span::symbol::kw::Impl) },
+            if impl_.of_trait.is_none() { None } else { Some(rodetc_span::symbol::kw::Impl) },
             None,
         );
     }
@@ -694,7 +694,7 @@ impl<'tcx> Visitor<'tcx> for RustdocVisitor<'_, 'tcx> {
         &mut self,
         _: &hir::UseTree<'tcx>,
         _: hir::HirId,
-        _: rustc_span::def_id::LocalDefId,
+        _: rodetc_span::def_id::LocalDefId,
     ) {
         // Handled in `visit_item_inner`
     }
@@ -703,7 +703,7 @@ impl<'tcx> Visitor<'tcx> for RustdocVisitor<'_, 'tcx> {
         // Handled in `visit_item_inner`
     }
 
-    fn visit_label(&mut self, _: &rustc_ast::Label) {
+    fn visit_label(&mut self, _: &rodetc_ast::Label) {
         // Unneeded.
     }
 

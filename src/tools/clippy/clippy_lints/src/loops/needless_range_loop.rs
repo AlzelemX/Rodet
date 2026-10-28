@@ -7,17 +7,17 @@ use clippy_utils::source::snippet;
 use clippy_utils::ty::has_iter_method;
 use clippy_utils::visitors::is_local_used;
 use clippy_utils::{SpanlessEq, SpanlessHash, contains_name, higher, is_integer_literal, peel_hir_expr_while, sugg};
-use rustc_ast::ast;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{BinOpKind, BorrowKind, Closure, Expr, ExprKind, HirId, Mutability, Pat, PatKind, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::middle::region;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::symbol::{Symbol, sym};
-use rustc_span::{Span, SyntaxContext};
+use rodetc_ast::ast;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{BinOpKind, BorrowKind, Closure, Expr, ExprKind, HirId, Mutability, Pat, PatKind, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::middle::region;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::symbol::{Symbol, sym};
+use rodetc_span::{Span, SyntaxContext};
 
 /// Checks for looping over a range and then indexing a sequence with it.
 /// The iteratee must be a range literal.

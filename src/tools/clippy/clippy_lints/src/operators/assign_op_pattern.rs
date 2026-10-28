@@ -6,13 +6,13 @@ use clippy_utils::ty::implements_trait;
 use clippy_utils::visitors::for_each_expr_without_closures;
 use clippy_utils::{binop_traits, eq_expr_value, is_in_const_context, trait_ref_of_method};
 use core::ops::ControlFlow;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::{HirId, HirIdSet};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::LateContext;
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty::BorrowKind;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::{HirId, HirIdSet};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty::BorrowKind;
 
 use super::ASSIGN_OP_PATTERN;
 

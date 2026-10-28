@@ -6,11 +6,11 @@ use std::ops::Range;
 use std::str::CharIndices;
 
 use itertools::Itertools as _;
-use rustc_ast::attr::AttributeExt;
-use rustc_ast::token::{CommentKind, DocFragmentKind};
-use rustc_hir::HirId;
-use rustc_resolve::rustdoc::pulldown_cmark::{BrokenLink, Event, LinkType, Parser, Tag, TagEnd};
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_ast::attr::AttributeExt;
+use rodetc_ast::token::{CommentKind, DocFragmentKind};
+use rodetc_hir::HirId;
+use rodetc_resolve::rustdoc::pulldown_cmark::{BrokenLink, Event, LinkType, Parser, Tag, TagEnd};
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
 
 use crate::clean::*;
 use crate::core::DocContext;
@@ -27,8 +27,8 @@ pub(crate) fn visit_item(cx: &DocContext<'_>, item: &Item, hir_id: HirId, dox: &
             crate::lint::INVALID_HTML_TAGS,
             hir_id,
             sp,
-            rustc_errors::DiagDecorator(|lint| {
-                use rustc_lint::Applicability;
+            rodetc_errors::DiagDecorator(|lint| {
+                use rodetc_lint::Applicability;
 
                 lint.primary_message(msg);
 
@@ -294,7 +294,7 @@ fn is_implicitly_self_closing(tag_name: &str) -> bool {
 }
 
 fn extract_path_backwards(text: &str, end_pos: usize) -> Option<usize> {
-    use rustc_lexer::{is_id_continue, is_id_start};
+    use rodetc_lexer::{is_id_continue, is_id_start};
     let mut current_pos = end_pos;
     loop {
         if current_pos >= 2 && text[..current_pos].ends_with("::") {
@@ -318,7 +318,7 @@ fn extract_path_backwards(text: &str, end_pos: usize) -> Option<usize> {
 }
 
 fn extract_path_forward(text: &str, start_pos: usize) -> Option<usize> {
-    use rustc_lexer::{is_id_continue, is_id_start};
+    use rodetc_lexer::{is_id_continue, is_id_start};
     let mut current_pos = start_pos;
     loop {
         if current_pos < text.len() && text[current_pos..].starts_with("::") {

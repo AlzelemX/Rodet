@@ -7,10 +7,10 @@ use std::io::{self, ErrorKind, Read, Seek, SeekFrom, Write};
 use std::path::{self, Path};
 use std::time::SystemTime;
 
-use rustc_abi::{FieldIdx, Size};
-use rustc_data_structures::either::Either;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_target::spec::Os;
+use rodetc_abi::{FieldIdx, Size};
+use rodetc_data_structures::either::Either;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_target::spec::Os;
 
 use self::shims::time::system_time_to_duration;
 use crate::shims::FdId;

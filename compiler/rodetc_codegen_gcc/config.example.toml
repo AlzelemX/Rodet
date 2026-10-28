@@ -1,0 +1,4 @@
+#gcc-path = "gcc-build/gcc"
+download-gccjit = true
+#backend-path = "path/to/librodetc_codegen_gcc.so"
+#sysroot-path = "path/to/sysroot"

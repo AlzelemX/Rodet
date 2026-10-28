@@ -67,7 +67,7 @@ function showSpeedDetails(result: SpeedScore) {
         h('span.where', {}, t('Line {n}', { n: f.range.start.line + 1 })))))
     : h('div.empty', {}, t('No slow patterns found in this file. 🚀')),
   h('div.empty', { style: { fontSize: '11px' } },
-    t('The score reads the code for patterns known to be slow (copies and allocations in loops, list searches in loops…). For real timings use Cargo → Run fast.')));
+    t('The score reads the code for patterns known to be slow (copies and allocations in loops, list searches in loops…). For real timings use Silk → Run fast.')));
   document.body.appendChild(popup);
   const r = speed.getBoundingClientRect();
   const width = popup.getBoundingClientRect().width;
@@ -113,7 +113,7 @@ document.addEventListener('mousedown', (e) => {
 const tabs = h('div.tabs');
 const tabActions = h('div.tabs-actions', {},
   speed,
-  h('button.icon-button.run', { title: t('Run (F5)'), onclick: () => runCommand('cargo.run') }, icon('play')),
+  h('button.icon-button.run', { title: t('Run (F5)'), onclick: () => runCommand('rodet.run') }, icon('play')),
   h('button.icon-button', { title: t('Find Symbols (Ctrl+T)'), onclick: () => runCommand('symbols.find') }, icon('symbol-class')),
   h('button.icon-button', { title: t('More'), onclick: (e: MouseEvent) => contextMenu(e, [
     { label: t('Doc Book'), icon: 'book', run: () => openBook() },
@@ -258,8 +258,8 @@ export async function renderWelcome() {
       h('div', {},
         h('section', {}, h('h2', {}, t('Rodet on this computer')),
           h('div.toolchain-card', {},
-            toolRow(tc.isRodet, tc.isRodet ? t('Rodet compiler') : tc.rustc ? t('A compiler was found, but it is not Rodet') : t('Rodet is not installed'), tc.rustcVersion ?? undefined),
-            toolRow(!!tc.cargo, tc.cargo ? 'Cargo' : t('Cargo was not found')),
+            toolRow(tc.isRodet, tc.isRodet ? t('Rodet compiler') : tc.rodetc ? t('A compiler was found, but it is not Rodet') : t('Rodet is not installed'), tc.rodetcVersion ?? undefined),
+            toolRow(!!tc.rodet, tc.rodet ? 'Silk (rodet)' : t('rodet (Silk) was not found')),
             toolRow(!!tc.analyzer, tc.analyzer ? t('rodet-analyzer (errors, completion, search)') : t('rodet-analyzer was not found')),
             !tc.isRodet || !tc.analyzer
               ? h('div', { style: { marginTop: '6px' } }, h('button.btn.primary.small', { onclick: () => runCommand('rodet.install') }, icon('cloud-download'), t('Install / Update Rodet')))

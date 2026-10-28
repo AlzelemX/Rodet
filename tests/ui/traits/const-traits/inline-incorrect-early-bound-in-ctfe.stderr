@@ -29,4 +29,4 @@ LL | const trait Trait {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0015, E0049.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

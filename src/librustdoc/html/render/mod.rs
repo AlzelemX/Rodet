@@ -50,19 +50,19 @@ use std::{fs, str};
 use askama::Template;
 use indexmap::IndexMap;
 use itertools::Either;
-use rustc_ast::join_path_syms;
-use rustc_attr_ir::{
+use rodetc_ast::join_path_syms;
+use rodetc_attr_ir::{
     AttributeKind, ConstStability, DeprecatedSince, Deprecation, RustcVersion, StabilityLevel,
     StableSince, find_attr,
 };
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_hir::Mutability;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::{DefId, DefIdSet};
-use rustc_middle::ty::print::PrintTraitRefExt;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::DUMMY_SP;
-use rustc_span::symbol::{Symbol, sym};
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_hir::Mutability;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::{DefId, DefIdSet};
+use rodetc_middle::ty::print::PrintTraitRefExt;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::DUMMY_SP;
+use rodetc_span::symbol::{Symbol, sym};
 use tracing::{debug, info};
 
 pub(crate) use self::context::*;
@@ -693,7 +693,7 @@ fn scrape_examples_help() -> String {
             ids: &mut IdMap::default(),
             // code snippets come from Rust itself, not the crate
             error_codes: crate::html::markdown::ErrorCodes::No,
-            edition: rustc_span::edition::LATEST_STABLE_EDITION,
+            edition: rodetc_span::edition::LATEST_STABLE_EDITION,
             playground: &Default::default(),
             heading_offset: HeadingOffset::H1,
         }
@@ -2542,7 +2542,7 @@ pub(crate) fn small_url_encode(s: String) -> String {
 }
 
 fn get_id_for_impl(tcx: TyCtxt<'_>, impl_id: ItemId) -> String {
-    use rustc_middle::ty::print::with_forced_trimmed_paths;
+    use rodetc_middle::ty::print::with_forced_trimmed_paths;
     let (type_, trait_) = match impl_id {
         ItemId::Auto { trait_, for_ } => {
             let ty = tcx.type_of(for_).skip_binder();
@@ -2915,7 +2915,7 @@ fn render_call_locations<W: fmt::Write>(
         // will use that directly. We use DUMMY_SP as a placeholder.
         // Note: DUMMY_SP is safe here because href_from_span won't be called
         // for scraped examples.
-        let file_span = rustc_span::DUMMY_SP;
+        let file_span = rodetc_span::DUMMY_SP;
 
         let mut decoration_info = FxIndexMap::default();
         decoration_info.insert("highlight focus", vec![byte_ranges.remove(0)]);
@@ -3046,7 +3046,7 @@ pub(super) fn render_attributes_in_code_with_options(
         render_code_attribute(&prefix, "#[doc(hidden)]", w)?;
     }
     for attr in &item.attrs.other_attrs {
-        let rustc_attr_ir::Attribute::Parsed(kind) = attr else { continue };
+        let rodetc_attr_ir::Attribute::Parsed(kind) = attr else { continue };
         let attr = match kind {
             AttributeKind::LinkSection { name, .. } => {
                 Cow::Owned(format!("#[unsafe(link_section = {})]", Escape(&format!("{name:?}"))))
@@ -3119,7 +3119,7 @@ fn repr_attribute<'tcx>(
             }
 
             // `#[repr(transparent)]` can only be applied to structs and single-variant enums.
-            let var = adt.variant(rustc_abi::FIRST_VARIANT); // the first and only variant
+            let var = adt.variant(rodetc_abi::FIRST_VARIANT); // the first and only variant
 
             if !is_visible(var.def_id) {
                 break 'is_public false;
@@ -3163,8 +3163,8 @@ fn repr_attribute<'tcx>(
     if let Some(int) = repr.int {
         let prefix = if int.is_signed() { 'i' } else { 'u' };
         let int = match int {
-            rustc_abi::IntegerType::Pointer(_) => format!("{prefix}size"),
-            rustc_abi::IntegerType::Fixed(int, _) => {
+            rodetc_abi::IntegerType::Pointer(_) => format!("{prefix}size"),
+            rodetc_abi::IntegerType::Fixed(int, _) => {
                 format!("{prefix}{}", int.size().bytes() * 8)
             }
         };
@@ -3185,11 +3185,11 @@ fn repr_attribute<'tcx>(
 pub(crate) fn compute_if_deref_target_implements_copy(tcx: TyCtxt<'_>, impl_def_id: DefId) -> bool {
     if let Some(impl_def_id) = impl_def_id.as_local()
         && let item = tcx.hir_expect_item(impl_def_id)
-        && let rustc_hir::ItemKind::Impl(impl_item) = item.kind
+        && let rodetc_hir::ItemKind::Impl(impl_item) = item.kind
     {
         for item in impl_item.items {
             let item = tcx.hir_impl_item(*item);
-            if matches!(item.kind, rustc_hir::ImplItemKind::Type(_)) {
+            if matches!(item.kind, rodetc_hir::ImplItemKind::Type(_)) {
                 let item_def_id = item.owner_id.to_def_id();
                 let ty = tcx.type_of(item_def_id).instantiate_identity().skip_norm_wip();
                 let typing_env = ty::TypingEnv::non_body_analysis(tcx, item_def_id);

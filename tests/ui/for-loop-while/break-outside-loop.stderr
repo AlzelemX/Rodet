@@ -68,4 +68,4 @@ LL |     break
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0267, E0268, E0767.
-For more information about an error, try `rustc --explain E0267`.
+For more information about an error, try `rodetc --explain E0267`.

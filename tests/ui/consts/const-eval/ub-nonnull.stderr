@@ -73,4 +73,4 @@ LL | const MAYBE_NULL_PTR: NonNull<()> = unsafe { mem::transmute((&raw const S).
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

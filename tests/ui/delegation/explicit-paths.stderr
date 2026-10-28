@@ -95,4 +95,4 @@ LL |     fn foo1(&self, x: i32) -> i32 { x }
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0119, E0277, E0308, E0407, E0624.
-For more information about an error, try `rustc --explain E0119`.
+For more information about an error, try `rodetc --explain E0119`.

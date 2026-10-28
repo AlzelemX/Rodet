@@ -104,4 +104,4 @@ LL | impl<'a, T> Union<T> for dyn Trait<'a, T> {}
 error: aborting due to 6 previous errors; 3 warnings emitted
 
 Some errors have detailed explanations: E0392, E0404.
-For more information about an error, try `rustc --explain E0392`.
+For more information about an error, try `rodetc --explain E0392`.

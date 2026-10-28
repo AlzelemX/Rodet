@@ -9,4 +9,4 @@ LL | fn test<T>(f: for<'a> fn(<&'a T as Trait>::Gat<&'a [str]>)) where for<'a> &
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

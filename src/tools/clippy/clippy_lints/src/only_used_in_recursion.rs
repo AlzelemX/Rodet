@@ -2,17 +2,17 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::get_expr_use_or_unification_node;
 use clippy_utils::res::{MaybeQPath as _, MaybeResPath as _};
 use core::cell::Cell;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{
     Body, Expr, ExprKind, HirId, HirIdMap, ImplItem, ImplItemImplKind, ImplItemKind, Node, PatKind, TraitItem,
     TraitItemKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, ConstKind, GenericArgKind, GenericArgsRef};
-use rustc_span::Span;
-use rustc_span::symbol::{Ident, kw};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, ConstKind, GenericArgKind, GenericArgsRef};
+use rodetc_span::Span;
+use rodetc_span::symbol::{Ident, kw};
 use std::iter;
 
 declare_clippy_lint! {

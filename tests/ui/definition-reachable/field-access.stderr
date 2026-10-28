@@ -8,4 +8,4 @@ LL |     let try_field_access = field_access_macro::deny_field_access!(s);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0616`.
+For more information about this error, try `rodetc --explain E0616`.

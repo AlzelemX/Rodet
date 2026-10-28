@@ -565,7 +565,7 @@ impl<'f> VaList<'f> {
     }
 }
 
-// Checks (via an assert in `compiler/rustc_ty_utils/src/abi.rs`) that the C ABI for the current
+// Checks (via an assert in `compiler/rodetc_ty_utils/src/abi.rs`) that the C ABI for the current
 // target correctly implements `rustc_pass_indirectly_in_non_rustic_abis`.
 const _: () = {
     #[repr(C)]

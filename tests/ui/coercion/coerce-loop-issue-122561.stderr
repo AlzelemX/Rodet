@@ -292,4 +292,4 @@ LL |     let _ = |a: &[(); for x in 0..2 {} /* `usize` value */]| {};
 
 error: aborting due to 16 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

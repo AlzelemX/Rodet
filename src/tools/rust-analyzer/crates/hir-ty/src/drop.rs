@@ -5,7 +5,7 @@ use hir_def::{
     signatures::{StructFlags, StructSignature},
 };
 use rustc_hash::FxHashSet;
-use rustc_type_ir::inherent::{AdtDef, GenericArgs as _, IntoKind};
+use rodetc_type_ir::inherent::{AdtDef, GenericArgs as _, IntoKind};
 
 use crate::{
     consteval,

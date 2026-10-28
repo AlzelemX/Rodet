@@ -1,5 +1,5 @@
 //@ check-pass
-//! Regression test for ICE in `rustc_hir_typeck::expr_use_visitor` on nesting a slice pattern
+//! Regression test for ICE in `rodetc_hir_typeck::expr_use_visitor` on nesting a slice pattern
 //! inside a deref pattern inside a closure: rust-lang/rust#125059
 
 #![feature(deref_patterns)]

@@ -9,12 +9,12 @@ use clippy_utils::{
     SpanlessEq, eq_expr_value, higher, is_in_const_context, is_integer_literal, is_integer_literal_untyped,
     peel_blocks, peel_blocks_with_stmt, sym,
 };
-use rustc_ast::ast::LitKind;
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::{AssignOpKind, BinOp, BinOpKind, Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{Span, Symbol};
+use rodetc_ast::ast::LitKind;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::{AssignOpKind, BinOp, BinOpKind, Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

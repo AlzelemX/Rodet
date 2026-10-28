@@ -66,4 +66,4 @@ LL |     fn foo(&self) -> bool { true }
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0520`.
+For more information about this error, try `rodetc --explain E0520`.

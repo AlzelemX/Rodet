@@ -102,4 +102,4 @@ LL | pub struct Baz<const C: u8> {
 
 error: aborting due to 2 previous errors; 6 warnings emitted
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

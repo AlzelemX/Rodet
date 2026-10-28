@@ -16,4 +16,4 @@ LL | impl Bar for u8 {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0751`.
+For more information about this error, try `rodetc --explain E0751`.

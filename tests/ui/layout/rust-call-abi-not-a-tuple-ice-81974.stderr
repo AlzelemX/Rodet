@@ -105,4 +105,4 @@ LL |     cachedcoso.call_once((1,));
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0059, E0277.
-For more information about an error, try `rustc --explain E0059`.
+For more information about an error, try `rodetc --explain E0059`.

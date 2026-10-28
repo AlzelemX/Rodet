@@ -1,20 +1,20 @@
 use std::path::{Path, PathBuf};
 
-use rustc_data_structures::fx::{FxHashMap, FxIndexMap};
-use rustc_hir as hir;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, LOCAL_CRATE};
-use rustc_hir::intravisit::{self, Visitor};
-use rustc_hir::{ExprKind, HirId, Item, ItemKind, Mod, Node, QPath};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::def_id::LocalModId;
-use rustc_span::{BytePos, ExpnKind};
+use rodetc_data_structures::fx::{FxHashMap, FxIndexMap};
+use rodetc_hir as hir;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, LOCAL_CRATE};
+use rodetc_hir::intravisit::{self, Visitor};
+use rodetc_hir::{ExprKind, HirId, Item, ItemKind, Mod, Node, QPath};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::def_id::LocalModId;
+use rodetc_span::{BytePos, ExpnKind};
 
-use crate::clean::{self, PrimitiveType, rustc_span};
+use crate::clean::{self, PrimitiveType, rodetc_span};
 use crate::html::sources;
 
-/// This is a stripped down version of [`rustc_span::Span`] that only contains the start and end
+/// This is a stripped down version of [`rodetc_span::Span`] that only contains the start and end
 /// byte positions of the span.
 ///
 /// Profiling showed that the `Span` interner was taking up a lot of the run-time when highlighting,
@@ -26,8 +26,8 @@ pub(crate) struct Span {
     hi: BytePos,
 }
 
-impl From<rustc_span::Span> for Span {
-    fn from(value: rustc_span::Span) -> Self {
+impl From<rodetc_span::Span> for Span {
+    fn from(value: rodetc_span::Span) -> Self {
         Self { lo: value.lo(), hi: value.hi() }
     }
 }
@@ -128,7 +128,7 @@ impl<'tcx> SpanMapVisitor<'tcx> {
 
     fn link_for_def(&self, def_id: DefId) -> LinkFromSrc {
         if def_id.is_local() {
-            LinkFromSrc::Local(rustc_span(def_id, self.tcx))
+            LinkFromSrc::Local(rodetc_span(def_id, self.tcx))
         } else {
             LinkFromSrc::External(def_id)
         }
@@ -196,7 +196,7 @@ impl<'tcx> SpanMapVisitor<'tcx> {
     /// so, we loop until we find the macro definition by using `outer_expn_data` in a loop.
     /// Finally, we get the information about the macro itself (`span` if "local", `DefId`
     /// otherwise) and store it inside the span map.
-    fn handle_macro(&mut self, span: rustc_span::Span) -> bool {
+    fn handle_macro(&mut self, span: rodetc_span::Span) -> bool {
         if !span.from_expansion() {
             return false;
         }
@@ -271,7 +271,7 @@ impl<'tcx> Visitor<'tcx> for SpanMapVisitor<'tcx> {
         intravisit::walk_path(self, path);
     }
 
-    fn visit_qpath(&mut self, qpath: &QPath<'tcx>, id: HirId, _span: rustc_span::Span) {
+    fn visit_qpath(&mut self, qpath: &QPath<'tcx>, id: HirId, _span: rodetc_span::Span) {
         match *qpath {
             QPath::TypeRelative(qself, segment) => {
                 // FIXME: This doesn't work for paths in *types* since HIR ty lowering currently
@@ -297,13 +297,13 @@ impl<'tcx> Visitor<'tcx> for SpanMapVisitor<'tcx> {
                     self.handle_path(&path, false);
                 }
 
-                rustc_ast::visit::try_visit!(self.visit_ty_unambig(qself));
+                rodetc_ast::visit::try_visit!(self.visit_ty_unambig(qself));
                 self.visit_path_segment(segment);
             }
             QPath::Resolved(maybe_qself, path) => {
                 self.handle_path(path, true);
 
-                rustc_ast::visit::visit_opt!(self, visit_ty_unambig, maybe_qself);
+                rodetc_ast::visit::visit_opt!(self, visit_ty_unambig, maybe_qself);
                 if !self.handle_macro(path.span) {
                     intravisit::walk_path(self, path);
                 }
@@ -311,7 +311,7 @@ impl<'tcx> Visitor<'tcx> for SpanMapVisitor<'tcx> {
         }
     }
 
-    fn visit_mod(&mut self, m: &'tcx Mod<'tcx>, span: rustc_span::Span, id: LocalModId) {
+    fn visit_mod(&mut self, m: &'tcx Mod<'tcx>, span: rodetc_span::Span, id: LocalModId) {
         // To make the difference between "mod foo {}" and "mod foo;". In case we "import" another
         // file, we want to link to it. Otherwise no need to create a link.
         if !span.overlaps(m.spans.inner_span) {

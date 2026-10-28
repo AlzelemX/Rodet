@@ -15,8 +15,8 @@ use hir_def::{
 use intern::sym;
 use itertools::Itertools;
 use rustc_hash::FxHashSet;
-use rustc_pattern_analysis::constructor::Constructor;
-use rustc_type_ir::inherent::IntoKind;
+use rodetc_pattern_analysis::constructor::Constructor;
+use rodetc_type_ir::inherent::IntoKind;
 use syntax::{
     AstNode,
     ast::{self, UnaryOp},
@@ -363,7 +363,7 @@ impl<'db> ExprValidator<'db> {
             return None;
         }
 
-        let match_arm = rustc_pattern_analysis::MatchArm {
+        let match_arm = rodetc_pattern_analysis::MatchArm {
             pat: pattern_arena.alloc(deconstructed_pat),
             has_guard: false,
             arm_data: (),

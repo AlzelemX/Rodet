@@ -4,9 +4,9 @@
 #![deny(rustc::usage_of_qualified_ty)]
 #![allow(unused)]
 
-extern crate rustc_middle;
+extern crate rodetc_middle;
 
-use rustc_middle::ty::{self, Ty, TyCtxt};
+use rodetc_middle::ty::{self, Ty, TyCtxt};
 
 macro_rules! qualified_macro {
     ($a:ident) => {

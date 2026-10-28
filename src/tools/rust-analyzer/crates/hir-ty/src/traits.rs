@@ -18,7 +18,7 @@ use hir_def::{
 };
 use hir_expand::name::Name;
 use intern::sym;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     TypeVisitableExt, TypingMode,
     inherent::{BoundExistentialPredicates, IntoKind, Ty as _},
 };
@@ -153,7 +153,7 @@ pub fn implements_trait_unique_with_infcx<'db>(
     let infcx = interner.infer_ctxt().build(TypingMode::non_body_analysis());
 
     let args = create_args(&infcx);
-    let trait_ref = rustc_type_ir::TraitRef::new_from_args(interner, trait_.into(), args);
+    let trait_ref = rodetc_type_ir::TraitRef::new_from_args(interner, trait_.into(), args);
     if trait_ref.self_ty().is_ty_error() {
         return false;
     }

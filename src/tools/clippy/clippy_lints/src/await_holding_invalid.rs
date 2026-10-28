@@ -3,12 +3,12 @@ use clippy_config::types::{DisallowedPathWithoutReplacement, create_disallowed_m
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::paths::{self, PathNS};
 use clippy_utils::sym;
-use rustc_hir as hir;
-use rustc_hir::def_id::{DefId, DefIdMap};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::mir::CoroutineLayout;
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::{DefId, DefIdMap};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::mir::CoroutineLayout;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -212,7 +212,7 @@ impl<'tcx> LateLintPass<'tcx> for AwaitHolding {
 impl AwaitHolding {
     fn check_interior_types(&self, cx: &LateContext<'_>, coroutine: &CoroutineLayout<'_>) {
         for (ty_index, ty_cause) in coroutine.field_tys.iter_enumerated() {
-            if let rustc_middle::ty::Adt(adt, _) = ty_cause.ty.kind() {
+            if let rodetc_middle::ty::Adt(adt, _) = ty_cause.ty.kind() {
                 let await_points = || {
                     coroutine
                         .variant_source_info

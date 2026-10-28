@@ -2,9 +2,9 @@ use super::Fragments;
 use crate::doc::NEEDLESS_DOCTEST_MAIN;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::tokenize_with_text;
-use rustc_lexer::TokenKind;
-use rustc_lint::LateContext;
-use rustc_span::InnerSpan;
+use rodetc_lexer::TokenKind;
+use rodetc_lint::LateContext;
+use rodetc_span::InnerSpan;
 
 fn returns_unit<'a>(mut tokens: impl Iterator<Item = (TokenKind, &'a str, InnerSpan)>) -> bool {
     let mut next = || tokens.next().map_or(TokenKind::Whitespace, |(kind, ..)| kind);

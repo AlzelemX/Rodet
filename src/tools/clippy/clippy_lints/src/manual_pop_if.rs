@@ -5,13 +5,13 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::visitors::{for_each_expr_without_closures, is_local_used};
 use clippy_utils::{eq_expr_value, is_else_clause, is_lang_item_or_ctor, span_contains_non_whitespace, sym};
-use rustc_ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::{Applicability, MultiSpan};
-use rustc_hir::{BlockCheckMode, Expr, ExprKind, PatKind, StmtKind, UnsafeSource};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
-use rustc_span::{BytePos, Span, Symbol};
+use rodetc_ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::{Applicability, MultiSpan};
+use rodetc_hir::{BlockCheckMode, Expr, ExprKind, PatKind, StmtKind, UnsafeSource};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::{BytePos, Span, Symbol};
 use std::fmt;
 use std::ops::ControlFlow;
 
@@ -313,7 +313,7 @@ fn check_let_chain_pattern<'tcx>(
     let pop_method = kind.pop_method();
 
     if let ExprKind::Binary(op, left, right) = cond.kind
-        && op.node == rustc_ast::BinOpKind::And
+        && op.node == rodetc_ast::BinOpKind::And
         && let ExprKind::Let(let_expr) = left.kind
         && let PatKind::TupleStruct(qpath, [binding_pat], _) = let_expr.pat.kind
     {

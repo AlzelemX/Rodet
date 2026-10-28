@@ -422,7 +422,7 @@ pub struct FormattingOptions {
     precision: u16,
 }
 
-// This needs to match with compiler/rustc_ast_lowering/src/format.rs.
+// This needs to match with compiler/rodetc_ast_lowering/src/format.rs.
 mod flags {
     pub(super) const SIGN_PLUS_FLAG: u32 = 1 << 21;
     pub(super) const SIGN_MINUS_FLAG: u32 = 1 << 22;
@@ -1965,7 +1965,7 @@ pub fn write(output: &mut dyn Write, fmt: Arguments<'_>) -> Result {
     // See comment on `fmt::Arguments` for the details of how the template is encoded.
 
     // This must match the encoding from `expand_format_args` in
-    // compiler/rustc_ast_lowering/src/format.rs.
+    // compiler/rodetc_ast_lowering/src/format.rs.
     loop {
         // SAFETY: We can assume the template is valid.
         let n = unsafe {

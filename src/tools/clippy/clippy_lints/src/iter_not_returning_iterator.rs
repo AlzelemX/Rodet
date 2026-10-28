@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::ty::implements_trait;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{FnSig, ImplItem, ImplItemKind, Item, ItemKind, Node, TraitItem, TraitItemKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::Unnormalized;
-use rustc_span::{Symbol, sym};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{FnSig, ImplItem, ImplItemKind, Item, ItemKind, Node, TraitItem, TraitItemKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::Unnormalized;
+use rodetc_span::{Symbol, sym};
 
 declare_clippy_lint! {
     /// ### What it does

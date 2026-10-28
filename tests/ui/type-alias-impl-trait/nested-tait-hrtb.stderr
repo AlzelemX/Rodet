@@ -21,4 +21,4 @@ LL | fn with_lt() -> impl for<'a> Trait<'a, Assoc = WithLt<'a>> {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0700, E0792.
-For more information about an error, try `rustc --explain E0700`.
+For more information about an error, try `rodetc --explain E0700`.

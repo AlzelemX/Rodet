@@ -154,4 +154,4 @@ LL | union Union<T: Copy> {
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0366, E0367.
-For more information about an error, try `rustc --explain E0366`.
+For more information about an error, try `rodetc --explain E0366`.

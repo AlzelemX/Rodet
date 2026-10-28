@@ -2,14 +2,14 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::fulfill_or_allowed;
 use clippy_utils::source::snippet;
-use rustc_attr_ir::find_attr;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_hir::{self as hir, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
-use rustc_span::Span;
-use rustc_span::symbol::Symbol;
+use rodetc_attr_ir::find_attr;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::{self as hir, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::Span;
+use rodetc_span::symbol::Symbol;
 
 declare_clippy_lint! {
     /// ### What it does

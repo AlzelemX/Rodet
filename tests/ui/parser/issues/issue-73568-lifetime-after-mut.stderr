@@ -61,4 +61,4 @@ LL |     let z = y as &mut 'a + Send;
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0178, E0224, E0423.
-For more information about an error, try `rustc --explain E0178`.
+For more information about an error, try `rodetc --explain E0178`.

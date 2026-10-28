@@ -22,28 +22,28 @@
     rustc::internal
 )]
 
-extern crate rustc_abi;
-extern crate rustc_arena;
-extern crate rustc_ast;
-extern crate rustc_ast_pretty;
-extern crate rustc_attr_ir;
-extern crate rustc_data_structures;
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_hir_analysis;
-extern crate rustc_hir_pretty;
-extern crate rustc_hir_typeck;
-extern crate rustc_index;
-extern crate rustc_infer;
-extern crate rustc_lexer;
-extern crate rustc_lint;
-extern crate rustc_middle;
-extern crate rustc_parse_format;
-extern crate rustc_resolve;
-extern crate rustc_span;
-extern crate rustc_structures;
-extern crate rustc_target;
-extern crate rustc_trait_selection;
+extern crate rodetc_abi;
+extern crate rodetc_arena;
+extern crate rodetc_ast;
+extern crate rodetc_ast_pretty;
+extern crate rodetc_attr_ir;
+extern crate rodetc_data_structures;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_hir_analysis;
+extern crate rodetc_hir_pretty;
+extern crate rodetc_hir_typeck;
+extern crate rodetc_index;
+extern crate rodetc_infer;
+extern crate rodetc_lexer;
+extern crate rodetc_lint;
+extern crate rodetc_middle;
+extern crate rodetc_parse_format;
+extern crate rodetc_resolve;
+extern crate rodetc_span;
+extern crate rodetc_structures;
+extern crate rodetc_target;
+extern crate rodetc_trait_selection;
 
 #[macro_use]
 extern crate clippy_utils;
@@ -419,9 +419,9 @@ mod zombie_processes;
 
 use clippy_config::{Conf, sanitize_explanation};
 use clippy_utils::macros::FormatArgsStorage;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_lint::is_lint_pass_required;
-use rustc_middle::ty::TyCtxt;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_lint::is_lint_pass_required;
+use rodetc_middle::ty::TyCtxt;
 use utils::attr_collector::AttrStorage;
 
 pub fn explain(name: &str) -> i32 {
@@ -448,7 +448,7 @@ pub fn explain(name: &str) -> i32 {
 /// Register all lints and lint groups with the rustc lint store
 ///
 /// Used in `./src/driver.rs`.
-pub fn register_lint_passes(store: &mut rustc_lint::LintStore, conf: &'static Conf) {
+pub fn register_lint_passes(store: &mut rodetc_lint::LintStore, conf: &'static Conf) {
     for (old_name, new_name) in deprecated_lints::RENAMED {
         store.register_renamed(old_name, new_name);
     }
@@ -477,7 +477,7 @@ pub fn register_lint_passes(store: &mut rustc_lint::LintStore, conf: &'static Co
 
     store.register_late_lint_pass(Box::new(move |tcx: TyCtxt<'_>| {
         let skippable_lints = tcx.skippable_lints(());
-        let is_active = |lints: &rustc_lint::LintVec| is_lint_pass_required(skippable_lints, lints);
+        let is_active = |lints: &rodetc_lint::LintVec| is_lint_pass_required(skippable_lints, lints);
         Box::new(CombinedLateLintPass::new(
             tcx,
             conf,
@@ -491,7 +491,7 @@ pub fn register_lint_passes(store: &mut rustc_lint::LintStore, conf: &'static Co
 // Fold every early pass into one statically-combined struct (see
 // `combined_early_pass`); the method list comes from `early_lint_methods!`.
 #[rustfmt::skip]
-rustc_lint::early_lint_methods!(
+rodetc_lint::early_lint_methods!(
     crate::combined_early_lint_pass,
     [CombinedEarlyLintPass, (conf: &'static Conf, format_args: FormatArgsStorage, attrs: AttrStorage), [
         FormatArgsCollector: utils::format_args_collector::FormatArgsCollector = utils::format_args_collector::FormatArgsCollector::new(format_args.clone()),
@@ -552,7 +552,7 @@ rustc_lint::early_lint_methods!(
 // Fold every late pass into one statically-combined struct (see
 // `combined_late_pass`); the method list comes from `late_lint_methods!`.
 #[rustfmt::skip]
-rustc_lint::late_lint_methods!(
+rodetc_lint::late_lint_methods!(
     crate::combined_late_lint_pass,
     [CombinedLateLintPass, (tcx: TyCtxt<'tcx>, conf: &'static Conf, format_args: FormatArgsStorage, attrs: AttrStorage), [
         ArithmeticSideEffects: operators::arithmetic_side_effects::ArithmeticSideEffects = operators::arithmetic_side_effects::ArithmeticSideEffects::new(conf),

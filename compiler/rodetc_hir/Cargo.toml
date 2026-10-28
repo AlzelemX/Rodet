@@ -1,0 +1,24 @@
+[package]
+name = "rodetc_hir"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+bitflags = "2.9.1"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_arena = { path = "../rodetc_arena" }
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_error_messages = { path = "../rodetc_error_messages" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_hir_id = { path = "../rodetc_hir_id" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_target = { path = "../rodetc_target" }
+tracing = "0.1"
+# tidy-alphabetical-end

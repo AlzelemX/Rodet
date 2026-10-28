@@ -4,16 +4,16 @@ use clippy_utils::peel_blocks;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::{is_copy, should_call_clone_as_function};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::def_id::DefId;
-use rustc_lint::LateContext;
-use rustc_middle::mir::{Mutability, Pinnedness};
-use rustc_middle::ty;
-use rustc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
-use rustc_span::symbol::Ident;
-use rustc_span::{Span, sym};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::DefId;
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::{Mutability, Pinnedness};
+use rodetc_middle::ty;
+use rodetc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
+use rodetc_span::symbol::Ident;
+use rodetc_span::{Span, sym};
 
 use super::MAP_CLONE;
 

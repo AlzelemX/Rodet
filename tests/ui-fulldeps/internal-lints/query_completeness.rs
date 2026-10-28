@@ -2,9 +2,9 @@
 #![feature(rustc_private)]
 #![deny(rustc::untracked_query_information)]
 
-extern crate rustc_data_structures;
+extern crate rodetc_data_structures;
 
-use rustc_data_structures::steal::Steal;
+use rodetc_data_structures::steal::Steal;
 
 fn use_steal(x: Steal<()>) {
     let _ = x.is_stolen();

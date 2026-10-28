@@ -2,12 +2,12 @@ use clippy_utils::diagnostics::{span_lint, span_lint_and_sugg, span_lint_and_the
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::source::{snippet, snippet_with_applicability, snippet_with_context};
 use clippy_utils::{SpanlessEq, get_expr_use_or_unification_node, get_parent_expr, is_lint_allowed, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{BinOpKind, Expr, ExprKind, Node};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{BinOpKind, Expr, ExprKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -235,7 +235,7 @@ const MAX_LENGTH_BYTE_STRING_LIT: usize = 32;
 
 impl<'tcx> LateLintPass<'tcx> for StringLitAsBytes {
     fn check_expr(&mut self, cx: &LateContext<'tcx>, e: &'tcx Expr<'_>) {
-        use rustc_ast::LitKind;
+        use rodetc_ast::LitKind;
 
         if let ExprKind::MethodCall(path, receiver, ..) = &e.kind
             && path.ident.name == sym::as_bytes

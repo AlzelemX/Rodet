@@ -7,14 +7,14 @@ use clippy_utils::source::{SpanExt as _, snippet_with_context};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{eq_expr_value, sym};
-use rustc_ast::ast::LitKind;
-use rustc_attr_ir::RustcVersion;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{FnKind, Visitor, walk_expr};
-use rustc_hir::{BinOpKind, Body, Expr, ExprKind, FnDecl, UnOp};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{Span, Symbol, SyntaxContext};
+use rodetc_ast::ast::LitKind;
+use rodetc_attr_ir::RustcVersion;
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{FnKind, Visitor, walk_expr};
+use rodetc_hir::{BinOpKind, Body, Expr, ExprKind, FnDecl, UnOp};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{Span, Symbol, SyntaxContext};
 use std::fmt::Write as _;
 
 declare_clippy_lint! {

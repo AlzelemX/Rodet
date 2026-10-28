@@ -19,8 +19,8 @@ pub enum _Unwind_Context {}
 // feature `llvm-libunwind`, as no other cdylib will provided those _Unwind_* symbols.
 // However the `link` attribute is duplicated multiple times and does not just export symbol,
 // a better way to manually export symbol would be another attribute like `#[export]`.
-// See the logic in function rustc_codegen_ssa::src::back::exported_symbols, module
-// rustc_codegen_ssa::src::back::symbol_export, rustc_middle::middle::exported_symbols
+// See the logic in function rodetc_codegen_ssa::src::back::exported_symbols, module
+// rodetc_codegen_ssa::src::back::symbol_export, rodetc_middle::middle::exported_symbols
 // and RFC 2841
 #[cfg_attr(
     all(feature = "llvm-libunwind", any(target_os = "fuchsia", target_os = "linux")),

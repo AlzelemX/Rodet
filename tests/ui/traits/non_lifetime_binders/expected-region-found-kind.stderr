@@ -42,4 +42,4 @@ LL | trait F<'a>: for<F> E<'a> + for<'e> E<'e> {}
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0221, E0283.
-For more information about an error, try `rustc --explain E0221`.
+For more information about an error, try `rodetc --explain E0221`.

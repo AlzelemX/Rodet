@@ -154,8 +154,7 @@ impl Sysroot {
                 // special case rustc, we can look that up directly in the sysroot's bin folder
                 // as it should never invoke another cargo binary
                 if let Tool::Rustc = tool
-                    && let Some(path) =
-                        probe_for_binary(root.join("bin").join(Tool::Rustc.name()).into())
+                    && let Some(path) = Tool::Rustc.path_in(root.join("bin").as_ref())
                 {
                     return toolchain::command(path, current_dir, envs);
                 }
@@ -497,7 +496,7 @@ try installing `rust-src` the same way you installed `rustc`"
 }
 
 fn get_rustc_src(sysroot_path: &AbsPath) -> Option<ManifestPath> {
-    let rustc_src = sysroot_path.join("lib/rustlib/rustc-src/rust/compiler/rustc/Cargo.toml");
+    let rustc_src = sysroot_path.join("lib/rustlib/rustc-src/rust/compiler/rodetc/Cargo.toml");
     let rustc_src = ManifestPath::try_from(rustc_src).ok()?;
     tracing::debug!("checking for rustc source code: {rustc_src}");
     if fs::metadata(&rustc_src).is_ok() { Some(rustc_src) } else { None }

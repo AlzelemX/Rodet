@@ -8,17 +8,17 @@ use clippy_utils::{
     CaptureKind, can_move_expr_to_closure, eager_or_lazy, expr_requires_coercion, higher, is_else_clause,
     is_in_const_context, is_none_pattern, peel_blocks, peel_hir_expr_while,
 };
-use rustc_attr_ir::lang_items::LangItem::ResultErr;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::intravisit::{Visitor, walk_expr, walk_path};
-use rustc_hir::{
+use rodetc_attr_ir::lang_items::LangItem::ResultErr;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::intravisit::{Visitor, walk_expr, walk_path};
+use rodetc_hir::{
     Arm, BindingMode, Expr, ExprKind, HirId, MatchSource, Mutability, Node, Pat, PatKind, Path, QPath, UnOp,
 };
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_span::SyntaxContext;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_span::SyntaxContext;
 
 declare_clippy_lint! {
     /// ### What it does

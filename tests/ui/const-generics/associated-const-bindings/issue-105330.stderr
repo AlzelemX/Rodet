@@ -96,4 +96,4 @@ LL | fn foo<A: TraitWAssocConst<A=32>>() {
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0131, E0277, E0404, E0562, E0618, E0658.
-For more information about an error, try `rustc --explain E0131`.
+For more information about an error, try `rodetc --explain E0131`.

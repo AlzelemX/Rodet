@@ -72,4 +72,4 @@ LL |     let _a = *ret_val;
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0614`.
+For more information about this error, try `rodetc --explain E0614`.

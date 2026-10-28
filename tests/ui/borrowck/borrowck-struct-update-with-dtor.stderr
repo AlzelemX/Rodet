@@ -191,4 +191,4 @@ LL |         let _s2 = V { a: 2, c: s0.c.clone(), ..s0 };
 
 error: aborting due to 12 previous errors
 
-For more information about this error, try `rustc --explain E0509`.
+For more information about this error, try `rodetc --explain E0509`.

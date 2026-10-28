@@ -1,16 +1,16 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{SpanExt as _, position_before_rarrow, snippet_block};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     Block, Body, Closure, ClosureKind, CoroutineDesugaring, CoroutineKind, CoroutineSource, Expr, ExprKind, FnDecl,
     FnRetTy, GenericBound, Node, OpaqueTy, TraitRef, Ty, TyKind,
 };
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::middle::resolve_bound_vars::ResolvedArg;
-use rustc_middle::ty;
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{Span, sym};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::middle::resolve_bound_vars::ResolvedArg;
+use rodetc_middle::ty;
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{Span, sym};
 
 declare_clippy_lint! {
     /// ### What it does

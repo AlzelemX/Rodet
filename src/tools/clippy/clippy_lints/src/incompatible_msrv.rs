@@ -2,13 +2,13 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::Msrv;
 use clippy_utils::{is_in_const_context, is_in_test, sym};
-use rustc_attr_ir::{RustcVersion, StabilityLevel, StableSince, find_attr};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::{self as hir, AmbigArg, Expr, ExprKind, HirId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::def_id::{CrateNum, DefId};
-use rustc_span::{ExpnKind, Span};
+use rodetc_attr_ir::{RustcVersion, StabilityLevel, StableSince, find_attr};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::{self as hir, AmbigArg, Expr, ExprKind, HirId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::def_id::{CrateNum, DefId};
+use rodetc_span::{ExpnKind, Span};
 
 declare_clippy_lint! {
     /// ### What it does

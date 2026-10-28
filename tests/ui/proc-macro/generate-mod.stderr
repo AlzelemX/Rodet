@@ -81,7 +81,7 @@ LL |     #[derive(generate_mod::CheckDerive)]
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0425`.
+For more information about this error, try `rodetc --explain E0425`.
 Future incompatibility report: Future breakage diagnostic:
 error: cannot find type `FromOutside` in this scope
   --> $DIR/generate-mod.rs:18:10

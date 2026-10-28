@@ -4,13 +4,13 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{eager_or_lazy, higher, std_or_core, usage};
-use rustc_ast::LitKind;
-use rustc_ast::ast::RangeLimits;
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::{Body, Closure, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::{Span, SyntaxContext};
+use rodetc_ast::LitKind;
+use rodetc_ast::ast::RangeLimits;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Body, Closure, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, SyntaxContext};
 
 fn extract_count_with_applicability(
     cx: &LateContext<'_>,

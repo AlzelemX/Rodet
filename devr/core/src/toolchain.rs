@@ -1,9 +1,9 @@
-//! Finds the Rodet toolchain: `rustc`, `cargo` and `rodet-analyzer`.
+//! Finds the Rodet toolchain: `rodetc` (the compiler), `rodet` (Silk, the
+//! package manager) and `rodet-analyzer`.
 //!
 //! Rodet installs into `~/.rodet/bin` (`%USERPROFILE%\.rodet\bin` on
 //! Windows). That folder is searched first, then the PATH. Every process
-//! DEVR+ starts gets that folder first in its PATH, so `cargo` and `rustc`
-//! are always Rodet.
+//! DEVR+ starts gets that folder first in its PATH.
 
 use std::env;
 use std::ffi::OsString;
@@ -17,29 +17,31 @@ use serde::Serialize;
 pub struct Toolchain {
     /// `~/.rodet/bin`, if Rodet is installed there.
     pub rodet_bin: Option<PathBuf>,
-    pub rustc: Option<PathBuf>,
-    pub cargo: Option<PathBuf>,
+    /// The compiler.
+    pub rodetc: Option<PathBuf>,
+    /// Silk, the package manager.
+    pub rodet: Option<PathBuf>,
     pub analyzer: Option<PathBuf>,
-    /// `rustc --version`, e.g. `rustc 1.101.0-dev (Rodet)`.
-    pub rustc_version: Option<String>,
-    /// Whether `rustc` is Rodet (and not the official Rust).
+    /// `rodetc --version`, e.g. `rodetc 0.1.0 (#22, 2026-10-28)`.
+    pub rodetc_version: Option<String>,
+    /// Whether the compiler is Rodet's.
     pub is_rodet: bool,
 }
 
 impl Toolchain {
     pub fn find() -> Toolchain {
-        let rustc = find_program("rustc");
-        let rustc_version = rustc.as_ref().and_then(|rustc| {
-            let out = command(rustc).arg("--version").output().ok()?;
+        let rodetc = find_program("rodetc");
+        let rodetc_version = rodetc.as_ref().and_then(|rodetc| {
+            let out = command(rodetc).arg("--version").output().ok()?;
             Some(String::from_utf8_lossy(&out.stdout).trim().to_owned())
         });
         Toolchain {
             rodet_bin: rodet_bin(),
-            is_rodet: rustc_version.as_deref().is_some_and(|v| v.contains("Rodet")),
-            rustc,
-            rustc_version,
-            cargo: find_program("cargo"),
-            analyzer: find_program("rodet-analyzer").or_else(|| find_program("rust-analyzer")),
+            is_rodet: rodetc_version.as_deref().is_some_and(|v| v.starts_with("rodetc")),
+            rodetc,
+            rodetc_version,
+            rodet: find_program("rodet"),
+            analyzer: find_program("rodet-analyzer"),
         }
     }
 }
@@ -51,7 +53,7 @@ pub fn rodet_bin() -> Option<PathBuf> {
 }
 
 /// The language for messages of programs DEVR+ starts (`RODET_LANG`): the
-/// compiler, Cargo and rodet-analyzer speak Arabic when the editor does.
+/// compiler, Silk and rodet-analyzer speak Arabic when the editor does.
 pub fn language() -> &'static str {
     match crate::settings::load().get("language").and_then(|v| v.as_str()) {
         Some("ar") => "ar",
@@ -67,7 +69,7 @@ pub fn search_path() -> OsString {
     }
     if let Some(home) = dirs::home_dir() {
         // Desktop apps on macOS and Linux often start without the shell's PATH.
-        for extra in [".cargo/bin", ".local/bin"] {
+        for extra in [".local/bin"] {
             paths.push(home.join(extra));
         }
     }

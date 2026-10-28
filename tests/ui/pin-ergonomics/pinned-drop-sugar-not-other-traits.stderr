@@ -49,4 +49,4 @@ LL | impl HasPinnedDropReceiver for S {
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0046, E0407.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

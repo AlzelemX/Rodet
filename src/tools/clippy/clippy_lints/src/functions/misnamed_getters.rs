@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{BlockCheckMode, Body, ExprKind, FnDecl, ImplicitSelfKind, UnsafeSource};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{BlockCheckMode, Body, ExprKind, FnDecl, ImplicitSelfKind, UnsafeSource};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Span;
 
 use std::iter;
 

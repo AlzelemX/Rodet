@@ -1,4 +1,4 @@
-use rustc_const_eval::interpret::{InterpResult, interp_ok};
+use rodetc_const_eval::interpret::{InterpResult, interp_ok};
 
 static SUPERVISOR: std::sync::Mutex<()> = std::sync::Mutex::new(());
 

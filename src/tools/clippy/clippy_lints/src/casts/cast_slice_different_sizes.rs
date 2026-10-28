@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source;
-use rustc_ast::Mutability;
-use rustc_hir::{Expr, ExprKind, Node};
-use rustc_lint::LateContext;
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_middle::ty::{self, Ty, TypeAndMut};
+use rodetc_ast::Mutability;
+use rodetc_hir::{Expr, ExprKind, Node};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_middle::ty::{self, Ty, TypeAndMut};
 
 use super::CAST_SLICE_DIFFERENT_SIZES;
 
@@ -57,7 +57,7 @@ pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, expr: &Expr<'tcx>, msrv: Msrv)
                         expr.span,
                         format!("replace with `ptr::slice_from_raw_parts{mutbl_fn_str}`"),
                         sugg,
-                        rustc_errors::Applicability::HasPlaceholders,
+                        rodetc_errors::Applicability::HasPlaceholders,
                     );
                 },
             );

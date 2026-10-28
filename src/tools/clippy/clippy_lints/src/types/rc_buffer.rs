@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::{qpath_generic_tys, sym};
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{QPath, Ty, TyKind};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{QPath, Ty, TyKind};
+use rodetc_lint::LateContext;
 use std::borrow::Cow;
 
 use super::RC_BUFFER;

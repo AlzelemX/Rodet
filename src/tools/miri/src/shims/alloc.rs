@@ -1,9 +1,9 @@
-use rustc_abi::{Align, AlignFromBytesError, Size};
-use rustc_ast::expand::allocator::SpecialAllocatorMethod;
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::{Arch, Os};
+use rodetc_abi::{Align, AlignFromBytesError, Size};
+use rodetc_ast::expand::allocator::SpecialAllocatorMethod;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::{Arch, Os};
 
 use crate::*;
 

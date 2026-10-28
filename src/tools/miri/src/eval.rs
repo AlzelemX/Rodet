@@ -8,18 +8,18 @@ use std::rc::Rc;
 use std::task::Poll;
 use std::{iter, thread};
 
-use rustc_abi::ExternAbi;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_errors::FatalErrorMarker;
-use rustc_hir::def::Namespace;
-use rustc_hir::def_id::{DefId, LOCAL_CRATE};
-use rustc_hir_analysis::check::check_function_signature;
-use rustc_middle::middle::exported_symbols::ExportedSymbol;
-use rustc_middle::traits::{ObligationCause, ObligationCauseCode};
-use rustc_middle::ty::layout::{HasTyCtxt, HasTypingEnv, LayoutCx};
-use rustc_middle::ty::{self, Ty, TyCtxt};
-use rustc_session::config::EntryFnType;
-use rustc_target::spec::Os;
+use rodetc_abi::ExternAbi;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_errors::FatalErrorMarker;
+use rodetc_hir::def::Namespace;
+use rodetc_hir::def_id::{DefId, LOCAL_CRATE};
+use rodetc_hir_analysis::check::check_function_signature;
+use rodetc_middle::middle::exported_symbols::ExportedSymbol;
+use rodetc_middle::traits::{ObligationCause, ObligationCauseCode};
+use rodetc_middle::ty::layout::{HasTyCtxt, HasTypingEnv, LayoutCx};
+use rodetc_middle::ty::{self, Ty, TyCtxt};
+use rodetc_session::config::EntryFnType;
+use rodetc_target::spec::Os;
 
 use crate::concurrency::GenmcCtx;
 use crate::concurrency::thread::TlsAllocAction;
@@ -338,7 +338,7 @@ pub fn create_ecx<'tcx>(
     let layout_cx = LayoutCx::new(tcx, typing_env);
     let mut ecx = InterpCx::new(
         tcx,
-        rustc_span::DUMMY_SP,
+        rodetc_span::DUMMY_SP,
         typing_env,
         MiriMachine::new(config, layout_cx, genmc_ctx),
     );
@@ -481,7 +481,7 @@ fn call_main<'tcx>(
 
             // Always using DEFAULT is okay since we don't support signals in Miri anyway.
             // (This means we are effectively ignoring `-Zon-broken-pipe`.)
-            let sigpipe = rustc_session::config::sigpipe::DEFAULT;
+            let sigpipe = rodetc_session::config::sigpipe::DEFAULT;
 
             ecx.call_function(
                 start_instance,
@@ -589,7 +589,7 @@ pub fn eval_entry<'tcx>(
 
     // The interpreter reported an error.
     assert!(tcx.dcx().has_errors().is_some());
-    Err(NonZeroI32::new(rustc_driver::EXIT_FAILURE).unwrap())
+    Err(NonZeroI32::new(rodetc_driver::EXIT_FAILURE).unwrap())
 }
 
 /// Turns an array of arguments into a Windows command line string.

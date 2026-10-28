@@ -1,0 +1,59 @@
+[package]
+name = "rodetc_codegen_ssa"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+ar_archive_writer = "0.5"
+bitflags = "2.4.1"
+bstr = "1.11.3"
+find-msvc-tools = "0.1.2"
+itertools = "0.15"
+pathdiff = "0.2.0"
+regex = "1.4"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_arena = { path = "../rodetc_arena" }
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_attr_parsing = { path = "../rodetc_attr_parsing" }
+rodetc_crate_store = { path = "../rodetc_crate_store" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_fs_util = { path = "../rodetc_fs_util" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_incremental = { path = "../rodetc_incremental" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_metadata = { path = "../rodetc_metadata" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_symbol_mangling = { path = "../rodetc_symbol_mangling" }
+rodetc_target = { path = "../rodetc_target" }
+rodetc_trait_selection = { path = "../rodetc_trait_selection" }
+serde_json = "1.0.59"
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+tempfile = "3.2"
+thorin-dwp = "0.11"
+tracing = "0.1"
+wasm-encoder = "0.247"
+# tidy-alphabetical-end
+
+[target.'cfg(unix)'.dependencies]
+# tidy-alphabetical-start
+libc = "0.2.50"
+# tidy-alphabetical-end
+
+[dependencies.object]
+version = "0.39.1"
+default-features = false
+features = ["read_core", "elf", "macho", "pe", "xcoff", "unaligned", "archive", "write", "wasm"]
+
+[target.'cfg(windows)'.dependencies.windows]
+version = "0.61.0"
+features = ["Win32_Globalization"]

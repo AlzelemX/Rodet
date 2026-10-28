@@ -77,4 +77,4 @@ LL |     fn foo(self: Smaht<Self, T>);
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0307, E0377, E0425, E0658.
-For more information about an error, try `rustc --explain E0307`.
+For more information about an error, try `rodetc --explain E0307`.

@@ -2,12 +2,12 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::get_enclosing_block;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{BinOpKind, BorrowKind, Expr, ExprKind, GenericArg, ItemKind, QPath, TyKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{BinOpKind, BorrowKind, Expr, ExprKind, GenericArg, ItemKind, QPath, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 
 use super::OP_REF;
 
@@ -177,7 +177,7 @@ fn in_impl<'tcx>(
     cx: &LateContext<'tcx>,
     e: &'tcx Expr<'_>,
     bin_op: DefId,
-) -> Option<(&'tcx rustc_hir::Ty<'tcx>, &'tcx rustc_hir::Ty<'tcx>)> {
+) -> Option<(&'tcx rodetc_hir::Ty<'tcx>, &'tcx rodetc_hir::Ty<'tcx>)> {
     if let Some(block) = get_enclosing_block(cx, e.hir_id)
         && let Some(impl_def_id) = cx.tcx.impl_of_assoc(block.hir_id.owner.to_def_id())
         && let item = cx.tcx.hir_expect_item(impl_def_id.expect_local())
@@ -196,7 +196,7 @@ fn in_impl<'tcx>(
     }
 }
 
-fn are_equal(cx: &LateContext<'_>, middle_ty: Ty<'_>, hir_ty: &rustc_hir::Ty<'_>) -> bool {
+fn are_equal(cx: &LateContext<'_>, middle_ty: Ty<'_>, hir_ty: &rodetc_hir::Ty<'_>) -> bool {
     if let ty::Adt(adt_def, _) = middle_ty.kind()
         && let Some(local_did) = adt_def.did().as_local()
         && let item = cx.tcx.hir_expect_item(local_did)

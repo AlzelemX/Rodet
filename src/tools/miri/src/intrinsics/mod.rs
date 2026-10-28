@@ -8,10 +8,10 @@ mod x86;
 
 #[rustfmt::skip] // prevent `use` reordering
 use rand::RngExt;
-use rustc_abi::{Endian, Size};
-use rustc_middle::{mir, ty};
-use rustc_span::{Symbol, sym};
-use rustc_target::spec::Arch;
+use rodetc_abi::{Endian, Size};
+use rodetc_middle::{mir, ty};
+use rodetc_span::{Symbol, sym};
+use rodetc_target::spec::Arch;
 
 use self::math::EvalContextExt as _;
 use self::simd::EvalContextExt as _;

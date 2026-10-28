@@ -171,7 +171,7 @@ LL | #[repr(C, C, u8, u8, u8)]
 error: aborting due to 9 previous errors; 9 warnings emitted
 
 Some errors have detailed explanations: E0566, E0692.
-For more information about an error, try `rustc --explain E0566`.
+For more information about an error, try `rodetc --explain E0566`.
 Future incompatibility report: Future breakage diagnostic:
 error[E0566]: conflicting representation hints
   --> $DIR/repr-repeated-attrs.rs:23:8

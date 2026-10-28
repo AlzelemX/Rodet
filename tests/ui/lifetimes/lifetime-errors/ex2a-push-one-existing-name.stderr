@@ -11,4 +11,4 @@ LL | fn foo<'a>(x: &mut Vec<Ref<'a, i32>>, y: Ref<'a, i32>) {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0621`.
+For more information about this error, try `rodetc --explain E0621`.

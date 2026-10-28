@@ -28,4 +28,4 @@ LL +         None);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0061`.
+For more information about this error, try `rodetc --explain E0061`.

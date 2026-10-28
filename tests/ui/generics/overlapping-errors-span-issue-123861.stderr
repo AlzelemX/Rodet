@@ -33,7 +33,7 @@ LL | fn mainIterator<_ = _> {}
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0121`.
+For more information about this error, try `rodetc --explain E0121`.
 Future incompatibility report: Future breakage diagnostic:
 error: defaults for generic parameters are not allowed here
   --> $DIR/overlapping-errors-span-issue-123861.rs:1:17

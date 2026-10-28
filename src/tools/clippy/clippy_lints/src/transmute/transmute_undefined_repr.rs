@@ -1,9 +1,9 @@
 use super::TRANSMUTE_UNDEFINED_REPR;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::ty::is_c_void;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, GenericArgsRef, IntTy, Ty, UintTy, Unnormalized};
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, GenericArgsRef, IntTy, Ty, UintTy, Unnormalized};
 
 #[expect(clippy::too_many_lines)]
 pub(super) fn check<'tcx>(

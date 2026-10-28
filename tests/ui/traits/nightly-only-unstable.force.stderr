@@ -33,4 +33,4 @@ LL | fn use_foreign_trait(_: impl force_unstable::ForeignTrait) {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

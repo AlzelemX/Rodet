@@ -46,4 +46,4 @@ LL |     apply(&mut 3, |x| takes_imm(&*x));
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0631`.
+For more information about this error, try `rodetc --explain E0631`.

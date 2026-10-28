@@ -2,11 +2,11 @@ use std::env;
 use std::ffi::{OsStr, OsString};
 use std::io::ErrorKind;
 
-use rustc_abi::{FieldIdx, Size};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_index::IndexVec;
-use rustc_middle::ty::Ty;
-use rustc_target::spec::{Env, Os};
+use rodetc_abi::{FieldIdx, Size};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_index::IndexVec;
+use rodetc_middle::ty::Ty;
+use rodetc_target::spec::{Env, Os};
 
 use super::HOSTNAME;
 use crate::*;

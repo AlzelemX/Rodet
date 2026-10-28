@@ -369,4 +369,4 @@ LL |         reuse Trait::raw_S { self.0 }
 error: aborting due to 31 previous errors
 
 Some errors have detailed explanations: E0063, E0283, E0308, E0609, E0616.
-For more information about an error, try `rustc --explain E0063`.
+For more information about an error, try `rodetc --explain E0063`.

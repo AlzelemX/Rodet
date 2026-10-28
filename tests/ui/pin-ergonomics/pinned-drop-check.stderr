@@ -327,4 +327,4 @@ LL |             Drop::pin_drop(todo!());
 error: aborting due to 25 previous errors
 
 Some errors have detailed explanations: E0040, E0046, E0053, E0201.
-For more information about an error, try `rustc --explain E0040`.
+For more information about an error, try `rodetc --explain E0040`.

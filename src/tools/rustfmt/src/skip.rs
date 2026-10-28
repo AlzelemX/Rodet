@@ -1,7 +1,7 @@
 //! Module that contains skip related stuffs.
 
-use rustc_ast::ast;
-use rustc_ast_pretty::pprust;
+use rodetc_ast::ast;
+use rodetc_ast_pretty::pprust;
 use std::collections::HashSet;
 
 /// Track which blocks of code are to be skipped when formatting.
@@ -107,7 +107,7 @@ fn get_skip_names(kind: &str, attrs: &[ast::Attribute]) -> Vec<String> {
     let mut skip_names = vec![];
     let path = format!("{RUSTFMT}::{SKIP}::{kind}");
     for attr in attrs {
-        // rustc_ast::ast::Path is implemented partialEq
+        // rodetc_ast::ast::Path is implemented partialEq
         // but it is designed for segments.len() == 1
         if let ast::AttrKind::Normal(normal) = &attr.kind {
             if pprust::path_to_string(&normal.item.path) != path {

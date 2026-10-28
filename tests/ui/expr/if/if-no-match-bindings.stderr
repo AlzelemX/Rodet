@@ -102,4 +102,4 @@ LL | fn b_mut_ref<'a>() -> &'a mut bool { &mut true }
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0308, E0515.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

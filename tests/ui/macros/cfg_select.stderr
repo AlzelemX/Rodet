@@ -228,4 +228,4 @@ LL |     cfg!() => {}
 error: aborting due to 20 previous errors; 7 warnings emitted
 
 Some errors have detailed explanations: E0425, E0539, E0565, E0753.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

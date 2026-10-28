@@ -25,4 +25,4 @@ LL | impl<'a> IntoIterator for &S {
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0261`.
+For more information about this error, try `rodetc --explain E0261`.

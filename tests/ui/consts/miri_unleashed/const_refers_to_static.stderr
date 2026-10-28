@@ -47,4 +47,4 @@ LL |     FOO.fetch_add(1, Ordering::Relaxed)
 
 error: aborting due to 4 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

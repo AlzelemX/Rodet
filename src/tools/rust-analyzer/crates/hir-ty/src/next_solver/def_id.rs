@@ -9,7 +9,7 @@ use hir_def::{
         TraitSignature, TypeAliasSignature, UnionSignature,
     },
 };
-use rustc_type_ir::inherent;
+use rodetc_type_ir::inherent;
 use salsa::SalsaValue;
 use stdx::impl_from;
 

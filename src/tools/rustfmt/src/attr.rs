@@ -1,8 +1,8 @@
 //! Format attributes and meta items.
 
-use rustc_ast::HasAttrs;
-use rustc_ast::ast;
-use rustc_span::{Span, symbol::sym};
+use rodetc_ast::HasAttrs;
+use rodetc_ast::ast;
+use rodetc_span::{Span, symbol::sym};
 use tracing::debug;
 
 use self::doc_comment::DocCommentFormatter;

@@ -1,11 +1,11 @@
 use super::TRANSMUTE_INT_TO_BOOL;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg;
-use rustc_ast as ast;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_ast as ast;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 use std::borrow::Cow;
 
 /// Checks for `transmute_int_to_bool` lint.

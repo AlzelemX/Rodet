@@ -25,7 +25,7 @@
 //! sometimes useful when the types of `c` and `d` are not traceable
 //! things. (That system should probably be refactored.)
 
-use rustc_type_ir::{
+use rodetc_type_ir::{
     FnSig, GenericArgKind, TypeFoldable, TypingMode, Variance,
     error::ExpectedFound,
     relate::{Relate, TypeRelation, solver_relating::RelateExt},

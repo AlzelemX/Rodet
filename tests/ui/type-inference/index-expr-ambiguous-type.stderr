@@ -74,4 +74,4 @@ LL +     let _foo = String::new() + [""][<u8 as Into<T>>::into(bad_idx)];
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0282, E0283, E0284, E0369.
-For more information about an error, try `rustc --explain E0282`.
+For more information about an error, try `rodetc --explain E0282`.

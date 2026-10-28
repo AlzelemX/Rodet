@@ -69,4 +69,4 @@ LL |         T::T1(a, d) | T::T2(d, b) | T::T3(c) | T::T4(a) => { println!("{:?}
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0381, E0408.
-For more information about an error, try `rustc --explain E0381`.
+For more information about an error, try `rodetc --explain E0381`.

@@ -1,10 +1,10 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::{is_from_proc_macro, is_in_test};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_hir::{Pat, PatKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Symbol;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_hir::{Pat, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Symbol;
 
 declare_clippy_lint! {
     /// ### What it does

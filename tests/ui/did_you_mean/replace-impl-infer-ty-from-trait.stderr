@@ -23,4 +23,4 @@ LL |     fn bar(i: _, t: _, s: _) -> _ {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0121, E0282.
-For more information about an error, try `rustc --explain E0121`.
+For more information about an error, try `rodetc --explain E0121`.

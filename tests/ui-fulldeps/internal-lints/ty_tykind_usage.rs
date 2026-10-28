@@ -2,11 +2,11 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_middle;
-extern crate rustc_type_ir;
+extern crate rodetc_middle;
+extern crate rodetc_type_ir;
 
-use rustc_middle::ty::{self, Ty, TyKind};
-use rustc_type_ir::{Interner, TyKind as IrTyKind};
+use rodetc_middle::ty::{self, Ty, TyKind};
+use rodetc_type_ir::{Interner, TyKind as IrTyKind};
 
 #[deny(rustc::usage_of_ty_tykind)]
 fn main() {

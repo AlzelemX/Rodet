@@ -315,12 +315,12 @@ impl Config {
                 }
             }
 
-            // Update the timestamp of llvm-config to force rustc_llvm to be
+            // Update the timestamp of llvm-config to force rodetc_llvm to be
             // rebuilt. This is a hacky workaround for a deficiency in Cargo where
             // the rerun-if-changed directive doesn't handle changes very well.
             // https://github.com/rust-lang/cargo/issues/10791
             // Cargo only compares the timestamp of the file relative to the last
-            // time `rustc_llvm` build script ran. However, the timestamps of the
+            // time `rodetc_llvm` build script ran. However, the timestamps of the
             // files in the tarball are in the past, so it doesn't trigger a
             // rebuild.
             let now = std::time::SystemTime::now();

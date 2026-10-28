@@ -43,4 +43,4 @@ LL |     let z: AtomicU32 = 1.into();
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

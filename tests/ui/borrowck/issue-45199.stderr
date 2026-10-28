@@ -38,4 +38,4 @@ LL | fn test_args(mut b: Box<i32>) {
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0384`.
+For more information about this error, try `rodetc --explain E0384`.

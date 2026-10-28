@@ -1,8 +1,8 @@
-use rustc_abi::CanonAbi;
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::Os;
+use rodetc_abi::CanonAbi;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::Os;
 
 use crate::shims::unix::foreign_items::EvalContextExt as _;
 use crate::shims::unix::linux_like::epoll::EvalContextExt as _;

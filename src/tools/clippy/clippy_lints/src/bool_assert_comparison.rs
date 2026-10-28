@@ -4,12 +4,12 @@ use clippy_utils::source::walk_span_to_context;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::sym;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_ast::ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Lit};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::{self, Ty, Unnormalized};
-use rustc_span::symbol::Ident;
+use rodetc_ast::ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Lit};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::{self, Ty, Unnormalized};
+use rodetc_span::symbol::Ident;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -2,12 +2,12 @@
 #![allow(clippy::missing_clippy_version_attribute)]
 #![feature(rustc_private)]
 
-extern crate rustc_hir;
+extern crate rodetc_hir;
 #[macro_use]
-extern crate rustc_lint;
-extern crate rustc_middle;
-use rustc_hir::Expr;
-use rustc_lint::{LateContext, LateLintPass};
+extern crate rodetc_lint;
+extern crate rodetc_middle;
+use rodetc_hir::Expr;
+use rodetc_lint::{LateContext, LateLintPass};
 
 declare_lint! {
     pub TEST_LINT,

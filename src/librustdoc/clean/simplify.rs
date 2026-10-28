@@ -1,7 +1,7 @@
 //! Simplification of where-clauses and parameter bounds into a prettier and
 //! more canonical form.
 //!
-//! Currently all cross-crate-inlined function use `rustc_middle::ty` to reconstruct
+//! Currently all cross-crate-inlined function use `rodetc_middle::ty` to reconstruct
 //! the AST (e.g., see all of `clean::inline`), but this is not always a
 //! non-lossy transformation. The current format of storage for where-clauses
 //! for functions and such is simply a list of predicates. One example of this
@@ -11,12 +11,12 @@
 //! This module attempts to reconstruct the original where and/or parameter
 //! bounds by special casing scenarios such as these. Fun!
 
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_hir as hir;
-use rustc_hir::def_id::DefId;
-use rustc_middle::ty::{TyCtxt, Unnormalized};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::DefId;
+use rodetc_middle::ty::{TyCtxt, Unnormalized};
 
 use crate::clean;
 use crate::clean::{GenericArgs as PP, WherePredicate as WP};

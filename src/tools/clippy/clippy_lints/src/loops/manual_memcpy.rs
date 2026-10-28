@@ -6,13 +6,13 @@ use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::is_copy;
 use clippy_utils::usage::local_used_in;
 use clippy_utils::{get_enclosing_block, higher, sugg};
-use rustc_ast::ast;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::walk_block;
-use rustc_hir::{BinOpKind, Block, Expr, ExprKind, HirId, Pat, PatKind, StmtKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::symbol::sym;
+use rodetc_ast::ast;
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::walk_block;
+use rodetc_hir::{BinOpKind, Block, Expr, ExprKind, HirId, Pat, PatKind, StmtKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::symbol::sym;
 use std::fmt::Display;
 
 /// Checks for `for` loops that sequentially copy items from one slice-like

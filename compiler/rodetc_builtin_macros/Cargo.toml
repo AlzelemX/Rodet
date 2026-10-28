@@ -1,0 +1,38 @@
+[package]
+name = "rodetc_builtin_macros"
+version = "0.0.0"
+edition = "2024"
+
+[lib]
+doctest = false
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_ast_pretty = { path = "../rodetc_ast_pretty" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_attr_parsing = { path = "../rodetc_attr_parsing" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_expand = { path = "../rodetc_expand" }
+rodetc_feature = { path = "../rodetc_feature" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_lexer = { path = "../rodetc_lexer" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_parse = { path = "../rodetc_parse" }
+rodetc_parse_format = { path = "../rodetc_parse_format" }
+# We must use the proc_macro version that we will compile proc-macros against,
+# not the one from our own sysroot.
+rodetc_proc_macro = { path = "../rodetc_proc_macro" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_target = { path = "../rodetc_target" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+thin-vec = "0.2.21"
+tracing = "0.1"
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+# tidy-alphabetical-end

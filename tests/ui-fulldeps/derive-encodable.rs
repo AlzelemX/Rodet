@@ -5,11 +5,11 @@
 #![crate_type = "rlib"]
 #![feature(rustc_private)]
 
-extern crate rustc_macros;
-extern crate rustc_serialize;
-extern crate rustc_span;
+extern crate rodetc_macros;
+extern crate rodetc_serialize;
+extern crate rodetc_span;
 
-use rustc_macros::Encodable;
+use rodetc_macros::Encodable;
 
 #[derive(Encodable)]
 struct UnitStruct;

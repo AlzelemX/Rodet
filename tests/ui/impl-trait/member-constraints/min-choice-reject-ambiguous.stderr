@@ -45,4 +45,4 @@ LL | fn test_ambiguous<'a, 'b, 'c>(s: &'a u8) -> impl Cap<'b> + Cap<'c> + use<'b
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0309, E0700.
-For more information about an error, try `rustc --explain E0309`.
+For more information about an error, try `rodetc --explain E0309`.

@@ -233,7 +233,7 @@ impl<'s> ScriptSource<'s> {
 
 /// Returns the index after the shebang line, if present
 pub fn strip_shebang(input: &str) -> Option<usize> {
-    // See rust-lang/rust's compiler/rustc_lexer/src/lib.rs's `strip_shebang`
+    // See rust-lang/rust's compiler/rodetc_lexer/src/lib.rs's `strip_shebang`
     // Shebang must start with `#!` literally, without any preceding whitespace.
     // For simplicity we consider any line starting with `#!` a shebang,
     // regardless of restrictions put on shebangs by specific platforms.

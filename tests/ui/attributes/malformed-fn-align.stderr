@@ -131,4 +131,4 @@ LL | #[rustc_align(32)]
 error: aborting due to 15 previous errors
 
 Some errors have detailed explanations: E0539, E0589, E0805.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

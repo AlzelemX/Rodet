@@ -5,10 +5,10 @@
 //! [`rustdoc_json_types::Item`] doesn't correspond exactly to what
 //! other phases think of as an "item".
 
-use rustc_attr_ir::find_attr;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def_id::DefId;
-use rustc_span::Symbol;
+use rodetc_attr_ir::find_attr;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def_id::DefId;
+use rodetc_span::Symbol;
 use rustdoc_json_types as types;
 
 use super::JsonRenderer;

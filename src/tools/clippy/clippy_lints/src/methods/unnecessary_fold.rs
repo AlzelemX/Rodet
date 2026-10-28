@@ -6,15 +6,15 @@ use clippy_utils::source::snippet_with_context;
 use clippy_utils::ty::is_copy;
 use clippy_utils::visitors::for_each_expr;
 use clippy_utils::{DefinedTy, ExprUseNode, get_expr_use_site, peel_blocks, strip_pat_refs};
-use rustc_ast::ast;
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::{Applicability, Diag};
-use rustc_hir as hir;
-use rustc_hir::PatKind;
-use rustc_hir::def::{DefKind, Res};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::{Span, Symbol, sym};
+use rodetc_ast::ast;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::{Applicability, Diag};
+use rodetc_hir as hir;
+use rodetc_hir::PatKind;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::{Span, Symbol, sym};
 
 use super::UNNECESSARY_FOLD;
 

@@ -38,4 +38,4 @@ LL +     s.infer(0u32);
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0061, E0308.
-For more information about an error, try `rustc --explain E0061`.
+For more information about an error, try `rodetc --explain E0061`.

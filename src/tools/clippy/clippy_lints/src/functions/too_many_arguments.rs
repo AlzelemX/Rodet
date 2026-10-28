@@ -1,9 +1,9 @@
-use rustc_abi::ExternAbi;
-use rustc_hir as hir;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::FnKind;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_abi::ExternAbi;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::is_trait_impl_item;

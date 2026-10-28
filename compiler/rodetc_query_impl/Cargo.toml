@@ -1,0 +1,20 @@
+[package]
+name = "rodetc_query_impl"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+measureme = "12.0.1"
+parking_lot = "0.12"
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_thread_pool = { path = "../rodetc_thread_pool" }
+tracing = "0.1"
+# tidy-alphabetical-end

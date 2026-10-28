@@ -6,10 +6,10 @@ use clippy_utils::ty::is_copy;
 use clippy_utils::usage::is_potentially_mutated;
 use clippy_utils::visitors::contains_unsafe_block;
 use clippy_utils::{as_some_expr, span_contains_comment};
-use rustc_errors::Applicability;
-use rustc_hir::{Arm, Expr, ExprKind, HirId, Pat, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::{Span, SyntaxContext, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Arm, Expr, ExprKind, HirId, Pat, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, SyntaxContext, sym};
 
 use super::MANUAL_FILTER;
 use super::manual_utils::{SomeExpr, check_with};

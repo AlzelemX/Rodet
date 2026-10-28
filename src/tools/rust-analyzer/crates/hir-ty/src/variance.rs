@@ -17,8 +17,8 @@ use hir_def::{
     AdtId, GenericDefId, GenericParamId, VariantId,
     signatures::{StructFlags, StructSignature},
 };
-use rustc_ast_ir::Mutability;
-use rustc_type_ir::{Variance, inherent::IntoKind};
+use rodetc_ast_ir::Mutability;
+use rodetc_type_ir::{Variance, inherent::IntoKind};
 use stdx::never;
 
 use crate::{

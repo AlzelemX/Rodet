@@ -32,7 +32,7 @@ use hir_expand::{
     HirFileId,
     name::{AsName, Name},
 };
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use stdx::{always, never};
 use syntax::{
     AstNode, AstPtr, ToSmolStr,

@@ -2,9 +2,9 @@ use std::cell::RefCell;
 use std::num::NonZero;
 use std::{fmt, mem};
 
-use rustc_abi::Size;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_middle::ty::Ty;
+use rodetc_abi::Size;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_middle::ty::Ty;
 use smallvec::SmallVec;
 
 use crate::*;

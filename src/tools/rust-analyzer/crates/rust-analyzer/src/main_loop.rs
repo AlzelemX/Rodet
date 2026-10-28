@@ -233,14 +233,14 @@ impl GlobalState {
                 lsp_types::TextDocumentFilterPattern {
                     language: None,
                     scheme: None,
-                    pattern: "**/*.rs".to_owned().into(),
+                    pattern: "**/*.{rs,rd}".to_owned().into(),
                 },
             )),
             lsp_types::DocumentFilter::TextDocumentFilter(lsp_types::TextDocumentFilter::Pattern(
                 lsp_types::TextDocumentFilterPattern {
                     language: None,
                     scheme: None,
-                    pattern: "**/Cargo.toml".to_owned().into(),
+                    pattern: "**/{Cargo,Silk}.toml".to_owned().into(),
                 },
             )),
             lsp_types::DocumentFilter::TextDocumentFilter(lsp_types::TextDocumentFilter::Pattern(

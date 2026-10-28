@@ -77,4 +77,4 @@ LL | fn bar<'a>(arg: Box<dyn X<Y('_) = ()>>) {}
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0107`.
+For more information about this error, try `rodetc --explain E0107`.

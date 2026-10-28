@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::sym;
-use rustc_hir as hir;
-use rustc_hir::def_id::DefId;
-use rustc_lint::LateContext;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::DefId;
+use rodetc_lint::LateContext;
 
 use super::LINKEDLIST;
 

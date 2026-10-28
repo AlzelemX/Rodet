@@ -35,4 +35,4 @@ LL +     fn escaping<T: for<'r> Outer<'r>>(_: <T as parent::Outer<'_>>::Ty<dyn I
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0212, E0228.
-For more information about an error, try `rustc --explain E0212`.
+For more information about an error, try `rodetc --explain E0212`.

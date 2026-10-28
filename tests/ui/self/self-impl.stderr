@@ -24,4 +24,4 @@ LL +         let _: <Bar as Foo>::Baz = true;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0223`.
+For more information about this error, try `rodetc --explain E0223`.

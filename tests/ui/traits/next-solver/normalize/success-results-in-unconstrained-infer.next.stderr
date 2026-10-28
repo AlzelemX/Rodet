@@ -38,4 +38,4 @@ LL + #![feature(trivial_bounds)]
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0046, E0207, E0277, E0425.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

@@ -1,9 +1,9 @@
 use super::FLOAT_ARITHMETIC;
 use clippy_utils::consts::ConstEvalCtxt;
 use clippy_utils::diagnostics::span_lint;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 #[derive(Default)]
 pub struct Context {

@@ -114,4 +114,4 @@ LL |     offset_of!(((u8, u16), (u32, u16, u8)), 1.2.0);
 
 error: aborting due to 13 previous errors
 
-For more information about this error, try `rustc --explain E0609`.
+For more information about this error, try `rodetc --explain E0609`.

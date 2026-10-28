@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeDef as _;
-use rustc_hir::{CaptureBy, Closure, Expr, ExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_hir::{CaptureBy, Closure, Expr, ExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::MAP_ERR_IGNORE;
 

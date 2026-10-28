@@ -15,30 +15,30 @@
 
 // FIXME: switch to something more ergonomic here, once available.
 // (Currently there is no way to opt into sysroot crates without `extern crate`.)
-extern crate rustc_abi;
-extern crate rustc_ast;
-extern crate rustc_attr_ir;
-extern crate rustc_attr_parsing;
-extern crate rustc_const_eval;
-extern crate rustc_data_structures;
+extern crate rodetc_abi;
+extern crate rodetc_ast;
+extern crate rodetc_attr_ir;
+extern crate rodetc_attr_parsing;
+extern crate rodetc_const_eval;
+extern crate rodetc_data_structures;
 #[expect(
     unused_extern_crates,
-    reason = "The `rustc_driver` crate seems to be required in order to use the `rust_ast` crate."
+    reason = "The `rodetc_driver` crate seems to be required in order to use the `rust_ast` crate."
 )]
-extern crate rustc_driver;
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_hir_analysis;
-extern crate rustc_hir_typeck;
-extern crate rustc_index;
-extern crate rustc_infer;
-extern crate rustc_lexer;
-extern crate rustc_lint;
-extern crate rustc_middle;
-extern crate rustc_mir_dataflow;
-extern crate rustc_session;
-extern crate rustc_span;
-extern crate rustc_trait_selection;
+extern crate rodetc_driver;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_hir_analysis;
+extern crate rodetc_hir_typeck;
+extern crate rodetc_index;
+extern crate rodetc_infer;
+extern crate rodetc_lexer;
+extern crate rodetc_lint;
+extern crate rodetc_middle;
+extern crate rodetc_mir_dataflow;
+extern crate rodetc_session;
+extern crate rodetc_span;
+extern crate rodetc_trait_selection;
 
 pub mod ast_utils;
 #[deny(missing_docs)]
@@ -79,43 +79,43 @@ use std::iter::{once, repeat_n, zip};
 use std::sync::{Mutex, OnceLock};
 
 use itertools::Itertools as _;
-use rustc_abi::Integer;
-use rustc_ast::ast::{self, LitKind, RangeLimits};
-use rustc_ast::{LitIntType, join_path_syms};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::lang_items::LangItem::{OptionNone, OptionSome, ResultErr, ResultOk};
-use rustc_attr_ir::{CfgEntry, find_attr};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_data_structures::indexmap;
-use rustc_data_structures::packed::Pu128;
-use rustc_data_structures::unhash::UnindexMap;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, LocalDefId, LocalModId};
-use rustc_hir::definitions::{DefPath, DefPathData};
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{
+use rodetc_abi::Integer;
+use rodetc_ast::ast::{self, LitKind, RangeLimits};
+use rodetc_ast::{LitIntType, join_path_syms};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::lang_items::LangItem::{OptionNone, OptionSome, ResultErr, ResultOk};
+use rodetc_attr_ir::{CfgEntry, find_attr};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::indexmap;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_data_structures::unhash::UnindexMap;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, LocalDefId, LocalModId};
+use rodetc_hir::definitions::{DefPath, DefPathData};
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{
     self as hir, AnonConst, Arm, BindingMode, Block, BlockCheckMode, Body, ByRef, CRATE_HIR_ID, Closure, ConstArg,
     ConstArgKind, CoroutineDesugaring, CoroutineKind, CoroutineSource, Destination, Expr, ExprField, ExprKind,
     FieldDef, FnDecl, FnRetTy, GenericArg, GenericArgs, HirId, HirIdMap, HirIdSet, Impl, ImplItem, ImplItemKind, Item,
     ItemKind, LetStmt, MatchSource, Mutability, Node, OwnerId, OwnerNode, Param, Pat, PatExpr, PatExprKind, PatKind,
     Path, PathSegment, QPath, Stmt, StmtKind, TraitFn, TraitItem, TraitItemKind, TraitRef, TyKind, UnOp, Variant, def,
 };
-use rustc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
-use rustc_lint::{LateContext, Level, Lint, LintContext as _};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::hir::place::PlaceBase;
-use rustc_middle::mir::{AggregateKind, Operand, RETURN_PLACE, Rvalue, StatementKind, TerminatorKind};
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, DerefAdjustKind, PointerCoercion};
-use rustc_middle::ty::layout::IntegerExt as _;
-use rustc_middle::ty::{
+use rodetc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
+use rodetc_lint::{LateContext, Level, Lint, LintContext as _};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::hir::place::PlaceBase;
+use rodetc_middle::mir::{AggregateKind, Operand, RETURN_PLACE, Rvalue, StatementKind, TerminatorKind};
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, DerefAdjustKind, PointerCoercion};
+use rodetc_middle::ty::layout::IntegerExt as _;
+use rodetc_middle::ty::{
     self as rustc_ty, Binder, BorrowKind, ClosureKind, EarlyBinder, GenericArgKind, GenericArgsRef, IntTy, Ty, TyCtxt,
     TypeFlags, TypeVisitableExt as _, TypeckResults, UintTy, UpvarCapture,
 };
-use rustc_session::config::Input;
-use rustc_span::hygiene::{ExpnKind, MacroKind};
-use rustc_span::source_map::SourceMap;
-use rustc_span::symbol::{Ident, Symbol, kw};
-use rustc_span::{InnerSpan, Span, SyntaxContext};
+use rodetc_session::config::Input;
+use rodetc_span::hygiene::{ExpnKind, MacroKind};
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::symbol::{Ident, Symbol, kw};
+use rodetc_span::{InnerSpan, Span, SyntaxContext};
 use source::{SpanExt as _, walk_span_to_context};
 use visitors::{Visitable, for_each_unconsumed_temporary};
 
@@ -133,13 +133,13 @@ pub const VEC_METHODS_SHADOWING_SLICE_METHODS: [Symbol; 3] = [sym::as_ptr, sym::
 #[macro_export]
 macro_rules! extract_msrv_attr {
     () => {
-        fn check_attributes(&mut self, cx: &rustc_lint::EarlyContext<'_>, attrs: &[rustc_ast::ast::Attribute]) {
-            let sess = rustc_lint::LintContext::sess(cx);
+        fn check_attributes(&mut self, cx: &rodetc_lint::EarlyContext<'_>, attrs: &[rodetc_ast::ast::Attribute]) {
+            let sess = rodetc_lint::LintContext::sess(cx);
             self.msrv.check_attributes(attrs);
         }
 
-        fn check_attributes_post(&mut self, cx: &rustc_lint::EarlyContext<'_>, attrs: &[rustc_ast::ast::Attribute]) {
-            let sess = rustc_lint::LintContext::sess(cx);
+        fn check_attributes_post(&mut self, cx: &rodetc_lint::EarlyContext<'_>, attrs: &[rodetc_ast::ast::Attribute]) {
+            let sess = rodetc_lint::LintContext::sess(cx);
             self.msrv.check_attributes_post(attrs);
         }
     };
@@ -237,7 +237,7 @@ pub fn is_in_const_context(cx: &LateContext<'_>) -> bool {
 ///  * const blocks (or inline consts)
 ///  * associated constants
 pub fn is_inside_always_const_context(tcx: TyCtxt<'_>, hir_id: HirId) -> bool {
-    use rustc_hir::ConstContext::{Const, ConstFn, Static};
+    use rodetc_hir::ConstContext::{Const, ConstFn, Static};
     let Some(ctx) = tcx.hir_body_const_context(tcx.hir_enclosing_body_owner(hir_id)) else {
         return false;
     };
@@ -689,7 +689,7 @@ pub fn is_default_equivalent(cx: &LateContext<'_>, e: &Expr<'_>) -> bool {
             .qpath_res(qpath, e.hir_id)
             .ctor_parent(cx)
             .is_lang_item(cx, OptionNone),
-        ExprKind::AddrOf(rustc_hir::BorrowKind::Ref, _, expr) => matches!(expr.kind, ExprKind::Array([])),
+        ExprKind::AddrOf(rodetc_hir::BorrowKind::Ref, _, expr) => matches!(expr.kind, ExprKind::Array([])),
         ExprKind::Block(Block { stmts: [], expr, .. }, _) => expr.is_some_and(|e| is_default_equivalent(cx, e)),
         _ => false,
     }
@@ -1385,7 +1385,7 @@ pub fn is_float_literal(expr: &Expr<'_>, value: f64) -> bool {
 /// Examples of coercions can be found in the Nomicon at
 /// <https://doc.rust-lang.org/nomicon/coercions.html>.
 ///
-/// See `rustc_middle::ty::adjustment::Adjustment` and `rustc_hir_analysis::check::coercion` for
+/// See `rodetc_middle::ty::adjustment::Adjustment` and `rodetc_hir_analysis::check::coercion` for
 /// more information on adjustments and coercions.
 pub fn is_adjusted(cx: &LateContext<'_>, e: &Expr<'_>) -> bool {
     cx.typeck_results().adjustments().get(e.hir_id).is_some()
@@ -1681,7 +1681,7 @@ pub fn clip(tcx: TyCtxt<'_>, u: u128, ity: UintTy) -> u128 {
 /// and derive helpers.
 ///
 /// FIXME: remove after lint attributes are parsed
-pub fn has_attr(attrs: &[rustc_attr_ir::Attribute], symbol: Symbol) -> bool {
+pub fn has_attr(attrs: &[rodetc_attr_ir::Attribute], symbol: Symbol) -> bool {
     attrs.iter().any(|attr| attr.has_name(symbol))
 }
 
@@ -2105,7 +2105,7 @@ pub fn is_trait_impl_item(cx: &LateContext<'_>, hir_id: HirId) -> bool {
 /// }
 /// ```
 pub fn fn_has_unsatisfiable_clauses(cx: &LateContext<'_>, did: DefId) -> bool {
-    use rustc_trait_selection::traits;
+    use rodetc_trait_selection::traits;
     let clauses = cx
         .tcx
         .clauses_of(did)

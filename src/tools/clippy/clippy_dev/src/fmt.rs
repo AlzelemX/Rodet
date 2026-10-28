@@ -5,7 +5,7 @@ use crate::utils::{
     walk_dir_no_dot_or_target,
 };
 use itertools::Itertools as _;
-use rustc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
+use rodetc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
 use std::fmt::Write as _;
 use std::fs;
 use std::io::{self, Read as _};

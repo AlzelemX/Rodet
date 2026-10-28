@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::method_chain_args;
 use clippy_utils::res::MaybeQPath as _;
 use clippy_utils::source::snippet_with_applicability;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, Lint};
-use rustc_middle::ty;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, Lint};
+use rodetc_middle::ty;
+use rodetc_span::Symbol;
 
 /// Wrapper fn for `CHARS_NEXT_CMP` and `CHARS_LAST_CMP` lints.
 pub(super) fn check(

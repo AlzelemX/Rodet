@@ -2,8 +2,8 @@ use std::env;
 use std::ffi::{OsStr, OsString};
 use std::io::ErrorKind;
 
-use rustc_data_structures::fx::FxHashMap;
-use rustc_target::spec::Os;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_target::spec::Os;
 
 use self::helpers::windows_check_buffer_size;
 use crate::*;

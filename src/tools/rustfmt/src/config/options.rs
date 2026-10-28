@@ -497,7 +497,7 @@ impl Default for Edition {
     }
 }
 
-impl From<Edition> for rustc_span::edition::Edition {
+impl From<Edition> for rodetc_span::edition::Edition {
     fn from(edition: Edition) -> Self {
         match edition {
             Edition::Edition2015 => Self::Edition2015,
@@ -521,7 +521,7 @@ impl From<Edition> for StyleEdition {
 
 impl PartialOrd for Edition {
     fn partial_cmp(&self, other: &Edition) -> Option<std::cmp::Ordering> {
-        rustc_span::edition::Edition::partial_cmp(&(*self).into(), &(*other).into())
+        rodetc_span::edition::Edition::partial_cmp(&(*self).into(), &(*other).into())
     }
 }
 
@@ -566,7 +566,7 @@ pub enum StyleEdition {
     Edition2027,
 }
 
-impl From<StyleEdition> for rustc_span::edition::Edition {
+impl From<StyleEdition> for rodetc_span::edition::Edition {
     fn from(edition: StyleEdition) -> Self {
         match edition {
             StyleEdition::Edition2015 => Self::Edition2015,
@@ -582,13 +582,13 @@ impl From<StyleEdition> for rustc_span::edition::Edition {
 impl PartialOrd for StyleEdition {
     fn partial_cmp(&self, other: &StyleEdition) -> Option<std::cmp::Ordering> {
         // FIXME(ytmimi): Update `StyleEdition::Edition2027` logic when
-        // `rustc_span::edition::Edition::Edition2027` becomes available in the compiler
+        // `rodetc_span::edition::Edition::Edition2027` becomes available in the compiler
         match (self, other) {
             (Self::Edition2027, Self::Edition2027) => Some(std::cmp::Ordering::Equal),
             (_, Self::Edition2027) => Some(std::cmp::Ordering::Less),
             (Self::Edition2027, _) => Some(std::cmp::Ordering::Greater),
             (Self::Edition2015 | Self::Edition2018 | Self::Edition2021 | Self::Edition2024, _) => {
-                rustc_span::edition::Edition::partial_cmp(&(*self).into(), &(*other).into())
+                rodetc_span::edition::Edition::partial_cmp(&(*self).into(), &(*other).into())
             }
         }
     }

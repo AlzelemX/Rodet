@@ -3,11 +3,11 @@ use clippy_utils::macros::matching_root_macro_call;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _, MaybeResPath as _};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{SpanlessEq, get_enclosing_block, is_integer_literal, span_contains_comment, sym};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
-use rustc_hir::{BindingMode, Block, Expr, ExprKind, HirId, PatKind, Stmt, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
+use rodetc_hir::{BindingMode, Block, Expr, ExprKind, HirId, PatKind, Stmt, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::SyntaxContext;
 
 declare_clippy_lint! {
     /// ### What it does

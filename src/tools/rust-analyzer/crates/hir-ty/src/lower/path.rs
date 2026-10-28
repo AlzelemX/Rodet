@@ -17,7 +17,7 @@ use hir_def::{
     signatures::{TraitFlags, TraitSignature},
     type_ref::{TypeRef, TypeRefId},
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTerm, AliasTy, AliasTyKind,
     inherent::{GenericArgs as _, Region as _, Ty as _},
 };
@@ -956,8 +956,8 @@ impl<'a, 'b, 'db> PathLoweringContext<'a, 'b, 'db> {
                                 let pred = Clause(Predicate::new(
                                     interner,
                                     Binder::bind_with_vars(
-                                        rustc_type_ir::PredicateKind::Clause(
-                                            rustc_type_ir::ClauseKind::Projection(
+                                        rodetc_type_ir::PredicateKind::Clause(
+                                            rodetc_type_ir::ClauseKind::Projection(
                                                 ProjectionPredicate {
                                                     projection_term,
                                                     term: ty.into(),

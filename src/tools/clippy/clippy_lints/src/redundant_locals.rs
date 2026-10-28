@@ -1,14 +1,14 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::is_from_proc_macro;
 use clippy_utils::ty::needs_ordered_drop;
-use rustc_ast::Mutability;
-use rustc_hir::def::Res;
-use rustc_hir::{BindingMode, ByRef, ExprKind, HirId, LetStmt, Node, Pat, PatKind, QPath};
-use rustc_hir_typeck::expr_use_visitor::PlaceBase;
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::UpvarCapture;
-use rustc_span::DesugaringKind;
-use rustc_span::symbol::Ident;
+use rodetc_ast::Mutability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{BindingMode, ByRef, ExprKind, HirId, LetStmt, Node, Pat, PatKind, QPath};
+use rodetc_hir_typeck::expr_use_visitor::PlaceBase;
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::UpvarCapture;
+use rodetc_span::DesugaringKind;
+use rodetc_span::symbol::Ident;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -66,4 +66,4 @@ LL | const TYPE_CONST: usize = gca!(const { 1 });
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.

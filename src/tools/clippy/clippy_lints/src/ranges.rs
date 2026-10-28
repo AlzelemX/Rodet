@@ -9,14 +9,14 @@ use clippy_utils::ty::implements_trait;
 use clippy_utils::{
     fn_def_id, get_expr_use_site, get_parent_expr, higher, is_in_const_context, is_integer_literal, sym,
 };
-use rustc_ast::Mutability;
-use rustc_ast::ast::RangeLimits;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, HirId, Node};
-use rustc_lint::{LateContext, LateLintPass, Lint, impl_lint_pass};
-use rustc_middle::ty::{self, ClauseKind, ClausePolarity, GenericArgKind, Ty};
-use rustc_span::{DesugaringKind, Span, Spanned, SyntaxContext};
+use rodetc_ast::Mutability;
+use rodetc_ast::ast::RangeLimits;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, HirId, Node};
+use rodetc_lint::{LateContext, LateLintPass, Lint, impl_lint_pass};
+use rodetc_middle::ty::{self, ClauseKind, ClausePolarity, GenericArgKind, Ty};
+use rodetc_span::{DesugaringKind, Span, Spanned, SyntaxContext};
 use std::cmp::Ordering;
 
 declare_clippy_lint! {

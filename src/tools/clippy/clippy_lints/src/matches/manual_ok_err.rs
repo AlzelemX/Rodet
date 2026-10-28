@@ -4,14 +4,14 @@ use clippy_utils::source::{indent_of, reindent_multiline};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::{option_arg_ty, peel_and_count_ty_refs};
 use clippy_utils::{as_some_expr, get_parent_expr, is_none_expr, peel_blocks, span_contains_comment};
-use rustc_ast::{BindingMode, Mutability};
-use rustc_attr_ir::lang_items::LangItem::ResultErr;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Arm, Expr, ExprKind, Pat, PatExpr, PatExprKind, PatKind, Path, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::symbol::Ident;
+use rodetc_ast::{BindingMode, Mutability};
+use rodetc_attr_ir::lang_items::LangItem::ResultErr;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Arm, Expr, ExprKind, Pat, PatExpr, PatExprKind, PatKind, Path, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::symbol::Ident;
 
 use super::MANUAL_OK_ERR;
 

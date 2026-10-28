@@ -1,11 +1,11 @@
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
-use rustc_errors::Diag;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::def_id::DefIdSet;
-use rustc_span::{Span, sym};
+use rodetc_errors::Diag;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::def_id::DefIdSet;
+use rodetc_span::{Span, sym};
 
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_then};
 use clippy_utils::ty::{AdtVariantInfo, approx_ty_size};

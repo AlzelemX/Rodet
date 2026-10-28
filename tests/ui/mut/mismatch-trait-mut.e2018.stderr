@@ -74,4 +74,4 @@ LL +         fn g2<'a>(_x: &'a crate::bar::X) -> &'a () { &() }
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0053`.
+For more information about this error, try `rodetc --explain E0053`.

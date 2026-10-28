@@ -752,7 +752,7 @@ mod propagation_optimization_checks {
     // i.e. Reserved -> Unique -> Frozen -> Disabled
     fn permissionpriv_partialord_is_reachability() {
         let reach = {
-            let mut reach = rustc_data_structures::fx::FxHashSet::default();
+            let mut reach = rodetc_data_structures::fx::FxHashSet::default();
             // One-step transitions + reflexivity
             for start in PermissionPriv::exhaustive() {
                 reach.insert((start, start));

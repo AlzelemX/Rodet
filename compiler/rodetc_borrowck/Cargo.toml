@@ -1,0 +1,29 @@
+[package]
+name = "rodetc_borrowck"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+either = "1.5.0"
+itertools = "0.15"
+polonius-engine = "0.13.0"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_graphviz = { path = "../rodetc_graphviz" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_infer = { path = "../rodetc_infer" }
+rodetc_lexer = { path = "../rodetc_lexer" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_mir_dataflow = { path = "../rodetc_mir_dataflow" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_trait_selection = { path = "../rodetc_trait_selection" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+tracing = "0.1"
+# tidy-alphabetical-end

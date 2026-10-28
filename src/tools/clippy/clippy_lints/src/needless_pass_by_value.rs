@@ -4,24 +4,24 @@ use clippy_utils::source::{SpanExt as _, snippet};
 use clippy_utils::ty::{implements_trait, implements_trait_with_env_from_iter, is_copy};
 use clippy_utils::visitors::{Descend, for_each_expr_without_closures};
 use clippy_utils::{is_self, peel_hir_ty_options, strip_pat_refs, sym};
-use rustc_abi::ExternAbi;
-use rustc_attr_ir::Attribute;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::{Applicability, Diag};
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_abi::ExternAbi;
+use rodetc_attr_ir::Attribute;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::{Applicability, Diag};
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     BindingMode, Body, ExprKind, FnDecl, GenericArg, HirId, HirIdSet, Impl, ItemKind, Mutability, Node, PatKind, QPath,
     TyKind,
 };
-use rustc_hir_typeck::expr_use_visitor as euv;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty::{self, Ty, TypeVisitableExt as _};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::symbol::kw;
-use rustc_span::{Span, Symbol};
-use rustc_trait_selection::traits;
-use rustc_trait_selection::traits::misc::type_allowed_to_implement_copy;
+use rodetc_hir_typeck::expr_use_visitor as euv;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty::{self, Ty, TypeVisitableExt as _};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::symbol::kw;
+use rodetc_span::{Span, Symbol};
+use rodetc_trait_selection::traits;
+use rodetc_trait_selection::traits::misc::type_allowed_to_implement_copy;
 
 use std::borrow::Cow;
 use std::ops::ControlFlow;
@@ -212,7 +212,7 @@ impl<'tcx> LateLintPass<'tcx> for NeedlessPassByValue {
                             cx.param_env,
                             ty,
                             traits::ObligationCause::dummy_with_span(span),
-                            rustc_hir::Safety::Safe,
+                            rodetc_hir::Safety::Safe,
                         )
                         .is_ok()
                     {
@@ -338,7 +338,7 @@ impl<'tcx> euv::Delegate<'tcx> for MovedVariablesCtxt {
 
     fn mutate(&mut self, _: &euv::PlaceWithHirId<'tcx>, _: HirId) {}
 
-    fn fake_read(&mut self, _: &rustc_hir_typeck::expr_use_visitor::PlaceWithHirId<'tcx>, _: FakeReadCause, _: HirId) {}
+    fn fake_read(&mut self, _: &rodetc_hir_typeck::expr_use_visitor::PlaceWithHirId<'tcx>, _: FakeReadCause, _: HirId) {}
 }
 
 fn get_spans<'tcx>(

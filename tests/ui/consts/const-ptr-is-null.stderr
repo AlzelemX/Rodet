@@ -20,4 +20,4 @@ note: inside `std::ptr::const_ptr::<impl *const T>::is_null::compiletime`
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

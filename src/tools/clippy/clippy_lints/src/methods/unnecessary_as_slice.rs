@@ -1,10 +1,10 @@
 use super::UNNECESSARY_AS_SLICE;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::{get_parent_expr, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, PathSegment};
-use rustc_lint::LateContext;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, PathSegment};
+use rodetc_lint::LateContext;
+use rodetc_span::Symbol;
 
 pub(super) fn check(cx: &LateContext<'_>, expr: &Expr<'_>, recv: &Expr<'_>, name: Symbol) {
     if !expr.span.from_expansion()

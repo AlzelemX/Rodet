@@ -19,6 +19,8 @@
 #![recursion_limit = "256"]
 #![warn(rustc::internal)]
 #![warn(rustc::symbol_intern_string_literal)]
+// RODET: the stage0 compiler still only knows the old `rustc_*` crate names.
+#![cfg_attr(bootstrap, allow(rustc::implicit_sysroot_crate_import))]
 // tidy-alphabetical-end
 
 // N.B. these need `extern crate` even in 2018 edition
@@ -29,36 +31,36 @@
 //
 // Dependencies listed in Cargo.toml do not need `extern crate`.
 
-extern crate rustc_abi;
-extern crate rustc_ast;
-extern crate rustc_ast_pretty;
-extern crate rustc_attr_ir;
-extern crate rustc_attr_parsing;
-extern crate rustc_data_structures;
-extern crate rustc_driver;
-extern crate rustc_errors;
-extern crate rustc_feature;
-extern crate rustc_hir;
-extern crate rustc_hir_analysis;
-extern crate rustc_hir_pretty;
-extern crate rustc_index;
-extern crate rustc_infer;
-extern crate rustc_interface;
-extern crate rustc_lexer;
-extern crate rustc_lint;
-extern crate rustc_log;
-extern crate rustc_macros;
-extern crate rustc_metadata;
-extern crate rustc_middle;
-extern crate rustc_parse;
-extern crate rustc_passes;
-extern crate rustc_resolve;
-extern crate rustc_serialize;
-extern crate rustc_session;
-extern crate rustc_span;
-extern crate rustc_structures;
-extern crate rustc_target;
-extern crate rustc_trait_selection;
+extern crate rodetc_abi;
+extern crate rodetc_ast;
+extern crate rodetc_ast_pretty;
+extern crate rodetc_attr_ir;
+extern crate rodetc_attr_parsing;
+extern crate rodetc_data_structures;
+extern crate rodetc_driver;
+extern crate rodetc_errors;
+extern crate rodetc_feature;
+extern crate rodetc_hir;
+extern crate rodetc_hir_analysis;
+extern crate rodetc_hir_pretty;
+extern crate rodetc_index;
+extern crate rodetc_infer;
+extern crate rodetc_interface;
+extern crate rodetc_lexer;
+extern crate rodetc_lint;
+extern crate rodetc_log;
+extern crate rodetc_macros;
+extern crate rodetc_metadata;
+extern crate rodetc_middle;
+extern crate rodetc_parse;
+extern crate rodetc_passes;
+extern crate rodetc_resolve;
+extern crate rodetc_serialize;
+extern crate rodetc_session;
+extern crate rodetc_span;
+extern crate rodetc_structures;
+extern crate rodetc_target;
+extern crate rodetc_trait_selection;
 extern crate test;
 
 use std::env::{self, VarError};
@@ -66,14 +68,14 @@ use std::io::{self, IsTerminal};
 use std::path::Path;
 use std::process::ExitCode;
 
-use rustc_ast::ast;
-use rustc_errors::DiagCtxtHandle;
-use rustc_hir::def_id::LOCAL_CRATE;
-use rustc_interface::interface;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::config::{ErrorOutputType, Input, RustcOptGroup, make_crate_type_option};
-use rustc_session::{EarlyDiagCtxt, getopts};
-use rustc_span::{BytePos, Span, SyntaxContext};
+use rodetc_ast::ast;
+use rodetc_errors::DiagCtxtHandle;
+use rodetc_hir::def_id::LOCAL_CRATE;
+use rodetc_interface::interface;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::config::{ErrorOutputType, Input, RustcOptGroup, make_crate_type_option};
+use rodetc_session::{EarlyDiagCtxt, getopts};
+use rodetc_span::{BytePos, Span, SyntaxContext};
 use tracing::info;
 
 use crate::clean::utils::DOC_RUST_LANG_ORG_VERSION;
@@ -93,7 +95,7 @@ use crate::formats::cache::Cache;
 /// Commas between elements are required (even if the expression is a block).
 macro_rules! map {
     ($( $key: expr => $val: expr ),* $(,)*) => {{
-        let mut map = ::rustc_data_structures::fx::FxIndexMap::default();
+        let mut map = ::rodetc_data_structures::fx::FxIndexMap::default();
         $( map.insert($key, $val); )*
         map
     }}
@@ -125,9 +127,8 @@ mod visit_lib;
 pub fn main() -> ExitCode {
     let mut early_dcx = EarlyDiagCtxt::new(ErrorOutputType::default());
 
-    rustc_driver::install_ice_hook(
-        "https://github.com/rust-lang/rust/issues/new\
-    ?labels=C-bug%2C+I-ICE%2C+T-rustdoc&template=ice.md",
+    rodetc_driver::install_ice_hook(
+        "https://github.com/AlzelemX/rodet/issues/new",
         |_| (),
     );
 
@@ -139,7 +140,7 @@ pub fn main() -> ExitCode {
     // - Otherwise, there's no warning that logging is being ignored when `download-rustc` is enabled
 
     crate::init_logging(&early_dcx);
-    match rustc_log::init_logger(rustc_log::LoggerConfig::from_env("RUSTDOC_LOG")) {
+    match rodetc_log::init_logger(rodetc_log::LoggerConfig::from_env("RUSTDOC_LOG")) {
         Ok(()) => {}
         // With `download-rustc = true` there are definitely 2 distinct tracing crates in the
         // dependency graph: one in the downloaded sysroot and one built just now as a dependency of
@@ -147,7 +148,7 @@ pub fn main() -> ExitCode {
         //
         // But otherwise, depending on link style, there may or may not be 2 tracing crates in play.
         // The one we just initialized in `crate::init_logging` above is rustdoc's direct dependency
-        // on tracing. When rustdoc is built by x.py using Cargo, rustc_driver's and rustc_log's
+        // on tracing. When rustdoc is built by x.py using Cargo, rodetc_driver's and rodetc_log's
         // tracing dependency is distinct from this one and also needs to be initialized (using the
         // same RUSTDOC_LOG environment variable for both). Other build systems may use just a
         // single tracing crate throughout the rustc and rustdoc build.
@@ -156,12 +157,12 @@ pub fn main() -> ExitCode {
         // false` and `debug_logging = true` is because all rustc logging goes only to its version
         // of tracing (the one in the sysroot) and all of rustdoc's logging only goes to its version
         // (the one in Cargo.toml).
-        Err(rustc_log::Error::AlreadyInit(_)) => {}
+        Err(rodetc_log::Error::AlreadyInit(_)) => {}
         Err(error) => early_dcx.early_fatal(error.to_string()),
     }
 
-    rustc_driver::catch_with_exit_code(|| {
-        let at_args = rustc_driver::args::raw_args(&early_dcx);
+    rodetc_driver::catch_with_exit_code(|| {
+        let at_args = rodetc_driver::args::raw_args(&early_dcx);
         main_args(&mut early_dcx, &at_args);
     })
 }
@@ -197,9 +198,9 @@ fn init_logging(early_dcx: &EarlyDiagCtxt) {
 }
 
 fn opts() -> Vec<RustcOptGroup> {
-    use rustc_session::config::OptionKind::{Flag, FlagMulti, Multi, Opt};
-    use rustc_session::config::OptionStability::{Stable, Unstable};
-    use rustc_session::config::make_opt as opt;
+    use rodetc_session::config::OptionKind::{Flag, FlagMulti, Multi, Opt};
+    use rodetc_session::config::OptionStability::{Stable, Unstable};
+    use rodetc_session::config::make_opt as opt;
 
     vec![
         opt(Stable, FlagMulti, "h", "help", "show this help message", ""),
@@ -824,7 +825,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
     // the compiler with @empty_file as argv[0] and no more arguments.
     let at_args = at_args.get(1..).unwrap_or_default();
 
-    let args = rustc_driver::args::arg_expand_all(early_dcx, at_args);
+    let args = rodetc_driver::args::arg_expand_all(early_dcx, at_args);
 
     let mut options = getopts::Options::new();
     for option in opts() {
@@ -858,7 +859,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
 
             let config = core::create_config(
                 Input::Str {
-                    name: rustc_span::FileName::Custom(String::new()),
+                    name: rodetc_span::FileName::Custom(String::new()),
                     input: String::new(),
                 },
                 options,
@@ -910,7 +911,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
 
                     // -W help
                     if sess.opts.describe_lints {
-                        rustc_driver::describe_lints(sess, registered_lints);
+                        rodetc_driver::describe_lints(sess, registered_lints);
                         return Ok(());
                     }
 
@@ -934,7 +935,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
                         is_placeholder: false,
                     };
                     let (res, _incr_comp_session) =
-                        rustc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
+                        rodetc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
                             let has_dep_info = render_options.dep_info().is_some();
                             if render_options.emit.contains(&EmitType::HtmlNonStaticFiles) {
                                 markdown::render_and_write(file, render_options, edition)?;
@@ -946,7 +947,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
                                     let _ =
                                         compiler.sess.source_map().load_binary_file(external_path);
                                 }
-                                rustc_interface::passes::write_dep_info(tcx);
+                                rodetc_interface::passes::write_dep_info(tcx);
                             }
                             Ok(())
                         });
@@ -988,19 +989,19 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
 
         // -W help
         if sess.opts.describe_lints {
-            rustc_driver::describe_lints(sess, registered_lints);
+            rodetc_driver::describe_lints(sess, registered_lints);
             return;
         }
 
         // --print
-        if rustc_driver::print_crate_info(&*compiler.codegen_backend, sess, true)
-            == rustc_driver::Compilation::Stop
+        if rodetc_driver::print_crate_info(&*compiler.codegen_backend, sess, true)
+            == rodetc_driver::Compilation::Stop
         {
             return;
         }
 
-        let krate = rustc_interface::passes::parse(sess);
-        rustc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
+        let krate = rodetc_interface::passes::parse(sess);
+        rodetc_interface::create_and_enter_global_ctxt(compiler, krate, |tcx| {
             if sess.dcx().has_errors().is_some() {
                 sess.dcx().fatal("Compilation failed, aborting rustdoc");
             }
@@ -1024,7 +1025,7 @@ fn main_args(early_dcx: &mut EarlyDiagCtxt, at_args: &[String]) {
             cache.crate_version = crate_version;
 
             if render_opts.dep_info().is_some() {
-                rustc_interface::passes::write_dep_info(tcx);
+                rodetc_interface::passes::write_dep_info(tcx);
             }
 
             if let Some(metrics_dir) = &sess.opts.unstable_opts.metrics_dir {

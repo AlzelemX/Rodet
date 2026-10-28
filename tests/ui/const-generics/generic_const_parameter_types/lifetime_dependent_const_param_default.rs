@@ -2,7 +2,7 @@
 
 // A const parameter introduced by `generic_const_parameter_types`,
 // whose type mentions an earlier lifetime
-// parameter and which carries a default value, used to ICE in `rustc_type_ir`
+// parameter and which carries a default value, used to ICE in `rodetc_type_ir`
 // with "region parameter out of range when instantiating args". It is now
 // rejected with ordinary errors instead of crashing.
 

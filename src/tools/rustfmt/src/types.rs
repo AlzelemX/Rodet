@@ -1,7 +1,7 @@
 use std::ops::Deref;
 
-use rustc_ast::ast::{self, FnRetTy, Mutability, Term};
-use rustc_span::{BytePos, Pos, Span, symbol::kw};
+use rodetc_ast::ast::{self, FnRetTy, Mutability, Term};
+use rodetc_span::{BytePos, Pos, Span, symbol::kw};
 use tracing::debug;
 
 use crate::comment::{combine_strs_with_missing_comments, contains_comment};

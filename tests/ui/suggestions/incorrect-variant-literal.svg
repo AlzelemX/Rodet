@@ -1073,7 +1073,7 @@
 </tspan>
     <tspan x="10px" y="9478px"><tspan class="bold">Some errors have detailed explanations: E0061, E0063, E0533, E0559, E0599, E0618.</tspan>
 </tspan>
-    <tspan x="10px" y="9496px"><tspan class="bold">For more information about an error, try `rustc --explain E0061`.</tspan>
+    <tspan x="10px" y="9496px"><tspan class="bold">For more information about an error, try `rodetc --explain E0061`.</tspan>
 </tspan>
     <tspan x="10px" y="9514px">
 </tspan>

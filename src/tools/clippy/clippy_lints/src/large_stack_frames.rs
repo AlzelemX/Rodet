@@ -4,13 +4,13 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::{fn_has_unsatisfiable_clauses, is_entrypoint_fn, is_in_test};
-use rustc_errors::Diag;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, FnDecl};
-use rustc_lexer::is_ident;
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::{Span, SyntaxContext};
+use rodetc_errors::Diag;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, FnDecl};
+use rodetc_lexer::is_ident;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::{Span, SyntaxContext};
 
 declare_clippy_lint! {
     /// ### What it does

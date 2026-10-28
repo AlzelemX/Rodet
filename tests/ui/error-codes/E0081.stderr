@@ -99,4 +99,4 @@ LL |     X256,
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0081, E0370.
-For more information about an error, try `rustc --explain E0081`.
+For more information about an error, try `rodetc --explain E0081`.

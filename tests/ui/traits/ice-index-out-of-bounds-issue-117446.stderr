@@ -33,4 +33,4 @@ LL |                 _ => Self(unimplemented!()),
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0049, E0308, E0401.
-For more information about an error, try `rustc --explain E0049`.
+For more information about an error, try `rodetc --explain E0049`.

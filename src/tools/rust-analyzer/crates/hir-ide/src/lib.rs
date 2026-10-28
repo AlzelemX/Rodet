@@ -4,10 +4,10 @@
 // It's useful to refer to code that is private in doc comments.
 #![allow(rustdoc::private_intra_doc_links)]
 
-extern crate ra_ap_rustc_abi as rustc_abi;
-extern crate ra_ap_rustc_ast_ir as rustc_ast_ir;
-extern crate ra_ap_rustc_pattern_analysis as rustc_pattern_analysis;
-extern crate ra_ap_rustc_type_ir as rustc_type_ir;
+extern crate ra_ap_rustc_abi as rodetc_abi;
+extern crate ra_ap_rustc_ast_ir as rodetc_ast_ir;
+extern crate ra_ap_rustc_pattern_analysis as rodetc_pattern_analysis;
+extern crate ra_ap_rustc_type_ir as rodetc_type_ir;
 
 pub mod diagnostics;
 pub mod display;

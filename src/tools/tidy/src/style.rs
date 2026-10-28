@@ -476,7 +476,7 @@ fn check_file_style(base_path: &Path, check: &mut RunningCheck, file: &Path, con
             suppressible_tidy_err!(
                 err,
                 ignore.todo,
-                "the `todo!` macro is used for tasks that should be done before merging a PR.\nIf you want to panic here, use `panic!`, `unimplemented!`, `unreachable!`, `rustc_middle::bug!` or an assertion{message}"
+                "the `todo!` macro is used for tasks that should be done before merging a PR.\nIf you want to panic here, use `panic!`, `unimplemented!`, `unreachable!`, `rodetc_middle::bug!` or an assertion{message}"
             )
         }
 
@@ -581,7 +581,7 @@ fn check_file_style(base_path: &Path, check: &mut RunningCheck, file: &Path, con
                 "copyright notices attributed to the Rust Project Developers are deprecated"
             );
         }
-        if !file.components().any(|c| c.as_os_str() == "rustc_baked_icu_data")
+        if !file.components().any(|c| c.as_os_str() == "rodetc_baked_icu_data")
             && is_unexplained_ignore(&extension, line)
         {
             err(UNEXPLAINED_IGNORE_DOCTEST_INFO);

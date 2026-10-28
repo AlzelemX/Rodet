@@ -16,4 +16,4 @@ LL |     let _: &dyn Iterator<Item = i32, Item = i32>;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0719`.
+For more information about this error, try `rodetc --explain E0719`.

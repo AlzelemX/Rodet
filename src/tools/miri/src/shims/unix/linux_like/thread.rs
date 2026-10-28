@@ -1,7 +1,7 @@
-use rustc_abi::Size;
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
+use rodetc_abi::Size;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
 
 use crate::shims::unix::thread::{EvalContextExt as _, ThreadNameResult};
 use crate::*;

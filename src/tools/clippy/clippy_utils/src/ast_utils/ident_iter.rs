@@ -1,7 +1,7 @@
 use core::iter::FusedIterator;
-use rustc_ast::visit::{Visitor, walk_attribute, walk_expr};
-use rustc_ast::{Attribute, Expr};
-use rustc_span::symbol::Ident;
+use rodetc_ast::visit::{Visitor, walk_attribute, walk_expr};
+use rodetc_ast::{Attribute, Expr};
+use rodetc_span::symbol::Ident;
 
 pub struct IdentIter(std::vec::IntoIter<Ident>);
 

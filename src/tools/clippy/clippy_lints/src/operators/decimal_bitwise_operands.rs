@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::numeric_literal;
 use clippy_utils::numeric_literal::NumericLiteral;
 use clippy_utils::source::SpanExt as _;
-use rustc_ast::LitKind;
-use rustc_data_structures::packed::Pu128;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_ast::LitKind;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use super::DECIMAL_BITWISE_OPERANDS;
 

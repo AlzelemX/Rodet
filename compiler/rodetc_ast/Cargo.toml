@@ -1,0 +1,20 @@
+[package]
+name = "rodetc_ast"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+bitflags = "2.4.1"
+memchr = "2.7.6"
+rustc-literal-escaper = "0.0.8"
+rodetc_ast_ir = { path = "../rodetc_ast_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+thin-vec = "0.2.21"
+tracing = "0.1"
+# tidy-alphabetical-end

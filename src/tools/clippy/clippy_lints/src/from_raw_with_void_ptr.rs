@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::sym;
 use clippy_utils::ty::is_c_void;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -574,8 +574,8 @@ impl GlobalState {
                         .flat_map(|include| {
                             include.into_iter().flat_map(|base| {
                                 [
-                                    (base.clone(), "**/*.rs"),
-                                    (base.clone(), "**/Cargo.{lock,toml}"),
+                                    (base.clone(), "**/*.{rs,rd}"),
+                                    (base.clone(), "**/{Cargo,Silk}.{lock,toml}"),
                                     (base.clone(), "**/rust-analyzer.toml"),
                                     (base, "**/*.md"),
                                 ]
@@ -599,8 +599,8 @@ impl GlobalState {
                         .flat_map(|include| {
                             include.into_iter().flat_map(|base| {
                                 [
-                                    format!("{base}/**/*.rs"),
-                                    format!("{base}/**/Cargo.{{toml,lock}}"),
+                                    format!("{base}/**/*.{{rs,rd}}"),
+                                    format!("{base}/**/{{Cargo,Silk}}.{{toml,lock}}"),
                                     format!("{base}/**/rust-analyzer.toml"),
                                     format!("{base}/**/*.md"),
                                 ]
@@ -1005,7 +1005,8 @@ pub(crate) fn should_refresh_for_change(
     additional_paths: &[&str],
 ) -> bool {
     // Note: build scripts are retriggered on file save, no refresh is necessary
-    const IMPLICIT_TARGET_FILES: &[&str] = &["build.rs", "src/main.rs", "src/lib.rs"];
+    const IMPLICIT_TARGET_FILES: &[&str] =
+        &["build.rs", "src/main.rs", "src/lib.rs", "build.rd", "src/main.rd", "src/lib.rd"];
     const IMPLICIT_TARGET_DIRS: &[&str] = &["src/bin", "examples", "tests", "benches"];
 
     let file_name = match path.file_name() {
@@ -1013,7 +1014,7 @@ pub(crate) fn should_refresh_for_change(
         None => return false,
     };
 
-    if let "Cargo.toml" | "Cargo.lock" = file_name {
+    if let "Cargo.toml" | "Cargo.lock" | "Silk.toml" | "Silk.lock" = file_name {
         return true;
     }
 
@@ -1023,7 +1024,10 @@ pub(crate) fn should_refresh_for_change(
 
     // .cargo/config{.toml}
     if matches!(file_name, "config.toml" | "config")
-        && path.parent().map(|parent| parent.as_str().ends_with(".cargo")).unwrap_or(false)
+        && path
+            .parent()
+            .map(|parent| parent.as_str().ends_with(".cargo") || parent.as_str().ends_with(".rodet"))
+            .unwrap_or(false)
     {
         return true;
     }
@@ -1033,7 +1037,7 @@ pub(crate) fn should_refresh_for_change(
         return false;
     }
 
-    if path.extension().unwrap_or_default() != "rs" {
+    if !matches!(path.extension().unwrap_or_default(), "rs" | "rd") {
         return false;
     }
 
@@ -1047,7 +1051,7 @@ pub(crate) fn should_refresh_for_change(
     if IMPLICIT_TARGET_DIRS.iter().any(|it| parent.as_str().ends_with(it)) {
         return true;
     }
-    if file_name == "main.rs" {
+    if file_name == "main.rs" || file_name == "main.rd" {
         let grand_parent = match parent.parent() {
             Some(it) => it,
             None => return false,

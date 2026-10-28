@@ -5,11 +5,11 @@ use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::visitors::is_const_param_evaluatable;
 use clippy_utils::{get_expr_use_site, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BlockCheckMode, Expr, ExprKind, Node, PatKind, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::{DesugaringKind, ExpnKind, Span, Symbol};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BlockCheckMode, Expr, ExprKind, Node, PatKind, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::{DesugaringKind, ExpnKind, Span, Symbol};
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,

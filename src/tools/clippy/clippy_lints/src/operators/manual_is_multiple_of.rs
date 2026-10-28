@@ -3,11 +3,11 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::expr_type_is_certain;
-use rustc_ast::BinOpKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_ast::BinOpKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 
 use super::MANUAL_IS_MULTIPLE_OF;
 

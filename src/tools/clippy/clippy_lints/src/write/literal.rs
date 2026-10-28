@@ -2,14 +2,14 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::macros::format_arg_removal_span;
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::sym;
-use rustc_ast::token::LitKind;
-use rustc_ast::{
+use rodetc_ast::token::LitKind;
+use rodetc_ast::{
     FormatArgPosition, FormatArgPositionKind, FormatArgs, FormatArgsPiece, FormatCount, FormatOptions,
     FormatPlaceholder, FormatTrait,
 };
-use rustc_errors::Applicability;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use super::{PRINT_LITERAL, WRITE_LITERAL};
 
@@ -46,7 +46,7 @@ pub(super) fn check(cx: &LateContext<'_>, format_args: &FormatArgs, name: &str) 
             && let index = arg_index(argument)
             && counts[index] == 1
             && let Some(arg) = format_args.arguments.by_index(index)
-            && let rustc_ast::ExprKind::Lit(lit) = &arg.expr.kind
+            && let rodetc_ast::ExprKind::Lit(lit) = &arg.expr.kind
             && !arg.expr.span.from_expansion()
             && let Some(value_string) = arg.expr.span.get_text(cx)
         {

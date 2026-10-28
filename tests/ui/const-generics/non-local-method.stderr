@@ -22,4 +22,4 @@ LL |     fn read<const L: usize>(&mut self) -> impl Future<Output = [u8; L]>;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0053, E0271.
-For more information about an error, try `rustc --explain E0053`.
+For more information about an error, try `rodetc --explain E0053`.

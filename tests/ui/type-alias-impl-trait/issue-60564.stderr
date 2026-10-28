@@ -9,4 +9,4 @@ LL |     fn iter_bits(self, n: u8) -> Self::BitsIter {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0792`.
+For more information about this error, try `rodetc --explain E0792`.

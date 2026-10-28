@@ -35,4 +35,4 @@ LL |     static FOO: Sync = AtomicUsize::new(0);
 error: aborting due to 2 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0277, E0433.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

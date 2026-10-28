@@ -26,4 +26,4 @@ LL |     let _: Family<std::path::PathBuf>::Proj = ();
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0220`.
+For more information about this error, try `rodetc --explain E0220`.

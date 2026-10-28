@@ -77,4 +77,4 @@ LL | pub fn vanished() {}
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0425, E0433.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

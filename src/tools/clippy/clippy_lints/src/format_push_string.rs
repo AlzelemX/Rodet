@@ -3,11 +3,11 @@ use clippy_utils::macros::{FormatArgsStorage, format_args_inputs_span, root_macr
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::{std_or_core, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{AssignOpKind, Expr, ExprKind, MatchSource};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{AssignOpKind, Expr, ExprKind, MatchSource};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

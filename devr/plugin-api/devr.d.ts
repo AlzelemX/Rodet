@@ -158,7 +158,7 @@ export interface Devr {
   };
 
   readonly keys: {
-    /** Binds a key to any command (also DEVR+'s own: `cargo.run`, `palette`…). */
+    /** Binds a key to any command (also DEVR+'s own: `rodet.run`, `palette`…). */
     bind(key: string, commandId: string): Disposable;
     list(): { key: string; command: string }[];
   };
@@ -264,7 +264,8 @@ export interface Devr {
 
   readonly terminal: {
     run(title: string, command: string[], cwd?: string): Promise<void>;
-    cargo(args: string[], title?: string): void;
+    /** Runs `rodet …` (Silk) in the open project. */
+    rodet(args: string[], title?: string): void;
     open(): Promise<void>;
   };
 

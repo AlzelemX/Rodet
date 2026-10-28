@@ -376,4 +376,4 @@ LL |     #[repr(Rust)]
 
 error: aborting due to 8 previous errors; 30 warnings emitted
 
-For more information about this error, try `rustc --explain E0658`.
+For more information about this error, try `rodetc --explain E0658`.

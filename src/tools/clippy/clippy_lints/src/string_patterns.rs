@@ -10,12 +10,12 @@ use clippy_utils::source::{snippet, str_literal_to_char_literal};
 use clippy_utils::sym;
 use clippy_utils::visitors::{Descend, for_each_expr};
 use itertools::Itertools as _;
-use rustc_ast::{BinOpKind, LitKind};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, PatExprKind, PatKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Span, Symbol};
+use rodetc_ast::{BinOpKind, LitKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, PatExprKind, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

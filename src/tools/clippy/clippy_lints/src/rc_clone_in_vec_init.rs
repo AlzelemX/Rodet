@@ -3,11 +3,11 @@ use clippy_utils::higher::VecArgs;
 use clippy_utils::macros::root_macro_call_first_node;
 use clippy_utils::source::{indent_of, snippet};
 use clippy_utils::{last_path_segment, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, QPath, TyKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Span, Symbol};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, QPath, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

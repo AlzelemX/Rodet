@@ -55,4 +55,4 @@ LL | fn foo<'a, F>(t: F) where F: T<Assoc=&'a str> {}
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0106, E0637.
-For more information about an error, try `rustc --explain E0106`.
+For more information about an error, try `rodetc --explain E0106`.

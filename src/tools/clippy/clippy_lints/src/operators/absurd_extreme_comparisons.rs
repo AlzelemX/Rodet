@@ -1,6 +1,6 @@
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use clippy_utils::comparisons::{Rel, normalize_comparison};
 use clippy_utils::consts::{ConstEvalCtxt, Constant};

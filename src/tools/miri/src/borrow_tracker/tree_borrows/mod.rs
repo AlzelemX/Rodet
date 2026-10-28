@@ -1,8 +1,8 @@
-use rustc_abi::Size;
-use rustc_attr_ir::find_attr;
-use rustc_middle::mir::Mutability;
-use rustc_middle::ty::layout::HasTypingEnv;
-use rustc_middle::ty::{self, Ty};
+use rodetc_abi::Size;
+use rodetc_attr_ir::find_attr;
+use rodetc_middle::mir::Mutability;
+use rodetc_middle::ty::layout::HasTypingEnv;
+use rodetc_middle::ty::{self, Ty};
 
 use self::foreign_access_skipping::IdempotentForeignAccess;
 use self::tree::LocationState;

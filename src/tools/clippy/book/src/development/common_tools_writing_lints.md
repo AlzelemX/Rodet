@@ -87,7 +87,7 @@ arguments have to be checked separately.
 ```rust
 use clippy_utils::{paths, sym};
 use clippy_utils::res::MaybeDef;
-use rustc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::lang_items::LangItem;
 
 impl LateLintPass<'_> for MyStructLint {
     fn check_expr(&mut self, cx: &LateContext<'_>, expr: &Expr<'_>) {
@@ -152,7 +152,7 @@ impl LateLintPass<'_> for MyStructLint {
 > Prefer using diagnostic and lang items, if the target trait has one.
 
 We access lang items through the type context `tcx`. `tcx` is of type
-[`TyCtxt`][TyCtxt] and is defined in the `rustc_middle` crate. A list of defined
+[`TyCtxt`][TyCtxt] and is defined in the `rodetc_middle` crate. A list of defined
 paths for Clippy can be found in [paths.rs][paths]
 
 ## Checking if a type defines a specific method

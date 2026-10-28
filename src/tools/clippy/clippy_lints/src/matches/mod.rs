@@ -30,10 +30,10 @@ use clippy_utils::source::SpanExt as _;
 use clippy_utils::{
     higher, is_direct_expn_of, is_in_const_context, is_lint_allowed, is_span_match, sym, tokenize_with_text,
 };
-use rustc_hir::{Arm, Expr, ExprKind, LetStmt, MatchSource, Pat, PatKind};
-use rustc_lexer::{TokenKind, is_whitespace};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_hir::{Arm, Expr, ExprKind, LetStmt, MatchSource, Pat, PatKind};
+use rodetc_lexer::{TokenKind, is_whitespace};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -1263,7 +1263,7 @@ fn walk_intra_arm_text(
             .strip_suffix('}')
             .map(|s| src.range.end - (stripped_text.len() - s.len()))
         && let Some(range) = arms.iter().try_fold(arms_start..arms_end, |range, arm| {
-            let arm_sp: rustc_span::SpanData = arm.span.source_callsite().data();
+            let arm_sp: rodetc_span::SpanData = arm.span.source_callsite().data();
             let arm_range = (arm_sp.lo.0 - src.sf.start_pos.0) as usize..(arm_sp.hi.0 - src.sf.start_pos.0) as usize;
             if range.start <= arm_range.start
                 && arm_range.end <= range.end

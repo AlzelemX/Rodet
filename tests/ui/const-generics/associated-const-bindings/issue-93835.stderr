@@ -40,4 +40,4 @@ LL |     type_ascribe!(p, a<p:p<e=6>>);
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0405, E0425, E0658.
-For more information about an error, try `rustc --explain E0405`.
+For more information about an error, try `rodetc --explain E0405`.

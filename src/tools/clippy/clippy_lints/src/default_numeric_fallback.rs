@@ -1,15 +1,15 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::numeric_literal;
 use clippy_utils::source::snippet_opt;
-use rustc_ast::ast::{LitFloatType, LitIntType, LitKind};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::{Visitor, walk_expr, walk_pat, walk_stmt};
-use rustc_hir::{
+use rodetc_ast::ast::{LitFloatType, LitIntType, LitKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::{Visitor, walk_expr, walk_pat, walk_stmt};
+use rodetc_hir::{
     Block, Body, ConstContext, Expr, ExprKind, FnRetTy, HirId, Lit, Pat, PatExpr, PatExprKind, PatKind, Stmt, StmtKind,
     StructTailExpr,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::{self, FloatTy, IntTy, PolyFnSig, Ty};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::{self, FloatTy, IntTy, PolyFnSig, Ty};
 use std::iter;
 
 declare_clippy_lint! {

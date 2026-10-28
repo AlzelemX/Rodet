@@ -2,13 +2,13 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::peel_hir_expr_refs;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::ty::is_copy;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{BindingMode, ByRef, Expr, ExprKind, MatchSource, Node, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_middle::ty::adjustment::Adjust;
-use rustc_middle::ty::print::with_forced_trimmed_paths;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BindingMode, ByRef, Expr, ExprKind, MatchSource, Node, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_middle::ty::adjustment::Adjust;
+use rodetc_middle::ty::print::with_forced_trimmed_paths;
 
 use super::CLONE_ON_COPY;
 

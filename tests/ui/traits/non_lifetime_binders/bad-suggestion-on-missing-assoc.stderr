@@ -20,4 +20,4 @@ LL |     for<const N: u8 = { T::A }> T: TraitA<AsA = impl TraitB<AsB = impl Trai
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0562`.
+For more information about this error, try `rodetc --explain E0562`.

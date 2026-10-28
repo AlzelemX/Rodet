@@ -27,4 +27,4 @@ LL | async fn hello_impl() {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0806`.
+For more information about this error, try `rodetc --explain E0806`.

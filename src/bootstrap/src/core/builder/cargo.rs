@@ -41,7 +41,7 @@ const EXTRA_CHECK_CFGS: &[(Option<Mode>, &str, Option<&[&'static str]>)] = &[
 /// within individual flag values (e.g. paths from `llvm-config --libdir`).
 ///
 /// `-Z crate-attr` flags will be applied recursively on the target code using the
-/// `rustc_parse::parser::Parser`. See `rustc_builtin_macros::cmdline_attrs::inject` for more
+/// `rodetc_parse::parser::Parser`. See `rodetc_builtin_macros::cmdline_attrs::inject` for more
 /// information.
 #[derive(Debug, Clone)]
 struct Rustflags(String, TargetSelection);
@@ -636,6 +636,10 @@ impl Builder<'_> {
         // Run cargo from the source root so it can find .cargo/config.
         // This matters when using vendoring and the working directory is outside the repository.
         cargo.current_dir(&self.src);
+        // RODET: the stage1 compiler (rodetc) prints its classic version (`rustc 1.x.y`,
+        // `release: 1.x.y`) only with RODET_COMPAT; Cargo compares packages'
+        // `rust-version` with it.
+        cargo.env("RODET_COMPAT", "1");
 
         let out_dir = self.stage_out(compiler, mode);
         cargo.env("CARGO_TARGET_DIR", &out_dir);
@@ -749,7 +753,7 @@ impl Builder<'_> {
 
         let profile_var = |name: &str| cargo_profile_var(name, &self.config, mode);
 
-        // See comment in rustc_llvm/build.rs for why this is necessary, largely llvm-config
+        // See comment in rodetc_llvm/build.rs for why this is necessary, largely llvm-config
         // needs to not accidentally link to libLLVM in stage0/lib.
         cargo.env("REAL_LIBRARY_PATH_VAR", helpers::dylib_path_var());
         if let Some(e) = env::var_os(helpers::dylib_path_var()) {
@@ -1004,10 +1008,10 @@ impl Builder<'_> {
             Mode::Codegen => metadata.push_str("codegen"),
             _ => {}
         }
-        // `rustc_driver`'s version number is always `0.0.0`, which can cause linker search path
+        // `rodetc_driver`'s version number is always `0.0.0`, which can cause linker search path
         // problems on side-by-side installs because we don't include the version number of the
-        // `rustc_driver` being built. This can cause builds of different version numbers to produce
-        // `librustc_driver*.so` artifacts that end up with identical filename hashes.
+        // `rodetc_driver` being built. This can cause builds of different version numbers to produce
+        // `librodetc_driver*.so` artifacts that end up with identical filename hashes.
         metadata.push_str(&self.version);
 
         cargo.env("__CARGO_DEFAULT_LIB_METADATA", &metadata);
@@ -1161,7 +1165,7 @@ impl Builder<'_> {
         // - `CFG_VIRTUAL_RUST_SOURCE_BASE_DIR`: `rust-src` remap scheme (`NonCompiler`)
         // - `CFG_VIRTUAL_RUSTC_DEV_SOURCE_BASE_DIR`: `rustc-dev` remap scheme (`Compiler`)
         //
-        // Keep this scheme in sync with `rustc_metadata::rmeta::decoder`'s
+        // Keep this scheme in sync with `rodetc_metadata::rmeta::decoder`'s
         // `try_to_translate_virtual_to_real`.
         let trim_paths = |cargo: &mut BootstrapCommand, ws_remap: &str| {
             cargo.arg("-Ztrim-paths");

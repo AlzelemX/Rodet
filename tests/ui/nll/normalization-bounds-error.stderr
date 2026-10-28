@@ -36,4 +36,4 @@ LL | fn visit_seq<'d, 'a: 'd>() -> <&'a () as Visitor<'d>>::Value {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0803`.
+For more information about this error, try `rodetc --explain E0803`.

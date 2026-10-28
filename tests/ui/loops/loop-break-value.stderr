@@ -357,4 +357,4 @@ LL |         break 2;
 error: aborting due to 26 previous errors; 3 warnings emitted
 
 Some errors have detailed explanations: E0308, E0425, E0571.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

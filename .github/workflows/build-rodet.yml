@@ -1,10 +1,14 @@
 name: Build Rodet
 
-# Builds the Rodet compiler (stage1 rustc + standard library) for Windows,
-# Linux and macOS and publishes them as one GitHub release.
+# Builds the Rodet toolchain for Windows, Linux and macOS and publishes it as
+# one GitHub release:
+#   rodetc     the compiler (stage1) and the standard library
+#   rodetdoc   the documentation tool
+#   rodet      Silk, the package manager (built from the `silk` sources)
+#   rodet-analyzer  the language server
 #
-# All build inputs come from this repository: the source, and the
-# `deps-snapshot` release (stage0 compiler, prebuilt LLVM, vendored crates)
+# All build inputs come from this repository: the source, the Silk sources, and
+# the `deps-snapshot` release (stage0 compiler, prebuilt LLVM, vendored crates)
 # fetched by rodet/setup-deps.py. Nothing is downloaded from rust-lang servers.
 
 on:
@@ -65,6 +69,10 @@ jobs:
       run:
         shell: bash
     env:
+      # Where Silk's sources live (a branch of this repository until Silk has
+      # its own repository).
+      SILK_REPO: ${{ github.repository }}
+      SILK_REF: silk
       TARGET: ${{ matrix.target }}
       EXE: ${{ matrix.exe }}
       PY: ${{ matrix.py }}
@@ -98,6 +106,13 @@ jobs:
       - name: Checkout Rodet
         uses: actions/checkout@v5
 
+      - name: Checkout Silk
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.SILK_REPO }}
+          ref: ${{ env.SILK_REF }}
+          path: silk
+
       - name: Fetch build dependencies from deps-snapshot
         run: $PY rodet/setup-deps.py --target "$TARGET" --ci
 
@@ -106,20 +121,32 @@ jobs:
       - name: Build stage1 compiler, standard library, rustdoc and rodet-analyzer
         run: |
           set -o pipefail
-          # The build number in `rustc --version` ("Rodet #19") makes every
-          # release a different compiler for Cargo, so it never reuses files
+          # The build number in `rodetc --version` ("Rodet #19") makes every
+          # release a different compiler for Silk, so it never reuses files
           # built by an older Rodet.
           env -u GITHUB_ACTIONS $PY x.py build library src/tools/rustdoc src/tools/rust-analyzer \
             --set "build.description=Rodet #${GITHUB_RUN_NUMBER}" 2>&1 | tee build.log
+
+      # Silk is built by the stage0 toolchain from deps-snapshot.
+      - name: Build Silk (the rodet command)
+        run: |
+          set -o pipefail
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            sudo apt-get install -y --no-install-recommends libssl-dev pkg-config > /dev/null
+          fi
+          export PATH="$PWD/build/$TARGET/stage0/bin:$PATH"
+          cargo build --release --bin rodet --manifest-path silk/Cargo.toml 2>&1 | tee silk.log
+          "silk/target/release/rodet$EXE" --version
 
       - name: Smoke test
         run: |
           set -o pipefail
           exec > >(tee smoke.log) 2>&1
-          RUSTC="build/$TARGET/stage1/bin/rustc$EXE"
-          "$RUSTC" -vV
-          "$RUSTC" --version | grep -F "(Rodet #"
-          "$RUSTC" rodet/examples/hello.rs -o "hello$EXE"
+          RODETC="build/$TARGET/stage1/bin/rustc$EXE"
+          "$RODETC" -vV
+          "$RODETC" --version | grep -E "^rodetc [0-9.]+ \(#[0-9]+"
+          RODET_COMPAT=1 "$RODETC" --version | grep -F "(Rodet #"
+          "$RODETC" rodet/examples/hello.rd -o "hello$EXE"
           "./hello$EXE"
 
       - name: Package
@@ -136,9 +163,11 @@ jobs:
               --exclude=stage1/lib/rustlib/src --exclude=stage1/lib/rustlib/rustc-src \
               -cf - stage1 | tar -C dist -xf -
           mv dist/stage1 dist/rodet
-          # cargo comes from the stage0 snapshot (deps-snapshot release), so the
-          # package is a complete toolchain: rustc, rustdoc, cargo, std.
-          cp "build/$TARGET/stage0/bin/cargo$EXE" dist/rodet/bin/
+          # Rodet's names for the compiler and the documentation tool.
+          mv "dist/rodet/bin/rustc$EXE" "dist/rodet/bin/rodetc$EXE"
+          mv "dist/rodet/bin/rustdoc$EXE" "dist/rodet/bin/rodetdoc$EXE"
+          # Silk, the package manager: the `rodet` command.
+          cp "silk/target/release/rodet$EXE" dist/rodet/bin/
           # rodet-analyzer: the language server of DEVR+ (and of any editor).
           # Its proc-macro server is already in stage1/libexec.
           RA=$(ls build/$TARGET/stage*-tools-bin/rust-analyzer$EXE | tail -1)
@@ -159,8 +188,8 @@ jobs:
           test -f "$BOOK/en/SUMMARY.md" && test -f "$BOOK/ar/SUMMARY.md"
           # The compiler's messages in other languages (RODET_LANG=ar).
           mkdir -p dist/rodet/share/rodet/i18n
-          cp compiler/rustc_errors/src/i18n/*.txt dist/rodet/share/rodet/i18n/
-          cp rodet/examples/hello.rs dist/rodet/
+          cp compiler/rodetc_errors/src/i18n/*.txt dist/rodet/share/rodet/i18n/
+          cp rodet/examples/hello.rd dist/rodet/
           ls dist/rodet/bin
           du -sh dist/rodet
           if [ "$RUNNER_OS" = "Windows" ]; then
@@ -168,29 +197,42 @@ jobs:
           else
             XZ_OPT="-T0 -6" tar -C dist -cJf "out/${NAME}.tar.xz" rodet
           fi
-          "build/$TARGET/stage1/bin/rustc$EXE" --version > out/version.txt
+          "dist/rodet/bin/rodetc$EXE" --version > out/version.txt
           ls -lh out
 
-      - name: Test the packaged toolchain with cargo
+      - name: Test the packaged toolchain with rodet
         run: |
           set -o pipefail
-          exec > >(tee cargo-test.log) 2>&1
+          exec > >(tee rodet-test.log) 2>&1
           export PATH="$PWD/dist/rodet/bin:$PATH"
-          rustc --version
-          cargo --version
-          rustdoc --version
+          rodetc --version
+          rodet --version
+          rodetdoc --version
           cd "$RUNNER_TEMP"
-          cargo new --vcs none rodet-demo
+          rodet new --vcs none rodet-demo
           cd rodet-demo
-          cat > src/main.rs <<'EOF'
+          ls
+          test -f Silk.toml && test -f src/main.rd
+          cat > src/main.rd <<'EOF'
+          mod greet;
           fn main() {
-              out!("cargo + Rodet works on {}", std::env::consts::OS);
+              out!("{} {}", greet::hello(), std::env::consts::OS);
           }
           EOF
-          cat src/main.rs
-          cargo run
+          cat > src/greet.rd <<'EOF'
+          pub fn hello() -> &'static str { "rodet + Silk works on" }
+          EOF
+          rodet run
+          test -f Silk.lock
+          # A crates.io package with a build script that reads `$RUSTC --version`.
+          rodet add rustversion
+          cat >> src/main.rd <<'EOF'
+          #[rustversion::since(1.60)]
+          fn _modern() {}
+          EOF
+          rodet run
           # rodet-analyzer must understand Rodet code without false errors.
-          cat > src/main.rs <<'EOF'
+          cat > src/main.rd <<'EOF'
           struct Parser<_a> { input: &_a str }
           impl<_a> Parser<_a> {
               fn rest(&self) -> &_a str { self.input }
@@ -204,7 +246,8 @@ jobs:
               out!("{} {} {a} {}", p.rest(), longest("a", "bc"), open("x", write = true));
           }
           EOF
-          cargo run
+          rm -f src/greet.rd
+          rodet run
           rodet-analyzer --version
           rodet-analyzer diagnostics .
 
@@ -213,12 +256,12 @@ jobs:
         run: |
           set -o pipefail
           exec > >(tee installer.log) 2>&1
-          dist/rodet/bin/rustc.exe --edition 2024 -O -C target-feature=+crt-static \
-              rodet/installer/main.rs -o "out/rodet_init.exe"
+          dist/rodet/bin/rodetc.exe --edition 2024 -O -C target-feature=+crt-static \
+              rodet/installer/main.rd -o "out/rodet_init.exe"
           ls -l out
           "out/rodet_init.exe" -y --from-file "out/rodet-$TARGET.zip"
-          "$USERPROFILE/.rodet/bin/rustc.exe" --version
-          "$USERPROFILE/.rodet/bin/cargo.exe" --version
+          "$USERPROFILE/.rodet/bin/rodetc.exe" --version
+          "$USERPROFILE/.rodet/bin/rodet.exe" --version
           powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('Path','User')" | tr ';' '\n' | head -3
           "out/rodet_init.exe" -y --uninstall
           test ! -e "$USERPROFILE/.rodet"
@@ -229,8 +272,8 @@ jobs:
           set -o pipefail
           exec > >(tee installer.log) 2>&1
           sh rodet/installer/install.sh --from-file "out/rodet-$TARGET.tar.xz"
-          "$HOME/.rodet/bin/rustc" --version
-          "$HOME/.rodet/bin/cargo" --version
+          "$HOME/.rodet/bin/rodetc" --version
+          "$HOME/.rodet/bin/rodet" --version
           grep -h "Rodet installer" ~/.profile
           sh rodet/installer/install.sh --uninstall
           test ! -e "$HOME/.rodet"
@@ -269,7 +312,8 @@ jobs:
           report "build tail" build.log 60
           report "smoke test" smoke.log 40
           report "package" package.log 30
-          report "cargo test" cargo-test.log 30
+          report "silk build" silk.log 30
+          report "rodet test" rodet-test.log 30
           report "installer" installer.log 40
           report "ui test tail" test.log 30
           echo "::notice title=disk ($TARGET)::$(df -h . | tail -1)"

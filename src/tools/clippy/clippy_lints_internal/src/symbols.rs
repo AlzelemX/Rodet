@@ -1,15 +1,15 @@
 use crate::internal_paths;
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_ast::LitKind;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Expr, ExprKind, Lit, Node, Pat, PatExprKind, PatKind};
-use rustc_lint::{LateContext, LateLintPass, declare_tool_lint, impl_lint_pass};
-use rustc_middle::mir::ConstValue;
-use rustc_middle::ty;
-use rustc_span::symbol::Symbol;
-use rustc_span::{Span, sym};
+use rodetc_ast::LitKind;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Expr, ExprKind, Lit, Node, Pat, PatExprKind, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_tool_lint, impl_lint_pass};
+use rodetc_middle::mir::ConstValue;
+use rodetc_middle::ty;
+use rodetc_span::symbol::Symbol;
+use rodetc_span::{Span, sym};
 
 declare_tool_lint! {
     /// ### What it does

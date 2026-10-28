@@ -1,15 +1,15 @@
 use std::{iter, mem};
 
-use rustc_data_structures::either::Either;
-use rustc_hir::{Expr, HirId};
-use rustc_index::IndexVec;
-use rustc_index::bit_set::DenseBitSet;
-use rustc_middle::mir::visit::{MutatingUseContext, NonMutatingUseContext, PlaceContext, Visitor};
-use rustc_middle::mir::{
+use rodetc_data_structures::either::Either;
+use rodetc_hir::{Expr, HirId};
+use rodetc_index::IndexVec;
+use rodetc_index::bit_set::DenseBitSet;
+use rodetc_middle::mir::visit::{MutatingUseContext, NonMutatingUseContext, PlaceContext, Visitor};
+use rodetc_middle::mir::{
     BasicBlock, BasicBlockData, Body, InlineAsmOperand, Local, Location, Place, START_BLOCK, StatementKind,
     TerminatorKind,
 };
-use rustc_middle::ty::TyCtxt;
+use rodetc_middle::ty::TyCtxt;
 
 mod possible_borrower;
 pub use possible_borrower::PossibleBorrowerMap;

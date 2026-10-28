@@ -111,7 +111,7 @@
 </tspan>
     <tspan x="10px" y="820px">
 </tspan>
-    <tspan x="10px" y="838px"><tspan class="fg-bright-white bold">For more information about this error, try `rustc --explain E0106`.</tspan>
+    <tspan x="10px" y="838px"><tspan class="fg-bright-white bold">For more information about this error, try `rodetc --explain E0106`.</tspan>
 </tspan>
     <tspan x="10px" y="856px">
 </tspan>

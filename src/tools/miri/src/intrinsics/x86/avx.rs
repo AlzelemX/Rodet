@@ -1,5 +1,5 @@
 use rustc_apfloat::ieee::{Double, Single};
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 
 use super::{
     FloatBinOp, FloatUnaryOp, bin_op_simd_float_all, conditional_dot_product, convert_float_to_int,

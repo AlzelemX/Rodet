@@ -5,11 +5,11 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::visitors::for_each_expr;
 use clippy_utils::{contains_return, is_inside_always_const_context, peel_blocks, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 use std::borrow::Cow;
 use std::ops::ControlFlow;
 

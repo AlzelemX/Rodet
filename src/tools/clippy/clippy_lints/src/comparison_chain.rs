@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{SpanlessEq, if_sequence, is_else_clause, is_in_const_context};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::{SyntaxContext, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::{SyntaxContext, sym};
 
 declare_clippy_lint! {
     /// ### What it does

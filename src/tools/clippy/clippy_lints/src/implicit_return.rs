@@ -3,12 +3,12 @@ use clippy_utils::source::{snippet_with_applicability, snippet_with_context, wal
 use clippy_utils::visitors::for_each_expr_without_closures;
 use clippy_utils::{desugar_await, get_async_closure_expr, get_async_fn_body, is_from_proc_macro};
 use core::ops::ControlFlow;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Block, Body, Expr, ExprKind, FnDecl, FnRetTy, HirId};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{Span, SyntaxContext};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Block, Body, Expr, ExprKind, FnDecl, FnRetTy, HirId};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{Span, SyntaxContext};
 
 declare_clippy_lint! {
     /// ### What it does

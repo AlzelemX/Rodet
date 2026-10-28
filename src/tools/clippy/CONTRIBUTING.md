@@ -137,7 +137,7 @@ To have `rust-analyzer` also work in the `clippy-dev` and `lintcheck` crates, ad
 pub mod else_if_without_else;
 // ...
 
-rustc_lint::early_lint_methods!(
+rodetc_lint::early_lint_methods!(
     crate::combined_early_lint_pass,
     [CombinedEarlyLintPass, (/* ... */), [
         // ...
@@ -156,7 +156,7 @@ writing your own lint, you can use that script to save you some time.
 ```rust
 // ./clippy_lints/src/else_if_without_else.rs
 
-use rustc_lint::{EarlyLintPass, EarlyContext};
+use rodetc_lint::{EarlyLintPass, EarlyContext};
 
 // ...
 

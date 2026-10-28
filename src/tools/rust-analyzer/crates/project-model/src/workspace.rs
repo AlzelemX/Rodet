@@ -883,8 +883,8 @@ impl ProjectWorkspace {
                     .chain(rustc.iter().map(|a| a.as_ref()).flat_map(|(rustc, _)| {
                         rustc.packages().map(move |krate| {
                             let krate = &rustc[krate];
-                            let include = if krate.name == "rustc_proc_macro" {
-                                // rustc_proc_macro sets its root to ../../library/proc_macro, so we need to include both the manifest
+                            let include = if krate.name == "rodetc_proc_macro" {
+                                // rodetc_proc_macro sets its root to ../../library/proc_macro, so we need to include both the manifest
                                 // and the root separately.
                                 vec![
                                     krate.manifest.parent().to_path_buf(),
@@ -1548,14 +1548,14 @@ fn handle_rustc_crates(
     cargo_path: &Utf8Path,
 ) {
     let mut rustc_pkg_crates = FxHashMap::default();
-    // The root package of the rustc-dev component is rustc_driver, so we match that
+    // The root package of the rustc-dev component is rodetc_driver, so we match that
     let root_pkg =
-        rustc_workspace.packages().find(|&package| rustc_workspace[package].name == "rustc_driver");
+        rustc_workspace.packages().find(|&package| rustc_workspace[package].name == "rodetc_driver");
     let workspace_proc_macro_cwd = Arc::new(cargo.workspace_root().to_path_buf());
     // The rustc workspace might be incomplete (such as if rustc-dev is not
     // installed for the current toolchain) and `rustc_source` is set to discover.
     if let Some(root_pkg) = root_pkg {
-        // Iterate through every crate in the dependency subtree of rustc_driver using BFS
+        // Iterate through every crate in the dependency subtree of rodetc_driver using BFS
         let mut queue = VecDeque::new();
         queue.push_back(root_pkg);
         while let Some(pkg) = queue.pop_front() {

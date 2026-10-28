@@ -1,20 +1,20 @@
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use std::path::{Path, PathBuf};
 
-use rustc_ast::{ast, attr};
-use rustc_errors::Diag;
-use rustc_parse::lexer::StripTokens;
-use rustc_parse::parser::Parser as RawParser;
-use rustc_parse::{exp, new_parser_from_file, new_parser_from_source_str, unwrap_or_emit_fatal};
-use rustc_span::{Span, sym};
+use rodetc_ast::{ast, attr};
+use rodetc_errors::Diag;
+use rodetc_parse::lexer::StripTokens;
+use rodetc_parse::parser::Parser as RawParser;
+use rodetc_parse::{exp, new_parser_from_file, new_parser_from_source_str, unwrap_or_emit_fatal};
+use rodetc_span::{Span, sym};
 use thin_vec::ThinVec;
 
 use crate::Input;
 use crate::parse::session::ParseSess;
 
-pub(crate) type DirectoryOwnership = rustc_expand::module::DirOwnership;
-pub(crate) type ModulePathSuccess = rustc_expand::module::ModulePathSuccess;
-pub(crate) type ModError<'a> = rustc_expand::module::ModError<'a>;
+pub(crate) type DirectoryOwnership = rodetc_expand::module::DirOwnership;
+pub(crate) type ModulePathSuccess = rodetc_expand::module::ModulePathSuccess;
+pub(crate) type ModError<'a> = rodetc_expand::module::ModError<'a>;
 
 #[derive(Clone)]
 pub(crate) struct Directory {
@@ -61,7 +61,7 @@ impl<'a> ParserBuilder<'a> {
     }
 
     fn parser(
-        psess: &'a rustc_session::parse::ParseSess,
+        psess: &'a rodetc_session::parse::ParseSess,
         input: Input,
     ) -> Result<RawParser<'a>, Vec<Diag<'a>>> {
         match input {
@@ -70,7 +70,7 @@ impl<'a> ParserBuilder<'a> {
             }
             Input::Text(text) => new_parser_from_source_str(
                 psess,
-                rustc_span::FileName::Custom("stdin".to_owned()),
+                rodetc_span::FileName::Custom("stdin".to_owned()),
                 text,
                 StripTokens::ShebangAndFrontmatter,
             ),

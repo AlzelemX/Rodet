@@ -9,7 +9,7 @@ use core::str::FromStr;
 use core::str::pattern::Pattern;
 use core::{mem, ptr};
 use memchr::memchr_iter;
-use rustc_arena::DroplessArena;
+use rodetc_arena::DroplessArena;
 use std::ffi::OsStr;
 use std::fs::{self, OpenOptions};
 use std::io::{self, Read as _, Seek as _, SeekFrom, Write as _};

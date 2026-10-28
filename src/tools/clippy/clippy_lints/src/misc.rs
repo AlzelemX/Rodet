@@ -1,13 +1,13 @@
 use clippy_utils::diagnostics::{span_lint_and_then, span_lint_hir_and_then};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{fulfill_or_allowed, in_automatically_derived};
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{BinOpKind, Expr, ExprKind, HirId, Node, QPath, Stmt, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Span, Symbol};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, HirId, Node, QPath, Stmt, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

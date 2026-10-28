@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_note;
 use clippy_utils::ty::is_copy;
-use rustc_hir::{Impl, Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::sym;
+use rodetc_hir::{Impl, Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

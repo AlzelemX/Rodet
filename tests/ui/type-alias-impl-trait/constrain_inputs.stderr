@@ -81,4 +81,4 @@ LL |     type Ty<'a> = impl FnOnce() -> &'a str;
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0581, E0582.
-For more information about an error, try `rustc --explain E0581`.
+For more information about an error, try `rodetc --explain E0581`.

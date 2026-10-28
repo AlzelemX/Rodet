@@ -5,7 +5,7 @@ use std::fmt;
 use base_db::Crate;
 use hir_def::{GenericParamId, TraitId};
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     TyVid, TypeFoldable, TypeVisitableExt,
     inherent::{Const as _, GenericArg as _, IntoKind, Ty as _},
     solve::Certainty,
@@ -275,7 +275,7 @@ impl<'db> InferenceTable<'db> {
         let ty = self.shallow_resolve(ty);
 
         match ty.kind() {
-            TyKind::Infer(rustc_type_ir::TyVar(found_vid)) => match subtyping {
+            TyKind::Infer(rodetc_type_ir::TyVar(found_vid)) => match subtyping {
                 UseSubtyping::No => {
                     self.infer_ctxt.root_var(expected_vid) == self.infer_ctxt.root_var(found_vid)
                 }
@@ -336,7 +336,7 @@ impl<'db> InferenceTable<'db> {
 
     pub(crate) fn resolve_vars_with_obligations<T>(&mut self, t: T) -> T
     where
-        T: rustc_type_ir::TypeFoldable<DbInterner<'db>>,
+        T: rodetc_type_ir::TypeFoldable<DbInterner<'db>>,
     {
         if !t.has_non_region_infer() {
             return t;
@@ -529,7 +529,7 @@ impl fmt::Debug for InferenceTable<'_> {
 
 pub(super) mod resolve_completely {
     use rustc_hash::FxHashSet;
-    use rustc_type_ir::{
+    use rodetc_type_ir::{
         DebruijnIndex, Flags, InferConst, InferTy, TypeFlags, TypeFoldable, TypeFolder,
         TypeSuperFoldable, TypeVisitableExt, inherent::IntoKind,
     };

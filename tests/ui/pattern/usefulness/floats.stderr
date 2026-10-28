@@ -143,4 +143,4 @@ LL |         1.0f128..=4.0f128 => {}
 
 error: aborting due to 15 previous errors
 
-For more information about this error, try `rustc --explain E0004`.
+For more information about this error, try `rodetc --explain E0004`.

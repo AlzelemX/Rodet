@@ -74,4 +74,4 @@ LL | #![feature(foo_bar_baz, foo(bar), foo = "baz", foo)]
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0539, E0557, E0565, E0635.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

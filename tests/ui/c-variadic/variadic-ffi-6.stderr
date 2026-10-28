@@ -21,4 +21,4 @@ LL + pub unsafe extern "C" fn use_vararg_lifetime(x: usize, y: ...) -> usize {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0106`.
+For more information about this error, try `rodetc --explain E0106`.

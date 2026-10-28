@@ -4,7 +4,7 @@ use std::cmp;
 use std::marker::PhantomData;
 
 use ena::unify::{NoError, UnifyKey, UnifyValue};
-use rustc_type_ir::{ConstVid, RegionKind, RegionVid, UniverseIndex, inherent::IntoKind};
+use rodetc_type_ir::{ConstVid, RegionKind, RegionVid, UniverseIndex, inherent::IntoKind};
 
 use crate::{
     Span,

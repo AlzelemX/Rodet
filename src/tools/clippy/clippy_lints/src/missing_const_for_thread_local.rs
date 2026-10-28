@@ -5,9 +5,9 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::qualify_min_const_fn::is_min_const_fn;
 use clippy_utils::source::snippet;
 use clippy_utils::{fn_has_unsatisfiable_clauses, peel_blocks, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, intravisit};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, intravisit};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -57,7 +57,7 @@ impl MissingConstForThreadLocal {
 fn is_thread_local_initializer(
     cx: &LateContext<'_>,
     fn_kind: intravisit::FnKind<'_>,
-    span: rustc_span::Span,
+    span: rodetc_span::Span,
 ) -> Option<bool> {
     Some(
         matches!(fn_kind, intravisit::FnKind::ItemFn(..))
@@ -88,7 +88,7 @@ fn is_unreachable(cx: &LateContext<'_>, expr: &Expr<'_>) -> bool {
 }
 
 #[inline]
-fn initializer_can_be_made_const(cx: &LateContext<'_>, defid: rustc_span::def_id::DefId, msrv: Msrv) -> bool {
+fn initializer_can_be_made_const(cx: &LateContext<'_>, defid: rodetc_span::def_id::DefId, msrv: Msrv) -> bool {
     // Building MIR for `fn`s with unsatisfiable clauses results in ICE.
     if !fn_has_unsatisfiable_clauses(cx, defid)
         && let mir = cx.tcx.optimized_mir(defid)
@@ -104,10 +104,10 @@ impl<'tcx> LateLintPass<'tcx> for MissingConstForThreadLocal {
         &mut self,
         cx: &LateContext<'tcx>,
         fn_kind: intravisit::FnKind<'tcx>,
-        _: &'tcx rustc_hir::FnDecl<'tcx>,
-        body: &'tcx rustc_hir::Body<'tcx>,
-        span: rustc_span::Span,
-        local_defid: rustc_span::def_id::LocalDefId,
+        _: &'tcx rodetc_hir::FnDecl<'tcx>,
+        body: &'tcx rodetc_hir::Body<'tcx>,
+        span: rodetc_span::Span,
+        local_defid: rodetc_span::def_id::LocalDefId,
     ) {
         let defid = local_defid.to_def_id();
         if is_thread_local_initializer(cx, fn_kind, span).unwrap_or(false)

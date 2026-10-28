@@ -45,4 +45,4 @@ LL +     reuse< < <fn() as IntoFuture>::Output>::Item as Iterator>::*;
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0223, E0575, E0782.
-For more information about an error, try `rustc --explain E0223`.
+For more information about an error, try `rodetc --explain E0223`.

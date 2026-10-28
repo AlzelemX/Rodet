@@ -1,9 +1,9 @@
 use std::fmt::Write;
 use std::time::Duration;
 
-use rustc_data_structures::fx::FxIndexSet;
-use rustc_span::RemapPathScopeComponents;
-use rustc_span::edition::Edition;
+use rodetc_data_structures::fx::FxIndexSet;
+use rodetc_span::RemapPathScopeComponents;
+use rodetc_span::edition::Edition;
 
 use crate::doctest::{
     DocTestBuilder, GlobalTestOptions, IndividualTestOptions, RunnableDocTest, RustdocOptions,

@@ -150,4 +150,4 @@ LL ~                     if let Some(item) = value.next() {
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0382`.
+For more information about this error, try `rodetc --explain E0382`.

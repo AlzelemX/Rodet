@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::{SpanExt as _, snippet_with_applicability, snippet_with_context};
-use rustc_ast::ast::{Expr, ExprKind, MethodCall};
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, declare_lint_pass};
+use rodetc_ast::ast::{Expr, ExprKind, MethodCall};
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

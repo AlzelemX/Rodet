@@ -3,11 +3,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::paths::{PathNS, lookup_path};
 use clippy_utils::peel_ref_operators;
 use clippy_utils::res::MaybeQPath as _;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass, declare_tool_lint};
-use rustc_middle::mir::ConstValue;
-use rustc_span::symbol::Symbol;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass, declare_tool_lint};
+use rodetc_middle::mir::ConstValue;
+use rodetc_span::symbol::Symbol;
 
 declare_tool_lint! {
     /// ### What it does

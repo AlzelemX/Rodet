@@ -46,7 +46,7 @@ const NAME: &_static str = "Rodet";
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_parse/src/parser/rodet.rs`: `is_named_lifetime`, `named_lifetime`
+- `compiler/rodetc_parse/src/parser/rodet.rs`: `is_named_lifetime`, `named_lifetime`
 - `tests/ui/rodet/named-lifetimes.rs`: test
 
 </details>

@@ -1,8 +1,8 @@
 use std::fmt;
 
-use rustc_abi::Size;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_span::Span;
+use rodetc_abi::Size;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_span::Span;
 use smallvec::SmallVec;
 
 use crate::borrow_tracker::{AccessKind, GlobalStateInner, ProtectorKind};

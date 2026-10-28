@@ -231,4 +231,4 @@ LL |     while (|| Foo { x: 3 }.hi())() {
 error: aborting due to 21 previous errors
 
 Some errors have detailed explanations: E0277, E0308, E0533, E0658.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

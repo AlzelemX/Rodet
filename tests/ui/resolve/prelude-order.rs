@@ -36,7 +36,7 @@ X don't care (controlled namespace with no overlap)
 * instead of choosing a prelude. Have not been able to replicate.
 *
 * There should be 7 total tests.
-* See `rustc_resolve::ident::visit_scopes` for more information,
+* See `rodetc_resolve::ident::visit_scopes` for more information,
 * and for a definition of "controlled namespace".
 */
 

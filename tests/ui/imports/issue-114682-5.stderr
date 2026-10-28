@@ -55,7 +55,7 @@ LL |     pub use crate::*;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0432, E0659.
-For more information about an error, try `rustc --explain E0432`.
+For more information about an error, try `rodetc --explain E0432`.
 Future incompatibility report: Future breakage diagnostic:
 error: `issue_114682_5_extern_1` is ambiguous
   --> $DIR/issue-114682-5.rs:10:5

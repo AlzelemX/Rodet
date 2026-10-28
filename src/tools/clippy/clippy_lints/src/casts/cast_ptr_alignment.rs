@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::ty::is_c_void;
 use clippy_utils::{get_parent_expr, is_hir_ty_cfg_dependant, sym};
-use rustc_hir::{Expr, ExprKind, GenericArg};
-use rustc_lint::LateContext;
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_middle::ty::{self, Ty};
+use rodetc_hir::{Expr, ExprKind, GenericArg};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_middle::ty::{self, Ty};
 
 use super::CAST_PTR_ALIGNMENT;
 

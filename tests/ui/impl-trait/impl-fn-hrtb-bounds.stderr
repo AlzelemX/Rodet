@@ -56,4 +56,4 @@ LL | fn c() -> impl for<'a> Fn(&'a u8) -> (impl Debug + '_) {
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0106, E0657.
-For more information about an error, try `rustc --explain E0106`.
+For more information about an error, try `rodetc --explain E0106`.

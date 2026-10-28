@@ -33,15 +33,15 @@ fn main() {
 
 ## One module per file
 
-In a Cargo project, `mod shapes;` (with `;`) loads the module from a file:
+In a Rodet project, `mod shapes;` (with `;`) loads the module from a file:
 
 ```text
 src/
-├── main.rs        mod shapes;  use shapes::Circle;
-└── shapes.rs      pub struct Circle { ... }
+├── main.rd        mod shapes;  use shapes::Circle;
+└── shapes.rd      pub struct Circle { ... }
 ```
 
-A folder works too: `src/shapes/mod.rs`, or `src/shapes.rs` next to a
+A folder works too: `src/shapes/mod.rd`, or `src/shapes.rd` next to a
 `src/shapes/` folder for its sub-modules.
 
 ## Paths
@@ -52,4 +52,4 @@ A folder works too: `src/shapes/mod.rs`, or `src/shapes.rs` next to a
 | `super::helper` | from the parent module |
 | `self::inner` | from this module |
 | `std::fs` | from the standard library |
-| `rand::random` | from a crate in `Cargo.toml` |
+| `rand::random` | from a library in `Silk.toml` |

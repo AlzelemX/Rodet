@@ -3,10 +3,10 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sym;
 use clippy_utils::ty::{implements_trait, peel_and_count_ty_refs};
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::Symbol;
 
 use super::IMPLICIT_CLONE;
 

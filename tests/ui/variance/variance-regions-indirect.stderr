@@ -62,4 +62,4 @@ LL | struct Derived4<'a, 'b, 'c:'b> {
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0392`.
+For more information about this error, try `rodetc --explain E0392`.

@@ -95,4 +95,4 @@ LL |   get_flag::<{ unsafe { bool_raw.boolean } }, { unsafe { char_raw.character
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0080, E0308.
-For more information about an error, try `rustc --explain E0080`.
+For more information about an error, try `rodetc --explain E0080`.

@@ -432,11 +432,11 @@ current module, then it must also be declared as public (e.g., `pub fn`).
 }
 {
   "$message_type": "diagnostic",
-  "message": "For more information about this error, try `rustc --explain E0425`.",
+  "message": "For more information about this error, try `rodetc --explain E0425`.",
   "code": null,
   "level": "failure-note",
   "spans": [],
   "children": [],
-  "rendered": "\u001b[1mFor more information about this error, try `rustc --explain E0425`.\u001b[0m
+  "rendered": "\u001b[1mFor more information about this error, try `rodetc --explain E0425`.\u001b[0m
 "
 }

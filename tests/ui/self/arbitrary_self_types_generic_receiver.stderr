@@ -45,4 +45,4 @@ LL |     fn e(self: impl SomePtr<SomeTarget=Self>) {}
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0801`.
+For more information about this error, try `rodetc --explain E0801`.

@@ -3,14 +3,14 @@ use clippy_utils::source::snippet_opt;
 use clippy_utils::ty::{implements_trait, is_copy};
 use clippy_utils::visitors::for_each_expr_without_closures;
 use core::ops::ControlFlow;
-use rustc_ast::BindingMode;
-use rustc_errors::Applicability;
-use rustc_hir::{Body, CaptureBy, Closure, Expr, ExprKind, HirId, HirIdSet, Param, PatKind};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::LateContext;
-use rustc_middle::mir::{FakeReadCause, Mutability};
-use rustc_middle::ty::{self, BorrowKind, UpvarCapture};
-use rustc_span::{Symbol, sym};
+use rodetc_ast::BindingMode;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Body, CaptureBy, Closure, Expr, ExprKind, HirId, HirIdSet, Param, PatKind};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::{FakeReadCause, Mutability};
+use rodetc_middle::ty::{self, BorrowKind, UpvarCapture};
+use rodetc_span::{Symbol, sym};
 
 use super::{ITER_OVEREAGER_CLONED, REDUNDANT_ITER_CLONED};
 

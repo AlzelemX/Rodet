@@ -331,4 +331,4 @@ LL | fn dot_dot_eq_gt() { ··=> }
 
 error: aborting due to 26 previous errors
 
-For more information about this error, try `rustc --explain E0586`.
+For more information about this error, try `rodetc --explain E0586`.

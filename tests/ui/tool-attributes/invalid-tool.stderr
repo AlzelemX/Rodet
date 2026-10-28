@@ -106,4 +106,4 @@ LL + #![register_tool(tool1, tool2, ...)]
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0565`.
+For more information about this error, try `rodetc --explain E0565`.

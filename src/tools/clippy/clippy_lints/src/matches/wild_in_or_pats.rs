@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::{has_non_exhaustive_attr, is_wild};
-use rustc_hir::{Arm, Expr, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_hir::{Arm, Expr, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use super::WILDCARD_IN_OR_PATTERNS;
 

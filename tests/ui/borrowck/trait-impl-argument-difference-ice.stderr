@@ -57,4 +57,4 @@ LL |     extern "C" fn read_dword(&'_ mut self) -> u16 {
 error: aborting due to 5 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0046, E0185, E0220, E0596.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

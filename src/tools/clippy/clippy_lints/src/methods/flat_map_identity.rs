@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::is_expr_untyped_identity_function;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::{Span, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, sym};
 
 use super::FLAT_MAP_IDENTITY;
 

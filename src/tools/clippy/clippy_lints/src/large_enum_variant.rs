@@ -3,11 +3,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_no_std_crate;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::{AdtVariantInfo, approx_ty_size, is_copy};
-use rustc_errors::Applicability;
-use rustc_hir::{Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

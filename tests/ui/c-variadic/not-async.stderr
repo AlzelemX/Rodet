@@ -30,4 +30,4 @@ LL |     async unsafe extern "C" fn method_cannot_be_async(x: isize, _: ...) {}
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

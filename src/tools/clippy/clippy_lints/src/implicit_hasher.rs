@@ -2,14 +2,14 @@ use std::borrow::Cow;
 use std::collections::BTreeMap;
 
 use clippy_utils::res::MaybeDef as _;
-use rustc_errors::{Applicability, Diag};
-use rustc_hir::intravisit::{Visitor, walk_body, walk_expr, walk_ty};
-use rustc_hir::{self as hir, AmbigArg, Body, Expr, ExprKind, GenericArg, Item, ItemKind, QPath, TyKind};
-use rustc_hir_analysis::lower_ty;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{Ty, TypeckResults};
-use rustc_span::{OrdSpan, Span};
+use rodetc_errors::{Applicability, Diag};
+use rodetc_hir::intravisit::{Visitor, walk_body, walk_expr, walk_ty};
+use rodetc_hir::{self as hir, AmbigArg, Body, Expr, ExprKind, GenericArg, Item, ItemKind, QPath, TyKind};
+use rodetc_hir_analysis::lower_ty;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{Ty, TypeckResults};
+use rodetc_span::{OrdSpan, Span};
 
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{IntoSpan as _, SpanExt as _, snippet, snippet_with_context};

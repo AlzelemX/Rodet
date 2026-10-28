@@ -1,15 +1,15 @@
 #![feature(rustc_private)]
 #![deny(clippy::disallowed_methods)]
 
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_lint;
-extern crate rustc_middle;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_lint;
+extern crate rodetc_middle;
 
-use rustc_errors::{DiagDecorator, DiagMessage, MultiSpan};
-use rustc_hir::HirId;
-use rustc_lint::{Lint, LintContext};
-use rustc_middle::ty::TyCtxt;
+use rodetc_errors::{DiagDecorator, DiagMessage, MultiSpan};
+use rodetc_hir::HirId;
+use rodetc_lint::{Lint, LintContext};
+use rodetc_middle::ty::TyCtxt;
 
 pub fn a(cx: impl LintContext, lint: &'static Lint, span: impl Into<MultiSpan>, msg: impl Into<DiagMessage>) {
     cx.emit_span_lint(

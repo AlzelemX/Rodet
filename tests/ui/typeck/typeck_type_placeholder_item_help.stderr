@@ -89,4 +89,4 @@ LL |     let _: f64 = test1();
 error: aborting due to 8 previous errors
 
 Some errors have detailed explanations: E0121, E0308.
-For more information about an error, try `rustc --explain E0121`.
+For more information about an error, try `rodetc --explain E0121`.

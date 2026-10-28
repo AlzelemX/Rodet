@@ -4,21 +4,21 @@ use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::visitors::for_each_expr;
 use clippy_utils::{inherits_cfg, is_from_proc_macro, is_self};
 use core::ops::ControlFlow;
-use rustc_abi::ExternAbi;
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_abi::ExternAbi;
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     BlockCheckMode, Body, Closure, Expr, ExprKind, FnDecl, HirId, HirIdMap, HirIdSet, Impl, ItemKind, Mutability, Node,
     PatKind,
 };
-use rustc_hir_typeck::expr_use_visitor as euv;
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty::{self, Ty, TyCtxt, UpvarId, UpvarPath};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::symbol::kw;
-use rustc_span::{BytePos, Span};
+use rodetc_hir_typeck::expr_use_visitor as euv;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty::{self, Ty, TyCtxt, UpvarId, UpvarPath};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::symbol::kw;
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -54,7 +54,7 @@ impl_lint_pass!(NeedlessPassByRefMut<'_> => [NEEDLESS_PASS_BY_REF_MUT]);
 pub struct NeedlessPassByRefMut<'tcx> {
     avoid_breaking_exported_api: bool,
     used_fn_def_ids: FxHashSet<LocalDefId>,
-    fn_def_ids_to_maybe_unused_mut: FxIndexMap<LocalDefId, Vec<rustc_hir::Ty<'tcx>>>,
+    fn_def_ids_to_maybe_unused_mut: FxIndexMap<LocalDefId, Vec<rodetc_hir::Ty<'tcx>>>,
 }
 
 impl NeedlessPassByRefMut<'_> {
@@ -69,9 +69,9 @@ impl NeedlessPassByRefMut<'_> {
 
 fn should_skip<'tcx>(
     cx: &LateContext<'tcx>,
-    input: rustc_hir::Ty<'tcx>,
+    input: rodetc_hir::Ty<'tcx>,
     ty: Ty<'_>,
-    arg: &rustc_hir::Param<'_>,
+    arg: &rodetc_hir::Param<'_>,
 ) -> bool {
     // We check if this a `&mut`. `ref_mutability` returns `None` if it's not a reference.
     if !matches!(ty.ref_mutability(), Some(Mutability::Mut)) {
@@ -266,7 +266,7 @@ impl<'tcx> LateLintPass<'tcx> for NeedlessPassByRefMut<'tcx> {
             for input in unused {
                 // If the argument is never used mutably, we emit the warning.
                 let sp = input.span;
-                if let rustc_hir::TyKind::Ref(_, inner_ty, _) = input.kind {
+                if let rodetc_hir::TyKind::Ref(_, inner_ty, _) = input.kind {
                     let Some(after_mut_span) = cx.tcx.sess.source_map().span_extend_to_prev_str(
                         inner_ty.span.shrink_to_lo(),
                         "mut",
@@ -489,7 +489,7 @@ impl<'tcx> euv::Delegate<'tcx> for MutablyUsedVariablesCtxt<'tcx> {
 
     fn fake_read(
         &mut self,
-        cmt: &rustc_hir_typeck::expr_use_visitor::PlaceWithHirId<'tcx>,
+        cmt: &rodetc_hir_typeck::expr_use_visitor::PlaceWithHirId<'tcx>,
         cause: FakeReadCause,
         _id: HirId,
     ) {

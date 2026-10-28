@@ -1,4 +1,4 @@
-error: do not use `rustc_type_ir::Interner` or `rustc_type_ir::InferCtxtLike` unless you're inside of the trait solver
+error: do not use `rodetc_type_ir::Interner` or `rodetc_type_ir::InferCtxtLike` unless you're inside of the trait solver
   --> $DIR/import-of-type-ir-traits.rs:12:13
    |
 LL |     let _ = cx.trait_is_unsafe(did);

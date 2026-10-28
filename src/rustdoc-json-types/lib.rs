@@ -1180,7 +1180,7 @@ pub struct FunctionHeader {
 #[cfg_attr(feature = "rkyv_0_8", rkyv(derive(Debug)))]
 pub enum Abi {
     // We only have a concrete listing here for stable ABI's because there are so many
-    // See rustc_ast_passes::feature_gate::PostExpansionVisitor::check_abi for the list
+    // See rodetc_ast_passes::feature_gate::PostExpansionVisitor::check_abi for the list
     /// The default ABI, but that can also be written explicitly with `extern "Rust"`.
     Rust,
     /// Can be specified as `extern "C"` or, as a shorthand, just `extern`.

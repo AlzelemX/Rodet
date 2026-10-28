@@ -131,7 +131,7 @@ pub fn clear_if_dirty(builder: &Builder<'_>, dir: &Path, input: &Path) -> bool {
     cleared
 }
 
-/// Cargo's output path for librustc_codegen_llvm in a given stage, compiled by a particular
+/// Cargo's output path for librodetc_codegen_llvm in a given stage, compiled by a particular
 /// compiler for the specified target and backend.
 pub fn codegen_backend_stamp(
     builder: &Builder<'_>,

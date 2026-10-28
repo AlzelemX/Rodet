@@ -177,7 +177,7 @@ impl Command {
         // (works around <https://github.com/rust-lang/rust-analyzer/issues/23392>).
         let sysroot = cmd!(sh, "rustc --print sysroot").read()?;
         let sysroot = sysroot.trim();
-        cmd!(sh, "cargo metadata --format-version 1 --manifest-path {sysroot}/lib/rustlib/rustc-src/rust/compiler/rustc/Cargo.toml").ignore_stdout().run()?;
+        cmd!(sh, "cargo metadata --format-version 1 --manifest-path {sysroot}/lib/rustlib/rustc-src/rust/compiler/rodetc/Cargo.toml").ignore_stdout().run()?;
         Ok(())
     }
 

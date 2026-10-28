@@ -93,4 +93,4 @@ note: required by an implicit `Sized` bound in `std::mem::size_of`
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

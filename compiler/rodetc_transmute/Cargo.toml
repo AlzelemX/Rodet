@@ -1,0 +1,30 @@
+[package]
+name = "rodetc_transmute"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_abi = { path = "../rodetc_abi", optional = true }
+rodetc_attr_ir = { path = "../rodetc_attr_ir", optional = true }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_middle = { path = "../rodetc_middle", optional = true }
+rodetc_span = { path = "../rodetc_span", optional = true }
+smallvec = "1.8.1"
+tracing = "0.1"
+# tidy-alphabetical-end
+
+[dev-dependencies]
+# tidy-alphabetical-start
+itertools = "0.15"
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+rustc = [
+    "dep:rodetc_abi",
+    "dep:rodetc_attr_ir",
+    "dep:rodetc_middle",
+    "dep:rodetc_span",
+]
+# tidy-alphabetical-end

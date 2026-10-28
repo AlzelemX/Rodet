@@ -2,12 +2,12 @@ use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::{is_refutable, peel_hir_pat_refs, recurse_or_patterns};
-use rustc_errors::Applicability;
-use rustc_hir::def::{CtorKind, DefKind, Res};
-use rustc_hir::{Arm, Expr, PatExpr, PatExprKind, PatKind, PathSegment, QPath, Ty, TyKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, VariantDef};
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{CtorKind, DefKind, Res};
+use rodetc_hir::{Arm, Expr, PatExpr, PatExprKind, PatKind, PathSegment, QPath, Ty, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, VariantDef};
+use rodetc_span::sym;
 
 use super::{MATCH_WILDCARD_FOR_SINGLE_VARIANTS, WILDCARD_ENUM_MATCH_ARM};
 

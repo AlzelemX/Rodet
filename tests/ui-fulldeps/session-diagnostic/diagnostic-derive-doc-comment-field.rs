@@ -2,7 +2,7 @@
 // Tests that a doc comment will not preclude a field from being considered a diagnostic argument
 //@ normalize-stderr: "the following other types implement trait `IntoDiagArg`:(?:.*\n){0,9}\s+and \d+ others" -> "normalized in stderr"
 //@ normalize-stderr: "(COMPILER_DIR/.*\.rs):[0-9]+:[0-9]+" -> "$1:LL:CC"
-//@ normalize-stderr: "rustc_errors::Diag::<'a>::arg" -> "Diag::<'a>::arg"
+//@ normalize-stderr: "rodetc_errors::Diag::<'a>::arg" -> "Diag::<'a>::arg"
 
 // The proc_macro2 crate handles spans differently when on beta/stable release rather than nightly,
 // changing the output of this test. Since Subdiagnostic is strictly internal to the compiler
@@ -14,15 +14,15 @@
 #![feature(rustc_private)]
 #![crate_type = "lib"]
 
-extern crate rustc_errors;
-extern crate rustc_macros;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_errors;
+extern crate rodetc_macros;
+extern crate rodetc_session;
+extern crate rodetc_span;
 extern crate core;
 
-use rustc_errors::{Applicability, DiagMessage};
-use rustc_macros::{Diagnostic, Subdiagnostic};
-use rustc_span::Span;
+use rodetc_errors::{Applicability, DiagMessage};
+use rodetc_macros::{Diagnostic, Subdiagnostic};
+use rodetc_span::Span;
 
 struct NotIntoDiagArg;
 

@@ -1,8 +1,8 @@
 use std::sync::LazyLock as Lazy;
 
-use rustc_data_structures::fx::FxHashMap;
-use rustc_lint::{self as lint, Lint, LintId, LintStore, declare_tool_lint};
-use rustc_session::Session;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_lint::{self as lint, Lint, LintId, LintStore, declare_tool_lint};
+use rodetc_session::Session;
 
 /// This function is used to setup the lint initialization. By default, in rustdoc, everything
 /// is "allowed". Depending if we run in test mode or not, we want some of them to be at their
@@ -32,7 +32,7 @@ where
     let lints = || {
         lint::builtin::hardwired::lint_vec()
             .into_iter()
-            .chain(rustc_lint::builtin::soft::lint_vec())
+            .chain(rodetc_lint::builtin::soft::lint_vec())
     };
 
     let lint_opts = lints()

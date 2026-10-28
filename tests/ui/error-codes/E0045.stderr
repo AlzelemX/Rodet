@@ -6,4 +6,4 @@ LL | extern "Rust" { fn foo(x: u8, ...); }
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0045`.
+For more information about this error, try `rodetc --explain E0045`.

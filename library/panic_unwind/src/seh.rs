@@ -121,7 +121,7 @@ unsafe impl Sync for _TypeDescriptor {}
 // to be able to catch Rust panics by simply declaring a `struct rust_panic`.
 //
 // When modifying, make sure that the type name string exactly matches
-// the one used in `compiler/rustc_codegen_llvm/src/intrinsic.rs`.
+// the one used in `compiler/rodetc_codegen_llvm/src/intrinsic.rs`.
 const TYPE_NAME: [u8; 11] = *b"rust_panic\0";
 
 unsafe extern "C" {

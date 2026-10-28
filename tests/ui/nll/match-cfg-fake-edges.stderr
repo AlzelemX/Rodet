@@ -181,4 +181,4 @@ LL |         false if let Some(()) = { drop(x.clone()); Some(()) } => {},
 error: aborting due to 11 previous errors; 1 warning emitted
 
 Some errors have detailed explanations: E0381, E0382.
-For more information about an error, try `rustc --explain E0381`.
+For more information about an error, try `rodetc --explain E0381`.

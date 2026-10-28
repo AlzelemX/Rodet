@@ -144,4 +144,4 @@ LL | #[macro_use]
 error: aborting due to 10 previous errors
 
 Some errors have detailed explanations: E0469, E0539, E0565.
-For more information about an error, try `rustc --explain E0469`.
+For more information about an error, try `rodetc --explain E0469`.

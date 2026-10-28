@@ -5,15 +5,15 @@ use std::task::Poll;
 use std::time::{Duration, SystemTime};
 
 use rand::RngExt;
-use rustc_abi::ExternAbi;
-use rustc_data_structures::either::Either;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def_id::DefId;
-use rustc_index::{Idx, IndexVec};
-use rustc_middle::mir::Mutability;
-use rustc_middle::ty::layout::TyAndLayout;
-use rustc_span::{DUMMY_SP, Span};
-use rustc_target::spec::Os;
+use rodetc_abi::ExternAbi;
+use rodetc_data_structures::either::Either;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def_id::DefId;
+use rodetc_index::{Idx, IndexVec};
+use rodetc_middle::mir::Mutability;
+use rodetc_middle::ty::layout::TyAndLayout;
+use rodetc_span::{DUMMY_SP, Span};
+use rodetc_target::spec::Os;
 
 use crate::concurrency::GlobalDataRaceHandler;
 use crate::shims::tls;
@@ -288,7 +288,7 @@ impl<'tcx> Thread<'tcx> {
         debug_assert_eq!(self.top_user_relevant_frame, self.compute_top_user_relevant_frame(0));
         self.top_user_relevant_frame()
             .map(|frame_idx| self.stack[frame_idx].current_span())
-            .unwrap_or(rustc_span::DUMMY_SP)
+            .unwrap_or(rodetc_span::DUMMY_SP)
     }
 }
 

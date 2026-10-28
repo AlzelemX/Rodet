@@ -9,4 +9,4 @@ help: there is a method `get` with a similar name, but with different arguments
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0599`.
+For more information about this error, try `rodetc --explain E0599`.

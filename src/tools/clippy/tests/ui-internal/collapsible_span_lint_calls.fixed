@@ -3,15 +3,15 @@
 #![feature(rustc_private)]
 
 extern crate clippy_utils;
-extern crate rustc_ast;
-extern crate rustc_errors;
-extern crate rustc_lint;
-extern crate rustc_span;
+extern crate rodetc_ast;
+extern crate rodetc_errors;
+extern crate rodetc_lint;
+extern crate rodetc_span;
 
 use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_note, span_lint_and_sugg, span_lint_and_then};
-use rustc_ast::ast::Expr;
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass, declare_tool_lint};
+use rodetc_ast::ast::Expr;
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass, declare_tool_lint};
 
 declare_tool_lint! {
     pub clippy::TEST_LINT,

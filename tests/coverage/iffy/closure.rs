@@ -3,7 +3,7 @@
 //@ min-llvm-version: 23
 
 // This test used to be sensitive to certain coverage-specific hacks in
-// `rustc_middle/mir/mono.rs`, but those hacks were later cleaned up by
+// `rodetc_middle/mir/mono.rs`, but those hacks were later cleaned up by
 // <https://github.com/rust-lang/rust/pull/83666>.
 
 #[rustfmt::skip]

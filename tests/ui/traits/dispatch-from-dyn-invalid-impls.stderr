@@ -57,4 +57,4 @@ LL | |     T: Unsize<U>
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0374, E0375, E0378.
-For more information about an error, try `rustc --explain E0374`.
+For more information about an error, try `rodetc --explain E0374`.

@@ -4,9 +4,9 @@
 #![feature(rustc_private)]
 #![feature(default_field_values)]
 
-extern crate rustc_lint;
+extern crate rodetc_lint;
 
-use rustc_lint::{LintPass, LintVec, declare_lint, declare_lint_pass, impl_lint_pass};
+use rodetc_lint::{LintPass, LintVec, declare_lint, declare_lint_pass, impl_lint_pass};
 
 declare_lint! {
     pub TEST_LINT,

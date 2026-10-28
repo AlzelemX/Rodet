@@ -1,0 +1,16 @@
+[package]
+name = "rodetc_lint_defs"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_error_messages = { path = "../rodetc_error_messages" }
+rodetc_hir_id = { path = "../rodetc_hir_id" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_serialize = { path = "../rodetc_serialize" }
+rodetc_span = { path = "../rodetc_span" }
+serde = { version = "1.0.125", features = ["derive"] }
+# tidy-alphabetical-end

@@ -147,4 +147,4 @@ LL |         pub impl(in m6::m5) trait U4 {}
 error: aborting due to 19 previous errors
 
 Some errors have detailed explanations: E0433, E0577.
-For more information about an error, try `rustc --explain E0433`.
+For more information about an error, try `rodetc --explain E0433`.

@@ -92,4 +92,4 @@ LL |     where 'a: 'b, 'b: 'static { t }
 
 error: aborting due to 3 previous errors; 4 warnings emitted
 
-For more information about this error, try `rustc --explain E0521`.
+For more information about this error, try `rodetc --explain E0521`.

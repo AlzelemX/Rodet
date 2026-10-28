@@ -8,19 +8,19 @@ use clippy_utils::ty::{
 use clippy_utils::{
     DefinedTy, ExprUseNode, get_expr_use_site, get_parent_expr, is_block_like, is_from_proc_macro, is_lint_allowed, sym,
 };
-use rustc_ast::util::parser::ExprPrecedence;
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::intravisit::{InferKind, Visitor, walk_ty};
-use rustc_hir::{
+use rodetc_ast::util::parser::ExprPrecedence;
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::intravisit::{InferKind, Visitor, walk_ty};
+use rodetc_hir::{
     self as hir, AmbigArg, BindingMode, Body, BodyId, BorrowKind, Expr, ExprKind, HirId, Item, MatchSource, Mutability,
     Node, OwnerId, Pat, PatKind, Path, QPath, TyKind, UnOp,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
-use rustc_middle::ty::{self, AssocTag, Ty, TyCtxt, TypeVisitableExt as _, TypeckResults, Unnormalized};
-use rustc_span::{Span, Symbol, SyntaxContext};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, AutoBorrow, AutoBorrowMutability};
+use rodetc_middle::ty::{self, AssocTag, Ty, TyCtxt, TypeVisitableExt as _, TypeckResults, Unnormalized};
+use rodetc_span::{Span, Symbol, SyntaxContext};
 use std::borrow::Cow;
 
 declare_clippy_lint! {

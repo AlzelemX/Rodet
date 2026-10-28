@@ -35,4 +35,4 @@ LL |     println!("{}", <Bar<u16, u8> as Foo>::AMT);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

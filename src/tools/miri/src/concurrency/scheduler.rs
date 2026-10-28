@@ -7,9 +7,9 @@ use std::task::Poll;
 use std::time::Duration;
 
 use rand::seq::IteratorRandom;
-use rustc_const_eval::CTRL_C_RECEIVED;
-use rustc_index::Idx;
-use rustc_span::DUMMY_SP;
+use rodetc_const_eval::CTRL_C_RECEIVED;
+use rodetc_index::Idx;
+use rodetc_span::DUMMY_SP;
 
 use crate::shims::readiness::DelayedReadinessUpdates;
 use crate::*;

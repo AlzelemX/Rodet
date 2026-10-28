@@ -3,11 +3,11 @@ use clippy_utils::is_expr_async_block;
 use clippy_utils::source::walk_span_to_context;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::implements_trait;
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     Block, Closure, ClosureKind, CoroutineDesugaring, CoroutineKind, CoroutineSource, Expr, ExprKind, QPath,
 };
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

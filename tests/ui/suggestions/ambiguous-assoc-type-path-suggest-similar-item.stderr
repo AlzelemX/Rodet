@@ -144,4 +144,4 @@ LL +     <(dyn Any + 'static) as Example>::downcast::mut_unchecked;
 
 error: aborting due to 12 previous errors
 
-For more information about this error, try `rustc --explain E0223`.
+For more information about this error, try `rodetc --explain E0223`.

@@ -162,4 +162,4 @@ LL |     const ARR: Bar<_, _>;
 
 error: aborting due to 17 previous errors
 
-For more information about this error, try `rustc --explain E0121`.
+For more information about this error, try `rodetc --explain E0121`.

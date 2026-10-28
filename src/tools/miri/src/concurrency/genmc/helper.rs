@@ -1,9 +1,9 @@
 use genmc_sys::{GenmcHandlerResult, MemOrdering, RMWBinOp};
-use rustc_abi::Size;
-use rustc_const_eval::interpret::{InterpResult, interp_ok};
-use rustc_middle::mir::interpret;
-use rustc_middle::ty::ScalarInt;
-use rustc_middle::{mir, throw_ub_format};
+use rodetc_abi::Size;
+use rodetc_const_eval::interpret::{InterpResult, interp_ok};
+use rodetc_middle::mir::interpret;
+use rodetc_middle::ty::ScalarInt;
+use rodetc_middle::{mir, throw_ub_format};
 
 use super::GenmcScalar;
 use crate::alloc_addresses::EvalContextExt as _;
@@ -35,19 +35,19 @@ pub fn scalar_to_genmc_scalar<'tcx>(
     scalar: Scalar,
 ) -> InterpResult<'tcx, GenmcScalar> {
     interp_ok(match scalar {
-        rustc_const_eval::interpret::Scalar::Int(scalar_int) => {
+        rodetc_const_eval::interpret::Scalar::Int(scalar_int) => {
             // FIXME(genmc): Add u128 support once GenMC supports it.
             let value: u64 = scalar_int.to_uint(scalar_int.size()).try_into().unwrap();
             GenmcScalar { value, provenance: 0, is_init: true }
         }
-        rustc_const_eval::interpret::Scalar::Ptr(pointer, _ptr_size) => {
+        rodetc_const_eval::interpret::Scalar::Ptr(pointer, _ptr_size) => {
             // FIXME(genmc,borrow tracking): Borrow tracking information is lost.
             let addr = crate::Pointer::from(pointer).addr();
             if let crate::Provenance::Wildcard = pointer.provenance {
                 throw_unsup_format!("Pointers with wildcard provenance not allowed in GenMC mode");
             }
             let (alloc_id, _size, _prov_extra) =
-                rustc_const_eval::interpret::Machine::ptr_get_alloc(ecx, pointer, 0).unwrap();
+                rodetc_const_eval::interpret::Machine::ptr_get_alloc(ecx, pointer, 0).unwrap();
             let base_addr = ecx.addr_from_alloc_id(alloc_id, None)?;
             // Add the base_addr alloc_id pair to the map.
             genmc_ctx.exec_state.genmc_shared_allocs_map.borrow_mut().insert(base_addr, alloc_id);

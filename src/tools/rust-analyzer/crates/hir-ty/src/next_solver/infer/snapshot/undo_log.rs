@@ -3,8 +3,8 @@
 use ena::snapshot_vec as sv;
 use ena::undo_log::{Rollback, UndoLogs};
 use ena::unify as ut;
-use rustc_type_ir::FloatVid;
-use rustc_type_ir::IntVid;
+use rodetc_type_ir::FloatVid;
+use rodetc_type_ir::IntVid;
 use tracing::debug;
 
 use crate::next_solver::OpaqueTypeKey;

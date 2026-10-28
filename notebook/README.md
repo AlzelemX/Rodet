@@ -1,10 +1,11 @@
 # 📒 NoteBook
 
-One card for every change Rodet makes to Rust: what it is, the code before
+One card for every change in Rodet: what it is, the code before
 and after, and the date. Newest first.
 
 | # | Card | Date |
 |---|---|---|
+| 016 | [`rodet` \| Rodet's Own Tools: rodetc, Silk, `.rd`](016-own-names.md) | 2026-10-28 |
 | 015 | [`Ctrl+Shift+X` \| DEVR+ Plugins](015-devr-plugins.md) | 2026-10-24 |
 | 014 | [`RODET_LANG=ar` \| Arabic Inside The Language](014-arabic-in-the-language.md) | 2026-10-24 |
 | 013 | [`العربية` \| DEVR+ And The Doc Book In Arabic](013-arabic.md) | 2026-10-23 |

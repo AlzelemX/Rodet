@@ -1,6 +1,6 @@
-use rustc_attr_ir::CfgEntry;
-use rustc_data_structures::thin_vec::thin_vec;
-use rustc_span::{DUMMY_SP, create_default_session_globals_then};
+use rodetc_attr_ir::CfgEntry;
+use rodetc_data_structures::thin_vec::thin_vec;
+use rodetc_span::{DUMMY_SP, create_default_session_globals_then};
 
 use super::*;
 

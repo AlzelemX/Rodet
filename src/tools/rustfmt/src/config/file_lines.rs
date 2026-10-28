@@ -6,7 +6,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use std::{cmp, fmt, iter, str};
 
-use rustc_span::SourceFile;
+use rodetc_span::SourceFile;
 use serde::{Deserialize, Deserializer, Serialize, Serializer, ser};
 use serde_json as json;
 use thiserror::Error;
@@ -25,10 +25,10 @@ pub enum FileName {
     Stdin,
 }
 
-impl From<rustc_span::FileName> for FileName {
-    fn from(name: rustc_span::FileName) -> FileName {
+impl From<rodetc_span::FileName> for FileName {
+    fn from(name: rodetc_span::FileName) -> FileName {
         match name {
-            rustc_span::FileName::Real(real) => {
+            rodetc_span::FileName::Real(real) => {
                 if let Some(p) = real.into_local_path() {
                     FileName::Real(p)
                 } else {
@@ -37,7 +37,7 @@ impl From<rustc_span::FileName> for FileName {
                     unreachable!()
                 }
             }
-            rustc_span::FileName::Custom(ref f) if f == "stdin" => FileName::Stdin,
+            rodetc_span::FileName::Custom(ref f) if f == "stdin" => FileName::Stdin,
             _ => unreachable!(),
         }
     }

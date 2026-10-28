@@ -1,6 +1,6 @@
 use clippy_utils::diagnostics::span_lint_hir;
-use rustc_hir::{Block, ItemKind, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_hir::{Block, ItemKind, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

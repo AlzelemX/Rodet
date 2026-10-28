@@ -231,4 +231,4 @@ LL | #[target_feature(enable = "avx512")]
 error: aborting due to 25 previous errors
 
 Some errors have detailed explanations: E0046, E0053, E0539.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

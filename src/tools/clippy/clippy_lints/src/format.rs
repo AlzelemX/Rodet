@@ -3,12 +3,12 @@ use clippy_utils::get_parent_expr;
 use clippy_utils::macros::{FormatArgsStorage, find_format_arg_expr, first_node_in_macro, matching_root_macro_call};
 use clippy_utils::source::{SpanExt as _, snippet_with_context};
 use clippy_utils::sugg::Sugg;
-use rustc_ast::{FormatArgsPiece, FormatOptions, FormatTrait};
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Mutability};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Span, sym};
+use rodetc_ast::{FormatArgsPiece, FormatOptions, FormatTrait};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Mutability};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Span, sym};
 
 declare_clippy_lint! {
     /// ### What it does

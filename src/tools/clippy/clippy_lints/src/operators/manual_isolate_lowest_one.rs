@@ -3,12 +3,12 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::sym;
-use rustc_ast::BinOpKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Span;
+use rodetc_ast::BinOpKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Span;
 
 use super::MANUAL_ISOLATE_LOWEST_ONE;
 

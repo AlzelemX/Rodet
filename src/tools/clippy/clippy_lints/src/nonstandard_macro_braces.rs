@@ -1,15 +1,15 @@
 use clippy_config::Conf;
 use clippy_config::types::MacroMatcher;
 use clippy_utils::diagnostics::span_lint_and_sugg;
-use rustc_ast::ast;
-use rustc_ast::token::{Delimiter, Token, TokenKind};
-use rustc_ast::tokenstream::{TokenStream, TokenTree};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::ast;
+use rodetc_ast::token::{Delimiter, Token, TokenKind};
+use rodetc_ast::tokenstream::{TokenStream, TokenTree};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, impl_lint_pass};
+use rodetc_span::Span;
 
-use crate::rustc_lint::LintContext as _;
+use crate::rodetc_lint::LintContext as _;
 use clippy_utils::source::snippet_opt;
 
 declare_clippy_lint! {

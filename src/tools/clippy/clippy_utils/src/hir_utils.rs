@@ -3,13 +3,13 @@ use crate::macros::macro_backtrace;
 use crate::source::{SpanExt as _, SpanRange, walk_span_to_context};
 use crate::{sym, tokenize_with_text};
 use core::mem;
-use rustc_ast::ast;
-use rustc_ast::ast::InlineAsmTemplatePiece;
-use rustc_data_structures::fx::{FxHasher, FxIndexMap};
-use rustc_hir::MatchSource::TryDesugar;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{
+use rodetc_ast::ast;
+use rodetc_ast::ast::InlineAsmTemplatePiece;
+use rodetc_data_structures::fx::{FxHasher, FxIndexMap};
+use rodetc_hir::MatchSource::TryDesugar;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{
     AssocItemConstraint, BinOpKind, BindingMode, Block, BodyId, ByRef, Closure, ConstArg, ConstArgKind, ConstItemRhs,
     Expr, ExprField, ExprKind, FnDecl, FnRetTy, FnSig, GenericArg, GenericArgs, GenericBound, GenericBounds,
     GenericParam, GenericParamKind, GenericParamSource, Generics, HirId, HirIdMap, InlineAsmOperand, ItemId, ItemKind,
@@ -17,10 +17,10 @@ use rustc_hir::{
     Path, PathSegment, PreciseCapturingArgKind, PrimTy, QPath, Stmt, StmtKind, StructTailExpr, TraitBoundModifiers, Ty,
     TyFieldPath, TyKind, TyPat, TyPatKind, UseKind, UseTree, WherePredicate, WherePredicateKind,
 };
-use rustc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
-use rustc_lint::LateContext;
-use rustc_middle::ty::TypeckResults;
-use rustc_span::{BytePos, ExpnKind, MacroKind, Symbol, SyntaxContext};
+use rodetc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::TypeckResults;
+use rodetc_span::{BytePos, ExpnKind, MacroKind, Symbol, SyntaxContext};
 use std::hash::{Hash as _, Hasher as _};
 use std::ops::Range;
 use std::slice;

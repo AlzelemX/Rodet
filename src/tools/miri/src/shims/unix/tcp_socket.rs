@@ -7,9 +7,9 @@ use std::{io, mem};
 
 use mio::event::Source;
 use mio::net::{TcpListener, TcpStream};
-use rustc_const_eval::interpret::{InterpResult, interp_ok};
-use rustc_middle::throw_unsup_format;
-use rustc_target::spec::Os;
+use rodetc_const_eval::interpret::{InterpResult, interp_ok};
+use rodetc_middle::throw_unsup_format;
+use rodetc_target::spec::Os;
 
 use crate::shims::files::{EvalContextExt as _, FdNum, FileDescription, FileDescriptionRef};
 use crate::shims::sig::Varargs;

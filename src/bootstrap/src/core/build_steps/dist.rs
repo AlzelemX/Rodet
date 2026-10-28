@@ -1655,7 +1655,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_cranelift")
+        run.alias("rodetc_codegen_cranelift")
     }
 
     fn is_default_step(builder: &Builder<'_>) -> bool {
@@ -1677,7 +1677,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
     }
 
     fn run(self, builder: &Builder<'_>) -> Option<GeneratedTarball> {
-        // This prevents rustc_codegen_cranelift from being built for "dist"
+        // This prevents rodetc_codegen_cranelift from being built for "dist"
         // or "install" on the stable/beta channels. It is not yet stable and
         // should not be included.
         if !builder.sess.unstable_features() {
@@ -1686,14 +1686,14 @@ impl CommandLineStep for CraneliftCodegenBackend {
 
         let target = self.target;
         if !target_supports_cranelift_backend(target) {
-            builder.info("target not supported by rustc_codegen_cranelift. skipping");
+            builder.info("target not supported by rodetc_codegen_cranelift. skipping");
             return None;
         }
 
         let mut tarball = Tarball::new(builder, "rustc-codegen-cranelift", &target.triple);
         tarball.set_overlay(OverlayKind::RustcCodegenCranelift);
         tarball.is_preview(true);
-        tarball.add_legal_and_readme_to("share/doc/rustc_codegen_cranelift");
+        tarball.add_legal_and_readme_to("share/doc/rodetc_codegen_cranelift");
 
         let compilers = self.compilers;
         let stamp = builder.ensure(compile::CraneliftCodegenBackend { compilers });
@@ -1709,7 +1709,7 @@ impl CommandLineStep for CraneliftCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::dist("rustc_codegen_cranelift", self.target)
+            StepMetadata::dist("rodetc_codegen_cranelift", self.target)
                 .built_by(self.compilers.build_compiler()),
         )
     }
@@ -1729,7 +1729,7 @@ impl CommandLineStep for GccCodegenBackend {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.alias("rustc_codegen_gcc")
+        run.alias("rodetc_codegen_gcc")
     }
 
     fn is_default_step(builder: &Builder<'_>) -> bool {
@@ -1751,7 +1751,7 @@ impl CommandLineStep for GccCodegenBackend {
     }
 
     fn run(self, builder: &Builder<'_>) -> Option<GeneratedTarball> {
-        // This prevents rustc_codegen_gcc from being built for "dist"
+        // This prevents rodetc_codegen_gcc from being built for "dist"
         // or "install" on the stable/beta channels. It is not yet stable and
         // should not be included.
         if !builder.sess.unstable_features() {
@@ -1761,14 +1761,14 @@ impl CommandLineStep for GccCodegenBackend {
         let target = self.target;
         if target != "x86_64-unknown-linux-gnu" {
             builder
-                .info(&format!("target `{target}` not supported by rustc_codegen_gcc. skipping"));
+                .info(&format!("target `{target}` not supported by rodetc_codegen_gcc. skipping"));
             return None;
         }
 
         let mut tarball = Tarball::new(builder, "rustc-codegen-gcc", &target.triple);
         tarball.set_overlay(OverlayKind::RustcCodegenGcc);
         tarball.is_preview(true);
-        tarball.add_legal_and_readme_to("share/doc/rustc_codegen_gcc");
+        tarball.add_legal_and_readme_to("share/doc/rodetc_codegen_gcc");
 
         let compilers = self.compilers;
         let backend = builder.ensure(compile::GccCodegenBackend::for_target(compilers, target));
@@ -1789,7 +1789,7 @@ impl CommandLineStep for GccCodegenBackend {
 
     fn metadata(&self) -> Option<StepMetadata> {
         Some(
-            StepMetadata::dist("rustc_codegen_gcc", self.target)
+            StepMetadata::dist("rodetc_codegen_gcc", self.target)
                 .built_by(self.compilers.build_compiler()),
         )
     }
@@ -2470,7 +2470,7 @@ fn install_llvm_file(
             builder.copy_link(source, &full_dest, FileType::NativeLibrary);
         } else {
             // Otherwise, replace the symlink with an equivalent linker script. This is used when
-            // projects like miri link against librustc_driver.so. We don't use a symlink, as
+            // projects like miri link against librodetc_driver.so. We don't use a symlink, as
             // these are not allowed inside rustup components.
             let link = t!(fs::read_link(source));
             let mut linker_script = t!(fs::File::create(full_dest));

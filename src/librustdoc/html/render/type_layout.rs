@@ -1,12 +1,12 @@
 use std::fmt;
 
 use askama::Template;
-use rustc_abi::{Primitive, TagEncoding, Variants};
-use rustc_hir::def_id::DefId;
-use rustc_middle::ty;
-use rustc_middle::ty::layout::LayoutError;
-use rustc_span::span_bug;
-use rustc_span::symbol::Symbol;
+use rodetc_abi::{Primitive, TagEncoding, Variants};
+use rodetc_hir::def_id::DefId;
+use rodetc_middle::ty;
+use rodetc_middle::ty::layout::LayoutError;
+use rodetc_span::span_bug;
+use rodetc_span::symbol::Symbol;
 
 use crate::html::render::Context;
 

@@ -63,7 +63,7 @@
 </tspan>
     <tspan x="10px" y="388px">
 </tspan>
-    <tspan x="10px" y="406px"><tspan class="bold">For more information about this error, try `rustc --explain E0061`.</tspan>
+    <tspan x="10px" y="406px"><tspan class="bold">For more information about this error, try `rodetc --explain E0061`.</tspan>
 </tspan>
     <tspan x="10px" y="424px">
 </tspan>

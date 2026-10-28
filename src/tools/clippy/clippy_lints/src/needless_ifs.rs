@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::higher::If;
 use clippy_utils::is_from_proc_macro;
 use clippy_utils::source::{SpanExt as _, walk_span_to_context};
-use rustc_errors::Applicability;
-use rustc_hir::{ExprKind, Stmt, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_errors::Applicability;
+use rodetc_hir::{ExprKind, Stmt, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

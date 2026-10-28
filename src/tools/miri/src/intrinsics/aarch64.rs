@@ -1,5 +1,5 @@
-use rustc_middle::mir::BinOp;
-use rustc_span::Symbol;
+use rodetc_middle::mir::BinOp;
+use rodetc_span::Symbol;
 
 use crate::intrinsics::math::{compute_crc32, sha256};
 use crate::*;

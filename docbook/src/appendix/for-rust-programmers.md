@@ -13,7 +13,11 @@ as in Rust.
 | `fn f(&self) -> &str` | the same, or `-> &{self} str` |
 | `struct P<'a> { s: &'a str }` | `struct P<_a> { s: &_a str }` |
 | `&'static str`, `T: 'static` | `&_static str`, `T: _static` |
-| `rustup`, `rustc --version` → `rustc 1.101.0-dev` | `rodet_init`, `rustc 1.101.0-dev (Rodet #19)` |
+| `rustup` | `rodet_init` (one toolchain, in `~/.rodet`) |
+| `rustc`, `rustdoc` | `rodetc`, `rodetdoc` (`RODET_COMPAT=1 rodetc --version` prints `rustc 1.101.0-dev (Rodet #N)`) |
+| `cargo`, `Cargo.toml`, `Cargo.lock` | `rodet` (Silk), `Silk.toml`, `Silk.lock`; crates.io packages keep their `Cargo.toml` |
+| `.rs` files, `src/main.rs` | `.rd` files, `src/main.rd` |
+| `~/.cargo`, `.cargo/config.toml` | `~/.rodet`, `.rodet/config.toml` |
 | rust-analyzer | `rodet-analyzer` and the [DEVR+](../start/devr.md) editor |
 
 ## How the new syntax is compiled

@@ -6,4 +6,4 @@ LL |         1000 ..= 5 => {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0030`.
+For more information about this error, try `rodetc --explain E0030`.

@@ -6,7 +6,7 @@ use intern::{
     Interned, InternedRef, InternedSlice, InternedSliceRef, impl_internable, impl_slice_internable,
 };
 use macros::{GenericTypeVisitable, TypeFoldable, TypeVisitable};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     self as ty, CollectAndApply, EarlyBinder, FlagComputation, Flags, GenericTypeVisitable,
     PredicatePolarity, TypeFoldable, TypeSuperFoldable, TypeSuperVisitable, TypeVisitable, Upcast,
     UpcastFrom, WithCachedTypeInfo,
@@ -57,7 +57,7 @@ fn stable_cmp_existential_predicate<'db>(
     a: &ExistentialPredicate<'db>,
     b: &ExistentialPredicate<'db>,
 ) -> Ordering {
-    // FIXME: this is actual unstable - see impl in predicate.rs in `rustc_middle`
+    // FIXME: this is actual unstable - see impl in predicate.rs in `rodetc_middle`
     match (a, b) {
         (ExistentialPredicate::Trait(_), ExistentialPredicate::Trait(_)) => Ordering::Equal,
         (ExistentialPredicate::Projection(_a), ExistentialPredicate::Projection(_b)) => {
@@ -84,7 +84,7 @@ interned_slice!(
 );
 impl_foldable_for_interned_slice!(BoundExistentialPredicates);
 
-impl<'db> rustc_type_ir::inherent::BoundExistentialPredicates<DbInterner<'db>>
+impl<'db> rodetc_type_ir::inherent::BoundExistentialPredicates<DbInterner<'db>>
     for BoundExistentialPredicates<'db>
 {
     fn principal_def_id(self) -> Option<TraitIdWrapper> {
@@ -94,7 +94,7 @@ impl<'db> rustc_type_ir::inherent::BoundExistentialPredicates<DbInterner<'db>>
     fn principal(
         self,
     ) -> Option<
-        rustc_type_ir::Binder<DbInterner<'db>, rustc_type_ir::ExistentialTraitRef<DbInterner<'db>>>,
+        rodetc_type_ir::Binder<DbInterner<'db>, rodetc_type_ir::ExistentialTraitRef<DbInterner<'db>>>,
     > {
         self[0]
             .map_bound(|this| match this {
@@ -114,9 +114,9 @@ impl<'db> rustc_type_ir::inherent::BoundExistentialPredicates<DbInterner<'db>>
     fn projection_bounds(
         self,
     ) -> impl IntoIterator<
-        Item = rustc_type_ir::Binder<
+        Item = rodetc_type_ir::Binder<
             DbInterner<'db>,
-            rustc_type_ir::ExistentialProjection<DbInterner<'db>>,
+            rodetc_type_ir::ExistentialProjection<DbInterner<'db>>,
         >,
     > {
         self.iter().filter_map(|predicate| {
@@ -130,12 +130,12 @@ impl<'db> rustc_type_ir::inherent::BoundExistentialPredicates<DbInterner<'db>>
     }
 }
 
-impl<'db> rustc_type_ir::relate::Relate<DbInterner<'db>> for BoundExistentialPredicates<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::relate::Relate<DbInterner<'db>> for BoundExistentialPredicates<'db> {
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         // We need to perform this deduplication as we sometimes generate duplicate projections in `a`.
         let mut a_v: Vec<_> = a.into_iter().collect();
         let mut b_v: Vec<_> = b.into_iter().collect();
@@ -356,7 +356,7 @@ impl<'db> std::ops::Deref for Clauses<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::SliceLike for Clauses<'db> {
+impl<'db> rodetc_type_ir::inherent::SliceLike for Clauses<'db> {
     type Item = Clause<'db>;
 
     type IntoIter = ::std::iter::Copied<::std::slice::Iter<'db, Clause<'db>>>;
@@ -372,17 +372,17 @@ impl<'db> rustc_type_ir::inherent::SliceLike for Clauses<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Clauses<DbInterner<'db>> for Clauses<'db> {}
+impl<'db> rodetc_type_ir::inherent::Clauses<DbInterner<'db>> for Clauses<'db> {}
 
-impl<'db> rustc_type_ir::TypeSuperFoldable<DbInterner<'db>> for Clauses<'db> {
-    fn try_super_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeSuperFoldable<DbInterner<'db>> for Clauses<'db> {
+    fn try_super_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         Clauses::new_from_iter(self.iter().map(|clause| clause.try_fold_with(folder)))
     }
 
-    fn super_fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(
+    fn super_fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Self {
@@ -390,30 +390,30 @@ impl<'db> rustc_type_ir::TypeSuperFoldable<DbInterner<'db>> for Clauses<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::TypeFoldable<DbInterner<'db>> for Clauses<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeFoldable<DbInterner<'db>> for Clauses<'db> {
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         self.try_super_fold_with(folder)
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         self.super_fold_with(folder)
     }
 }
 
-impl<'db> rustc_type_ir::TypeVisitable<DbInterner<'db>> for Clauses<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeVisitable<DbInterner<'db>> for Clauses<'db> {
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
-        use rustc_ast_ir::visit::VisitorResult;
-        rustc_ast_ir::walk_visitable_list!(visitor, self.iter());
+        use rodetc_ast_ir::visit::VisitorResult;
+        rodetc_ast_ir::walk_visitable_list!(visitor, self.iter());
         V::Result::output()
     }
 }
 
-impl<'db, V: super::WorldExposer> rustc_type_ir::GenericTypeVisitable<V> for Clauses<'db> {
+impl<'db, V: super::WorldExposer> rodetc_type_ir::GenericTypeVisitable<V> for Clauses<'db> {
     fn generic_visit_with(&self, visitor: &mut V) {
         if visitor.on_interned_slice(self.interned).is_continue() {
             self.as_slice().iter().for_each(|it| it.generic_visit_with(visitor));
@@ -421,20 +421,20 @@ impl<'db, V: super::WorldExposer> rustc_type_ir::GenericTypeVisitable<V> for Cla
     }
 }
 
-impl<'db> rustc_type_ir::Flags for Clauses<'db> {
+impl<'db> rodetc_type_ir::Flags for Clauses<'db> {
     #[inline]
-    fn flags(&self) -> rustc_type_ir::TypeFlags {
+    fn flags(&self) -> rodetc_type_ir::TypeFlags {
         self.interned.header.header.0.flags
     }
 
     #[inline]
-    fn outer_exclusive_binder(&self) -> rustc_type_ir::DebruijnIndex {
+    fn outer_exclusive_binder(&self) -> rodetc_type_ir::DebruijnIndex {
         self.interned.header.header.0.outer_exclusive_binder
     }
 }
 
-impl<'db> rustc_type_ir::TypeSuperVisitable<DbInterner<'db>> for Clauses<'db> {
-    fn super_visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeSuperVisitable<DbInterner<'db>> for Clauses<'db> {
+    fn super_visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -464,8 +464,8 @@ impl<'db> ParamEnv<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::ParamEnv<DbInterner<'db>> for ParamEnv<'db> {
-    fn caller_bounds(self) -> impl rustc_type_ir::inherent::SliceLike<Item = Clause<'db>> {
+impl<'db> rodetc_type_ir::inherent::ParamEnv<DbInterner<'db>> for ParamEnv<'db> {
+    fn caller_bounds(self) -> impl rodetc_type_ir::inherent::SliceLike<Item = Clause<'db>> {
         self.clauses
     }
 }
@@ -483,7 +483,7 @@ impl<'db, T> ParamEnvAnd<'db, T> {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for Predicate<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -500,7 +500,7 @@ impl<'db, V: super::WorldExposer> GenericTypeVisitable<V> for Predicate<'db> {
 }
 
 impl<'db> TypeSuperVisitable<DbInterner<'db>> for Predicate<'db> {
-    fn super_visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn super_visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -509,26 +509,26 @@ impl<'db> TypeSuperVisitable<DbInterner<'db>> for Predicate<'db> {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for Predicate<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         folder.try_fold_predicate(self)
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         folder.fold_predicate(self)
     }
 }
 
 impl<'db> TypeSuperFoldable<DbInterner<'db>> for Predicate<'db> {
-    fn try_super_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_super_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         let new = self.kind().try_fold_with(folder)?;
         Ok(Predicate::new(folder.cx(), new))
     }
-    fn super_fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(
+    fn super_fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Self {
@@ -538,21 +538,21 @@ impl<'db> TypeSuperFoldable<DbInterner<'db>> for Predicate<'db> {
 }
 
 impl<'db> Elaboratable<DbInterner<'db>> for Predicate<'db> {
-    fn predicate(&self) -> <DbInterner<'db> as rustc_type_ir::Interner>::Predicate {
+    fn predicate(&self) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Predicate {
         *self
     }
 
-    fn child(&self, clause: <DbInterner<'db> as rustc_type_ir::Interner>::Clause) -> Self {
+    fn child(&self, clause: <DbInterner<'db> as rodetc_type_ir::Interner>::Clause) -> Self {
         clause.as_predicate()
     }
 
     fn child_with_derived_cause(
         &self,
-        clause: <DbInterner<'db> as rustc_type_ir::Interner>::Clause,
-        _span: <DbInterner<'db> as rustc_type_ir::Interner>::Span,
-        _parent_trait_pred: rustc_type_ir::Binder<
+        clause: <DbInterner<'db> as rodetc_type_ir::Interner>::Clause,
+        _span: <DbInterner<'db> as rodetc_type_ir::Interner>::Span,
+        _parent_trait_pred: rodetc_type_ir::Binder<
             DbInterner<'db>,
-            rustc_type_ir::TraitPredicate<DbInterner<'db>>,
+            rodetc_type_ir::TraitPredicate<DbInterner<'db>>,
         >,
         _index: usize,
     ) -> Self {
@@ -561,11 +561,11 @@ impl<'db> Elaboratable<DbInterner<'db>> for Predicate<'db> {
 }
 
 impl<'db> Flags for Predicate<'db> {
-    fn flags(&self) -> rustc_type_ir::TypeFlags {
+    fn flags(&self) -> rodetc_type_ir::TypeFlags {
         self.inner().flags
     }
 
-    fn outer_exclusive_binder(&self) -> rustc_type_ir::DebruijnIndex {
+    fn outer_exclusive_binder(&self) -> rodetc_type_ir::DebruijnIndex {
         self.inner().outer_exclusive_binder
     }
 }
@@ -710,8 +710,8 @@ impl<'db> UpcastFrom<DbInterner<'db>, PolyRegionOutlivesPredicate<'db>> for Pred
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Predicate<DbInterner<'db>> for Predicate<'db> {
-    fn as_clause(self) -> Option<<DbInterner<'db> as rustc_type_ir::Interner>::Clause> {
+impl<'db> rodetc_type_ir::inherent::Predicate<DbInterner<'db>> for Predicate<'db> {
+    fn as_clause(self) -> Option<<DbInterner<'db> as rodetc_type_ir::Interner>::Clause> {
         match self.kind().skip_binder() {
             PredicateKind::Clause(..) => Some(self.expect_clause()),
             _ => None,
@@ -754,7 +754,7 @@ impl<'db> Predicate<'db> {
 }
 
 impl<'db> TypeVisitable<DbInterner<'db>> for Clause<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -763,13 +763,13 @@ impl<'db> TypeVisitable<DbInterner<'db>> for Clause<'db> {
 }
 
 impl<'db> TypeFoldable<DbInterner<'db>> for Clause<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
         Ok(folder.try_fold_predicate(self.as_predicate())?.expect_clause())
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         folder.fold_predicate(self.as_predicate()).expect_clause()
     }
 }
@@ -792,21 +792,21 @@ impl<'db> Clause<'db> {
 }
 
 impl<'db> Elaboratable<DbInterner<'db>> for Clause<'db> {
-    fn predicate(&self) -> <DbInterner<'db> as rustc_type_ir::Interner>::Predicate {
+    fn predicate(&self) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Predicate {
         self.0
     }
 
-    fn child(&self, clause: <DbInterner<'db> as rustc_type_ir::Interner>::Clause) -> Self {
+    fn child(&self, clause: <DbInterner<'db> as rodetc_type_ir::Interner>::Clause) -> Self {
         clause
     }
 
     fn child_with_derived_cause(
         &self,
-        clause: <DbInterner<'db> as rustc_type_ir::Interner>::Clause,
-        _span: <DbInterner<'db> as rustc_type_ir::Interner>::Span,
-        _parent_trait_pred: rustc_type_ir::Binder<
+        clause: <DbInterner<'db> as rodetc_type_ir::Interner>::Clause,
+        _span: <DbInterner<'db> as rodetc_type_ir::Interner>::Span,
+        _parent_trait_pred: rodetc_type_ir::Binder<
             DbInterner<'db>,
-            rustc_type_ir::TraitPredicate<DbInterner<'db>>,
+            rodetc_type_ir::TraitPredicate<DbInterner<'db>>,
         >,
         _index: usize,
     ) -> Self {
@@ -877,15 +877,15 @@ impl<'db>
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Clause<DbInterner<'db>> for Clause<'db> {
-    fn as_predicate(self) -> <DbInterner<'db> as rustc_type_ir::Interner>::Predicate {
+impl<'db> rodetc_type_ir::inherent::Clause<DbInterner<'db>> for Clause<'db> {
+    fn as_predicate(self) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Predicate {
         self.0
     }
 
     fn instantiate_supertrait(
         self,
         cx: DbInterner<'db>,
-        trait_ref: rustc_type_ir::Binder<DbInterner<'db>, rustc_type_ir::TraitRef<DbInterner<'db>>>,
+        trait_ref: rodetc_type_ir::Binder<DbInterner<'db>, rodetc_type_ir::TraitRef<DbInterner<'db>>>,
     ) -> Self {
         tracing::debug!(?self, ?trait_ref);
         // See the rustc impl for a long comment

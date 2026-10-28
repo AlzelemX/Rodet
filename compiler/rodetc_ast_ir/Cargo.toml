@@ -1,0 +1,23 @@
+[package]
+name = "rodetc_ast_ir"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_data_structures = { path = "../rodetc_data_structures", optional = true }
+rodetc_macros = { path = "../rodetc_macros", optional = true }
+rodetc_serialize = { path = "../rodetc_serialize", optional = true }
+rodetc_span = { path = "../rodetc_span", optional = true }
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+default = ["nightly"]
+nightly = [
+    "dep:rodetc_data_structures",
+    "dep:rodetc_macros",
+    "dep:rodetc_serialize",
+    "dep:rodetc_span",
+]
+# tidy-alphabetical-end

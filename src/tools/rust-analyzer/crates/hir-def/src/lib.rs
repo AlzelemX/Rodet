@@ -10,13 +10,13 @@
 #![cfg_attr(feature = "in-rust-tree", feature(rustc_private))]
 
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_parse_format;
+extern crate rodetc_parse_format;
 
 #[cfg(not(feature = "in-rust-tree"))]
-extern crate ra_ap_rustc_parse_format as rustc_parse_format;
+extern crate ra_ap_rustc_parse_format as rodetc_parse_format;
 
 pub extern crate ra_ap_rustc_abi as layout;
-pub extern crate ra_ap_rustc_abi as rustc_abi;
+pub extern crate ra_ap_rustc_abi as rodetc_abi;
 
 pub mod attrs;
 pub mod builtin_type;
@@ -70,7 +70,7 @@ use hir_expand::{
 };
 use intern::{Interned, sym};
 use nameres::DefMap;
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use salsa::{Durability, Setter};
 use span::{AstIdNode, Edition, FileAstId, SyntaxContext};
 use stdx::impl_from;

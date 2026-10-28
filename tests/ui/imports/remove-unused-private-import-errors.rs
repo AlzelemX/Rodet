@@ -8,28 +8,28 @@
 
 #![crate_type = "lib"]
 
-use rustc_span::Ident;
+use rodetc_span::Ident;
 
 pub fn foo() {
-    use rustc_ast::*; // Must be inside the function scope
+    use rodetc_ast::*; // Must be inside the function scope
     let _ /* fn(_,_) -> _*/ = Ident;
     Ident::x();
     //[remove]~^ ERROR cannot find module `Ident` in this scope
 }
 
-pub mod rustc_ast {
+pub mod rodetc_ast {
     pub use self::TokenKind::*;
 
     #[cfg(keep)] // Compile error if false
     #[expect(hidden_glob_reexports, unused_imports)]
-    use super::rustc_span::Ident;
+    use super::rodetc_span::Ident;
 
     pub enum TokenKind {
         Ident(u8, u8),
     }
 }
 
-pub mod rustc_span {
+pub mod rodetc_span {
     pub struct Ident {}
 
     impl Ident {

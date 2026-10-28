@@ -9,4 +9,4 @@ LL |     debug_assert_eq!(iter.next(), Some(value));
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

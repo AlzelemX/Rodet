@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::{is_none_expr, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
 
 use super::OPTION_ZIP_NONE;
 

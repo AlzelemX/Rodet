@@ -81,7 +81,7 @@ with Monaco directly, add them to `devr.subscriptions`.
 | `devr.theme` | color themes, CSS, colors (`setColors({ '--accent': '#2f9e44' })`) |
 | `devr.editor` | the code editor and the whole Monaco API |
 | `devr.workspace` | open, read, write and save files; events when files open, save, close |
-| `devr.terminal` | run programs and `cargo` |
+| `devr.terminal` | run programs and `rodet` |
 | `devr.lsp` | requests to rodet-analyzer, errors and warnings |
 | `devr.settings`, `devr.storage` | the editor's settings; your plugin's own saved data |
 | `devr.backend` | everything the DEVR+ backend can do |

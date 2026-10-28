@@ -1,9 +1,9 @@
-use rustc_ast::{LitKind, StrStyle};
-use rustc_hir::{Expr, ExprKind};
-use rustc_lexer::is_ident;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_parse_format::{ParseMode, Parser, Piece};
-use rustc_span::{BytePos, Span};
+use rodetc_ast::{LitKind, StrStyle};
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lexer::is_ident;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_parse_format::{ParseMode, Parser, Piece};
+use rodetc_span::{BytePos, Span};
 
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::is_from_proc_macro;

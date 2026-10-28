@@ -12,4 +12,4 @@ LL |     };
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0271`.
+For more information about this error, try `rodetc --explain E0271`.

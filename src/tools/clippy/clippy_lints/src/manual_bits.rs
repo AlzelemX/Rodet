@@ -3,13 +3,13 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::{get_parent_expr, sym};
-use rustc_ast::ast::LitKind;
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, GenericArg, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
+use rodetc_ast::ast::LitKind;
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, GenericArg, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

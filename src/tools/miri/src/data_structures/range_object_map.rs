@@ -4,8 +4,8 @@
 
 use std::ops::{Index, IndexMut, Range};
 
-use rustc_abi::Size;
-use rustc_const_eval::interpret::AllocRange;
+use rodetc_abi::Size;
+use rodetc_const_eval::interpret::AllocRange;
 
 #[derive(Clone, Debug)]
 struct Elem<T> {
@@ -143,7 +143,7 @@ impl<T> IndexMut<Position> for RangeObjectMap<T> {
 
 #[cfg(test)]
 mod tests {
-    use rustc_const_eval::interpret::alloc_range;
+    use rodetc_const_eval::interpret::alloc_range;
 
     use super::*;
 

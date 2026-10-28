@@ -8,7 +8,7 @@ import { basename, debounce, fileIcon, h, icon, relativePath, richText } from '.
 import { workspace } from '../workspace';
 
 const list = h('div.problems');
-const filterInput = h('input.input', { placeholder: t('Filter (e.g. text, **/*.rs)'), style: { width: '220px', height: '24px' } });
+const filterInput = h('input.input', { placeholder: t('Filter (e.g. text, **/*.rd)'), style: { width: '220px', height: '24px' } });
 const count = h('span.count', {}, '0');
 const collapsed = new Set<string>();
 /** Problems whose full compiler explanation is shown. */
@@ -43,7 +43,7 @@ const render = debounce(() => {
     if (!open) continue;
     for (const d of items) {
       const kind = (d.severity ?? 1) === 1 ? 'error' : d.severity === 2 ? 'warning' : 'info';
-      const code = d.code !== undefined ? ` ${d.source ?? 'rustc'}(${d.code})` : d.source ? ` ${d.source}` : '';
+      const code = d.code !== undefined ? ` ${sourceName(d.source)}(${d.code})` : d.source ? ` ${sourceName(d.source)}` : '';
       const rendered: string | undefined = (d.data as any)?.rendered;
       const id = `${file.path}:${d.range.start.line}:${d.range.start.character}:${d.message}`;
       const open = expanded.has(id);
@@ -109,4 +109,11 @@ export function setupProblems() {
   filterInput.addEventListener('input', render);
   lsp.onLog.on((line) => log(line));
   render();
+}
+
+/** Rodet's names for the tools that report problems. */
+function sourceName(source: string | undefined) {
+  if (!source || source === 'rustc') return 'rodetc';
+  if (source === 'rust-analyzer') return 'rodet-analyzer';
+  return source;
 }

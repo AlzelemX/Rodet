@@ -44,9 +44,9 @@ fn main() {
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_parse/src/parser/rodet.rs`: reads `= value` and makes a hidden constant
-- `compiler/rustc_middle/src/ty/rodet.rs`: finds the constant for a parameter
-- `compiler/rustc_hir_typeck/src/fn_ctxt/rodet.rs`, `compiler/rustc_mir_build/src/thir/cx/expr.rs`: fill in left-out parameters
+- `compiler/rodetc_parse/src/parser/rodet.rs`: reads `= value` and makes a hidden constant
+- `compiler/rodetc_middle/src/ty/rodet.rs`: finds the constant for a parameter
+- `compiler/rodetc_hir_typeck/src/fn_ctxt/rodet.rs`, `compiler/rodetc_mir_build/src/thir/cx/expr.rs`: fill in left-out parameters
 - `tests/ui/rodet/param-defaults.rs`, `param-defaults-errors.rs`: tests
 
 </details>

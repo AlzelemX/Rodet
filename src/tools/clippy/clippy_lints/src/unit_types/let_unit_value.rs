@@ -4,15 +4,15 @@ use clippy_utils::source::{snippet_indent, walk_span_to_context};
 use clippy_utils::span_contains_cfg_or_cfg_attr;
 use clippy_utils::visitors::{for_each_local_assignment, for_each_value_source};
 use core::ops::ControlFlow;
-use rustc_ast::{FormatArgs, FormatArgumentKind};
-use rustc_attr_ir::find_attr;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::intravisit::{Visitor, walk_body, walk_expr};
-use rustc_hir::{Expr, ExprKind, HirId, HirIdSet, LetStmt, MatchSource, Node, PatKind, QPath, TyKind};
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty;
-use rustc_span::Span;
+use rodetc_ast::{FormatArgs, FormatArgumentKind};
+use rodetc_attr_ir::find_attr;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::intravisit::{Visitor, walk_body, walk_expr};
+use rodetc_hir::{Expr, ExprKind, HirId, HirIdSet, LetStmt, MatchSource, Node, PatKind, QPath, TyKind};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty;
+use rodetc_span::Span;
 
 use super::LET_UNIT_VALUE;
 

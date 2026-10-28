@@ -4,13 +4,13 @@ use clippy_utils::peel_hir_pat_refs;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::usage::local_used_in;
-use rustc_ast::UnOp;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::{BinOpKind, Body, Expr, ExprKind, HirId, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Spanned;
+use rodetc_ast::UnOp;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{BinOpKind, Body, Expr, ExprKind, HirId, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Spanned;
 
 use super::MANUAL_CONTAINS;
 

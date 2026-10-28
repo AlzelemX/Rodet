@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{indent_of, snippet};
-use rustc_errors::Applicability;
-use rustc_hir::{BlockCheckMode, Expr, ExprKind, LoopSource};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::edition::Edition;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BlockCheckMode, Expr, ExprKind, LoopSource};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::edition::Edition;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -62,7 +62,7 @@ impl<'tcx> LateLintPass<'tcx> for BlockScrutinee {
                 if let ExprKind::Let(_) = expr.kind {
                     keyword = "`if let`";
                     for (_, node) in cx.tcx.hir_parent_iter(expr.hir_id) {
-                        if let rustc_hir::Node::Expr(e) = node {
+                        if let rodetc_hir::Node::Expr(e) = node {
                             if let ExprKind::If(..) = e.kind {
                                 if keyword == "`if let`" {
                                     outer_span = e.span;
@@ -72,7 +72,7 @@ impl<'tcx> LateLintPass<'tcx> for BlockScrutinee {
                                 outer_span = e.span;
                                 break;
                             }
-                        } else if matches!(node, rustc_hir::Node::Item(..) | rustc_hir::Node::ImplItem(..)) {
+                        } else if matches!(node, rodetc_hir::Node::Item(..) | rodetc_hir::Node::ImplItem(..)) {
                             break;
                         }
                     }

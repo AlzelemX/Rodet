@@ -163,4 +163,4 @@ LL | fn dyn_has_gat(x: &dyn HasGat<u8, Assoc<bool> = ()>) { x }
 
 error: aborting due to 14 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

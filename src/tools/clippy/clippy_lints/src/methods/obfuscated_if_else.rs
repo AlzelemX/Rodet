@@ -4,10 +4,10 @@ use clippy_utils::eager_or_lazy::switch_to_eager_eval;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{get_parent_expr, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Symbol;
 
 #[expect(clippy::needless_pass_by_value)]
 pub(super) fn check<'tcx>(

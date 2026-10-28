@@ -437,7 +437,7 @@ pub(crate) fn parse_codegen_backends(
     backends: Vec<String>,
     section: &str,
 ) -> Vec<CodegenBackendKind> {
-    const CODEGEN_BACKEND_PREFIX: &str = "rustc_codegen_";
+    const CODEGEN_BACKEND_PREFIX: &str = "rodetc_codegen_";
 
     let mut found_backends = vec![];
     for backend in &backends {

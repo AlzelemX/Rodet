@@ -123,4 +123,4 @@ LL |     let _: field_of!(T, field);
 error: aborting due to 20 previous errors
 
 Some errors have detailed explanations: E0573, E0599, E0609.
-For more information about an error, try `rustc --explain E0573`.
+For more information about an error, try `rodetc --explain E0573`.

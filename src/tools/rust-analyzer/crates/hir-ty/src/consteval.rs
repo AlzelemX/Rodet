@@ -9,10 +9,10 @@ use hir_def::{
     resolver::{Resolver, ValueNs},
 };
 use hir_expand::Lookup;
-use rustc_abi::Size;
+use rodetc_abi::Size;
 use rustc_apfloat::Float;
-use rustc_ast_ir::Mutability;
-use rustc_type_ir::inherent::{Const as _, GenericArgs as _, IntoKind, Ty as _};
+use rodetc_ast_ir::Mutability;
+use rodetc_type_ir::inherent::{Const as _, GenericArgs as _, IntoKind, Ty as _};
 use salsa::SalsaValue;
 
 use crate::{
@@ -89,10 +89,10 @@ fn intern_const_ref<'db>(
         (TyKind::Float(float), Literal::Float(value, _)) => {
             let size = Size::from_bits(float.bit_width());
             let value = match float {
-                rustc_ast_ir::FloatTy::F16 => value.to_f16().to_bits(),
-                rustc_ast_ir::FloatTy::F32 => value.to_f32().to_bits(),
-                rustc_ast_ir::FloatTy::F64 => value.to_f64().to_bits(),
-                rustc_ast_ir::FloatTy::F128 => value.to_f128().to_bits(),
+                rodetc_ast_ir::FloatTy::F16 => value.to_f16().to_bits(),
+                rodetc_ast_ir::FloatTy::F32 => value.to_f32().to_bits(),
+                rodetc_ast_ir::FloatTy::F64 => value.to_f64().to_bits(),
+                rodetc_ast_ir::FloatTy::F128 => value.to_f128().to_bits(),
             };
             let scalar = ScalarInt::try_from_uint(value, size).unwrap();
             ValTreeKind::Leaf(scalar)

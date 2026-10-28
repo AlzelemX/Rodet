@@ -701,4 +701,4 @@ LL |     cfg!(_);
 
 error: aborting due to 64 previous errors
 
-For more information about this error, try `rustc --explain E0565`.
+For more information about this error, try `rodetc --explain E0565`.

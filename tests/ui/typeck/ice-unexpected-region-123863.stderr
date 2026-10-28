@@ -44,4 +44,4 @@ LL +     <Inner<_> as Example>::concat_strs::<"a">::A
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0223`.
+For more information about this error, try `rodetc --explain E0223`.

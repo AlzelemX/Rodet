@@ -342,4 +342,4 @@ LL |     extern "thiscall-unwind"  { fn thiscall_unwind_foreign(_: ...); }
 
 error: aborting due to 37 previous errors
 
-For more information about this error, try `rustc --explain E0045`.
+For more information about this error, try `rodetc --explain E0045`.

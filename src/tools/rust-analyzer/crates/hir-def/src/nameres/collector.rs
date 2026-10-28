@@ -540,7 +540,7 @@ impl<'db> DefCollector<'db> {
     }
 
     fn inject_prelude(&mut self) {
-        // See compiler/rustc_builtin_macros/src/standard_library_imports.rs
+        // See compiler/rodetc_builtin_macros/src/standard_library_imports.rs
 
         if self.def_map.data.no_core {
             // libcore does not get a prelude.

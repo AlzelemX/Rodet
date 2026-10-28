@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{HirId, Impl, ItemKind, Node, Path, QPath, TraitRef, TyKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{AssocItem, AssocKind};
-use rustc_span::Span;
-use rustc_span::symbol::Symbol;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{HirId, Impl, ItemKind, Node, Path, QPath, TraitRef, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{AssocItem, AssocKind};
+use rodetc_span::Span;
+use rodetc_span::symbol::Symbol;
 use std::collections::{BTreeMap, BTreeSet};
 
 declare_clippy_lint! {
@@ -73,7 +73,7 @@ impl<'tcx> LateLintPass<'tcx> for SameNameMethod {
                             && let Res::Def(DefKind::Trait, did) = path.res
                         {
                             // FIXME: if
-                            // `rustc_middle::ty::assoc::AssocItems::items` is public,
+                            // `rodetc_middle::ty::assoc::AssocItems::items` is public,
                             // we can iterate its keys instead of `in_definition_order`,
                             // which's more efficient
                             cx.tcx

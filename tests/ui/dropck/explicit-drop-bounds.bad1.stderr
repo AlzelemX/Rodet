@@ -48,4 +48,4 @@ LL |     [T; 1]: Copy, T: std::marker::Copy // But `[T; 1]: Copy` does not imply
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

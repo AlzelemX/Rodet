@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_note;
-use rustc_ast::LitKind;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::{Spanned, Symbol};
+use rodetc_ast::LitKind;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::{Spanned, Symbol};
 
 use super::SUSPICIOUS_SPLITN;
 

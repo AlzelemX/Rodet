@@ -2,14 +2,14 @@
 
 use intern::{Interned, InternedRef, impl_internable};
 use macros::GenericTypeVisitable;
-use rustc_ast_ir::try_visit;
-use rustc_type_ir::inherent::SliceLike;
+use rodetc_ast_ir::try_visit;
+use rodetc_type_ir::inherent::SliceLike;
 
 use crate::next_solver::{impl_foldable_for_interned_slice, interned_slice};
 
 use super::{DbInterner, SolverDefId, Ty};
 
-pub type OpaqueTypeKey<'db> = rustc_type_ir::OpaqueTypeKey<DbInterner<'db>>;
+pub type OpaqueTypeKey<'db> = rodetc_type_ir::OpaqueTypeKey<DbInterner<'db>>;
 
 type PredefinedOpaque<'db> = (OpaqueTypeKey<'db>, Ty<'db>);
 interned_slice!(
@@ -23,7 +23,7 @@ interned_slice!(
 impl_foldable_for_interned_slice!(PredefinedOpaques);
 
 pub type ExternalConstraintsData<'db> =
-    rustc_type_ir::solve::ExternalConstraintsData<DbInterner<'db>>;
+    rodetc_type_ir::solve::ExternalConstraintsData<DbInterner<'db>>;
 
 interned_slice!(
     SolverDefIdsStorage,
@@ -86,8 +86,8 @@ impl std::fmt::Debug for ExternalConstraints<'_> {
     }
 }
 
-impl<'db> rustc_type_ir::TypeVisitable<DbInterner<'db>> for ExternalConstraints<'db> {
-    fn visit_with<V: rustc_type_ir::TypeVisitor<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeVisitable<DbInterner<'db>> for ExternalConstraints<'db> {
+    fn visit_with<V: rodetc_type_ir::TypeVisitor<DbInterner<'db>>>(
         &self,
         visitor: &mut V,
     ) -> V::Result {
@@ -97,8 +97,8 @@ impl<'db> rustc_type_ir::TypeVisitable<DbInterner<'db>> for ExternalConstraints<
     }
 }
 
-impl<'db> rustc_type_ir::TypeFoldable<DbInterner<'db>> for ExternalConstraints<'db> {
-    fn try_fold_with<F: rustc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::TypeFoldable<DbInterner<'db>> for ExternalConstraints<'db> {
+    fn try_fold_with<F: rodetc_type_ir::FallibleTypeFolder<DbInterner<'db>>>(
         self,
         folder: &mut F,
     ) -> Result<Self, F::Error> {
@@ -119,7 +119,7 @@ impl<'db> rustc_type_ir::TypeFoldable<DbInterner<'db>> for ExternalConstraints<'
             },
         ))
     }
-    fn fold_with<F: rustc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
+    fn fold_with<F: rodetc_type_ir::TypeFolder<DbInterner<'db>>>(self, folder: &mut F) -> Self {
         ExternalConstraints::new(
             folder.cx(),
             ExternalConstraintsData {

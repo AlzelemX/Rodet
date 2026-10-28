@@ -74,9 +74,17 @@ jobs:
 
       - name: Check the toolchain
         run: |
-          rustc --version
-          rustc --version | grep -F "(Rodet"
-          cargo --version
+          set -euo pipefail
+          rodetc --version
+          rodet --version
+          # Tauri's tools run `cargo` and `rustc` by those names, so this job
+          # (only) gives Rodet's tools those names too, next to the originals.
+          bin="$RUNNER_TEMP/rodet/bin"
+          exe=""; [ "$RUNNER_OS" = Windows ] && exe=".exe"
+          cp "$bin/rodet$exe" "$bin/cargo$exe"
+          cp "$bin/rodetc$exe" "$bin/rustc$exe"
+          echo "RODET_COMPAT=1" >> "$GITHUB_ENV"
+          RODET_COMPAT=1 rustc --version | grep -F "(Rodet"
 
       - uses: actions/setup-node@v4
         with:

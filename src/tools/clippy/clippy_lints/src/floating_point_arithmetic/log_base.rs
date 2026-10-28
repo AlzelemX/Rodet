@@ -2,10 +2,10 @@ use clippy_utils::consts::ConstEvalCtxt;
 use clippy_utils::consts::Constant::{F32, F64};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg::Sugg;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_span::SyntaxContext;
 use std::f32::consts as f32_consts;
 use std::f64::consts as f64_consts;
 

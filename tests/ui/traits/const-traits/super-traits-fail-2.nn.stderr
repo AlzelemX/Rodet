@@ -66,4 +66,4 @@ LL | #[cfg(any(ny, nn))] const trait Foo { fn a(&self); }
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0015`.
+For more information about this error, try `rodetc --explain E0015`.

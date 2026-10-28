@@ -23,4 +23,4 @@ LL |     type Opq2 = impl for<'a> Trait<'a>;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0437, E0496.
-For more information about an error, try `rustc --explain E0437`.
+For more information about an error, try `rodetc --explain E0437`.

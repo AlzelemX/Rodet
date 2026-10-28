@@ -82,4 +82,4 @@ LL |         pub use super::*;
 error: aborting due to 3 previous errors; 3 warnings emitted
 
 Some errors have detailed explanations: E0364, E0603.
-For more information about an error, try `rustc --explain E0364`.
+For more information about an error, try `rodetc --explain E0364`.

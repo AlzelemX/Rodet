@@ -12,4 +12,4 @@ LL + pub const F: for<'a> fn(&'a &'static String) -> &'a str = <String as Borrow
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

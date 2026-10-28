@@ -7,7 +7,7 @@ use std::collections::VecDeque;
 use std::io::{self, ErrorKind, Read};
 use std::rc::Rc;
 
-use rustc_target::spec::Os;
+use rodetc_target::spec::Os;
 
 use crate::concurrency::VClock;
 use crate::shims::files::{

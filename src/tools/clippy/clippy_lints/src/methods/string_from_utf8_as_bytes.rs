@@ -3,11 +3,11 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::{method_calls, sym};
-use rustc_ast::BorrowKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
+use rodetc_ast::BorrowKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
 
 pub(super) fn check_call(cx: &LateContext<'_>, expr: &Expr<'_>, fun: &Expr<'_>, args: &[Expr<'_>]) {
     // Find `std::str::converts::from_utf8` or `std::primitive::str::from_utf8`

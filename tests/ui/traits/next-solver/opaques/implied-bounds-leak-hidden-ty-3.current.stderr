@@ -72,4 +72,4 @@ LL | fn foo<T: Trait>(x: <T as Trait>::Assoc) -> (Box<dyn Any>, impl Sized) wher
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

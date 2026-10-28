@@ -8,12 +8,12 @@ use clippy_utils::{
     CaptureKind, as_some_pattern, can_move_expr_to_closure, expr_requires_coercion, is_else_clause, is_lint_allowed,
     is_none_expr, is_none_pattern, peel_blocks, peel_hir_expr_refs, peel_hir_expr_while,
 };
-use rustc_ast::util::parser::ExprPrecedence;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::{BindingMode, Expr, ExprKind, HirId, Mutability, Pat, PatKind, Path, QPath};
-use rustc_lint::LateContext;
-use rustc_span::{SyntaxContext, sym};
+use rodetc_ast::util::parser::ExprPrecedence;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::{BindingMode, Expr, ExprKind, HirId, Mutability, Pat, PatKind, Path, QPath};
+use rodetc_lint::LateContext;
+use rodetc_span::{SyntaxContext, sym};
 
 #[expect(clippy::too_many_arguments)]
 #[expect(clippy::too_many_lines)]

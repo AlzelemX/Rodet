@@ -3,11 +3,11 @@ use clippy_utils::is_ty_alias;
 use clippy_utils::source::SpanExt as _;
 use hir::ExprKind;
 use hir::def::Res;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

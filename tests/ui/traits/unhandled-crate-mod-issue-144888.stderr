@@ -141,4 +141,4 @@ LL |     fn transmute(&self) where Self: Sized {}
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0046, E0271, E0277.
-For more information about an error, try `rustc --explain E0046`.
+For more information about an error, try `rodetc --explain E0046`.

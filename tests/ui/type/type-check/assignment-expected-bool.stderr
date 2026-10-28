@@ -149,4 +149,4 @@ LL |     if foo == bar {}
 error: aborting due to 14 previous errors
 
 Some errors have detailed explanations: E0070, E0308.
-For more information about an error, try `rustc --explain E0070`.
+For more information about an error, try `rodetc --explain E0070`.

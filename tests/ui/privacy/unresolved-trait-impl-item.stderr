@@ -23,4 +23,4 @@ LL |     async fn RESOLVED_WRONG() {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0324, E0407.
-For more information about an error, try `rustc --explain E0324`.
+For more information about an error, try `rodetc --explain E0324`.

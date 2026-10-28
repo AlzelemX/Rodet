@@ -8,18 +8,18 @@
 )]
 
 // The rustc crates we need
-extern crate rustc_codegen_ssa;
-extern crate rustc_data_structures;
-extern crate rustc_driver;
-extern crate rustc_interface;
-extern crate rustc_log;
-extern crate rustc_metadata;
-extern crate rustc_middle;
-extern crate rustc_session;
-extern crate rustc_structures;
+extern crate rodetc_codegen_ssa;
+extern crate rodetc_data_structures;
+extern crate rodetc_driver;
+extern crate rodetc_interface;
+extern crate rodetc_log;
+extern crate rodetc_metadata;
+extern crate rodetc_middle;
+extern crate rodetc_session;
+extern crate rodetc_structures;
 
 // Override the C allocator in the same way that the `rustc` binary would do.
-rustc_driver::override_c_allocator_in_binary!();
+rodetc_driver::override_c_allocator_in_binary!();
 
 mod log;
 
@@ -36,18 +36,18 @@ use miri::{
     BacktraceStyle, BorrowTrackerMethod, GenmcConfig, GenmcCtx, MiriConfig, ProvenanceMode,
     TreeBorrowsParams, ValidationMode, entry_fn, run_genmc_mode,
 };
-use rustc_codegen_ssa::traits::CodegenBackend;
-use rustc_codegen_ssa::{CompiledModules, CrateInfo, TargetConfig};
-use rustc_data_structures::sync::{self, DynSync};
-use rustc_driver::Compilation;
-use rustc_interface::interface::Config;
-use rustc_interface::util::DummyCodegenBackend;
-use rustc_log::tracing::debug;
-use rustc_middle::query::LocalCrate;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::config::{ErrorOutputType, OptLevel};
-use rustc_session::{EarlyDiagCtxt, EarlySession, Session};
-use rustc_structures::CrateType;
+use rodetc_codegen_ssa::traits::CodegenBackend;
+use rodetc_codegen_ssa::{CompiledModules, CrateInfo, TargetConfig};
+use rodetc_data_structures::sync::{self, DynSync};
+use rodetc_driver::Compilation;
+use rodetc_interface::interface::Config;
+use rodetc_interface::util::DummyCodegenBackend;
+use rodetc_log::tracing::debug;
+use rodetc_middle::query::LocalCrate;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::config::{ErrorOutputType, OptLevel};
+use rodetc_session::{EarlyDiagCtxt, EarlySession, Session};
+use rodetc_structures::CrateType;
 
 use crate::log::setup::{deinit_loggers, init_early_loggers, init_late_loggers};
 
@@ -79,7 +79,7 @@ fn run_many_seeds(
     eval_entry_once: impl Fn(u64) -> Result<(), NonZeroI32> + DynSync,
 ) -> Result<(), NonZeroI32> {
     let exit_code =
-        sync::IntoDynSyncSend(AtomicU32::new(rustc_driver::EXIT_SUCCESS.cast_unsigned()));
+        sync::IntoDynSyncSend(AtomicU32::new(rodetc_driver::EXIT_SUCCESS.cast_unsigned()));
     let num_failed = sync::IntoDynSyncSend(AtomicU32::new(0));
     sync::par_for_each_in(many_seeds.seeds.clone(), |&seed| {
         if let Err(return_code) = eval_entry_once(seed.into()) {
@@ -114,7 +114,7 @@ fn make_miri_codegen_backend(sess: &EarlySession, dep: bool) -> Box<dyn CodegenB
 
     // Use the target_config method of the default codegen backend (eg LLVM) to ensure the
     // calculated target features match said backend by respecting eg -Ctarget-cpu.
-    let mut native_codegen_backend = rustc_interface::util::get_codegen_backend(
+    let mut native_codegen_backend = rodetc_interface::util::get_codegen_backend(
         &early_dcx,
         &sess.opts.sysroot,
         None,
@@ -125,8 +125,8 @@ fn make_miri_codegen_backend(sess: &EarlySession, dep: bool) -> Box<dyn CodegenB
     Box::new(MiriCodegenBackend { native: native_codegen_backend, dummy: DummyCodegenBackend, dep })
 }
 
-impl rustc_driver::Callbacks for MiriCompilerCalls {
-    fn config(&mut self, config: &mut rustc_interface::interface::Config) {
+impl rodetc_driver::Callbacks for MiriCompilerCalls {
+    fn config(&mut self, config: &mut rodetc_interface::interface::Config) {
         // We never reach codegen anyway.
         config.make_codegen_backend =
             Some(Box::new(|sess| make_miri_codegen_backend(sess, /* dep */ false)));
@@ -137,7 +137,7 @@ impl rustc_driver::Callbacks for MiriCompilerCalls {
 
     fn after_analysis<'tcx>(
         &mut self,
-        _: &rustc_interface::interface::Compiler,
+        _: &rodetc_interface::interface::Compiler,
         tcx: TyCtxt<'tcx>,
     ) -> Compilation {
         // Compilation is done, interpretation is starting. Deal with diagnostics from the
@@ -253,10 +253,10 @@ impl CodegenBackend for MiriCodegenBackend {
         &self,
         ongoing_codegen: Box<dyn Any>,
         sess: &Session,
-        incr_comp_session: Option<&rustc_session::IncrCompSession>,
-        outputs: &rustc_session::config::OutputFilenames,
+        incr_comp_session: Option<&rodetc_session::IncrCompSession>,
+        outputs: &rodetc_session::config::OutputFilenames,
         crate_info: &CrateInfo,
-    ) -> (CompiledModules, rustc_middle::dep_graph::WorkProductMap) {
+    ) -> (CompiledModules, rodetc_middle::dep_graph::WorkProductMap) {
         self.dummy.join_codegen(ongoing_codegen, sess, incr_comp_session, outputs, crate_info)
     }
 
@@ -265,8 +265,8 @@ impl CodegenBackend for MiriCodegenBackend {
         sess: &Session,
         compiled_modules: CompiledModules,
         crate_info: CrateInfo,
-        metadata: rustc_metadata::EncodedMetadata,
-        outputs: &rustc_session::config::OutputFilenames,
+        metadata: rodetc_metadata::EncodedMetadata,
+        outputs: &rodetc_session::config::OutputFilenames,
     ) {
         // In the binary this should do nothing.
         if self.dep {
@@ -278,8 +278,8 @@ impl CodegenBackend for MiriCodegenBackend {
 /// This compiler produces rlibs that are meant for later consumption by Miri.
 struct MiriDepCompilerCalls;
 
-impl rustc_driver::Callbacks for MiriDepCompilerCalls {
-    #[allow(rustc::potential_query_instability)] // rustc_codegen_ssa (where this code is copied from) also allows this lint
+impl rodetc_driver::Callbacks for MiriDepCompilerCalls {
+    #[allow(rustc::potential_query_instability)] // rodetc_codegen_ssa (where this code is copied from) also allows this lint
     fn config(&mut self, config: &mut Config) {
         // We don't need actual codegen, we just emit an rlib that Miri can later consume.
         config.make_codegen_backend =
@@ -311,10 +311,10 @@ impl rustc_driver::Callbacks for MiriDepCompilerCalls {
             // However, we need it for `lookup_link_section`.
             // So overwrite the query with a version that dooes something even without codegen.
             local_providers.queries.exported_non_generic_symbols =
-                |tcx, LocalCrate| rustc_codegen_ssa::back::exported_non_generic_symbols_helper(tcx);
+                |tcx, LocalCrate| rodetc_codegen_ssa::back::exported_non_generic_symbols_helper(tcx);
             // `exported_non_generic_symbols_helper` calls `reachable_non_generics`.
             local_providers.queries.reachable_non_generics =
-                |tcx, LocalCrate| rustc_codegen_ssa::back::reachable_non_generics_helper(tcx);
+                |tcx, LocalCrate| rodetc_codegen_ssa::back::reachable_non_generics_helper(tcx);
         });
 
         // Register our custom extra symbols.
@@ -323,7 +323,7 @@ impl rustc_driver::Callbacks for MiriDepCompilerCalls {
 
     fn after_analysis<'tcx>(
         &mut self,
-        _: &rustc_interface::interface::Compiler,
+        _: &rodetc_interface::interface::Compiler,
         tcx: TyCtxt<'tcx>,
     ) -> Compilation {
         // While the dummy codegen backend doesn't do any codegen, we are still emulating
@@ -360,21 +360,21 @@ use fatal_error;
 /// Execute a compiler with the given CLI arguments and callbacks.
 fn run_compiler_and_exit(
     args: &[String],
-    callbacks: &mut (dyn rustc_driver::Callbacks + Send),
+    callbacks: &mut (dyn rodetc_driver::Callbacks + Send),
 ) -> ! {
-    // Install the ctrlc handler that sets `rustc_const_eval::CTRL_C_RECEIVED`, even if
+    // Install the ctrlc handler that sets `rodetc_const_eval::CTRL_C_RECEIVED`, even if
     // MIRI_BE_RUSTC is set. We do this late so that when `native_lib::init_sv` is called,
     // there are no other threads.
-    rustc_driver::install_ctrlc_handler();
+    rodetc_driver::install_ctrlc_handler();
 
     // Invoke compiler, catch any unwinding panics and handle return code.
-    let exit_code = rustc_driver::catch_with_exit_code(move || {
-        rustc_driver::compiler_entrypoint(args, callbacks)
+    let exit_code = rodetc_driver::catch_with_exit_code(move || {
+        rodetc_driver::compiler_entrypoint(args, callbacks)
     });
     exit(if exit_code == ExitCode::SUCCESS {
-        rustc_driver::EXIT_SUCCESS
+        rodetc_driver::EXIT_SUCCESS
     } else {
-        rustc_driver::EXIT_FAILURE
+        rodetc_driver::EXIT_FAILURE
     })
 }
 
@@ -412,22 +412,22 @@ fn main() -> ExitCode {
     // (`install_ice_hook` might change `RUST_BACKTRACE`.)
     let env_snapshot = env::vars_os().collect::<Vec<_>>();
 
-    let args = rustc_driver::catch_fatal_errors(|| rustc_driver::args::raw_args(&early_dcx))
-        .unwrap_or_else(|_| std::process::exit(rustc_driver::EXIT_FAILURE));
+    let args = rodetc_driver::catch_fatal_errors(|| rodetc_driver::args::raw_args(&early_dcx))
+        .unwrap_or_else(|_| std::process::exit(rodetc_driver::EXIT_FAILURE));
 
     // If the environment asks us to actually be rustc, then do that.
     if let Some(crate_kind) = env::var_os("MIRI_BE_RUSTC") {
         if crate_kind == "host" {
             // For host crates like proc macros and build scripts, we are an entirely normal rustc.
             // These eventually produce actual binaries and never run in Miri.
-            return rustc_driver::main();
+            return rodetc_driver::main();
         } else if crate_kind != "target" {
             panic!("invalid `MIRI_BE_RUSTC` value: {crate_kind:?}")
         };
 
         // Earliest rustc setup.
-        rustc_driver::install_ice_hook(rustc_driver::DEFAULT_BUG_REPORT_URL, |_| ());
-        rustc_driver::init_rustc_env_logger(&early_dcx);
+        rodetc_driver::install_ice_hook(rodetc_driver::DEFAULT_BUG_REPORT_URL, |_| ());
+        rodetc_driver::init_rustc_env_logger(&early_dcx);
 
         let mut args = args;
         // Splice in the default arguments after the program name.
@@ -435,12 +435,12 @@ fn main() -> ExitCode {
         // them the first arguments after the binary name (but later arguments can overwrite them).
         args.splice(1..1, miri::MIRI_DEFAULT_ARGS.iter().map(ToString::to_string));
 
-        // We cannot use `rustc_driver::main` as we want it to use `args` as the CLI arguments.
+        // We cannot use `rodetc_driver::main` as we want it to use `args` as the CLI arguments.
         run_compiler_and_exit(&args, &mut MiriDepCompilerCalls)
     }
 
     // Add an ICE bug report hook.
-    rustc_driver::install_ice_hook("https://github.com/rust-lang/miri/issues/new", |_| ());
+    rodetc_driver::install_ice_hook("https://github.com/rust-lang/miri/issues/new", |_| ());
 
     // Init loggers the Miri way.
     init_early_loggers(&early_dcx);

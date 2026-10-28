@@ -60,4 +60,4 @@ LL |     fn box_pin_wrap_ref_Self_ref_Self<'a>(self: Box<Pin<Wrap<&'a Self, &'a 
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0106`.
+For more information about this error, try `rodetc --explain E0106`.

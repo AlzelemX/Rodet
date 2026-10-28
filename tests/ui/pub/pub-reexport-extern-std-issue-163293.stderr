@@ -10,7 +10,7 @@ LL | pub use std as x;
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0365`.
+For more information about this error, try `rodetc --explain E0365`.
 Future incompatibility report: Future breakage diagnostic:
 error[E0365]: extern crate `std` is private and cannot be re-exported
   --> $DIR/pub-reexport-extern-std-issue-163293.rs:1:9

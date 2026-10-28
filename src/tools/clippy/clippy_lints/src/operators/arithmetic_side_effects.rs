@@ -5,12 +5,12 @@ use clippy_utils::consts::{ConstEvalCtxt, Constant};
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::{expr_or_init, is_from_proc_macro, is_lint_allowed, peel_hir_expr_refs, peel_hir_expr_unary, sym};
-use rustc_ast as ast;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty, UintTy};
-use rustc_span::{Span, Symbol};
+use rodetc_ast as ast;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty, UintTy};
+use rodetc_span::{Span, Symbol};
 
 pub struct ArithmeticSideEffects {
     allowed_binary: FxHashMap<&'static str, FxHashSet<&'static str>>,

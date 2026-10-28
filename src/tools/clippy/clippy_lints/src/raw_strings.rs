@@ -1,11 +1,11 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{SpanExt as _, snippet_opt};
-use rustc_ast::ast::{Expr, ExprKind};
-use rustc_ast::token::LitKind;
-use rustc_errors::Applicability;
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::{BytePos, Pos as _, Span};
+use rodetc_ast::ast::{Expr, ExprKind};
+use rodetc_ast::token::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::{BytePos, Pos as _, Span};
 use std::iter::once;
 use std::ops::ControlFlow;
 

@@ -4,11 +4,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{get_parent_expr, span_contains_cfg, span_contains_comment};
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Mutability};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Mutability};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

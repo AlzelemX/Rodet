@@ -1,12 +1,12 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::{get_parent_as_impl, has_repr_attr, is_bool};
-use rustc_abi::ExternAbi;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, FnDecl, Item, ItemKind, TraitFn, TraitItem, TraitItemKind, Ty};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_abi::ExternAbi;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, FnDecl, Item, ItemKind, TraitFn, TraitItem, TraitItemKind, Ty};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 declare_clippy_lint! {
     /// ### What it does

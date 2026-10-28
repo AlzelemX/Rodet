@@ -2,9 +2,9 @@
 #![deny(clippy::invalid_clippy_version_attribute, clippy::missing_clippy_version_attribute)]
 
 #[macro_use]
-extern crate rustc_middle;
+extern crate rodetc_middle;
 #[macro_use]
-extern crate rustc_lint;
+extern crate rodetc_lint;
 
 ///////////////////////
 // Valid descriptions

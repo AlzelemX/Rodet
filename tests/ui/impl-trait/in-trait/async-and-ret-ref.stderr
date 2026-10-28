@@ -9,4 +9,4 @@ LL |     async fn foo() -> &'static impl T;
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

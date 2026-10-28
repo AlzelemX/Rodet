@@ -2,12 +2,12 @@ use clippy_utils::consts::{ConstEvalCtxt, Constant, FullInt, integer_const, is_z
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::{ExprUseNode, clip, get_expr_use_site, peel_hir_expr_refs, unsext};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{BinOpKind, Expr, ExprKind, Node, Path, QPath};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::{Span, SyntaxContext, kw};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{BinOpKind, Expr, ExprKind, Node, Path, QPath};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::{Span, SyntaxContext, kw};
 
 use super::IDENTITY_OP;
 

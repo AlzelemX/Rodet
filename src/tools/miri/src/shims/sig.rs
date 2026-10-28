@@ -1,9 +1,9 @@
 //! Everything related to checking the signature of shim invocations.
 
-use rustc_abi::{CanonAbi, ExternAbi};
-use rustc_middle::ty::{Binder, FnSig, FnSigKind, Ty};
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
+use rodetc_abi::{CanonAbi, ExternAbi};
+use rodetc_middle::ty::{Binder, FnSig, FnSigKind, Ty};
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
 
 use crate::*;
 
@@ -156,10 +156,10 @@ macro_rules! shim_sig_arg {
     ($this:ident, *$($ty:tt)*) => {
         // Pointee types matter for varargs so we support explicitly giving them.
         // Mutability does not matter for ABI.
-        rustc_middle::ty::Ty::new_ptr(
+        rodetc_middle::ty::Ty::new_ptr(
             *$this.tcx,
             shim_sig_arg!($this, $($ty)*),
-            rustc_middle::mir::Mutability::Mut,
+            rodetc_middle::mir::Mutability::Mut,
         )
     };
     ($this:ident, fn(..) -> _) => {
@@ -167,11 +167,11 @@ macro_rules! shim_sig_arg {
         $this.machine.layouts.fn_ptr.ty
     };
     ($this:ident, &[$($ty:tt)*]) => {
-        rustc_middle::ty::Ty::new_ref(
+        rodetc_middle::ty::Ty::new_ref(
             *$this.tcx,
             $this.tcx.lifetimes.re_erased,
-            rustc_middle::ty::Ty::new_slice(*$this.tcx, shim_sig_arg!($this, $($ty)*)),
-            rustc_middle::mir::Mutability::Not,
+            rodetc_middle::ty::Ty::new_slice(*$this.tcx, shim_sig_arg!($this, $($ty)*)),
+            rodetc_middle::mir::Mutability::Not,
         )
     };
     ($this:ident, winapi::$ty:ident) => {

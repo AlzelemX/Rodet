@@ -48,4 +48,4 @@ LL +         ([hd1, ..], &[hd2, ..])
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0508`.
+For more information about this error, try `rodetc --explain E0508`.

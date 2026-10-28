@@ -38,4 +38,4 @@ LL |     let x = gen {};
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0282, E0658.
-For more information about an error, try `rustc --explain E0282`.
+For more information about an error, try `rodetc --explain E0282`.

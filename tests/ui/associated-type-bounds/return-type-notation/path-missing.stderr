@@ -21,4 +21,4 @@ LL |     T::method(..): Send,
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0220, E0575, E0576.
-For more information about an error, try `rustc --explain E0220`.
+For more information about an error, try `rodetc --explain E0220`.

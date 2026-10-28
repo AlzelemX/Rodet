@@ -65,4 +65,4 @@ LL |         let foo_ref = &mut foo;
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0596`.
+For more information about this error, try `rodetc --explain E0596`.

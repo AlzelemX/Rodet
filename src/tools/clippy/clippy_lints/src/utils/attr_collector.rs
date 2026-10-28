@@ -1,9 +1,9 @@
 use std::mem;
 use std::sync::{Arc, OnceLock};
 
-use rustc_ast::{Attribute, Crate};
-use rustc_lint::{EarlyContext, EarlyLintPass, impl_lint_pass};
-use rustc_span::Span;
+use rodetc_ast::{Attribute, Crate};
+use rodetc_lint::{EarlyContext, EarlyLintPass, impl_lint_pass};
+use rodetc_span::Span;
 
 #[derive(Clone, Default)]
 pub struct AttrStorage(pub Arc<OnceLock<Vec<Span>>>);

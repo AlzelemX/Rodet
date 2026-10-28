@@ -8,7 +8,7 @@ use hir_def::{
     signatures::{ConstSignature, FunctionSignature},
 };
 use hir_expand::name::Name;
-use rustc_type_ir::inherent::{SliceLike, Ty as _};
+use rodetc_type_ir::inherent::{SliceLike, Ty as _};
 use stdx::never;
 
 use crate::{

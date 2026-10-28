@@ -5,9 +5,9 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _, MaybeTypeckRes as _};
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::sym;
 use clippy_utils::visitors::{is_local_used, local_used_once};
-use rustc_errors::Applicability;
-use rustc_hir::{BindingMode, ExprKind, LetStmt, Node, PatKind, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BindingMode, ExprKind, LetStmt, Node, PatKind, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

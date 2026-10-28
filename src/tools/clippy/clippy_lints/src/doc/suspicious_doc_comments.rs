@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_ast::AttrStyle;
-use rustc_ast::token::{CommentKind, DocFragmentKind};
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_errors::Applicability;
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_ast::AttrStyle;
+use rodetc_ast::token::{CommentKind, DocFragmentKind};
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_errors::Applicability;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use super::SUSPICIOUS_DOC_COMMENTS;
 

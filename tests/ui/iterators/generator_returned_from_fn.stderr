@@ -67,4 +67,4 @@ LL | fn capture_move_once(a: &u32) -> impl FnOnce() -> impl Iterator<Item = u32>
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0515, E0700.
-For more information about an error, try `rustc --explain E0515`.
+For more information about an error, try `rodetc --explain E0515`.

@@ -4,14 +4,14 @@ use clippy_utils::is_doc_hidden;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_indent;
 use itertools::Itertools as _;
-use rustc_attr_ir::find_attr;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::{CtorKind, CtorOf, DefKind, Res};
-use rustc_hir::{Expr, ExprKind, Item, ItemKind, QPath, TyKind, VariantData};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
-use rustc_span::def_id::LocalDefId;
+use rodetc_attr_ir::find_attr;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{CtorKind, CtorOf, DefKind, Res};
+use rodetc_hir::{Expr, ExprKind, Item, ItemKind, QPath, TyKind, VariantData};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::def_id::LocalDefId;
 
 declare_clippy_lint! {
     /// ### What it does

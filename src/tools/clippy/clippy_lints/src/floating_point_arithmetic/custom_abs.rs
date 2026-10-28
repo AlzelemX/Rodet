@@ -4,10 +4,10 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{eq_expr_value, higher, is_in_const_context, peel_blocks};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_span::{Spanned, SyntaxContext};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_span::{Spanned, SyntaxContext};
 
 use super::SUBOPTIMAL_FLOPS;
 

@@ -9,4 +9,4 @@ LL | fn start<T>(_main: fn() -> T, _argc: isize, _argv: *const *const u8) -> isi
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

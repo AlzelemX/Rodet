@@ -11,16 +11,16 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_arena;
+extern crate rodetc_arena;
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 use TypeStructure::{TypeInt, TypeFunction};
 use AstKind::{ExprInt, ExprVar, ExprLambda};
-use rustc_arena::TypedArena;
+use rodetc_arena::TypedArena;
 use std::collections::HashMap;
 use std::mem;
 

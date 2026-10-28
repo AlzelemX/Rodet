@@ -121,4 +121,4 @@ LL |     bar4::<'static, usize, 321, X>(&mut 123, vec![123]);
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0107, E0277.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

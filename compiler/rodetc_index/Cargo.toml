@@ -1,0 +1,24 @@
+[package]
+name = "rodetc_index"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_index_macros = { path = "../rodetc_index_macros" }
+rodetc_macros = { path = "../rodetc_macros", optional = true }
+rodetc_serialize = { path = "../rodetc_serialize", optional = true }
+smallvec = { version = "1.8.1", optional = true }
+# tidy-alphabetical-end
+
+[features]
+# tidy-alphabetical-start
+default = ["nightly"]
+nightly = [
+    "dep:rodetc_macros",
+    "dep:rodetc_serialize",
+    "dep:smallvec",
+    "rodetc_index_macros/nightly",
+]
+rustc_randomized_layouts = []
+# tidy-alphabetical-end

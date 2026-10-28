@@ -1,7 +1,7 @@
 //! Helper functions for causing panics.
 
-use rustc_abi::ExternAbi;
-use rustc_middle::{mir, ty};
+use rodetc_abi::ExternAbi;
+use rodetc_middle::{mir, ty};
 
 use crate::*;
 
@@ -50,7 +50,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
         msg: &mir::AssertMessage<'tcx>,
         unwind: mir::UnwindAction,
     ) -> InterpResult<'tcx> {
-        use rustc_middle::mir::AssertKind::*;
+        use rodetc_middle::mir::AssertKind::*;
         let this = self.eval_context_mut();
 
         match msg {

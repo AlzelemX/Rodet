@@ -23,4 +23,4 @@ LL | fn f() -> [u8; const { Struct::N }] {}
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0284, E0308.
-For more information about an error, try `rustc --explain E0284`.
+For more information about an error, try `rodetc --explain E0284`.

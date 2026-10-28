@@ -1,7 +1,7 @@
 //! A few helper functions for dealing with primitives.
 
 pub use hir_def::builtin_type::{BuiltinFloat, BuiltinInt, BuiltinUint};
-pub use rustc_type_ir::{FloatTy, IntTy, UintTy};
+pub use rodetc_type_ir::{FloatTy, IntTy, UintTy};
 
 pub fn int_ty_to_string(ty: IntTy) -> &'static str {
     match ty {

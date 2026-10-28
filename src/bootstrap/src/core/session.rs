@@ -716,8 +716,8 @@ impl Session {
             features.push("check_only");
         }
 
-        if crates.iter().any(|c| c == "rustc_transmute") {
-            // for `x test rustc_transmute`, this feature isn't enabled automatically by a
+        if crates.iter().any(|c| c == "rodetc_transmute") {
+            // for `x test rodetc_transmute`, this feature isn't enabled automatically by a
             // dependent crate.
             features.push("rustc");
         }
@@ -985,7 +985,7 @@ impl Session {
                 // `$sysroot/lib/rustlib/rustc-src/rust` as opposed to `rust-src`'s
                 // `$sysroot/lib/rustlib/src/rust`.
                 //
-                // Keep this scheme in sync with `rustc_metadata::rmeta::decoder`'s
+                // Keep this scheme in sync with `rodetc_metadata::rmeta::decoder`'s
                 // `try_to_translate_virtual_to_real`.
                 Some(format!("/rustc-dev/{sha}"))
             }
@@ -1440,7 +1440,7 @@ impl Session {
                         || target
                             .map(|t| self.config.profiler_enabled(t))
                             .unwrap_or_else(|| self.config.any_profiler_enabled()))
-                    && (dep != "rustc_codegen_llvm"
+                    && (dep != "rodetc_codegen_llvm"
                         || self.config.hosts.iter().any(|host| self.config.llvm_enabled(*host)))
                 {
                     list.push(dep.clone());

@@ -26,4 +26,4 @@ LL |         Test(self)
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0107, E0423.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

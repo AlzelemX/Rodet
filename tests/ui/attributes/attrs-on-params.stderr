@@ -73,4 +73,4 @@ LL |         #[rustc_splat] a1: u32,
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0565, E0658.
-For more information about an error, try `rustc --explain E0565`.
+For more information about an error, try `rodetc --explain E0565`.

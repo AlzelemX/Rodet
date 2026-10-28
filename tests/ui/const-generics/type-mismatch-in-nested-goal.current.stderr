@@ -42,4 +42,4 @@ LL | fn needs_a<const N: usize>(_: [u8; N]) where (): A<N> {}
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

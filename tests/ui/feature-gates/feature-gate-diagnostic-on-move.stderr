@@ -36,4 +36,4 @@ LL |     takes_foo(foo);
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0382`.
+For more information about this error, try `rodetc --explain E0382`.

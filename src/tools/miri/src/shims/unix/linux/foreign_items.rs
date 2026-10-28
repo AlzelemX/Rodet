@@ -1,7 +1,7 @@
-use rustc_abi::CanonAbi;
-use rustc_middle::ty::Ty;
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
+use rodetc_abi::CanonAbi;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
 
 use self::shims::unix::linux::mem::EvalContextExt as _;
 use self::shims::unix::linux_like::eventfd::EvalContextExt as _;
@@ -291,7 +291,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             "gnu_get_libc_version"
                 if this.frame_in_std()
-                    && this.tcx.sess.target.env == rustc_target::spec::Env::Gnu =>
+                    && this.tcx.sess.target.env == rodetc_target::spec::Env::Gnu =>
             {
                 let [] = this.check_shim_sig_deprecated(abi, CanonAbi::C, link_name, args)?;
                 // We have to be at least version 2.26 so that std does not call `res_init`.

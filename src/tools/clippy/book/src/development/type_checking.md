@@ -30,7 +30,7 @@ As a side note, besides `expr_ty`, [`TypeckResults`][TypeckResults] contains a
 ## `Ty`
 
 `Ty` struct contains the type information of an expression.
-Let's take a look at `rustc_middle`'s [`Ty`][Ty] struct to examine this struct:
+Let's take a look at `rodetc_middle`'s [`Ty`][Ty] struct to examine this struct:
 
 ```rust
 pub struct Ty<'tcx>(Interned<'tcx, WithStableHash<TyS<'tcx>>>);
@@ -132,7 +132,7 @@ A common usecase for creating types programmatically is when we want to check if
 Here's an example of how to create a `Ty` for a slice of `u8`, i.e. `[u8]`
 
 ```rust
-use rustc_middle::ty::Ty;
+use rodetc_middle::ty::Ty;
 // assume we have access to a LateContext
 let ty = Ty::new_slice(cx.tcx, Ty::new_u8());
 ```

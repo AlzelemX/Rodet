@@ -32,7 +32,7 @@ pub fn check(path: &Path, tidy_ctx: TidyCtx) {
     let contents = std::fs::read_to_string(&triagebot_path).unwrap();
     let config: Value = toml::from_str(&contents).unwrap();
 
-    // Check [mentions."*"] sections, i.e. [mentions."compiler/rustc_const_eval/src/"]
+    // Check [mentions."*"] sections, i.e. [mentions."compiler/rodetc_const_eval/src/"]
     if let Some(Value::Table(mentions)) = config.get("mentions") {
         let mut builder = globset::GlobSetBuilder::new();
         let mut glob_entries = Vec::new();

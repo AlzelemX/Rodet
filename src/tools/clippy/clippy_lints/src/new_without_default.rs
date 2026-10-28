@@ -2,13 +2,13 @@ use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::return_ty;
 use clippy_utils::source::{indent_of, reindent_multiline, snippet_with_applicability};
 use clippy_utils::sugg::DiagExt as _;
-use rustc_attr_ir::{Attribute, AttributeKind};
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::HirIdSet;
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty::AssocKind;
-use rustc_span::sym;
+use rodetc_attr_ir::{Attribute, AttributeKind};
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::HirIdSet;
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty::AssocKind;
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

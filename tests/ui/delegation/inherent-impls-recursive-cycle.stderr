@@ -137,4 +137,4 @@ LL | reuse Trait2::foo as trait_foo;
 error: aborting due to 15 previous errors
 
 Some errors have detailed explanations: E0061, E0283.
-For more information about an error, try `rustc --explain E0061`.
+For more information about an error, try `rodetc --explain E0061`.

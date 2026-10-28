@@ -24,19 +24,19 @@ fn main() {
         // Check that these crates can be compiled on "stable"
         .args(&[
             "-p",
-            "rustc_type_ir",
+            "rodetc_type_ir",
             "-p",
-            "rustc_next_trait_solver",
+            "rodetc_next_trait_solver",
             "-p",
-            "rustc_pattern_analysis",
+            "rodetc_pattern_analysis",
             "-p",
-            "rustc_lexer",
+            "rodetc_lexer",
             "-p",
-            "rustc_abi",
+            "rodetc_abi",
             "-p",
-            "rustc_parse_format",
+            "rodetc_parse_format",
             "-p",
-            "rustc_hashes",
+            "rodetc_hashes",
         ])
         .run();
 }

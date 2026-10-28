@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::fulfill_or_allowed;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_hir::{self as hir, HirId, Item};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, GenericArgKind, Ty};
+use rodetc_hir::{self as hir, HirId, Item};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, GenericArgKind, Ty};
 
 use super::EXPL_IMPL_CLONE_ON_COPY;
 

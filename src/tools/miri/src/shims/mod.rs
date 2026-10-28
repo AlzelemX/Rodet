@@ -47,8 +47,8 @@ impl EmulateItemResult {
         self,
         ecx: &mut crate::MiriInterpCx<'tcx>,
         dest: &crate::PlaceTy<'tcx>,
-        ret: Option<rustc_middle::mir::BasicBlock>,
-        unwind: Option<rustc_middle::mir::UnwindAction>,
+        ret: Option<rodetc_middle::mir::BasicBlock>,
+        unwind: Option<rodetc_middle::mir::UnwindAction>,
         not_supported: impl FnOnce(&mut crate::MiriInterpCx<'tcx>) -> crate::InterpResult<'tcx, T>,
     ) -> crate::InterpResult<'tcx, T> {
         use crate::*;

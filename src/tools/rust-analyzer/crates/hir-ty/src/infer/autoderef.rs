@@ -2,7 +2,7 @@
 
 use std::iter;
 
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 
 use crate::{
     Adjust, Adjustment, OverloadedDeref, Span,

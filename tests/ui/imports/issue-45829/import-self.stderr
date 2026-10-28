@@ -51,4 +51,4 @@ LL | use foo::{self as OtherA};
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0252, E0255.
-For more information about an error, try `rustc --explain E0252`.
+For more information about an error, try `rodetc --explain E0252`.

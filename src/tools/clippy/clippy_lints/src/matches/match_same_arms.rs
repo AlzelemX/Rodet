@@ -5,15 +5,15 @@ use clippy_utils::{SpanlessEq, fulfill_or_allowed, hash_expr, is_lint_allowed, s
 use core::cmp::Ordering;
 use core::{iter, slice};
 use itertools::Itertools as _;
-use rustc_arena::DroplessArena;
-use rustc_ast::ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Arm, Expr, HirId, HirIdMap, HirIdMapEntry, HirIdSet, Pat, PatExpr, PatExprKind, PatKind, RangeEnd};
-use rustc_lint::builtin::NON_EXHAUSTIVE_OMITTED_PATTERNS;
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::{self, TypeckResults};
-use rustc_span::{ByteSymbol, ErrorGuaranteed, Span, Symbol, SyntaxContext};
+use rodetc_arena::DroplessArena;
+use rodetc_ast::ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Arm, Expr, HirId, HirIdMap, HirIdMapEntry, HirIdSet, Pat, PatExpr, PatExprKind, PatKind, RangeEnd};
+use rodetc_lint::builtin::NON_EXHAUSTIVE_OMITTED_PATTERNS;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::{self, TypeckResults};
+use rodetc_span::{ByteSymbol, ErrorGuaranteed, Span, Symbol, SyntaxContext};
 
 use super::MATCH_SAME_ARMS;
 

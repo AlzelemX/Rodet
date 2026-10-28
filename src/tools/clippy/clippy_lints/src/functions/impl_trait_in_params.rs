@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_in_test;
 
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, GenericParam, Generics, HirId, ImplItem, ImplItemKind, TraitItem, TraitItemKind};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, GenericParam, Generics, HirId, ImplItem, ImplItemKind, TraitItem, TraitItemKind};
+use rodetc_lint::LateContext;
 
 use super::IMPL_TRAIT_IN_PARAMS;
 

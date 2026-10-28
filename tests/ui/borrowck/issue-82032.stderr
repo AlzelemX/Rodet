@@ -13,4 +13,4 @@ LL |         for v in self.0.values_mut() {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0596`.
+For more information about this error, try `rodetc --explain E0596`.

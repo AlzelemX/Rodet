@@ -5,9 +5,9 @@ use hir_def::{
     hir::ExprId,
     signatures::{TraitFlags, TraitSignature},
 };
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     InferTy, TypeVisitableExt, UintTy, elaborate,
     error::TypeError,
     inherent::{BoundExistentialPredicates as _, IntoKind, Ty as _},

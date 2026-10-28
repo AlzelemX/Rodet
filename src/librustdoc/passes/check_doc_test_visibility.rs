@@ -5,9 +5,9 @@
 //! - MISSING_DOC_CODE_EXAMPLES: this lint is **UNSTABLE** and looks for public items missing doctests.
 //! - PRIVATE_DOC_TESTS: this lint is **STABLE** and looks for private items with doctests.
 
-use rustc_hir as hir;
-use rustc_macros::Diagnostic;
-use rustc_middle::lint::LintLevelSource;
+use rodetc_hir as hir;
+use rodetc_macros::Diagnostic;
+use rodetc_middle::lint::LintLevelSource;
 use tracing::debug;
 
 use crate::clean::utils::inherits_doc_hidden;

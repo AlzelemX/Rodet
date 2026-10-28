@@ -25,4 +25,4 @@ LL + extern "riscv-interrupt-m" fn isr_U() {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0703`.
+For more information about this error, try `rodetc --explain E0703`.

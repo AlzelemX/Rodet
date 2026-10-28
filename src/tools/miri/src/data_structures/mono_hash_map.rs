@@ -10,7 +10,7 @@ use std::cell::RefCell;
 use std::collections::hash_map::Entry;
 use std::hash::Hash;
 
-use rustc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::fx::FxHashMap;
 
 use crate::AllocMap;
 

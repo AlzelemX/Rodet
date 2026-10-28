@@ -56,7 +56,7 @@ pub struct LintExtractor<'a> {
     /// Path to the `rustc` executable.
     pub rustc_path: &'a Path,
     /// The target arch to build the docs for.
-    pub rustc_target: &'a str,
+    pub rodetc_target: &'a str,
     /// The target linker overriding `rustc`'s default
     pub rustc_linker: Option<&'a str>,
     /// Stage of the compiler that builds the docs (the stage of `rustc_path`).
@@ -477,7 +477,7 @@ impl<'a> LintExtractor<'a> {
         // we don't want to use it in our tests for now.
         cmd.arg("-Znext-solver=coherence");
         cmd.arg("--error-format=json");
-        cmd.arg("--target").arg(self.rustc_target);
+        cmd.arg("--target").arg(self.rodetc_target);
         if let Some(target_linker) = self.rustc_linker {
             cmd.arg(format!("-Clinker={target_linker}"));
         }

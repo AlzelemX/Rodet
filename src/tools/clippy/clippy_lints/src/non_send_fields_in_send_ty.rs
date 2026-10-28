@@ -3,13 +3,13 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_lint_allowed;
 use clippy_utils::source::snippet;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_ast::ImplPolarity;
-use rustc_attr_ir::LangItem;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{FieldDef, Item, ItemKind, Node};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, GenericArgKind, Ty};
-use rustc_span::sym;
+use rodetc_ast::ImplPolarity;
+use rodetc_attr_ir::LangItem;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{FieldDef, Item, ItemKind, Node};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, GenericArgKind, Ty};
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

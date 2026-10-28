@@ -47,7 +47,7 @@ use hir_ide::{
     solver_errors::SolverDiagnosticKind,
     traits::{is_inherent_impl_coherent, structurally_normalize_ty},
 };
-use rustc_type_ir::inherent::IntoKind as _;
+use rodetc_type_ir::inherent::IntoKind as _;
 use span::Edition;
 use stdx::{impl_from, never};
 use syntax::{
@@ -1810,14 +1810,14 @@ impl<'db> AnyDiagnostic<'db> {
             &InferenceDiagnostic::TypeMustBeKnown { at_point, ref top_term } => {
                 let at_point = span_syntax(at_point)?;
                 let top_term = top_term.as_ref().map(|top_term| match top_term.as_ref().kind() {
-                    rustc_type_ir::GenericArgKind::Type(ty) => Either::Left(new_ty(ty)),
+                    rodetc_type_ir::GenericArgKind::Type(ty) => Either::Left(new_ty(ty)),
                     // FIXME: Printing the const to string is definitely not the correct thing to do here.
-                    rustc_type_ir::GenericArgKind::Const(konst) => Either::Right(
+                    rodetc_type_ir::GenericArgKind::Const(konst) => Either::Right(
                         konst
                             .display(db, DisplayTarget::from_crate_and_edition(db, krate, edition))
                             .to_string(),
                     ),
-                    rustc_type_ir::GenericArgKind::Lifetime(_) => {
+                    rodetc_type_ir::GenericArgKind::Lifetime(_) => {
                         unreachable!("we currently don't emit TypeMustBeKnown for lifetimes")
                     }
                 });

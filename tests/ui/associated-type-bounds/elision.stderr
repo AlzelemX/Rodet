@@ -25,4 +25,4 @@ LL + fn f(x: &mut dyn Iterator<Item = impl Iterator<Item = &'_ ()>>) -> Option<&
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0106`.
+For more information about this error, try `rodetc --explain E0106`.

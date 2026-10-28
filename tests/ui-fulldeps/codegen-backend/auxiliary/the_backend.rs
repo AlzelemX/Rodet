@@ -3,22 +3,22 @@
 #![feature(rustc_private)]
 #![deny(warnings)]
 
-extern crate rustc_codegen_ssa;
-extern crate rustc_driver as _;
-extern crate rustc_metadata;
-extern crate rustc_middle;
-extern crate rustc_session;
-extern crate rustc_structures;
+extern crate rodetc_codegen_ssa;
+extern crate rodetc_driver as _;
+extern crate rodetc_metadata;
+extern crate rodetc_middle;
+extern crate rodetc_session;
+extern crate rodetc_structures;
 
 use std::any::Any;
 
-use rustc_codegen_ssa::traits::CodegenBackend;
-use rustc_codegen_ssa::{CompiledModules, CrateInfo};
-use rustc_metadata::EncodedMetadata;
-use rustc_middle::dep_graph::WorkProductMap;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::config::OutputFilenames;
-use rustc_session::{IncrCompSession, Session};
+use rodetc_codegen_ssa::traits::CodegenBackend;
+use rodetc_codegen_ssa::{CompiledModules, CrateInfo};
+use rodetc_metadata::EncodedMetadata;
+use rodetc_middle::dep_graph::WorkProductMap;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::config::OutputFilenames;
+use rodetc_session::{IncrCompSession, Session};
 
 struct TheBackend;
 
@@ -59,9 +59,9 @@ impl CodegenBackend for TheBackend {
     ) {
         use std::io::Write;
 
-        use rustc_session::config::OutFileName;
-        use rustc_session::output::out_filename;
-        use rustc_structures::CrateType;
+        use rodetc_session::config::OutFileName;
+        use rodetc_session::output::out_filename;
+        use rodetc_structures::CrateType;
 
         let crate_name = crate_info.local_crate_name;
         for &crate_type in sess.opts.crate_types.iter() {
@@ -83,7 +83,7 @@ impl CodegenBackend for TheBackend {
     }
 }
 
-/// This is the entrypoint for a hot plugged rustc_codegen_llvm
+/// This is the entrypoint for a hot plugged rodetc_codegen_llvm
 #[no_mangle]
 pub fn __rustc_codegen_backend() -> Box<dyn CodegenBackend> {
     Box::new(TheBackend)

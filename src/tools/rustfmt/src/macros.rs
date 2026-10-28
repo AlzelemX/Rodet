@@ -13,11 +13,11 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 
-use rustc_ast::ast;
-use rustc_ast::token::{Delimiter, Token, TokenKind};
-use rustc_ast::tokenstream::{TokenStream, TokenStreamIter, TokenTree};
-use rustc_ast_pretty::pprust;
-use rustc_span::{BytePos, DUMMY_SP, Ident, Pos, Span, Symbol};
+use rodetc_ast::ast;
+use rodetc_ast::token::{Delimiter, Token, TokenKind};
+use rodetc_ast::tokenstream::{TokenStream, TokenStreamIter, TokenTree};
+use rodetc_ast_pretty::pprust;
+use rodetc_span::{BytePos, DUMMY_SP, Ident, Pos, Span, Symbol};
 use tracing::debug;
 
 use crate::comment::{
@@ -425,7 +425,7 @@ fn rewrite_empty_macro_def_body(
     // Create an empty, dummy `ast::Block` representing an empty macro body
     let block = ast::Block {
         stmts: vec![].into(),
-        id: rustc_ast::node_id::DUMMY_NODE_ID,
+        id: rodetc_ast::node_id::DUMMY_NODE_ID,
         rules: ast::BlockCheckMode::Default,
         span,
     };

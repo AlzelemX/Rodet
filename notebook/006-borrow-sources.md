@@ -41,7 +41,7 @@ Read `&{x, y} str` as "a `&str` borrowed from `x` or `y`".
 
 <details><summary>Where in the compiler</summary>
 
-- `compiler/rustc_parse/src/parser/rodet.rs`: reads `&{...}` and turns it into lifetimes
+- `compiler/rodetc_parse/src/parser/rodet.rs`: reads `&{...}` and turns it into lifetimes
 - `tests/ui/rodet/borrow-sources.rs`, `borrow-sources-errors.rs`: tests
 
 </details>

@@ -1,20 +1,20 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeQPath as _;
 use clippy_utils::{expr_or_init, fn_def_id_with_node_args, sym};
-use rustc_ast::BinOpKind;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir as hir;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, LocalDefId};
-use rustc_hir::intravisit::{FnKind, Visitor, walk_body, walk_expr};
-use rustc_hir::{Body, Expr, ExprKind, FnDecl, HirId, Item, ItemKind, Node, QPath, TyKind};
-use rustc_hir_analysis::lower_ty;
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, Ty, TyCtxt};
-use rustc_span::Span;
-use rustc_span::symbol::{Ident, kw};
-use rustc_trait_selection::error_reporting::traits::suggestions::ReturnsVisitor;
+use rodetc_ast::BinOpKind;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir as hir;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, LocalDefId};
+use rodetc_hir::intravisit::{FnKind, Visitor, walk_body, walk_expr};
+use rodetc_hir::{Body, Expr, ExprKind, FnDecl, HirId, Item, ItemKind, Node, QPath, TyKind};
+use rodetc_hir_analysis::lower_ty;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, Ty, TyCtxt};
+use rodetc_span::Span;
+use rodetc_span::symbol::{Ident, kw};
+use rodetc_trait_selection::error_reporting::traits::suggestions::ReturnsVisitor;
 use std::ops::ControlFlow;
 
 declare_clippy_lint! {
@@ -91,7 +91,7 @@ fn span_error(cx: &LateContext<'_>, method_span: Span, expr: &Expr<'_>) {
     );
 }
 
-fn get_hir_ty_def_id<'tcx>(tcx: TyCtxt<'tcx>, hir_ty: rustc_hir::Ty<'tcx>) -> Option<DefId> {
+fn get_hir_ty_def_id<'tcx>(tcx: TyCtxt<'tcx>, hir_ty: rodetc_hir::Ty<'tcx>) -> Option<DefId> {
     let TyKind::Path(qpath) = hir_ty.kind else { return None };
     match qpath {
         QPath::Resolved(_, path) => path.res.opt_def_id(),

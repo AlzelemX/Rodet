@@ -957,7 +957,7 @@ pub(crate) fn handle_parent_module(
 ) -> anyhow::Result<Option<lsp_types::DefinitionResponse>> {
     let _p = tracing::info_span!("handle_parent_module").entered();
     if let Ok(file_path) = &params.text_document.uri.to_file_path() {
-        if file_path.file_name().unwrap_or_default() == "Cargo.toml" {
+        if matches!(file_path.file_name().and_then(|it| it.to_str()), Some("Cargo.toml" | "Silk.toml")) {
             // search workspaces for parent packages or fallback to workspace root
             let abs_path_buf = match Utf8PathBuf::from_path_buf(file_path.to_path_buf())
                 .ok()

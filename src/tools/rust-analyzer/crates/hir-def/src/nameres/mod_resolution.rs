@@ -65,12 +65,15 @@ impl ModDir {
     ) -> Result<(EditionedFileId, bool, ModDir), Box<[String]>> {
         let name = name.as_str();
 
-        let mut candidate_files = ArrayVec::<_, 2>::new();
+        // RODET: `.rd` files first, then `.rs`.
+        let mut candidate_files = ArrayVec::<_, 4>::new();
         match attr_path {
             Some(attr_path) => {
                 candidate_files.push(self.dir_path.join_attr(attr_path, self.root_non_dir_owner))
             }
             None => {
+                candidate_files.push(format!("{}{}.rd", self.dir_path.0, name));
+                candidate_files.push(format!("{}{}/mod.rd", self.dir_path.0, name));
                 candidate_files.push(format!("{}{}.rs", self.dir_path.0, name));
                 candidate_files.push(format!("{}{}/mod.rs", self.dir_path.0, name));
             }
@@ -80,7 +83,7 @@ impl ModDir {
         for candidate in candidate_files.iter() {
             let path = AnchoredPath { anchor: orig_file_id.file_id(db), path: candidate.as_str() };
             if let Some(file_id) = db.resolve_path(path) {
-                let is_mod_rs = candidate.ends_with("/mod.rs");
+                let is_mod_rs = candidate.ends_with("/mod.rs") || candidate.ends_with("/mod.rd");
 
                 let root_dir_owner = is_mod_rs || attr_path.is_some();
                 let dir_path = if root_dir_owner {

@@ -67,7 +67,7 @@ fn main() {
     // NOTE: we intentionally pass the name of the host, not the target.
     let host = env::var("CFG_COMPILER_BUILD_TRIPLE").unwrap();
     let is_clippy = args[0].to_string_lossy().ends_with(&exe("clippy-driver", &host));
-    let rustc_driver = if is_clippy {
+    let rodetc_driver = if is_clippy {
         if is_build_script {
             // Don't run clippy on build scripts (for one thing, we may not have libstd built with
             // the appropriate version yet, e.g. for stage 1 std).
@@ -92,8 +92,8 @@ fn main() {
     // Get the name of the crate we're compiling, if any.
     let crate_name = parse_value_from_args(&orig_args, "--crate-name");
 
-    // When compiling `rustc_driver` remove `-C prefer-dynamic` to allow statically linking `std` into it
-    if crate_name == Some("rustc_driver") {
+    // When compiling `rodetc_driver` remove `-C prefer-dynamic` to allow statically linking `std` into it
+    if crate_name == Some("rodetc_driver") {
         if let Some(pos) = args.iter().enumerate().position(|(i, a)| {
             a == "-C" && args.get(i + 1).map(|a| a == "prefer-dynamic").unwrap_or(false)
         }) {
@@ -108,10 +108,10 @@ fn main() {
     let mut cmd = match env::var_os("RUSTC_WRAPPER_REAL") {
         Some(wrapper) if !wrapper.is_empty() => {
             let mut cmd = ArgFileCommand::new(wrapper);
-            cmd.arg(rustc_driver);
+            cmd.arg(rodetc_driver);
             cmd
         }
-        _ => ArgFileCommand::new(rustc_driver),
+        _ => ArgFileCommand::new(rodetc_driver),
     };
     cmd.args(&args).env(dylib_path_var(), env::join_paths(&dylib_path).unwrap());
 
@@ -164,7 +164,7 @@ fn main() {
     }
 
     // Here we pass additional paths that essentially act as a sysroot.
-    // These are used to load rustc crates (e.g. `extern crate rustc_ast;`)
+    // These are used to load rustc crates (e.g. `extern crate rodetc_ast;`)
     // for rustc_private tools, so that we do not have to copy them into the
     // actual sysroot of the compiler that builds the tool.
     if let Ok(dirs) = env::var("RUSTC_ADDITIONAL_SYSROOT_PATHS") {
@@ -223,7 +223,7 @@ fn main() {
     }
 
     if env::var_os("RUSTC_BOLT_LINK_FLAGS").is_some()
-        && let Some("rustc_driver") = crate_name
+        && let Some("rodetc_driver") = crate_name
     {
         cmd.arg("-Clink-args=-Wl,-q");
     }

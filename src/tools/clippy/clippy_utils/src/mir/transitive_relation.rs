@@ -1,6 +1,6 @@
-use rustc_data_structures::fx::FxHashMap;
-use rustc_index::bit_set::DenseBitSet;
-use rustc_middle::mir;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_index::bit_set::DenseBitSet;
+use rodetc_middle::mir;
 
 #[derive(Default)]
 pub(super) struct TransitiveRelation {

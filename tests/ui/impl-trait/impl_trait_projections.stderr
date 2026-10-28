@@ -40,4 +40,4 @@ LL | fn parametrized_value_in_anon_const_is_disallowed() -> [(); None::<impl Siz
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0562`.
+For more information about this error, try `rodetc --explain E0562`.

@@ -1,4 +1,4 @@
-use rustc_span::edition::{DEFAULT_EDITION, Edition};
+use rodetc_span::edition::{DEFAULT_EDITION, Edition};
 
 use super::{
     ErrorCodes, HeadingOffset, IdMap, Ignore, LangString, LangStringToken, Markdown,

@@ -10,15 +10,15 @@ use std::{io, iter};
 use ::serde::de::{self, Deserializer, Error as _};
 use ::serde::ser::{SerializeSeq, Serializer};
 use ::serde::{Deserialize, Serialize};
-use rustc_ast::join_path_syms;
-use rustc_attr_ir::find_attr;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_hir::def_id::{CrateNum, DefIndex, LOCAL_CRATE};
-use rustc_middle::ty::TyCtxt;
-use rustc_span::def_id::DefId;
-use rustc_span::sym;
-use rustc_span::symbol::{Symbol, kw};
+use rodetc_ast::join_path_syms;
+use rodetc_attr_ir::find_attr;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap};
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_hir::def_id::{CrateNum, DefIndex, LOCAL_CRATE};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::def_id::DefId;
+use rodetc_span::sym;
+use rodetc_span::symbol::{Symbol, kw};
 use stringdex::internals as stringdex_internals;
 use tracing::instrument;
 
@@ -1789,7 +1789,7 @@ pub(crate) fn build_index(
                 return;
             };
             ty.id = if let RenderTypeId::DefId(def_id) = id
-                && matches!(tcx.def_kind(def_id), rustc_hir::def::DefKind::OpaqueTy)
+                && matches!(tcx.def_kind(def_id), rodetc_hir::def::DefKind::OpaqueTy)
             {
                 // We exclude opaque types as they cannot have attributes, so no need to call
                 // `convert_render_type_id`.
@@ -1990,7 +1990,7 @@ pub(crate) fn get_function_type_for_search(
                 .or_else(|| cache.external_paths.get(&def_id).map(|(parts, ty)| (parts, *ty)))
         {
             let path = clean::Path {
-                res: rustc_hir::def::Res::Def(rustc_hir::def::DefKind::Trait, def_id),
+                res: rodetc_hir::def::Res::Def(rodetc_hir::def::DefKind::Trait, def_id),
                 segments: path
                     .iter()
                     .map(|name| clean::PathSegment {
@@ -2053,7 +2053,7 @@ fn get_index_type_id(
     clean_type: &clean::Type,
     rgen: &mut FxIndexMap<SimplifiedParam, (isize, Vec<RenderType>)>,
 ) -> Option<RenderTypeId> {
-    use rustc_hir::def::{DefKind, Res};
+    use rodetc_hir::def::{DefKind, Res};
     match *clean_type {
         clean::Type::Path { ref path, .. } => Some(RenderTypeId::DefId(path.def_id())),
         clean::DynTrait(ref bounds, _) => {

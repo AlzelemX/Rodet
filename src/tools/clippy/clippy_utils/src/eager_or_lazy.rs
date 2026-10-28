@@ -13,14 +13,14 @@ use crate::consts::{ConstEvalCtxt, FullInt};
 use crate::sym;
 use crate::ty::all_clauses_of;
 use crate::visitors::is_const_evaluatable;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{BinOpKind, Block, Expr, ExprKind, QPath, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::Symbol;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{BinOpKind, Block, Expr, ExprKind, QPath, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::adjustment::{Adjust, DerefAdjustKind};
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::Symbol;
 use std::{cmp, ops};
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]

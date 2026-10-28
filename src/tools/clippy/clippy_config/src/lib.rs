@@ -8,14 +8,14 @@
 )]
 #![expect(clippy::must_use_candidate)]
 
-extern crate rustc_attr_ir;
-extern crate rustc_attr_parsing;
-extern crate rustc_data_structures;
-extern crate rustc_errors;
-extern crate rustc_hir;
-extern crate rustc_middle;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_attr_ir;
+extern crate rodetc_attr_parsing;
+extern crate rodetc_data_structures;
+extern crate rodetc_errors;
+extern crate rodetc_hir;
+extern crate rodetc_middle;
+extern crate rodetc_session;
+extern crate rodetc_span;
 
 #[macro_use]
 mod de;

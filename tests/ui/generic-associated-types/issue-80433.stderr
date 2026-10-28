@@ -27,4 +27,4 @@ LL | fn test_simpler<'a>(dst: &'a mut impl TestMut<Output<'a> = &'a mut f32>)
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0107`.
+For more information about this error, try `rodetc --explain E0107`.

@@ -16,7 +16,7 @@ use hir_def::{
     signatures::{FunctionSignature, StaticFlags, StaticSignature},
     type_ref::Rawness,
 };
-use rustc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::inherent::IntoKind;
 use span::Edition;
 
 use crate::{

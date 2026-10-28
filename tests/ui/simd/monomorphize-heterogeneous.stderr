@@ -13,4 +13,4 @@ LL | struct I64x4F64x0([i64; 4], [f64; 0]);
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0075, E0076.
-For more information about an error, try `rustc --explain E0075`.
+For more information about an error, try `rodetc --explain E0075`.

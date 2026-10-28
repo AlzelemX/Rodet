@@ -16,7 +16,7 @@ import { confirm, prompt, showDialog, toast, type Action, type Level } from '../
 import { bindKey, commands, keybindings, pick, registerCommand, runCommand, type Command, type PickItem } from '../ui/palette';
 import { h, icon } from '../util';
 import { openBook } from '../views/book';
-import { newTerminal, runCargo, runTask } from '../views/terminal';
+import { newTerminal, runRodet, runTask } from '../views/terminal';
 import { pathKey, workspace, type Reveal } from '../workspace';
 import { API_VERSION, type Plugin } from './host';
 
@@ -116,7 +116,7 @@ export function createApi(plugin: Plugin) {
     },
 
     keys: {
-      /** `bind('Ctrl+Alt+R', 'cargo.run')`: also replaces DEVR+'s own shortcuts. */
+      /** `bind('Ctrl+Alt+R', 'rodet.run')`: also replaces DEVR+'s own shortcuts. */
       bind: (combo: string, commandId: string): Disposable => track(bindKey(combo, commandId)),
       list: () => [...keybindings.entries()].map(([key, command]) => ({ key, command })),
     },
@@ -339,10 +339,10 @@ export function createApi(plugin: Plugin) {
     },
 
     terminal: {
-      /** Runs a program in a terminal tab: `run('Tests', ['cargo', 'test'])`. */
+      /** Runs a program in a terminal tab: `run('Tests', ['rodet', 'test'])`. */
       run: (title: string, command: string[], cwd?: string) => runTask(title, command, cwd ?? workspace.root ?? workspace.info.home ?? '.'),
-      /** Runs `cargo …` in the open project. */
-      cargo: (args: string[], title?: string) => runCargo(args, title),
+      /** Runs `rodet …` (Silk) in the open project. */
+      rodet: (args: string[], title?: string) => runRodet(args, title),
       open: () => newTerminal(),
     },
 
@@ -359,7 +359,7 @@ export function createApi(plugin: Plugin) {
       onDiagnostics: (cb: () => void): Disposable => track(onDiagnostics.on(cb)),
     },
 
-    /** The DEVR+ backend: files, processes, search, Cargo… (`call('fs.readDir', { path })`). */
+    /** The DEVR+ backend: files, processes, search, Silk… (`call('fs.readDir', { path })`). */
     backend: {
       call: <T = any>(method: string, params?: unknown) => backend.call<T>(method, params),
       on: (event: string, cb: (payload: any) => void): Disposable => track(backend.on(event, cb)),

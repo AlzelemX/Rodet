@@ -32,4 +32,4 @@ LL |     type NoReOutliv<'a, 'b> = &'a &'b ();
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0309, E0491.
-For more information about an error, try `rustc --explain E0309`.
+For more information about an error, try `rodetc --explain E0309`.

@@ -58,4 +58,4 @@ LL | struct Wrapper<C: Context + 'static> {
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0063, E0277.
-For more information about an error, try `rustc --explain E0063`.
+For more information about an error, try `rodetc --explain E0063`.

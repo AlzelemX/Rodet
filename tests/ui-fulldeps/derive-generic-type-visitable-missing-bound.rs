@@ -4,10 +4,10 @@
 #![crate_type = "rlib"]
 #![feature(rustc_private)]
 
-extern crate rustc_type_ir;
-extern crate rustc_type_ir_macros;
+extern crate rodetc_type_ir;
+extern crate rodetc_type_ir_macros;
 
-use rustc_type_ir_macros::GenericTypeVisitable;
+use rodetc_type_ir_macros::GenericTypeVisitable;
 
 #[derive(GenericTypeVisitable)]
 struct MissingBound<T> {

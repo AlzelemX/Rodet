@@ -2,11 +2,11 @@
 
 use std::ops::Range;
 
-use rustc_errors::Diag;
-use rustc_hir::HirId;
-use rustc_lint::Applicability;
-use rustc_resolve::rustdoc::pulldown_cmark::{BrokenLink, Event, Parser};
-use rustc_resolve::rustdoc::source_span_for_markdown_range;
+use rodetc_errors::Diag;
+use rodetc_hir::HirId;
+use rodetc_lint::Applicability;
+use rodetc_resolve::rustdoc::pulldown_cmark::{BrokenLink, Event, Parser};
+use rodetc_resolve::rustdoc::source_span_for_markdown_range;
 
 use crate::clean::Item;
 use crate::core::DocContext;
@@ -52,7 +52,7 @@ pub(crate) fn visit_item(cx: &DocContext<'_>, item: &Item, hir_id: HirId, dox: &
                     None => item.attr_span(tcx),
                 };
 
-                tcx.emit_node_span_lint(crate::lint::UNESCAPED_BACKTICKS, hir_id, span, rustc_errors::DiagDecorator(|lint| {
+                tcx.emit_node_span_lint(crate::lint::UNESCAPED_BACKTICKS, hir_id, span, rodetc_errors::DiagDecorator(|lint| {
                     lint.primary_message("unescaped backtick");
 
                     let mut help_emitted = false;

@@ -39,4 +39,4 @@ LL |     fn dyn_incompatible() -> Self where Self: Sized;
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0038`.
+For more information about this error, try `rodetc --explain E0038`.

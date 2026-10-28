@@ -5,13 +5,13 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{higher, is_in_const_context, peel_ref_operators, sym};
-use rustc_ast::LitKind::{Byte, Char};
-use rustc_ast::ast::RangeLimits;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Lit, Node, Param, PatExpr, PatExprKind, PatKind, RangeEnd};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
+use rodetc_ast::LitKind::{Byte, Char};
+use rodetc_ast::ast::RangeLimits;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Lit, Node, Param, PatExpr, PatExprKind, PatKind, RangeEnd};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

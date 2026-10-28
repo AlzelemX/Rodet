@@ -1,4 +1,4 @@
-//! A minimal arena allocator inspired by `rustc_arena::DroplessArena`.
+//! A minimal arena allocator inspired by `rodetc_arena::DroplessArena`.
 //!
 //! This is unfortunately a minimal re-implementation rather than a dependency
 //! as it is difficult to depend on crates from within `proc_macro`, due to it
@@ -9,7 +9,7 @@ use std::mem::MaybeUninit;
 use std::ops::Range;
 use std::{cmp, ptr, slice};
 
-/// A minimal arena allocator inspired by `rustc_arena::DroplessArena`.
+/// A minimal arena allocator inspired by `rodetc_arena::DroplessArena`.
 ///
 /// This is unfortunately a complete re-implementation rather than a dependency
 /// as it is difficult to depend on crates from within `proc_macro`, due to it

@@ -140,4 +140,4 @@ LL |     if generator_sig() < 0 { None } else { Sized((option(i - Sized), i)) }
 error: aborting due to 17 previous errors
 
 Some errors have detailed explanations: E0121, E0404, E0423, E0425, E0557, E0562, E0658.
-For more information about an error, try `rustc --explain E0121`.
+For more information about an error, try `rodetc --explain E0121`.

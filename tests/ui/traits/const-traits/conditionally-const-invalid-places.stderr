@@ -328,4 +328,4 @@ LL |     type Type<T: [const] Trait> = ();
 error: aborting due to 30 previous errors
 
 Some errors have detailed explanations: E0275, E0392, E0658, E0740.
-For more information about an error, try `rustc --explain E0275`.
+For more information about an error, try `rodetc --explain E0275`.

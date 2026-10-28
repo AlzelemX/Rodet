@@ -1,38 +1,38 @@
-//! Util methods for [`rustc_middle::ty`]
+//! Util methods for [`rodetc_middle::ty`]
 
 #![expect(clippy::module_name_repetitions)]
 
 use core::ops::ControlFlow;
 use itertools::Itertools as _;
-use rustc_abi::{BackendRepr, FieldsShape, VariantIdx, Variants};
-use rustc_ast::ast::Mutability;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_errors::pluralize;
-use rustc_hir as hir;
-use rustc_hir::def::{CtorKind, CtorOf, DefKind, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Expr, ExprKind, FnDecl};
-use rustc_hir_analysis::lower_ty;
-use rustc_infer::infer::TyCtxtInferExt as _;
-use rustc_lint::LateContext;
-use rustc_lint::unused::must_use::{IsTyMustUse, MustUsePath, is_ty_must_use};
-use rustc_middle::mir::ConstValue;
-use rustc_middle::mir::interpret::Scalar;
-use rustc_middle::traits::EvaluationResult;
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
-use rustc_middle::ty::layout::{LayoutError, LayoutOf as _, TyAndLayout};
-use rustc_middle::ty::{
+use rodetc_abi::{BackendRepr, FieldsShape, VariantIdx, Variants};
+use rodetc_ast::ast::Mutability;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_errors::pluralize;
+use rodetc_hir as hir;
+use rodetc_hir::def::{CtorKind, CtorOf, DefKind, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Expr, ExprKind, FnDecl};
+use rodetc_hir_analysis::lower_ty;
+use rodetc_infer::infer::TyCtxtInferExt as _;
+use rodetc_lint::LateContext;
+use rodetc_lint::unused::must_use::{IsTyMustUse, MustUsePath, is_ty_must_use};
+use rodetc_middle::mir::ConstValue;
+use rodetc_middle::mir::interpret::Scalar;
+use rodetc_middle::traits::EvaluationResult;
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
+use rodetc_middle::ty::layout::{LayoutError, LayoutOf as _, TyAndLayout};
+use rodetc_middle::ty::{
     self, AdtDef, AliasTy, AssocItem, AssocTag, Binder, BoundRegion, BoundVarIndexKind, FnSig, GenericArg,
     GenericArgKind, GenericArgsRef, IntTy, ProjectionAliasTy, Region, RegionKind, TraitRef, Ty, TyCtxt,
     TypeSuperVisitable as _, TypeVisitable, TypeVisitableExt as _, TypeVisitor, UintTy, Unnormalized, VariantDef,
     VariantDiscr,
 };
-use rustc_span::symbol::Ident;
-use rustc_span::{DUMMY_SP, Span, Symbol};
-use rustc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
-use rustc_trait_selection::traits::query::normalize::QueryNormalizeExt as _;
-use rustc_trait_selection::traits::{Obligation, ObligationCause};
+use rodetc_span::symbol::Ident;
+use rodetc_span::{DUMMY_SP, Span, Symbol};
+use rodetc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
+use rodetc_trait_selection::traits::query::normalize::QueryNormalizeExt as _;
+use rodetc_trait_selection::traits::{Obligation, ObligationCause};
 use std::collections::hash_map::Entry;
 use std::{debug_assert_matches, iter, mem};
 
@@ -43,7 +43,7 @@ use crate::{over, sym};
 mod type_certainty;
 pub use type_certainty::expr_type_is_certain;
 
-/// Lower a [`hir::Ty`] to a [`rustc_middle::ty::Ty`].
+/// Lower a [`hir::Ty`] to a [`rodetc_middle::ty::Ty`].
 pub fn ty_from_hir_ty<'tcx>(cx: &LateContext<'tcx>, hir_ty: &hir::Ty<'tcx>) -> Ty<'tcx> {
     cx.typeck_results
         .filter(|results| results.hir_owner == hir_ty.hir_id.owner)
@@ -342,7 +342,7 @@ pub fn describe_must_use_type(cx: &LateContext<'_>, path: &MustUsePath) -> Strin
     describe_must_use_type_inner(cx, path, "", "", 1)
 }
 
-// This is a rip-off from the compiler's `rustc_lint/src/unused/must_use.rs`
+// This is a rip-off from the compiler's `rodetc_lint/src/unused/must_use.rs`
 fn describe_must_use_type_inner(
     cx: &LateContext<'_>,
     path: &MustUsePath,
@@ -1070,7 +1070,7 @@ pub fn adt_and_variant_of_res<'tcx>(cx: &LateContext<'tcx>, res: Res) -> Option<
 /// Comes up with an "at least" guesstimate for the type's size, not taking into
 /// account the layout of type parameters.
 pub fn approx_ty_size<'tcx>(cx: &LateContext<'tcx>, ty: Ty<'tcx>) -> u64 {
-    use rustc_middle::ty::layout::LayoutOf as _;
+    use rodetc_middle::ty::layout::LayoutOf as _;
     match (cx.layout_of(ty).map(|layout| layout.size.bytes()), ty.kind()) {
         (Ok(size), _) => size,
         (Err(_), ty::Tuple(list)) => list.iter().map(|t| approx_ty_size(cx, t)).sum(),

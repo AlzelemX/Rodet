@@ -273,7 +273,7 @@ install!((self, builder, _config),
             );
         }
     };
-    Rustc, path = "compiler/rustc", true, IS_HOST: true, {
+    Rustc, path = "compiler/rodetc", true, IS_HOST: true, {
         let tarball = builder.ensure(dist::Rustc {
             target_compiler: builder.compiler(self.build_compiler.stage + 1, self.target),
         });

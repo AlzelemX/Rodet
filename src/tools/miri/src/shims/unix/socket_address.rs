@@ -1,8 +1,8 @@
 use std::iter;
 use std::net::{Ipv4Addr, Ipv6Addr, SocketAddr, SocketAddrV4, SocketAddrV6, ToSocketAddrs};
 
-use rustc_abi::Size;
-use rustc_target::spec::Env;
+use rodetc_abi::Size;
+use rodetc_target::spec::Env;
 
 use crate::*;
 

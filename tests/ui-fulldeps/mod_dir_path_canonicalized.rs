@@ -5,25 +5,25 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_ast;
-extern crate rustc_parse;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_ast;
+extern crate rodetc_parse;
+extern crate rodetc_session;
+extern crate rodetc_span;
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
-use rustc_parse::{lexer::StripTokens, new_parser_from_file, unwrap_or_emit_fatal};
-use rustc_session::parse::ParseSess;
+use rodetc_parse::{lexer::StripTokens, new_parser_from_file, unwrap_or_emit_fatal};
+use rodetc_session::parse::ParseSess;
 use std::path::Path;
 
 #[path = "mod_dir_simple/test.rs"]
 mod gravy;
 
 pub fn main() {
-    rustc_span::create_default_session_globals_then(|| parse());
+    rodetc_span::create_default_session_globals_then(|| parse());
 
     assert_eq!(gravy::foo(), 10);
 }

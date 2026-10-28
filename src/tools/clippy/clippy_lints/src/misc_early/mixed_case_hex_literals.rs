@@ -1,6 +1,6 @@
 use clippy_utils::diagnostics::span_lint_and_help;
-use rustc_lint::EarlyContext;
-use rustc_span::Span;
+use rodetc_lint::EarlyContext;
+use rodetc_span::Span;
 
 use super::MIXED_CASE_HEX_LITERALS;
 

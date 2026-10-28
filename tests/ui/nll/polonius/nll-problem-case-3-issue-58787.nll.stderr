@@ -109,4 +109,4 @@ LL |     list.0 = None;
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0499, E0503, E0506.
-For more information about an error, try `rustc --explain E0499`.
+For more information about an error, try `rodetc --explain E0499`.

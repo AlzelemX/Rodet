@@ -2,7 +2,7 @@ use std::io;
 use std::rc::Rc;
 use std::time::Duration;
 
-use rustc_abi::FieldIdx;
+use rodetc_abi::FieldIdx;
 
 use crate::shims::files::{FileDescription, FileDescriptionRef};
 use crate::shims::unix::UnixFileDescription;

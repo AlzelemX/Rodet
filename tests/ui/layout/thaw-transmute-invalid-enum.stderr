@@ -73,4 +73,4 @@ LL |         a: std::mem::ManuallyDrop<Ox00>,
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0425, E0658, E0740.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

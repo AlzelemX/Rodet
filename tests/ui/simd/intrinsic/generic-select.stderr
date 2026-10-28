@@ -42,4 +42,4 @@ LL |         simd_select_bitmask("x", x, x);
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0511`.
+For more information about this error, try `rodetc --explain E0511`.

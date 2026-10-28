@@ -5,10 +5,10 @@ use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sym;
 use clippy_utils::visitors::is_expr_unsafe;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Block, BlockCheckMode, Expr, ExprKind, Node, UnsafeSource};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Block, BlockCheckMode, Expr, ExprKind, Node, UnsafeSource};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

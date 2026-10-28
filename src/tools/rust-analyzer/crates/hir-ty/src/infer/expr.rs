@@ -16,9 +16,9 @@ use hir_def::{
 };
 use hir_def::{FunctionId, hir::ClosureKind};
 use hir_expand::name::Name;
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::FxHashMap;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     InferTy, Interner,
     inherent::{IntoKind, Ty as _},
 };

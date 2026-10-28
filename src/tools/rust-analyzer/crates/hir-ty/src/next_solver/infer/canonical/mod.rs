@@ -31,9 +31,9 @@ use crate::{
 };
 use instantiate::CanonicalExt;
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_index::IndexVec;
-use rustc_type_ir::inherent::IntoKind;
-use rustc_type_ir::{CanonicalVarKind, InferTy, TypeFoldable, UniverseIndex, inherent::Ty as _};
+use rodetc_index::IndexVec;
+use rodetc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::{CanonicalVarKind, InferTy, TypeFoldable, UniverseIndex, inherent::Ty as _};
 
 pub mod canonicalizer;
 pub mod instantiate;

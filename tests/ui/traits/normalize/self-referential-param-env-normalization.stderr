@@ -39,4 +39,4 @@ LL |     T: FnMut(Self::Item, I::Item),
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0207, E0275.
-For more information about an error, try `rustc --explain E0207`.
+For more information about an error, try `rodetc --explain E0207`.

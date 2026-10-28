@@ -3,10 +3,10 @@ use clippy_utils::consts::Constant::{F32, F64};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{is_in_const_context, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Spanned;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Spanned;
 
 use super::IMPRECISE_FLOPS;
 

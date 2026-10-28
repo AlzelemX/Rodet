@@ -26,4 +26,4 @@ LL |     let _c = (ptr as SmartPtr<_>).read();
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0282, E0599.
-For more information about an error, try `rustc --explain E0282`.
+For more information about an error, try `rodetc --explain E0282`.

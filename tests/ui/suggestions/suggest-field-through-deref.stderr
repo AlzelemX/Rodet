@@ -68,4 +68,4 @@ LL |     let _ = d.unwrap().long_name;
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0609`.
+For more information about this error, try `rodetc --explain E0609`.

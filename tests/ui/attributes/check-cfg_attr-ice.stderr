@@ -98,4 +98,4 @@ LL | #[cfg_attr::no_such_thing]
 error: aborting due to 15 previous errors
 
 Some errors have detailed explanations: E0433, E0658.
-For more information about an error, try `rustc --explain E0433`.
+For more information about an error, try `rodetc --explain E0433`.

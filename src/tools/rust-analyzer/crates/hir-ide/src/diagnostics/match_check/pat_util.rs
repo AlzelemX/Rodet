@@ -1,6 +1,6 @@
 //! Pattern utilities.
 //!
-//! Originates from `rustc_hir::pat_util`
+//! Originates from `rodetc_hir::pat_util`
 
 use std::iter::Enumerate;
 

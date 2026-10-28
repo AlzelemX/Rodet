@@ -24,4 +24,4 @@ LL +     let _ = Arc::<str>::from("String");
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0605`.
+For more information about this error, try `rodetc --explain E0605`.

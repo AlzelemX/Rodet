@@ -2,7 +2,7 @@ use std::fmt::Display;
 use std::path::PathBuf;
 
 use askama::Template;
-use rustc_data_structures::fx::FxIndexMap;
+use rodetc_data_structures::fx::FxIndexMap;
 
 use super::static_files::{STATIC_FILES, StaticFiles};
 use crate::externalfiles::ExternalHtml;
@@ -88,7 +88,7 @@ pub(crate) fn render<T: Display, S: Display>(
     t: T,
     style_files: &[StylePath],
 ) -> String {
-    let rustdoc_version = rustc_interface::util::version_str!().unwrap_or("unknown version");
+    let rustdoc_version = rodetc_interface::util::version_str!().unwrap_or("unknown version");
 
     let (display_krate, display_krate_version, display_krate_with_trailing_slash) =
         if page.root_path == "./" {

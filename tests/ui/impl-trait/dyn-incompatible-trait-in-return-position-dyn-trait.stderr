@@ -146,4 +146,4 @@ LL |     fn foo() -> Self where Self: Sized;
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0038, E0746.
-For more information about an error, try `rustc --explain E0038`.
+For more information about an error, try `rodetc --explain E0038`.

@@ -948,8 +948,8 @@ impl TargetCfgs {
         let mut all_abis = HashSet::new();
         let mut all_families = HashSet::new();
         let mut all_pointer_widths = HashSet::new();
-        // NOTE: for distinction between `abi` and `rustc_abi`, see comment on
-        // `TargetCfg::rustc_abi`.
+        // NOTE: for distinction between `abi` and `rodetc_abi`, see comment on
+        // `TargetCfg::rodetc_abi`.
         let mut all_rustc_abis = HashSet::new();
 
         // If current target is not included in the `--print=all-target-specs-json` output,
@@ -991,8 +991,8 @@ impl TargetCfgs {
                 all_families.insert(family.clone());
             }
             all_pointer_widths.insert(format!("{}bit", cfg.pointer_width));
-            if let Some(rustc_abi) = &cfg.rustc_abi {
-                all_rustc_abis.insert(rustc_abi.clone());
+            if let Some(rodetc_abi) = &cfg.rodetc_abi {
+                all_rustc_abis.insert(rodetc_abi.clone());
             }
             all_targets.insert(target.clone());
         }
@@ -1099,15 +1099,15 @@ pub(crate) struct TargetCfg {
     pub(crate) xray: bool,
     #[serde(default = "default_reloc_model")]
     pub(crate) relocation_model: String,
-    // NOTE: `rustc_abi` should not be confused with `abi`. `rustc_abi` was introduced in #137037 to
+    // NOTE: `rodetc_abi` should not be confused with `abi`. `rodetc_abi` was introduced in #137037 to
     // make SSE2 *required* by the ABI (kind of a hack to make a target feature *required* via the
     // target spec).
-    pub(crate) rustc_abi: Option<String>,
+    pub(crate) rodetc_abi: Option<String>,
 
     /// ELF is the "default" binary format, so the compiler typically doesn't
     /// emit a `"binary-format"` field for ELF targets.
     ///
-    /// See `impl ToJson for Target` in `compiler/rustc_target/src/spec/json.rs`.
+    /// See `impl ToJson for Target` in `compiler/rodetc_target/src/spec/json.rs`.
     #[serde(default = "default_binary_format_elf")]
     pub(crate) binary_format: Cow<'static, str>,
 

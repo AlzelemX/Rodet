@@ -3,13 +3,13 @@ use clippy_utils::get_parent_expr;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::option_arg_ty;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::lang_items::LangItem::ResultErr;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, MatchSource};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::{hygiene, sym};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::lang_items::LangItem::ResultErr;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, MatchSource};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::{hygiene, sym};
 
 use super::TRY_ERR;
 

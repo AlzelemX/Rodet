@@ -3,7 +3,7 @@ use hir_def::{
     AdtId, GenericDefId, ModuleDefId, hir::generics::GenericParamDataRef, src::HasSource,
 };
 use itertools::Itertools;
-use rustc_type_ir::Variance;
+use rodetc_type_ir::Variance;
 use stdx::format_to;
 use syntax::{AstNode, ast::HasName};
 use test_fixture::WithFixture;

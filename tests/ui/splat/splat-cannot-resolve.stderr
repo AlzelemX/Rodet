@@ -91,4 +91,4 @@ LL |     ambig_tup(1, 2.0);
 error: aborting due to 10 previous errors
 
 Some errors have detailed explanations: E0223, E0277, E0720.
-For more information about an error, try `rustc --explain E0223`.
+For more information about an error, try `rodetc --explain E0223`.

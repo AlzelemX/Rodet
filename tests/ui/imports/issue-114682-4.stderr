@@ -37,7 +37,7 @@ LL |     pub type Result<T> = std::result::Result<T, ()>;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0107`.
+For more information about this error, try `rodetc --explain E0107`.
 Future incompatibility report: Future breakage diagnostic:
 error: `Result` is ambiguous
   --> $DIR/issue-114682-4.rs:9:11

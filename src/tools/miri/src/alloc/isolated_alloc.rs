@@ -1,7 +1,7 @@
 use std::alloc::Layout;
 use std::ptr::NonNull;
 
-use rustc_index::bit_set::DenseBitSet;
+use rodetc_index::bit_set::DenseBitSet;
 
 /// How many bytes of memory each bit in the bitset represents.
 const COMPRESSION_FACTOR: usize = 4;

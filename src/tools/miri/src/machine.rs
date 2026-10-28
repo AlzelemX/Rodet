@@ -10,30 +10,30 @@ use std::{fmt, process};
 
 use rand::rngs::StdRng;
 use rand::{RngExt, SeedableRng};
-use rustc_abi::{Align, ExternAbi, Size};
+use rodetc_abi::{Align, ExternAbi, Size};
 use rustc_apfloat::{Float, FloatConvert};
-use rustc_ast::Mutability;
-use rustc_ast::expand::allocator::{self, SpecialAllocatorMethod};
-use rustc_attr_ir::{InlineAttr, Linkage};
-use rustc_data_structures::either::Either;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_ast::Mutability;
+use rodetc_ast::expand::allocator::{self, SpecialAllocatorMethod};
+use rodetc_attr_ir::{InlineAttr, Linkage};
+use rodetc_data_structures::either::Either;
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
 #[allow(unused)]
-use rustc_data_structures::static_assert_size;
-use rustc_hir::def::DefKind;
-use rustc_log::tracing;
-use rustc_middle::middle::codegen_fn_attrs::TargetFeatureKind;
-use rustc_middle::mir;
-use rustc_middle::query::TyCtxtAt;
-use rustc_middle::ty::layout::{
+use rodetc_data_structures::static_assert_size;
+use rodetc_hir::def::DefKind;
+use rodetc_log::tracing;
+use rodetc_middle::middle::codegen_fn_attrs::TargetFeatureKind;
+use rodetc_middle::mir;
+use rodetc_middle::query::TyCtxtAt;
+use rodetc_middle::ty::layout::{
     HasTyCtxt, HasTypingEnv, LayoutCx, LayoutError, LayoutOf, TyAndLayout,
 };
-use rustc_middle::ty::{self, AtomicOrdering, Instance, Ty, TyCtxt};
-use rustc_session::config::InliningThreshold;
-use rustc_span::def_id::{CrateNum, DefId};
-use rustc_span::{Span, Symbol};
-use rustc_symbol_mangling::mangle_internal_symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::{Arch, Os};
+use rodetc_middle::ty::{self, AtomicOrdering, Instance, Ty, TyCtxt};
+use rodetc_session::config::InliningThreshold;
+use rodetc_span::def_id::{CrateNum, DefId};
+use rodetc_span::{Span, Symbol};
+use rodetc_symbol_mangling::mangle_internal_symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::{Arch, Os};
 
 use crate::alloc_addresses::EvalContextExt;
 use crate::concurrency::data_race::{self, NaReadType, NaWriteType};
@@ -454,7 +454,7 @@ impl<'tcx> PrimitiveLayouts<'tcx> {
 
         let sig_kind = ty::FnSigKind::default()
             .set_abi(ExternAbi::C { unwind: false })
-            .set_safety(rustc_hir::Safety::Safe);
+            .set_safety(rodetc_hir::Safety::Safe);
         let fn_ptr =
             Ty::new_fn_ptr(tcx, ty::Binder::dummy(tcx.mk_fn_sig([], tcx.types.unit, sig_kind)));
 
@@ -819,7 +819,7 @@ impl<'tcx> MiriMachine<'tcx> {
             monotonic_clock: MonotonicClock::new(config.isolated_op == IsolatedOp::Allow),
             #[cfg(all(feature = "native-lib", unix))]
             native_lib: config.native_lib.iter().map(|lib_file_path| {
-                let host_triple = rustc_session::config::host_tuple();
+                let host_triple = rodetc_session::config::host_tuple();
                 let target_triple = tcx.sess.opts.target_triple.tuple();
                 // Check if host target == the session target.
                 if host_triple != target_triple {
@@ -869,7 +869,7 @@ impl<'tcx> MiriMachine<'tcx> {
     fn allocator_shim_symbols(
         tcx: TyCtxt<'tcx>,
     ) -> FxHashMap<Symbol, Either<Symbol, SpecialAllocatorMethod>> {
-        use rustc_codegen_ssa::base::allocator_shim_contents;
+        use rodetc_codegen_ssa::base::allocator_shim_contents;
 
         // codegen uses `allocator_kind_for_codegen` here, but that's only needed to deal with
         // dylibs which we do not support.

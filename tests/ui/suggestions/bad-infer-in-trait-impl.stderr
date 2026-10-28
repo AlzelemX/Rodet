@@ -16,4 +16,4 @@ LL |     fn bar(s: _) {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0050, E0121.
-For more information about an error, try `rustc --explain E0050`.
+For more information about an error, try `rodetc --explain E0050`.

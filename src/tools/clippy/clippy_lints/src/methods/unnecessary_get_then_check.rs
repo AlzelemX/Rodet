@@ -3,11 +3,11 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::sym;
 
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::Span;
 
 use super::UNNECESSARY_GET_THEN_CHECK;
 

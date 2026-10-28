@@ -49,9 +49,9 @@ ignore = [
     "src/gcc",
 
     # These are ignored by a standard cargo fmt run.
-    "compiler/rustc_codegen_cranelift/scripts",
-    "compiler/rustc_codegen_gcc/tests",
+    "compiler/rodetc_codegen_cranelift/scripts",
+    "compiler/rodetc_codegen_gcc/tests",
     # Code automatically generated and included.
-    "compiler/rustc_codegen_gcc/src/intrinsic/archs.rs",
-    "compiler/rustc_codegen_gcc/example",
+    "compiler/rodetc_codegen_gcc/src/intrinsic/archs.rs",
+    "compiler/rodetc_codegen_gcc/example",
 ]

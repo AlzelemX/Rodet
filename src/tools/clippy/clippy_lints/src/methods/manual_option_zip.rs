@@ -5,10 +5,10 @@ use clippy_utils::peel_blocks;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::usage::local_used_in;
-use rustc_errors::Applicability;
-use rustc_hir::{self as hir, Expr, ExprKind, HirId, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::symbol::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::{self as hir, Expr, ExprKind, HirId, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::symbol::sym;
 
 use super::MANUAL_OPTION_ZIP;
 

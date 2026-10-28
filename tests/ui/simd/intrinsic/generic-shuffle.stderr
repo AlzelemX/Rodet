@@ -24,4 +24,4 @@ LL |         let _: Simd<u32, 2> = simd_shuffle(v, v, I2);
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0511`.
+For more information about this error, try `rodetc --explain E0511`.

@@ -40,4 +40,4 @@ LL |     fn bar<'a,'b>(x: &'a str, y: &'b str) {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0195`.
+For more information about this error, try `rodetc --explain E0195`.

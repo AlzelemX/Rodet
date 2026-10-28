@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::qpath_generic_tys;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{self as hir, QPath};
-use rustc_lint::LateContext;
-use rustc_span::symbol::sym;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{self as hir, QPath};
+use rodetc_lint::LateContext;
+use rodetc_span::symbol::sym;
 
 use super::RC_MUTEX;
 

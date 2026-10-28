@@ -9,11 +9,11 @@ use clippy_utils::sugg::{Sugg, make_binop};
 use clippy_utils::ty::{implements_trait, is_copy, needs_ordered_drop};
 use clippy_utils::visitors::{any_temporaries_need_ordered_drop, is_local_used};
 use clippy_utils::{get_parent_expr, is_from_proc_macro};
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::{Span, sym};
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::{Span, sym};
 
 use super::UNNECESSARY_MAP_OR;
 

@@ -49,4 +49,4 @@ LL |     for<'b> [u8; foo::<'a, 'b>()]: Sized,
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0261, E0403, E0496, E0601.
-For more information about an error, try `rustc --explain E0261`.
+For more information about an error, try `rodetc --explain E0261`.

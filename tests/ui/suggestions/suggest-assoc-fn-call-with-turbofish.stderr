@@ -105,4 +105,4 @@ LL +     GenericAssocMethod::<i32>::self_ty_hello(y);
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0599`.
+For more information about this error, try `rodetc --explain E0599`.

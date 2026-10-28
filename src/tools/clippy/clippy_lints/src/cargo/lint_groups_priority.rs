@@ -1,9 +1,9 @@
 use super::LINT_GROUPS_PRIORITY;
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_lint::{LateContext, unerased_lint_store};
-use rustc_span::{BytePos, Pos as _, SourceFile, Span, SyntaxContext};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_lint::{LateContext, unerased_lint_store};
+use rodetc_span::{BytePos, Pos as _, SourceFile, Span, SyntaxContext};
 use std::ops::Range;
 use std::path::Path;
 use toml::Spanned;

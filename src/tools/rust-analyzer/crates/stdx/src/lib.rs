@@ -99,7 +99,7 @@ pub fn to_upper_snake_case(s: &str) -> String {
     to_snake_case(s, char::to_uppercase)
 }
 
-// Code partially taken from rust/compiler/rustc_lint/src/nonstandard_style.rs
+// Code partially taken from rust/compiler/rodetc_lint/src/nonstandard_style.rs
 // commit: 9626f2b
 fn to_snake_case<F, I>(mut s: &str, change_case: F) -> String
 where

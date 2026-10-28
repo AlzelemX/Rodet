@@ -6,7 +6,7 @@ use crate::utils::{
 };
 use crate::{SourceFile, Span};
 use core::mem;
-use rustc_lexer::TokenKind;
+use rodetc_lexer::TokenKind;
 use std::collections::hash_map::Entry;
 use std::ffi::OsString;
 use std::path::Path;

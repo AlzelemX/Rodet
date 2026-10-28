@@ -359,4 +359,4 @@ LL | type SignedWrap = pattern_type!(i8 is 120..=-120);
 
 error: aborting due to 15 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

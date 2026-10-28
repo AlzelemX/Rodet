@@ -28,7 +28,7 @@ use hir_ide::{
     next_solver::{ClauseKind, Unnormalized},
 };
 use itertools::Itertools;
-use rustc_type_ir::inherent::IntoKind as _;
+use rodetc_type_ir::inherent::IntoKind as _;
 
 use crate::{
     Adt, AnyFunctionId, AsAssocItem, AssocItem, AssocItemContainer, Const, ConstParam, Crate, Enum,

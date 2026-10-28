@@ -4,7 +4,7 @@ use ena::{
     snapshot_vec as sv,
     unify::{self as ut, UnifyKey},
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     ConstVid, FloatVid, IntVid, RegionVid, TyVid, TypeFoldable, TypeFolder, TypeSuperFoldable,
     TypeVisitableExt, inherent::IntoKind,
 };
@@ -179,7 +179,7 @@ impl<'a, 'db> TypeFolder<DbInterner<'db>> for InferenceFudger<'a, 'db> {
     fn fold_ty(&mut self, ty: Ty<'db>) -> Ty<'db> {
         if let TyKind::Infer(infer_ty) = ty.kind() {
             match infer_ty {
-                rustc_type_ir::TyVar(vid) => {
+                rodetc_type_ir::TyVar(vid) => {
                     if self.snapshot_vars.type_vars.0.contains(&vid) {
                         // This variable was created during the fudging.
                         // Recreate it with a fresh variable here.
@@ -198,23 +198,23 @@ impl<'a, 'db> TypeFolder<DbInterner<'db>> for InferenceFudger<'a, 'db> {
                         ty
                     }
                 }
-                rustc_type_ir::IntVar(vid) => {
+                rodetc_type_ir::IntVar(vid) => {
                     if self.snapshot_vars.int_vars.contains(&vid) {
                         self.infcx.next_int_var()
                     } else {
                         ty
                     }
                 }
-                rustc_type_ir::FloatVar(vid) => {
+                rodetc_type_ir::FloatVar(vid) => {
                     if self.snapshot_vars.float_vars.contains(&vid) {
                         self.infcx.next_float_var()
                     } else {
                         ty
                     }
                 }
-                rustc_type_ir::FreshTy(_)
-                | rustc_type_ir::FreshIntTy(_)
-                | rustc_type_ir::FreshFloatTy(_) => {
+                rodetc_type_ir::FreshTy(_)
+                | rodetc_type_ir::FreshIntTy(_)
+                | rodetc_type_ir::FreshFloatTy(_) => {
                     unreachable!("unexpected fresh infcx var")
                 }
             }
@@ -242,7 +242,7 @@ impl<'a, 'db> TypeFolder<DbInterner<'db>> for InferenceFudger<'a, 'db> {
     fn fold_const(&mut self, ct: Const<'db>) -> Const<'db> {
         if let ConstKind::Infer(infer_ct) = ct.kind() {
             match infer_ct {
-                rustc_type_ir::InferConst::Var(vid) => {
+                rodetc_type_ir::InferConst::Var(vid) => {
                     if self.snapshot_vars.const_vars.0.contains(&vid) {
                         let idx = vid.index() - self.snapshot_vars.const_vars.0.start.index();
                         let span = self.snapshot_vars.const_vars.1[idx];
@@ -251,7 +251,7 @@ impl<'a, 'db> TypeFolder<DbInterner<'db>> for InferenceFudger<'a, 'db> {
                         ct
                     }
                 }
-                rustc_type_ir::InferConst::Fresh(_) => {
+                rodetc_type_ir::InferConst::Fresh(_) => {
                     unreachable!("unexpected fresh infcx var")
                 }
             }

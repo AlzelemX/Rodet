@@ -42,10 +42,10 @@ use hir_def::{
     upvars::{Upvars, UpvarsRef},
 };
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_abi::ExternAbi;
-use rustc_ast_ir::Mutability;
+use rodetc_abi::ExternAbi;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::{FxBuildHasher, FxHashMap};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     BoundVar, ClosureKind,
     inherent::{AdtDef as _, GenericArgs as _, IntoKind as _, Ty as _},
 };
@@ -408,7 +408,7 @@ impl<'db> InferenceContext<'db> {
         if let UpvarArgs::CoroutineClosure(args) = args {
             let closure_env_region: Region<'_> = Region::new_bound(
                 self.interner(),
-                rustc_type_ir::INNERMOST,
+                rodetc_type_ir::INNERMOST,
                 BoundRegion { var: BoundVar::ZERO, kind: BoundRegionKind::ClosureEnv },
             );
 

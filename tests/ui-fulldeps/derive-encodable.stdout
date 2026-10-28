@@ -9,16 +9,16 @@ extern crate std;
 #[prelude_import]
 use std::prelude::rust_2024::*;
 
-extern crate rustc_macros;
-extern crate rustc_serialize;
-extern crate rustc_span;
+extern crate rodetc_macros;
+extern crate rodetc_serialize;
+extern crate rodetc_span;
 
-use rustc_macros::Encodable;
+use rodetc_macros::Encodable;
 
 struct UnitStruct;
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for UnitStruct {
             fn encode(&self, __encoder: &mut __E) {}
         }
@@ -27,7 +27,7 @@ const _: () =
 struct EmptyStruct {}
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for EmptyStruct {
             fn encode(&self, __encoder: &mut __E) {}
         }
@@ -36,7 +36,7 @@ const _: () =
 enum EmptyEnum {}
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for EmptyEnum {
             fn encode(&self, __encoder: &mut __E) {}
         }
@@ -45,7 +45,7 @@ const _: () =
 enum SingleFieldlessEnum { A, }
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for SingleFieldlessEnum {
             fn encode(&self, __encoder: &mut __E) {}
         }
@@ -54,11 +54,11 @@ const _: () =
 enum SingleEnum { A(u32), }
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for SingleEnum {
             fn encode(&self, __encoder: &mut __E) {
                 let SingleEnum::A(ref __binding_0) = *self;
-                ::rustc_serialize::Encodable::<__E>::encode(__binding_0,
+                ::rodetc_serialize::Encodable::<__E>::encode(__binding_0,
                     __encoder);
             }
         }
@@ -67,7 +67,7 @@ const _: () =
 enum FieldlessEnum { A, B, }
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for FieldlessEnum {
             fn encode(&self, __encoder: &mut __E) {
                 let disc =
@@ -75,7 +75,7 @@ const _: () =
                         FieldlessEnum::A => { 0usize }
                         FieldlessEnum::B => { 1usize }
                     };
-                ::rustc_serialize::Encoder::emit_u8(__encoder, disc as u8);
+                ::rodetc_serialize::Encoder::emit_u8(__encoder, disc as u8);
             }
         }
     };
@@ -83,7 +83,7 @@ const _: () =
 enum PartlyFieldlessEnum { A, B(u32), }
 const _: () =
     {
-        impl<__E: ::rustc_span::SpanEncoder> ::rustc_serialize::Encodable<__E>
+        impl<__E: ::rodetc_span::SpanEncoder> ::rodetc_serialize::Encodable<__E>
             for PartlyFieldlessEnum {
             fn encode(&self, __encoder: &mut __E) {
                 let disc =
@@ -91,11 +91,11 @@ const _: () =
                         PartlyFieldlessEnum::A => { 0usize }
                         PartlyFieldlessEnum::B(ref __binding_0) => { 1usize }
                     };
-                ::rustc_serialize::Encoder::emit_u8(__encoder, disc as u8);
+                ::rodetc_serialize::Encoder::emit_u8(__encoder, disc as u8);
                 match *self {
                     PartlyFieldlessEnum::A => {}
                     PartlyFieldlessEnum::B(ref __binding_0) => {
-                        ::rustc_serialize::Encodable::<__E>::encode(__binding_0,
+                        ::rodetc_serialize::Encodable::<__E>::encode(__binding_0,
                             __encoder);
                     }
                 }

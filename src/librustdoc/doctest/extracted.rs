@@ -3,8 +3,8 @@
 //! This module contains the logic to extract doctests and output a JSON containing this
 //! information.
 
-use rustc_span::RemapPathScopeComponents;
-use rustc_span::edition::Edition;
+use rodetc_span::RemapPathScopeComponents;
+use rodetc_span::edition::Edition;
 use serde::Serialize;
 
 use super::make::DocTestWrapResult;

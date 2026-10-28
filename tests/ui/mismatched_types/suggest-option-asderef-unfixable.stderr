@@ -80,4 +80,4 @@ LL |     let _ = Some(TypeWithoutDeref).and_then(|arg0: TypeWithoutDeref| takes_
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0277, E0593, E0631.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

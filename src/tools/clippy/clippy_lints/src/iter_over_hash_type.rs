@@ -2,7 +2,7 @@ use clippy_utils::diagnostics::span_lint;
 use clippy_utils::higher::ForLoop;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::sym;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -37,7 +37,7 @@ declare_clippy_lint! {
 declare_lint_pass!(IterOverHashType => [ITER_OVER_HASH_TYPE]);
 
 impl LateLintPass<'_> for IterOverHashType {
-    fn check_expr(&mut self, cx: &LateContext<'_>, expr: &'_ rustc_hir::Expr<'_>) {
+    fn check_expr(&mut self, cx: &LateContext<'_>, expr: &'_ rodetc_hir::Expr<'_>) {
         let hash_iter_tys = [
             sym::HashMap,
             sym::HashSet,

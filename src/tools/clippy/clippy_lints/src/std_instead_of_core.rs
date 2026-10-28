@@ -3,14 +3,14 @@ use clippy_utils::diagnostics::{span_lint_and_help, span_lint_and_sugg};
 use clippy_utils::is_from_proc_macro;
 use clippy_utils::msrvs::Msrv;
 use clippy_utils::paths::{PathNS, lookup_path};
-use rustc_attr_ir::{StabilityLevel, StableSince};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Namespace, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Block, Body, HirId, Item, ItemKind, Path, PathSegment, UseKind, UseTree};
-use rustc_lint::{LateContext, LateLintPass, Lint, LintContext as _, impl_lint_pass};
-use rustc_span::symbol::kw;
-use rustc_span::{Ident, Span, Symbol, sym};
+use rodetc_attr_ir::{StabilityLevel, StableSince};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Namespace, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Block, Body, HirId, Item, ItemKind, Path, PathSegment, UseKind, UseTree};
+use rodetc_lint::{LateContext, LateLintPass, Lint, LintContext as _, impl_lint_pass};
+use rodetc_span::symbol::kw;
+use rodetc_span::{Ident, Span, Symbol, sym};
 
 declare_clippy_lint! {
     /// ### What it does

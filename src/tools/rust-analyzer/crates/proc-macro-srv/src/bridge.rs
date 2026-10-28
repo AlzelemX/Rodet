@@ -1,6 +1,6 @@
 //! `proc_macro::bridge` newtypes.
 
-use rustc_proc_macro::bridge as pm_bridge;
+use rodetc_proc_macro::bridge as pm_bridge;
 
 pub use pm_bridge::{DelimSpan, Diagnostic, ExpnGlobals, IdentKind, LitKind};
 

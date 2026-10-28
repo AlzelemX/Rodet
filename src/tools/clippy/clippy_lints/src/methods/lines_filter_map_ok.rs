@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _, MaybeTypeckRes as _};
 use clippy_utils::sym;
-use rustc_errors::Applicability;
-use rustc_hir::{Body, Closure, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Body, Closure, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
 
 use super::LINES_FILTER_MAP_OK;
 

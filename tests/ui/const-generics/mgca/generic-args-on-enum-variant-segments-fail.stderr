@@ -38,4 +38,4 @@ LL |     const _: Enum<()> = gca!(self::<i32>::Enum::<()>::Store);
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0109`.
+For more information about this error, try `rodetc --explain E0109`.

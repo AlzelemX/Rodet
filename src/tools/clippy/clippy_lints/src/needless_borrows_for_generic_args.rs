@@ -5,20 +5,20 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::ty::{implements_trait, is_copy};
 use clippy_utils::{DefinedTy, ExprUseNode, get_expr_use_site, peel_n_hir_expr_refs, sym};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, LocalDefId};
-use rustc_hir::{Body, Expr, ExprKind, Mutability, Path, QPath};
-use rustc_index::bit_set::DenseBitSet;
-use rustc_infer::infer::TyCtxtInferExt as _;
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::mir::{Rvalue, StatementKind};
-use rustc_middle::ty::{
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, LocalDefId};
+use rodetc_hir::{Body, Expr, ExprKind, Mutability, Path, QPath};
+use rodetc_index::bit_set::DenseBitSet;
+use rodetc_infer::infer::TyCtxtInferExt as _;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::mir::{Rvalue, StatementKind};
+use rodetc_middle::ty::{
     self, ClauseKind, EarlyBinder, FnSig, GenericArg, GenericArgKind, ParamTy, ProjectionClause, Ty, Unnormalized,
 };
-use rustc_span::SyntaxContext;
-use rustc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
-use rustc_trait_selection::traits::{Obligation, ObligationCause};
+use rodetc_span::SyntaxContext;
+use rodetc_trait_selection::traits::query::evaluate_obligation::InferCtxtExt as _;
+use rodetc_trait_selection::traits::{Obligation, ObligationCause};
 use std::collections::VecDeque;
 
 declare_clippy_lint! {

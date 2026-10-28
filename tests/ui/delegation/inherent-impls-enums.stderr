@@ -68,4 +68,4 @@ LL |     fn foo_self<'d: 'd, 'e, T, const B: bool>(self) {}
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0284, E0308.
-For more information about an error, try `rustc --explain E0284`.
+For more information about an error, try `rodetc --explain E0284`.

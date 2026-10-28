@@ -6,7 +6,7 @@
 | Feature | Status | NoteBook |
 |---|---|---|
 | `out!` print macro | 🟢 Done | [001](notebook/001-out-macro.md) |
-| `rustc --version` says Rodet | 🟢 Done | [002](notebook/002-rodet-name.md) |
+| The compiler says Rodet | 🟢 Done | [002](notebook/002-rodet-name.md) |
 | Build without Rust's servers | 🟢 Done | [003](notebook/003-own-servers.md) |
 | Windows, Linux, macOS builds | 🟢 Done | [004](notebook/004-platforms.md) |
 | `rodet_init` installers | 🟢 Done | [005](notebook/005-installers.md) |
@@ -20,6 +20,7 @@
 | DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
 | Compiler messages and std docs in Arabic + English | 🟢 Done (messages 70%, std summaries 99%, full docs for the most used) | [014](notebook/014-arabic-in-the-language.md) |
 | DEVR+ plugins (change anything: commands, views, themes, the whole look) | 🟢 Done | [015](notebook/015-devr-plugins.md) |
+| Own names: `rodetc`, Silk (`rodet`), `Silk.toml`, `.rd` files | 🟢 Done | [016](notebook/016-own-names.md) |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |

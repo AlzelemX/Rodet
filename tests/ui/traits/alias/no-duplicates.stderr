@@ -510,4 +510,4 @@ LL | type _T60 = dyn _11 + _12;
 
 error: aborting due to 27 previous errors
 
-For more information about this error, try `rustc --explain E0225`.
+For more information about this error, try `rodetc --explain E0225`.

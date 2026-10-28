@@ -12,26 +12,26 @@
 //! code was written, and check if the span contains that text. Note this will only work correctly
 //! if the span is not from a `macro_rules` based macro.
 
-use rustc_abi::ExternAbi;
-use rustc_ast as ast;
-use rustc_ast::AttrStyle;
-use rustc_ast::ast::{
+use rodetc_abi::ExternAbi;
+use rodetc_ast as ast;
+use rodetc_ast::AttrStyle;
+use rodetc_ast::ast::{
     AttrKind, Attribute, BindingMode, GenericArgs, IntTy, LitIntType, LitKind, StrStyle, TraitObjectSyntax, UintTy,
 };
-use rustc_ast::token::CommentKind;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_ast::token::CommentKind;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     Block, BlockCheckMode, Body, BoundConstness, BoundPolarity, Closure, Destination, Expr, ExprKind, FieldDef,
     FnHeader, FnRetTy, HirId, Impl, ImplItem, ImplItemImplKind, ImplItemKind, IsAuto, Item, ItemKind, Lit, LoopSource,
     MatchSource, Node, PatExpr, PatExprKind, PatKind, Path, PolyTraitRef, QPath, Safety, TraitBoundModifiers,
     TraitImplHeader, TraitItem, TraitItemKind, TraitRef, Ty, TyKind, UnOp, UnsafeSource, Variant, VariantData,
     YieldSource,
 };
-use rustc_lint::{EarlyContext, LateContext, LintContext};
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
-use rustc_span::symbol::{Ident, kw};
-use rustc_span::{Span, Symbol, sym};
+use rodetc_lint::{EarlyContext, LateContext, LintContext};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
+use rodetc_span::symbol::{Ident, kw};
+use rodetc_span::{Span, Symbol, sym};
 
 /// The search pattern to look for. Used by `span_matches_pat`
 #[derive(Clone)]
@@ -243,7 +243,7 @@ fn expr_search_pat(tcx: TyCtxt<'_>, e: &Expr<'_>) -> (Pat, Pat) {
 fn fn_header_search_pat(header: FnHeader) -> Pat {
     if header.is_async() {
         Pat::Str("async")
-    } else if matches!(header.constness, rustc_hir::Constness::Const { always: false }) {
+    } else if matches!(header.constness, rodetc_hir::Constness::Const { always: false }) {
         Pat::Str("const")
     } else if header.is_unsafe() {
         Pat::Str("unsafe")
@@ -592,7 +592,7 @@ fn ident_search_pat(ident: Ident) -> (Pat, Pat) {
     (Pat::Sym(ident.name), Pat::Sym(ident.name))
 }
 
-fn pat_search_pat(tcx: TyCtxt<'_>, pat: &rustc_hir::Pat<'_>) -> (Pat, Pat) {
+fn pat_search_pat(tcx: TyCtxt<'_>, pat: &rodetc_hir::Pat<'_>) -> (Pat, Pat) {
     match pat.kind {
         // Tuple patterns cannot show up in proc-macro checks
         PatKind::Missing | PatKind::Err(_) | PatKind::Tuple(_, _) => (Pat::Str(""), Pat::Str("")),
@@ -646,23 +646,23 @@ fn pat_search_pat(tcx: TyCtxt<'_>, pat: &rustc_hir::Pat<'_>) -> (Pat, Pat) {
             (start, end)
         },
         PatKind::Range(None, None, range) => match range {
-            rustc_hir::RangeEnd::Included => (Pat::Str("..="), Pat::Str("")),
-            rustc_hir::RangeEnd::Excluded => (Pat::Str(".."), Pat::Str("")),
+            rodetc_hir::RangeEnd::Included => (Pat::Str("..="), Pat::Str("")),
+            rodetc_hir::RangeEnd::Excluded => (Pat::Str(".."), Pat::Str("")),
         },
         PatKind::Range(r_start, r_end, range) => {
             let start = match r_start {
                 Some(e) => pat_expr_search_pat(e).0,
                 None => match range {
-                    rustc_hir::RangeEnd::Included => Pat::Str("..="),
-                    rustc_hir::RangeEnd::Excluded => Pat::Str(".."),
+                    rodetc_hir::RangeEnd::Included => Pat::Str("..="),
+                    rodetc_hir::RangeEnd::Excluded => Pat::Str(".."),
                 },
             };
 
             let end = match r_end {
                 Some(e) => pat_expr_search_pat(e).1,
                 None => match range {
-                    rustc_hir::RangeEnd::Included => Pat::Str("..="),
-                    rustc_hir::RangeEnd::Excluded => Pat::Str(".."),
+                    rodetc_hir::RangeEnd::Included => Pat::Str("..="),
+                    rodetc_hir::RangeEnd::Excluded => Pat::Str(".."),
                 },
             };
             (start, end)
@@ -710,7 +710,7 @@ impl_with_search_pat!((_cx: LateContext<'tcx>, self: Ident) => ident_search_pat(
 impl_with_search_pat!((_cx: LateContext<'tcx>, self: Lit) => lit_search_pat(&self.node));
 impl_with_search_pat!((_cx: LateContext<'tcx>, self: Path<'_>) => path_search_pat(self));
 impl_with_search_pat!((_cx: LateContext<'tcx>, self: PolyTraitRef<'_>) => poly_trait_ref_search_pat(self));
-impl_with_search_pat!((cx: LateContext<'tcx>, self: rustc_hir::Pat<'_>) => pat_search_pat(cx.tcx, self));
+impl_with_search_pat!((cx: LateContext<'tcx>, self: rodetc_hir::Pat<'_>) => pat_search_pat(cx.tcx, self));
 
 impl_with_search_pat!((_cx: EarlyContext<'tcx>, self: Attribute) => attr_search_pat(self));
 impl_with_search_pat!((_cx: EarlyContext<'tcx>, self: ast::Ty) => ast_ty_search_pat(self));

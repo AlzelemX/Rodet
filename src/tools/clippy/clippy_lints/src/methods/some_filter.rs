@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::{as_some_expr, pat_is_wild, peel_blocks, span_contains_comment};
-use rustc_ast::util::parser::ExprPrecedence;
-use rustc_errors::Applicability;
-use rustc_hir::{Body, Expr, ExprKind};
-use rustc_lint::LateContext;
+use rodetc_ast::util::parser::ExprPrecedence;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Body, Expr, ExprKind};
+use rodetc_lint::LateContext;
 
 use super::SOME_FILTER;
 

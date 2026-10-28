@@ -38,4 +38,4 @@ LL |     let _: InvalidFormat2<i32> = InvalidFormat1(3.14);
 
 error: aborting due to 2 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

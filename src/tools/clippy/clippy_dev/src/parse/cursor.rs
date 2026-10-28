@@ -1,8 +1,8 @@
 use crate::utils::{StrBuf, VecBuf};
 use crate::{DiagCx, SourceFile, Span};
 use core::{ptr, slice};
-use rustc_arena::DroplessArena;
-use rustc_lexer::{self as lex, LiteralKind, Token, TokenKind};
+use rodetc_arena::DroplessArena;
+use rodetc_lexer::{self as lex, LiteralKind, Token, TokenKind};
 
 /// A token pattern used for searching and matching by the [`Cursor`].
 ///

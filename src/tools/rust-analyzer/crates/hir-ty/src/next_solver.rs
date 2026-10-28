@@ -39,27 +39,27 @@ pub use interner::*;
 pub use opaques::*;
 pub use predicate::*;
 pub use region::*;
-use rustc_type_ir::MayBeErased;
+use rodetc_type_ir::MayBeErased;
 pub use solver::*;
 pub use ty::*;
 
 pub use crate::lower::ImplTraitIdx;
-pub use rustc_ast_ir::Mutability;
+pub use rodetc_ast_ir::Mutability;
 
-pub type Binder<'db, T> = rustc_type_ir::Binder<DbInterner<'db>, T>;
-pub type EarlyBinder<'db, T> = rustc_type_ir::EarlyBinder<DbInterner<'db>, T>;
-pub type Unnormalized<'db, T> = rustc_type_ir::Unnormalized<DbInterner<'db>, T>;
-pub type Canonical<'db, T> = rustc_type_ir::Canonical<DbInterner<'db>, T>;
-pub type CanonicalVarValues<'db> = rustc_type_ir::CanonicalVarValues<DbInterner<'db>>;
-pub type CanonicalVarKind<'db> = rustc_type_ir::CanonicalVarKind<DbInterner<'db>>;
-pub type CanonicalQueryInput<'db, V> = rustc_type_ir::CanonicalQueryInput<DbInterner<'db>, V>;
-pub type AliasTy<'db> = rustc_type_ir::AliasTy<DbInterner<'db>>;
-pub type FnSig<'db> = rustc_type_ir::FnSig<DbInterner<'db>>;
-pub type PolyFnSig<'db> = Binder<'db, rustc_type_ir::FnSig<DbInterner<'db>>>;
-pub type TypingMode<'db, S = MayBeErased> = rustc_type_ir::TypingMode<DbInterner<'db>, S>;
-pub type TypeError<'db> = rustc_type_ir::error::TypeError<DbInterner<'db>>;
-pub type QueryResult<'db> = rustc_type_ir::solve::QueryResult<DbInterner<'db>>;
-pub type FxIndexMap<K, V> = rustc_type_ir::data_structures::IndexMap<K, V>;
+pub type Binder<'db, T> = rodetc_type_ir::Binder<DbInterner<'db>, T>;
+pub type EarlyBinder<'db, T> = rodetc_type_ir::EarlyBinder<DbInterner<'db>, T>;
+pub type Unnormalized<'db, T> = rodetc_type_ir::Unnormalized<DbInterner<'db>, T>;
+pub type Canonical<'db, T> = rodetc_type_ir::Canonical<DbInterner<'db>, T>;
+pub type CanonicalVarValues<'db> = rodetc_type_ir::CanonicalVarValues<DbInterner<'db>>;
+pub type CanonicalVarKind<'db> = rodetc_type_ir::CanonicalVarKind<DbInterner<'db>>;
+pub type CanonicalQueryInput<'db, V> = rodetc_type_ir::CanonicalQueryInput<DbInterner<'db>, V>;
+pub type AliasTy<'db> = rodetc_type_ir::AliasTy<DbInterner<'db>>;
+pub type FnSig<'db> = rodetc_type_ir::FnSig<DbInterner<'db>>;
+pub type PolyFnSig<'db> = Binder<'db, rodetc_type_ir::FnSig<DbInterner<'db>>>;
+pub type TypingMode<'db, S = MayBeErased> = rodetc_type_ir::TypingMode<DbInterner<'db>, S>;
+pub type TypeError<'db> = rodetc_type_ir::error::TypeError<DbInterner<'db>>;
+pub type QueryResult<'db> = rodetc_type_ir::solve::QueryResult<DbInterner<'db>>;
+pub type FxIndexMap<K, V> = rodetc_type_ir::data_structures::IndexMap<K, V>;
 
 pub struct DefaultTypes<'db> {
     pub usize: Ty<'db>,
@@ -247,39 +247,39 @@ pub fn default_types<'db>() -> &'db DefaultAny<'db> {
         let statik = create_region(RegionKind::ReStatic);
         let empty_tys = create_tys(&[]);
         let unit = create_ty(TyKind::Tuple(empty_tys));
-        let u8 = create_ty(TyKind::Uint(rustc_ast_ir::UintTy::U8));
+        let u8 = create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::U8));
         let u8_slice = create_ty(TyKind::Slice(u8));
         let static_u8_slice = create_ty(TyKind::Ref(statik, u8_slice, Mutability::Not));
         DefaultAny {
             types: DefaultTypes {
-                usize: create_ty(TyKind::Uint(rustc_ast_ir::UintTy::Usize)),
+                usize: create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::Usize)),
                 u8,
-                u16: create_ty(TyKind::Uint(rustc_ast_ir::UintTy::U16)),
-                u32: create_ty(TyKind::Uint(rustc_ast_ir::UintTy::U32)),
-                u64: create_ty(TyKind::Uint(rustc_ast_ir::UintTy::U64)),
-                u128: create_ty(TyKind::Uint(rustc_ast_ir::UintTy::U128)),
-                isize: create_ty(TyKind::Int(rustc_ast_ir::IntTy::Isize)),
-                i8: create_ty(TyKind::Int(rustc_ast_ir::IntTy::I8)),
-                i16: create_ty(TyKind::Int(rustc_ast_ir::IntTy::I16)),
-                i32: create_ty(TyKind::Int(rustc_ast_ir::IntTy::I32)),
-                i64: create_ty(TyKind::Int(rustc_ast_ir::IntTy::I64)),
-                i128: create_ty(TyKind::Int(rustc_ast_ir::IntTy::I128)),
-                f16: create_ty(TyKind::Float(rustc_ast_ir::FloatTy::F16)),
-                f32: create_ty(TyKind::Float(rustc_ast_ir::FloatTy::F32)),
-                f64: create_ty(TyKind::Float(rustc_ast_ir::FloatTy::F64)),
-                f128: create_ty(TyKind::Float(rustc_ast_ir::FloatTy::F128)),
+                u16: create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::U16)),
+                u32: create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::U32)),
+                u64: create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::U64)),
+                u128: create_ty(TyKind::Uint(rodetc_ast_ir::UintTy::U128)),
+                isize: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::Isize)),
+                i8: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::I8)),
+                i16: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::I16)),
+                i32: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::I32)),
+                i64: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::I64)),
+                i128: create_ty(TyKind::Int(rodetc_ast_ir::IntTy::I128)),
+                f16: create_ty(TyKind::Float(rodetc_ast_ir::FloatTy::F16)),
+                f32: create_ty(TyKind::Float(rodetc_ast_ir::FloatTy::F32)),
+                f64: create_ty(TyKind::Float(rodetc_ast_ir::FloatTy::F64)),
+                f128: create_ty(TyKind::Float(rodetc_ast_ir::FloatTy::F128)),
                 unit,
                 bool: create_ty(TyKind::Bool),
                 char: create_ty(TyKind::Char),
                 str,
                 never: create_ty(TyKind::Never),
                 error: create_ty(TyKind::Error(ErrorGuaranteed)),
-                static_str_ref: create_ty(TyKind::Ref(statik, str, rustc_ast_ir::Mutability::Not)),
+                static_str_ref: create_ty(TyKind::Ref(statik, str, rodetc_ast_ir::Mutability::Not)),
                 u8_slice,
                 static_u8_slice,
-                mut_unit_ptr: create_ty(TyKind::RawPtr(unit, rustc_ast_ir::Mutability::Mut)),
+                mut_unit_ptr: create_ty(TyKind::RawPtr(unit, rodetc_ast_ir::Mutability::Mut)),
                 // This type must not appear anywhere except here.
-                dyn_trait_dummy_self: create_ty(TyKind::Infer(rustc_type_ir::InferTy::FreshTy(0))),
+                dyn_trait_dummy_self: create_ty(TyKind::Infer(rodetc_type_ir::InferTy::FreshTy(0))),
             },
             consts: DefaultConsts {
                 error: create_const(ConstKind::Error(ErrorGuaranteed)),
@@ -310,8 +310,8 @@ pub fn default_types<'db>() -> &'db DefaultAny<'db> {
                 consts: create_consts(&[]),
                 projection: create_projection(&[]),
             },
-            one_invariant: create_variances_of(&[rustc_type_ir::Variance::Invariant]),
-            one_covariant: create_variances_of(&[rustc_type_ir::Variance::Covariant]),
+            one_invariant: create_variances_of(&[rodetc_type_ir::Variance::Invariant]),
+            one_covariant: create_variances_of(&[rodetc_type_ir::Variance::Covariant]),
             coroutine_captures_by_ref_bound_var_kinds: create_bound_var_kinds(&[
                 BoundVariableKind::Region(BoundRegionKind::ClosureEnv),
             ]),

@@ -6,4 +6,4 @@ LL |     let a = unsafe { mem::transmute::<usize, extern "rust-invalid" fn(i32)>
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0570`.
+For more information about this error, try `rodetc --explain E0570`.

@@ -80,4 +80,4 @@ LL |     bar(|arg0: usize| f(/* u64 */));
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0631`.
+For more information about this error, try `rodetc --explain E0631`.

@@ -22,4 +22,4 @@ LL |     extern crate test;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0432, E0658.
-For more information about an error, try `rustc --explain E0432`.
+For more information about an error, try `rodetc --explain E0432`.

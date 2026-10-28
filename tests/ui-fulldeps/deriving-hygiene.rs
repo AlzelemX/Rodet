@@ -2,16 +2,16 @@
 
 #![allow(non_upper_case_globals)]
 #![feature(rustc_private)]
-extern crate rustc_macros;
-extern crate rustc_serialize;
-extern crate rustc_span;
+extern crate rodetc_macros;
+extern crate rodetc_serialize;
+extern crate rodetc_span;
 
-use rustc_macros::{Decodable, Encodable};
+use rodetc_macros::{Decodable, Encodable};
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 pub const other: u8 = 1;
 pub const f: u8 = 1;

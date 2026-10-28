@@ -44,4 +44,4 @@ LL |   p.method();
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0055, E0307, E0599.
-For more information about an error, try `rustc --explain E0055`.
+For more information about an error, try `rodetc --explain E0055`.

@@ -42,4 +42,4 @@ LL | fn define_nested_rpit<T: 'static>() -> OuterOpaque2<T> {}
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

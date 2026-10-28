@@ -5,14 +5,14 @@ use clippy_utils::sugg::{Sugg, make_unop};
 use clippy_utils::ty::needs_ordered_drop;
 use clippy_utils::visitors::{any_temporaries_need_ordered_drop, for_each_expr_without_closures};
 use clippy_utils::{get_parent_expr, is_expn_of, sym};
-use rustc_ast::ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem::{self, OptionNone, OptionSome, PollPending, PollReady, ResultErr, ResultOk};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Arm, BinOpKind, Expr, ExprKind, Node, Pat, PatExpr, PatExprKind, PatKind, QPath, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, GenericArgKind, Ty};
-use rustc_span::{Span, Symbol, kw};
+use rodetc_ast::ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem::{self, OptionNone, OptionSome, PollPending, PollReady, ResultErr, ResultOk};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Arm, BinOpKind, Expr, ExprKind, Node, Pat, PatExpr, PatExprKind, PatKind, QPath, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, GenericArgKind, Ty};
+use rodetc_span::{Span, Symbol, kw};
 use std::fmt::Write as _;
 use std::ops::ControlFlow;
 
@@ -427,7 +427,7 @@ fn found_good_method<'tcx>(
     }
 }
 
-fn get_ident(path: &QPath<'_>) -> Option<rustc_span::symbol::Ident> {
+fn get_ident(path: &QPath<'_>) -> Option<rodetc_span::symbol::Ident> {
     match path {
         QPath::Resolved(_, path) => {
             let name = path.segments[0].ident;

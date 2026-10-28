@@ -168,4 +168,4 @@ LL |     #[rustc_confusables("blah"suffix)]
 
 error: aborting due to 21 previous errors; 2 warnings emitted
 
-For more information about this error, try `rustc --explain E0539`.
+For more information about this error, try `rodetc --explain E0539`.

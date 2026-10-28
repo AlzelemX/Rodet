@@ -4,9 +4,9 @@ use std::sync::RwLock;
 use genmc_sys::{GENMC_GLOBAL_ADDRESSES_MASK, get_global_alloc_static_mask};
 use rand::SeedableRng;
 use rand::rngs::StdRng;
-use rustc_const_eval::interpret::{AllocId, AllocInfo, InterpResult, interp_ok};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_log::tracing::debug;
+use rodetc_const_eval::interpret::{AllocId, AllocInfo, InterpResult, interp_ok};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_log::tracing::debug;
 
 use crate::alloc_addresses::AddressGenerator;
 

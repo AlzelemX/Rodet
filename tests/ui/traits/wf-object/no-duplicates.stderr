@@ -55,4 +55,4 @@ LL | type _5 = dyn ObjT<for<'a> fn(&'a u8)> + ObjT<for<'b> fn(&'b u8)>;
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0225`.
+For more information about this error, try `rodetc --explain E0225`.

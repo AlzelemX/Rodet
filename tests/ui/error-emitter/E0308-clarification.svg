@@ -88,7 +88,7 @@
 </tspan>
     <tspan x="10px" y="622px">
 </tspan>
-    <tspan x="10px" y="640px"><tspan class="bold">For more information about this error, try `rustc --explain E0308`.</tspan>
+    <tspan x="10px" y="640px"><tspan class="bold">For more information about this error, try `rodetc --explain E0308`.</tspan>
 </tspan>
     <tspan x="10px" y="658px">
 </tspan>

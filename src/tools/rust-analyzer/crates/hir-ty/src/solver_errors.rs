@@ -6,7 +6,7 @@
 //! [`NextSolverError`]: crate::next_solver::fulfill::NextSolverError
 
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_type_ir::{PredicatePolarity, inherent::IntoKind};
+use rodetc_type_ir::{PredicatePolarity, inherent::IntoKind};
 
 use crate::{
     Span,

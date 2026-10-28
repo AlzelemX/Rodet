@@ -1,7 +1,7 @@
 //! DEVR+ backend.
 //!
 //! Everything the editor needs from the computer goes through [`Core::call`]:
-//! files, the Rodet toolchain, the language server (rodet-analyzer), Cargo,
+//! files, the Rodet toolchain, the language server (rodet-analyzer), Silk,
 //! terminals, search and plugins. Results come back as JSON; things that happen later
 //! (language server messages, terminal output, file changes) are sent as
 //! events through the [`EventSink`].
@@ -10,7 +10,7 @@
 //! `devr-server`, which serves the editor over a WebSocket.
 
 mod book;
-mod cargo;
+mod silk;
 mod files;
 mod lsp;
 mod plugins;
@@ -153,14 +153,14 @@ impl Core {
                 Value::Null
             }
 
-            "cargo.project" => to_json(cargo::project(&parse::<files::PathParam>(params)?.path)?)?,
-            "cargo.new" => {
-                let p: cargo::NewParams = parse(params)?;
-                to_json(cargo::new_project(&p)?)?
+            "silk.project" => to_json(silk::project(&parse::<files::PathParam>(params)?.path)?)?,
+            "silk.new" => {
+                let p: silk::NewParams = parse(params)?;
+                to_json(silk::new_project(&p)?)?
             }
-            "cargo.latestVersion" => {
-                let p: cargo::CrateParam = parse(params)?;
-                to_json(cargo::latest_version(&p.name)?)?
+            "silk.latestVersion" => {
+                let p: silk::CrateParam = parse(params)?;
+                to_json(silk::latest_version(&p.name)?)?
             }
 
             "settings.get" => settings::load(),

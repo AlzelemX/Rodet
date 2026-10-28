@@ -25,4 +25,4 @@ LL | mod has_a_macro {
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0432`.
+For more information about this error, try `rodetc --explain E0432`.

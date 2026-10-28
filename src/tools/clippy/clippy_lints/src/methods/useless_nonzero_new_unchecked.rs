@@ -3,10 +3,10 @@ use clippy_utils::is_inside_always_const_context;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_applicability;
-use rustc_errors::Applicability;
-use rustc_hir::{Block, BlockCheckMode, Expr, ExprKind, Node, QPath, UnsafeSource};
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Block, BlockCheckMode, Expr, ExprKind, Node, QPath, UnsafeSource};
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::USELESS_NONZERO_NEW_UNCHECKED;
 

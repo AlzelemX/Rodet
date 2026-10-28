@@ -8,21 +8,21 @@ use crate::res::MaybeDef as _;
 use crate::source::{SpanExt as _, walk_span_to_context};
 use crate::{clip, is_direct_expn_of, sext, sym, unsext};
 
-use rustc_abi::Size;
+use rodetc_abi::Size;
 use rustc_apfloat::Float as _;
 use rustc_apfloat::ieee::{Half, Quad};
-use rustc_ast::ast::{LitFloatType, LitKind};
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{
+use rodetc_ast::ast::{LitFloatType, LitKind};
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{
     BinOpKind, Block, ConstArgKind, ConstBlock, ConstItemRhs, Expr, ExprKind, HirId, PatExpr, PatExprKind, QPath,
     TyKind, UnOp,
 };
-use rustc_lexer::{FrontmatterAllowed, tokenize};
-use rustc_lint::LateContext;
-use rustc_middle::mir::interpret::{Scalar, alloc_range};
-use rustc_middle::mir::{self, ConstValue};
-use rustc_middle::ty::{self, FloatTy, IntTy, ScalarInt, Ty, TyCtxt, TypeckResults, UintTy};
-use rustc_span::{Symbol, SyntaxContext, bug, span_bug};
+use rodetc_lexer::{FrontmatterAllowed, tokenize};
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::interpret::{Scalar, alloc_range};
+use rodetc_middle::mir::{self, ConstValue};
+use rodetc_middle::ty::{self, FloatTy, IntTy, ScalarInt, Ty, TyCtxt, TypeckResults, UintTy};
+use rodetc_span::{Symbol, SyntaxContext, bug, span_bug};
 use std::cell::Cell;
 use std::cmp::Ordering;
 use std::hash::{Hash, Hasher};
@@ -974,7 +974,7 @@ impl<'tcx> ConstEvalCtxt<'tcx> {
                     && let Some(src) = (span.lo..expr_lo).get_source_range(self.tcx)
                     && let Some(src) = src.as_str()
                 {
-                    use rustc_lexer::TokenKind::{BlockComment, LineComment, OpenBrace, Semi, Whitespace};
+                    use rodetc_lexer::TokenKind::{BlockComment, LineComment, OpenBrace, Semi, Whitespace};
                     if !tokenize(src, FrontmatterAllowed::No)
                         .map(|t| t.kind)
                         .filter(|t| !matches!(t, Whitespace | LineComment { .. } | BlockComment { .. } | Semi))

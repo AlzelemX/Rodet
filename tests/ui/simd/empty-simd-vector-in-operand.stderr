@@ -12,4 +12,4 @@ LL |         std::arch::asm!("{}", in(xmm_reg) A());
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0075`.
+For more information about this error, try `rodetc --explain E0075`.

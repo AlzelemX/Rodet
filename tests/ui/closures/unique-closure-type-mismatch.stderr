@@ -27,4 +27,4 @@ LL |         1 => |c: /* Type */| c + 1,
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0284, E0308.
-For more information about an error, try `rustc --explain E0284`.
+For more information about an error, try `rodetc --explain E0284`.

@@ -7,7 +7,7 @@ use hir_def::{
     hir::{ExprId, generics::GenericParamDataRef},
     type_ref::TypeRefId,
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     TypeFoldable,
     elaborate::elaborate,
     inherent::{BoundExistentialPredicates, IntoKind, Ty as _},

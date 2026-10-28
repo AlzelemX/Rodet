@@ -4,11 +4,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::Msrv;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::{is_in_const_context, msrvs};
-use rustc_ast::ast;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_span::Spanned;
+use rodetc_ast::ast;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Spanned;
 use std::f32::consts as f32_consts;
 use std::f64::consts as f64_consts;
 

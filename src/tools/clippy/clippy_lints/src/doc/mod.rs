@@ -3,25 +3,25 @@ use clippy_utils::attrs::is_doc_hidden;
 use clippy_utils::diagnostics::{span_lint, span_lint_and_help, span_lint_and_then};
 use clippy_utils::macros::root_macro_call;
 use clippy_utils::{is_entrypoint_fn, is_trait_impl_item, sym};
-use rustc_ast::token::DocFragmentKind;
-use rustc_attr_ir::Attribute;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::{FieldDef, ImplItemKind, ItemKind, Node, Safety, TraitItemKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_resolve::rustdoc::pulldown_cmark::Event::{
+use rodetc_ast::token::DocFragmentKind;
+use rodetc_attr_ir::Attribute;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::{FieldDef, ImplItemKind, ItemKind, Node, Safety, TraitItemKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_resolve::rustdoc::pulldown_cmark::Event::{
     Code, DisplayMath, End, FootnoteReference, HardBreak, Html, InlineHtml, InlineMath, Rule, SoftBreak, Start,
     TaskListMarker, Text,
 };
-use rustc_resolve::rustdoc::pulldown_cmark::Tag::{
+use rodetc_resolve::rustdoc::pulldown_cmark::Tag::{
     BlockQuote, CodeBlock, FootnoteDefinition, Heading, Item, Link, Paragraph,
 };
-use rustc_resolve::rustdoc::pulldown_cmark::{BrokenLink, CodeBlockKind, CowStr, Options, TagEnd};
-use rustc_resolve::rustdoc::{
+use rodetc_resolve::rustdoc::pulldown_cmark::{BrokenLink, CodeBlockKind, CowStr, Options, TagEnd};
+use rodetc_resolve::rustdoc::{
     DocFragment, add_doc_fragment, attrs_to_doc_fragments, main_body_opts, pulldown_cmark,
     source_span_for_markdown_range, span_of_fragments,
 };
-use rustc_span::Span;
+use rodetc_span::Span;
 use std::ops::Range;
 use url::Url;
 
@@ -744,7 +744,7 @@ impl Documentation {
 }
 
 impl EarlyLintPass for Documentation {
-    fn check_attributes(&mut self, cx: &EarlyContext<'_>, attrs: &[rustc_ast::Attribute]) {
+    fn check_attributes(&mut self, cx: &EarlyContext<'_>, attrs: &[rodetc_ast::Attribute]) {
         include_in_doc_without_cfg::check(cx, attrs);
     }
 }

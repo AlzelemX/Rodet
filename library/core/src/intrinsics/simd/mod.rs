@@ -617,7 +617,7 @@ pub const unsafe fn simd_scatter<T, U, V>(val: T, ptr: U, mask: V);
 #[derive(Debug, ConstParamTy, PartialEq, Eq)]
 pub enum SimdAlign {
     // These values must match the compiler's `SimdAlign` defined in
-    // `rustc_middle/src/ty/consts/int.rs`!
+    // `rodetc_middle/src/ty/consts/int.rs`!
     /// No alignment requirements on the pointer
     ///
     /// <div lang="ar" dir="rtl">

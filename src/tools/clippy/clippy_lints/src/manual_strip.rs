@@ -5,16 +5,16 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::usage::mutated_variables;
 use clippy_utils::{eq_expr_value, higher, sym};
-use rustc_ast::BindingMode;
-use rustc_ast::ast::LitKind;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::intravisit::{Visitor, walk_expr, walk_pat};
-use rustc_hir::{BinOpKind, BorrowKind, Expr, ExprKind, Node, PatKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::{Spanned, Symbol, SyntaxContext};
+use rodetc_ast::BindingMode;
+use rodetc_ast::ast::LitKind;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::intravisit::{Visitor, walk_expr, walk_pat};
+use rodetc_hir::{BinOpKind, BorrowKind, Expr, ExprKind, Node, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::{Spanned, Symbol, SyntaxContext};
 use std::iter;
 
 declare_clippy_lint! {
@@ -269,7 +269,7 @@ fn find_stripping<'tcx>(
             walk_expr(self, ex);
         }
 
-        fn visit_pat(&mut self, pat: &'tcx rustc_hir::Pat<'tcx>) -> Self::Result {
+        fn visit_pat(&mut self, pat: &'tcx rodetc_hir::Pat<'tcx>) -> Self::Result {
             if let PatKind::Binding(_, _, ident, _) = pat.kind {
                 *self.bindings.entry(ident.name).or_default() += 1;
             }

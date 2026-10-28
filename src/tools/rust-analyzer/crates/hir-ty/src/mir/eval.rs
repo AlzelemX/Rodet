@@ -17,14 +17,14 @@ use hir_def::{
 use hir_expand::{InFile, mod_path::path};
 use la_arena::ArenaMap;
 use macros::GenericTypeVisitable;
-use rustc_abi::{Size, TargetDataLayout};
+use rodetc_abi::{Size, TargetDataLayout};
 use rustc_apfloat::{
     Float,
     ieee::{Half as f16, Quad as f128},
 };
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::{FxHashMap, FxHashSet};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind,
     inherent::{GenericArgs as _, IntoKind, Region as _, SliceLike, Ty as _},
 };
@@ -1063,19 +1063,19 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                 }
                 if let TyKind::Float(f) = ty.kind() {
                     match f {
-                        rustc_type_ir::FloatTy::F16 => {
+                        rodetc_type_ir::FloatTy::F16 => {
                             let c = -from_bytes!(f16, u16, c);
                             Owned(u16::try_from(c.to_bits()).unwrap().to_le_bytes().into())
                         }
-                        rustc_type_ir::FloatTy::F32 => {
+                        rodetc_type_ir::FloatTy::F32 => {
                             let c = -from_bytes!(f32, c);
                             Owned(c.to_le_bytes().into())
                         }
-                        rustc_type_ir::FloatTy::F64 => {
+                        rodetc_type_ir::FloatTy::F64 => {
                             let c = -from_bytes!(f64, c);
                             Owned(c.to_le_bytes().into())
                         }
-                        rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F128 => {
                             let c = -from_bytes!(f128, u128, c);
                             Owned(c.to_bits().to_le_bytes().into())
                         }
@@ -1134,7 +1134,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                 }
                 if let TyKind::Float(f) = ty.kind() {
                     match f {
-                        rustc_type_ir::FloatTy::F16 => {
+                        rodetc_type_ir::FloatTy::F16 => {
                             let l = from_bytes!(f16, u16, lc);
                             let r = from_bytes!(f16, u16, rc);
                             match op {
@@ -1167,7 +1167,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                                 ),
                             }
                         }
-                        rustc_type_ir::FloatTy::F32 => {
+                        rodetc_type_ir::FloatTy::F32 => {
                             let l = from_bytes!(f32, lc);
                             let r = from_bytes!(f32, rc);
                             match op {
@@ -1195,7 +1195,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                                 ),
                             }
                         }
-                        rustc_type_ir::FloatTy::F64 => {
+                        rodetc_type_ir::FloatTy::F64 => {
                             let l = from_bytes!(f64, lc);
                             let r = from_bytes!(f64, rc);
                             match op {
@@ -1223,7 +1223,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                                 ),
                             }
                         }
-                        rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F128 => {
                             let l = from_bytes!(f128, u128, lc);
                             let r = from_bytes!(f128, u128, rc);
                             match op {
@@ -1438,15 +1438,15 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                     };
                     let value = self.eval_operand(operand, locals)?.get(self)?;
                     let value = match ty {
-                        rustc_type_ir::FloatTy::F32 => {
+                        rodetc_type_ir::FloatTy::F32 => {
                             let value = value.try_into().unwrap();
                             f32::from_le_bytes(value) as f64
                         }
-                        rustc_type_ir::FloatTy::F64 => {
+                        rodetc_type_ir::FloatTy::F64 => {
                             let value = value.try_into().unwrap();
                             f64::from_le_bytes(value)
                         }
-                        rustc_type_ir::FloatTy::F16 | rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F16 | rodetc_type_ir::FloatTy::F128 => {
                             not_supported!("unstable floating point type f16 and f128");
                         }
                     };
@@ -1476,15 +1476,15 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                     };
                     let value = self.eval_operand(operand, locals)?.get(self)?;
                     let value = match ty {
-                        rustc_type_ir::FloatTy::F32 => {
+                        rodetc_type_ir::FloatTy::F32 => {
                             let value = value.try_into().unwrap();
                             f32::from_le_bytes(value) as f64
                         }
-                        rustc_type_ir::FloatTy::F64 => {
+                        rodetc_type_ir::FloatTy::F64 => {
                             let value = value.try_into().unwrap();
                             f64::from_le_bytes(value)
                         }
-                        rustc_type_ir::FloatTy::F16 | rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F16 | rodetc_type_ir::FloatTy::F128 => {
                             not_supported!("unstable floating point type f16 and f128");
                         }
                     };
@@ -1492,9 +1492,9 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                         not_supported!("invalid float to float cast");
                     };
                     match target_ty {
-                        rustc_type_ir::FloatTy::F32 => Owned((value as f32).to_le_bytes().to_vec()),
-                        rustc_type_ir::FloatTy::F64 => Owned(value.to_le_bytes().to_vec()),
-                        rustc_type_ir::FloatTy::F16 | rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F32 => Owned((value as f32).to_le_bytes().to_vec()),
+                        rodetc_type_ir::FloatTy::F64 => Owned(value.to_le_bytes().to_vec()),
+                        rodetc_type_ir::FloatTy::F16 | rodetc_type_ir::FloatTy::F128 => {
                             not_supported!("unstable floating point type f16 and f128");
                         }
                     }
@@ -1508,9 +1508,9 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                         not_supported!("invalid int to float cast");
                     };
                     match target_ty {
-                        rustc_type_ir::FloatTy::F32 => Owned((value as f32).to_le_bytes().to_vec()),
-                        rustc_type_ir::FloatTy::F64 => Owned((value as f64).to_le_bytes().to_vec()),
-                        rustc_type_ir::FloatTy::F16 | rustc_type_ir::FloatTy::F128 => {
+                        rodetc_type_ir::FloatTy::F32 => Owned((value as f32).to_le_bytes().to_vec()),
+                        rodetc_type_ir::FloatTy::F64 => Owned((value as f64).to_le_bytes().to_vec()),
+                        rodetc_type_ir::FloatTy::F16 | rodetc_type_ir::FloatTy::F128 => {
                             not_supported!("unstable floating point type f16 and f128");
                         }
                     }
@@ -2403,7 +2403,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
     ) -> Result<'db, ()> {
         let layout = self.layout(ty)?;
         let my_size = self.size_of_sized(ty, locals, "value to patch address")?;
-        use rustc_type_ir::TyKind;
+        use rodetc_type_ir::TyKind;
         match ty.kind() {
             TyKind::Ref(_, t, _) => {
                 let size = self.size_align_of(t, locals)?;
@@ -2557,7 +2557,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
     ) -> Result<'db, Option<StackFrame<'a, 'db>>> {
         let id = from_bytes!(usize, bytes.get(self)?);
         let next_ty = self.vtable_map.ty(id)?;
-        use rustc_type_ir::TyKind;
+        use rodetc_type_ir::TyKind;
         match next_ty.kind() {
             TyKind::FnDef(def, generic_args) => {
                 self.exec_fn_def(def.0, generic_args, destination, args, locals, target_bb, span)

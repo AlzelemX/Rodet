@@ -31,4 +31,4 @@ LL | static foo: &Y::X = &*Y::foo(Y::x as *const Y::X);
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0015, E0133.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

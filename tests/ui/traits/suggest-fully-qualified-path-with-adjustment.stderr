@@ -180,4 +180,4 @@ LL +     <&Thing as MethodRef<T>>::by_self(&deref_deref_to);
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0283`.
+For more information about this error, try `rodetc --explain E0283`.

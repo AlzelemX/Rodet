@@ -1,19 +1,19 @@
 //! This module defines the primary IR[^1] used in rustdoc together with the procedures that
 //! transform rustc data types into it.
 //!
-//! This IR — commonly referred to as the *cleaned AST* — is modeled after the [AST][rustc_ast].
+//! This IR — commonly referred to as the *cleaned AST* — is modeled after the [AST][rodetc_ast].
 //!
 //! There are two kinds of transformation — *cleaning* — procedures:
 //!
 //! 1. Cleans [HIR][hir] types. Used for user-written code and inlined local re-exports
 //!    both found in the local crate.
-//! 2. Cleans [`rustc_middle::ty`] types. Used for inlined cross-crate re-exports and anything
+//! 2. Cleans [`rodetc_middle::ty`] types. Used for inlined cross-crate re-exports and anything
 //!    output by the trait solver (e.g., when synthesizing blanket and auto-trait impls).
 //!    They usually have `ty` or `middle` in their name.
 //!
 //! Their name is prefixed by `clean_`.
 //!
-//! Both the HIR and the `rustc_middle::ty` IR are quite removed from the source code.
+//! Both the HIR and the `rodetc_middle::ty` IR are quite removed from the source code.
 //! The cleaned AST on the other hand is closer to it which simplifies the rendering process.
 //! Furthermore, operating on a single IR instead of two avoids duplicating efforts down the line.
 //!
@@ -34,25 +34,25 @@ use std::borrow::Cow;
 use std::collections::BTreeMap;
 use std::mem;
 
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::{AttributeKind, DocAttribute, DocInline, find_attr};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet, IndexEntry};
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_errors::codes::*;
-use rustc_errors::{FatalError, struct_span_code_err};
-use rustc_hir::def::{CtorKind, DefKind, MacroKinds, PerNS, Res};
-use rustc_hir::def_id::{DefId, DefIdMap, DefIdSet, LOCAL_CRATE, LocalDefId};
-use rustc_hir::{self as hir, HirId, PredicateOrigin};
-use rustc_hir_analysis::{lower_const_arg_for_rustdoc, lower_ty};
-use rustc_middle::middle::resolve::Reexport;
-use rustc_middle::middle::resolve_bound_vars as rbv;
-use rustc_middle::ty::{
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::{AttributeKind, DocAttribute, DocInline, find_attr};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet, FxIndexMap, FxIndexSet, IndexEntry};
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_errors::codes::*;
+use rodetc_errors::{FatalError, struct_span_code_err};
+use rodetc_hir::def::{CtorKind, DefKind, MacroKinds, PerNS, Res};
+use rodetc_hir::def_id::{DefId, DefIdMap, DefIdSet, LOCAL_CRATE, LocalDefId};
+use rodetc_hir::{self as hir, HirId, PredicateOrigin};
+use rodetc_hir_analysis::{lower_const_arg_for_rustdoc, lower_ty};
+use rodetc_middle::middle::resolve::Reexport;
+use rodetc_middle::middle::resolve_bound_vars as rbv;
+use rodetc_middle::ty::{
     self, AdtKind, GenericArgsRef, Ty, TyCtxt, TypeVisitableExt, TypingMode, Unnormalized,
 };
-use rustc_span::hygiene::{AstPass, MacroKind};
-use rustc_span::symbol::{Ident, Symbol, kw};
-use rustc_span::{ExpnKind, bug, span_bug};
-use rustc_trait_selection::traits::wf::object_region_bounds;
+use rodetc_span::hygiene::{AstPass, MacroKind};
+use rodetc_span::symbol::{Ident, Symbol, kw};
+use rodetc_span::{ExpnKind, bug, span_bug};
+use rodetc_trait_selection::traits::wf::object_region_bounds;
 use tracing::{debug, instrument};
 use utils::*;
 
@@ -745,7 +745,7 @@ fn is_impl_trait(param: &hir::GenericParam<'_>) -> bool {
 
 /// This can happen for `async fn`, e.g. `async fn f<'_>(&'_ self)`.
 ///
-/// See `lifetime_to_generic_param` in `rustc_ast_lowering` for more information.
+/// See `lifetime_to_generic_param` in `rodetc_ast_lowering` for more information.
 fn is_elided_lifetime(param: &hir::GenericParam<'_>) -> bool {
     matches!(
         param.kind,
@@ -1025,7 +1025,7 @@ fn clean_ty_alias_inner_type<'tcx>(
     }
 
     Some(if adt_def.is_enum() {
-        let variants: rustc_index::IndexVec<_, _> = adt_def
+        let variants: rodetc_index::IndexVec<_, _> = adt_def
             .variants()
             .iter()
             .map(|variant| clean_variant_def_with_args(variant, args, cx))
@@ -1121,7 +1121,7 @@ fn clean_fn_or_proc_macro<'tcx>(
 /// This is needed to make it more "readable" when documenting functions using
 /// `rustc_legacy_const_generics`. More information in
 /// <https://github.com/rust-lang/rust/issues/83167>.
-fn clean_fn_decl_legacy_const_generics(func: &mut Function, attrs: &[rustc_attr_ir::Attribute]) {
+fn clean_fn_decl_legacy_const_generics(func: &mut Function, attrs: &[rodetc_attr_ir::Attribute]) {
     let Some(indexes) = find_attr!(attrs, RustcLegacyConstGenerics{fn_indexes,..} => fn_indexes)
     else {
         return;
@@ -1632,7 +1632,7 @@ fn first_non_private_clean_path<'tcx>(
     cx: &mut DocContext<'tcx>,
     path: &hir::Path<'_>,
     new_path_segments: &[hir::PathSegment<'_>],
-    new_path_span: rustc_span::Span,
+    new_path_span: rodetc_span::Span,
 ) -> Path {
     let new_hir_path =
         hir::Path { segments: new_path_segments, res: path.res, span: new_path_span };
@@ -1923,7 +1923,7 @@ fn maybe_expand_private_type_alias<'tcx>(
 }
 
 pub(crate) fn clean_ty<'tcx>(ty: &hir::Ty<'_>, cx: &mut DocContext<'tcx>) -> Type {
-    use rustc_hir::*;
+    use rodetc_hir::*;
 
     match ty.kind {
         TyKind::Never => Primitive(PrimitiveType::Never),
@@ -1935,7 +1935,7 @@ pub(crate) fn clean_ty<'tcx>(ty: &hir::Ty<'_>, cx: &mut DocContext<'tcx>) -> Typ
         TyKind::Slice(ty) => Slice(Box::new(clean_ty(ty, cx))),
         TyKind::Pat(inner_ty, pat) => {
             // Local HIR pattern types should print the same way as cross-crate inlined ones,
-            // so lower to the canonical `rustc_middle::ty::Pattern` representation first.
+            // so lower to the canonical `rodetc_middle::ty::Pattern` representation first.
             let pat = match lower_ty(cx.tcx, ty).kind() {
                 ty::Pat(_, pat) => format!("{pat:?}").into_boxed_str(),
                 _ => format!("{pat:?}").into(),
@@ -2019,9 +2019,9 @@ fn normalize<'tcx>(
         return None;
     }
 
-    use rustc_middle::traits::ObligationCause;
-    use rustc_trait_selection::infer::TyCtxtInferExt;
-    use rustc_trait_selection::traits::query::normalize::QueryNormalizeExt;
+    use rodetc_middle::traits::ObligationCause;
+    use rodetc_trait_selection::infer::TyCtxtInferExt;
+    use rodetc_trait_selection::traits::query::normalize::QueryNormalizeExt;
 
     // Try to normalize `<X as Y>::T` to a type
     let infcx = cx.tcx.infer_ctxt().build(TypingMode::non_body_analysis());
@@ -2586,9 +2586,9 @@ pub(crate) fn clean_variant_def_with_args<'tcx>(
         ty::VariantDiscr::Relative(_) => None,
     };
 
-    use rustc_middle::traits::ObligationCause;
-    use rustc_trait_selection::infer::TyCtxtInferExt;
-    use rustc_trait_selection::traits::query::normalize::QueryNormalizeExt;
+    use rodetc_middle::traits::ObligationCause;
+    use rodetc_trait_selection::infer::TyCtxtInferExt;
+    use rodetc_trait_selection::traits::query::normalize::QueryNormalizeExt;
 
     let infcx = cx.tcx.infer_ctxt().build(TypingMode::non_body_analysis());
     let kind = match variant.ctor_kind() {
@@ -2811,7 +2811,7 @@ fn get_all_import_attributes<'hir>(
     import_def_id: LocalDefId,
     target_def_id: DefId,
     is_inline: bool,
-) -> Vec<(Cow<'hir, rustc_attr_ir::Attribute>, Option<DefId>)> {
+) -> Vec<(Cow<'hir, rodetc_attr_ir::Attribute>, Option<DefId>)> {
     let mut attrs = Vec::new();
     let mut first = true;
     for def_id in reexport_chain(cx.tcx, import_def_id, target_def_id)
@@ -2857,17 +2857,17 @@ fn get_all_import_attributes<'hir>(
 /// * `doc(no_inline)`
 /// * `doc(hidden)`
 fn add_without_unwanted_attributes<'hir>(
-    attrs: &mut Vec<(Cow<'hir, rustc_attr_ir::Attribute>, Option<DefId>)>,
-    new_attrs: &'hir [rustc_attr_ir::Attribute],
+    attrs: &mut Vec<(Cow<'hir, rodetc_attr_ir::Attribute>, Option<DefId>)>,
+    new_attrs: &'hir [rodetc_attr_ir::Attribute],
     is_inline: bool,
     import_parent: Option<DefId>,
 ) {
     for attr in new_attrs {
         match attr {
-            rustc_attr_ir::Attribute::Parsed(AttributeKind::DocComment { .. }) => {
+            rodetc_attr_ir::Attribute::Parsed(AttributeKind::DocComment { .. }) => {
                 attrs.push((Cow::Borrowed(attr), import_parent));
             }
-            rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) => {
+            rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) => {
                 // Remove attributes from `normal` that should not be inherited by `use` re-export.
                 let DocAttribute {
                     first_span: _,
@@ -2902,7 +2902,7 @@ fn add_without_unwanted_attributes<'hir>(
                 }
                 attr.aliases = aliases.clone();
                 attrs.push((
-                    Cow::Owned(rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(Box::new(
+                    Cow::Owned(rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(Box::new(
                         attr,
                     )))),
                     import_parent,
@@ -2910,7 +2910,7 @@ fn add_without_unwanted_attributes<'hir>(
             }
 
             // We discard `#[cfg(...)]` attributes unless we're inlining
-            rustc_attr_ir::Attribute::Parsed(AttributeKind::CfgTrace(..)) if !is_inline => {}
+            rodetc_attr_ir::Attribute::Parsed(AttributeKind::CfgTrace(..)) if !is_inline => {}
             // We keep all other attributes
             _ => {
                 attrs.push((Cow::Borrowed(attr), import_parent));
@@ -3171,7 +3171,7 @@ fn clean_extern_crate<'tcx>(
         && attrs.iter().any(|a| {
             matches!(
             a,
-            rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d))
+            rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d))
             if d.inline.is_some_and(|(i, _)| i == DocInline::Inline))
         })
         && !cx.is_json_output();
@@ -3201,7 +3201,7 @@ fn clean_extern_crate<'tcx>(
 fn clean_use_statement<'tcx>(
     import_def_id: LocalDefId,
     import_hir_id: HirId,
-    import_span: rustc_span::Span,
+    import_span: rodetc_span::Span,
     name: Option<Symbol>,
     path: &hir::UsePath<'_>,
     kind: hir::UseKind<'tcx>,
@@ -3265,7 +3265,7 @@ fn clean_use_statement<'tcx>(
 fn clean_use_statement_leaf<'tcx>(
     import_id: LocalDefId,
     import_hir_id: HirId,
-    import_span: rustc_span::Span,
+    import_span: rodetc_span::Span,
     name: Option<Symbol>,
     path: &hir::Path<'_>,
     kind: hir::UseKind<'tcx>,
@@ -3327,7 +3327,7 @@ fn clean_use_statement_leaf<'tcx>(
         || attrs.iter().any(|a| {
             matches!(
                 a,
-                rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d))
+                rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d))
                 if d.hidden.is_some() || d.inline.is_some_and(|(i, _)| i == DocInline::NoInline)
             )
         });

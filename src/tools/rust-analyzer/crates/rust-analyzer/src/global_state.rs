@@ -380,7 +380,7 @@ impl GlobalState {
                     if let Some(path) = vfs_path.as_path() {
                         has_structure_changes |= file.is_created_or_deleted();
 
-                        if file.is_modified() && path.extension() == Some("rs") {
+                        if file.is_modified() && matches!(path.extension(), Some("rs" | "rd")) {
                             modified_rust_files.push(file.file_id);
                         }
 

@@ -324,7 +324,7 @@ impl TestTarget {
         }
     }
 
-    /// Based on `rustc_target`.
+    /// Based on `rodetc_target`.
     fn binary_obj_format(&self) -> BinaryFormat {
         let t = &self.triple;
         if t.contains("-windows-") || t.contains("-cygwin") {

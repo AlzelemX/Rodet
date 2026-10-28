@@ -45,4 +45,4 @@ LL |     let _b = [0, 1, 2].into_iter().chain([3, 4, 5].into_iter());
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0271`.
+For more information about this error, try `rodetc --explain E0271`.

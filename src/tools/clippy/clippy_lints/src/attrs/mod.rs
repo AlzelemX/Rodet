@@ -18,10 +18,10 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::msrvs::{self, Msrv, MsrvStack};
 use clippy_utils::{check_clippy_attr, is_from_proc_macro};
-use rustc_ast::{self as ast, AttrArgs, AttrKind, Attribute, MetaItemInner, MetaItemKind};
-use rustc_hir::{ImplItem, ImplItemKind, Item, ItemKind, TraitFn, TraitItem, TraitItemKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::sym;
+use rodetc_ast::{self as ast, AttrArgs, AttrKind, Attribute, MetaItemInner, MetaItemKind};
+use rodetc_hir::{ImplItem, ImplItemKind, Item, ItemKind, TraitFn, TraitItem, TraitItemKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::sym;
 use utils::is_lint_level;
 
 declare_clippy_lint! {

@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::ty::has_debug_impl;
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::sym;
 
 use super::OK_EXPECT;
 

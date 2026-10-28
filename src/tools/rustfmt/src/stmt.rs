@@ -1,5 +1,5 @@
-use rustc_ast::ast;
-use rustc_span::Span;
+use rodetc_ast::ast;
+use rodetc_span::Span;
 
 use crate::comment::recover_comment_removed;
 use crate::config::StyleEdition;

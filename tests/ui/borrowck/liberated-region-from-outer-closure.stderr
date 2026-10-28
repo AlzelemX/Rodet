@@ -14,4 +14,4 @@ LL | fn example<T: Copy + 'static>(x: T) -> impl FnMut(&mut ()) {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

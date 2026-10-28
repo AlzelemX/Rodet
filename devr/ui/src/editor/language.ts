@@ -138,8 +138,8 @@ const toml: monaco.languages.IMonarchLanguage = {
 export function registerLanguages() {
   monaco.languages.register({
     id: RODET,
-    extensions: ['.rs'],
-    aliases: ['Rodet', 'rust', 'rs'],
+    extensions: ['.rd', '.rs'],
+    aliases: ['Rodet', 'rodet', 'rd'],
   });
   monaco.languages.setMonarchTokensProvider(RODET, rodet);
   monaco.languages.setLanguageConfiguration(RODET, {
@@ -175,7 +175,7 @@ export function registerLanguages() {
     wordPattern: /(-?\d*\.\d\w*)|([^`~!@#$%^&*()\-=+[{\]}\\|;:'",.<>/?\s]+)/g,
   });
 
-  monaco.languages.register({ id: 'toml', extensions: ['.toml'], aliases: ['TOML'], filenames: ['Cargo.lock'] });
+  monaco.languages.register({ id: 'toml', extensions: ['.toml'], aliases: ['TOML'], filenames: ['Silk.lock', 'Cargo.lock'] });
   monaco.languages.setMonarchTokensProvider('toml', toml);
   monaco.languages.setLanguageConfiguration('toml', {
     comments: { lineComment: '#' },
@@ -193,8 +193,8 @@ export function registerLanguages() {
 
 export function languageOf(path: string): string {
   const lower = path.toLowerCase();
-  if (lower.endsWith('.rs')) return RODET;
-  if (lower.endsWith('.toml') || lower.endsWith('cargo.lock')) return 'toml';
+  if (lower.endsWith('.rd') || lower.endsWith('.rs')) return RODET;
+  if (lower.endsWith('.toml') || lower.endsWith('silk.lock') || lower.endsWith('cargo.lock')) return 'toml';
   if (lower.endsWith('.md')) return 'markdown';
   return 'plaintext';
 }

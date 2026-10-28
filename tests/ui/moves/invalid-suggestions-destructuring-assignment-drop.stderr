@@ -8,4 +8,4 @@ LL |     Thing(*&mut String::new()) = Thing(String::new());
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0509`.
+For more information about this error, try `rodetc --explain E0509`.

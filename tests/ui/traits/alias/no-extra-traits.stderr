@@ -576,4 +576,4 @@ LL | type _T45 = dyn Sync + Send + _10 + _1;
 
 error: aborting due to 28 previous errors
 
-For more information about this error, try `rustc --explain E0225`.
+For more information about this error, try `rodetc --explain E0225`.

@@ -57,4 +57,4 @@ LL |     const _F1: fn(((u8, u32),)) = f::<((u8, u32),)>;
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0308, E0605.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

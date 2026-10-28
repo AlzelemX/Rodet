@@ -1,4 +1,4 @@
-// Arabic for texts that come from the compiler (rustc, cargo check) and
+// Arabic for texts that come from the compiler (rodetc, rodet check) and
 // from rodet-analyzer: errors and warnings, quick fixes, Run lenses.
 //
 // They are matched by pattern; the parts in `backticks` (names, types) stay
@@ -186,7 +186,7 @@ const DIAGNOSTICS: Rule[] = [
   [/^this function takes (\d+) parameters?$/, 'هذه الدالة تأخذ $1 معامل'],
   [/^`(.+)` is a function, perhaps you wish to call it$/, '`$1` دالة، ربما تقصد استدعاءها `()`'],
   [/^you might have meant to (.+)$/, 'ربما تقصد: $1'],
-  [/^for more information about this error, try `rustc --explain (E\d+)`\.?$/, 'لمزيد من الشرح جرّب `rustc --explain $1`'],
+  [/^for more information about this error, try `(?:rodetc|rustc) --explain (E\d+)`\.?$/, 'لمزيد من الشرح جرّب `rodetc --explain $1`'],
   [/^consider borrowing here: `(.+)`$/, 'جرّب الاستعارة: `$1`'],
   [/^consider borrowing here$/, 'جرّب الاستعارة هنا'],
   [/^consider cloning the value if the performance cost is acceptable$/, 'يمكنك نسخ القيمة بـ `clone()` إن كانت التكلفة مقبولة'],

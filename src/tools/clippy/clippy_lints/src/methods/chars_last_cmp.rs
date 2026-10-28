@@ -1,6 +1,6 @@
 use crate::methods::chars_cmp;
 use clippy_utils::sym;
-use rustc_lint::LateContext;
+use rodetc_lint::LateContext;
 
 use super::CHARS_LAST_CMP;
 

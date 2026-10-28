@@ -3,19 +3,19 @@
 use std::fs;
 use std::path::PathBuf;
 
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap};
-use rustc_errors::DiagCtxtHandle;
-use rustc_hir as hir;
-use rustc_hir::intravisit::{self, Visitor};
-use rustc_macros::{Decodable, Encodable};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_serialize::opaque::{FileEncoder, MemDecoder};
-use rustc_serialize::{Decodable, Encodable};
-use rustc_session::getopts;
-use rustc_span::def_id::{CrateNum, DefPathHash, LOCAL_CRATE};
-use rustc_span::edition::Edition;
-use rustc_span::{BytePos, FileName, SourceFile, Span};
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap};
+use rodetc_errors::DiagCtxtHandle;
+use rodetc_hir as hir;
+use rodetc_hir::intravisit::{self, Visitor};
+use rodetc_macros::{Decodable, Encodable};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_serialize::opaque::{FileEncoder, MemDecoder};
+use rodetc_serialize::{Decodable, Encodable};
+use rodetc_session::getopts;
+use rodetc_span::def_id::{CrateNum, DefPathHash, LOCAL_CRATE};
+use rodetc_span::edition::Edition;
+use rodetc_span::{BytePos, FileName, SourceFile, Span};
 use tracing::{debug, trace, warn};
 
 use crate::html::render::Context;
@@ -63,7 +63,7 @@ pub(crate) struct SyntaxRange {
 }
 
 impl SyntaxRange {
-    fn new(span: rustc_span::Span, file: &SourceFile) -> Option<Self> {
+    fn new(span: rodetc_span::Span, file: &SourceFile) -> Option<Self> {
         let get_pos = |bytepos: BytePos| file.original_relative_byte_pos(bytepos).0;
         let get_line = |bytepos: BytePos| file.lookup_line(file.relative_position(bytepos));
 
@@ -83,9 +83,9 @@ pub(crate) struct CallLocation {
 
 impl CallLocation {
     fn new(
-        expr_span: rustc_span::Span,
-        ident_span: rustc_span::Span,
-        enclosing_item_span: rustc_span::Span,
+        expr_span: rodetc_span::Span,
+        ident_span: rodetc_span::Span,
+        enclosing_item_span: rodetc_span::Span,
         source_file: &SourceFile,
     ) -> Option<Self> {
         Some(CallLocation {
@@ -333,7 +333,7 @@ pub(crate) fn run(
         encoder.finish().map_err(|(_path, e)| e.to_string())?;
 
         if emit_dep_info {
-            rustc_interface::passes::write_dep_info(tcx);
+            rodetc_interface::passes::write_dep_info(tcx);
         }
 
         Ok(())

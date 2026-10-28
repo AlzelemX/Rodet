@@ -52,4 +52,4 @@ LL |     for<const N: usize = 3, T = u32> [(); COT::BYTES]:,
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0403, E0425, E0433, E0658.
-For more information about an error, try `rustc --explain E0403`.
+For more information about an error, try `rodetc --explain E0403`.

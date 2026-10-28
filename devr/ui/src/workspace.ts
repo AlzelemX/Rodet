@@ -9,10 +9,12 @@ import { toast } from './ui/notify';
 
 export interface Toolchain {
   rodetBin: string | null;
-  rustc: string | null;
-  cargo: string | null;
+  /** The compiler. */
+  rodetc: string | null;
+  /** Silk, the package manager. */
+  rodet: string | null;
   analyzer: string | null;
-  rustcVersion: string | null;
+  rodetcVersion: string | null;
   isRodet: boolean;
 }
 

@@ -199,4 +199,4 @@ LL | extern "cdecl" fn cdecl() {}
 
 error: aborting due to 25 previous errors; 4 warnings emitted
 
-For more information about this error, try `rustc --explain E0570`.
+For more information about this error, try `rodetc --explain E0570`.

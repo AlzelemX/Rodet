@@ -329,4 +329,4 @@ LL |     drop as F();
 
 error: aborting due to 39 previous errors
 
-For more information about this error, try `rustc --explain E0214`.
+For more information about this error, try `rodetc --explain E0214`.

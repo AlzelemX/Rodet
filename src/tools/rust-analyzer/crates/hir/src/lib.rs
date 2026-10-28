@@ -20,7 +20,7 @@
 #![cfg_attr(feature = "in-rust-tree", feature(rustc_private))]
 #![recursion_limit = "512"]
 
-extern crate ra_ap_rustc_type_ir as rustc_type_ir;
+extern crate ra_ap_rustc_type_ir as rodetc_type_ir;
 
 mod attrs;
 mod from_id;
@@ -99,7 +99,7 @@ use hir_ide::{
 };
 use itertools::Itertools;
 use rustc_hash::{FxHashMap, FxHashSet};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind, TypeSuperVisitable, TypeVisitable, TypeVisitableExt, TypeVisitor, fast_reject,
     inherent::{AdtDef as _, GenericArgs as _, IntoKind, SliceLike, Term as _, Ty as _},
 };
@@ -1036,28 +1036,28 @@ impl Enum {
             Type::builtin_type_crate(db),
             match EnumSignature::variant_body_type(db, self.id) {
                 layout::IntegerType::Pointer(sign) => match sign {
-                    true => Ty::new_int(interner, rustc_type_ir::IntTy::Isize),
-                    false => Ty::new_uint(interner, rustc_type_ir::UintTy::Usize),
+                    true => Ty::new_int(interner, rodetc_type_ir::IntTy::Isize),
+                    false => Ty::new_uint(interner, rodetc_type_ir::UintTy::Usize),
                 },
                 layout::IntegerType::Fixed(i, sign) => match sign {
                     true => Ty::new_int(
                         interner,
                         match i {
-                            layout::Integer::I8 => rustc_type_ir::IntTy::I8,
-                            layout::Integer::I16 => rustc_type_ir::IntTy::I16,
-                            layout::Integer::I32 => rustc_type_ir::IntTy::I32,
-                            layout::Integer::I64 => rustc_type_ir::IntTy::I64,
-                            layout::Integer::I128 => rustc_type_ir::IntTy::I128,
+                            layout::Integer::I8 => rodetc_type_ir::IntTy::I8,
+                            layout::Integer::I16 => rodetc_type_ir::IntTy::I16,
+                            layout::Integer::I32 => rodetc_type_ir::IntTy::I32,
+                            layout::Integer::I64 => rodetc_type_ir::IntTy::I64,
+                            layout::Integer::I128 => rodetc_type_ir::IntTy::I128,
                         },
                     ),
                     false => Ty::new_uint(
                         interner,
                         match i {
-                            layout::Integer::I8 => rustc_type_ir::UintTy::U8,
-                            layout::Integer::I16 => rustc_type_ir::UintTy::U16,
-                            layout::Integer::I32 => rustc_type_ir::UintTy::U32,
-                            layout::Integer::I64 => rustc_type_ir::UintTy::U64,
-                            layout::Integer::I128 => rustc_type_ir::UintTy::U128,
+                            layout::Integer::I8 => rodetc_type_ir::UintTy::U8,
+                            layout::Integer::I16 => rodetc_type_ir::UintTy::U16,
+                            layout::Integer::I32 => rodetc_type_ir::UintTy::U32,
+                            layout::Integer::I64 => rodetc_type_ir::UintTy::U64,
+                            layout::Integer::I128 => rodetc_type_ir::UintTy::U128,
                         },
                     ),
                 },
@@ -3555,14 +3555,14 @@ pub enum Variance {
     Invariant,
 }
 
-impl From<rustc_type_ir::Variance> for Variance {
+impl From<rodetc_type_ir::Variance> for Variance {
     #[inline]
-    fn from(value: rustc_type_ir::Variance) -> Self {
+    fn from(value: rodetc_type_ir::Variance) -> Self {
         match value {
-            rustc_type_ir::Variance::Covariant => Variance::Covariant,
-            rustc_type_ir::Variance::Invariant => Variance::Invariant,
-            rustc_type_ir::Variance::Contravariant => Variance::Contravariant,
-            rustc_type_ir::Variance::Bivariant => Variance::Bivariant,
+            rodetc_type_ir::Variance::Covariant => Variance::Covariant,
+            rodetc_type_ir::Variance::Invariant => Variance::Invariant,
+            rodetc_type_ir::Variance::Contravariant => Variance::Contravariant,
+            rodetc_type_ir::Variance::Bivariant => Variance::Bivariant,
         }
     }
 }
@@ -3638,7 +3638,7 @@ impl TypeParam {
     pub fn default(self, db: &dyn HirDatabase) -> Option<Type<'_>> {
         let ty = generic_arg_from_param(db, self.id.into())?;
         match ty.kind() {
-            rustc_type_ir::GenericArgKind::Type(it) if !it.is_ty_error() => {
+            rodetc_type_ir::GenericArgKind::Type(it) if !it.is_ty_error() => {
                 Some(Type::new(self.id.parent(), it))
             }
             _ => None,
@@ -4064,14 +4064,14 @@ impl<'db> Closure<'db> {
     pub fn fn_trait(&self, _db: &dyn HirDatabase) -> FnTrait {
         match self.id {
             AnyClosureId::ClosureId(_) => match self.subst.as_closure().kind() {
-                rustc_type_ir::ClosureKind::Fn => FnTrait::Fn,
-                rustc_type_ir::ClosureKind::FnMut => FnTrait::FnMut,
-                rustc_type_ir::ClosureKind::FnOnce => FnTrait::FnOnce,
+                rodetc_type_ir::ClosureKind::Fn => FnTrait::Fn,
+                rodetc_type_ir::ClosureKind::FnMut => FnTrait::FnMut,
+                rodetc_type_ir::ClosureKind::FnOnce => FnTrait::FnOnce,
             },
             AnyClosureId::CoroutineClosureId(_) => match self.subst.as_coroutine_closure().kind() {
-                rustc_type_ir::ClosureKind::Fn => FnTrait::AsyncFn,
-                rustc_type_ir::ClosureKind::FnMut => FnTrait::AsyncFnMut,
-                rustc_type_ir::ClosureKind::FnOnce => FnTrait::AsyncFnOnce,
+                rodetc_type_ir::ClosureKind::Fn => FnTrait::AsyncFn,
+                rodetc_type_ir::ClosureKind::FnMut => FnTrait::AsyncFnMut,
+                rodetc_type_ir::ClosureKind::FnOnce => FnTrait::AsyncFnOnce,
             },
         }
     }
@@ -4802,7 +4802,7 @@ impl<'db> Type<'db> {
     }
 
     pub fn is_usize(&self) -> bool {
-        matches!(self.ty.skip_binder().kind(), TyKind::Uint(rustc_type_ir::UintTy::Usize))
+        matches!(self.ty.skip_binder().kind(), TyKind::Uint(rodetc_type_ir::UintTy::Usize))
     }
 
     pub fn is_float(&self) -> bool {
@@ -5325,13 +5325,13 @@ impl<'db> Type<'db> {
             .into_iter()
             .flat_map(|(_, substs)| substs.iter())
             .filter_map(move |arg| match arg.kind() {
-                rustc_type_ir::GenericArgKind::Type(ty) => {
+                rodetc_type_ir::GenericArgKind::Type(ty) => {
                     Some(format_smolstr!("{}", ty.display(db, display_target)))
                 }
-                rustc_type_ir::GenericArgKind::Const(const_) => {
+                rodetc_type_ir::GenericArgKind::Const(const_) => {
                     Some(format_smolstr!("{}", const_.display(db, display_target)))
                 }
-                rustc_type_ir::GenericArgKind::Lifetime(_) => None,
+                rodetc_type_ir::GenericArgKind::Lifetime(_) => None,
             })
     }
 
@@ -6155,8 +6155,8 @@ pub struct TraitPredicate<'db> {
 impl<'db> TraitPredicate<'db> {
     pub fn polarity(&self) -> PredicatePolarity {
         match self.inner.polarity {
-            rustc_type_ir::PredicatePolarity::Positive => PredicatePolarity::Positive,
-            rustc_type_ir::PredicatePolarity::Negative => PredicatePolarity::Negative,
+            rodetc_type_ir::PredicatePolarity::Positive => PredicatePolarity::Positive,
+            rodetc_type_ir::PredicatePolarity::Negative => PredicatePolarity::Negative,
         }
     }
 

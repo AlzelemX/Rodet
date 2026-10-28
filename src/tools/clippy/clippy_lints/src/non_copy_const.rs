@@ -23,21 +23,21 @@ use clippy_utils::macros::macro_backtrace;
 use clippy_utils::paths::{PathNS, lookup_path_str};
 use clippy_utils::ty::{get_field_idx_by_name, implements_trait};
 use clippy_utils::{is_in_const_context, sym};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, DefIdSet};
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, DefIdSet};
+use rodetc_hir::{
     ConstArgKind, ConstItemRhs, Expr, ExprKind, ImplItem, ImplItemKind, Item, ItemKind, Node, StructTailExpr,
     TraitItem, TraitItemKind, UnOp,
 };
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::mir::{ConstValue, UnevaluatedConst};
-use rustc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
-use rustc_middle::ty::{
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::mir::{ConstValue, UnevaluatedConst};
+use rodetc_middle::ty::adjustment::{Adjust, Adjustment, DerefAdjustKind};
+use rodetc_middle::ty::{
     self, EarlyBinder, GenericArgs, GenericArgsRef, Instance, Ty, TyCtxt, TypeFolder, TypeSuperFoldable as _,
     TypeckResults, TypingEnv, Unnormalized,
 };
-use rustc_span::DUMMY_SP;
+use rodetc_span::DUMMY_SP;
 use std::collections::hash_map::Entry;
 
 declare_clippy_lint! {

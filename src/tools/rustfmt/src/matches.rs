@@ -2,8 +2,8 @@
 
 use std::iter::repeat;
 
-use rustc_ast::{MatchKind, ast};
-use rustc_span::{BytePos, Span};
+use rodetc_ast::{MatchKind, ast};
+use rodetc_span::{BytePos, Span};
 use tracing::debug;
 
 use crate::comment::{FindUncommented, combine_strs_with_missing_comments, rewrite_comment};

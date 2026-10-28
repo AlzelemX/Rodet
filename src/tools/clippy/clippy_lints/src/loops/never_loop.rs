@@ -6,14 +6,14 @@ use clippy_utils::macros::root_macro_call_first_node;
 use clippy_utils::source::{snippet, snippet_with_context};
 use clippy_utils::visitors::{Descend, for_each_expr_without_closures};
 use clippy_utils::{contains_return, sym};
-use rustc_ast::BinOpKind;
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_ast::BinOpKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     Block, Closure, Destination, Expr, ExprKind, HirId, InlineAsm, InlineAsmOperand, Node, Pat, Stmt, StmtKind,
     StructTailExpr,
 };
-use rustc_lint::LateContext;
-use rustc_span::{BytePos, Span};
+use rodetc_lint::LateContext;
+use rodetc_span::{BytePos, Span};
 use std::iter::once;
 use std::ops::ControlFlow;
 

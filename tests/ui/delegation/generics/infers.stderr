@@ -1293,4 +1293,4 @@ LL |         pub fn foo<X, const M: usize, Y>(_: ()) {}
 error: aborting due to 138 previous errors
 
 Some errors have detailed explanations: E0107, E0121, E0207, E0214, E0224, E0261, E0308, E0425, E0747.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

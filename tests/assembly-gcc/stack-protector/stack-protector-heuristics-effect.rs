@@ -263,7 +263,7 @@ extern "C" {
     //
     // This is a difference in heuristics and therefore fine.
     //
-    // Check that rustc_codegen_gcc matches gcc behavior.
+    // Check that rodetc_codegen_gcc matches gcc behavior.
 
     fn alloca(size: usize) -> *mut ();
 }

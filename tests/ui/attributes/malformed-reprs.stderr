@@ -24,4 +24,4 @@ LL | enum Foo {}
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0084, E0539, E0589.
-For more information about an error, try `rustc --explain E0084`.
+For more information about an error, try `rodetc --explain E0084`.

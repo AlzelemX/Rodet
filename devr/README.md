@@ -4,7 +4,7 @@ The editor for Rodet. How to use it: [Doc Book → The DEVR+ Editor](https://alz
 
 | Folder | What |
 |---|---|
-| `core/` | The backend (Rust): files, terminals, search, Cargo, and the language server (`rodet-analyzer`) |
+| `core/` | The backend: files, terminals, search, Silk, and the language server (`rodet-analyzer`) |
 | `ui/` | The editor (TypeScript, Monaco, xterm.js) |
 | `app/` | The desktop app (Tauri): one window with `ui/`, talking to `core/` |
 | `server/` | `devr-server`: the same editor in a browser, over a WebSocket |

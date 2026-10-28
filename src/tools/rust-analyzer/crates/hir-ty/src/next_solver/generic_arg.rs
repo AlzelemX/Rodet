@@ -11,7 +11,7 @@ use std::{hint::unreachable_unchecked, marker::PhantomData, ptr::NonNull};
 use arrayvec::ArrayVec;
 use hir_def::{GenericDefId, GenericParamId, hir::generics::LifetimeParamData};
 use intern::InternedRef;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     ClosureArgs, ConstVid, CoroutineArgs, CoroutineClosureArgs, FallibleTypeFolder,
     GenericTypeVisitable, Interner, TyVid, TypeFoldable, TypeFolder, TypeVisitable, TypeVisitor,
     Variance,
@@ -30,8 +30,8 @@ use super::{
     generics::Generics,
 };
 
-pub type GenericArgKind<'db> = rustc_type_ir::GenericArgKind<DbInterner<'db>>;
-pub type TermKind<'db> = rustc_type_ir::TermKind<DbInterner<'db>>;
+pub type GenericArgKind<'db> = rodetc_type_ir::GenericArgKind<DbInterner<'db>>;
+pub type TermKind<'db> = rodetc_type_ir::TermKind<DbInterner<'db>>;
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 struct GenericArgImpl<'db> {
@@ -420,11 +420,11 @@ impl<'db> TypeFoldable<DbInterner<'db>> for Term<'db> {
 }
 
 impl<'db> Relate<DbInterner<'db>> for GenericArg<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         match (a.kind(), b.kind()) {
             (GenericArgKind::Lifetime(a_lt), GenericArgKind::Lifetime(b_lt)) => {
                 Ok(relation.relate(a_lt, b_lt)?.into())
@@ -459,7 +459,7 @@ interned_slice!(
 impl_foldable_for_interned_slice!(GenericArgs);
 impl_foldable_for_stored_type!(StoredGenericArgs);
 
-impl<'db> rustc_type_ir::inherent::GenericArg<DbInterner<'db>> for GenericArg<'db> {}
+impl<'db> rodetc_type_ir::inherent::GenericArg<DbInterner<'db>> for GenericArg<'db> {}
 
 trait GenericArgsBuilder<'db>: AsRef<[GenericArg<'db>]> {
     fn push(&mut self, arg: GenericArg<'db>);
@@ -617,19 +617,19 @@ impl<'db> GenericArgs<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::relate::Relate<DbInterner<'db>> for GenericArgs<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+impl<'db> rodetc_type_ir::relate::Relate<DbInterner<'db>> for GenericArgs<'db> {
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         GenericArgs::new_from_iter(std::iter::zip(a.iter(), b.iter()).map(|(a, b)| {
             relation.relate_with_variance(Variance::Invariant, VarianceDiagInfo::default(), a, b)
         }))
     }
 }
 
-impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<'db> {
+impl<'db> rodetc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<'db> {
     fn as_closure(self) -> ClosureArgs<DbInterner<'db>> {
         ClosureArgs { args: self }
     }
@@ -642,25 +642,25 @@ impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<
     fn rebase_onto(
         self,
         interner: DbInterner<'db>,
-        source_def_id: <DbInterner<'db> as rustc_type_ir::Interner>::DefId,
-        target: <DbInterner<'db> as rustc_type_ir::Interner>::GenericArgs,
-    ) -> <DbInterner<'db> as rustc_type_ir::Interner>::GenericArgs {
+        source_def_id: <DbInterner<'db> as rodetc_type_ir::Interner>::DefId,
+        target: <DbInterner<'db> as rodetc_type_ir::Interner>::GenericArgs,
+    ) -> <DbInterner<'db> as rodetc_type_ir::Interner>::GenericArgs {
         let defs = interner.generics_of(source_def_id);
         interner.mk_args_from_iter(target.iter().chain(self.iter().skip(defs.count())))
     }
 
     fn identity_for_item(
         interner: DbInterner<'db>,
-        def_id: <DbInterner<'db> as rustc_type_ir::Interner>::DefId,
-    ) -> <DbInterner<'db> as rustc_type_ir::Interner>::GenericArgs {
+        def_id: <DbInterner<'db> as rodetc_type_ir::Interner>::DefId,
+    ) -> <DbInterner<'db> as rodetc_type_ir::Interner>::GenericArgs {
         Self::for_item(interner, def_id, |index, kind, _, _| mk_param(interner, index, kind))
     }
 
     fn extend_with_error(
         interner: DbInterner<'db>,
-        def_id: <DbInterner<'db> as rustc_type_ir::Interner>::DefId,
-        original_args: &[<DbInterner<'db> as rustc_type_ir::Interner>::GenericArg],
-    ) -> <DbInterner<'db> as rustc_type_ir::Interner>::GenericArgs {
+        def_id: <DbInterner<'db> as rodetc_type_ir::Interner>::DefId,
+        original_args: &[<DbInterner<'db> as rodetc_type_ir::Interner>::GenericArg],
+    ) -> <DbInterner<'db> as rodetc_type_ir::Interner>::GenericArgs {
         Self::for_item(interner, def_id, |index, kind, _, _| {
             if let Some(arg) = original_args.get(index as usize) {
                 *arg
@@ -669,29 +669,29 @@ impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<
             }
         })
     }
-    fn type_at(self, i: usize) -> <DbInterner<'db> as rustc_type_ir::Interner>::Ty {
+    fn type_at(self, i: usize) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Ty {
         self.get(i)
             .and_then(|g| g.as_type())
             .unwrap_or_else(|| Ty::new_error(DbInterner::conjure(), ErrorGuaranteed))
     }
 
-    fn region_at(self, i: usize) -> <DbInterner<'db> as rustc_type_ir::Interner>::Region {
+    fn region_at(self, i: usize) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Region {
         self.get(i)
             .and_then(|g| g.as_region())
             .unwrap_or_else(|| Region::error(DbInterner::conjure()))
     }
 
-    fn const_at(self, i: usize) -> <DbInterner<'db> as rustc_type_ir::Interner>::Const {
+    fn const_at(self, i: usize) -> <DbInterner<'db> as rodetc_type_ir::Interner>::Const {
         self.get(i)
             .and_then(|g| g.as_const())
             .unwrap_or_else(|| Const::error(DbInterner::conjure()))
     }
 
-    fn split_closure_args(self) -> rustc_type_ir::ClosureArgsParts<DbInterner<'db>> {
+    fn split_closure_args(self) -> rodetc_type_ir::ClosureArgsParts<DbInterner<'db>> {
         // FIXME: should use `ClosureSubst` when possible
         match self.as_slice() {
             [parent_args @ .., closure_kind_ty, sig_ty, tupled_upvars_ty] => {
-                rustc_type_ir::ClosureArgsParts {
+                rodetc_type_ir::ClosureArgsParts {
                     parent_args,
                     closure_sig_as_fn_ptr_ty: sig_ty.expect_ty(),
                     closure_kind_ty: closure_kind_ty.expect_ty(),
@@ -706,7 +706,7 @@ impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<
 
     fn split_coroutine_closure_args(
         self,
-    ) -> rustc_type_ir::CoroutineClosureArgsParts<DbInterner<'db>> {
+    ) -> rodetc_type_ir::CoroutineClosureArgsParts<DbInterner<'db>> {
         match self.as_slice() {
             [
                 parent_args @ ..,
@@ -714,7 +714,7 @@ impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<
                 signature_parts_ty,
                 tupled_upvars_ty,
                 coroutine_captures_by_ref_ty,
-            ] => rustc_type_ir::CoroutineClosureArgsParts {
+            ] => rodetc_type_ir::CoroutineClosureArgsParts {
                 parent_args,
                 closure_kind_ty: closure_kind_ty.expect_ty(),
                 signature_parts_ty: signature_parts_ty.expect_ty(),
@@ -725,10 +725,10 @@ impl<'db> rustc_type_ir::inherent::GenericArgs<DbInterner<'db>> for GenericArgs<
         }
     }
 
-    fn split_coroutine_args(self) -> rustc_type_ir::CoroutineArgsParts<DbInterner<'db>> {
+    fn split_coroutine_args(self) -> rodetc_type_ir::CoroutineArgsParts<DbInterner<'db>> {
         match self.as_slice() {
             [parent_args @ .., kind_ty, resume_ty, yield_ty, return_ty, tupled_upvars_ty] => {
-                rustc_type_ir::CoroutineArgsParts {
+                rodetc_type_ir::CoroutineArgsParts {
                     parent_args,
                     kind_ty: kind_ty.expect_ty(),
                     resume_ty: resume_ty.expect_ty(),
@@ -786,11 +786,11 @@ impl<'db> From<Const<'db>> for Term<'db> {
 }
 
 impl<'db> Relate<DbInterner<'db>> for Term<'db> {
-    fn relate<R: rustc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
+    fn relate<R: rodetc_type_ir::relate::TypeRelation<DbInterner<'db>>>(
         relation: &mut R,
         a: Self,
         b: Self,
-    ) -> rustc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
+    ) -> rodetc_type_ir::relate::RelateResult<DbInterner<'db>, Self> {
         match (a.kind(), b.kind()) {
             (TermKind::Ty(a_ty), TermKind::Ty(b_ty)) => Ok(relation.relate(a_ty, b_ty)?.into()),
             (TermKind::Const(a_ct), TermKind::Const(b_ct)) => {
@@ -806,7 +806,7 @@ impl<'db> Relate<DbInterner<'db>> for Term<'db> {
     }
 }
 
-impl<'db> rustc_type_ir::inherent::Term<DbInterner<'db>> for Term<'db> {}
+impl<'db> rodetc_type_ir::inherent::Term<DbInterner<'db>> for Term<'db> {}
 
 #[derive(Clone, Eq, PartialEq, Debug)]
 pub enum TermVid {
@@ -834,7 +834,7 @@ impl<'db> DbInterner<'db> {
     pub(super) fn mk_args_from_iter<I, T>(self, iter: I) -> T::Output
     where
         I: Iterator<Item = T>,
-        T: rustc_type_ir::CollectAndApply<GenericArg<'db>, GenericArgs<'db>>,
+        T: rodetc_type_ir::CollectAndApply<GenericArg<'db>, GenericArgs<'db>>,
     {
         T::collect_and_apply(iter, |xs| self.mk_args(xs))
     }

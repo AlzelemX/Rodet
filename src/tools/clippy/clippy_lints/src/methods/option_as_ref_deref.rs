@@ -3,11 +3,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::source::snippet;
 use clippy_utils::{peel_blocks, sym};
-use rustc_errors::Applicability;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Symbol;
 
 use super::OPTION_AS_REF_DEREF;
 

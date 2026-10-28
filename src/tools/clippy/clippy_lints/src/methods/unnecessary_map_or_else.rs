@@ -2,11 +2,11 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_expr_identity_function;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_applicability;
-use rustc_errors::Applicability;
-use rustc_hir::Expr;
-use rustc_lint::LateContext;
-use rustc_span::Span;
-use rustc_span::symbol::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::Expr;
+use rodetc_lint::LateContext;
+use rodetc_span::Span;
+use rodetc_span::symbol::sym;
 
 use super::{UNNECESSARY_OPTION_MAP_OR_ELSE, UNNECESSARY_RESULT_MAP_OR_ELSE};
 

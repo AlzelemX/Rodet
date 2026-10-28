@@ -39,4 +39,4 @@ LL |     foo::m!();
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0364`.
+For more information about this error, try `rodetc --explain E0364`.

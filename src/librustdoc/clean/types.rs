@@ -6,31 +6,31 @@ use std::{fmt, iter};
 
 use arrayvec::ArrayVec;
 use itertools::Either;
-use rustc_abi::{ExternAbi, VariantIdx};
-use rustc_ast as ast;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::{
+use rodetc_abi::{ExternAbi, VariantIdx};
+use rodetc_ast as ast;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::{
     AttributeKind, ConstStability, DeprecatedSince, Deprecation, DocAttribute, Stability,
     StableSince, find_attr,
 };
-use rustc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
-use rustc_data_structures::thin_vec::ThinVec;
-use rustc_hir as hir;
-use rustc_hir::def::{CtorKind, DefKind, MacroKinds, Res};
-use rustc_hir::def_id::{CrateNum, DefId, LOCAL_CRATE, LocalDefId};
-use rustc_hir::{BodyId, Mutability};
-use rustc_index::IndexVec;
-use rustc_metadata::rendered_const;
-use rustc_middle::ty::fast_reject::SimplifiedType;
-use rustc_middle::ty::{self, Ty, TyCtxt, Visibility};
-use rustc_resolve::rustdoc::{
+use rodetc_data_structures::fx::{FxHashSet, FxIndexMap, FxIndexSet};
+use rodetc_data_structures::thin_vec::ThinVec;
+use rodetc_hir as hir;
+use rodetc_hir::def::{CtorKind, DefKind, MacroKinds, Res};
+use rodetc_hir::def_id::{CrateNum, DefId, LOCAL_CRATE, LocalDefId};
+use rodetc_hir::{BodyId, Mutability};
+use rodetc_index::IndexVec;
+use rodetc_metadata::rendered_const;
+use rodetc_middle::ty::fast_reject::SimplifiedType;
+use rodetc_middle::ty::{self, Ty, TyCtxt, Visibility};
+use rodetc_resolve::rustdoc::{
     DocFragment, add_doc_fragment, attrs_to_doc_fragments, span_of_fragments,
 };
-use rustc_session::Session;
-use rustc_span::def_id::{CRATE_DEF_ID, ModId};
-use rustc_span::hygiene::MacroKind;
-use rustc_span::symbol::{Symbol, kw, sym};
-use rustc_span::{DUMMY_SP, FileName, Ident, Loc, RemapPathScopeComponents, span_bug};
+use rodetc_session::Session;
+use rodetc_span::def_id::{CRATE_DEF_ID, ModId};
+use rodetc_span::hygiene::MacroKind;
+use rodetc_span::symbol::{Symbol, kw, sym};
+use rodetc_span::{DUMMY_SP, FileName, Ident, Loc, RemapPathScopeComponents, span_bug};
 use tracing::{debug, trace};
 
 pub(crate) use self::ItemKind::*;
@@ -372,7 +372,7 @@ impl fmt::Debug for Item {
     }
 }
 
-pub(crate) fn rustc_span(def_id: DefId, tcx: TyCtxt<'_>) -> Span {
+pub(crate) fn rodetc_span(def_id: DefId, tcx: TyCtxt<'_>) -> Span {
     Span::new(def_id.as_local().map_or_else(
         || tcx.def_span(def_id),
         |local| tcx.hir_span_with_body(tcx.local_def_id_to_hir_id(local)),
@@ -429,7 +429,7 @@ impl Item {
             // versions; the paths that are exposed through it are "deprecated" because they
             // were never supposed to work at all.
             let stab = self.stability(tcx)?;
-            if let rustc_attr_ir::StabilityLevel::Stable {
+            if let rodetc_attr_ir::StabilityLevel::Stable {
                 allowed_through_unstable_modules: Some((note, _)),
                 ..
             } = stab.level
@@ -461,7 +461,7 @@ impl Item {
     }
 
     pub(crate) fn inner_docs(&self, tcx: TyCtxt<'_>) -> bool {
-        use rustc_ast::attr::AttributeExt;
+        use rodetc_ast::attr::AttributeExt;
 
         self.item_id
             .as_def_id()
@@ -493,16 +493,16 @@ impl Item {
             ItemKind::ImplItem(Impl { kind: ImplKind::Auto, .. }) => None,
             ItemKind::ImplItem(Impl { kind: ImplKind::Blanket(_), .. }) => {
                 if let ItemId::Blanket { impl_id, .. } = self.item_id {
-                    Some(rustc_span(impl_id, tcx))
+                    Some(rodetc_span(impl_id, tcx))
                 } else {
                     panic!("blanket impl item has non-blanket ID")
                 }
             }
-            _ => self.def_id().map(|did| rustc_span(did, tcx)),
+            _ => self.def_id().map(|did| rodetc_span(did, tcx)),
         }
     }
 
-    pub(crate) fn attr_span(&self, tcx: TyCtxt<'_>) -> rustc_span::Span {
+    pub(crate) fn attr_span(&self, tcx: TyCtxt<'_>) -> rodetc_span::Span {
         let deprecation_notes = find_attr!(&self.attrs.other_attrs, Deprecated { deprecation, .. } => deprecation.note.map(|note| note.span)).flatten();
 
         span_of_fragments(&self.attrs.doc_strings)
@@ -1066,7 +1066,7 @@ pub struct RenderedLink {
 #[derive(Clone, Debug, Default)]
 pub(crate) struct Attributes {
     pub(crate) doc_strings: Vec<DocFragment>,
-    pub(crate) other_attrs: ThinVec<rustc_attr_ir::Attribute>,
+    pub(crate) other_attrs: ThinVec<rodetc_attr_ir::Attribute>,
 }
 
 impl Attributes {
@@ -1078,13 +1078,13 @@ impl Attributes {
         find_attr!(&self.other_attrs, Doc(d) if d.hidden.is_some())
     }
 
-    pub(crate) fn from_hir(attrs: &[rustc_attr_ir::Attribute]) -> Attributes {
+    pub(crate) fn from_hir(attrs: &[rodetc_attr_ir::Attribute]) -> Attributes {
         Attributes::from_hir_iter(attrs.iter().map(|attr| (attr, None)), false)
     }
 
     pub(crate) fn from_hir_with_additional(
-        attrs: &[rustc_attr_ir::Attribute],
-        (additional_attrs, def_id): (&[rustc_attr_ir::Attribute], DefId),
+        attrs: &[rodetc_attr_ir::Attribute],
+        (additional_attrs, def_id): (&[rodetc_attr_ir::Attribute], DefId),
     ) -> Attributes {
         // Additional documentation should be shown before the original documentation.
         let attrs1 = additional_attrs.iter().map(|attr| (attr, Some(def_id)));
@@ -1093,7 +1093,7 @@ impl Attributes {
     }
 
     pub(crate) fn from_hir_iter<'a>(
-        attrs: impl Iterator<Item = (&'a rustc_attr_ir::Attribute, Option<DefId>)>,
+        attrs: impl Iterator<Item = (&'a rodetc_attr_ir::Attribute, Option<DefId>)>,
         doc_only: bool,
     ) -> Attributes {
         let (doc_strings, other_attrs) = attrs_to_doc_fragments(attrs, doc_only);
@@ -1123,7 +1123,7 @@ impl Attributes {
         let mut aliases = FxIndexSet::default();
 
         for attr in &self.other_attrs {
-            if let rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) = attr {
+            if let rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) = attr {
                 for (alias, _) in &d.aliases {
                     aliases.insert(*alias);
                 }
@@ -1183,7 +1183,7 @@ impl GenericBound {
     }
 
     fn is_bounded_by_lang_item(&self, tcx: TyCtxt<'_>, lang_item: LangItem) -> bool {
-        if let GenericBound::TraitBound(poly_trait_ref, rustc_hir::TraitBoundModifiers::NONE) = self
+        if let GenericBound::TraitBound(poly_trait_ref, rodetc_hir::TraitBoundModifiers::NONE) = self
             && tcx.is_lang_item(poly_trait_ref.trait_.def_id(), lang_item)
         {
             return true;
@@ -2057,21 +2057,21 @@ impl Discriminant {
     }
 }
 
-/// Small wrapper around [`rustc_span::Span`] that adds helper methods
-/// and enforces calling [`rustc_span::Span::source_callsite()`].
+/// Small wrapper around [`rodetc_span::Span`] that adds helper methods
+/// and enforces calling [`rodetc_span::Span::source_callsite()`].
 #[derive(Copy, Clone, Debug)]
-pub(crate) struct Span(rustc_span::Span);
+pub(crate) struct Span(rodetc_span::Span);
 
 impl Span {
-    /// Wraps a [`rustc_span::Span`]. In case this span is the result of a macro expansion, the
+    /// Wraps a [`rodetc_span::Span`]. In case this span is the result of a macro expansion, the
     /// span will be updated to point to the macro invocation instead of the macro definition.
     ///
     /// (See rust-lang/rust#39726)
-    pub(crate) fn new(sp: rustc_span::Span) -> Self {
+    pub(crate) fn new(sp: rodetc_span::Span) -> Self {
         Self(sp.source_callsite())
     }
 
-    pub(crate) fn inner(&self) -> rustc_span::Span {
+    pub(crate) fn inner(&self) -> rodetc_span::Span {
         self.0
     }
 
@@ -2512,7 +2512,7 @@ pub(crate) enum AssocItemConstraintKind {
 // Some nodes are used a lot. Make sure they don't unintentionally get bigger.
 #[cfg(target_pointer_width = "64")]
 mod size_asserts {
-    use rustc_data_structures::static_assert_size;
+    use rodetc_data_structures::static_assert_size;
 
     use super::*;
     // tidy-alphabetical-start

@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::is_lint_allowed;
 use clippy_utils::source::SpanExt as _;
-use rustc_hir as hir;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::FnKind;
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_span::Span;
+use rodetc_hir as hir;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_span::Span;
 
 use super::TOO_MANY_LINES;
 

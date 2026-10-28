@@ -377,7 +377,7 @@ pub enum Subcommand {
             ./x.py test library/std --stage 0 --all-targets
             ./x.py test tests/ui --bless
             ./x.py test tests/ui --compare-mode next-solver
-        Note that `test tests/* --stage N` does NOT depend on `build compiler/rustc --stage N`;
+        Note that `test tests/* --stage N` does NOT depend on `build compiler/rodetc --stage N`;
         just like `build library/std --stage N` it tests the compiler produced by the previous
         stage.
         Execute tool tests with a tool name argument:

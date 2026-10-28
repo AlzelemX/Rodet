@@ -8,4 +8,4 @@ LL | impl Y for <i32 as X>::U {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0119`.
+For more information about this error, try `rodetc --explain E0119`.

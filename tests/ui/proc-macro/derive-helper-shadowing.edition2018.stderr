@@ -74,7 +74,7 @@ LL | #[derive(Empty)]
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0659`.
+For more information about this error, try `rodetc --explain E0659`.
 Future incompatibility report: Future breakage diagnostic:
 error: derive helper attribute is used before it is introduced
   --> $DIR/derive-helper-shadowing.rs:22:3

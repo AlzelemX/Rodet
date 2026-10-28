@@ -4,11 +4,11 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::is_isize_or_usize;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, QPath, TyKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, FloatTy, Ty};
-use rustc_span::hygiene;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, QPath, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, FloatTy, Ty};
+use rodetc_span::hygiene;
 
 use super::{CAST_LOSSLESS, utils};
 
@@ -18,7 +18,7 @@ pub(super) fn check(
     cast_from_expr: &Expr<'_>,
     cast_from: Ty<'_>,
     cast_to: Ty<'_>,
-    cast_to_hir: &rustc_hir::Ty<'_>,
+    cast_to_hir: &rodetc_hir::Ty<'_>,
     msrv: Msrv,
 ) {
     if !should_lint(cx, cast_from, cast_to, msrv) {

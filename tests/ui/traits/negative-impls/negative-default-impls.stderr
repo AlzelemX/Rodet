@@ -6,4 +6,4 @@ LL | default impl !MyTrait for u32 {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0750`.
+For more information about this error, try `rodetc --explain E0750`.

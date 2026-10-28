@@ -3,17 +3,17 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::implements_trait;
 use clippy_utils::{is_default_equivalent_call, local_is_initialized};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_data_structures::smallvec::SmallVec;
-use rustc_errors::Applicability;
-use rustc_hir::{Body, BodyId, Expr, ExprKind, HirId, QPath};
-use rustc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::hir::place::ProjectionKind;
-use rustc_middle::mir::FakeReadCause;
-use rustc_middle::ty;
-use rustc_span::{Symbol, sym};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_data_structures::smallvec::SmallVec;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Body, BodyId, Expr, ExprKind, HirId, QPath};
+use rodetc_hir_typeck::expr_use_visitor::{Delegate, ExprUseVisitor, PlaceBase, PlaceWithHirId};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::hir::place::ProjectionKind;
+use rodetc_middle::mir::FakeReadCause;
+use rodetc_middle::ty;
+use rodetc_span::{Symbol, sym};
 
 declare_clippy_lint! {
     /// ### What it does

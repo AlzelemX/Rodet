@@ -2,14 +2,14 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeQPath as _;
 use clippy_utils::ty::{option_or_result_arg_ty, same_type_modulo_regions};
 use clippy_utils::{is_from_proc_macro, last_path_segment, over};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Namespace, Res};
-use rustc_hir::def_id::DefId;
-use rustc_hir::{Body, Expr, ExprKind, PatKind, Safety};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
-use rustc_span::symbol::Ident;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Namespace, Res};
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{Body, Expr, ExprKind, PatKind, Safety};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
+use rodetc_span::symbol::Ident;
 
 use super::UNNECESSARY_UNWRAP_UNCHECKED;
 

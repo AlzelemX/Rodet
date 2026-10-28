@@ -76,4 +76,4 @@ LL |         const { continue }
 error: aborting due to 9 previous errors
 
 Some errors have detailed explanations: E0268, E0435, E0572, E0728, E0767.
-For more information about an error, try `rustc --explain E0268`.
+For more information about an error, try `rodetc --explain E0268`.

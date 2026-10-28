@@ -92,4 +92,4 @@ LL | fn foo_multi_same<T>(a: T, b: T, c: T, d: T, e: T, f: i32) {}
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

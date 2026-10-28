@@ -1,7 +1,7 @@
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_errors::Applicability;
-use rustc_lint::LateContext;
-use rustc_span::{BytePos, Span};
+use rodetc_errors::Applicability;
+use rodetc_lint::LateContext;
+use rodetc_span::{BytePos, Span};
 
 use super::DOC_COMMENT_DOUBLE_SPACE_LINEBREAKS;
 

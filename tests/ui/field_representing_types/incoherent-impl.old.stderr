@@ -24,4 +24,4 @@ LL | impl ForeignTrait for field_of!((usize, usize), 0) {}
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0117`.
+For more information about this error, try `rodetc --explain E0117`.

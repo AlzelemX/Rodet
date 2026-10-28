@@ -331,4 +331,4 @@ LL |     let _ = FOO & (*"Sized".to_string().into_boxed_str());
 error: aborting due to 24 previous errors
 
 Some errors have detailed explanations: E0277, E0308, E0369.
-For more information about an error, try `rustc --explain E0277`.
+For more information about an error, try `rodetc --explain E0277`.

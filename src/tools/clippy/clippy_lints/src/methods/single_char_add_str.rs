@@ -2,11 +2,11 @@ use super::SINGLE_CHAR_ADD_STR;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::{snippet_with_applicability, str_literal_to_char_literal};
 use clippy_utils::sym;
-use rustc_ast::BorrowKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_ast::BorrowKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 pub(super) fn check(cx: &LateContext<'_>, expr: &Expr<'_>, receiver: &Expr<'_>, args: &[Expr<'_>]) {
     if let Some(fn_def_id) = cx.typeck_results().type_dependent_def_id(expr.hir_id) {

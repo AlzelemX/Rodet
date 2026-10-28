@@ -1,0 +1,36 @@
+[package]
+name = "rodetc_lint"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+bitflags = "2.4.1"
+rodetc_abi = { path = "../rodetc_abi" }
+rustc_apfloat = "0.2.0"
+rodetc_ast = { path = "../rodetc_ast" }
+rodetc_ast_pretty = { path = "../rodetc_ast_pretty" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_attr_parsing = { path = "../rodetc_attr_parsing" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_feature = { path = "../rodetc_feature" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_infer = { path = "../rodetc_infer" }
+rodetc_lint_defs = { path = "../rodetc_lint_defs" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_parse_format = { path = "../rodetc_parse_format" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_symbol_mangling = { path = "../rodetc_symbol_mangling" }
+rodetc_target = { path = "../rodetc_target" }
+rodetc_trait_selection = { path = "../rodetc_trait_selection" }
+smallvec = { version = "1.8.1", features = ["union", "may_dangle"] }
+thin-vec = "0.2.19"
+tracing = "0.1"
+unicode-security = "0.1.0"
+# tidy-alphabetical-end

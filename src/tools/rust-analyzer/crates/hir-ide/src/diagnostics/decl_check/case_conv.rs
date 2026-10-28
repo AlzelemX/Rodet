@@ -2,7 +2,7 @@
 //! and converting it into appropriate form.
 
 // Code that was taken from rustc was taken at commit 89fdb30,
-// from file /compiler/rustc_lint/src/nonstandard_style.rs
+// from file /compiler/rodetc_lint/src/nonstandard_style.rs
 
 /// Converts an identifier to an UpperCamelCase form.
 /// Returns `None` if the string is already in UpperCamelCase.
@@ -131,7 +131,7 @@ mod tests {
         check(to_camel_case, "name", expect![["Name"]]);
         check(to_camel_case, "A", expect![[""]]);
         check(to_camel_case, "AABB", expect![[""]]);
-        // Taken from rustc: /compiler/rustc_lint/src/nonstandard_style/tests.rs
+        // Taken from rustc: /compiler/rodetc_lint/src/nonstandard_style/tests.rs
         check(to_camel_case, "X86_64", expect![[""]]);
         check(to_camel_case, "x86__64", expect![["X86_64"]]);
         check(to_camel_case, "Abc_123", expect![["Abc123"]]);

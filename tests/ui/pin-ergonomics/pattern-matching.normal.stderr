@@ -239,4 +239,4 @@ LL |     (x,): Pin<&'a mut &'a mut (Foo<T, U>,)>,
 error: aborting due to 20 previous errors
 
 Some errors have detailed explanations: E0308, E0529, E0658.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

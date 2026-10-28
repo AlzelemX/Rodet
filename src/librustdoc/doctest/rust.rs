@@ -5,15 +5,15 @@ use std::str::FromStr;
 use std::sync::Arc;
 
 use proc_macro2::{TokenStream, TokenTree};
-use rustc_attr_ir::{AttributeKind, CfgEntry};
-use rustc_attr_parsing::eval_config_entry;
-use rustc_hir::def_id::{CRATE_DEF_ID, LocalDefId};
-use rustc_hir::{self as hir, CRATE_HIR_ID, intravisit};
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::TyCtxt;
-use rustc_resolve::rustdoc::span_of_fragments;
-use rustc_span::source_map::SourceMap;
-use rustc_span::{BytePos, DUMMY_SP, FileName, Pos, Span, sym};
+use rodetc_attr_ir::{AttributeKind, CfgEntry};
+use rodetc_attr_parsing::eval_config_entry;
+use rodetc_hir::def_id::{CRATE_DEF_ID, LocalDefId};
+use rodetc_hir::{self as hir, CRATE_HIR_ID, intravisit};
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_resolve::rustdoc::span_of_fragments;
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::{BytePos, DUMMY_SP, FileName, Pos, Span, sym};
 
 use super::{DocTestVisitor, ScrapedDocTest};
 use crate::clean::cfg::Cfg;
@@ -131,7 +131,7 @@ impl HirCollector<'_> {
         // 1. Collect `#[target_feature(...)]`.
         // 2. Collect `#[doc(test(attr(...)))]`.
         for attr in hir_attrs.iter() {
-            let rustc_attr_ir::Attribute::Parsed(attr) = attr else { continue };
+            let rodetc_attr_ir::Attribute::Parsed(attr) = attr else { continue };
             if let AttributeKind::TargetFeature { features, .. } = attr {
                 for (feature, _) in features {
                     found_features += 1;
@@ -260,7 +260,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for HirCollector<'tcx> {
     fn visit_item(&mut self, item: &'tcx hir::Item<'_>) {
         let name = match &item.kind {
             hir::ItemKind::Impl(impl_) => {
-                Some(rustc_hir_pretty::id_to_string(&self.tcx, impl_.self_ty.hir_id))
+                Some(rodetc_hir_pretty::id_to_string(&self.tcx, impl_.self_ty.hir_id))
             }
             _ => item.kind.ident().map(|ident| ident.to_string()),
         };

@@ -35,4 +35,4 @@ LL |             let crate::my_mod::Foo(x) = crate::Foo(42);
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0423, E0532.
-For more information about an error, try `rustc --explain E0423`.
+For more information about an error, try `rodetc --explain E0423`.

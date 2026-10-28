@@ -19,7 +19,7 @@ export interface Settings {
   typeHints: boolean;
   parameterHints: boolean;
   speedScore: boolean;
-  /** Run `cargo check` on save and show the compiler's errors. */
+  /** Run `rodet check` on save and show the compiler's errors. */
   checkOnSave: boolean;
   /** Ids of installed plugins that are turned off. */
   disabledPlugins: string[];

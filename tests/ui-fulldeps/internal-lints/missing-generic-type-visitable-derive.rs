@@ -6,12 +6,12 @@
 #![feature(rustc_private)]
 #![deny(rustc::missing_generic_type_visitable_derive)]
 
-extern crate rustc_type_ir;
-extern crate rustc_type_ir_macros;
+extern crate rodetc_type_ir;
+extern crate rodetc_type_ir_macros;
 
-use rustc_type_ir::{GenericTypeVisitable, TypeVisitable};
-use rustc_type_ir::{Interner, TypeVisitor, VisitorResult};
-use rustc_type_ir_macros::{GenericTypeVisitable, TypeVisitable_Generic};
+use rodetc_type_ir::{GenericTypeVisitable, TypeVisitable};
+use rodetc_type_ir::{Interner, TypeVisitor, VisitorResult};
+use rodetc_type_ir_macros::{GenericTypeVisitable, TypeVisitable_Generic};
 use std::{fmt::Debug, hash::Hash};
 
 // Should lint: `TypeVisitable` is implemented, but `GenericTypeVisitable` isn't

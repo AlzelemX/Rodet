@@ -1,13 +1,13 @@
 use hir::FnSig;
-use rustc_attr_ir::{Attribute, find_attr};
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::def_id::DefIdSet;
-use rustc_hir::{self as hir, QPath};
-use rustc_lint::unused::must_use::MustUsePath;
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::{self, Ty};
-use rustc_span::{Span, Symbol, sym};
+use rodetc_attr_ir::{Attribute, find_attr};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::def_id::DefIdSet;
+use rodetc_hir::{self as hir, QPath};
+use rodetc_lint::unused::must_use::MustUsePath;
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::{Span, Symbol, sym};
 
 use clippy_utils::attrs::is_proc_macro;
 use clippy_utils::diagnostics::{span_lint_and_sugg, span_lint_and_then};

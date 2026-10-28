@@ -86,4 +86,4 @@ LL |     let &mut ref mut num = num_mut_ref;
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0384`.
+For more information about this error, try `rodetc --explain E0384`.

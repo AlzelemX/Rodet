@@ -2,9 +2,9 @@ use clippy_utils::consts::{ConstEvalCtxt, Constant, FullInt, eval_int};
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::sym;
-use rustc_hir::{ConstBlock, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
+use rodetc_hir::{ConstBlock, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
 
 use super::TRANSMUTING_NULL;
 

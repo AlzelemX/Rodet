@@ -2,10 +2,10 @@ use std::fmt::{self, Write};
 use std::num::NonZero;
 use std::sync::Mutex;
 
-use rustc_abi::{Align, Size};
-use rustc_data_structures::fx::{FxBuildHasher, FxHashSet};
-use rustc_errors::{Diag, Level};
-use rustc_span::{DUMMY_SP, Span, Symbol};
+use rodetc_abi::{Align, Size};
+use rodetc_data_structures::fx::{FxBuildHasher, FxHashSet};
+use rodetc_errors::{Diag, Level};
+use rodetc_span::{DUMMY_SP, Span, Symbol};
 
 use crate::borrow_tracker::stacked_borrows::diagnostics::TagHistory;
 use crate::borrow_tracker::tree_borrows::diagnostics as tree_diagnostics;

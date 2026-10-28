@@ -80,7 +80,7 @@ export function activate(devr) {
 | `devr.theme` | ثيمات الألوان، CSS، الألوان (`setColors({ '--accent': '#2f9e44' })`) |
 | `devr.editor` | محرر الكود وواجهة Monaco كاملة |
 | `devr.workspace` | فتح الملفات وقراءتها وكتابتها وحفظها؛ وأحداث فتح الملفات وحفظها وإغلاقها |
-| `devr.terminal` | تشغيل البرامج و`cargo` |
+| `devr.terminal` | تشغيل البرامج و`rodet` |
 | `devr.lsp` | طلبات إلى rodet-analyzer، والأخطاء والتحذيرات |
 | `devr.settings`، `devr.storage` | إعدادات المحرر؛ وبيانات إضافتك المحفوظة |
 | `devr.backend` | كل ما يستطيعه الجزء الخلفي من DEVR+ |

@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_ast::attr::data_structures::CfgEntry;
-use rustc_ast::{AttrKind, SyntheticAttr};
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::sym;
+use rodetc_ast::attr::data_structures::CfgEntry;
+use rodetc_ast::{AttrKind, SyntheticAttr};
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -32,7 +32,7 @@ declare_clippy_lint! {
 declare_lint_pass!(CfgNotTest => [CFG_NOT_TEST]);
 
 impl EarlyLintPass for CfgNotTest {
-    fn check_attribute(&mut self, cx: &EarlyContext<'_>, attr: &rustc_ast::Attribute) {
+    fn check_attribute(&mut self, cx: &EarlyContext<'_>, attr: &rodetc_ast::Attribute) {
         if let AttrKind::Synthetic(synthetic) = &attr.kind
             && let SyntheticAttr::CfgTrace(cfg) = &**synthetic
             && contains_not_test(cfg, false)

@@ -11,4 +11,4 @@ LL | fn bar<'a>(x: &'a str) -> &'a dyn Foo<'a, Item = dyn Bar + /* 'a */> { &() 
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0228`.
+For more information about this error, try `rodetc --explain E0228`.

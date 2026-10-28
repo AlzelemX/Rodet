@@ -1,0 +1,26 @@
+[package]
+name = "rodetc_ty_utils"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+itertools = "0.15"
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_errors = { path = "../rodetc_errors" }
+rodetc_hashes = { path = "../rodetc_hashes" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_index = { path = "../rodetc_index" }
+rodetc_infer = { path = "../rodetc_infer" }
+rodetc_macros = { path = "../rodetc_macros" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_session = { path = "../rodetc_session" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_structures = { path = "../rodetc_structures" }
+rodetc_target = { path = "../rodetc_target" }
+rodetc_trait_selection = { path = "../rodetc_trait_selection" }
+rodetc_ty_walk = { path = "../rodetc_ty_walk" }
+tracing = "0.1"
+# tidy-alphabetical-end

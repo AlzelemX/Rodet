@@ -73,4 +73,4 @@ LL |     for _ in (|| vec![1u8].into_iter())() {}
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

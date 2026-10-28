@@ -6,7 +6,7 @@
 #![cfg_attr(feature = "in-rust-tree", feature(rustc_private))]
 
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_driver as _;
+extern crate rodetc_driver as _;
 
 use std::{any::Any, collections::hash_map::Entry, mem, path::Path, sync};
 
@@ -303,6 +303,7 @@ impl ProjectFolders {
             let entry = {
                 let mut dirs = vfs::loader::Directories::default();
                 dirs.extensions.push("rs".into());
+                dirs.extensions.push("rd".into());
                 dirs.extensions.push("toml".into());
                 dirs.extensions.push("md".into());
                 dirs.include.extend(root.include);

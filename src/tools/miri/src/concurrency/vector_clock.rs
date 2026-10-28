@@ -2,8 +2,8 @@ use std::cmp::Ordering;
 use std::fmt::Debug;
 use std::ops::{Index, Shr};
 
-use rustc_index::Idx;
-use rustc_span::{DUMMY_SP, Span};
+use rodetc_index::Idx;
+use rodetc_span::{DUMMY_SP, Span};
 use smallvec::SmallVec;
 
 use super::data_race::NaReadType;
@@ -437,7 +437,7 @@ impl Index<VectorIdx> for VClock {
 mod tests {
     use std::cmp::Ordering;
 
-    use rustc_span::DUMMY_SP;
+    use rodetc_span::DUMMY_SP;
 
     use super::{VClock, VTimestamp, VectorIdx};
     use crate::concurrency::data_race::NaReadType;

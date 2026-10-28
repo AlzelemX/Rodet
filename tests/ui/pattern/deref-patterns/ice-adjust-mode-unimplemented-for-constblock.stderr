@@ -33,4 +33,4 @@ LL |     let vec![const { vec![] }]: Vec<usize> = vec![];
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0164, E0532.
-For more information about an error, try `rustc --explain E0164`.
+For more information about an error, try `rodetc --explain E0164`.

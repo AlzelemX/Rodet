@@ -1,7 +1,7 @@
 //! Provides the `extern static` that this platform expects.
 
-use rustc_span::Symbol;
-use rustc_target::spec::Os;
+use rodetc_span::Symbol;
+use rodetc_target::spec::Os;
 
 use crate::*;
 

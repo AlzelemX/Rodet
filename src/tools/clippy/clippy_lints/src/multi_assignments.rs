@@ -1,6 +1,6 @@
 use clippy_utils::diagnostics::span_lint;
-use rustc_ast::ast::{Expr, ExprKind, Stmt, StmtKind};
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_ast::ast::{Expr, ExprKind, Stmt, StmtKind};
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

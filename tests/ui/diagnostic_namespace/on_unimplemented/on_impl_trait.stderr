@@ -29,4 +29,4 @@ LL | fn foo<T: Alias>(v: &T) {}
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

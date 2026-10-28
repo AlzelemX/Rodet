@@ -70,4 +70,4 @@ LL | fn asyncness() -> impl Sized + async use<> {}
 error: aborting due to 10 previous errors
 
 Some errors have detailed explanations: E0405, E0658.
-For more information about an error, try `rustc --explain E0405`.
+For more information about an error, try `rodetc --explain E0405`.

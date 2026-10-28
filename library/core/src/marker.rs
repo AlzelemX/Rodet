@@ -527,7 +527,7 @@ pub macro Copy($item:item) {
 //
 // Implementations that cannot be described in Rust
 // are implemented in `traits::SelectionContext::copy_clone_conditions()`
-// in `rustc_trait_selection`.
+// in `rodetc_trait_selection`.
 marker_impls! {
     #[stable(feature = "rust1", since = "1.0.0")]
     Copy for

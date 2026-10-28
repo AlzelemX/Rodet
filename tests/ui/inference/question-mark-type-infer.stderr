@@ -42,4 +42,4 @@ LL |     let x: Vec<i32> = l.iter().map(f).collect::<Result<_, _>>()?;
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0283`.
+For more information about this error, try `rodetc --explain E0283`.

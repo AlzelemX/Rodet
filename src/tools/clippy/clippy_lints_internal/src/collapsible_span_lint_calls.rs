@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::{SpanlessEq, is_lint_allowed, peel_blocks_with_stmt, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Closure, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass, declare_tool_lint};
-use rustc_span::{Span, SyntaxContext};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Closure, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass, declare_tool_lint};
+use rodetc_span::{Span, SyntaxContext};
 
 use std::borrow::{Borrow as _, Cow};
 

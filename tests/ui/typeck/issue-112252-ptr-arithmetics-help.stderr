@@ -55,4 +55,4 @@ LL +     let _d = _ptr1.wrapping_add(5);
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0369, E0608.
-For more information about an error, try `rustc --explain E0369`.
+For more information about an error, try `rodetc --explain E0369`.

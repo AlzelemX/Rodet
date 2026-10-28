@@ -40,4 +40,4 @@ LL |     fn self_is_not_param() -> impl Sized + use<Self> {}
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0411, E0799, E0800.
-For more information about an error, try `rustc --explain E0411`.
+For more information about an error, try `rodetc --explain E0411`.

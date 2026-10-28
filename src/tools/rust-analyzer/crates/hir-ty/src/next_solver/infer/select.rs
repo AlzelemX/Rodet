@@ -4,7 +4,7 @@ use std::ops::ControlFlow;
 
 use hir_def::TraitId;
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     Interner,
     solve::{BuiltinImplSource, CandidateSource, Certainty, inspect::ProbeKind},
 };

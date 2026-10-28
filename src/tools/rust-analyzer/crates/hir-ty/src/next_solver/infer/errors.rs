@@ -1,8 +1,8 @@
 use std::{fmt, ops::ControlFlow};
 
 use hir_def::attrs::AttrFlags;
-use rustc_next_trait_solver::solve::{GoalEvaluation, SolverDelegateEvalExt};
-use rustc_type_ir::{
+use rodetc_next_trait_solver::solve::{GoalEvaluation, SolverDelegateEvalExt};
+use rodetc_type_ir::{
     AliasRelationDirection, AliasTermKind, PredicatePolarity,
     error::ExpectedFound,
     inherent::IntoKind as _,

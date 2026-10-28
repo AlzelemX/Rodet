@@ -5,13 +5,13 @@ use clippy_utils::res::MaybeResPath as _;
 use clippy_utils::source::snippet;
 use clippy_utils::visitors::{for_each_expr_without_closures, is_local_used};
 use clippy_utils::{is_in_const_context, sym};
-use rustc_ast::{BorrowKind, LitKind};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Arm, BinOpKind, Expr, ExprKind, MatchSource, Node, PatKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_span::symbol::Ident;
-use rustc_span::{Span, Symbol};
+use rodetc_ast::{BorrowKind, LitKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Arm, BinOpKind, Expr, ExprKind, MatchSource, Node, PatKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_span::symbol::Ident;
+use rodetc_span::{Span, Symbol};
 use std::borrow::Cow;
 use std::ops::ControlFlow;
 
@@ -176,7 +176,7 @@ fn get_pat_binding<'tcx>(
             if let PatKind::Binding(bind_annot, hir_id, ident, _) = pat.kind
                 && hir_id == local
             {
-                if matches!(bind_annot.0, rustc_ast::ByRef::Yes(..)) {
+                if matches!(bind_annot.0, rodetc_ast::ByRef::Yes(..)) {
                     let _ = byref_ident.insert(ident);
                 }
                 // the second call of `replace()` returns a `Some(span)`, meaning a multi-binding pattern

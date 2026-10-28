@@ -2,11 +2,11 @@ use clippy_config::Conf;
 use clippy_config::types::{DisallowedPath, create_disallowed_map};
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::paths::PathNS;
-use rustc_hir::def::{CtorKind, DefKind, Res};
-use rustc_hir::def_id::DefIdMap;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::TyCtxt;
+use rodetc_hir::def::{CtorKind, DefKind, Res};
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::TyCtxt;
 
 declare_clippy_lint! {
     /// ### What it does

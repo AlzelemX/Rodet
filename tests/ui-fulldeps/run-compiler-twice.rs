@@ -10,16 +10,16 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_driver;
-extern crate rustc_interface;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_driver;
+extern crate rodetc_interface;
+extern crate rodetc_session;
+extern crate rodetc_span;
 
 use std::path::{Path, PathBuf};
 
-use rustc_interface::{Linker, interface};
-use rustc_session::config::{Input, Options, OutFileName, OutputType, OutputTypes, Sysroot};
-use rustc_span::FileName;
+use rodetc_interface::{Linker, interface};
+use rodetc_session::config::{Input, Options, OutFileName, OutputType, OutputTypes, Sysroot};
+use rodetc_span::FileName;
 
 fn main() {
     let src = r#"
@@ -71,13 +71,13 @@ fn compile(code: String, output: PathBuf, sysroot: Sysroot, linker: Option<&Path
         override_queries: None,
         extra_symbols: Vec::new(),
         make_codegen_backend: None,
-        using_internal_features: &rustc_driver::USING_INTERNAL_FEATURES,
+        using_internal_features: &rodetc_driver::USING_INTERNAL_FEATURES,
     };
 
     interface::run_compiler(config, |compiler| {
-        let krate = rustc_interface::passes::parse(&compiler.sess);
+        let krate = rodetc_interface::passes::parse(&compiler.sess);
         let (linker, incr_comp_session) =
-            rustc_interface::create_and_enter_global_ctxt(&compiler, krate, |tcx| {
+            rodetc_interface::create_and_enter_global_ctxt(&compiler, krate, |tcx| {
                 let _ = tcx.analysis(());
                 Linker::codegen_and_build_linker(tcx, &*compiler.codegen_backend)
             });

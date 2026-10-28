@@ -212,7 +212,7 @@ unsafe extern "C" {
 }
 
 impl<Dyn: PointeeSized> DynMetadata<Dyn> {
-    /// When `DynMetadata` appears as the metadata field of a wide pointer, the rustc_middle layout
+    /// When `DynMetadata` appears as the metadata field of a wide pointer, the rodetc_middle layout
     /// computation does magic and the resulting layout is *not* a `FieldsShape::Aggregate`, instead
     /// it is a `FieldsShape::Primitive`. This means that the same type can have different layout
     /// depending on whether it appears as the metadata field of a wide pointer or as a stand-alone

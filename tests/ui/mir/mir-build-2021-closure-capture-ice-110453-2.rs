@@ -1,5 +1,5 @@
 // ICE in mir building with captured value of unresolved type
-// None in compiler/rustc_mir_build/src/build/expr/as_place.rs
+// None in compiler/rodetc_mir_build/src/build/expr/as_place.rs
 // issue: rust-lang/rust#110453
 //@ edition:2021
 

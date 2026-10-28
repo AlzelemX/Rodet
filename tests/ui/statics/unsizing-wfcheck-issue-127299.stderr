@@ -64,4 +64,4 @@ LL |     fn bar() -> i32 where Self: Sized;
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0038, E0277.
-For more information about an error, try `rustc --explain E0038`.
+For more information about an error, try `rodetc --explain E0038`.

@@ -2,19 +2,19 @@ use std::ops::ControlFlow;
 
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::return_ty;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, FnDecl};
-use rustc_infer::infer::TyCtxtInferExt as _;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::print::PrintTraitRefExt as _;
-use rustc_middle::ty::{
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, FnDecl};
+use rodetc_infer::infer::TyCtxtInferExt as _;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::print::PrintTraitRefExt as _;
+use rodetc_middle::ty::{
     self, AliasTy, Binder, ClauseKind, PredicateKind, Ty, TyCtxt, TypeVisitable as _, TypeVisitableExt as _,
     TypeVisitor, Unnormalized,
 };
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{Span, sym};
-use rustc_trait_selection::error_reporting::InferCtxtErrorExt as _;
-use rustc_trait_selection::traits::{self, FulfillmentError, ObligationCtxt};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{Span, sym};
+use rodetc_trait_selection::error_reporting::InferCtxtErrorExt as _;
+use rodetc_trait_selection::traits::{self, FulfillmentError, ObligationCtxt};
 
 declare_clippy_lint! {
     /// ### What it does

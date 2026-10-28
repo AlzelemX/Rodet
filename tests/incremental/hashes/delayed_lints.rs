@@ -1,4 +1,4 @@
-// Some lints are emitted in `rustc_attr_parsing`, during ast lowering.
+// Some lints are emitted in `rodetc_attr_parsing`, during ast lowering.
 // Emitting these lints is delayed until after ast lowering.
 // This test tests that the delayed hints are correctly hashed for incremental.
 

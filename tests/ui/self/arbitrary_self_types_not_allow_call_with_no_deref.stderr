@@ -37,4 +37,4 @@ LL +     foo_cpp_ref.frobnicate_cpp_ref(); // would desugar to `Foo::frobnicate_
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0599`.
+For more information about this error, try `rodetc --explain E0599`.

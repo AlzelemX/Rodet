@@ -21,4 +21,4 @@ LL |     Fail::<()>::C
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0392, E0599.
-For more information about an error, try `rustc --explain E0392`.
+For more information about an error, try `rodetc --explain E0392`.

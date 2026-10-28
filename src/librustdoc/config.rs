@@ -5,21 +5,21 @@ use std::path::{Path, PathBuf};
 use std::str::FromStr;
 use std::{fmt, io};
 
-use rustc_data_structures::fx::FxIndexMap;
-use rustc_errors::DiagCtxtHandle;
-use rustc_lint::Level;
-use rustc_session::config::{
+use rodetc_data_structures::fx::FxIndexMap;
+use rodetc_errors::DiagCtxtHandle;
+use rodetc_lint::Level;
+use rodetc_session::config::{
     self, CodegenOptions, ErrorOutputType, Externs, Input, JsonUnusedExterns,
     OptionsTargetModifiers, OutFileName, PrintCategory, PrintRequest, Sysroot, UnstableOptions,
     collect_print_requests, get_cmd_lint_options, nightly_options, parse_crate_types_from_list,
     parse_externs, parse_target_triple,
 };
-use rustc_session::search_paths::SearchPath;
-use rustc_session::{EarlyDiagCtxt, getopts};
-use rustc_span::edition::Edition;
-use rustc_span::{FileName, RemapPathScopeComponents};
-use rustc_structures::CrateType;
-use rustc_target::spec::TargetTuple;
+use rodetc_session::search_paths::SearchPath;
+use rodetc_session::{EarlyDiagCtxt, getopts};
+use rodetc_span::edition::Edition;
+use rodetc_span::{FileName, RemapPathScopeComponents};
+use rodetc_structures::CrateType;
+use rodetc_target::spec::TargetTuple;
 use smallvec::SmallVec;
 
 use crate::core::new_dcx;
@@ -167,7 +167,7 @@ pub(crate) struct Options {
 
     /// Note: this field is duplicated in `RenderOptions` because it's useful
     /// to have it in both places.
-    pub(crate) unstable_features: rustc_feature::UnstableFeatures,
+    pub(crate) unstable_features: rodetc_feature::UnstableFeatures,
 
     /// Arguments to be used when compiling doctests.
     pub(crate) doctest_build_args: Vec<String>,
@@ -284,7 +284,7 @@ pub(crate) struct RenderOptions {
     pub(crate) show_type_layout: bool,
     /// Note: this field is duplicated in `Options` because it's useful to have
     /// it in both places.
-    pub(crate) unstable_features: rustc_feature::UnstableFeatures,
+    pub(crate) unstable_features: rodetc_feature::UnstableFeatures,
     pub(crate) emit: SmallVec<[EmitType; 2]>,
     /// If `true`, HTML source pages will generate links for items to their definition.
     pub(crate) generate_link_to_definition: bool,
@@ -395,18 +395,18 @@ impl Options {
             crate::usage("rustdoc");
             return None;
         } else if matches.opt_present("version") {
-            rustc_driver::version!(&early_dcx, "rustdoc", matches);
+            rodetc_driver::version!(&early_dcx, "rustdoc", matches);
             return None;
         }
 
-        if rustc_driver::describe_flag_categories(early_dcx, matches) {
+        if rodetc_driver::describe_flag_categories(early_dcx, matches) {
             return None;
         }
 
         let color = config::parse_color(early_dcx, matches);
         let crate_name = matches.opt_str("crate-name");
         let unstable_features =
-            rustc_feature::UnstableFeatures::from_environment(crate_name.as_deref());
+            rodetc_feature::UnstableFeatures::from_environment(crate_name.as_deref());
         let config::JsonConfig { json_rendered, json_unused_externs, json_color, .. } =
             config::parse_json(early_dcx, matches);
         let error_format =
@@ -424,7 +424,7 @@ impl Options {
             }
         };
         let remap_path_scope =
-            rustc_session::config::parse_remap_path_scope(early_dcx, matches, &unstable_opts);
+            rodetc_session::config::parse_remap_path_scope(early_dcx, matches, &unstable_opts);
 
         let dcx = new_dcx(error_format, None, diagnostic_width, &unstable_opts);
         let dcx = dcx.handle();

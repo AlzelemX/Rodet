@@ -6,8 +6,8 @@ LL | pub const S: A = B;
    |              |
    |              expected because of the type of the constant
    |
-   = note: -Ztrack-diagnostics: created at compiler/rustc_trait_selection/src/error_reporting/infer/mod.rs:LL:CC
+   = note: -Ztrack-diagnostics: created at compiler/rodetc_trait_selection/src/error_reporting/infer/mod.rs:LL:CC
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

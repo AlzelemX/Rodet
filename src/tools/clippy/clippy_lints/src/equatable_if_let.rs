@@ -2,10 +2,10 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_in_const_context;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::ty::implements_trait;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Pat, PatKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::Ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Pat, PatKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::Ty;
 
 declare_clippy_lint! {
     /// ### What it does

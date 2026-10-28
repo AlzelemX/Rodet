@@ -20,4 +20,4 @@ LL |     x.iter_mut().map(foo)
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0271`.
+For more information about this error, try `rodetc --explain E0271`.

@@ -4,14 +4,14 @@ use crate::de::{
 use clippy_utils::paths::{PathNS, find_crates, lookup_path};
 use core::fmt::{self, Display};
 use itertools::Itertools as _;
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_errors::{Applicability, Diag};
-use rustc_hir::PrimTy;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::DefIdMap;
-use rustc_middle::ty::TyCtxt;
-use rustc_session::Session;
-use rustc_span::{Span, Spanned, Symbol};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_errors::{Applicability, Diag};
+use rodetc_hir::PrimTy;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::DefIdMap;
+use rodetc_middle::ty::TyCtxt;
+use rodetc_session::Session;
+use rodetc_span::{Span, Spanned, Symbol};
 use std::collections::HashMap;
 
 macro_rules! concat_expr {

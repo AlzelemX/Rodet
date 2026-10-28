@@ -24,10 +24,10 @@ use crate::rustfmt::{
 const BUG_REPORT_URL: &str = "https://github.com/rust-lang/rustfmt/issues/new?labels=bug";
 
 // N.B. these crates are loaded from the sysroot, so they need extern crate.
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 fn main() {
-    rustc_driver::install_ice_hook(BUG_REPORT_URL, |_| ());
+    rodetc_driver::install_ice_hook(BUG_REPORT_URL, |_| ());
 
     setup_tracing();
 

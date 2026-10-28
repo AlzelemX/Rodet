@@ -23,13 +23,13 @@ curl -fsSL https://github.com/AlzelemX/rodet/releases/latest/download/rodet_init
 افتح طرفية **جديدة**:
 
 ```text
-> rustc --version
-rustc 1.101.0-dev (Rodet #19)
-> cargo --version
-cargo 1.100.0-beta.1 (3d7cf6e93 2026-09-25)
+> rodet --version
+rodet 0.1.0 (Silk)
+> rodetc --version
+rodetc 0.1.0 (#23, 2026-10-28)
 ```
 
-إذا ظهر `(Rodet #…)` فأنت جاهز. الرقم هو رقم البناء: الإصدار الأحدث رقمه
+إذا أجاب الأمران فأنت جاهز. الرقم هو رقم البناء: الإصدار الأحدث رقمه
 أكبر.
 
 ## التحديث والإزالة

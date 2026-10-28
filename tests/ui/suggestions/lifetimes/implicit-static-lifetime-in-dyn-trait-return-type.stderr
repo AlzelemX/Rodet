@@ -50,4 +50,4 @@ LL | impl<T: 'static> Qux<T> {
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0106, E0310.
-For more information about an error, try `rustc --explain E0106`.
+For more information about an error, try `rodetc --explain E0106`.

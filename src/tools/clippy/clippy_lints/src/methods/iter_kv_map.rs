@@ -4,9 +4,9 @@ use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::{pat_is_wild, sym};
-use rustc_hir::{Body, Expr, ExprKind, PatKind};
-use rustc_lint::LateContext;
-use rustc_span::Symbol;
+use rodetc_hir::{Body, Expr, ExprKind, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_span::Symbol;
 
 /// lint use of:
 ///
@@ -41,11 +41,11 @@ pub(super) fn check<'tcx>(
         && let ty = cx.typeck_results().expr_ty_adjusted(recv).peel_refs()
         && matches!(ty.opt_diag_name(cx), Some(sym::HashMap | sym::BTreeMap))
     {
-        let mut applicability = rustc_errors::Applicability::MachineApplicable;
+        let mut applicability = rodetc_errors::Applicability::MachineApplicable;
         let recv_snippet = snippet_with_applicability(cx, recv.span, "map", &mut applicability);
         let into_prefix = if map_type == sym::into_iter { "into_" } else { "" };
 
-        if let ExprKind::Path(rustc_hir::QPath::Resolved(_, path)) = body_expr.kind
+        if let ExprKind::Path(rodetc_hir::QPath::Resolved(_, path)) = body_expr.kind
             && let [local_ident] = path.segments
             && local_ident.ident.name == bound_ident.name
             && [sym::map, sym::flat_map].contains(&method_name)

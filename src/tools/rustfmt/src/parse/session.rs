@@ -2,12 +2,12 @@ use std::path::Path;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
-use rustc_data_structures::sync::IntoDynSyncSend;
-use rustc_errors::annotate_snippet_emitter_writer::AnnotateSnippetEmitter;
-use rustc_errors::emitter::{DynEmitter, Emitter, SilentEmitter, stderr_destination};
-use rustc_errors::{ColorConfig, Diag, DiagCtxt, DiagInner, Level as DiagnosticLevel};
-use rustc_session::parse::ParseSess as RawParseSess;
-use rustc_span::{
+use rodetc_data_structures::sync::IntoDynSyncSend;
+use rodetc_errors::annotate_snippet_emitter_writer::AnnotateSnippetEmitter;
+use rodetc_errors::emitter::{DynEmitter, Emitter, SilentEmitter, stderr_destination};
+use rodetc_errors::{ColorConfig, Diag, DiagCtxt, DiagInner, Level as DiagnosticLevel};
+use rodetc_session::parse::ParseSess as RawParseSess;
+use rodetc_span::{
     BytePos, Span,
     source_map::{FilePathMapping, SourceMap},
     symbol,
@@ -57,7 +57,7 @@ impl Emitter for SilentOnIgnoredFilesEmitter {
         }
         if let Some(primary_span) = &diag.span.primary_span() {
             let file_name = self.source_map.span_to_filename(*primary_span);
-            if let rustc_span::FileName::Real(real) = file_name {
+            if let rodetc_span::FileName::Real(real) = file_name {
                 if let Some(path) = real.local_path() {
                     if self
                         .ignore_path_set
@@ -154,14 +154,14 @@ impl ParseSess {
         relative: Option<symbol::Ident>,
         dir_path: &Path,
     ) -> Result<ModulePathSuccess, ModError<'_>> {
-        rustc_expand::module::default_submod_path(&self.raw_psess, id, relative, dir_path).or_else(
+        rodetc_expand::module::default_submod_path(&self.raw_psess, id, relative, dir_path).or_else(
             |e| {
                 // If resolving a module relative to {dir_path}/{symbol} fails because a file
                 // could not be found, then try to resolve the module relative to {dir_path}.
                 // If we still can't find the module after searching for it in {dir_path},
                 // surface the original error.
                 if matches!(e, ModError::FileNotFound(..)) && relative.is_some() {
-                    rustc_expand::module::default_submod_path(&self.raw_psess, id, None, dir_path)
+                    rodetc_expand::module::default_submod_path(&self.raw_psess, id, None, dir_path)
                         .map_err(|_| e)
                 } else {
                     Err(e)
@@ -173,7 +173,7 @@ impl ParseSess {
     pub(crate) fn is_file_parsed(&self, path: &Path) -> bool {
         self.raw_psess
             .source_map()
-            .get_source_file(&rustc_span::FileName::Real(
+            .get_source_file(&rodetc_span::FileName::Real(
                 self.raw_psess
                     .source_map()
                     .path_mapping()
@@ -194,7 +194,7 @@ impl ParseSess {
         self.raw_psess.source_map().span_to_filename(span).into()
     }
 
-    pub(crate) fn span_to_file_contents(&self, span: Span) -> Arc<rustc_span::SourceFile> {
+    pub(crate) fn span_to_file_contents(&self, span: Span) -> Arc<rodetc_span::SourceFile> {
         self.raw_psess
             .source_map()
             .lookup_source_file(span.data().lo)
@@ -244,13 +244,13 @@ impl ParseSess {
 
     pub(crate) fn get_original_snippet(&self, filename: &FileName) -> Option<Arc<String>> {
         let rustc_filename = match filename {
-            FileName::Real(path) => rustc_span::FileName::Real(
+            FileName::Real(path) => rodetc_span::FileName::Real(
                 self.raw_psess
                     .source_map()
                     .path_mapping()
                     .to_real_filename(self.raw_psess.source_map().working_dir(), path),
             ),
-            FileName::Stdin => rustc_span::FileName::Custom("stdin".to_owned()),
+            FileName::Stdin => rodetc_span::FileName::Custom("stdin".to_owned()),
         };
 
         self.raw_psess
@@ -318,8 +318,8 @@ mod tests {
         use super::*;
         use crate::config::IgnoreList;
         use crate::utils::mk_sp;
-        use rustc_errors::MultiSpan;
-        use rustc_span::FileName as SourceMapFileName;
+        use rodetc_errors::MultiSpan;
+        use rodetc_span::FileName as SourceMapFileName;
         use std::path::PathBuf;
         use std::sync::atomic::AtomicU32;
 

@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::is_direct_expn_of;
-use rustc_ast::ast::{Expr, ExprKind, MethodCall};
-use rustc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
-use rustc_span::sym;
+use rodetc_ast::ast::{Expr, ExprKind, MethodCall};
+use rodetc_lint::{EarlyContext, EarlyLintPass, declare_lint_pass};
+use rodetc_span::sym;
 
 declare_clippy_lint! {
     /// ### What it does

@@ -1,7 +1,7 @@
 //@ run-pass
 //@ edition:2021
 
-// This is a test of several uses of rustc_ast::util::classify::expr_requires_semi_to_be_stmt
+// This is a test of several uses of rodetc_ast::util::classify::expr_requires_semi_to_be_stmt
 // by the Rust parser, which relates to the insertion of statement boundaries
 // after certain kinds of expressions if they appear at the head of a statement.
 

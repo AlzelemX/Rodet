@@ -22,4 +22,4 @@ LL | struct Tagged<T: Tag, const O: Options>;
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0404`.
+For more information about this error, try `rodetc --explain E0404`.

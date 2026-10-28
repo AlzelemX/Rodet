@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_from_proc_macro;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::{DefId, DefIdMap};
-use rustc_hir::{BoundPolarity, GenericBound, Generics, PolyTraitRef, TraitBoundModifiers, WherePredicateKind};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{ClauseKind, ClausePolarity, Unnormalized};
-use rustc_span::symbol::Ident;
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::{DefId, DefIdMap};
+use rodetc_hir::{BoundPolarity, GenericBound, Generics, PolyTraitRef, TraitBoundModifiers, WherePredicateKind};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{ClauseKind, ClausePolarity, Unnormalized};
+use rodetc_span::symbol::Ident;
 
 declare_clippy_lint! {
     /// ### What it does

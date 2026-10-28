@@ -72,4 +72,4 @@ LL |     fn bar(&'static mur Self) {}
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0533`.
+For more information about this error, try `rodetc --explain E0533`.

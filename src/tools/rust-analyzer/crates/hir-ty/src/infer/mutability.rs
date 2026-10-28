@@ -5,7 +5,7 @@ use hir_def::hir::{
     Array, AsmOperand, BinaryOp, BindingAnnotation, Expr, ExprId, Pat, PatId, RecordSpread,
     Statement, UnaryOp,
 };
-use rustc_ast_ir::Mutability;
+use rodetc_ast_ir::Mutability;
 
 use crate::{
     Adjust, AutoBorrow, OverloadedDeref,

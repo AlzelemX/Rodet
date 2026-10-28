@@ -3,8 +3,8 @@
 use std::collections::hash_map;
 
 use hir_def::{FunctionId, GenericParamId, TraitId, hir::ExprId};
-use rustc_ast_ir::Mutability;
-use rustc_type_ir::inherent::{IntoKind, Ty as _};
+use rodetc_ast_ir::Mutability;
+use rodetc_type_ir::inherent::{IntoKind, Ty as _};
 use syntax::ast::{ArithOp, BinaryOp, UnaryOp};
 use tracing::debug;
 

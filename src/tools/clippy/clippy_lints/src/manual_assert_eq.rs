@@ -4,10 +4,10 @@ use clippy_utils::macros::{PanicCall, find_assert_args, root_macro_call_first_no
 use clippy_utils::source::walk_span_to_context;
 use clippy_utils::ty::{deref_chain, implements_trait};
 use clippy_utils::{is_in_const_context, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_middle::ty::{self, Ty};
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_middle::ty::{self, Ty};
 
 declare_clippy_lint! {
     /// ### What it does

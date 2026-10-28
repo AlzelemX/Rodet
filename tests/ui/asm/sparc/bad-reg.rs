@@ -21,7 +21,7 @@ fn f() {
         // Unsupported registers
         asm!("", out("g0") _);
         //~^ ERROR invalid register `g0`: g0 is always zero and cannot be used as an operand for inline asm
-        // FIXME: see FIXME in compiler/rustc_target/src/asm/sparc.rs.
+        // FIXME: see FIXME in compiler/rodetc_target/src/asm/sparc.rs.
         asm!("", out("g1") _);
         //~^ ERROR invalid register `g1`: reserved by LLVM and cannot be used as an operand for inline asm
         asm!("", out("g2") _);

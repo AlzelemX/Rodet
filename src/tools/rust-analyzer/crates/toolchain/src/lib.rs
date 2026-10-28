@@ -37,7 +37,7 @@ impl Tool {
     ///    first that exists
     /// 4) If all else fails, we just try to use the executable name directly
     pub fn prefer_proxy(self) -> Utf8PathBuf {
-        invoke(&[cargo_proxy, lookup_as_env_var, lookup_in_path], self.name())
+        invoke_named(&[cargo_proxy, lookup_as_env_var, lookup_in_path], self)
     }
 
     /// Return a `PathBuf` to use for the given executable.
@@ -54,11 +54,22 @@ impl Tool {
     ///    It seems that this is a reasonable place to try for cargo, rustc, and rustup
     /// 4) If all else fails, we just try to use the executable name directly
     pub fn path(self) -> Utf8PathBuf {
-        invoke(&[lookup_as_env_var, lookup_in_path, cargo_proxy], self.name())
+        invoke_named(&[lookup_as_env_var, lookup_in_path, cargo_proxy], self)
     }
 
     pub fn path_in(self, path: &Utf8Path) -> Option<Utf8PathBuf> {
-        probe_for_binary(path.join(self.name()))
+        probe_for_binary(path.join(self.rodet_name()))
+            .or_else(|| probe_for_binary(path.join(self.name())))
+    }
+
+    /// RODET: the tool's name in a Rodet toolchain (`rodet` is Silk, the package manager).
+    pub fn rodet_name(self) -> &'static str {
+        match self {
+            Tool::Cargo => "rodet",
+            Tool::Rustc => "rodetc",
+            Tool::Rustup => "rustup",
+            Tool::Rustfmt => "rodetfmt",
+        }
     }
 
     pub fn name(self) -> &'static str {
@@ -85,6 +96,8 @@ pub fn command<H>(
     let mut cmd = Command::new(cmd);
     cmd.current_dir(working_directory);
     cmd.env(NO_RUSTUP_AUTO_INSTALL_ENV.0, NO_RUSTUP_AUTO_INSTALL_ENV.1);
+    // RODET: Rodet's tools answer `--version` / `-vV` in the classic form with this set.
+    cmd.env("RODET_COMPAT", "1");
     for env in extra_env {
         match env {
             (key, Some(val)) => cmd.env(key, val),
@@ -94,8 +107,13 @@ pub fn command<H>(
     cmd
 }
 
-fn invoke(list: &[fn(&str) -> Option<Utf8PathBuf>], executable: &str) -> Utf8PathBuf {
-    list.iter().find_map(|it| it(executable)).unwrap_or_else(|| executable.into())
+/// RODET: looks for the Rodet name first (`rodetc`), then the classic one (`rustc`).
+fn invoke_named(list: &[fn(&str) -> Option<Utf8PathBuf>], tool: Tool) -> Utf8PathBuf {
+    let rodet = tool.rodet_name();
+    list.iter()
+        .find_map(|it| it(rodet))
+        .or_else(|| list.iter().find_map(|it| it(tool.name())))
+        .unwrap_or_else(|| rodet.into())
 }
 
 /// Looks up the binary as its SCREAMING upper case in the env variables.
@@ -115,6 +133,16 @@ fn cargo_proxy(executable_name: &str) -> Option<Utf8PathBuf> {
 }
 
 fn get_cargo_home() -> Option<Utf8PathBuf> {
+    // RODET: the Rodet home (~/.rodet) first.
+    if let Some(path) = env::var_os("RODET_HOME") {
+        return Utf8PathBuf::try_from(PathBuf::from(path)).ok();
+    }
+    if let Some(mut path) = env::home_dir() {
+        path.push(".rodet");
+        if path.join("bin").is_dir() {
+            return Utf8PathBuf::try_from(path).ok();
+        }
+    }
     if let Some(path) = env::var_os("CARGO_HOME") {
         return Utf8PathBuf::try_from(PathBuf::from(path)).ok();
     }

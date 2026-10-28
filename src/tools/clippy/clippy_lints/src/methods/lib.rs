@@ -1,8 +1,8 @@
 use clippy_utils::sym;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_hir::Mutability;
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_hir::Mutability;
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub(super) enum SelfKind {

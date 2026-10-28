@@ -1,7 +1,7 @@
 use rustc_apfloat::ieee::{DoubleS, HalfS, IeeeFloat, Semantics, SingleS};
 use rustc_apfloat::{self, Float, FloatConvert, Round};
-use rustc_middle::mir;
-use rustc_middle::ty::{self, FloatTy};
+use rodetc_middle::mir;
+use rodetc_middle::ty::{self, FloatTy};
 
 use self::math::{HostFloatOperation, HostUnaryFloatOp, IeeeExt, host_unary_float_op};
 use super::check_intrinsic_arg_count;

@@ -144,4 +144,4 @@ LL |         foo::Baz { field1, field2, field3, .. } => {}
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0027`.
+For more information about this error, try `rodetc --explain E0027`.

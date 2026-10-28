@@ -4,9 +4,9 @@ use std::borrow::Cow;
 use std::cmp::{Ordering, max, min};
 
 use regex::Regex;
-use rustc_ast::ast;
-use rustc_ast::visit;
-use rustc_span::{BytePos, DUMMY_SP, Ident, Span, symbol};
+use rodetc_ast::ast;
+use rodetc_ast::visit;
+use rodetc_span::{BytePos, DUMMY_SP, Ident, Span, symbol};
 use tracing::debug;
 
 use crate::attr::filter_inline_attrs;

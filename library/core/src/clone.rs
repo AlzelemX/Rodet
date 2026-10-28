@@ -754,7 +754,7 @@ unsafe impl CloneToUninit for crate::byte_str::ByteStr {
 ///
 /// Implementations that cannot be described in Rust
 /// are implemented in `traits::SelectionContext::copy_clone_conditions()`
-/// in `rustc_trait_selection`.
+/// in `rodetc_trait_selection`.
 mod impls {
     use super::{Share, TrivialClone};
     use crate::marker::PointeeSized;

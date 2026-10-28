@@ -82,4 +82,4 @@ LL |     *ap0 = ap1.clone();
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0597`.
+For more information about this error, try `rodetc --explain E0597`.

@@ -5,10 +5,10 @@ use clippy_utils::source::{SpanExt as _, indent_of, reindent_multiline};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::expr_type_is_certain;
 use clippy_utils::{is_empty_block, is_expr_default, is_from_proc_macro};
-use rustc_errors::Applicability;
-use rustc_hir::{Block, Expr, ExprKind, MatchSource, Node, StmtKind};
-use rustc_lint::LateContext;
-use rustc_span::SyntaxContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Block, Expr, ExprKind, MatchSource, Node, StmtKind};
+use rodetc_lint::LateContext;
+use rodetc_span::SyntaxContext;
 
 use super::{UNIT_ARG, utils};
 
@@ -56,7 +56,7 @@ pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, expr: &'tcx Expr<'tcx>) {
 }
 
 fn is_questionmark_desugar_marked_call(expr: &Expr<'_>) -> bool {
-    use rustc_span::hygiene::DesugaringKind;
+    use rodetc_span::hygiene::DesugaringKind;
     if let ExprKind::Call(callee, _) = expr.kind {
         callee.span.is_desugaring(DesugaringKind::QuestionMark)
     } else {

@@ -4,24 +4,24 @@
 // differ from the time of `rustc` even if the name stays the same.
 
 use crate::msrvs::{self, Msrv};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_attr_ir::{RustcVersion, StableSince};
-use rustc_const_eval::check_consts::ConstCx;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{self as hir, HirId};
-use rustc_infer::infer::TyCtxtInferExt as _;
-use rustc_infer::traits::Obligation;
-use rustc_lint::LateContext;
-use rustc_middle::mir::{
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_attr_ir::{RustcVersion, StableSince};
+use rodetc_const_eval::check_consts::ConstCx;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{self as hir, HirId};
+use rodetc_infer::infer::TyCtxtInferExt as _;
+use rodetc_infer::traits::Obligation;
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::{
     Body, CastKind, NonDivergingIntrinsic, Operand, Place, ProjectionElem, Rvalue, Statement, StatementKind,
     Terminator, TerminatorKind, UnOp,
 };
-use rustc_middle::traits::{BuiltinImplSource, ImplSource, ObligationCause};
-use rustc_middle::ty::adjustment::PointerCoercion;
-use rustc_middle::ty::{self, GenericArgKind, Instance, TraitRef, Ty, TyCtxt};
-use rustc_span::Span;
-use rustc_span::symbol::sym;
-use rustc_trait_selection::traits::{ObligationCtxt, SelectionContext};
+use rodetc_middle::traits::{BuiltinImplSource, ImplSource, ObligationCause};
+use rodetc_middle::ty::adjustment::PointerCoercion;
+use rodetc_middle::ty::{self, GenericArgKind, Instance, TraitRef, Ty, TyCtxt};
+use rodetc_span::Span;
+use rodetc_span::symbol::sym;
+use rodetc_trait_selection::traits::{ObligationCtxt, SelectionContext};
 use std::borrow::Cow;
 
 type McfResult = Result<(), (Span, Cow<'static, str>)>;
@@ -248,7 +248,7 @@ fn check_statement<'tcx>(
         StatementKind::Intrinsic(NonDivergingIntrinsic::Assume(op)) => check_operand(cx, op, span, body, msrv),
 
         StatementKind::Intrinsic(NonDivergingIntrinsic::CopyNonOverlapping(
-            rustc_middle::mir::CopyNonOverlapping { dst, src, count },
+            rodetc_middle::mir::CopyNonOverlapping { dst, src, count },
         )) => {
             check_operand(cx, dst, span, body, msrv)?;
             check_operand(cx, src, span, body, msrv)?;
@@ -442,7 +442,7 @@ pub fn is_stable_const_fn_at(tcx: TyCtxt<'_>, node: HirId, def_id: DefId, msrv: 
                     .and_then(|trait_def_id| tcx.lookup_const_stability(trait_def_id))
             })
             .is_none_or(|const_stab| {
-                if let rustc_attr_ir::StabilityLevel::Stable { since, .. } = const_stab.level {
+                if let rodetc_attr_ir::StabilityLevel::Stable { since, .. } = const_stab.level {
                     // Checking MSRV is manually necessary because `rustc` has no such concept. This entire
                     // function could be removed if `rustc` provided a MSRV-aware version of `is_stable_const_fn`.
                     // as a part of an unimplemented MSRV check https://github.com/rust-lang/rust/issues/65262.

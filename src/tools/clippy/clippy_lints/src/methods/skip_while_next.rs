@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_help;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::SKIP_WHILE_NEXT;
 

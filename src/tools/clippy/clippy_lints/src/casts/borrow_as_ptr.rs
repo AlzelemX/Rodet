@@ -3,11 +3,11 @@ use clippy_utils::msrvs::Msrv;
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::sugg::has_enclosing_paren;
 use clippy_utils::{get_parent_expr, is_expr_temporary_value, is_from_proc_macro, is_lint_allowed, msrvs, std_or_core};
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Mutability, Ty, TyKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::adjustment::{Adjust, AutoBorrow};
-use rustc_span::BytePos;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Mutability, Ty, TyKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::adjustment::{Adjust, AutoBorrow};
+use rodetc_span::BytePos;
 
 use super::BORROW_AS_PTR;
 

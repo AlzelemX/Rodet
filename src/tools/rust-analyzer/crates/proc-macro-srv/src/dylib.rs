@@ -3,9 +3,9 @@
 mod proc_macros;
 
 use paths::{Utf8Path, Utf8PathBuf};
-use rustc_codegen_ssa::back::metadata::DefaultMetadataLoader;
-use rustc_interface::util::rustc_version_str;
-use rustc_proc_macro::bridge;
+use rodetc_codegen_ssa::back::metadata::DefaultMetadataLoader;
+use rodetc_interface::util::rustc_version_str;
+use rodetc_proc_macro::bridge;
 use std::{fs, io, path::Path, time::SystemTime};
 use stdx::tempfile::NamedTempFile;
 
@@ -74,8 +74,8 @@ struct ProcMacroLibrary {
 
 impl ProcMacroLibrary {
     fn open(path: &Path) -> io::Result<Self> {
-        let proc_macros = rustc_span::create_default_session_globals_then(|| {
-            rustc_metadata::locator::get_proc_macros(
+        let proc_macros = rodetc_span::create_default_session_globals_then(|| {
+            rodetc_metadata::locator::get_proc_macros(
                 path,
                 &DefaultMetadataLoader,
                 rustc_version_str().unwrap_or("unknown"),

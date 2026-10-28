@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::{snippet, walk_span_to_context};
 use clippy_utils::sugg::Sugg;
 use core::iter::once;
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Mutability, Pat, PatKind};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Mutability, Pat, PatKind};
+use rodetc_lint::LateContext;
 
 use super::MATCH_REF_PATS;
 

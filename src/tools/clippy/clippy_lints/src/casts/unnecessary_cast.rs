@@ -5,14 +5,14 @@ use clippy_utils::source::{SpanExt as _, snippet, snippet_with_applicability};
 use clippy_utils::sugg::has_enclosing_paren;
 use clippy_utils::visitors::{Visitable, for_each_expr_without_closures};
 use clippy_utils::{get_parent_expr, is_hir_ty_cfg_dependant, is_ty_alias, sym};
-use rustc_ast::{LitFloatType, LitIntType, LitKind};
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Expr, ExprKind, FnRetTy, HirId, Lit, Node, Path, QPath, TyKind, UnOp};
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::adjustment::Adjust;
-use rustc_middle::ty::{self, FloatTy, GenericArg, InferTy, Ty};
-use rustc_span::Symbol;
+use rodetc_ast::{LitFloatType, LitIntType, LitKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Expr, ExprKind, FnRetTy, HirId, Lit, Node, Path, QPath, TyKind, UnOp};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::adjustment::Adjust;
+use rodetc_middle::ty::{self, FloatTy, GenericArg, InferTy, Ty};
+use rodetc_span::Symbol;
 use std::ops::ControlFlow;
 
 use super::UNNECESSARY_CAST;
@@ -381,7 +381,7 @@ fn is_inference_sensitive_inner_expr(cx: &LateContext<'_>, expr: &Expr<'_>) -> b
 
 // Returns `true` if the function's output type contains a type parameter
 // originating from the selected input.
-fn output_depends_on_input_param(cx: &LateContext<'_>, def_id: rustc_hir::def_id::DefId, input_index: usize) -> bool {
+fn output_depends_on_input_param(cx: &LateContext<'_>, def_id: rodetc_hir::def_id::DefId, input_index: usize) -> bool {
     let sig = cx.tcx.fn_sig(def_id).instantiate_identity().skip_binder();
 
     let Some(input_ty) = sig.inputs().get(input_index) else {
@@ -405,7 +405,7 @@ fn output_depends_on_input_param(cx: &LateContext<'_>, def_id: rustc_hir::def_id
 
 // Returns `true` if the generic arguments include at least one explicit type or const
 // argument and none of the provided generic arguments are placeholders like `::<_>`.
-fn has_explicit_type_or_const_args(args: Option<&rustc_hir::GenericArgs<'_>>) -> bool {
+fn has_explicit_type_or_const_args(args: Option<&rodetc_hir::GenericArgs<'_>>) -> bool {
     let Some(args) = args else {
         return false;
     };
@@ -414,11 +414,11 @@ fn has_explicit_type_or_const_args(args: Option<&rustc_hir::GenericArgs<'_>>) ->
 
     for arg in args.args {
         match arg {
-            rustc_hir::GenericArg::Type(_) | rustc_hir::GenericArg::Const(_) => {
+            rodetc_hir::GenericArg::Type(_) | rodetc_hir::GenericArg::Const(_) => {
                 has_explicit = true;
             },
-            rustc_hir::GenericArg::Infer(_) => return false,
-            rustc_hir::GenericArg::Lifetime(_) => {},
+            rodetc_hir::GenericArg::Infer(_) => return false,
+            rodetc_hir::GenericArg::Lifetime(_) => {},
         }
     }
 
@@ -450,7 +450,7 @@ fn walk_receiver_path_method_call(
     cx: &LateContext<'_>,
     current_hir_id: HirId,
     parent: &Expr<'_>,
-    segment: &rustc_hir::PathSegment<'_>,
+    segment: &rodetc_hir::PathSegment<'_>,
     receiver: &Expr<'_>,
     args: &[Expr<'_>],
     mode: ReceiverPathMode,
@@ -660,7 +660,7 @@ fn has_lint_blocking_context_on_receiver_path(cx: &LateContext<'_>, expr: &Expr<
 // If the initializer flows into the tail expression of the same block, returns that block HirId.
 fn let_init_to_block_hir_id(
     cx: &LateContext<'_>,
-    local: &rustc_hir::LetStmt<'_>,
+    local: &rodetc_hir::LetStmt<'_>,
     current_hir_id: HirId,
 ) -> Option<HirId> {
     let init = local.init?;
@@ -681,7 +681,7 @@ fn let_init_to_block_hir_id(
     let binding_hir_id = tail.res_local_id()?;
 
     match local.pat.kind {
-        rustc_hir::PatKind::Binding(_, local_hir_id, ..) if local_hir_id == binding_hir_id => Some(block.hir_id),
+        rodetc_hir::PatKind::Binding(_, local_hir_id, ..) if local_hir_id == binding_hir_id => Some(block.hir_id),
         _ => None,
     }
 }

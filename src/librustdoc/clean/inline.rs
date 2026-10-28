@@ -3,18 +3,18 @@
 use std::iter::once;
 use std::sync::Arc;
 
-use rustc_attr_ir::{DocInline, find_attr};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_data_structures::thin_vec::{ThinVec, thin_vec};
-use rustc_hir::def::{DefKind, MacroKinds, Res};
-use rustc_hir::def_id::{DefId, DefIdSet, LocalDefId, LocalModId};
-use rustc_hir::{self as hir, HirId, Mutability};
-use rustc_metadata::creader::{CStore, LoadedMacro};
-use rustc_middle::ty::fast_reject::SimplifiedType;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::def_id::LOCAL_CRATE;
-use rustc_span::hygiene::MacroKind;
-use rustc_span::symbol::{Symbol, sym};
+use rodetc_attr_ir::{DocInline, find_attr};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_data_structures::thin_vec::{ThinVec, thin_vec};
+use rodetc_hir::def::{DefKind, MacroKinds, Res};
+use rodetc_hir::def_id::{DefId, DefIdSet, LocalDefId, LocalModId};
+use rodetc_hir::{self as hir, HirId, Mutability};
+use rodetc_metadata::creader::{CStore, LoadedMacro};
+use rodetc_middle::ty::fast_reject::SimplifiedType;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::def_id::LOCAL_CRATE;
+use rodetc_span::hygiene::MacroKind;
+use rodetc_span::symbol::{Symbol, sym};
 use tracing::{debug, instrument, trace};
 
 use super::{Item, extract_cfg_from_attrs};
@@ -43,7 +43,7 @@ pub(crate) fn try_inline(
     cx: &mut DocContext<'_>,
     res: Res,
     name: Symbol,
-    attrs: Option<(&[rustc_attr_ir::Attribute], Option<LocalDefId>)>,
+    attrs: Option<(&[rodetc_attr_ir::Attribute], Option<LocalDefId>)>,
     visited: &mut DefIdSet,
 ) -> Option<Vec<clean::Item>> {
     fn try_inline_inner(
@@ -231,7 +231,7 @@ pub(crate) fn try_inline_glob(
     }
 }
 
-pub(crate) fn load_attrs<'hir>(tcx: TyCtxt<'hir>, did: DefId) -> &'hir [rustc_attr_ir::Attribute] {
+pub(crate) fn load_attrs<'hir>(tcx: TyCtxt<'hir>, did: DefId) -> &'hir [rodetc_attr_ir::Attribute] {
     // FIXME: all uses should use `find_attr`!
     #[allow(deprecated)]
     tcx.get_all_attrs(did)
@@ -402,7 +402,7 @@ fn build_type_alias(
 pub(crate) fn build_impls(
     cx: &mut DocContext<'_>,
     did: DefId,
-    attrs: Option<(&[rustc_attr_ir::Attribute], Option<LocalDefId>)>,
+    attrs: Option<(&[rodetc_attr_ir::Attribute], Option<LocalDefId>)>,
     ret: &mut Vec<clean::Item>,
 ) {
     let tcx = cx.tcx;
@@ -434,8 +434,8 @@ pub(crate) fn build_impls(
 
 pub(crate) fn merge_attrs(
     tcx: TyCtxt<'_>,
-    old_attrs: &[rustc_attr_ir::Attribute],
-    new_attrs: Option<(&[rustc_attr_ir::Attribute], Option<LocalDefId>)>,
+    old_attrs: &[rodetc_attr_ir::Attribute],
+    new_attrs: Option<(&[rodetc_attr_ir::Attribute], Option<LocalDefId>)>,
     cfg_info: &mut CfgInfo,
 ) -> (clean::Attributes, Option<Arc<clean::cfg::Cfg>>) {
     // NOTE: If we have additional attributes (from a re-export),
@@ -463,7 +463,7 @@ pub(crate) fn merge_attrs(
 pub(crate) fn build_impl(
     cx: &mut DocContext<'_>,
     did: DefId,
-    attrs: Option<(&[rustc_attr_ir::Attribute], Option<LocalDefId>)>,
+    attrs: Option<(&[rodetc_attr_ir::Attribute], Option<LocalDefId>)>,
     ret: &mut Vec<clean::Item>,
 ) {
     if !cx.inlined.insert(did.into()) {
@@ -718,7 +718,7 @@ fn build_module_items(
     visited: &mut DefIdSet,
     inlined_names: &mut FxHashSet<(ItemType, Symbol)>,
     allowed_def_ids: Option<&DefIdSet>,
-    attrs: Option<(&[rustc_attr_ir::Attribute], Option<LocalDefId>)>,
+    attrs: Option<(&[rodetc_attr_ir::Attribute], Option<LocalDefId>)>,
 ) -> Vec<clean::Item> {
     let mut items = Vec::new();
 
@@ -837,7 +837,7 @@ fn build_module_items(
 pub(crate) fn print_inlined_const(tcx: TyCtxt<'_>, did: DefId) -> String {
     if let Some(did) = did.as_local() {
         let hir_id = tcx.local_def_id_to_hir_id(did);
-        rustc_hir_pretty::id_to_string(&tcx, hir_id)
+        rodetc_hir_pretty::id_to_string(&tcx, hir_id)
     } else {
         tcx.rendered_const(did).clone()
     }

@@ -5,15 +5,15 @@ use clippy_utils::source::SpanExt as _;
 use clippy_utils::ty::{has_drop, is_copy, peel_and_count_ty_refs};
 use clippy_utils::visitors::for_each_expr_without_closures;
 use clippy_utils::{fn_has_unsatisfiable_clauses, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{Body, Constness, ExprKind, FnDecl, def_id};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::mir;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{BytePos, Span};
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{Body, Constness, ExprKind, FnDecl, def_id};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::mir;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{BytePos, Span};
 use std::ops::ControlFlow;
 
 declare_clippy_lint! {

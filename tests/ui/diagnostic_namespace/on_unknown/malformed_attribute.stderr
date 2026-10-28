@@ -43,4 +43,4 @@ LL | #[diagnostic::on_unknown(message = "Foo", message = "Bar")]
 
 error: aborting due to 1 previous error; 4 warnings emitted
 
-For more information about this error, try `rustc --explain E0432`.
+For more information about this error, try `rodetc --explain E0432`.

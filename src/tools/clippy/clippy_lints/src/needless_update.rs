@@ -1,7 +1,7 @@
 use clippy_utils::diagnostics::span_lint;
-use rustc_hir::{Expr, ExprKind, StructTailExpr};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
+use rodetc_hir::{Expr, ExprKind, StructTailExpr};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
 
 declare_clippy_lint! {
     /// ### What it does

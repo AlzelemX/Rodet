@@ -114,4 +114,4 @@ LL |     fn foo<T: 'static>(x: T) -> (Box<dyn Any>, impl Sized) {
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

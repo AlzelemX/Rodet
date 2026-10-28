@@ -32,4 +32,4 @@ LL |     #[rustc_align(<alignment in bytes>)]
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0539, E0658.
-For more information about an error, try `rustc --explain E0539`.
+For more information about an error, try `rodetc --explain E0539`.

@@ -1,11 +1,11 @@
 use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_then;
-use rustc_errors::Applicability;
-use rustc_hir::{Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::layout::LayoutOf as _;
-use rustc_middle::ty::{self, Ty, Unnormalized};
-use rustc_span::{BytePos, Pos as _, Span};
+use rodetc_errors::Applicability;
+use rodetc_hir::{Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::layout::LayoutOf as _;
+use rodetc_middle::ty::{self, Ty, Unnormalized};
+use rodetc_span::{BytePos, Pos as _, Span};
 
 declare_clippy_lint! {
     /// ### What it does

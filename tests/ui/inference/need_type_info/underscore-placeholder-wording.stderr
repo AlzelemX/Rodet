@@ -22,4 +22,4 @@ LL |     let x: (Vec<_>, Vec<_>) = (vec![], vec![]);
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0282`.
+For more information about this error, try `rodetc --explain E0282`.

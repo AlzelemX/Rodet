@@ -1,12 +1,12 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::{sugg, sym};
-use rustc_ast::util::parser::AssocOp;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::Spanned;
+use rodetc_ast::util::parser::AssocOp;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::Spanned;
 
 use super::FLOAT_EQUALITY_WITHOUT_ABS;
 

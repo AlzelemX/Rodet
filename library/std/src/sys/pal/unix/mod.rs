@@ -154,7 +154,7 @@ pub unsafe fn init(argc: isize, argv: *const *const u8, sigpipe: u8) {
             // We don't want to add this as a public type to std, nor do we
             // want to `include!` a file from the compiler (which would break
             // Miri and xargo for example), so we choose to duplicate these
-            // constants from `compiler/rustc_session/src/config/sigpipe.rs`.
+            // constants from `compiler/rodetc_session/src/config/sigpipe.rs`.
             // See the other file for docs. NOTE: Make sure to keep them in
             // sync!
             mod sigpipe {

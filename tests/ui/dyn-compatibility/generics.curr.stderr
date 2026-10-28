@@ -82,4 +82,4 @@ LL |     fn bar<T>(&self, t: T);
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0038`.
+For more information about this error, try `rodetc --explain E0038`.

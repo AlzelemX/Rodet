@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::fulfill_or_allowed;
-use rustc_hir::{self as hir, HirId};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::sym;
+use rodetc_hir::{self as hir, HirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::sym;
 
 use super::DERIVE_ORD_XOR_PARTIAL_ORD;
 

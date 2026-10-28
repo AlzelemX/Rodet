@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint;
 use clippy_utils::visitors::for_each_expr_without_closures;
 use clippy_utils::{BINOP_TRAITS, OP_ASSIGN_TRAITS, binop_traits, trait_ref_of_method};
 use core::ops::ControlFlow;
-use rustc_hir as hir;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_hir as hir;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

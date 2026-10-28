@@ -8,7 +8,7 @@ use std::{
 
 use hir_expand::{Lookup, mod_path::PathKind};
 use itertools::Itertools;
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use span::Edition;
 use stdx::never;
 use syntax::ast::{HasName, RangeOp};

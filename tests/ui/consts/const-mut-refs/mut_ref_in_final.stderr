@@ -167,4 +167,4 @@ LL |     static DANGLING_STATIC: Option<&mut i32> = helper_dangling();
 error: aborting due to 16 previous errors
 
 Some errors have detailed explanations: E0080, E0716, E0764.
-For more information about an error, try `rustc --explain E0080`.
+For more information about an error, try `rodetc --explain E0080`.

@@ -91,7 +91,7 @@ LL + impl S { fn f(_: ...>) }
 
 error: aborting due to 9 previous errors
 
-For more information about this error, try `rustc --explain E0425`.
+For more information about this error, try `rodetc --explain E0425`.
 Future incompatibility report: Future breakage diagnostic:
 error: missing pattern for `...` argument
   --> $DIR/dotdotdot-rest-pattern-suggestion-span.rs:8:15

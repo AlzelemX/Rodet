@@ -1,0 +1,17 @@
+[package]
+name = "rodetc_public_bridge"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_abi = { path = "../rodetc_abi" }
+rodetc_attr_ir = { path = "../rodetc_attr_ir" }
+rodetc_crate_store = { path = "../rodetc_crate_store" }
+rodetc_data_structures = { path = "../rodetc_data_structures" }
+rodetc_hir = { path = "../rodetc_hir" }
+rodetc_hir_pretty = { path = "../rodetc_hir_pretty" }
+rodetc_middle = { path = "../rodetc_middle" }
+rodetc_span = { path = "../rodetc_span" }
+rodetc_target = { path = "../rodetc_target" }
+# tidy-alphabetical-end

@@ -34,4 +34,4 @@ LL |     const Q = "";
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0195, E0308.
-For more information about an error, try `rustc --explain E0195`.
+For more information about an error, try `rodetc --explain E0195`.

@@ -87,4 +87,4 @@ LL |     F: Fn<i32, Output = i32>,
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0059, E0277, E0308, E0658.
-For more information about an error, try `rustc --explain E0059`.
+For more information about an error, try `rodetc --explain E0059`.

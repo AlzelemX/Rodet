@@ -13,4 +13,4 @@ LL ~ impl<'a> Iterator for Newtype<'a> {
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0207`.
+For more information about this error, try `rodetc --explain E0207`.

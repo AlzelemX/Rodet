@@ -57,4 +57,4 @@ LL |     tuple_struct_arg(tuple_struct);
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0053, E0277.
-For more information about an error, try `rustc --explain E0053`.
+For more information about an error, try `rodetc --explain E0053`.

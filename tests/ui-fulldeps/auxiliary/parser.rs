@@ -1,29 +1,29 @@
 #![feature(rustc_private)]
 
-extern crate rustc_ast;
-extern crate rustc_driver;
-extern crate rustc_errors;
-extern crate rustc_parse;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_ast;
+extern crate rodetc_driver;
+extern crate rodetc_errors;
+extern crate rodetc_parse;
+extern crate rodetc_session;
+extern crate rodetc_span;
 
-use rustc_ast::ast::{AttrKind, Attribute, DUMMY_NODE_ID, Expr};
-use rustc_ast::mut_visit::{self, MutVisitor};
-use rustc_ast::node_id::NodeId;
-use rustc_ast::token;
-use rustc_ast::tokenstream::{AttrTokenStream, AttrTokenTree, LazyAttrTokenStream};
-use rustc_errors::Diag;
-use rustc_parse::parser::Recovery;
-use rustc_session::parse::ParseSess;
-use rustc_span::{AttrId, DUMMY_SP, FileName, Span};
+use rodetc_ast::ast::{AttrKind, Attribute, DUMMY_NODE_ID, Expr};
+use rodetc_ast::mut_visit::{self, MutVisitor};
+use rodetc_ast::node_id::NodeId;
+use rodetc_ast::token;
+use rodetc_ast::tokenstream::{AttrTokenStream, AttrTokenTree, LazyAttrTokenStream};
+use rodetc_errors::Diag;
+use rodetc_parse::parser::Recovery;
+use rodetc_session::parse::ParseSess;
+use rodetc_span::{AttrId, DUMMY_SP, FileName, Span};
 use std::sync::Arc;
 
 pub fn parse_expr(psess: &ParseSess, source_code: &str) -> Option<Box<Expr>> {
-    let parser = rustc_parse::unwrap_or_emit_fatal(rustc_parse::new_parser_from_source_str(
+    let parser = rodetc_parse::unwrap_or_emit_fatal(rodetc_parse::new_parser_from_source_str(
         psess,
         FileName::anon_source_code(source_code),
         source_code.to_owned(),
-        rustc_parse::lexer::StripTokens::Nothing,
+        rodetc_parse::lexer::StripTokens::Nothing,
     ));
 
     let mut parser = parser.recovery(Recovery::Forbidden);

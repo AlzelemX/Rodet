@@ -12,4 +12,4 @@ LL +     char::from_u32(1u32);
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0604`.
+For more information about this error, try `rodetc --explain E0604`.

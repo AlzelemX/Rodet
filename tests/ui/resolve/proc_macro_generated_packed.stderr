@@ -1,4 +1,4 @@
-error: internal compiler error: compiler/rustc_mir_transform/src/check_packed_ref.rs:LL:CC: builtin derive created an unaligned reference
+error: internal compiler error: compiler/rodetc_mir_transform/src/check_packed_ref.rs:LL:CC: builtin derive created an unaligned reference
   --> $DIR/proc_macro_generated_packed.rs:19:25
    |
 LL | #[derive(PartialEq)]

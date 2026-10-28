@@ -1,4 +1,4 @@
-use rustc_type_ir::{solve::GoalSource, solve::inspect::GoalEvaluation};
+use rodetc_type_ir::{solve::GoalSource, solve::inspect::GoalEvaluation};
 use serde_derive::{Deserialize, Serialize};
 
 use crate::next_solver::inspect::{InspectCandidate, InspectGoal};
@@ -73,11 +73,11 @@ impl<'a, 'db> ProofTreeSerializer<'a, 'db> {
     }
 
     fn get_impl_header(&self, candidate: &InspectCandidate<'_, 'db>) -> Option<String> {
-        use rustc_type_ir::solve::inspect::ProbeKind;
+        use rodetc_type_ir::solve::inspect::ProbeKind;
         match candidate.kind() {
             ProbeKind::TraitCandidate { source, .. } => {
                 use hir_def::{Lookup, src::HasSource};
-                use rustc_type_ir::solve::CandidateSource;
+                use rodetc_type_ir::solve::CandidateSource;
                 let db = self.infcx.interner.db;
                 match source {
                     CandidateSource::Impl(impl_def_id) => match impl_def_id {

@@ -11,8 +11,8 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_driver;
-extern crate rustc_parse;
+extern crate rodetc_driver;
+extern crate rodetc_parse;
 
 fn main() {
     println!("Checking if Unicode version changed.");
@@ -21,5 +21,5 @@ fn main() {
          it should also be updated in the reference at \
          https://github.com/rust-lang/reference/blob/HEAD/src/identifiers.md."
     );
-    println!("Unicode version used in rustc_parse is: {:?}", rustc_parse::UNICODE_VERSION);
+    println!("Unicode version used in rodetc_parse is: {:?}", rodetc_parse::UNICODE_VERSION);
 }

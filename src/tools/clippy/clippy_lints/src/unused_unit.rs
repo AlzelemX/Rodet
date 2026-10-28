@@ -1,17 +1,17 @@
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::source::{SpanExt as _, position_before_rarrow};
 use clippy_utils::{is_never_expr, is_unit_expr};
-use rustc_ast::{Block, StmtKind};
-use rustc_errors::Applicability;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::FnKind;
-use rustc_hir::{
+use rodetc_ast::{Block, StmtKind};
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_hir::{
     AssocItemConstraintKind, Body, Expr, ExprKind, FnDecl, FnRetTy, GenericArgsParentheses, PolyTraitRef, Term, Ty,
     TyKind,
 };
-use rustc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::edition::Edition;
-use rustc_span::{BytePos, Pos as _, Span, sym};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::edition::Edition;
+use rodetc_span::{BytePos, Pos as _, Span, sym};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -122,7 +122,7 @@ impl EarlyLintPass for UnusedUnit {
     fn check_block(&mut self, cx: &EarlyContext<'_>, block: &Block) {
         if let Some(stmt) = block.stmts.last()
             && let StmtKind::Expr(expr) = &stmt.kind
-            && let rustc_ast::ExprKind::Tup(inner) = &expr.kind
+            && let rodetc_ast::ExprKind::Tup(inner) = &expr.kind
             && inner.is_empty()
             && let ctxt = block.span.ctxt()
             && stmt.span.ctxt() == ctxt

@@ -1,4 +1,4 @@
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 
 use super::{pmaddbw, pmulhrsw, pshufb, psign};
 use crate::*;

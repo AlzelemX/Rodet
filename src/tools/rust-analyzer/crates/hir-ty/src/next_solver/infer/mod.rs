@@ -9,8 +9,8 @@ use ena::unify as ut;
 use hir_def::{GenericParamId, TraitId};
 use opaque_types::{OpaqueHiddenType, OpaqueTypeStorage};
 use region_constraints::{RegionConstraintCollector, RegionConstraintStorage};
-use rustc_next_trait_solver::solve::{GoalEvaluation, SolverDelegateEvalExt};
-use rustc_type_ir::{
+use rodetc_next_trait_solver::solve::{GoalEvaluation, SolverDelegateEvalExt};
+use rodetc_type_ir::{
     ClosureKind, ConstVid, FloatVarValue, FloatVid, GenericArgKind, InferConst, InferTy,
     IntVarValue, IntVid, OutlivesPredicate, RegionVid, TermKind, TyVid, TypeFoldable, TypeFolder,
     TypeSuperFoldable, TypeVisitableExt, UniverseIndex,
@@ -19,7 +19,7 @@ use rustc_type_ir::{
         Const as _, GenericArg as _, GenericArgs as _, IntoKind, SliceLike, Term as _, Ty as _,
     },
 };
-use rustc_type_ir::{
+use rodetc_type_ir::{
     Upcast,
     solve::{NoSolution, inspect},
 };
@@ -520,7 +520,7 @@ impl<'db> InferCtxt<'db> {
     /// [Obligation]: traits::Obligation
     /// [`evaluate_obligation`]: InferCtxt::evaluate_obligation
     /// [`predicate_must_hold_modulo_regions`]: InferCtxt::predicate_must_hold_modulo_regions
-    /// [`Binder`]: rustc_type_ir::Binder
+    /// [`Binder`]: rodetc_type_ir::Binder
     #[instrument(level = "debug", skip(self, params), ret)]
     pub fn type_implements_trait(
         &self,
@@ -1244,12 +1244,12 @@ impl<'db> InferCtxt<'db> {
 
     pub(crate) fn sub_unification_table_root_var(
         &self,
-        var: rustc_type_ir::TyVid,
-    ) -> rustc_type_ir::TyVid {
+        var: rodetc_type_ir::TyVid,
+    ) -> rodetc_type_ir::TyVid {
         self.inner.borrow_mut().type_variables().sub_unification_table_root_var(var)
     }
 
-    fn sub_unify_ty_vids_raw(&self, a: rustc_type_ir::TyVid, b: rustc_type_ir::TyVid) {
+    fn sub_unify_ty_vids_raw(&self, a: rodetc_type_ir::TyVid, b: rodetc_type_ir::TyVid) {
         self.inner.borrow_mut().type_variables().sub_unify(a, b);
     }
 

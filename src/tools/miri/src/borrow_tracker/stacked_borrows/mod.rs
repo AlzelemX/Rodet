@@ -9,11 +9,11 @@ use std::cmp;
 use std::fmt::Write;
 use std::sync::atomic::AtomicBool;
 
-use rustc_abi::Size;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_middle::mir::Mutability;
-use rustc_middle::ty::layout::HasTypingEnv;
-use rustc_middle::ty::{self, Ty};
+use rodetc_abi::Size;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_middle::mir::Mutability;
+use rodetc_middle::ty::layout::HasTypingEnv;
+use rodetc_middle::ty::{self, Ty};
 
 use self::diagnostics::{RetagCause, RetagInfo};
 pub use self::item::{Item, Permission};

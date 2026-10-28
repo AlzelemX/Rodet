@@ -2,19 +2,19 @@ use std::collections::hash_map::Entry;
 use std::io::Write;
 use std::path::Path;
 
-use rustc_abi::{Align, ExternAbi, Size};
-use rustc_ast::expand::allocator::NO_ALLOC_SHIM_IS_UNSTABLE;
-use rustc_attr_ir::Linkage;
-use rustc_data_structures::either::Either;
-use rustc_hir::def::DefKind;
-use rustc_hir::def_id::CrateNum;
-use rustc_middle::middle::codegen_fn_attrs::CodegenFnAttrFlags;
-use rustc_middle::mir::interpret::AllocInit;
-use rustc_middle::ty::{Instance, Ty};
-use rustc_middle::{mir, ty};
-use rustc_span::Symbol;
-use rustc_target::callconv::FnAbi;
-use rustc_target::spec::Os;
+use rodetc_abi::{Align, ExternAbi, Size};
+use rodetc_ast::expand::allocator::NO_ALLOC_SHIM_IS_UNSTABLE;
+use rodetc_attr_ir::Linkage;
+use rodetc_data_structures::either::Either;
+use rodetc_hir::def::DefKind;
+use rodetc_hir::def_id::CrateNum;
+use rodetc_middle::middle::codegen_fn_attrs::CodegenFnAttrFlags;
+use rodetc_middle::mir::interpret::AllocInit;
+use rodetc_middle::ty::{Instance, Ty};
+use rodetc_middle::{mir, ty};
+use rodetc_span::Symbol;
+use rodetc_target::callconv::FnAbi;
+use rodetc_target::spec::Os;
 
 use super::alloc::EvalContextExt as _;
 use super::backtrace::EvalContextExt as _;
@@ -547,7 +547,7 @@ trait EvalContextExtPriv<'tcx>: crate::MiriInterpCxExt<'tcx> {
             }
             // Promises that a pointer has a given symbolic alignment.
             "miri_promise_symbolic_alignment" => {
-                use rustc_abi::AlignFromBytesError;
+                use rodetc_abi::AlignFromBytesError;
 
                 let [ptr, align] = &this.check_shim_sig(
                     shim_sig!(extern "Rust" fn(*(), usize) -> ()),

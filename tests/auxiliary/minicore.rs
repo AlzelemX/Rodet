@@ -14,7 +14,7 @@
 
 //! # References
 //!
-//! This is partially adapted from `rustc_codegen_cranelift`:
+//! This is partially adapted from `rodetc_codegen_cranelift`:
 //! <https://github.com/rust-lang/rust/blob/c0b5cc9003f6464c11ae1c0662c6a7e06f6f5cab/compiler/rustc_codegen_cranelift/example/mini_core.rs>.
 // ignore-tidy-file-linelength
 
@@ -492,7 +492,7 @@ pub trait ConstParamTy_ {}
 
 pub enum SimdAlign {
     // These values must match the compiler's `SimdAlign` defined in
-    // `rustc_middle/src/ty/consts/int.rs`!
+    // `rodetc_middle/src/ty/consts/int.rs`!
     Unaligned = 0,
     Element = 1,
     Vector = 2,

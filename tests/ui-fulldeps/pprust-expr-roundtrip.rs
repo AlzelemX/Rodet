@@ -21,25 +21,25 @@
 
 #![feature(rustc_private)]
 
-extern crate rustc_ast;
-extern crate rustc_ast_pretty;
-extern crate rustc_parse;
-extern crate rustc_session;
-extern crate rustc_span;
+extern crate rodetc_ast;
+extern crate rodetc_ast_pretty;
+extern crate rodetc_parse;
+extern crate rodetc_session;
+extern crate rodetc_span;
 extern crate thin_vec;
 
 // Necessary to pull in object code as the rest of the rustc crates are shipped only as rmeta
 // files.
 #[allow(unused_extern_crates)]
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 use parser::parse_expr;
-use rustc_ast::mut_visit::MutVisitor;
-use rustc_ast::*;
-use rustc_ast_pretty::pprust;
-use rustc_session::parse::ParseSess;
-use rustc_span::symbol::Ident;
-use rustc_span::{DUMMY_SP, Spanned};
+use rodetc_ast::mut_visit::MutVisitor;
+use rodetc_ast::*;
+use rodetc_ast_pretty::pprust;
+use rodetc_session::parse::ParseSess;
+use rodetc_span::symbol::Ident;
+use rodetc_span::{DUMMY_SP, Spanned};
 use thin_vec::{thin_vec, ThinVec};
 
 // Helper functions for building exprs
@@ -212,7 +212,7 @@ impl MutVisitor for AddParens {
 }
 
 fn main() {
-    rustc_span::create_default_session_globals_then(|| run());
+    rodetc_span::create_default_session_globals_then(|| run());
 }
 
 fn run() {

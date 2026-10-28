@@ -74,4 +74,4 @@ LL |     fn keyword(self: &mut view_type!(Foo.{ where }), _: &mut view_type!(Foo
 
 error: aborting due to 10 previous errors
 
-For more information about this error, try `rustc --explain E0609`.
+For more information about this error, try `rodetc --explain E0609`.

@@ -36,4 +36,4 @@ LL + #![feature(min_adt_const_params)]
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0015`.
+For more information about this error, try `rodetc --explain E0015`.

@@ -2,12 +2,12 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::is_lint_allowed;
 use itertools::Itertools as _;
-use rustc_attr_ir::find_attr;
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
-use rustc_hir::{BlockCheckMode, Expr, ExprKind, HirId, Stmt, UnsafeSource};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::{OrdSpan, Span, SyntaxContext};
+use rodetc_attr_ir::find_attr;
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
+use rodetc_hir::{BlockCheckMode, Expr, ExprKind, HirId, Stmt, UnsafeSource};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::{OrdSpan, Span, SyntaxContext};
 use std::collections::BTreeMap;
 use std::collections::btree_map::Entry;
 
@@ -212,7 +212,7 @@ impl<'tcx> Visitor<'tcx> for BodyVisitor<'_, 'tcx> {
 }
 
 impl<'tcx> LateLintPass<'tcx> for ExprMetavarsInUnsafe {
-    fn check_body(&mut self, cx: &LateContext<'tcx>, body: &rustc_hir::Body<'tcx>) {
+    fn check_body(&mut self, cx: &LateContext<'tcx>, body: &rodetc_hir::Body<'tcx>) {
         if is_lint_allowed(cx, MACRO_METAVARS_IN_UNSAFE, body.value.hir_id) {
             return;
         }

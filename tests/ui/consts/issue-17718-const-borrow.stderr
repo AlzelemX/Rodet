@@ -30,4 +30,4 @@ LL | const F: &'static C = &D;
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0492`.
+For more information about this error, try `rodetc --explain E0492`.

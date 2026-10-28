@@ -6,7 +6,7 @@ use hir_def::{
 };
 use hir_expand::{HirFileId, files::InFileWrapper};
 use itertools::Itertools;
-use rustc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::inherent::IntoKind;
 use span::{Edition, TextRange};
 use stdx::{format_to, never};
 use syntax::{AstNode, AstPtr};

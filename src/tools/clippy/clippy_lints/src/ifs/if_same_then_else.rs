@@ -1,9 +1,9 @@
 use clippy_utils::SpanlessEq;
 use clippy_utils::diagnostics::span_lint_and_note;
 use clippy_utils::higher::has_let_expr;
-use rustc_hir::{Block, Expr};
-use rustc_lint::LateContext;
-use rustc_span::SyntaxContext;
+use rodetc_hir::{Block, Expr};
+use rodetc_lint::LateContext;
+use rodetc_span::SyntaxContext;
 
 use super::IF_SAME_THEN_ELSE;
 

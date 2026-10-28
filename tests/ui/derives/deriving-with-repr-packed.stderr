@@ -54,4 +54,4 @@ LL |     data: str,
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0161, E0507.
-For more information about an error, try `rustc --explain E0161`.
+For more information about an error, try `rodetc --explain E0161`.

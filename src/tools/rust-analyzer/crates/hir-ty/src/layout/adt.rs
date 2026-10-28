@@ -7,8 +7,8 @@ use hir_def::{
     attrs::AttrFlags,
     signatures::{StructFlags, StructSignature, VariantFields},
 };
-use rustc_abi::{Integer, ReprOptions, TargetDataLayout};
-use rustc_index::IndexVec;
+use rodetc_abi::{Integer, ReprOptions, TargetDataLayout};
+use rodetc_index::IndexVec;
 use smallvec::SmallVec;
 use triomphe::Arc;
 

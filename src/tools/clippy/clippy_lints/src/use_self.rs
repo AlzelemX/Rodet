@@ -3,18 +3,18 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::is_from_proc_macro;
 use clippy_utils::msrvs::{self, Msrv};
 use clippy_utils::ty::{same_type_modulo_regions, ty_from_hir_ty};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::{CtorOf, DefKind, Res};
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::intravisit::{InferKind, Visitor, walk_ty};
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{CtorOf, DefKind, Res};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::intravisit::{InferKind, Visitor, walk_ty};
+use rodetc_hir::{
     self as hir, AmbigArg, Expr, ExprKind, FnRetTy, FnSig, GenericArgsParentheses, GenericParamKind, HirId, Impl,
     ImplItemImplKind, ImplItemKind, Item, ItemKind, Node, Pat, PatExpr, PatExprKind, PatKind, Path, QPath, Ty, TyKind,
 };
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::Ty as MiddleTy;
-use rustc_span::Span;
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::Ty as MiddleTy;
+use rodetc_span::Span;
 use std::iter;
 use std::ops::ControlFlow;
 
@@ -349,7 +349,7 @@ fn ty_contains_ty<'tcx>(outer: &Ty<'tcx>, inner: &Ty<'tcx, AmbigArg>) -> bool {
 ///
 /// This function does not check that types `a` and `b` are the same types.
 fn same_lifetimes<'tcx>(a: MiddleTy<'tcx>, b: MiddleTy<'tcx>) -> bool {
-    use rustc_middle::ty::{Adt, GenericArgKind};
+    use rodetc_middle::ty::{Adt, GenericArgKind};
     match (a.kind(), b.kind()) {
         (Adt(_, args_a), Adt(_, args_b)) => {
             iter::zip(*args_a, *args_b).all(|(arg_a, arg_b)| match (arg_a.kind(), arg_b.kind()) {

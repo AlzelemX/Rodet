@@ -49,4 +49,4 @@ LL |     offset_of!(m::Baz, Var1.0.private);
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0603, E0616.
-For more information about an error, try `rustc --explain E0603`.
+For more information about an error, try `rodetc --explain E0603`.

@@ -82,4 +82,4 @@ LL |         compare_bytes([&1].as_ptr().cast(), [&2].as_ptr().cast(), std::mem:
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

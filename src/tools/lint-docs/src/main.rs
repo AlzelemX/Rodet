@@ -27,7 +27,7 @@ fn doit() -> Result<(), Box<dyn Error>> {
     let mut out_path = None;
     let mut build_rustc_stage = None;
     let mut rustc_path = None;
-    let mut rustc_target = None;
+    let mut rodetc_target = None;
     let mut rustc_linker = None;
     let mut verbose = false;
     let mut validate = false;
@@ -60,7 +60,7 @@ fn doit() -> Result<(), Box<dyn Error>> {
                 };
             }
             "--rustc-target" => {
-                rustc_target = match args.next() {
+                rodetc_target = match args.next() {
                     Some(s) => Some(s),
                     None => return Err("--rustc-target requires a value".into()),
                 };
@@ -88,14 +88,14 @@ fn doit() -> Result<(), Box<dyn Error>> {
     if rustc_path.is_none() {
         return Err("--rustc must be specified to the path of rustc".into());
     }
-    if rustc_target.is_none() {
+    if rodetc_target.is_none() {
         return Err("--rustc-target must be specified to the rustc target".into());
     }
     let le = lint_docs::LintExtractor {
         src_path: &src_path.unwrap(),
         out_path: &out_path.unwrap(),
         rustc_path: &rustc_path.unwrap(),
-        rustc_target: &rustc_target.unwrap(),
+        rodetc_target: &rodetc_target.unwrap(),
         rustc_linker: rustc_linker.as_deref(),
         build_rustc_stage: build_rustc_stage.unwrap(),
         verbose,

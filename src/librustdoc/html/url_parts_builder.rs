@@ -1,6 +1,6 @@
 use std::fmt::{self, Write};
 
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 
 /// A builder that allows efficiently and easily constructing the part of a URL
 /// after the domain: `nightly/core/str/struct.Bytes.html`.

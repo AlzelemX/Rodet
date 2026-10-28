@@ -40,4 +40,4 @@ LL | impl<T: PointeeSized> PointeeSizedTr for X<T> {}
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0119`.
+For more information about this error, try `rodetc --explain E0119`.

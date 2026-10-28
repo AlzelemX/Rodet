@@ -9,11 +9,11 @@ use std::sync::atomic::AtomicBool;
 
 use libffi::low::CodePtr;
 use libffi::middle::Type as FfiType;
-use rustc_abi::{HasDataLayout, Size};
-use rustc_data_structures::either;
-use rustc_middle::ty::layout::TyAndLayout;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Symbol;
+use rodetc_abi::{HasDataLayout, Size};
+use rodetc_data_structures::either;
+use rodetc_middle::ty::layout::TyAndLayout;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Symbol;
 use serde::{Deserialize, Serialize};
 
 use crate::*;
@@ -313,7 +313,7 @@ trait EvalContextExtPriv<'tcx>: crate::MiriInterpCxExt<'tcx> {
                     Immediate::ScalarPair(sc_first, sc_second) => {
                         // The first scalar has an offset of zero; compute the offset of the 2nd.
                         let ofs_second = {
-                            let rustc_abi::BackendRepr::ScalarPair { a: _, b: _, b_offset } =
+                            let rodetc_abi::BackendRepr::ScalarPair { a: _, b: _, b_offset } =
                                 imm.layout.backend_repr
                             else {
                                 span_bug!(
@@ -393,7 +393,7 @@ trait EvalContextExtPriv<'tcx>: crate::MiriInterpCxExt<'tcx> {
 
     /// Gets the matching libffi type for a given Ty.
     fn ty_to_ffitype(&self, layout: TyAndLayout<'tcx>) -> Result<FfiType, Ty<'tcx>> {
-        use rustc_abi::{AddressSpace, BackendRepr, Float, Integer, Primitive};
+        use rodetc_abi::{AddressSpace, BackendRepr, Float, Integer, Primitive};
 
         // `BackendRepr::Scalar` is also a signal to pass this type as a scalar in the ABI. This
         // matches what codegen does. This does mean that we support some types whose ABI is not
@@ -443,7 +443,7 @@ struct LibffiClosureData<'tcx> {
 /// code side could store a function pointer and only call it at a later point.
 pub fn build_libffi_closure<'tcx, 'this>(
     this: &'this MiriInterpCx<'tcx>,
-    fn_sig: rustc_middle::ty::FnSig<'tcx>,
+    fn_sig: rodetc_middle::ty::FnSig<'tcx>,
 ) -> InterpResult<'tcx, unsafe extern "C" fn()> {
     // Compute argument and return types in libffi representation.
     let closure_builder = try {

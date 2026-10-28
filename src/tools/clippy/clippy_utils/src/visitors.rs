@@ -4,18 +4,18 @@ use crate::qualify_min_const_fn::is_stable_const_fn_at;
 use crate::res::MaybeResPath as _;
 use crate::ty::needs_ordered_drop;
 use core::ops::ControlFlow;
-use rustc_ast::visit::{VisitorResult as _, try_visit};
-use rustc_hir::def::{CtorKind, DefKind, Res};
-use rustc_hir::intravisit::{self, Visitor, walk_block, walk_expr, walk_qpath};
-use rustc_hir::{
+use rodetc_ast::visit::{VisitorResult as _, try_visit};
+use rodetc_hir::def::{CtorKind, DefKind, Res};
+use rodetc_hir::intravisit::{self, Visitor, walk_block, walk_expr, walk_qpath};
+use rodetc_hir::{
     self as hir, AmbigArg, AnonConst, Arm, Block, BlockCheckMode, Body, BodyId, CRATE_HIR_ID, ConstBlock, Expr,
     ExprKind, HirId, ItemId, ItemKind, LetExpr, Pat, QPath, Stmt, StructTailExpr, UnOp, UnsafeSource,
 };
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::adjustment::Adjust;
-use rustc_middle::ty::{self, Ty, TyCtxt, TypeckResults};
-use rustc_span::Span;
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::adjustment::Adjust;
+use rodetc_middle::ty::{self, Ty, TyCtxt, TypeckResults};
+use rodetc_span::Span;
 
 mod internal {
     /// Trait for visitor functions to control whether or not to descend to child nodes. Implemented

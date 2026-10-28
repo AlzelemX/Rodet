@@ -4,9 +4,9 @@ use clippy_utils::is_from_proc_macro;
 use clippy_utils::source::walk_span_to_context;
 use core::cmp::Ordering;
 use core::convert::identity;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use super::{BAD_BIT_MASK, INEFFECTIVE_BIT_MASK};
 

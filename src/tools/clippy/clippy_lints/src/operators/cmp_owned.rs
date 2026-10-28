@@ -3,10 +3,10 @@ use clippy_utils::res::MaybeQPath as _;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sym;
 use clippy_utils::ty::{implements_trait, is_copy};
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind, UnOp};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind, UnOp};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
 
 use super::CMP_OWNED;
 

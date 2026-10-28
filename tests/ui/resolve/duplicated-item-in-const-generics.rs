@@ -1,4 +1,4 @@
-// Regression test for #155482. If we allow the compiler to advance past `rustc_resolve`, it causes
+// Regression test for #155482. If we allow the compiler to advance past `rodetc_resolve`, it causes
 // an ICE.
 trait TraitA < AsA = impl TraitB < { //~ ERROR: cannot find trait `TraitB` in this scope
 #[derive(Hash)]

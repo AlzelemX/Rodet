@@ -11,7 +11,7 @@ use hir_expand::{
 };
 use intern::sym;
 use la_arena::{Arena, Idx};
-use rustc_abi::{ExternAbi, IntegerType, ReprOptions};
+use rodetc_abi::{ExternAbi, IntegerType, ReprOptions};
 use syntax::{
     AstNode, NodeOrToken, SyntaxNodePtr, T,
     ast::{self, HasGenericParams, HasName, HasVisibility, IsString},

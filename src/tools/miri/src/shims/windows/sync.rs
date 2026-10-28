@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use rustc_abi::{FieldIdx, Size};
+use rodetc_abi::{FieldIdx, Size};
 
 use crate::concurrency::init_once::{EvalContextExt as _, InitOnceStatus};
 use crate::concurrency::sync::{AccessKind, FutexRef, SyncObj};

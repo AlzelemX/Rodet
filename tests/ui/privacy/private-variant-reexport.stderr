@@ -55,4 +55,4 @@ LL |     pub use ::E::*;
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0364, E0432.
-For more information about an error, try `rustc --explain E0364`.
+For more information about an error, try `rodetc --explain E0364`.

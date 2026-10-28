@@ -68,4 +68,4 @@ LL | impl<'a, T: 'a> Trait5<'a> for T {
 
 error: aborting due to 5 previous errors
 
-For more information about this error, try `rustc --explain E0309`.
+For more information about this error, try `rodetc --explain E0309`.

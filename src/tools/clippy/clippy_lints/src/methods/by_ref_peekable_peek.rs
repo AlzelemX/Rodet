@@ -4,11 +4,11 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::sym;
 use clippy_utils::ty::implements_trait;
-use rustc_ast::BindingMode;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, LetStmt, Node, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
+use rodetc_ast::BindingMode;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, LetStmt, Node, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
 
 use super::BY_REF_PEEKABLE_PEEK;
 

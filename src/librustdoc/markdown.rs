@@ -14,8 +14,8 @@ use std::io::prelude::*;
 use std::path::PathBuf;
 use std::sync::Arc;
 
-use rustc_span::SourceFile;
-use rustc_span::edition::Edition;
+use rodetc_span::SourceFile;
+use rodetc_span::edition::Edition;
 
 use crate::config::RenderOptions;
 use crate::html::escape::Escape;

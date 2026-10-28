@@ -1,4 +1,4 @@
-use rustc_span::Symbol;
+use rodetc_span::Symbol;
 
 use super::{conditional_dot_product, mpsadbw, packusdw, round_all, round_first, test_bits_masked};
 use crate::*;

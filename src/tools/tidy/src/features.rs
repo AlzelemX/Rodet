@@ -287,7 +287,7 @@ fn collect_lang_features_in(
     file: &str,
     check: &mut RunningCheck,
 ) {
-    let path = base.join("rustc_feature").join("src").join(file);
+    let path = base.join("rodetc_feature").join("src").join(file);
     let contents = t!(fs::read_to_string(&path));
 
     // We allow rustc-internal features to omit a tracking issue.

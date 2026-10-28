@@ -250,4 +250,4 @@ LL |     require_static(ptr as _)
 error: aborting due to 14 previous errors
 
 Some errors have detailed explanations: E0308, E0521.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

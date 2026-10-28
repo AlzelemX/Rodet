@@ -8,17 +8,17 @@ use clippy_utils::source::{snippet, snippet_with_applicability};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::ty::{has_non_owning_mutable_access, make_normalized_projection, make_projection};
 use clippy_utils::{CaptureKind, can_move_expr_to_closure, fn_def_id, get_enclosing_block, higher, sym};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::{Applicability, MultiSpan};
-use rustc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
-use rustc_hir::{
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::{Applicability, MultiSpan};
+use rodetc_hir::intravisit::{Visitor, walk_block, walk_expr, walk_stmt};
+use rodetc_hir::{
     BindingMode, Block, Expr, ExprKind, HirId, HirIdSet, LetStmt, Mutability, Node, Pat, PatKind, Stmt, StmtKind,
 };
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, AssocTag, ClauseKind, EarlyBinder, GenericArg, GenericArgKind, Ty, Unnormalized};
-use rustc_span::symbol::Ident;
-use rustc_span::{Span, Symbol};
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, AssocTag, ClauseKind, EarlyBinder, GenericArg, GenericArgKind, Ty, Unnormalized};
+use rodetc_span::symbol::Ident;
+use rodetc_span::{Span, Symbol};
 
 const NEEDLESS_COLLECT_MSG: &str = "avoid using `collect()` when not needed";
 
@@ -246,26 +246,26 @@ fn collect_turbofish_is_fully_concrete(collect_expr: &Expr<'_>) -> bool {
     }
 }
 
-fn generic_arg_is_fully_concrete(arg: &rustc_hir::GenericArg<'_>) -> bool {
+fn generic_arg_is_fully_concrete(arg: &rodetc_hir::GenericArg<'_>) -> bool {
     match arg {
-        rustc_hir::GenericArg::Infer(_) => false,
-        rustc_hir::GenericArg::Type(ty) => ty_is_fully_concrete(ty.as_unambig_ty()),
-        rustc_hir::GenericArg::Const(ct) => !matches!(ct.as_unambig_ct().kind, rustc_hir::ConstArgKind::Infer(..)),
-        rustc_hir::GenericArg::Lifetime(_) => true,
+        rodetc_hir::GenericArg::Infer(_) => false,
+        rodetc_hir::GenericArg::Type(ty) => ty_is_fully_concrete(ty.as_unambig_ty()),
+        rodetc_hir::GenericArg::Const(ct) => !matches!(ct.as_unambig_ct().kind, rodetc_hir::ConstArgKind::Infer(..)),
+        rodetc_hir::GenericArg::Lifetime(_) => true,
     }
 }
 
-fn ty_is_fully_concrete(ty: &rustc_hir::Ty<'_>) -> bool {
+fn ty_is_fully_concrete(ty: &rodetc_hir::Ty<'_>) -> bool {
     match &ty.kind {
-        rustc_hir::TyKind::Infer(..) => false,
-        rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(_, path)) => path.segments.iter().all(|seg| {
+        rodetc_hir::TyKind::Infer(..) => false,
+        rodetc_hir::TyKind::Path(rodetc_hir::QPath::Resolved(_, path)) => path.segments.iter().all(|seg| {
             seg.args
                 .is_none_or(|a| a.args.iter().all(generic_arg_is_fully_concrete))
         }),
-        rustc_hir::TyKind::Ref(_, ty, _) | rustc_hir::TyKind::Slice(ty) | rustc_hir::TyKind::Array(ty, _) => {
+        rodetc_hir::TyKind::Ref(_, ty, _) | rodetc_hir::TyKind::Slice(ty) | rodetc_hir::TyKind::Array(ty, _) => {
             ty_is_fully_concrete(ty)
         },
-        rustc_hir::TyKind::Tup(tys) => tys.iter().all(ty_is_fully_concrete),
+        rodetc_hir::TyKind::Tup(tys) => tys.iter().all(ty_is_fully_concrete),
         _ => true,
     }
 }

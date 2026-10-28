@@ -110,4 +110,4 @@ note: if you're trying to build a new `Box<_, _>` consider using one of the foll
 error: aborting due to 11 previous errors
 
 Some errors have detailed explanations: E0121, E0224, E0261, E0599.
-For more information about an error, try `rustc --explain E0121`.
+For more information about an error, try `rodetc --explain E0121`.

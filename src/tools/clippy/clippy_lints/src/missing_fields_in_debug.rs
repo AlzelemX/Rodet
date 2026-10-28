@@ -4,14 +4,14 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::sym;
 use clippy_utils::visitors::{Visitable, for_each_expr};
-use rustc_ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Block, Expr, ExprKind, Impl, Item, ItemKind, Node, QPath, TyKind, VariantData};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty::{Ty, TypeckResults};
-use rustc_span::{Span, Symbol};
+use rodetc_ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Block, Expr, ExprKind, Impl, Item, ItemKind, Node, QPath, TyKind, VariantData};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty::{Ty, TypeckResults};
+use rodetc_span::{Span, Symbol};
 
 declare_clippy_lint! {
     /// ### What it does

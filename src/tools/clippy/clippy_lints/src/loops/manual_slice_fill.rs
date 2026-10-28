@@ -5,16 +5,16 @@ use clippy_utils::source::snippet_with_applicability;
 use clippy_utils::ty::{implements_trait, is_slice_like};
 use clippy_utils::visitors::is_local_used;
 use clippy_utils::{higher, peel_blocks_with_stmt, span_contains_comment};
-use rustc_ast::ast::LitKind;
-use rustc_ast::{RangeLimits, UnOp};
-use rustc_data_structures::packed::Pu128;
-use rustc_errors::Applicability;
-use rustc_hir::QPath::Resolved;
-use rustc_hir::def::Res;
-use rustc_hir::{Expr, ExprKind, Pat};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_span::{Spanned, sym};
+use rodetc_ast::ast::LitKind;
+use rodetc_ast::{RangeLimits, UnOp};
+use rodetc_data_structures::packed::Pu128;
+use rodetc_errors::Applicability;
+use rodetc_hir::QPath::Resolved;
+use rodetc_hir::def::Res;
+use rodetc_hir::{Expr, ExprKind, Pat};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_span::{Spanned, sym};
 
 use super::MANUAL_SLICE_FILL;
 
@@ -96,7 +96,7 @@ pub(super) fn check<'tcx>(
         && switch_to_eager_eval(cx, assignval)
         && !is_local_used(cx, assignval, local)
         && let arg_ty = cx.typeck_results().expr_ty(arg)
-        && let ty::Ref(_, inner_ty, rustc_ast::Mutability::Mut) = arg_ty.kind()
+        && let ty::Ref(_, inner_ty, rodetc_ast::Mutability::Mut) = arg_ty.kind()
         && is_slice_like(cx, *inner_ty)
         && let Some(clone_trait) = cx.tcx.lang_items().clone_trait()
         && implements_trait(cx, *inner_ty, clone_trait, &[])
@@ -110,8 +110,8 @@ fn sugg<'tcx>(
     cx: &LateContext<'tcx>,
     body: &'tcx Expr<'_>,
     expr: &'tcx Expr<'_>,
-    slice_span: rustc_span::Span,
-    assignval_span: rustc_span::Span,
+    slice_span: rodetc_span::Span,
+    assignval_span: rodetc_span::Span,
 ) {
     let mut app = if span_contains_comment(cx, body.span) {
         Applicability::MaybeIncorrect // Comments may be informational.

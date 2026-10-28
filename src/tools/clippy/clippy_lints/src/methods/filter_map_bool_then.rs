@@ -4,14 +4,14 @@ use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::{SpanExt as _, snippet_with_context};
 use clippy_utils::ty::is_copy;
 use clippy_utils::{CaptureKind, can_move_expr_to_closure, contains_return, is_from_proc_macro, peel_blocks, sym};
-use rustc_ast::Mutability;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, HirId, Param, Pat};
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_middle::ty::Binder;
-use rustc_middle::ty::adjustment::Adjust;
-use rustc_span::Span;
+use rodetc_ast::Mutability;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, HirId, Param, Pat};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_middle::ty::Binder;
+use rodetc_middle::ty::adjustment::Adjust;
+use rodetc_span::Span;
 
 pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, expr: &'tcx Expr<'tcx>, arg: &Expr<'_>, call_span: Span) {
     if cx.ty_based_def(expr).opt_parent(cx).is_diag_item(cx, sym::Iterator)
@@ -77,7 +77,7 @@ pub(super) fn check<'tcx>(cx: &LateContext<'tcx>, expr: &'tcx Expr<'tcx>, arg: &
 fn find_bindings_from_pat(pat: &Pat<'_>) -> FxHashSet<HirId> {
     let mut bindings = FxHashSet::default();
     pat.walk(|p| {
-        if let rustc_hir::PatKind::Binding(_, hir_id, _, _) = p.kind {
+        if let rodetc_hir::PatKind::Binding(_, hir_id, _, _) = p.kind {
             bindings.insert(hir_id);
         }
         true

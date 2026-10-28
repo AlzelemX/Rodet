@@ -2,13 +2,13 @@ use super::SINGLE_ELEMENT_LOOP;
 use clippy_utils::diagnostics::{span_lint, span_lint_and_sugg};
 use clippy_utils::source::{indent_of, snippet, snippet_with_applicability};
 use clippy_utils::visitors::contains_break_or_continue;
-use rustc_ast::Mutability;
-use rustc_ast::util::parser::ExprPrecedence;
-use rustc_errors::Applicability;
-use rustc_hir::{BorrowKind, Expr, ExprKind, Pat, PatKind, is_range_literal};
-use rustc_lint::LateContext;
-use rustc_span::edition::Edition;
-use rustc_span::sym;
+use rodetc_ast::Mutability;
+use rodetc_ast::util::parser::ExprPrecedence;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BorrowKind, Expr, ExprKind, Pat, PatKind, is_range_literal};
+use rodetc_lint::LateContext;
+use rodetc_span::edition::Edition;
+use rodetc_span::sym;
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,
@@ -90,7 +90,7 @@ fn emit_lint<'tcx>(
     expr: &'tcx Expr<'_>,
     arg_expression: &'tcx Expr<'_>,
     prefix: &str,
-    block: &rustc_hir::Block<'_>,
+    block: &rodetc_hir::Block<'_>,
 ) {
     let mut applicability = Applicability::MachineApplicable;
     let mut pat_snip = snippet_with_applicability(cx, pat.span, "..", &mut applicability);

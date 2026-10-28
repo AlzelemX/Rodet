@@ -27,4 +27,4 @@ LL +     fn boom(&self, foo: &mut Foo<'_, 'a>) -> Result<(), &'a ()> {
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0107, E0621.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

@@ -5,9 +5,9 @@
 //! ```
 //! #![feature(rustc_private)]
 //!
-//! extern crate rustc_span;
+//! extern crate rodetc_span;
 //!
-//! use rustc_span::edition::Edition;
+//! use rodetc_span::edition::Edition;
 //! use rustdoc::html::markdown::{HeadingOffset, IdMap, Markdown, ErrorCodes};
 //!
 //! let s = "My *markdown* _text_";
@@ -36,17 +36,17 @@ use std::str::{self, CharIndices};
 use std::sync::atomic::AtomicUsize;
 use std::sync::{Arc, Weak};
 
-use rustc_data_structures::fx::{FxHashMap, FxIndexMap};
-use rustc_errors::{Diag, DiagMessage};
-use rustc_hir::def_id::LocalDefId;
-use rustc_middle::ty::TyCtxt;
-pub(crate) use rustc_resolve::rustdoc::main_body_opts;
-use rustc_resolve::rustdoc::pulldown_cmark::{
+use rodetc_data_structures::fx::{FxHashMap, FxIndexMap};
+use rodetc_errors::{Diag, DiagMessage};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_middle::ty::TyCtxt;
+pub(crate) use rodetc_resolve::rustdoc::main_body_opts;
+use rodetc_resolve::rustdoc::pulldown_cmark::{
     self, BrokenLink, CodeBlockKind, CowStr, Event, LinkType, Options, Parser, Tag, TagEnd, html,
 };
-use rustc_resolve::rustdoc::{DocFragment, may_be_doc_link, source_span_for_markdown_range};
-use rustc_span::edition::Edition;
-use rustc_span::{Span, Symbol};
+use rodetc_resolve::rustdoc::{DocFragment, may_be_doc_link, source_span_for_markdown_range};
+use rodetc_span::edition::Edition;
+use rodetc_span::{Span, Symbol};
 use tracing::{debug, trace};
 
 use crate::clean::RenderedLink;
@@ -881,7 +881,7 @@ impl<'doc, 'tcx> ExtraInfo<'doc, 'tcx> {
             crate::lint::INVALID_CODEBLOCK_ATTRIBUTES,
             self.tcx.local_def_id_to_hir_id(self.def_id),
             self.sp,
-            rustc_errors::DiagDecorator(|lint| {
+            rodetc_errors::DiagDecorator(|lint| {
                 lint.primary_message(msg);
                 f(lint);
             }),

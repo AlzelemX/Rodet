@@ -26,4 +26,4 @@ LL |     drop(|| ret_from_ext::foo!());
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0515, E0716.
-For more information about an error, try `rustc --explain E0515`.
+For more information about an error, try `rodetc --explain E0515`.

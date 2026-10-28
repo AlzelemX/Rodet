@@ -1,10 +1,10 @@
 // We need this feature as it changes `dylib` linking behavior and allows us to link to
-// `rustc_driver`.
+// `rodetc_driver`.
 #![feature(rustc_private)]
 // warn on lints, that are included in `rust-lang/rust`s bootstrap
 #![warn(rust_2018_idioms, unused_lifetimes)]
 
-extern crate rustc_driver;
+extern crate rodetc_driver;
 
 use std::env;
 use std::io::Write as _;
@@ -13,14 +13,14 @@ use std::process::{self, Command, exit};
 
 fn show_help() {
     if writeln!(&mut anstream::stdout().lock(), "{}", help_message()).is_err() {
-        exit(rustc_driver::EXIT_FAILURE);
+        exit(rodetc_driver::EXIT_FAILURE);
     }
 }
 
 fn show_version() {
     let version_info = rustc_tools_util::get_version_info!();
     if writeln!(&mut anstream::stdout().lock(), "{version_info}").is_err() {
-        exit(rustc_driver::EXIT_FAILURE);
+        exit(rodetc_driver::EXIT_FAILURE);
     }
 }
 

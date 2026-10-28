@@ -28,7 +28,7 @@ LL |     foo!();
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0469`.
+For more information about this error, try `rodetc --explain E0469`.
 Future incompatibility report: Future breakage diagnostic:
 error: macro `foo` is private
   --> $DIR/issue-80074.rs:13:5

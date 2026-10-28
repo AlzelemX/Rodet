@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::snippet;
 use clippy_utils::sym;
-use rustc_errors::Applicability;
-use rustc_hir::{
+use rodetc_errors::Applicability;
+use rodetc_hir::{
     self as hir, GenericArg, GenericBounds, GenericParamKind, HirId, Lifetime, Mutability, Node, QPath, TyKind,
 };
-use rustc_lint::LateContext;
+use rodetc_lint::LateContext;
 
 use super::BORROWED_BOX;
 

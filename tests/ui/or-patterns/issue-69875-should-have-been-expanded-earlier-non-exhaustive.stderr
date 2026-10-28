@@ -28,4 +28,4 @@ LL +         i32::MIN..=-1_i32 | 3_i32..=i32::MAX => todo!()
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0004, E0005.
-For more information about an error, try `rustc --explain E0004`.
+For more information about an error, try `rodetc --explain E0004`.

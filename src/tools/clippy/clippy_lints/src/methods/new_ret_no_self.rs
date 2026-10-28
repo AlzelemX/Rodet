@@ -1,10 +1,10 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::return_ty;
 use clippy_utils::ty::contains_ty_adt_constructor_opaque;
-use rustc_hir::{ImplItem, TraitItem};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::sym;
+use rodetc_hir::{ImplItem, TraitItem};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::sym;
 
 use super::NEW_RET_NO_SELF;
 

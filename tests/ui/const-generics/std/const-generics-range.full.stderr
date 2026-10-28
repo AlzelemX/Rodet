@@ -36,4 +36,4 @@ LL | struct _RangeToInclusive<const R: std::ops::RangeToInclusive<usize>>;
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0741`.
+For more information about this error, try `rodetc --explain E0741`.

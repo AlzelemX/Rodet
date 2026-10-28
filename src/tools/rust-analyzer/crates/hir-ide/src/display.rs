@@ -35,14 +35,14 @@ use hir_expand::{mod_path::PathKind, name::Name};
 use intern::{Internable, Interned, sym};
 use itertools::Itertools;
 use la_arena::ArenaMap;
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 use rustc_apfloat::{
     Float,
     ieee::{Half as f16, Quad as f128},
 };
-use rustc_ast_ir::FloatTy;
+use rodetc_ast_ir::FloatTy;
 use rustc_hash::FxHashSet;
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind, BoundVarIndexKind, CoroutineArgsParts, RegionKind, Upcast,
     inherent::{GenericArgs as _, IntoKind, Term as _, Ty as _, Tys as _},
 };
@@ -1312,8 +1312,8 @@ impl<'db> HirDisplay<'db> for Ty<'db> {
                     f.write_char(' ')?;
                 }
                 match m {
-                    rustc_ast_ir::Mutability::Not => (),
-                    rustc_ast_ir::Mutability::Mut => f.write_str("mut ")?,
+                    rodetc_ast_ir::Mutability::Not => (),
+                    rodetc_ast_ir::Mutability::Mut => f.write_str("mut ")?,
                 }
 
                 f.trait_bounds_need_parens = true;
@@ -1325,8 +1325,8 @@ impl<'db> HirDisplay<'db> for Ty<'db> {
                     f,
                     "*{}",
                     match m {
-                        rustc_ast_ir::Mutability::Not => "const ",
-                        rustc_ast_ir::Mutability::Mut => "mut ",
+                        rodetc_ast_ir::Mutability::Not => "const ",
+                        rodetc_ast_ir::Mutability::Mut => "mut ",
                     }
                 )?;
 
@@ -1621,12 +1621,12 @@ impl<'db> HirDisplay<'db> for Ty<'db> {
                 }
                 let callable_kind = args.as_coroutine_closure().kind();
                 let kind = match (closure_kind, callable_kind) {
-                    (CoroutineKind::Async, rustc_type_ir::ClosureKind::Fn) => "AsyncFn",
-                    (CoroutineKind::Async, rustc_type_ir::ClosureKind::FnMut) => "AsyncFnMut",
-                    (CoroutineKind::Async, rustc_type_ir::ClosureKind::FnOnce) => "AsyncFnOnce",
-                    (_, rustc_type_ir::ClosureKind::Fn) => "Fn",
-                    (_, rustc_type_ir::ClosureKind::FnMut) => "FnMut",
-                    (_, rustc_type_ir::ClosureKind::FnOnce) => "FnOnce",
+                    (CoroutineKind::Async, rodetc_type_ir::ClosureKind::Fn) => "AsyncFn",
+                    (CoroutineKind::Async, rodetc_type_ir::ClosureKind::FnMut) => "AsyncFnMut",
+                    (CoroutineKind::Async, rodetc_type_ir::ClosureKind::FnOnce) => "AsyncFnOnce",
+                    (_, rodetc_type_ir::ClosureKind::Fn) => "Fn",
+                    (_, rodetc_type_ir::ClosureKind::FnMut) => "FnMut",
+                    (_, rodetc_type_ir::ClosureKind::FnOnce) => "FnOnce",
                 };
                 let coroutine_sig = args.as_coroutine_closure().coroutine_closure_sig();
                 let coroutine_sig = coroutine_sig.skip_binder();
@@ -1731,7 +1731,7 @@ impl<'db> HirDisplay<'db> for Ty<'db> {
 
                 if f.render_region(region) {
                     bounds_to_display
-                        .push(rustc_type_ir::OutlivesPredicate(self_ty, region).upcast(interner));
+                        .push(rodetc_type_ir::OutlivesPredicate(self_ty, region).upcast(interner));
                 }
 
                 write_bounds_like_dyn_trait_with_prefix(
@@ -2305,8 +2305,8 @@ impl<'db> HirDisplay<'db> for TraitPredicate<'db> {
         self.self_ty().hir_fmt(f)?;
         f.write_str(": ")?;
         match self.polarity {
-            rustc_type_ir::PredicatePolarity::Positive => {}
-            rustc_type_ir::PredicatePolarity::Negative => f.write_char('!')?,
+            rodetc_type_ir::PredicatePolarity::Positive => {}
+            rodetc_type_ir::PredicatePolarity::Negative => f.write_char('!')?,
         }
         let trait_ = self.def_id().0;
         f.start_location_link(trait_.into());

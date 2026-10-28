@@ -24,4 +24,4 @@ LL | const TWO: &'static u16 = &ONE[0];
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0161, E0277, E0308.
-For more information about an error, try `rustc --explain E0161`.
+For more information about an error, try `rodetc --explain E0161`.

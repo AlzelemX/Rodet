@@ -6,25 +6,25 @@
 //@ ignore-backends: gcc
 #![feature(rustc_private)]
 
-extern crate rustc_attr_ir;
-extern crate rustc_driver;
-extern crate rustc_hir;
-extern crate rustc_interface;
-extern crate rustc_middle;
-extern crate rustc_mir_transform;
-extern crate rustc_span;
+extern crate rodetc_attr_ir;
+extern crate rodetc_driver;
+extern crate rodetc_hir;
+extern crate rodetc_interface;
+extern crate rodetc_middle;
+extern crate rodetc_mir_transform;
+extern crate rodetc_span;
 
 use std::process::ExitCode;
 
-use rustc_driver::Compilation;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_hir::def::DefKind;
-use rustc_interface::interface::Compiler;
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::DUMMY_SP;
+use rodetc_driver::Compilation;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_hir::def::DefKind;
+use rodetc_interface::interface::Compiler;
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::DUMMY_SP;
 
 fn main() -> ExitCode {
-    rustc_driver::catch_with_exit_code(move || {
+    rodetc_driver::catch_with_exit_code(move || {
         std::fs::write(
             "drop_glue_polymorphic_const_generic_input.rs",
             r#"
@@ -44,13 +44,13 @@ fn main() -> ExitCode {
         args.push("--crate-type=lib".to_owned());
         args.push("drop_glue_polymorphic_const_generic_input.rs".to_owned());
 
-        rustc_driver::compiler_entrypoint(&args, &mut CompilerCalls);
+        rodetc_driver::compiler_entrypoint(&args, &mut CompilerCalls);
     })
 }
 
 struct CompilerCalls;
 
-impl rustc_driver::Callbacks for CompilerCalls {
+impl rodetc_driver::Callbacks for CompilerCalls {
     fn after_analysis<'tcx>(&mut self, _compiler: &Compiler, tcx: TyCtxt<'tcx>) -> Compilation {
         tcx.sess.dcx().abort_if_errors();
 
@@ -69,7 +69,7 @@ impl rustc_driver::Callbacks for CompilerCalls {
         // contexts.
         let ty = tcx.type_of(contains_array).instantiate_identity().skip_norm_wip();
         let typing_env = ty::TypingEnv::post_analysis(tcx, contains_array);
-        rustc_mir_transform::build_drop_shim(tcx, drop_glue, Some(ty), typing_env);
+        rodetc_mir_transform::build_drop_shim(tcx, drop_glue, Some(ty), typing_env);
 
         Compilation::Stop
     }

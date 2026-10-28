@@ -98,4 +98,4 @@ LL |     ) -> ServiceChainBuilder<ServiceChain<P, S>, NS> where <S as Service>::
 
 error: aborting due to 6 previous errors
 
-For more information about this error, try `rustc --explain E0310`.
+For more information about this error, try `rodetc --explain E0310`.

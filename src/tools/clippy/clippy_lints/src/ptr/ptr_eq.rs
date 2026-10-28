@@ -2,11 +2,11 @@ use super::PTR_EQ;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::std_or_core;
 use clippy_utils::sugg::Sugg;
-use rustc_errors::Applicability;
-use rustc_hir::{BinOpKind, Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
+use rodetc_errors::Applicability;
+use rodetc_hir::{BinOpKind, Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
 
 pub(super) fn check<'tcx>(
     cx: &LateContext<'tcx>,

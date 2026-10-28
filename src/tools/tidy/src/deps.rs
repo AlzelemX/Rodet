@@ -134,7 +134,7 @@ pub(crate) const WORKSPACES: &[WorkspaceInfo<'static>] = &[
         path: ".",
         exceptions: EXCEPTIONS,
         allowed_deps: Some(PermittedDeps::new(
-            Some(&["rustc-main"]),
+            Some(&["rodetc-main"]),
             PERMITTED_RUSTC_DEPENDENCIES,
             PERMITTED_RUSTC_DEPS_LOCATION,
         )),
@@ -157,7 +157,7 @@ pub(crate) const WORKSPACES: &[WorkspaceInfo<'static>] = &[
         submodules: &[],
     },
     WorkspaceInfo {
-        path: "compiler/rustc_codegen_cranelift",
+        path: "compiler/rodetc_codegen_cranelift",
         exceptions: EXCEPTIONS_CRANELIFT,
         allowed_deps: Some(PermittedDeps::new(
             None,
@@ -167,7 +167,7 @@ pub(crate) const WORKSPACES: &[WorkspaceInfo<'static>] = &[
         submodules: &[],
     },
     WorkspaceInfo {
-        path: "compiler/rustc_codegen_gcc",
+        path: "compiler/rodetc_codegen_gcc",
         exceptions: EXCEPTIONS_GCC,
         allowed_deps: None,
         submodules: &[],
@@ -430,7 +430,7 @@ const PERMITTED_RUSTC_DEPENDENCIES: &[&str] = &[
     "rand",
     "rand_chacha",
     "rand_core",
-    "rand_xorshift", // dependency for doc-tests in rustc_thread_pool
+    "rand_xorshift", // dependency for doc-tests in rodetc_thread_pool
     "rand_xoshiro",
     "redox_syscall",
     "ref-cast",

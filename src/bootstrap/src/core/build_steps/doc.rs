@@ -1046,7 +1046,7 @@ impl Rustc {
         target: TargetSelection,
     ) -> Self {
         let crates = builder
-            .in_tree_crates("rustc-main", Some(target))
+            .in_tree_crates("rodetc-main", Some(target))
             .into_iter()
             .map(|krate| krate.name.to_string())
             .collect();
@@ -1059,7 +1059,7 @@ impl CommandLineStep for Rustc {
     const IS_HOST: bool = true;
 
     fn should_run(run: ShouldRun<'_>) -> ShouldRun<'_> {
-        run.crate_or_deps("rustc-main").path("compiler")
+        run.crate_or_deps("rodetc-main").path("compiler")
     }
 
     fn is_default_step(builder: &Builder<'_>) -> bool {
@@ -1146,12 +1146,12 @@ impl CommandLineStep for Rustc {
             merge_rustdoc_cci(builder, build_compiler, &artifacts.json_files, &target_doc_dir);
         }
 
-        // We open rustc_middle as the default if invoked as `x.py doc --open RELEASES.md`
+        // We open rodetc_middle as the default if invoked as `x.py doc --open RELEASES.md`
         // with no particular explicit doc requested (e.g. library/core).
         if builder.was_invoked_explicitly::<Self>(Kind::Doc) {
             let index = if builder.paths.iter().any(|path| path.ends_with("compiler")) {
-                // For `x.py doc compiler --open`, open `rustc_middle` by default.
-                target_doc_dir.join("rustc_middle").join("index.html")
+                // For `x.py doc compiler --open`, open `rodetc_middle` by default.
+                target_doc_dir.join("rodetc_middle").join("index.html")
             } else if let Some(krate) = self.crates.first() {
                 // Let's open the first crate documentation page:
                 target_doc_dir.join(normalize_doc_crate_name(krate)).join("index.html")
@@ -1303,7 +1303,7 @@ fn merge_host_and_target_docs(
 }
 
 /// Normalizes crate name to get a name that is used to generate documentation on disk.
-/// Turns `rustc-main` into `rustc_main`.
+/// Turns `rodetc-main` into `rustc_main`.
 fn normalize_doc_crate_name(name: &str) -> String {
     name.replace("-", "_")
 }

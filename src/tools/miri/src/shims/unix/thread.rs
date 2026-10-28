@@ -1,4 +1,4 @@
-use rustc_abi::ExternAbi;
+use rodetc_abi::ExternAbi;
 
 use crate::concurrency::thread::ThreadLookupError;
 use crate::*;

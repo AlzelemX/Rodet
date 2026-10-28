@@ -2,7 +2,7 @@
 
 #![deny(clippy::missing_docs_in_private_items)]
 
-use rustc_hir::{BinOpKind, Expr};
+use rodetc_hir::{BinOpKind, Expr};
 
 #[derive(PartialEq, Eq, Debug, Copy, Clone)]
 /// Represents a normalized comparison operator.

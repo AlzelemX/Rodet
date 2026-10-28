@@ -8,10 +8,10 @@ use std::fs::{File, create_dir_all};
 use std::io::{self, BufWriter, Write, stdout};
 use std::ops;
 
-use rustc_hir as hir;
-use rustc_lint::builtin::MISSING_DOCS;
-use rustc_middle::lint::LintLevelSource;
-use rustc_span::{FileName, RemapPathScopeComponents};
+use rodetc_hir as hir;
+use rodetc_lint::builtin::MISSING_DOCS;
+use rodetc_middle::lint::LintLevelSource;
+use rodetc_span::{FileName, RemapPathScopeComponents};
 use serde::Serialize;
 use tracing::debug;
 

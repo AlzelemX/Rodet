@@ -50,4 +50,4 @@ LL |     1.use(2);
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0618`.
+For more information about this error, try `rodetc --explain E0618`.

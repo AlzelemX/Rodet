@@ -26,8 +26,8 @@ fn book_root() -> Option<PathBuf> {
     if let Some(dir) = std::env::var_os("DEVR_BOOK_DIR") {
         return Some(PathBuf::from(dir));
     }
-    let rustc = find_program("rustc")?;
-    let out = command(rustc).args(["--print", "sysroot"]).output().ok()?;
+    let rodetc = find_program("rodetc")?;
+    let out = command(rodetc).args(["--print", "sysroot"]).output().ok()?;
     let sysroot = PathBuf::from(String::from_utf8_lossy(&out.stdout).trim());
     let root = sysroot.join("share").join("doc").join("rodet").join("book");
     root.is_dir().then_some(root)

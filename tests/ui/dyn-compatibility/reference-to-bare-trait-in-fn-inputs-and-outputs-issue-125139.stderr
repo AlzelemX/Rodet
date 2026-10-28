@@ -676,4 +676,4 @@ LL +     fn parrot() -> Box<dyn Trait> {
 error: aborting due to 42 previous errors
 
 Some errors have detailed explanations: E0106, E0261, E0782.
-For more information about an error, try `rustc --explain E0106`.
+For more information about an error, try `rodetc --explain E0106`.

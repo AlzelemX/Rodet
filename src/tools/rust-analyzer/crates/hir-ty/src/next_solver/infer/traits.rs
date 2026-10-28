@@ -9,8 +9,8 @@ use std::{
 
 use hir_def::TraitId;
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_type_ir::elaborate::Elaboratable;
-use rustc_type_ir::{
+use rodetc_type_ir::elaborate::Elaboratable;
+use rodetc_type_ir::{
     Upcast,
     solve::{Certainty, NoSolution, inspect},
 };

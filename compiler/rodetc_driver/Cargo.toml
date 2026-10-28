@@ -1,0 +1,17 @@
+[package]
+name = "rodetc_driver"
+version = "0.0.0"
+edition = "2024"
+
+[lib]
+crate-type = ["dylib"]
+
+[dependencies]
+# tidy-alphabetical-start
+rodetc_driver_impl = { path = "../rodetc_driver_impl" }
+# tidy-alphabetical-end
+
+[build-dependencies]
+# tidy-alphabetical-start
+rodetc_windows_rc = { path = "../rodetc_windows_rc" }
+# tidy-alphabetical-end

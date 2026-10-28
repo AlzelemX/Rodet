@@ -72,4 +72,4 @@ LL +     format!("\x7Ba\x7D \x7Ba\x7D");
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0425`.
+For more information about this error, try `rodetc --explain E0425`.

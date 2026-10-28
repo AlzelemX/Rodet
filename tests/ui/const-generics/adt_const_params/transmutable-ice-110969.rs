@@ -1,4 +1,4 @@
-// ICE Inconsistent rustc_transmute::is_transmutable(...) result, got Yes
+// ICE Inconsistent rodetc_transmute::is_transmutable(...) result, got Yes
 // issue: rust-lang/rust#110969
 #![feature(adt_const_params, generic_const_exprs, transmutability)]
 #![allow(incomplete_features, unstable_features)]

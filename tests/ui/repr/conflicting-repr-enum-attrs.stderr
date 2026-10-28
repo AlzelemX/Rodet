@@ -22,7 +22,7 @@ LL | #[repr(u8)]
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0566`.
+For more information about this error, try `rodetc --explain E0566`.
 Future incompatibility report: Future breakage diagnostic:
 error[E0566]: conflicting representation hints
   --> $DIR/conflicting-repr-enum-attrs.rs:5:8

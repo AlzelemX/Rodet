@@ -1,7 +1,7 @@
 //@ check-pass
 //@ compile-flags: -Znext-solver
 
-// Minimized example from `rustc_type_ir` that demonstrates a missing deep normalization
+// Minimized example from `rodetc_type_ir` that demonstrates a missing deep normalization
 // in the new solver when computing the implies outlives bounds of an impl.
 
 use std::marker::PhantomData;

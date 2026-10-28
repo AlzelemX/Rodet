@@ -1,11 +1,11 @@
 use super::DUPLICATED_ATTRIBUTES;
 use clippy_utils::diagnostics::span_lint_and_then;
 use itertools::Itertools as _;
-use rustc_ast::{Attribute, MetaItem};
-use rustc_ast_pretty::pprust::path_to_string;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_lint::EarlyContext;
-use rustc_span::{Span, Symbol, sym};
+use rodetc_ast::{Attribute, MetaItem};
+use rodetc_ast_pretty::pprust::path_to_string;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_lint::EarlyContext;
+use rodetc_span::{Span, Symbol, sym};
 use std::collections::hash_map::Entry;
 
 fn emit_if_duplicated(

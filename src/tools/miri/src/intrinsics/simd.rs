@@ -1,6 +1,6 @@
 use rustc_apfloat::ieee::{DoubleS, HalfS, IeeeFloat, QuadS, SingleS};
-use rustc_middle::ty;
-use rustc_middle::ty::FloatTy;
+use rodetc_middle::ty;
+use rodetc_middle::ty::FloatTy;
 
 use super::check_intrinsic_arg_count;
 use crate::math::{HostUnaryFloatOp, host_unary_float_op};

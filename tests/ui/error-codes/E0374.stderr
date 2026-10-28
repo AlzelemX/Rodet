@@ -18,4 +18,4 @@ LL | |     where T: CoerceUnsized<U> {}
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0374, E0392.
-For more information about an error, try `rustc --explain E0374`.
+For more information about an error, try `rodetc --explain E0374`.

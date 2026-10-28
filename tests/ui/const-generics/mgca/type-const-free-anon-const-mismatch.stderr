@@ -14,4 +14,4 @@ LL | const N: usize = gca!("this isn't a usize");
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0284`.
+For more information about this error, try `rodetc --explain E0284`.

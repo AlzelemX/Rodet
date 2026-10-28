@@ -5,16 +5,16 @@ use clippy_utils::higher::IfLetOrMatch;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::{is_lint_allowed, is_never_expr, is_wild, msrvs, pat_and_expr_can_be_question_mark, peel_blocks};
-use rustc_ast::BindingMode;
-use rustc_data_structures::fx::FxHashMap;
-use rustc_errors::Applicability;
-use rustc_hir::def::{CtorOf, DefKind, Res};
-use rustc_hir::{
+use rodetc_ast::BindingMode;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{CtorOf, DefKind, Res};
+use rodetc_hir::{
     Arm, BlockCheckMode, Expr, ExprKind, MatchSource, Pat, PatExpr, PatExprKind, PatKind, QPath, Stmt, StmtKind,
 };
-use rustc_lint::{LateContext, LintContext as _};
-use rustc_span::Span;
-use rustc_span::symbol::{Symbol, sym};
+use rodetc_lint::{LateContext, LintContext as _};
+use rodetc_span::Span;
+use rodetc_span::symbol::{Symbol, sym};
 use std::slice;
 
 declare_clippy_lint! {

@@ -252,11 +252,11 @@ pub(crate) fn prepare_conditions(config: &Config) -> PreparedConditions {
         );
     }
 
-    for rustc_abi in &cfgs.all_rustc_abis {
+    for rodetc_abi in &cfgs.all_rustc_abis {
         builder.cond(
-            &format!("rustc_abi-{rustc_abi}"),
-            Some(rustc_abi) == current.rustc_abi.as_ref(),
-            &format!("when the target `rustc_abi` is rustc_abi-{rustc_abi}"),
+            &format!("rodetc_abi-{rodetc_abi}"),
+            Some(rodetc_abi) == current.rodetc_abi.as_ref(),
+            &format!("when the target `rodetc_abi` is rodetc_abi-{rodetc_abi}"),
         );
     }
 

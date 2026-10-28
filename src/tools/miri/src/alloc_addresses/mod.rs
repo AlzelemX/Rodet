@@ -6,9 +6,9 @@ mod reuse_pool;
 
 use std::cell::RefCell;
 
-use rustc_abi::{Align, Size};
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
-use rustc_middle::ty::TyCtxt;
+use rodetc_abi::{Align, Size};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_middle::ty::TyCtxt;
 
 pub use self::address_generator::AddressGenerator;
 use self::reuse_pool::ReusePool;

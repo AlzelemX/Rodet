@@ -58,4 +58,4 @@ LL |         let _x = Alpha { beta: 0, ..Default::default() };
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0451`.
+For more information about this error, try `rodetc --explain E0451`.

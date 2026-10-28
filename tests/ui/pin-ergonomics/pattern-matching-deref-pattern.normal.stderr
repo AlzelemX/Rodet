@@ -152,4 +152,4 @@ LL |         let Bar(x, ref y) = bar.as_ref();
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0507`.
+For more information about this error, try `rodetc --explain E0507`.

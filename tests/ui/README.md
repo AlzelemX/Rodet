@@ -1210,9 +1210,9 @@ Tests that exercise behaviors and features specific to the Rust 2024 edition.
 
 Tests on environmental variables that affect `rustc`.
 
-## `tests/ui/rustc_public-ir-print`
+## `tests/ui/rodetc_public-ir-print`
 
-Some tests for pretty printing of rustc_public's IR.
+Some tests for pretty printing of rodetc_public's IR.
 
 ## `tests/ui/rustdoc`
 

@@ -4,8 +4,8 @@
 use std::cmp::{self, Ordering};
 
 use hir_def::{attrs::AttrFlags, signatures::FunctionSignature};
-use rustc_abi::ExternAbi;
-use rustc_type_ir::inherent::{GenericArgs as _, IntoKind, SliceLike, Ty as _};
+use rodetc_abi::ExternAbi;
+use rodetc_type_ir::inherent::{GenericArgs as _, IntoKind, SliceLike, Ty as _};
 use stdx::never;
 
 use crate::{
@@ -1053,8 +1053,8 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                     };
                     if !matches!(
                         ty1.kind(),
-                        TyKind::Int(rustc_type_ir::IntTy::Isize)
-                            | TyKind::Uint(rustc_type_ir::UintTy::Usize)
+                        TyKind::Int(rodetc_type_ir::IntTy::Isize)
+                            | TyKind::Uint(rodetc_type_ir::UintTy::Usize)
                     ) {
                         return Err(MirEvalError::InternalError(
                             "offset generic arg is not usize or isize".into(),
@@ -1408,7 +1408,7 @@ impl<'a, 'db> Evaluator<'a, 'db> {
                 for (_, field) in field_types.iter() {
                     let field_ty = field.ty().instantiate(self.interner(), subst).skip_norm_wip();
                     let bytes =
-                        if matches!(field_ty.kind(), TyKind::Uint(rustc_type_ir::UintTy::U32)) {
+                        if matches!(field_ty.kind(), TyKind::Uint(rodetc_type_ir::UintTy::U32)) {
                             line_col.next().unwrap_or(0).to_le_bytes().to_vec()
                         } else {
                             let size =

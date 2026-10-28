@@ -10,4 +10,4 @@ LL | #[link(name = "foo", kind = "raw-dylib", import_name_type = "decorated", im
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0538`.
+For more information about this error, try `rodetc --explain E0538`.

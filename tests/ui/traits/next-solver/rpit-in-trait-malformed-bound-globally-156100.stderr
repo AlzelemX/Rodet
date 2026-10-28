@@ -56,4 +56,4 @@ LL |     fn into_iter(&self) -> impl Iterator<X> {
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0107, E0275.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

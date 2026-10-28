@@ -92,4 +92,4 @@ LL | fn baz<F: Fn(*mut &u32)>(_: F) {}
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0521, E0631.
-For more information about an error, try `rustc --explain E0521`.
+For more information about an error, try `rodetc --explain E0521`.

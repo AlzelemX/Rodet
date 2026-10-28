@@ -3,12 +3,12 @@ use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::source::{snippet_with_applicability, snippet_with_context};
 use clippy_utils::sugg::Sugg;
 use clippy_utils::sym;
-use rustc_ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, Ty};
+use rodetc_ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, Ty};
 use std::borrow::Cow;
 
 use super::MANUAL_STR_REPEAT;

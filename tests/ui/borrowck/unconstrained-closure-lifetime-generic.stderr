@@ -103,4 +103,4 @@ LL |     }
 error: aborting due to 7 previous errors
 
 Some errors have detailed explanations: E0310, E0597.
-For more information about an error, try `rustc --explain E0310`.
+For more information about an error, try `rodetc --explain E0310`.

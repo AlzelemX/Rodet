@@ -1,8 +1,8 @@
 //! Inference of *place operators*: deref and indexing (operators that create places, as opposed to values).
 
 use hir_def::hir::ExprId;
-use rustc_ast_ir::Mutability;
-use rustc_type_ir::inherent::{IntoKind, Ty as _};
+use rodetc_ast_ir::Mutability;
+use rodetc_type_ir::inherent::{IntoKind, Ty as _};
 use tracing::debug;
 
 use crate::{

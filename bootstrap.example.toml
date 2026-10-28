@@ -112,7 +112,7 @@
 # Absolute path to the directory containing ClangConfig.cmake
 #llvm.offload-clang-dir = ""
 
-# When true, link libstdc++ statically into the rustc_llvm.
+# When true, link libstdc++ statically into the rodetc_llvm.
 # This is useful if you don't want to use the dynamic version of that
 # library provided by LLVM.
 #llvm.static-libstdcpp = false
@@ -906,7 +906,7 @@
 
 # Select LTO mode that will be used for compiling rustc. By default, thin local LTO
 # (LTO within a single crate) is used (like for any Rust crate). You can also select
-# "thin" or "fat" to apply Thin/Fat LTO to the `rustc_driver` dylib, or "off" to disable
+# "thin" or "fat" to apply Thin/Fat LTO to the `rodetc_driver` dylib, or "off" to disable
 # LTO entirely.
 #rust.lto = "thin-local"
 

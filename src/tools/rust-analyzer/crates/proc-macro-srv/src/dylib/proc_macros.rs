@@ -2,7 +2,7 @@
 use crate::{
     ProcMacroClientHandle, ProcMacroKind, ProcMacroSrvSpan, TrackedEnv, token_stream::TokenStream,
 };
-use rustc_proc_macro::bridge;
+use rodetc_proc_macro::bridge;
 
 impl From<bridge::PanicMessage> for crate::PanicMessage {
     fn from(p: bridge::PanicMessage) -> Self {
@@ -10,11 +10,11 @@ impl From<bridge::PanicMessage> for crate::PanicMessage {
     }
 }
 
-pub(crate) struct ProcMacros(Vec<(bridge::client::Client, rustc_metadata::ProcMacroKind)>);
+pub(crate) struct ProcMacros(Vec<(bridge::client::Client, rodetc_metadata::ProcMacroKind)>);
 
 impl ProcMacros {
     pub(super) fn new(
-        macros: Vec<(bridge::client::Client, rustc_metadata::ProcMacroKind)>,
+        macros: Vec<(bridge::client::Client, rodetc_metadata::ProcMacroKind)>,
     ) -> Self {
         ProcMacros(macros)
     }
@@ -34,7 +34,7 @@ impl ProcMacros {
 
         for (client, kind) in &self.0 {
             match kind {
-                rustc_metadata::ProcMacroKind::CustomDerive { trait_name, .. }
+                rodetc_metadata::ProcMacroKind::CustomDerive { trait_name, .. }
                     if trait_name.as_str() == macro_name =>
                 {
                     let res = client.run1(
@@ -45,7 +45,7 @@ impl ProcMacros {
                     );
                     return res.map_err(crate::PanicMessage::from);
                 }
-                rustc_metadata::ProcMacroKind::Bang { name } if name.as_str() == macro_name => {
+                rodetc_metadata::ProcMacroKind::Bang { name } if name.as_str() == macro_name => {
                     let res = client.run1(
                         &bridge::server::SAME_THREAD,
                         S::make_server(call_site, def_site, mixed_site, tracked_env, callback),
@@ -54,7 +54,7 @@ impl ProcMacros {
                     );
                     return res.map_err(crate::PanicMessage::from);
                 }
-                rustc_metadata::ProcMacroKind::Attr { name } if name.as_str() == macro_name => {
+                rodetc_metadata::ProcMacroKind::Attr { name } if name.as_str() == macro_name => {
                     let res = client.run2(
                         &bridge::server::SAME_THREAD,
                         S::make_server(call_site, def_site, mixed_site, tracked_env, callback),
@@ -73,13 +73,13 @@ impl ProcMacros {
 
     pub(crate) fn list_macros(&self) -> impl Iterator<Item = (&str, ProcMacroKind)> {
         self.0.iter().map(|(_client, kind)| match kind {
-            rustc_metadata::ProcMacroKind::CustomDerive { trait_name, .. } => {
+            rodetc_metadata::ProcMacroKind::CustomDerive { trait_name, .. } => {
                 (trait_name.as_str(), ProcMacroKind::CustomDerive)
             }
-            rustc_metadata::ProcMacroKind::Bang { name, .. } => {
+            rodetc_metadata::ProcMacroKind::Bang { name, .. } => {
                 (name.as_str(), ProcMacroKind::Bang)
             }
-            rustc_metadata::ProcMacroKind::Attr { name, .. } => {
+            rodetc_metadata::ProcMacroKind::Attr { name, .. } => {
                 (name.as_str(), ProcMacroKind::Attr)
             }
         })

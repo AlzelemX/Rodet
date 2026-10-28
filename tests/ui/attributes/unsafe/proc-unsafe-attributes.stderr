@@ -187,4 +187,4 @@ LL | #[unsafe(allow(unsafe(dead_code)))]
 error: aborting due to 21 previous errors
 
 Some errors have detailed explanations: E0452, E0565.
-For more information about an error, try `rustc --explain E0452`.
+For more information about an error, try `rodetc --explain E0452`.

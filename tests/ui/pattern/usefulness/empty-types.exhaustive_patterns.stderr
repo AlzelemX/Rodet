@@ -574,4 +574,4 @@ LL |         _x if false => {}
 error: aborting due to 49 previous errors
 
 Some errors have detailed explanations: E0004, E0005.
-For more information about an error, try `rustc --explain E0004`.
+For more information about an error, try `rodetc --explain E0004`.

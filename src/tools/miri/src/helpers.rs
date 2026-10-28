@@ -3,19 +3,19 @@ use std::sync::Mutex;
 use std::{cmp, iter};
 
 use rand::Rng;
-use rustc_abi::{Align, ExternAbi, FieldIdx, FieldsShape, Size, Variants};
-use rustc_data_structures::fx::{FxBuildHasher, FxHashSet};
-use rustc_hir::def::{DefKind, Namespace};
-use rustc_hir::def_id::{CRATE_DEF_INDEX, CrateNum, DefId, LOCAL_CRATE};
-use rustc_middle::middle::codegen_fn_attrs::CodegenFnAttrFlags;
-use rustc_middle::middle::dependency_format::Linkage;
-use rustc_middle::middle::exported_symbols::ExportedSymbol;
-use rustc_middle::ty::layout::{LayoutOf, TyAndLayout};
-use rustc_middle::ty::{self, FnSigKind, IntTy, Ty, TyCtxt, UintTy};
-use rustc_span::{Span, Symbol};
-use rustc_structures::CrateType;
-use rustc_symbol_mangling::mangle_internal_symbol;
-use rustc_target::spec::Os;
+use rodetc_abi::{Align, ExternAbi, FieldIdx, FieldsShape, Size, Variants};
+use rodetc_data_structures::fx::{FxBuildHasher, FxHashSet};
+use rodetc_hir::def::{DefKind, Namespace};
+use rodetc_hir::def_id::{CRATE_DEF_INDEX, CrateNum, DefId, LOCAL_CRATE};
+use rodetc_middle::middle::codegen_fn_attrs::CodegenFnAttrFlags;
+use rodetc_middle::middle::dependency_format::Linkage;
+use rodetc_middle::middle::exported_symbols::ExportedSymbol;
+use rodetc_middle::ty::layout::{LayoutOf, TyAndLayout};
+use rodetc_middle::ty::{self, FnSigKind, IntTy, Ty, TyCtxt, UintTy};
+use rodetc_span::{Span, Symbol};
+use rodetc_structures::CrateType;
+use rodetc_symbol_mangling::mangle_internal_symbol;
+use rodetc_target::spec::Os;
 
 use crate::*;
 
@@ -109,7 +109,7 @@ pub fn resolve_path<'tcx>(
 /// Gets the layout of a type at a path.
 #[track_caller]
 pub fn path_ty_layout<'tcx>(cx: &impl LayoutOf<'tcx>, path: &[&str]) -> TyAndLayout<'tcx> {
-    use rustc_middle::ty::layout::MaybeResult;
+    use rodetc_middle::ty::layout::MaybeResult;
 
     let ty = resolve_path(cx.tcx(), path, Namespace::TypeNS).ty(cx.tcx(), cx.typing_env());
     cx.layout_of(ty).to_result().ok().unwrap()
@@ -431,7 +431,7 @@ pub trait EvalContextExt<'tcx>: crate::MiriInterpCxExt<'tcx> {
             dest.layout.ty,
             // FIXME(splat): Do we need to set splatted here?
             // (Currently this also ignores c_variadic)
-            FnSigKind::default().set_abi(caller_abi).set_safety(rustc_hir::Safety::Safe),
+            FnSigKind::default().set_abi(caller_abi).set_safety(rodetc_hir::Safety::Safe),
         );
         let caller_fn_abi = this.fn_abi_of_fn_ptr(ty::Binder::dummy(sig), ty::List::empty())?;
 
@@ -1091,7 +1091,7 @@ pub(crate) fn windows_check_buffer_size((success, len): (bool, u64)) -> u32 {
 
 /// Check whether the local crate has the `#![no_core]` attribute.
 pub fn is_no_core(tcx: TyCtxt<'_>) -> bool {
-    rustc_attr_ir::find_attr!(tcx, crate, NoCore)
+    rodetc_attr_ir::find_attr!(tcx, crate, NoCore)
 }
 
 /// We don't support 16-bit systems, so let's have ergonomic conversion from `u32` to `usize`.
@@ -1118,13 +1118,13 @@ impl ToU64 for usize {
 }
 
 /// Enters a [tracing::info_span] only if the "tracing" feature is enabled, otherwise does nothing.
-/// This calls [rustc_const_eval::enter_trace_span] with [MiriMachine] as the first argument, which
+/// This calls [rodetc_const_eval::enter_trace_span] with [MiriMachine] as the first argument, which
 /// will in turn call [MiriMachine::enter_trace_span], which takes care of determining at compile
 /// time whether to trace or not (and supposedly the call is compiled out if tracing is disabled).
-/// Look at [rustc_const_eval::enter_trace_span] for complete documentation, examples and tips.
+/// Look at [rodetc_const_eval::enter_trace_span] for complete documentation, examples and tips.
 #[macro_export]
 macro_rules! enter_trace_span {
     ($($tt:tt)*) => {
-        rustc_const_eval::enter_trace_span!($crate::MiriMachine<'static>, $($tt)*)
+        rodetc_const_eval::enter_trace_span!($crate::MiriMachine<'static>, $($tt)*)
     };
 }

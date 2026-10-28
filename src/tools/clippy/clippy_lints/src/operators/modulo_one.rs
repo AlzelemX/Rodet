@@ -1,7 +1,7 @@
 use clippy_utils::consts::{FullInt, eval_int};
 use clippy_utils::diagnostics::span_lint;
-use rustc_hir::{BinOpKind, Expr};
-use rustc_lint::LateContext;
+use rodetc_hir::{BinOpKind, Expr};
+use rodetc_lint::LateContext;
 
 use super::MODULO_ONE;
 

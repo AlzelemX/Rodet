@@ -1,10 +1,10 @@
-use rustc_ast::ast;
-use rustc_ast::token::{Delimiter, NonterminalKind, NtExprKind::*, NtPatKind::*, TokenKind};
-use rustc_ast::tokenstream::TokenStream;
-use rustc_parse::MACRO_ARGUMENTS;
-use rustc_parse::parser::{AllowConstBlockItems, ForceCollect, Parser, Recovery};
-use rustc_session::parse::ParseSess;
-use rustc_span::symbol;
+use rodetc_ast::ast;
+use rodetc_ast::token::{Delimiter, NonterminalKind, NtExprKind::*, NtPatKind::*, TokenKind};
+use rodetc_ast::tokenstream::TokenStream;
+use rodetc_parse::MACRO_ARGUMENTS;
+use rodetc_parse::parser::{AllowConstBlockItems, ForceCollect, Parser, Recovery};
+use rodetc_session::parse::ParseSess;
+use rodetc_span::symbol;
 
 use crate::macros::MacroArg;
 use crate::rewrite::RewriteContext;

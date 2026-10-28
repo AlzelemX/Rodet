@@ -3,20 +3,20 @@ use std::fmt::{self, Display, Write as _};
 use std::sync::LazyLock as Lazy;
 use std::{ascii, mem};
 
-use rustc_ast as ast;
-use rustc_ast::join_path_idents;
-use rustc_ast::token::{Token, TokenKind};
-use rustc_ast::tokenstream::TokenTree;
-use rustc_attr_ir::{DocAttribute, find_attr};
-use rustc_data_structures::thin_vec::{ThinVec, thin_vec};
-use rustc_hir as hir;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::{DefId, LOCAL_CRATE, LocalDefId};
-use rustc_metadata::rendered_const;
-use rustc_middle::mir;
-use rustc_middle::ty::{self, GenericArgKind, GenericArgsRef, TyCtxt, TypeVisitableExt};
-use rustc_span::def_id::ModId;
-use rustc_span::symbol::{Symbol, kw, sym};
+use rodetc_ast as ast;
+use rodetc_ast::join_path_idents;
+use rodetc_ast::token::{Token, TokenKind};
+use rodetc_ast::tokenstream::TokenTree;
+use rodetc_attr_ir::{DocAttribute, find_attr};
+use rodetc_data_structures::thin_vec::{ThinVec, thin_vec};
+use rodetc_hir as hir;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::{DefId, LOCAL_CRATE, LocalDefId};
+use rodetc_metadata::rendered_const;
+use rodetc_middle::mir;
+use rodetc_middle::ty::{self, GenericArgKind, GenericArgsRef, TyCtxt, TypeVisitableExt};
+use rodetc_span::def_id::ModId;
+use rodetc_span::symbol::{Symbol, kw, sym};
 use tracing::{debug, warn};
 
 use crate::clean::auto_trait::synthesize_auto_trait_impls;
@@ -299,7 +299,7 @@ pub(crate) fn build_deref_target_impls(
 }
 
 pub(crate) fn name_from_pat(p: &hir::Pat<'_>) -> Symbol {
-    use rustc_hir::*;
+    use rodetc_hir::*;
     debug!("trying to get a name from pattern: {p:?}");
 
     Symbol::intern(&match &p.kind {
@@ -579,7 +579,7 @@ pub(crate) fn find_nearest_parent_module(tcx: TyCtxt<'_>, def_id: DefId) -> Opti
     }
 }
 
-/// This function exists because it runs on `rustc_attr_ir::Attributes` whereas the other is a
+/// This function exists because it runs on `rodetc_attr_ir::Attributes` whereas the other is a
 /// `clean::Attributes` method.
 pub(crate) fn has_doc_flag<F: Fn(&DocAttribute) -> bool>(
     tcx: TyCtxt<'_>,
@@ -601,7 +601,7 @@ pub(crate) static RUSTDOC_VERSION: Lazy<&'static str> =
 /// as part of an item declaration.
 fn render_macro_arms(
     tcx: TyCtxt<'_>,
-    tokens: &rustc_ast::tokenstream::TokenStream,
+    tokens: &rodetc_ast::tokenstream::TokenStream,
     arm_delim: &str,
 ) -> String {
     let mut tokens = tokens.iter();

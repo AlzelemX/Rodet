@@ -85,4 +85,4 @@ LL |     let _bx = unsize_subtrait(bx);
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0038`.
+For more information about this error, try `rodetc --explain E0038`.

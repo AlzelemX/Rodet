@@ -41,8 +41,8 @@ use hir_def::{
     CallableDefId, TraitId, attrs::AttrFlags, hir::ExprId, signatures::FunctionSignature,
     upvars::upvars_mentioned,
 };
-use rustc_ast_ir::Mutability;
-use rustc_type_ir::{
+use rodetc_ast_ir::Mutability;
+use rodetc_type_ir::{
     BoundVar, DebruijnIndex, InferTy, TyVid, TypeAndMut, TypeFoldable, TypeFolder,
     TypeSuperFoldable, TypeVisitableExt,
     error::TypeError,
@@ -581,7 +581,7 @@ where
             | TyKind::Int(_)
             | TyKind::Uint(_)
             | TyKind::Float(_)
-            | TyKind::Infer(rustc_type_ir::IntVar(_) | rustc_type_ir::FloatVar(_))
+            | TyKind::Infer(rodetc_type_ir::IntVar(_) | rodetc_type_ir::FloatVar(_))
             | TyKind::Str
             | TyKind::Array(_, _)
             | TyKind::Slice(_)

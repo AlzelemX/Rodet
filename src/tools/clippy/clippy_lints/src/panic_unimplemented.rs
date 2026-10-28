@@ -3,13 +3,13 @@ use clippy_utils::diagnostics::span_lint;
 use clippy_utils::macros::{first_node_in_macro, is_panic, root_macro_call};
 use clippy_utils::source::SpanExt as _;
 use clippy_utils::{is_in_test, is_inside_always_const_context, sym};
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::{Expr, ExprKind, QPath};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_span::Span;
-use rustc_span::def_id::DefId;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::{Expr, ExprKind, QPath};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_span::Span;
+use rodetc_span::def_id::DefId;
 
-use rustc_data_structures::fx::FxHashSet;
+use rodetc_data_structures::fx::FxHashSet;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -111,7 +111,7 @@ impl<'tcx> LateLintPass<'tcx> for PanicUnimplemented {
             // this filters snippets from proc-macros out
             && macro_call.span.check_text(cx, |src| {
                 src.split_once('!').is_some_and(|(pre, _)| {
-                    let pre = pre.trim_end_matches(rustc_lexer::is_whitespace);
+                    let pre = pre.trim_end_matches(rodetc_lexer::is_whitespace);
                     // accept qualified path (e.g. `core::panic`)
                     pre.ends_with("panic") || pre.ends_with("todo") || pre.ends_with("unimplemented") || pre.ends_with("unreachable")
                 })

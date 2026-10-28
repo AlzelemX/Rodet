@@ -99,4 +99,4 @@ LL |     let arr = [0; 5];
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0308, E0369, E0392, E0608, E0718.
-For more information about an error, try `rustc --explain E0308`.
+For more information about an error, try `rodetc --explain E0308`.

@@ -9,4 +9,4 @@ LL | fn test() -> impl for<'a> Trait<'a, Assoc = impl Sized> {}
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0700`.
+For more information about this error, try `rodetc --explain E0700`.

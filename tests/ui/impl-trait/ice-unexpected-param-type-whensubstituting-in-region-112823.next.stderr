@@ -40,4 +40,4 @@ LL |     type LineStreamFut<'a, Repr> = impl Future<Output = Self::LineStream<'a
 error: aborting due to 4 previous errors
 
 Some errors have detailed explanations: E0049, E0271, E0407.
-For more information about an error, try `rustc --explain E0049`.
+For more information about an error, try `rodetc --explain E0049`.

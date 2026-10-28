@@ -1,12 +1,12 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
 use clippy_utils::has_non_exhaustive_attr;
 use clippy_utils::ty::implements_trait_with_env;
-use rustc_errors::Applicability;
-use rustc_hir::def_id::DefId;
-use rustc_hir::{self as hir, HirId};
-use rustc_lint::LateContext;
-use rustc_middle::ty::{self, ClauseKind, GenericParamDefKind, ParamEnv, TraitClause, Ty, TyCtxt, Upcast as _};
-use rustc_span::{Span, sym};
+use rodetc_errors::Applicability;
+use rodetc_hir::def_id::DefId;
+use rodetc_hir::{self as hir, HirId};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::{self, ClauseKind, GenericParamDefKind, ParamEnv, TraitClause, Ty, TyCtxt, Upcast as _};
+use rodetc_span::{Span, sym};
 
 use super::DERIVE_PARTIAL_EQ_WITHOUT_EQ;
 

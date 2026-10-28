@@ -26,4 +26,4 @@ LL |         type J = dyn super::Trait::self;
 
 error: aborting due to 1 previous error; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0223`.
+For more information about this error, try `rodetc --explain E0223`.

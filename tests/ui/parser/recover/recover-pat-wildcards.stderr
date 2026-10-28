@@ -87,4 +87,4 @@ LL ~         4..=(VAL) => ()
 
 error: aborting due to 11 previous errors
 
-For more information about this error, try `rustc --explain E0586`.
+For more information about this error, try `rodetc --explain E0586`.

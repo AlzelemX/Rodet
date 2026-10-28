@@ -160,7 +160,7 @@ impl CommandLineStep for Miri {
 
         // # Run miri.
         // Running it via `cargo run` as that figures out the right dylib path.
-        // add_rustc_lib_path does not add the path that contains librustc_driver-<...>.so.
+        // add_rustc_lib_path does not add the path that contains librodetc_driver-<...>.so.
         let mut miri = tool::prepare_tool_cargo(
             builder,
             compilers.build_compiler(),

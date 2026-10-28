@@ -3,15 +3,15 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet_with_context;
 use clippy_utils::sym;
-use rustc_ast::LitKind;
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::ExprKind::{Binary, Lit, MethodCall};
-use rustc_hir::{BinOpKind, Expr};
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
-use rustc_middle::ty::{Ty, UintTy};
-use rustc_span::Span;
+use rodetc_ast::LitKind;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::ExprKind::{Binary, Lit, MethodCall};
+use rodetc_hir::{BinOpKind, Expr};
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
+use rodetc_middle::ty::{Ty, UintTy};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does
@@ -46,7 +46,7 @@ enum MatchType<'a> {
     Literal(LitKind),
 }
 
-fn get_ascii_type<'a>(cx: &LateContext<'a>, kind: rustc_hir::ExprKind<'_>) -> Option<(Span, MatchType<'a>)> {
+fn get_ascii_type<'a>(cx: &LateContext<'a>, kind: rodetc_hir::ExprKind<'_>) -> Option<(Span, MatchType<'a>)> {
     if let MethodCall(path, expr, _, _) = kind {
         let is_lower = match path.ident.name {
             sym::to_ascii_lowercase => true,

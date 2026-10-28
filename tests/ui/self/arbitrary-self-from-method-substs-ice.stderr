@@ -33,4 +33,4 @@ LL |     const fn get<R: Deref<Target = Self>>(self: R) -> u32 {
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0015, E0493, E0801.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

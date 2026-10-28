@@ -3,13 +3,13 @@ use clippy_utils::macros::macro_backtrace;
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::ty::expr_sig;
 use clippy_utils::{is_default_equivalent, sym};
-use rustc_attr_ir::lang_items::LangItem;
-use rustc_errors::Applicability;
-use rustc_hir::def::Res;
-use rustc_hir::intravisit::{InferKind, Visitor, walk_ty};
-use rustc_hir::{AmbigArg, Block, Expr, ExprKind, HirId, LetStmt, Node, QPath, Ty, TyKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_span::Span;
+use rodetc_attr_ir::lang_items::LangItem;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::Res;
+use rodetc_hir::intravisit::{InferKind, Visitor, walk_ty};
+use rodetc_hir::{AmbigArg, Block, Expr, ExprKind, HirId, LetStmt, Node, QPath, Ty, TyKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_span::Span;
 
 declare_clippy_lint! {
     /// ### What it does

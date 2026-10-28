@@ -3,10 +3,10 @@ use clippy_utils::SpanlessEq;
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::msrvs::{MEM_TAKE, Msrv};
 use clippy_utils::source::snippet_with_context;
-use rustc_ast::LitKind;
-use rustc_errors::Applicability;
-use rustc_hir::{Block, Expr, ExprKind, StmtKind};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_ast::LitKind;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Block, Expr, ExprKind, StmtKind};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

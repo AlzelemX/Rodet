@@ -119,7 +119,7 @@ use crate::sync::atomic::{
 #[derive(Debug, ConstParamTy, PartialEq, Eq)]
 pub enum AtomicOrdering {
     // These values must match the compiler's `AtomicOrdering` defined in
-    // `rustc_middle/src/ty/consts/int.rs`!
+    // `rodetc_middle/src/ty/consts/int.rs`!
     Relaxed = 0,
     Release = 1,
     Acquire = 2,

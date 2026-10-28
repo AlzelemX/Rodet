@@ -1,5 +1,5 @@
-use rustc_span::Symbol;
-use rustc_target::spec::Arch;
+use rodetc_span::Symbol;
+use rodetc_target::spec::Arch;
 
 use crate::*;
 

@@ -16,7 +16,7 @@ use hir_def::{
 use hir_expand::{Lookup, name::Name};
 use la_arena::ArenaMap;
 use macros::extension;
-use rustc_type_ir::inherent::IntoKind;
+use rodetc_type_ir::inherent::IntoKind;
 
 use crate::{
     InferBodyId,
@@ -355,7 +355,7 @@ impl<'a, 'db> MirPrettyCtx<'a, 'db> {
                     // we need to get the base type to decide how to display the field / get the field name
                     let infcx = DbInterner::new_with(this.db, this.body.owner.krate(this.db))
                         .infer_ctxt()
-                        .build(rustc_type_ir::TypingMode::PostAnalysis);
+                        .build(rodetc_type_ir::TypingMode::PostAnalysis);
                     let env = this.db.trait_environment(this.body.owner.generic_def(this.db));
                     let place_ty = PlaceTy::from_ty(this.body.locals[local].ty.as_ref())
                         .multi_projection_ty(&infcx, env, head);

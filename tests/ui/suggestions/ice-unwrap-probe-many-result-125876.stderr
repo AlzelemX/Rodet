@@ -38,4 +38,4 @@ LL +     std::ptr::from_ref(num).cast_mut().as_ref();
 error: aborting due to 2 previous errors; 2 warnings emitted
 
 Some errors have detailed explanations: E0425, E0599.
-For more information about an error, try `rustc --explain E0425`.
+For more information about an error, try `rodetc --explain E0425`.

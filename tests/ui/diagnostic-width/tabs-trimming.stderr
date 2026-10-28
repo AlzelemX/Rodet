@@ -19,4 +19,4 @@ LL | ...   v @ 1 | 2 | 3 => panic!("You gave me too little money {}", v), // Lon
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0381, E0408.
-For more information about an error, try `rustc --explain E0381`.
+For more information about an error, try `rodetc --explain E0381`.

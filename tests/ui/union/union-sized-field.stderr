@@ -78,4 +78,4 @@ LL |     Value(Box<ManuallyDrop<T>>),
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

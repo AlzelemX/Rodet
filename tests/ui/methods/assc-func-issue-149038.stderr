@@ -40,4 +40,4 @@ LL +         let f: fn() = S::foo;
 error: aborting due to 2 previous errors
 
 Some errors have detailed explanations: E0599, E0609.
-For more information about an error, try `rustc --explain E0599`.
+For more information about an error, try `rodetc --explain E0599`.

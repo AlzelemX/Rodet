@@ -103,7 +103,7 @@ export function currentSpeed() {
   return lastSpeed;
 }
 
-/** Runs a Cargo command line in a terminal; set by the terminal panel. */
+/** Runs a `rodet` command line in a terminal; set by the terminal panel. */
 export let runInTerminal: (title: string, command: string[], cwd: string) => void = () => {};
 export function setTerminalRunner(runner: typeof runInTerminal) {
   runInTerminal = runner;
@@ -170,9 +170,9 @@ function clearAllDiagnostics() {
 
 const synced = new Map<string, { version: number; pending: boolean }>();
 
-/** Only Rodet files go to the server: it reads any open file as Rust, so an
- * open `Cargo.toml` got "Syntax Error" on every line. The server sees saved
- * `Cargo.toml` changes through its file watcher. */
+/** Only Rodet files go to the server: it reads any open file as Rodet code, so
+ * an open `Silk.toml` got "Syntax Error" on every line. The server sees saved
+ * `Silk.toml` changes through its file watcher. */
 function wantsServer(doc: Doc) {
   return doc.model.getLanguageId() === RODET;
 }
@@ -402,9 +402,9 @@ function runServerCommand(id: string, args: any[]) {
     case 'rust-analyzer.debugSingle': {
       const runnable = args[0];
       const a = runnable?.args ?? {};
-      const command = [a.overrideCargo ?? 'cargo', ...(a.cargoArgs ?? [])];
+      const command = [a.overrideCargo ?? 'rodet', ...(a.cargoArgs ?? [])];
       if (a.executableArgs?.length) command.push('--', ...a.executableArgs);
-      runInTerminal(runnable?.label ?? 'cargo', command, a.cwd ?? a.workspaceRoot ?? workspace.root ?? '.');
+      runInTerminal(runnable?.label ?? 'rodet', command, a.cwd ?? a.workspaceRoot ?? workspace.root ?? '.');
       break;
     }
     case 'rust-analyzer.showReferences':

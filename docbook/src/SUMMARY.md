@@ -6,7 +6,7 @@
 
 - [Install Rodet](start/install.md)
 - [Hello, World!](start/hello.md)
-- [Projects with Cargo](start/cargo.md)
+- [Projects with Silk](start/silk.md)
 - [The DEVR+ Editor](start/devr.md)
     - [Plugins](start/plugins.md)
 

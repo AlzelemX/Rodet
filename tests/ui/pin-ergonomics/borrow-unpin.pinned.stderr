@@ -235,4 +235,4 @@ LL |     let x = &pin mut foo; // ok
 error: aborting due to 12 previous errors
 
 Some errors have detailed explanations: E0382, E0505.
-For more information about an error, try `rustc --explain E0382`.
+For more information about an error, try `rodetc --explain E0382`.

@@ -45,10 +45,10 @@ function renderServer() {
 
 export function renderToolchain() {
   const tc = workspace.info.toolchain;
-  const version = tc.rustcVersion?.replace(/^rustc\s+/, '') ?? 'not installed';
-  // `1.101.0-dev (Rodet #19)` → `1.101.0-dev #19`
-  const short = version.replace(/\s*\(Rust\+\+\s*(#\d+)?\)/, (_m, build) => (build ? ` ${build}` : ''));
-  toolchain.replaceChildren(icon(tc.isRodet ? 'symbol-namespace' : 'warning'), tc.isRodet ? short : `Rodet ${tc.rustcVersion ? version : t('not installed')}`);
+  const version = tc.rodetcVersion?.replace(/^rodetc\s+/, '') ?? 'not installed';
+  // `0.1.0 (#22, 2026-10-28)` → `Rodet 0.1.0 #22`
+  const short = `Rodet ${version.replace(/\s*\((#\d+)?[^)]*\)/, (_m, build) => (build ? ` ${build}` : ''))}`;
+  toolchain.replaceChildren(icon(tc.isRodet ? 'symbol-namespace' : 'warning'), tc.isRodet ? short : `Rodet ${tc.rodetcVersion ? version : t('not installed')}`);
 }
 
 function renderPosition() {

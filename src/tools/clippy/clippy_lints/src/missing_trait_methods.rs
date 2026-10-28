@@ -4,9 +4,9 @@ use clippy_utils::is_lint_allowed;
 use clippy_utils::macros::span_is_local;
 use clippy_utils::msrvs::Msrv;
 use clippy_utils::source::snippet_opt;
-use rustc_hir::def_id::DefIdSet;
-use rustc_hir::{Impl, Item, ItemKind};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_hir::def_id::DefIdSet;
+use rodetc_hir::{Impl, Item, ItemKind};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
 
 declare_clippy_lint! {
     /// ### What it does

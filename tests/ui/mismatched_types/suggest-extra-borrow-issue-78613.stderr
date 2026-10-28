@@ -117,4 +117,4 @@ LL |     opt.as_ref().map(|arg| takes_foo_ref(arg));
 
 error: aborting due to 7 previous errors
 
-For more information about this error, try `rustc --explain E0308`.
+For more information about this error, try `rodetc --explain E0308`.

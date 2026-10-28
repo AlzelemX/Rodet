@@ -395,7 +395,7 @@ fn execute_pipeline(
                 None
             };
 
-            let rustc_lib = io::find_file_in_dir(&libdir, "librustc_driver", ".so")?;
+            let rustc_lib = io::find_file_in_dir(&libdir, "librodetc_driver", ".so")?;
 
             log::info!("Optimizing {rustc_lib} with BOLT");
 
@@ -541,7 +541,7 @@ fn main() -> anyhow::Result<()> {
             "rustfmt",
             "generate-copyright",
             "bootstrap",
-            "rustc_codegen_gcc",
+            "rodetc_codegen_gcc",
         ] {
             build_args.extend(["--skip".to_string(), target.to_string()]);
         }

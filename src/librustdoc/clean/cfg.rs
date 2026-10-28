@@ -8,15 +8,15 @@ use std::sync::Arc;
 use std::{fmt, mem, ops};
 
 use itertools::Either;
-use rustc_attr_ir::{
+use rodetc_attr_ir::{
     AttributeKind, CfgEntry, CfgHideShow, DocCfgHideShow, DocCfgHideShowValue, HideOrShow,
 };
-use rustc_data_structures::fx::FxHashMap;
-use rustc_data_structures::thin_vec::{ThinVec, thin_vec};
-use rustc_middle::ty::TyCtxt;
-use rustc_span::symbol::{Symbol, sym};
-use rustc_span::{DUMMY_SP, Span};
-use rustc_target::spec;
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_data_structures::thin_vec::{ThinVec, thin_vec};
+use rodetc_middle::ty::TyCtxt;
+use rodetc_span::symbol::{Symbol, sym};
+use rodetc_span::{DUMMY_SP, Span};
+use rodetc_target::spec;
 
 use crate::display::{Joined as _, MaybeDisplay, Wrapped};
 use crate::html::escape::Escape;
@@ -837,14 +837,14 @@ fn handle_auto_cfg_hide_show(cfg_info: &mut CfgInfo, attr: &CfgHideShow) {
 
 pub(crate) fn extract_cfg_from_attrs<
     'a,
-    I: Iterator<Item = &'a rustc_attr_ir::Attribute> + Clone,
+    I: Iterator<Item = &'a rodetc_attr_ir::Attribute> + Clone,
 >(
     attrs: I,
     tcx: TyCtxt<'_>,
     cfg_info: &mut CfgInfo,
 ) -> Option<Arc<Cfg>> {
     fn check_changed_auto_active_status(
-        changed_auto_active_status: &mut Option<rustc_span::Span>,
+        changed_auto_active_status: &mut Option<rodetc_span::Span>,
         attr_span: Span,
         cfg_info: &mut CfgInfo,
         tcx: TyCtxt<'_>,
@@ -871,7 +871,7 @@ pub(crate) fn extract_cfg_from_attrs<
     let mut doc_cfg = attrs
         .clone()
         .filter_map(|attr| match attr {
-            rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) if !d.cfg.is_empty() => Some(d),
+            rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) if !d.cfg.is_empty() => Some(d),
             _ => None,
         })
         .peekable();
@@ -895,7 +895,7 @@ pub(crate) fn extract_cfg_from_attrs<
 
     // We get all `doc(auto_cfg)`, `cfg` and `target_feature` attributes.
     for attr in attrs {
-        if let rustc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) = attr {
+        if let rodetc_attr_ir::Attribute::Parsed(AttributeKind::Doc(d)) = attr {
             for (new_value, span) in &d.auto_cfg_change {
                 if check_changed_auto_active_status(
                     &mut changed_auto_active_status,
@@ -921,7 +921,7 @@ pub(crate) fn extract_cfg_from_attrs<
                     handle_auto_cfg_hide_show(cfg_info, value);
                 }
             }
-        } else if let rustc_attr_ir::Attribute::Parsed(AttributeKind::TargetFeature {
+        } else if let rodetc_attr_ir::Attribute::Parsed(AttributeKind::TargetFeature {
             features,
             ..
         }) = attr
@@ -937,7 +937,7 @@ pub(crate) fn extract_cfg_from_attrs<
             }
             continue;
         } else if !cfg_info.parent_is_doc_cfg
-            && let rustc_attr_ir::Attribute::Parsed(AttributeKind::CfgTrace(cfgs)) = attr
+            && let rodetc_attr_ir::Attribute::Parsed(AttributeKind::CfgTrace(cfgs)) = attr
         {
             for (new_cfg, _) in cfgs {
                 cfg_info.current_cfg &= Cfg(new_cfg.clone());

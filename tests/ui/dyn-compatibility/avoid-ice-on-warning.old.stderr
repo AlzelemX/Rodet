@@ -32,4 +32,4 @@ LL | fn call_this<F>(f: F) : dyn Fn(&str) + call_that {}
 
 error: aborting due to 2 previous errors; 1 warning emitted
 
-For more information about this error, try `rustc --explain E0405`.
+For more information about this error, try `rodetc --explain E0405`.

@@ -43,7 +43,7 @@ LL | fn a() -> [u8; foo()] {
 error: aborting due to 6 previous errors
 
 Some errors have detailed explanations: E0106, E0214, E0308, E0770.
-For more information about an error, try `rustc --explain E0106`.
+For more information about an error, try `rodetc --explain E0106`.
 Future incompatibility report: Future breakage diagnostic:
 error: defaults for generic parameters are not allowed here
   --> $DIR/unusual-rib-combinations.rs:15:6

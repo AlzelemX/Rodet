@@ -67,4 +67,4 @@ LL |         reuse Trait::<'static, (), (), _, _>::foo inherent_impl_to_trait::T
 error: aborting due to 5 previous errors
 
 Some errors have detailed explanations: E0107, E0277, E0308.
-For more information about an error, try `rustc --explain E0107`.
+For more information about an error, try `rodetc --explain E0107`.

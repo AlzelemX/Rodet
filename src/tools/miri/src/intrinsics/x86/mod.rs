@@ -1,10 +1,10 @@
-use rustc_abi::{FieldIdx, Size};
+use rodetc_abi::{FieldIdx, Size};
 use rustc_apfloat::Float;
 use rustc_apfloat::ieee::Single;
-use rustc_middle::ty::Ty;
-use rustc_middle::{mir, ty};
-use rustc_span::Symbol;
-use rustc_target::spec::Arch;
+use rodetc_middle::ty::Ty;
+use rodetc_middle::{mir, ty};
+use rodetc_span::Symbol;
+use rodetc_target::spec::Arch;
 
 use self::helpers::bool_to_simd_element;
 use crate::*;

@@ -1,18 +1,18 @@
 //@ compile-flags: -Zdeduplicate-diagnostics=yes
-extern crate rustc_data_structures;
+extern crate rodetc_data_structures;
 //~^ ERROR use of unstable library feature `rustc_private`
 //~| NOTE: issue #27812 <https://github.com/rust-lang/rust/issues/27812> for more information
 //~| NOTE: this compiler was built on YYYY-MM-DD; consider upgrading it if it is out of date
-extern crate rustc_macros;
+extern crate rodetc_macros;
 //~^ ERROR use of unstable library feature `rustc_private`
 //~| NOTE: see issue #27812 <https://github.com/rust-lang/rust/issues/27812> for more information
 //~| NOTE: this compiler was built on YYYY-MM-DD; consider upgrading it if it is out of date
-extern crate rustc_middle;
+extern crate rodetc_middle;
 //~^ ERROR use of unstable library feature `rustc_private`
 //~| NOTE: see issue #27812 <https://github.com/rust-lang/rust/issues/27812> for more information
 //~| NOTE: this compiler was built on YYYY-MM-DD; consider upgrading it if it is out of date
 
-use rustc_macros::StableHash;
+use rodetc_macros::StableHash;
 //~^ ERROR use of unstable library feature `rustc_private`
 //~| NOTE: see issue #27812 <https://github.com/rust-lang/rust/issues/27812> for more information
 //~| NOTE: this compiler was built on YYYY-MM-DD; consider upgrading it if it is out of date

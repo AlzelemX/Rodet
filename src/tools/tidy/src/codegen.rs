@@ -8,7 +8,7 @@ use crate::walk::walk;
 
 fn is_codegen_repo_path(path: &Path) -> bool {
     const CODEGEN_REPO_PATHS: &[&str] =
-        &["compiler/rustc_codegen_cranelift", "compiler/rustc_codegen_gcc"];
+        &["compiler/rodetc_codegen_cranelift", "compiler/rodetc_codegen_gcc"];
 
     CODEGEN_REPO_PATHS.iter().any(|repo| path.ancestors().any(|p| p.ends_with(Path::new(repo))))
 }

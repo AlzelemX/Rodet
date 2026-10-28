@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_hir_and_then;
-use rustc_hir::{HirId, TraitRef};
-use rustc_lint::LateContext;
-use rustc_middle::ty::Ty;
-use rustc_span::{Span, sym};
+use rodetc_hir::{HirId, TraitRef};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty::Ty;
+use rodetc_span::{Span, sym};
 
 use super::DERIVED_HASH_WITH_MANUAL_EQ;
 

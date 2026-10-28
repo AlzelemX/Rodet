@@ -128,4 +128,4 @@ help: `usize` implements trait `SliceIndex<T>`
 
 error: aborting due to 8 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

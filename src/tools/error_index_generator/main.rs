@@ -1,10 +1,10 @@
 #![feature(rustc_private)]
 
-extern crate rustc_driver;
-extern crate rustc_error_codes;
-extern crate rustc_errors;
-extern crate rustc_log;
-extern crate rustc_session;
+extern crate rodetc_driver;
+extern crate rodetc_error_codes;
+extern crate rodetc_errors;
+extern crate rodetc_log;
+extern crate rodetc_session;
 
 use std::env;
 use std::error::Error;
@@ -17,7 +17,7 @@ use mdbook_driver::MDBook;
 use mdbook_driver::book::{BookItem, Chapter};
 use mdbook_driver::config::Config;
 use mdbook_summary::parse_summary;
-use rustc_errors::codes::ErrCode;
+use rodetc_errors::codes::ErrCode;
 
 macro_rules! define_error_codes_table {
     ($($num:literal,)*) => (
@@ -25,14 +25,14 @@ macro_rules! define_error_codes_table {
             $( (
                 ErrCode::from_u32($num),
                 include_str!(
-                    concat!("../../../compiler/rustc_error_codes/src/error_codes/E", stringify!($num), ".md")
+                    concat!("../../../compiler/rodetc_error_codes/src/error_codes/E", stringify!($num), ".md")
                 )
             ), )*
         ];
     )
 }
 
-rustc_error_codes::error_codes!(define_error_codes_table);
+rodetc_error_codes::error_codes!(define_error_codes_table);
 
 enum OutputFormat {
     HTML,
@@ -191,8 +191,8 @@ fn parse_args() -> (OutputFormat, PathBuf) {
 
 fn main() {
     let handler =
-        rustc_session::EarlyDiagCtxt::new(rustc_session::config::ErrorOutputType::default());
-    rustc_driver::init_logger(&handler, rustc_log::LoggerConfig::from_env("RUST_LOG"));
+        rodetc_session::EarlyDiagCtxt::new(rodetc_session::config::ErrorOutputType::default());
+    rodetc_driver::init_logger(&handler, rodetc_log::LoggerConfig::from_env("RUST_LOG"));
     let (format, dst) = parse_args();
     let result = main_with_result(format, &dst);
     if let Err(e) = result {

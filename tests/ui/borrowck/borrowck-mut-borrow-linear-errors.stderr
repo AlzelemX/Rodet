@@ -29,4 +29,4 @@ LL |             _ => { addr.push(&mut x); }
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0499`.
+For more information about this error, try `rodetc --explain E0499`.

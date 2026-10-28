@@ -38,4 +38,4 @@ LL | unsafe impl<T> !Send for TestType2<T> {}
 
 error: aborting due to 4 previous errors
 
-For more information about this error, try `rustc --explain E0198`.
+For more information about this error, try `rodetc --explain E0198`.

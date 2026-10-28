@@ -2,7 +2,7 @@
 //! the type of each expression and pattern.
 //!
 //! For type inference, compare the implementations in rustc (the various
-//! check_* methods in [`rustc_hir_typeck/check.rs`] are a good entry point) and
+//! check_* methods in [`rodetc_hir_typeck/check.rs`] are a good entry point) and
 //! IntelliJ-Rust (org.rust.lang.core.types.infer). Our entry point for
 //! inference here is the `infer` function, which infers the types of all
 //! expressions in a given function.
@@ -13,7 +13,7 @@
 //! to certain types. To record this, we use the union-find implementation from
 //! the `ena` crate, which is extracted from rustc.
 //!
-//! [`rustc_hir_typeck/check.rs`]: https://github.com/rust-lang/rust/blob/5503df87342a73d0c29126a7e08dc9c1255c46ad/compiler/rustc_hir_typeck/src/check.rs
+//! [`rodetc_hir_typeck/check.rs`]: https://github.com/rust-lang/rust/blob/5503df87342a73d0c29126a7e08dc9c1255c46ad/compiler/rustc_hir_typeck/src/check.rs
 
 mod autoderef;
 mod callee;
@@ -61,10 +61,10 @@ use hir_expand::{mod_path::ModPath, name::Name};
 use indexmap::IndexSet;
 use la_arena::ArenaMap;
 use macros::{TypeFoldable, TypeVisitable};
-use rustc_abi::TargetDataLayout;
-use rustc_ast_ir::Mutability;
+use rodetc_abi::TargetDataLayout;
+use rodetc_ast_ir::Mutability;
 use rustc_hash::{FxHashMap, FxHashSet};
-use rustc_type_ir::{
+use rodetc_type_ir::{
     AliasTyKind, TypeFoldable, TypeVisitableExt,
     inherent::{GenericArgs as _, IntoKind, Ty as _},
 };

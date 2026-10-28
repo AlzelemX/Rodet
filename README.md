@@ -1,9 +1,12 @@
 # Rodet
 
-A copy of **Rust 1.101.0-dev** (upstream commit
-[`c303e41`](https://github.com/rust-lang/rust/commit/c303e414dd813ab090055754d0be647054fce70a),
-22 Oct 2026), rebuilt to make its syntax cleaner, and the language faster,
-more precise and easier to read and learn.
+🕷️ A programming language with a cleaner syntax, made to be fast, precise
+and easy to read and learn. It has its own compiler (`rodetc`), package
+manager (**Silk**, the `rodet` command) and editor (**DEVR+**).
+
+Rodet is built on the Rust compiler 1.101.0-dev (commit
+[`c303e41`](https://github.com/rust-lang/rust/commit/c303e414dd813ab090055754d0be647054fce70a)),
+and every library on crates.io works in it.
 
 <!-- STATUS:START -->
 <!-- Generated from STATUS.md: edit that file, not this table. -->
@@ -16,7 +19,7 @@ It's true that I use artificial intelligence, but I do things to speed up the wo
 | Feature | Status | NoteBook |
 |---|---|---|
 | `out!` print macro | 🟢 Done | [001](notebook/001-out-macro.md) |
-| `rustc --version` says Rodet | 🟢 Done | [002](notebook/002-rodet-name.md) |
+| The compiler says Rodet | 🟢 Done | [002](notebook/002-rodet-name.md) |
 | Build without Rust's servers | 🟢 Done | [003](notebook/003-own-servers.md) |
 | Windows, Linux, macOS builds | 🟢 Done | [004](notebook/004-platforms.md) |
 | `rodet_init` installers | 🟢 Done | [005](notebook/005-installers.md) |
@@ -30,6 +33,7 @@ It's true that I use artificial intelligence, but I do things to speed up the wo
 | DEVR+ and Doc Book in Arabic, Doc Book in the editor | 🟢 Done | [013](notebook/013-arabic.md) |
 | Compiler messages and std docs in Arabic + English | 🟢 Done (messages 70%, std summaries 99%, full docs for the most used) | [014](notebook/014-arabic-in-the-language.md) |
 | DEVR+ plugins (change anything: commands, views, themes, the whole look) | 🟢 Done | [015](notebook/015-devr-plugins.md) |
+| Own names: `rodetc`, Silk (`rodet`), `Silk.toml`, `.rd` files | 🟢 Done | [016](notebook/016-own-names.md) |
 | DEVR+ on phones and tablets | 🟣 Idea | |
 | `data`: one type for struct + enum | 🔵 Planned | |
 | Named `match` | 🔵 Planned | |
@@ -64,7 +68,7 @@ fn main() {
 |---|---|
 | 📘 **[Doc Book](https://alzelemx.github.io/rodet/)** · **[بالعربية](https://alzelemx.github.io/rodet/ar/)** | How to write Rodet, from Hello World to traits, in English and Arabic. Source in [`docbook/`](docbook/). |
 | 📒 **[NoteBook](notebook/)** | One card for every change: what it is, before and after, and when. |
-| 🧩 **[DEVR+](devr/)** | The editor for Rodet: errors and fixes, completion, search, Cargo, ↩ return marks and a speed score. Download it from the [releases](../../releases) named *DEVR+*. |
+| 🧩 **[DEVR+](devr/)** | The editor for Rodet: errors and fixes, completion, search, Silk, ↩ return marks and a speed score. Download it from the [releases](../../releases) named *DEVR+*. |
 
 ## Install
 
@@ -76,7 +80,11 @@ fn main() {
 curl -fsSL https://github.com/AlzelemX/rodet/releases/latest/download/rodet_init.sh | sh
 ```
 
-Then, in a new terminal: `rustc --version` → `rustc 1.101.0-dev (Rodet #19)` (the number is the build).
+Then, in a new terminal:
+
+```sh
+rodet new hello && cd hello && rodet run
+```
 
 ## Build it yourself
 
@@ -85,6 +93,9 @@ git clone https://github.com/AlzelemX/rodet rodet && cd rodet
 python rodet/setup-deps.py
 python x.py build library src/tools/rustdoc
 ```
+
+Silk (the `rodet` command) is built from the [`silk`](../../tree/silk) branch with
+`cargo build --release`.
 
 ## License
 

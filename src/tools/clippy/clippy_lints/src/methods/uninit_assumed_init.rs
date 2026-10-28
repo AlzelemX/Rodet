@@ -1,9 +1,9 @@
 use clippy_utils::diagnostics::span_lint;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::ty::is_uninit_value_valid_for_ty;
-use rustc_hir as hir;
-use rustc_lint::LateContext;
-use rustc_span::sym;
+use rodetc_hir as hir;
+use rodetc_lint::LateContext;
+use rodetc_span::sym;
 
 use super::UNINIT_ASSUMED_INIT;
 

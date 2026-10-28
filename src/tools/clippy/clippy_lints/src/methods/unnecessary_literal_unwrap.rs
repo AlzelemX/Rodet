@@ -1,12 +1,12 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::{MaybeDef as _, MaybeQPath as _};
 use clippy_utils::{is_none_expr, last_path_segment, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{self as hir, AmbigArg};
-use rustc_lint::LateContext;
-use rustc_middle::ty;
-use rustc_middle::ty::print::with_forced_trimmed_paths;
-use rustc_span::Symbol;
+use rodetc_errors::Applicability;
+use rodetc_hir::{self as hir, AmbigArg};
+use rodetc_lint::LateContext;
+use rodetc_middle::ty;
+use rodetc_middle::ty::print::with_forced_trimmed_paths;
+use rodetc_span::Symbol;
 
 use super::UNNECESSARY_LITERAL_UNWRAP;
 

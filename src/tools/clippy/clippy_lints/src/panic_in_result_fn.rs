@@ -4,11 +4,11 @@ use clippy_utils::res::MaybeDef as _;
 use clippy_utils::visitors::{Descend, for_each_expr};
 use clippy_utils::{is_inside_always_const_context, return_ty};
 use core::ops::ControlFlow;
-use rustc_hir as hir;
-use rustc_hir::intravisit::FnKind;
-use rustc_lint::{LateContext, LateLintPass, declare_lint_pass};
-use rustc_span::def_id::LocalDefId;
-use rustc_span::{Span, sym};
+use rodetc_hir as hir;
+use rodetc_hir::intravisit::FnKind;
+use rodetc_lint::{LateContext, LateLintPass, declare_lint_pass};
+use rodetc_span::def_id::LocalDefId;
+use rodetc_span::{Span, sym};
 
 declare_clippy_lint! {
     /// ### What it does

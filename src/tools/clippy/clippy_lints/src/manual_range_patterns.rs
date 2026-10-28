@@ -1,11 +1,11 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::source::SpanExt as _;
-use rustc_ast::LitKind;
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::{PatExpr, PatExprKind, PatKind, RangeEnd};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
-use rustc_span::{DUMMY_SP, Span};
+use rodetc_ast::LitKind;
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::{PatExpr, PatExprKind, PatKind, RangeEnd};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, declare_lint_pass};
+use rodetc_span::{DUMMY_SP, Span};
 
 declare_clippy_lint! {
     /// ### What it does
@@ -84,7 +84,7 @@ impl Num {
 }
 
 impl LateLintPass<'_> for ManualRangePatterns {
-    fn check_pat(&mut self, cx: &LateContext<'_>, pat: &'_ rustc_hir::Pat<'_>) {
+    fn check_pat(&mut self, cx: &LateContext<'_>, pat: &'_ rodetc_hir::Pat<'_>) {
         // a pattern like 1 | 2 seems fine, lint if there are at least 3 alternatives
         // or more then one range (exclude triggering on stylistic using OR with one element
         // like described https://github.com/rust-lang/rust-clippy/issues/11825)

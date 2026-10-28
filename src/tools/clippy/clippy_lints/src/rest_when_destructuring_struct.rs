@@ -1,8 +1,8 @@
 use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::is_from_proc_macro;
-use rustc_errors::Applicability;
-use rustc_lint::{LateLintPass, declare_lint_pass};
-use rustc_middle::ty;
+use rodetc_errors::Applicability;
+use rodetc_lint::{LateLintPass, declare_lint_pass};
+use rodetc_middle::ty;
 
 use std::fmt::Write as _;
 
@@ -86,8 +86,8 @@ declare_lint_pass!(RestWhenDestructuringStruct => [
 ]);
 
 impl<'tcx> LateLintPass<'tcx> for RestWhenDestructuringStruct {
-    fn check_pat(&mut self, cx: &rustc_lint::LateContext<'tcx>, pat: &'tcx rustc_hir::Pat<'tcx>) {
-        if let rustc_hir::PatKind::Struct(path, fields, Some(dotdot)) = pat.kind
+    fn check_pat(&mut self, cx: &rodetc_lint::LateContext<'tcx>, pat: &'tcx rodetc_hir::Pat<'tcx>) {
+        if let rodetc_hir::PatKind::Struct(path, fields, Some(dotdot)) = pat.kind
             && let qty = cx.typeck_results().qpath_res(&path, pat.hir_id)
             && let ty = cx.typeck_results().pat_ty(pat)
             && let ty::Adt(a, _) = ty.kind()

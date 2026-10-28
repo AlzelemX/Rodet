@@ -1,11 +1,11 @@
 use clippy_utils::macros::FormatArgsStorage;
 use clippy_utils::source::{SpanExt as _, walk_span_to_context};
-use rustc_ast::{Crate, Expr, ExprKind, FormatArgs};
-use rustc_data_structures::fx::FxHashMap;
-use rustc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
-use rustc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
-use rustc_span::source_map::SourceMap;
-use rustc_span::{Span, SpanData};
+use rodetc_ast::{Crate, Expr, ExprKind, FormatArgs};
+use rodetc_data_structures::fx::FxHashMap;
+use rodetc_lexer::{FrontmatterAllowed, TokenKind, tokenize};
+use rodetc_lint::{EarlyContext, EarlyLintPass, LintContext as _, impl_lint_pass};
+use rodetc_span::source_map::SourceMap;
+use rodetc_span::{Span, SpanData};
 use std::mem;
 
 /// Populates [`FormatArgsStorage`] with AST [`FormatArgs`] nodes

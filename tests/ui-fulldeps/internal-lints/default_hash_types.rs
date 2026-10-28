@@ -3,9 +3,9 @@
 #![feature(rustc_private)]
 #![deny(rustc::default_hash_types)]
 
-extern crate rustc_data_structures;
+extern crate rodetc_data_structures;
 
-use rustc_data_structures::fx::{FxHashMap, FxHashSet};
+use rodetc_data_structures::fx::{FxHashMap, FxHashSet};
 use std::collections::{HashMap, HashSet};
 
 mod foo {

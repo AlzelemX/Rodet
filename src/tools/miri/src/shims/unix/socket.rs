@@ -2,8 +2,8 @@ use std::io;
 use std::net::{Shutdown, SocketAddr};
 use std::time::Duration;
 
-use rustc_abi::Size;
-use rustc_target::spec::Os;
+use rodetc_abi::Size;
+use rodetc_target::spec::Os;
 
 use crate::shims::FileDescriptionRef;
 use crate::shims::files::FdNum;

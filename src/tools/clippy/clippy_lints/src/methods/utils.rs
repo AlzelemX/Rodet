@@ -1,12 +1,12 @@
 use clippy_utils::res::{MaybeDef as _, MaybeResPath as _};
 use clippy_utils::{get_parent_expr, usage};
-use rustc_hir::intravisit::{Visitor, walk_expr};
-use rustc_hir::{BorrowKind, Expr, ExprKind, HirId, Mutability, Pat, QPath, Stmt, StmtKind};
-use rustc_lint::LateContext;
-use rustc_middle::hir::nested_filter;
-use rustc_middle::ty::{self, Ty};
-use rustc_span::Span;
-use rustc_span::symbol::sym;
+use rodetc_hir::intravisit::{Visitor, walk_expr};
+use rodetc_hir::{BorrowKind, Expr, ExprKind, HirId, Mutability, Pat, QPath, Stmt, StmtKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::hir::nested_filter;
+use rodetc_middle::ty::{self, Ty};
+use rodetc_span::Span;
+use rodetc_span::symbol::sym;
 
 /// Checks if `expr`, of type `ty`, corresponds to a slice or can be dereferenced to a slice, or if
 /// `expr` is a method call to `.iter()` on such a type. In these cases, return the slice-like
@@ -144,7 +144,7 @@ pub(super) fn get_last_chain_binding_hir_id(mut hir_id: HirId, statements: &[Stm
         if let StmtKind::Let(local) = stmt.kind
             && let Some(init) = local.init
             && let ExprKind::Path(QPath::Resolved(_, path)) = init.kind
-            && let rustc_hir::def::Res::Local(local_hir_id) = path.res
+            && let rodetc_hir::def::Res::Local(local_hir_id) = path.res
             && local_hir_id == hir_id
         {
             hir_id = local.pat.hir_id;

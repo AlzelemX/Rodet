@@ -69,4 +69,4 @@ LL |         move_out(x.f1_nocopy.clone());
 error: aborting due to 3 previous errors
 
 Some errors have detailed explanations: E0382, E0509.
-For more information about an error, try `rustc --explain E0382`.
+For more information about an error, try `rodetc --explain E0382`.

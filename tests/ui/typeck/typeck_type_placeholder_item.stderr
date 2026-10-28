@@ -711,4 +711,4 @@ LL | const _: _ = (1..10).filter(|x| x % 2 == 0).map(|x| x * x);
 error: aborting due to 84 previous errors
 
 Some errors have detailed explanations: E0015, E0046, E0121, E0282, E0403, E0658.
-For more information about an error, try `rustc --explain E0015`.
+For more information about an error, try `rodetc --explain E0015`.

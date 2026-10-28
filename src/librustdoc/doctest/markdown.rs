@@ -3,10 +3,10 @@
 use std::fs::read_to_string;
 use std::sync::{Arc, Mutex};
 
-use rustc_errors::DiagCtxtHandle;
-use rustc_session::config::Input;
-use rustc_span::source_map::FilePathMapping;
-use rustc_span::{DUMMY_SP, FileName, RealFileName};
+use rodetc_errors::DiagCtxtHandle;
+use rodetc_session::config::Input;
+use rodetc_span::source_map::FilePathMapping;
+use rodetc_span::{DUMMY_SP, FileName, RealFileName};
 use tempfile::tempdir;
 
 use super::{
@@ -53,8 +53,8 @@ impl DocTestVisitor for MdCollector {
             .chars()
             .enumerate()
             .map(|(i, c)| {
-                if (i == 0 && rustc_lexer::is_id_start(c))
-                    || (i != 0 && rustc_lexer::is_id_continue(c))
+                if (i == 0 && rodetc_lexer::is_id_start(c))
+                    || (i != 0 && rodetc_lexer::is_id_continue(c))
                 {
                     c
                 } else {

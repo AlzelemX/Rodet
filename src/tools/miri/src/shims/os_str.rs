@@ -6,8 +6,8 @@ use std::os::unix::ffi::{OsStrExt, OsStringExt};
 use std::os::windows::ffi::{OsStrExt, OsStringExt};
 use std::path::{Path, PathBuf};
 
-use rustc_middle::ty::Ty;
-use rustc_target::spec::Os;
+use rodetc_middle::ty::Ty;
+use rodetc_target::spec::Os;
 
 use crate::*;
 

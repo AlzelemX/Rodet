@@ -15,4 +15,4 @@ warning[E0602]: unknown lint: `bogus`
 
 warning: 3 warnings emitted
 
-For more information about this error, try `rustc --explain E0602`.
+For more information about this error, try `rodetc --explain E0602`.

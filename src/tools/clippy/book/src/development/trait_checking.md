@@ -19,8 +19,8 @@ the symbol of the trait in question:
 ```rust
 use clippy_utils::sym;
 use clippy_utils::ty::implements_trait;
-use rustc_hir::Expr;
-use rustc_lint::{LateContext, LateLintPass};
+use rodetc_hir::Expr;
+use rodetc_lint::{LateContext, LateLintPass};
 
 impl LateLintPass<'_> for CheckIteratorTraitLint {
     fn check_expr(&mut self, cx: &LateContext<'_>, expr: &Expr<'_>) {
@@ -54,8 +54,8 @@ we can check that the `Ty` of the `expr` implements the trait:
 
 ```rust
 use clippy_utils::ty::implements_trait;
-use rustc_hir::Expr;
-use rustc_lint::{LateContext, LateLintPass};
+use rodetc_hir::Expr;
+use rodetc_lint::{LateContext, LateLintPass};
 
 impl LateLintPass<'_> for CheckDropTraitLint {
     fn check_expr(&mut self, cx: &LateContext<'_>, expr: &Expr<'_>) {
@@ -81,8 +81,8 @@ Below, we check if the given `expr` implements [`core::iter::Step`](https://doc.
 ```rust
 use clippy_utils::paths;
 use clippy_utils::ty::implements_trait;
-use rustc_hir::Expr;
-use rustc_lint::{LateContext, LateLintPass};
+use rodetc_hir::Expr;
+use rodetc_lint::{LateContext, LateLintPass};
 
 impl LateLintPass<'_> for CheckIterStep {
     fn check_expr(&mut self, cx: &LateContext<'_>, expr: &Expr<'_>) {
@@ -124,7 +124,7 @@ The following code demonstrates how to do this:
 
 ```rust
 
-use rustc_middle::ty::Ty;
+use rodetc_middle::ty::Ty;
 use clippy_utils::sym;
 use clippy_utils::ty::implements_trait;
 
@@ -139,7 +139,7 @@ if implements_trait(cx, ty, borrow_id, &[generic_param]) {
 
 In essence, the [Ty] struct allows us to create types programmatically in a
 representation that can be used by the compiler and the query engine. We then
-use the `rustc_middle::Ty` of the type we are interested in, and query the
+use the `rodetc_middle::Ty` of the type we are interested in, and query the
 compiler to see if it indeed implements the trait we are interested in.
 
 

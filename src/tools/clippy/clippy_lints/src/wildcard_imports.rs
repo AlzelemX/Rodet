@@ -2,15 +2,15 @@ use clippy_config::Conf;
 use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::is_in_test;
 use clippy_utils::source::{snippet, snippet_with_applicability};
-use rustc_data_structures::fx::FxHashSet;
-use rustc_errors::Applicability;
-use rustc_hir::def::{DefKind, Res};
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{HirId, Item, ItemKind, PathSegment, UseKind, UseTree};
-use rustc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
-use rustc_middle::ty;
-use rustc_span::symbol::kw;
-use rustc_span::{BytePos, Span};
+use rodetc_data_structures::fx::FxHashSet;
+use rodetc_errors::Applicability;
+use rodetc_hir::def::{DefKind, Res};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{HirId, Item, ItemKind, PathSegment, UseKind, UseTree};
+use rodetc_lint::{LateContext, LateLintPass, LintContext as _, impl_lint_pass};
+use rodetc_middle::ty;
+use rodetc_span::symbol::kw;
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does

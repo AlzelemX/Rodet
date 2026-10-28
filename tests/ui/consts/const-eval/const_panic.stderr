@@ -81,4 +81,4 @@ note: inside `std::process::abort_immediate`
 
 error: aborting due to 13 previous errors
 
-For more information about this error, try `rustc --explain E0080`.
+For more information about this error, try `rodetc --explain E0080`.

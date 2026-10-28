@@ -6,4 +6,4 @@ LL |     let left = |o_a: Option<_>| o_a.unwrap();
 
 error: aborting due to 1 previous error
 
-For more information about this error, try `rustc --explain E0275`.
+For more information about this error, try `rodetc --explain E0275`.

@@ -2,16 +2,16 @@ use clippy_utils::attrs::span_contains_cfg;
 use clippy_utils::diagnostics::{span_lint_and_then, span_lint_hir_and_then};
 use clippy_utils::source::SpanExt;
 use clippy_utils::span_contains_non_whitespace;
-use rustc_data_structures::fx::{FxIndexMap, IndexEntry};
-use rustc_errors::Applicability;
-use rustc_hir::def::DefKind::Ctor;
-use rustc_hir::def::Res::Def;
-use rustc_hir::def::{CtorOf, DefKind};
-use rustc_hir::def_id::LocalDefId;
-use rustc_hir::{Expr, ExprKind, Item, ItemKind, Node, Pat, PatKind, Path, QPath, Variant, VariantData};
-use rustc_lint::{LateContext, LateLintPass, impl_lint_pass};
-use rustc_middle::ty::{self, TyCtxt};
-use rustc_span::{BytePos, Span};
+use rodetc_data_structures::fx::{FxIndexMap, IndexEntry};
+use rodetc_errors::Applicability;
+use rodetc_hir::def::DefKind::Ctor;
+use rodetc_hir::def::Res::Def;
+use rodetc_hir::def::{CtorOf, DefKind};
+use rodetc_hir::def_id::LocalDefId;
+use rodetc_hir::{Expr, ExprKind, Item, ItemKind, Node, Pat, PatKind, Path, QPath, Variant, VariantData};
+use rodetc_lint::{LateContext, LateLintPass, impl_lint_pass};
+use rodetc_middle::ty::{self, TyCtxt};
+use rodetc_span::{BytePos, Span};
 
 declare_clippy_lint! {
     /// ### What it does

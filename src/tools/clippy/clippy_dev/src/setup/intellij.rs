@@ -132,7 +132,7 @@ fn inject_deps_into_manifest(
         // only take dependencies starting with `rustc_`
         .filter(|line| line.starts_with("extern crate rustc_"))
         // we have something like "extern crate foo;", we only care about the "foo"
-        // extern crate rustc_middle;
+        // extern crate rodetc_middle;
         //              ^^^^^^^^^^^^
         .map(|s| &s[13..(s.len() - 1)]);
 

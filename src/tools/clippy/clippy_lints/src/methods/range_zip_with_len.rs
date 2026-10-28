@@ -2,9 +2,9 @@ use clippy_utils::diagnostics::span_lint_and_then;
 use clippy_utils::res::{MaybeDef as _, MaybeTypeckRes as _};
 use clippy_utils::source::{SpanExt as _, snippet_with_applicability};
 use clippy_utils::{SpanlessEq, get_parent_expr, higher, is_integer_literal, sym};
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Node, Pat, PatKind, QPath};
-use rustc_lint::LateContext;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Node, Pat, PatKind, QPath};
+use rodetc_lint::LateContext;
 
 use super::RANGE_ZIP_WITH_LEN;
 

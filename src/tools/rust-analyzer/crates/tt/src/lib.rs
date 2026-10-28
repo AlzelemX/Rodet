@@ -6,12 +6,12 @@
 #![cfg_attr(feature = "in-rust-tree", feature(rustc_private))]
 
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_driver as _;
+extern crate rodetc_driver as _;
 
 #[cfg(not(feature = "in-rust-tree"))]
-extern crate ra_ap_rustc_lexer as rustc_lexer;
+extern crate ra_ap_rustc_lexer as rodetc_lexer;
 #[cfg(feature = "in-rust-tree")]
-extern crate rustc_lexer;
+extern crate rodetc_lexer;
 
 pub mod buffer;
 pub mod iter;
@@ -435,11 +435,11 @@ impl Literal {
 }
 
 pub fn token_to_literal(text: &str, span: Span) -> Literal {
-    use rustc_lexer::LiteralKind;
+    use rodetc_lexer::LiteralKind;
 
-    let token = rustc_lexer::tokenize(text, rustc_lexer::FrontmatterAllowed::No).next_tuple();
-    let Some((rustc_lexer::Token {
-        kind: rustc_lexer::TokenKind::Literal { kind, suffix_start },
+    let token = rodetc_lexer::tokenize(text, rodetc_lexer::FrontmatterAllowed::No).next_tuple();
+    let Some((rodetc_lexer::Token {
+        kind: rodetc_lexer::TokenKind::Literal { kind, suffix_start },
         ..
     },)) = token
     else {

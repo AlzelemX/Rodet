@@ -1,5 +1,5 @@
-use rustc_ast::ast::{self, BindingMode, ByRef, Pat, PatField, PatKind};
-use rustc_span::{BytePos, Span};
+use rodetc_ast::ast::{self, BindingMode, ByRef, Pat, PatField, PatKind};
+use rodetc_span::{BytePos, Span};
 
 use crate::comment::{FindUncommented, combine_strs_with_missing_comments};
 use crate::config::StyleEdition;

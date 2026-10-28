@@ -3,11 +3,11 @@ use clippy_utils::diagnostics::span_lint_and_sugg;
 use clippy_utils::mir::{enclosing_mir, visit_local_usage};
 use clippy_utils::res::MaybeDef as _;
 use clippy_utils::source::snippet;
-use rustc_errors::Applicability;
-use rustc_hir::{Expr, ExprKind, Node, PatKind};
-use rustc_lint::LateContext;
-use rustc_middle::mir::{Location, START_BLOCK};
-use rustc_span::sym;
+use rodetc_errors::Applicability;
+use rodetc_hir::{Expr, ExprKind, Node, PatKind};
+use rodetc_lint::LateContext;
+use rodetc_middle::mir::{Location, START_BLOCK};
+use rodetc_span::sym;
 
 fn is_unwrap_call(cx: &LateContext<'_>, expr: &Expr<'_>) -> bool {
     if let ExprKind::MethodCall(path, receiver, [], _) = expr.kind

@@ -38,4 +38,4 @@ LL | type ProjOf<T: Parametrized</* 'a, T, N */>> = T::Proj;
 
 error: aborting due to 3 previous errors
 
-For more information about this error, try `rustc --explain E0220`.
+For more information about this error, try `rodetc --explain E0220`.

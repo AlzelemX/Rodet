@@ -28,4 +28,4 @@ LL | fn want_bar_for_any_ccx<B: for<'ccx> Bar<'ccx>>(b: &B) {
 
 error: aborting due to 2 previous errors
 
-For more information about this error, try `rustc --explain E0277`.
+For more information about this error, try `rodetc --explain E0277`.

@@ -15,7 +15,7 @@
 use std::cell::Cell;
 use std::time::Duration;
 
-use rustc_abi::{Endian, FieldIdx, Size};
+use rodetc_abi::{Endian, FieldIdx, Size};
 
 use crate::concurrency::sync::{AccessKind, FutexRef, SyncObj};
 use crate::*;

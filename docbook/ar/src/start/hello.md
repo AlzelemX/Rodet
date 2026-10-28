@@ -1,6 +1,6 @@
 # مرحبا يا عالم!
 
-أنشئ ملفًا اسمه `main.rs`:
+أنشئ ملفًا اسمه `main.rd` (ملفات Rodet تنتهي بـ `.rd`):
 
 ```rust
 fn main() {
@@ -11,7 +11,7 @@ fn main() {
 ترجمه وشغّله:
 
 ```text
-> rustc main.rs
+> rodetc main.rd
 > ./main          (on Windows: .\main.exe)
 Hello, world!
 ```

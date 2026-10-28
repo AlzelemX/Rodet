@@ -274,4 +274,4 @@ LL | fn uncallable_rtn(_: impl Trait<foo(..): Trait<ASSOC = 3>, foo(..): Trait<A
 error: aborting due to 25 previous errors
 
 Some errors have detailed explanations: E0271, E0277, E0282, E0719.
-For more information about an error, try `rustc --explain E0271`.
+For more information about an error, try `rodetc --explain E0271`.
