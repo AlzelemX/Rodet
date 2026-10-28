@@ -63,7 +63,6 @@ jobs:
         run: |
           set -euo pipefail
           base=https://github.com/${{ github.repository }}/releases/latest/download
-          mkdir -p "$RUNNER_TEMP/rodet"
           # Releases before the name Rodet are called rustpp-<target>.
           for name in rodet rustpp; do
             if [ "$RUNNER_OS" = Windows ]; then
@@ -73,7 +72,10 @@ jobs:
               curl -fsSL --retry 3 -o rodet.tar.xz "$base/$name-$TARGET.tar.xz" || continue
               tar -xJf rodet.tar.xz -C "$RUNNER_TEMP"
             fi
-            [ -d "$RUNNER_TEMP/$name" ] && [ "$name" != rodet ] && mv "$RUNNER_TEMP/$name" "$RUNNER_TEMP/rodet"
+            if [ "$name" != rodet ]; then
+              rm -rf "$RUNNER_TEMP/rodet"
+              mv "$RUNNER_TEMP/$name" "$RUNNER_TEMP/rodet"
+            fi
             break
           done
           ls "$RUNNER_TEMP/rodet/bin"
