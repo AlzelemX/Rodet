@@ -8,11 +8,11 @@ Rodet is built on the Rust compiler 1.101.0-dev (commit
 [`c303e41`](https://github.com/rust-lang/rust/commit/c303e414dd813ab090055754d0be647054fce70a)),
 and every library on crates.io works in it.
 
-<!-- STATUS:START -->
-<!-- Generated from STATUS.md: edit that file, not this table. -->
-
 ## Note
 It's true that I use artificial intelligence, but I do things to speed up the work only, if the speed is over and it must be accurate, I do that
+
+<!-- STATUS:START -->
+<!-- Generated from STATUS.md: edit that file, not this table. -->
 
 ## Status
 
